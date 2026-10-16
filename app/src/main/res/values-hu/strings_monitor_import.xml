@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="monitor_time_not_updated">Az idő nem frissült</string>
+    <string name="monitor_clock_skipped">Ez a vérnyomásmérő nem támogatja az idő automatikus frissítését. Állítsa be az időt kézzel.</string>
+    <string name="monitor_clock_failed">A vérnyomásmérő idejét nem sikerült frissíteni. Ellenőrizze vagy állítsa be az időt a készüléken.</string>
+    <string name="monitor_session_unconfirmed">A mérések mentve vannak, de a vérnyomásmérő nem erősítette meg az átvitel befejezését. Újabb importálás előtt csatlakozzon újra.</string>
+</resources>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="monitor_time_not_updated">সময় আপডেট হয়নি</string>
+    <string name="monitor_clock_skipped">এই রক্তচাপ মাপার যন্ত্রে সময় স্বয়ংক্রিয়ভাবে আপডেট করা যায় না। নিজে সময় সেট করুন।</string>
+    <string name="monitor_clock_failed">রক্তচাপ মাপার যন্ত্রের সময় আপডেট করা যায়নি। যন্ত্রে সময় পরীক্ষা করুন বা সেট করুন।</string>
+    <string name="monitor_session_unconfirmed">মাপগুলি সংরক্ষিত হয়েছে, কিন্তু রক্তচাপ মাপার যন্ত্র তথ্য পাঠানো শেষ হওয়ার বিষয়টি নিশ্চিত করেনি। আবার আমদানি করার আগে পুনরায় সংযোগ করুন।</string>
+</resources>

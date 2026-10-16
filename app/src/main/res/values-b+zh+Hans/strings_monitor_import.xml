@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="monitor_time_not_updated">时间未更新</string>
+    <string name="monitor_clock_skipped">此血压计不支持自动更新时间。请手动设置时间。</string>
+    <string name="monitor_clock_failed">无法更新血压计的时间。请在血压计上检查或设置时间。</string>
+    <string name="monitor_session_unconfirmed">测量结果已保存，但血压计未确认传输已完成。请重新连接后再导入。</string>
+</resources>

@@ -56,6 +56,10 @@ public final class ProtocolTest {
         check(adv.users.get(0).lastSequence == 0x1234 && adv.users.get(1).recordCount == 3, "MSD banks");
         rejects(() -> OmronAdvertisement.parseManufacturerPayload(hex("010100")));
         rejects(() -> OmronAdvertisement.parseManufacturerPayload(hex("0400000000")));
+        for(String name:new String[]{"BLESmart_1234","BLEsmart_1234","blesmart_1234","BLeSmArT_1234"})
+            check(OmronAdvertisement.hasKnownName(name),"Omron name discovery ignores letter case");
+        for(String name:new String[]{null,"","BLESmart","BLESmart_","Other_BLESmart_1234"})
+            check(!OmronAdvertisement.hasKnownName(name),"unrelated names are not monitor candidates");
         same("0801001000200039", Wlp.read(0x1000,32));
         rejects(() -> Wlp.read(0x1000000,16));
         check(Arrays.equals(hex("01020304"), Wlp.payload(hex("0c8100000000010203040089"),1)), "WLP validated payload");
@@ -107,6 +111,13 @@ public final class ProtocolTest {
         check(events.equals(List.of("optional failed","required started")),"optional metadata failure must not discard required writes");
         queue.complete("write:required",0);
         check(events.contains("required done"),"connection remains usable after optional read failure");
+        events.clear();
+        queue.add("read:required",() -> true,() -> events.add("bad"));
+        queue.add("write:after-timeout",() -> { events.add("bad"); return true; },() -> events.add("bad"));
+        queue.timeout("read:unrelated");
+        check(queue.busy() && events.isEmpty(),"stale timeout cannot release a different operation");
+        queue.timeout("read:required");
+        check(events.equals(List.of("Bluetooth operation timed out: read:required")) && !queue.busy(),"required timeout still fails the connection and discards queued work");
         same("bb1d6929e95937287fa37d129b756746", Crypto.cmac(hex("2b7e151628aed2a6abf7158809cf4f3c"),new byte[0]));
         same("070a16b46b4d4144f79bdd9dd04a287c", Crypto.cmac(hex("2b7e151628aed2a6abf7158809cf4f3c"),hex("6bc1bee22e409f96e93d7e117393172a")));
         byte[] ccm = Crypto.seal(hex("c0c1c2c3c4c5c6c7c8c9cacbcccdcecf"),hex("00000003020100a0a1a2a3a4a5"),hex("0001020304050607"),hex("08090a0b0c0d0e0f101112131415161718191a1b1c1d1e"));

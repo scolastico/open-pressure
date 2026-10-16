@@ -24,9 +24,13 @@ The [compatibility table](compatibility.md) lists the additional implemented mod
 
 On older legacy models, put the monitor into pairing mode and choose **Pair**. Confirm Android's Bluetooth prompt. The app then registers a random application key through the device's dedicated control characteristic. This can replace the key used by another client; switching back may require that client's pairing procedure. Subsequent **Connect** uses the saved key and never starts key programming. If pairing is interrupted, retrying Pair reuses its recoverable pending key.
 
-HEM-7377T1/BP5360 uses Android bonding without the legacy key exchange. After connection, choose **Import monitor history** to read the mapped banks. The BP5360 uses in-record metadata to distinguish users. Full-bank reads may include empty or non-record slots; rejected data is diagnosed, valid readings already received remain saved, and the session must acknowledge END before success.
+Pair immediately imports the mapped history banks on the same connection. Subsequent **Connect** leaves history available through **Import monitor history**. HEM-7377T1/BP5360 uses Android bonding without the legacy key exchange. The BP5360 uses in-record metadata to distinguish users. Full-bank reads may include empty or non-record slots; rejected data is diagnosed and valid readings already received remain saved.
 
-These added vendor paths offer manual history imports. Automatic imports, raw EEPROM dumps and EEPROM-based clock/counter changes are not enabled for them. Dedicated standard-profile time/history controls remain available when that standard profile is selected.
+The base HEM-7156T shares the HEM-7155T history layout. Scanning recognizes mixed-case names such as `BLESmart_…`; the app still verifies the actual model after connecting.
+
+Before ending the history session, the app attempts phone-local clock sync if the monitor exposes a supported dedicated time characteristic. Missing support or a failed clock update does not stop the import; the result appears in the summary. If the connection closes or session finalization fails after all history arrives, the readings remain imported and the summary explicitly says END was not acknowledged. A disconnect earlier in the transfer remains an interrupted import.
+
+Background automatic imports, raw EEPROM dumps and EEPROM-based clock/counter changes are not enabled for these vendor paths. A monitor without a supported time characteristic skips clock sync rather than writing its EEPROM. Dedicated standard-profile time/history controls remain available when that standard profile is selected.
 
 ## History and local data
 
@@ -41,6 +45,8 @@ Local deletions made with deletion-receipt support record SHA-256 fingerprints. 
 ## Time and flags
 
 X7 registration updates the selected-user setting and clock. There is no standalone X7 clock-write control. Supported standard profiles offer an explicit clock control using a dedicated time characteristic; inspect or read back the monitor time after using it. A successful GATT write alone is not verification.
+
+A rejected standalone clock update leaves history available. If that write times out without an Android callback, the app closes the connection and asks you to reconnect before importing, because Android may still consider the old write busy. When an optional clock update times out after a vendor import has already received all history, the saved import remains available with a clock warning and, if necessary, an unconfirmed-transfer warning.
 
 Cuff timestamps are local wall time without the original timezone. Missing or invalid times remain unavailable. Irregular pulse and AFib are different flags; an irregular-pulse flag never implies AFib. The separate X7 AFib field comes from its model map and still needs comparison against actual monitor results.
 

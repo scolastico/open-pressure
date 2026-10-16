@@ -35,6 +35,7 @@ public final class MonitorUi {
         if(state.equals("History transfer complete")) return R.string.monitor_import_complete;
         if(m.sessionFinished) return R.string.monitor_finished;
         if(state.equals("Clock write accepted")) return R.string.monitor_time_updated;
+        if(state.equals("Clock sync unavailable")) return R.string.monitor_time_not_updated;
         if(state.equals("User authenticated") || state.equals("User registered")) return R.string.monitor_profile_ready;
         if(m.ready) return R.string.monitor_connected;
         if(m.scanning) return R.string.monitor_searching;
@@ -51,7 +52,7 @@ public final class MonitorUi {
         if(title==R.string.monitor_bluetooth_off) return context.getString(R.string.monitor_enable_bluetooth);
         if(title==R.string.monitor_permission_needed) return context.getString(R.string.monitor_allow_bluetooth);
         if(title==R.string.monitor_consent_needed) return context.getString(R.string.monitor_accept_notice);
-        if(title==R.string.monitor_import_interrupted) return context.getString(R.string.monitor_partial_saved);
+        if(title==R.string.monitor_import_interrupted) return importDetail(context,m,context.getString(R.string.monitor_partial_saved));
         if(title==R.string.monitor_action_failed) {
             if(m.detail.toLowerCase(Locale.ROOT).contains("registration")) return context.getString(R.string.monitor_setup_interrupted);
             return context.getString(R.string.monitor_retry_action);
@@ -63,16 +64,30 @@ public final class MonitorUi {
         if(m.registrationWriting || m.registrationReading) return context.getString(R.string.monitor_keep_nearby);
         if(m.dumpRunning) return context.getString(R.string.monitor_memory_progress,m.dumpReceived,m.dumpLength);
         if(m.historyRunning) return m.storedCount>=0?context.getString(R.string.monitor_import_progress,m.receivedInTransfer,m.storedCount):context.getString(R.string.monitor_keep_nearby);
-        if(title==R.string.monitor_import_complete) return context.getResources().getQuantityString(R.plurals.monitor_readings_saved,m.addedInTransfer,m.addedInTransfer);
+        if(title==R.string.monitor_import_complete) return importDetail(context,m,context.getResources().getQuantityString(R.plurals.monitor_readings_saved,m.addedInTransfer,m.addedInTransfer));
         if(m.registrationDone || m.sessionFinished) return context.getString(R.string.monitor_reconnect_next_time);
         if(title==R.string.monitor_confirm_pairing) return context.getString(R.string.monitor_accept_android_pairing);
         if(title==R.string.monitor_confirm_access) return context.getString(R.string.monitor_follow_monitor);
         if(title==R.string.monitor_time_updated) return context.getString(R.string.monitor_check_clock);
+        if(title==R.string.monitor_time_not_updated) return context.getString(R.string.monitor_clock_failed)+
+            (m.ready?"":"\n\n"+context.getString(R.string.monitor_reconnect_next_time));
         if(title==R.string.monitor_profile_ready || m.ready) return context.getString(R.string.monitor_choose_action);
         if(title==R.string.monitor_action_in_progress) return context.getString(R.string.monitor_wait_current_action);
         if(title==R.string.monitor_connecting) return context.getString(R.string.monitor_keep_nearby);
         if(title==R.string.monitor_disconnected) return context.getString(R.string.monitor_saved_on_phone);
         return context.getString(R.string.monitor_scan_to_connect);
+    }
+    private static String importDetail(Context context,MonitorService m,String summary) {
+        int clock=0;
+        switch(m.clockUpdate) {
+            case SKIPPED: clock=R.string.monitor_clock_skipped; break;
+            case ACCEPTED: clock=R.string.monitor_check_clock; break;
+            case FAILED: clock=R.string.monitor_clock_failed; break;
+            default: break;
+        }
+        if(clock!=0) summary+="\n\n"+context.getString(clock);
+        if(m.sessionEndUnconfirmed) summary+="\n\n"+context.getString(R.string.monitor_session_unconfirmed);
+        return summary;
     }
     public static String automatic(Context context,MonitorService m) {
         int mode=AutoImportSettings.getMode(context);

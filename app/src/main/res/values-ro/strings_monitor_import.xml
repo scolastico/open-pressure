@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="monitor_time_not_updated">Ora nu a fost actualizată</string>
+    <string name="monitor_clock_skipped">Acest tensiometru nu permite actualizarea automată a orei. Setați ora manual.</string>
+    <string name="monitor_clock_failed">Ora tensiometrului nu a putut fi actualizată. Verificați sau setați ora pe tensiometru.</string>
+    <string name="monitor_session_unconfirmed">Măsurătorile sunt salvate, dar tensiometrul nu a confirmat încheierea transferului. Reconectați-l înainte de a importa din nou.</string>
+</resources>

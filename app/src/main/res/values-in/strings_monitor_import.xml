@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="monitor_time_not_updated">Waktu belum diperbarui</string>
+    <string name="monitor_clock_skipped">Alat pengukur tekanan darah ini tidak mendukung pembaruan waktu otomatis. Atur waktunya secara manual.</string>
+    <string name="monitor_clock_failed">Waktu alat pengukur tekanan darah tidak dapat diperbarui. Periksa atau atur waktu pada alat.</string>
+    <string name="monitor_session_unconfirmed">Hasil pengukuran telah disimpan, tetapi alat pengukur tekanan darah tidak mengonfirmasi bahwa transfer telah selesai. Hubungkan kembali sebelum mengimpor lagi.</string>
+</resources>

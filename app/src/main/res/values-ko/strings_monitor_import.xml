@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="monitor_time_not_updated">시간이 업데이트되지 않음</string>
+    <string name="monitor_clock_skipped">이 혈압계는 자동 시간 업데이트를 지원하지 않습니다. 시간을 직접 설정하세요.</string>
+    <string name="monitor_clock_failed">혈압계의 시간을 업데이트할 수 없습니다. 혈압계에서 시간을 확인하거나 설정하세요.</string>
+    <string name="monitor_session_unconfirmed">측정값은 저장되었지만 혈압계에서 전송 완료를 확인하지 못했습니다. 다시 가져오기 전에 재연결하세요.</string>
+</resources>

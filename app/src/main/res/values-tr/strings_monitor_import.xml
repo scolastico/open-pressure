@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="monitor_time_not_updated">Saat güncellenmedi</string>
+    <string name="monitor_clock_skipped">Bu tansiyon aleti saatin otomatik olarak güncellenmesini desteklemiyor. Saati elle ayarlayın.</string>
+    <string name="monitor_clock_failed">Tansiyon aletinin saati güncellenemedi. Saati cihazınızda kontrol edin veya ayarlayın.</string>
+    <string name="monitor_session_unconfirmed">Ölçümler kaydedildi, ancak tansiyon aleti aktarımın tamamlandığını onaylamadı. Yeniden içe aktarmadan önce tekrar bağlanın.</string>
+</resources>

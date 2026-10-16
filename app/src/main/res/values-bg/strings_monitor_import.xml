@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="monitor_time_not_updated">Часът не е актуализиран</string>
+    <string name="monitor_clock_skipped">Този апарат за кръвно не поддържа автоматично сверяване на часа. Настройте часа ръчно.</string>
+    <string name="monitor_clock_failed">Часът на апарата за кръвно не можа да бъде актуализиран. Проверете или настройте часа на апарата.</string>
+    <string name="monitor_session_unconfirmed">Измерванията са запазени, но апаратът за кръвно не потвърди края на прехвърлянето. Свържете го отново преди следващо импортиране.</string>
+</resources>

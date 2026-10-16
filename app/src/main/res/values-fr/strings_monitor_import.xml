@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="monitor_time_not_updated">Heure non mise à jour</string>
+    <string name="monitor_clock_skipped">Ce tensiomètre ne permet pas la mise à jour automatique de l\'heure. Réglez son heure manuellement.</string>
+    <string name="monitor_clock_failed">L\'heure du tensiomètre n\'a pas pu être mise à jour. Vérifiez-la ou réglez-la sur votre tensiomètre.</string>
+    <string name="monitor_session_unconfirmed">Les mesures sont enregistrées, mais le tensiomètre n\'a pas confirmé la fin du transfert. Reconnectez-le avant de lancer une nouvelle importation.</string>
+</resources>

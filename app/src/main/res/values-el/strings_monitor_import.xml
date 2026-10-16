@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="monitor_time_not_updated">Η ώρα δεν ενημερώθηκε</string>
+    <string name="monitor_clock_skipped">Αυτό το πιεσόμετρο δεν υποστηρίζει αυτόματη ενημέρωση της ώρας. Ρυθμίστε την ώρα χειροκίνητα.</string>
+    <string name="monitor_clock_failed">Δεν ήταν δυνατή η ενημέρωση της ώρας του πιεσόμετρου. Ελέγξτε ή ρυθμίστε την ώρα στο πιεσόμετρό σας.</string>
+    <string name="monitor_session_unconfirmed">Οι μετρήσεις έχουν αποθηκευτεί, αλλά το πιεσόμετρο δεν επιβεβαίωσε ότι η μεταφορά ολοκληρώθηκε. Συνδεθείτε ξανά πριν από την επόμενη εισαγωγή.</string>
+</resources>

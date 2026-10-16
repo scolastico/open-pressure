@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="monitor_time_not_updated">لم يتم تحديث الوقت</string>
+    <string name="monitor_clock_skipped">لا يدعم جهاز قياس ضغط الدم هذا تحديث الوقت تلقائيًا. اضبط الوقت يدويًا.</string>
+    <string name="monitor_clock_failed">تعذر تحديث وقت جهاز قياس ضغط الدم. تحقق من الوقت أو اضبطه على الجهاز.</string>
+    <string name="monitor_session_unconfirmed">تم حفظ القياسات، لكن جهاز قياس ضغط الدم لم يؤكد اكتمال النقل. أعد الاتصال قبل الاستيراد مرة أخرى.</string>
+</resources>

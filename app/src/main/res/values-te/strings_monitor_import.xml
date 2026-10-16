@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="monitor_time_not_updated">సమయం నవీకరించబడలేదు</string>
+    <string name="monitor_clock_skipped">ఈ రక్తపోటు మానిటర్‌లో సమయాన్ని స్వయంచాలకంగా నవీకరించడం సాధ్యం కాదు. సమయాన్ని మీరే సెట్ చేయండి.</string>
+    <string name="monitor_clock_failed">రక్తపోటు మానిటర్ సమయాన్ని నవీకరించలేకపోయాము. మానిటర్‌లో సమయాన్ని తనిఖీ చేయండి లేదా సెట్ చేయండి.</string>
+    <string name="monitor_session_unconfirmed">కొలతలు సేవ్ చేయబడ్డాయి, కానీ డేటా బదిలీ పూర్తయినట్లు రక్తపోటు మానిటర్ నిర్ధారించలేదు. మళ్లీ దిగుమతి చేసే ముందు మళ్లీ కనెక్ట్ చేయండి.</string>
+</resources>

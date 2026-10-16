@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="monitor_time_not_updated">ಸಮಯ ನವೀಕರಿಸಲಾಗಿಲ್ಲ</string>
+    <string name="monitor_clock_skipped">ಈ ರಕ್ತದೊತ್ತಡ ಮಾನಿಟರ್‌ನಲ್ಲಿ ಸಮಯವನ್ನು ಸ್ವಯಂಚಾಲಿತವಾಗಿ ನವೀಕರಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ. ಸಮಯವನ್ನು ನೀವೇ ಹೊಂದಿಸಿ.</string>
+    <string name="monitor_clock_failed">ರಕ್ತದೊತ್ತಡ ಮಾನಿಟರ್‌ನ ಸಮಯವನ್ನು ನವೀಕರಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ. ಮಾನಿಟರ್‌ನಲ್ಲಿ ಸಮಯವನ್ನು ಪರಿಶೀಲಿಸಿ ಅಥವಾ ಹೊಂದಿಸಿ.</string>
+    <string name="monitor_session_unconfirmed">ಅಳತೆಗಳನ್ನು ಉಳಿಸಲಾಗಿದೆ, ಆದರೆ ಡೇಟಾ ವರ್ಗಾವಣೆ ಮುಗಿದಿದೆ ಎಂದು ರಕ್ತದೊತ್ತಡ ಮಾನಿಟರ್ ದೃಢಪಡಿಸಿಲ್ಲ. ಮತ್ತೆ ಆಮದು ಮಾಡುವ ಮೊದಲು ಮರುಸಂಪರ್ಕಿಸಿ.</string>
+</resources>

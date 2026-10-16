@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="monitor_time_not_updated">A kò ṣe ìmúdójúìwọ̀n àkókò</string>
+    <string name="monitor_clock_skipped">Ẹrọ wiwọn titẹ ẹjẹ yìí kò ṣe àtìlẹ́yìn fún ìmúdójúìwọ̀n àkókò aládàáṣiṣẹ́. Ṣètò àkókò rẹ̀ fúnra rẹ.</string>
+    <string name="monitor_clock_failed">A kò lè ṣe ìmúdójúìwọ̀n àkókò ẹrọ wiwọn titẹ ẹjẹ. Ṣàyẹ̀wò tàbí ṣètò àkókò lórí ẹrọ rẹ.</string>
+    <string name="monitor_session_unconfirmed">Àwọn ìwọ̀n ti wà ní ìpamọ́, ṣùgbọ́n ẹrọ wiwọn titẹ ẹjẹ kò jẹ́rìí pé gbígbé dátà ti parí. Sopọ̀ lẹ́ẹ̀kan sí i kí o tó tún gbé àwọn ìwọ̀n wọlé.</string>
+</resources>

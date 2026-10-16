@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="monitor_time_not_updated">Время не обновлено</string>
+    <string name="monitor_clock_skipped">Этот тонометр не поддерживает автоматическое обновление времени. Установите время вручную.</string>
+    <string name="monitor_clock_failed">Не удалось обновить время на тонометре. Проверьте или установите время на устройстве.</string>
+    <string name="monitor_session_unconfirmed">Измерения сохранены, но тонометр не подтвердил завершение передачи. Подключите его повторно перед следующим импортом.</string>
+</resources>

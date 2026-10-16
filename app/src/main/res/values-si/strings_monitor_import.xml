@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="monitor_time_not_updated">වේලාව යාවත්කාලීන වී නැත</string>
+    <string name="monitor_clock_skipped">මෙම රුධිර පීඩන මොනිටරය ස්වයංක්‍රීයව වේලාව යාවත්කාලීන කිරීමට සහාය නොදක්වයි. වේලාව ඔබම සකසන්න.</string>
+    <string name="monitor_clock_failed">රුධිර පීඩන මොනිටරයේ වේලාව යාවත්කාලීන කළ නොහැකි විය. මොනිටරයේ වේලාව පරීක්ෂා කරන්න හෝ සකසන්න.</string>
+    <string name="monitor_session_unconfirmed">මිනුම් සුරැකී ඇත, නමුත් දත්ත හුවමාරුව අවසන් බව රුධිර පීඩන මොනිටරය තහවුරු කළේ නැත. නැවත ආයාත කිරීමට පෙර යළි සම්බන්ධ කරන්න.</string>
+</resources>

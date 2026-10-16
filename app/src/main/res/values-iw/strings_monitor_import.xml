@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="monitor_time_not_updated">השעה לא עודכנה</string>
+    <string name="monitor_clock_skipped">מד לחץ הדם הזה אינו תומך בעדכון שעה אוטומטי. יש להגדיר את השעה ידנית.</string>
+    <string name="monitor_clock_failed">לא ניתן היה לעדכן את השעה במד לחץ הדם. יש לבדוק או להגדיר את השעה במכשיר.</string>
+    <string name="monitor_session_unconfirmed">המדידות נשמרו, אך מד לחץ הדם לא אישר שההעברה הסתיימה. יש להתחבר מחדש לפני הייבוא הבא.</string>
+</resources>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="monitor_time_not_updated">Uhrzeit nicht aktualisiert</string>
+    <string name="monitor_clock_skipped">Dieses Messgerät unterstützt keine automatische Aktualisierung der Uhrzeit. Stelle die Uhrzeit manuell ein.</string>
+    <string name="monitor_clock_failed">Die Uhrzeit des Messgeräts konnte nicht aktualisiert werden. Prüfe die Uhrzeit am Messgerät oder stelle sie dort ein.</string>
+    <string name="monitor_session_unconfirmed">Die Messwerte sind gespeichert, aber das Messgerät hat den Abschluss der Übertragung nicht bestätigt. Verbinde es erneut, bevor du wieder Messwerte importierst.</string>
+</resources>

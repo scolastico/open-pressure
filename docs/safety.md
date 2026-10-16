@@ -15,6 +15,7 @@ First use requires explicit experimental-use acceptance before Bluetooth actions
 | STP handshake | Only exact `70 01` (89 bytes), `70 05` / `70 06` (46 bytes), on a selected STP path without known WLP data banks |
 | X7 read-only WLP | Exact START/READ/END; 1–16-byte reads in bounded 16-bit ranges; fresh SYS nonce transaction |
 | Verified vendor memory | START/END and exact 1–16-byte reads within that model’s known history/settings windows; no addressed writes |
+| Verified vendor clock characteristic | Optional valid SIG Current Time or Omron Date Time write after history, before END; skipped if unsupported; no EEPROM write |
 | Legacy application key | Only current issued control frame of an active Pair/Connect permit; model and control UUID verified; Connect never permits programming |
 | Encrypted X7 | Exact handshake and authorization poll, followed by allowlisted read/session commands checked before encryption |
 
@@ -26,7 +27,7 @@ Known WLP data-bank layouts prevent automatic selection of a speculative STP han
 
 For identified older monitors, Pair writes a random sixteen-byte application key through the dedicated control characteristic, not through an addressed EEPROM write. This deliberately changes the monitor's application-access key and can require re-pairing with another client. A pending encrypted key is committed locally before programming; retries retain it until acknowledgment. Connect can only use saved candidates. The GATT gate requires the active state machine's exact issued command and rejects stale, changed-key or programming-on-Connect frames. See [the transport reference](protocol.md#other-vendor-memory-monitors).
 
-These new paths never send addressed settings/calibration writes, clock sync or unread-counter resets. Their history imports read only mapped banks, and raw/full EEPROM controls remain unavailable. Software checks establish command bounds and state behavior; they do not establish physical-device safety or interoperability.
+These paths never send addressed settings/calibration writes, EEPROM clock sync or unread-counter resets. Their history imports read only mapped banks, and raw/full EEPROM controls remain unavailable. A writable dedicated time characteristic permits a best-effort clock update after history and before END. Its failure cannot revoke readings already imported. Missing time characteristics do not trigger a settings-write fallback. Software checks establish command bounds and state behavior; they do not establish physical-device safety or interoperability.
 
 ## X7 profile registration
 

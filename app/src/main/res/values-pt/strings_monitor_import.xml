@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="monitor_time_not_updated">Hora não atualizada</string>
+    <string name="monitor_clock_skipped">Este monitor de pressão arterial não permite atualizar a hora automaticamente. Acerte a hora manualmente.</string>
+    <string name="monitor_clock_failed">Não foi possível atualizar a hora do monitor de pressão arterial. Verifique ou acerte a hora no monitor.</string>
+    <string name="monitor_session_unconfirmed">As medições estão salvas, mas o monitor de pressão arterial não confirmou o fim da transferência. Conecte-o novamente antes de importar de novo.</string>
+</resources>

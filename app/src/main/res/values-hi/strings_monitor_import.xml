@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="monitor_time_not_updated">समय अपडेट नहीं हुआ</string>
+    <string name="monitor_clock_skipped">इस ब्लड प्रेशर मॉनिटर में समय अपने आप अपडेट नहीं हो सकता। समय खुद सेट करें।</string>
+    <string name="monitor_clock_failed">ब्लड प्रेशर मॉनिटर का समय अपडेट नहीं हो सका। मॉनिटर पर समय जाँचें या सेट करें।</string>
+    <string name="monitor_session_unconfirmed">माप सहेज लिए गए हैं, लेकिन ब्लड प्रेशर मॉनिटर ने डेटा भेजना पूरा होने की पुष्टि नहीं की। दोबारा आयात करने से पहले फिर से कनेक्ट करें।</string>
+</resources>

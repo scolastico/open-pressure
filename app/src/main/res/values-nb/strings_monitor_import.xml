@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="monitor_time_not_updated">Tiden er ikke oppdatert</string>
+    <string name="monitor_clock_skipped">Denne blodtrykksmåleren støtter ikke automatisk oppdatering av tiden. Still inn tiden manuelt.</string>
+    <string name="monitor_clock_failed">Tiden på blodtrykksmåleren kunne ikke oppdateres. Kontroller eller still inn tiden på måleren.</string>
+    <string name="monitor_session_unconfirmed">Målingene er lagret, men blodtrykksmåleren bekreftet ikke at overføringen var ferdig. Koble til på nytt før du importerer igjen.</string>
+</resources>

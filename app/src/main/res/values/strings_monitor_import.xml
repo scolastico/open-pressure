@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="monitor_time_not_updated">Time not updated</string>
+    <string name="monitor_clock_skipped">Automatic time update is not supported by this monitor. Set its time manually.</string>
+    <string name="monitor_clock_failed">Monitor time could not be updated. Check or set it on your monitor.</string>
+    <string name="monitor_session_unconfirmed">Readings are saved, but the monitor did not confirm the transfer finished. Reconnect before importing again.</string>
+</resources>

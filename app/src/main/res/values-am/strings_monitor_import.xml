@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="monitor_time_not_updated">ሰዓቱ አልተዘመነም</string>
+    <string name="monitor_clock_skipped">ይህ የደም ግፊት መለኪያ ሰዓቱን በራስ-ሰር ማዘመን አይደግፍም። ሰዓቱን በእጅ ያስተካክሉ።</string>
+    <string name="monitor_clock_failed">የደም ግፊት መለኪያውን ሰዓት ማዘመን አልተቻለም። በመለኪያው ላይ ሰዓቱን ያረጋግጡ ወይም ያስተካክሉ።</string>
+    <string name="monitor_session_unconfirmed">የመለኪያ ውጤቶቹ ተቀምጠዋል፣ ግን የደም ግፊት መለኪያው ዝውውሩ መጠናቀቁን አላረጋገጠም። እንደገና ከማስመጣትዎ በፊት እንደገና ያገናኙ።</string>
+</resources>

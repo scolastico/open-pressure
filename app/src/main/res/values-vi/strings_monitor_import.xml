@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="monitor_time_not_updated">Chưa cập nhật giờ</string>
+    <string name="monitor_clock_skipped">Máy đo huyết áp này không hỗ trợ tự động cập nhật giờ. Hãy đặt giờ thủ công.</string>
+    <string name="monitor_clock_failed">Không thể cập nhật giờ trên máy đo huyết áp. Hãy kiểm tra hoặc đặt giờ trên máy.</string>
+    <string name="monitor_session_unconfirmed">Các kết quả đo đã được lưu, nhưng máy đo huyết áp chưa xác nhận việc truyền dữ liệu đã hoàn tất. Hãy kết nối lại trước khi nhập lần nữa.</string>
+</resources>

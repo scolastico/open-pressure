@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="monitor_time_not_updated">ସମୟ ଅପଡେଟ୍ ହୋଇନାହିଁ</string>
+    <string name="monitor_clock_skipped">ଏହି ରକ୍ତଚାପ ମାପିବା ଯନ୍ତ୍ରରେ ସମୟ ସ୍ୱୟଂଚାଳିତ ଭାବରେ ଅପଡେଟ୍ ହୋଇପାରିବ ନାହିଁ। ନିଜେ ସମୟ ସେଟ୍ କରନ୍ତୁ।</string>
+    <string name="monitor_clock_failed">ରକ୍ତଚାପ ମାପିବା ଯନ୍ତ୍ରର ସମୟ ଅପଡେଟ୍ ହୋଇପାରିଲା ନାହିଁ। ଯନ୍ତ୍ରରେ ସମୟ ଯାଞ୍ଚ କରନ୍ତୁ କିମ୍ବା ସେଟ୍ କରନ୍ତୁ।</string>
+    <string name="monitor_session_unconfirmed">ମାପଗୁଡ଼ିକ ସଞ୍ଚୟ ହୋଇଛି, କିନ୍ତୁ ତଥ୍ୟ ପଠାଇବା ଶେଷ ହୋଇଥିବା କଥା ରକ୍ତଚାପ ମାପିବା ଯନ୍ତ୍ର ନିଶ୍ଚିତ କରିନାହିଁ। ପୁଣି ଆମଦାନି କରିବା ପୂର୍ବରୁ ପୁନଃ ସଂଯୋଗ କରନ୍ତୁ।</string>
+</resources>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="monitor_time_not_updated">Czas nie został zaktualizowany</string>
+    <string name="monitor_clock_skipped">Ten ciśnieniomierz nie obsługuje automatycznej aktualizacji czasu. Ustaw czas ręcznie.</string>
+    <string name="monitor_clock_failed">Nie udało się zaktualizować czasu ciśnieniomierza. Sprawdź lub ustaw czas na urządzeniu.</string>
+    <string name="monitor_session_unconfirmed">Pomiary są zapisane, ale ciśnieniomierz nie potwierdził zakończenia przesyłania. Połącz się ponownie przed kolejnym importem.</string>
+</resources>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="monitor_time_not_updated">Tijd niet bijgewerkt</string>
+    <string name="monitor_clock_skipped">Deze bloeddrukmeter ondersteunt het automatisch bijwerken van de tijd niet. Stel de tijd handmatig in.</string>
+    <string name="monitor_clock_failed">De tijd van de bloeddrukmeter kon niet worden bijgewerkt. Controleer de tijd of stel deze in op uw bloeddrukmeter.</string>
+    <string name="monitor_session_unconfirmed">De metingen zijn opgeslagen, maar de bloeddrukmeter heeft niet bevestigd dat de overdracht is voltooid. Maak opnieuw verbinding voordat u weer importeert.</string>
+</resources>

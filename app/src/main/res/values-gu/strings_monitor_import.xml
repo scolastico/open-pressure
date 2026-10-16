@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="monitor_time_not_updated">સમય અપડેટ થયો નથી</string>
+    <string name="monitor_clock_skipped">આ બ્લડ પ્રેશર મોનિટરમાં સમય આપમેળે અપડેટ કરી શકાતો નથી. તેનો સમય જાતે સેટ કરો.</string>
+    <string name="monitor_clock_failed">બ્લડ પ્રેશર મોનિટરનો સમય અપડેટ થઈ શક્યો નથી. મોનિટર પર સમય તપાસો અથવા સેટ કરો.</string>
+    <string name="monitor_session_unconfirmed">માપ સાચવવામાં આવ્યા છે, પરંતુ બ્લડ પ્રેશર મોનિટરે ડેટા મોકલવાનું પૂર્ણ થયાની પુષ્ટિ કરી નથી. ફરીથી આયાત કરતાં પહેલાં ફરી કનેક્ટ કરો.</string>
+</resources>

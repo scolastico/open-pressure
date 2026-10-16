@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="monitor_time_not_updated">Hindi na-update ang oras</string>
+    <string name="monitor_clock_skipped">Hindi sinusuportahan ng blood pressure monitor na ito ang awtomatikong pag-update ng oras. Manu-manong itakda ang oras nito.</string>
+    <string name="monitor_clock_failed">Hindi ma-update ang oras ng blood pressure monitor. Suriin o itakda ang oras sa iyong monitor.</string>
+    <string name="monitor_session_unconfirmed">Naka-save ang mga sukat, pero hindi kinumpirma ng blood pressure monitor na tapos na ang paglilipat. Muling kumonekta bago mag-import ulit.</string>
+</resources>

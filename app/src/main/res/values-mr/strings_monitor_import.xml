@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="monitor_time_not_updated">वेळ अपडेट झाली नाही</string>
+    <string name="monitor_clock_skipped">या रक्तदाब मॉनिटरमध्ये वेळ आपोआप अपडेट करता येत नाही. त्याची वेळ स्वतः सेट करा.</string>
+    <string name="monitor_clock_failed">रक्तदाब मॉनिटरची वेळ अपडेट करता आली नाही. मॉनिटरवर वेळ तपासा किंवा सेट करा.</string>
+    <string name="monitor_session_unconfirmed">मोजमापे जतन केली आहेत, पण रक्तदाब मॉनिटरने डेटा पाठवणे पूर्ण झाल्याची पुष्टी केली नाही. पुन्हा आयात करण्यापूर्वी पुन्हा कनेक्ट करा.</string>
+</resources>

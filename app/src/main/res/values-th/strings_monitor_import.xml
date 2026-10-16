@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="monitor_time_not_updated">ยังไม่ได้อัปเดตเวลา</string>
+    <string name="monitor_clock_skipped">เครื่องวัดความดันโลหิตนี้ไม่รองรับการอัปเดตเวลาอัตโนมัติ โปรดตั้งเวลาด้วยตนเอง</string>
+    <string name="monitor_clock_failed">ไม่สามารถอัปเดตเวลาในเครื่องวัดความดันโลหิตได้ โปรดตรวจสอบหรือตั้งเวลาบนเครื่อง</string>
+    <string name="monitor_session_unconfirmed">บันทึกค่าที่วัดได้แล้ว แต่เครื่องวัดความดันโลหิตไม่ได้ยืนยันว่าการถ่ายโอนเสร็จสิ้น โปรดเชื่อมต่อใหม่ก่อนนำเข้าอีกครั้ง</string>
+</resources>

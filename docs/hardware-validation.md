@@ -34,7 +34,9 @@ For registration implementation changes, verify exact write bounds and failure h
 
 For each exact model, compare DIS identity, service UUID and all RX/TX properties against [the map](omblepy-comparison.md). Verify first-RX subscription and Android bonding, explicit Pair key provisioning only on legacy models, and saved-key-only Connect. HEM-7377T1 must use the single-channel OS-bond path, without legacy key commands. A device exposing both a complete standard profile and vendor channels should retain the standard path.
 
-Compare every decoded pressure, pulse, date and user with the monitor. Exercise 14-byte bank boundaries, erased slots, an unset clock, repeat imports and a naturally interrupted transfer. On BP5360 verify both user profiles from the mixed second bank, and inspect rejected summaries. Confirm no `01 C0` addressed writes or clock/unread resets occur. Do not intentionally interrupt key programming on hardware solely for release testing; synthetic tests cover lost ACK and retry recovery.
+Compare every decoded pressure, pulse, date and user with the monitor. Exercise 14-byte bank boundaries, erased slots, an unset clock, repeat imports and a naturally interrupted transfer. On BP5360 verify both user profiles from the mixed second bank, and inspect rejected summaries. Confirm no `01 C0` addressed writes or EEPROM clock/unread resets occur. Do not intentionally interrupt key programming on hardware solely for release testing; synthetic tests cover lost ACK and retry recovery.
+
+For HEM-7156T, verify discovery when only a mixed-case `BLESmart_…` name is advertised. Pair should proceed to both history banks on the same connection. If a dedicated time characteristic is present, verify that its optional update happens before the only END and that a naturally rejected update preserves the imported history. Without one, expect an explicit skipped-clock result and no EEPROM clock write. A disconnect during clock/finalization must retain history and report the missing END acknowledgment; a disconnect before all history arrives must remain an interrupted transfer.
 
 ## Automatic imports and phone controls
 

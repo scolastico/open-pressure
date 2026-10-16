@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="monitor_time_not_updated">Ora non aggiornata</string>
+    <string name="monitor_clock_skipped">Questo misuratore di pressione non supporta l\'aggiornamento automatico dell\'ora. Imposta l\'ora manualmente.</string>
+    <string name="monitor_clock_failed">Non è stato possibile aggiornare l\'ora del misuratore di pressione. Controllala o impostala sul dispositivo.</string>
+    <string name="monitor_session_unconfirmed">Le misurazioni sono salvate, ma il misuratore di pressione non ha confermato la fine del trasferimento. Ricollegalo prima di importare di nuovo.</string>
+</resources>

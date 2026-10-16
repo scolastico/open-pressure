@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="monitor_time_not_updated">Aikaa ei päivitetty</string>
+    <string name="monitor_clock_skipped">Tämä verenpainemittari ei tue ajan automaattista päivitystä. Aseta aika käsin.</string>
+    <string name="monitor_clock_failed">Verenpainemittarin aikaa ei voitu päivittää. Tarkista aika mittarista ja aseta se tarvittaessa.</string>
+    <string name="monitor_session_unconfirmed">Mittaukset on tallennettu, mutta verenpainemittari ei vahvistanut siirron päättymistä. Yhdistä uudelleen ennen seuraavaa tuontia.</string>
+</resources>

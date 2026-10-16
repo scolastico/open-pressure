@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="monitor_time_not_updated">Masa tidak dikemas kini</string>
+    <string name="monitor_clock_skipped">Monitor tekanan darah ini tidak menyokong kemas kini masa secara automatik. Tetapkan masanya secara manual.</string>
+    <string name="monitor_clock_failed">Masa monitor tekanan darah tidak dapat dikemas kini. Semak atau tetapkan masa pada monitor.</string>
+    <string name="monitor_session_unconfirmed">Bacaan telah disimpan, tetapi monitor tekanan darah tidak mengesahkan bahawa pemindahan telah selesai. Sambung semula sebelum mengimport lagi.</string>
+</resources>

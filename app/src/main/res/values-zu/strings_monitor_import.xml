@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="monitor_time_not_updated">Isikhathi asibuyekeziwe</string>
+    <string name="monitor_clock_skipped">Lo mshini wokukala umfutho wegazi awusekeli ukubuyekeza isikhathi ngokuzenzakalelayo. Setha isikhathi sawo mathupha.</string>
+    <string name="monitor_clock_failed">Isikhathi somshini wokukala umfutho wegazi asikwazanga ukubuyekezwa. Hlola noma usethe isikhathi emshinini wakho.</string>
+    <string name="monitor_session_unconfirmed">Izilinganiso zilondoloziwe, kodwa umshini wokukala umfutho wegazi awuqinisekisanga ukuthi ukudlulisa kuphelile. Xhuma kabusha ngaphambi kokungenisa futhi.</string>
+</resources>

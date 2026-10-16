@@ -97,6 +97,8 @@ public final class VendorWlpSession {
         }
     }
     public boolean complete() { return !failed && phase==3; }
+    /** All mapped bytes have been validated; optional work may run before requesting END. */
+    public boolean historyComplete() { return !failed && phase>=2; }
     public int received() { return data.size(); }
     public byte[] data() { return data.toByteArray(); }
     public byte[] identity() { return identity==null?null:identity.clone(); }

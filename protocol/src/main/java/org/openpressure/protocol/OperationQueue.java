@@ -25,6 +25,10 @@ public final class OperationQueue {
     }
     public boolean busy() { return active!=null; }
     public String activeKey() { return active==null ? null : active.key; }
+    /** Route timeouts through the same required/optional failure policy as ATT errors. */
+    public void timeout(String key) {
+        if(active!=null && active.key.equals(key)) fail("Bluetooth operation timed out: ");
+    }
     public void complete(String key,int status) {
         if (active==null || !active.key.equals(key)) return;
         Operation done=active; active=null;

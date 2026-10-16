@@ -54,6 +54,12 @@ public final class DeviceWritePolicy {
         for(VendorMemoryModel.Range range:model.historyRanges()) if(containsRange(range.start,range.length,address,length)) return;
         reject();
     }
+    /** A known vendor model may use only the dedicated, standard clock endpoints. */
+    public static void validateVendorClock(VendorMemoryModel model,UUID service,UUID characteristic,byte[] payload) {
+        VendorWlpSession.requireModel(model);
+        if(!(CTS.equals(service) && CURRENT_TIME.equals(characteristic) || COMMAND.equals(service) && DATE_TIME.equals(characteristic))) reject();
+        validateCharacteristic(ProtocolProfile.STANDARD_BP,service,characteristic,payload);
+    }
     /** Key programming and reconnect have disjoint, short-lived command permits. */
     public static void validateVendorUnlock(VendorMemoryModel model,UUID service,UUID characteristic,byte[] payload,LegacyUnlock permit) {
         VendorWlpSession.requireModel(model);

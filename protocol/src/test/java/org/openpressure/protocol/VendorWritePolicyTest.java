@@ -9,6 +9,7 @@ public final class VendorWritePolicyTest {
     public static void main(String[] args) { System.out.println("Vendor write policy checks: "+run()); }
     public static int run() {
         checks=0;
+        standardClockOnly();
         VendorMemoryModel legacy=VendorMemoryModel.identify("HEM-7150T"),modern=VendorMemoryModel.identify("HEM-7377T1");
         UUID service=VendorWlpSession.service(legacy),tx=VendorWlpSession.txChannels(legacy).get(0),unlock=VendorWlpSession.unlockCharacteristic();
         allow(legacy,hex("0800000000100018")); allow(legacy,hex("0801000098100081")); allow(legacy,hex("080f000000000007"));
@@ -54,6 +55,23 @@ public final class VendorWritePolicyTest {
         rejects(() -> DeviceWritePolicy.validateVendorDescriptor(legacy,service,unlock,UUID.randomUUID(),new byte[]{1,0}));
         rejects(() -> DeviceWritePolicy.validateVendorDescriptor(legacy,service,unlock,CCCD,null));
         return checks;
+    }
+    private static void standardClockOnly() {
+        VendorMemoryModel model=VendorMemoryModel.identify("HEM-7156T");
+        UUID cts=UUID.fromString("00001805-0000-1000-8000-00805f9b34fb"),
+            time=UUID.fromString("00002a2b-0000-1000-8000-00805f9b34fb"),
+            command=UUID.fromString("00005045-0000-1000-8000-00805f9b34fb"),
+            date=UUID.fromString("00002a08-0000-1000-8000-00805f9b34fb");
+        byte[] current=hex("ea070a100e1e2d050001"),local=hex("ea070a100e1e2d");
+        DeviceWritePolicy.validateVendorClock(model,cts,time,current); checks++;
+        DeviceWritePolicy.validateVendorClock(model,command,date,local); checks++;
+        rejects(() -> DeviceWritePolicy.validateVendorClock(null,cts,time,current));
+        rejects(() -> DeviceWritePolicy.validateVendorClock(model,cts,time,local));
+        rejects(() -> DeviceWritePolicy.validateVendorClock(model,cts,date,local));
+        rejects(() -> DeviceWritePolicy.validateVendorClock(model,command,time,current));
+        rejects(() -> DeviceWritePolicy.validateVendorClock(model,command,date,hex("ea07021e0e1e2d")));
+        rejects(() -> DeviceWritePolicy.validateVendorClock(model,VendorWlpSession.service(model),VendorWlpSession.txChannels(model).get(0),hex("1801c0008010000000000000000000000000000000000000")));
+        rejects(() -> DeviceWritePolicy.validateVendorClock(model,UUID.fromString("0000181c-0000-1000-8000-00805f9b34fb"),UUID.fromString("00002a9f-0000-1000-8000-00805f9b34fb"),hex("40010e02")));
     }
     private static void activeUnlockPermits(VendorMemoryModel legacy,VendorMemoryModel modern,UUID service,UUID unlock,UUID tx) {
         byte[] key=hex("00112233445566778899aabbccddeeff");

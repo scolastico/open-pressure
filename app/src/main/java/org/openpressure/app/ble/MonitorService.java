@@ -36,6 +36,9 @@ public final class MonitorService extends Service {
         PendingConnection(String address,String name,boolean pair) { this.address=address; this.name=name; this.pair=pair; }
     }
     public String status="Ready to connect", detail="Choose your monitor and scan nearby devices.", address="", connectedName="", modelHint="X7 Smart AFib · HEM-7380T1", deviceTime="Not read", information="";
+    public enum ClockUpdate { NONE, SKIPPED, ACCEPTED, FAILED }
+    public ClockUpdate clockUpdate=ClockUpdate.NONE;
+    public boolean sessionEndUnconfirmed;
     public boolean scanning,ready,historyRunning,canHistory,canTime,hasUserControl,canDump,dumpRunning,dumpComplete,dumpSaving,sessionFinished,registrationReading,registrationPending,registrationWriting,registrationDone;
     public int dumpStart,dumpReceived,dumpLength;
     public long readingsRevision;
@@ -61,6 +64,8 @@ public final class MonitorService extends Service {
     private List<byte[]> vendorKeyCandidates=Collections.emptyList();
     private int vendorKeyCandidate,vendorParsed;
     private boolean vendorWaitingBond,vendorSessionEnded;
+    private boolean vendorClockAttempted,vendorClockPending;
+    private String vendorClockResult="";
     private final List<BluetoothGattCharacteristic> vendorTx=new ArrayList<>(),vendorRx=new ArrayList<>();
     private WlpConnection wlpConnection;
     private X7Registration x7Registration;
@@ -318,7 +323,7 @@ public final class MonitorService extends Service {
         ScanRecord record=result.getScanRecord(); if(record==null) return;
         byte[] manufacturer=record.getManufacturerSpecificData(0x020e);
         List<ParcelUuid> services=record.getServiceUuids();
-        boolean candidate=manufacturer!=null || services!=null && (services.contains(new ParcelUuid(Uuids.BP)) || services.contains(new ParcelUuid(Uuids.VENDOR)) || services.contains(new ParcelUuid(Uuids.VENDOR_ALIAS)) || services.contains(new ParcelUuid(Uuids.OPTIONAL)));
+        boolean candidate=OmronAdvertisement.hasKnownName(record.getDeviceName()) || manufacturer!=null || services!=null && (services.contains(new ParcelUuid(Uuids.BP)) || services.contains(new ParcelUuid(Uuids.VENDOR)) || services.contains(new ParcelUuid(Uuids.VENDOR_ALIAS)) || services.contains(new ParcelUuid(Uuids.OPTIONAL)));
         if(!candidate) return;
         Discovered d=new Discovered(); d.address=result.getDevice().getAddress(); d.name=record.getDeviceName(); if(d.name==null) d.name="Bluetooth health monitor";
         d.manufacturerData=manufacturer==null?null:manufacturer.clone();
@@ -358,6 +363,7 @@ public final class MonitorService extends Service {
         receivedInTransfer=0; addedInTransfer=0;
         x7FreshBondEstablished=freshBond;
         address=target; connectedName=name; pairingRequested=pair; authenticatedUser=0; storedCount=-1; deviceTime="Not read"; information="";
+        clockUpdate=ClockUpdate.NONE; sessionEndUnconfirmed=false;
         store.packet(address,"session",new byte[0],"OpenPressure "+BuildConfig.VERSION_NAME+" · Android API "+Build.VERSION.SDK_INT+" · "+(pair?"Pair":"Connect"));
         Discovered selected=discovered.get(target);
         connectionManufacturer=manufacturer!=null?manufacturer.clone():selected==null || selected.manufacturerData==null?null:selected.manufacturerData.clone();
@@ -384,6 +390,7 @@ public final class MonitorService extends Service {
         if(vendorUnlock!=null) vendorUnlock.close();
         vendorUnlock=null; vendorRead=null; vendorModel=null; vendorKeys=null;
         clearVendorKeyCandidates(); vendorTx.clear(); vendorRx.clear(); vendorWaitingBond=false; vendorSessionEnded=false;
+        vendorClockAttempted=false; vendorClockPending=false; vendorClockResult="";
         generation++; cancelPhase(); cancelOperationTimeout(); operations.clear(); stopScan();
         ready=false; historyRunning=false; waitingBond=false; pendingUserOperation=0; authenticatedUser=0;
         if(secure!=null) { secure.close(); secure=null; }
@@ -406,6 +413,15 @@ public final class MonitorService extends Service {
         }
     }
     private void fail(String message) {
+        if(vendorRead!=null && vendorRead.historyComplete() && !vendorRead.complete() && vendorClockAttempted) {
+            // Android may still be busy after an optional clock timeout and reject END.
+            // All history is already validated and stored; finalization cannot undo the import.
+            if(vendorClockPending) { clockUpdate=ClockUpdate.FAILED; vendorClockResult="Clock update could not be confirmed; imported readings were retained."; }
+            store.packet(address,"vendor-finalization",new byte[0],message);
+            finishVendorHistory(false);
+            closeFinishedWlp(" Session finalization warning: "+message);
+            return;
+        }
         if(registrationWriting) message+=" Profile registration is incomplete; the cuff's settings state is unverified. The pre-registration backup is retained. No retry or further settings write was sent.";
         if(message.contains("(257)") || message.contains("error 257")) message+=" Android reported a generic GATT failure, not an EEPROM status. The cuff may have left transfer mode; reconnect and export Bluetooth diagnostics if it recurs.";
         if(dumpRunning && wlpRead!=null) { saveDump(wlpRead.data(),false,message); dumpRunning=false; }
@@ -615,9 +631,13 @@ public final class MonitorService extends Service {
     private void vendorMemoryReady() {
         clearVendorKeyCandidates();
         if(vendorUnlock!=null) { vendorUnlock.close(); vendorUnlock=null; }
-        ready=true; canHistory=true; canTime=false; canDump=false; hasUserControl=false;
+        timeCharacteristic=characteristic(Uuids.CTS,Uuids.CURRENT_TIME);
+        if(timeCharacteristic==null || !writable(timeCharacteristic)) timeCharacteristic=characteristic(Uuids.COMMAND,Uuids.DATE_TIME);
+        ready=true; canHistory=true; canTime=timeCharacteristic!=null && writable(timeCharacteristic); canDump=false; hasUserControl=false;
         store.remember(address,connectedName,verifiedModel,user);
-        state("Vendor history available","The identified monitor is ready for read-only history import. Settings, unread counters and calibration data are retained.");
+        // Do not finish a pairing-only transmission: some cuffs power down on the first END.
+        if(pairingRequested) { beginVendorHistory(); return; }
+        state("Vendor history available","Ready to import history. A supported clock update will be attempted before the session ends; unread counters and calibration data are retained.");
         readInformation();
     }
     private void beginVendorHistory() {
@@ -625,7 +645,9 @@ public final class MonitorService extends Service {
         try {
             vendorRead=new VendorWlpSession(vendorModel);
             vendorParsed=0; wlpRejected=0; storedCount=-1; receivedInTransfer=0; addedInTransfer=0; historyRunning=true;
-            state("Reading history…","Reading the verified model's mapped history banks without changing its settings.");
+            vendorClockAttempted=false; vendorClockPending=false; vendorClockResult="";
+            clockUpdate=ClockUpdate.NONE; sessionEndUnconfirmed=false;
+            state("Reading history…","Reading the verified model's history banks before an optional clock update and a single session end.");
             sendVendorRead();
         } catch(IllegalArgumentException ex) { fail("Could not start vendor history: "+ex.getMessage()); }
     }
@@ -674,16 +696,41 @@ public final class MonitorService extends Service {
                 offset+=range.length;
             }
             if(vendorRead.complete()) {
-                vendorSessionEnded=true; sessionFinished=true; ready=false; canHistory=false; historyRunning=false;
-                storedCount=receivedInTransfer;
-                state(wlpRejected==0?"History transfer complete":"History transfer incomplete",
-                    addedInTransfer+" new readings saved · "+receivedInTransfer+" decoded · "+wlpRejected+" rejected slots. Erased slots were skipped. The monitor acknowledged END. Reconnect for another transfer.");
+                finishVendorHistory(true);
                 return;
             }
+            if(vendorRead.historyComplete() && !vendorClockAttempted) { syncVendorClock(); return; }
             long now=SystemClock.elapsedRealtime();
             if(now-lastWlpUpdate>=500) { lastWlpUpdate=now; detail=vendorRead.received()+" history bytes read · "+addedInTransfer+" new readings"; changed(); }
             sendVendorRead();
         } catch(Exception ex) { fail("Vendor response rejected: "+ex.getMessage()); }
+    }
+    private void syncVendorClock() {
+        vendorClockAttempted=true;
+        if(!canTime) {
+            clockUpdate=ClockUpdate.SKIPPED;
+            vendorClockResult="Clock sync skipped: no supported time characteristic.";
+            sendVendorRead(); return;
+        }
+        vendorClockPending=true;
+        LocalDateTime time=LocalDateTime.now();
+        state("Finishing history import…","Readings saved. Attempting a clock update before ending the session.");
+        writeClock(time,() -> {
+            vendorClockPending=false; vendorClockResult="Clock write accepted.";
+            sendVendorRead();
+        },error -> {
+            vendorClockPending=false; vendorClockResult="Clock sync unavailable; imported readings were retained.";
+            store.packet(address,"clock",new byte[0],"Optional clock write failed: "+error);
+            sendVendorRead();
+        });
+    }
+    private void finishVendorHistory(boolean ended) {
+        sessionEndUnconfirmed=!ended;
+        vendorSessionEnded=ended; sessionFinished=true; ready=false; canHistory=false; canTime=false; historyRunning=false;
+        storedCount=receivedInTransfer;
+        state(wlpRejected==0?"History transfer complete":"History transfer incomplete",
+            addedInTransfer+" new readings saved · "+receivedInTransfer+" decoded · "+wlpRejected+" rejected slots. Erased slots were skipped. "+vendorClockResult+
+            (ended?" The monitor acknowledged END.":" Session END was not acknowledged.")+" Reconnect for another transfer.");
     }
 
     private static X7Bonding.Bond bondState(int state) {
@@ -892,9 +939,12 @@ public final class MonitorService extends Service {
         } catch(IllegalArgumentException ex) { fail("X7 response rejected: "+ex.getMessage()); }
     }
     private void closeFinishedWlp() {
+        closeFinishedWlp(" The monitor closed its Bluetooth connection.");
+    }
+    private void closeFinishedWlp(String note) {
         String completedStatus=status,completedDetail=detail; boolean registered=registrationDone;
         disconnect(); sessionFinished=true; registrationDone=registered;
-        state(completedStatus,completedDetail+" The cuff closed its Bluetooth connection after the acknowledged session end.");
+        state(completedStatus,completedDetail+note);
     }
     public File registrationBackupFile() { return registrationBackup; }
     private void saveRegistrationBackup(byte[] bytes) {
@@ -1052,8 +1102,19 @@ public final class MonitorService extends Service {
     }
     public void setClock(LocalDateTime time) {
         if(!ready || !canTime || historyRunning || pendingUserOperation!=0) return;
+        writeClock(time,() -> state("Clock write accepted","Monitor accepted the time write. Read the clock to verify, if available."),
+            error -> {
+                // A missing callback can leave Android's ATT slot busy even after our queue times out.
+                if(error.startsWith("Bluetooth operation timed out: ")) {
+                    disconnect(); state("Clock sync unavailable","The clock update timed out. Reconnect before importing history.");
+                } else state("Clock sync unavailable","Monitor time was not confirmed. You can still import history.");
+            });
+    }
+    private void writeClock(LocalDateTime time,Runnable success,Consumer<String> failure) {
         boolean current=timeCharacteristic.getUuid().equals(Uuids.CURRENT_TIME);
-        write(timeCharacteristic,current?Commands.currentTime(time):Commands.dateTime(time),() -> { deviceTime=time.toString().replace('T',' '); state("Clock write accepted","Monitor accepted the time write. Read the clock to verify, if available."); });
+        write(timeCharacteristic,current?Commands.currentTime(time):Commands.dateTime(time),() -> {
+            clockUpdate=ClockUpdate.ACCEPTED; deviceTime=time.toString().replace('T',' '); success.run();
+        },error -> { clockUpdate=ClockUpdate.FAILED; failure.accept(error); });
     }
     private void notification(BluetoothGattCharacteristic c,byte[] bytes) {
         if(profile==ProtocolProfile.VENDOR_MEMORY) { vendorNotification(c,bytes); return; }
@@ -1167,8 +1228,12 @@ public final class MonitorService extends Service {
     private static String key(BluetoothGattCharacteristic c) { return c.getService().getUuid()+"/"+c.getUuid()+"/"+c.getInstanceId(); }
     private boolean vendorCharacteristic(BluetoothGattCharacteristic c) { UUID s=c.getService().getUuid(); return s.equals(Uuids.VENDOR)||s.equals(Uuids.VENDOR_ALIAS); }
     private void enqueue(String key,java.util.function.BooleanSupplier start,Runnable success) {
+        enqueue(key,start,success,null);
+    }
+    private void enqueue(String key,java.util.function.BooleanSupplier start,Runnable success,Consumer<String> failure) {
         long session=generation;
-        operations.add(key,() -> { armOperation(key,session); return start.getAsBoolean(); },() -> { cancelOperationTimeout(); success.run(); });
+        operations.add(key,() -> { armOperation(key,session); return start.getAsBoolean(); },() -> { cancelOperationTimeout(); success.run(); },
+            failure==null?null:error -> { cancelOperationTimeout(); failure.accept(error); });
     }
     private void subscribe(BluetoothGattCharacteristic c,Runnable success) {
         if(c==null || !subscribable(c)) { fail("Required reading characteristic cannot notify or indicate"); return; }
@@ -1183,10 +1248,14 @@ public final class MonitorService extends Service {
         },success);
     }
     private void write(BluetoothGattCharacteristic c,byte[] bytes,Runnable success) {
+        write(c,bytes,success,null);
+    }
+    private void write(BluetoothGattCharacteristic c,byte[] bytes,Runnable success,Consumer<String> failure) {
         byte[] requested=bytes.clone();
         enqueue("write:"+key(c),() -> {
             if(profile==ProtocolProfile.VENDOR_MEMORY) {
-                if(c.equals(handshake)) DeviceWritePolicy.validateVendorUnlock(vendorModel,c.getService().getUuid(),c.getUuid(),requested,vendorUnlock);
+                if(c.equals(timeCharacteristic)) DeviceWritePolicy.validateVendorClock(vendorModel,c.getService().getUuid(),c.getUuid(),requested);
+                else if(c.equals(handshake)) DeviceWritePolicy.validateVendorUnlock(vendorModel,c.getService().getUuid(),c.getUuid(),requested,vendorUnlock);
                 else DeviceWritePolicy.validateVendorCharacteristic(vendorModel,c.getService().getUuid(),c.getUuid(),requested);
             }
             else if(registrationWriting && x7Registration!=null && c.equals(wlpTx) && requested.length>8)
@@ -1208,7 +1277,7 @@ public final class MonitorService extends Service {
             if(value.length>negotiatedMtu-3) throw new IllegalArgumentException("Command exceeds negotiated ATT payload");
             if(Build.VERSION.SDK_INT>=33) return gatt.writeCharacteristic(c,value,type)==BluetoothStatusCodes.SUCCESS;
             c.setWriteType(type); c.setValue(value); return gatt.writeCharacteristic(c);
-        },success);
+        },success,failure);
     }
     private byte[] readResult;
     private void responseWrite(BluetoothGattCharacteristic c,byte[] bytes,long timeout,String reason) {
@@ -1223,7 +1292,7 @@ public final class MonitorService extends Service {
             error -> { cancelOperationTimeout(); information+="Optional read unavailable: "+c.getUuid()+"\n"; changed(); });
     }
     private void armOperation(String key,long session) {
-        cancelOperationTimeout(); operationTimeout=() -> { if(session==generation && key.equals(operations.activeKey())) fail("Bluetooth operation timed out: "+key); };
+        cancelOperationTimeout(); operationTimeout=() -> { if(session==generation) operations.timeout(key); };
         handler.postDelayed(operationTimeout,15000);
     }
     private void cancelOperationTimeout() { if(operationTimeout!=null) handler.removeCallbacks(operationTimeout); operationTimeout=null; }
@@ -1232,6 +1301,10 @@ public final class MonitorService extends Service {
     private final BluetoothGattCallback callback=new BluetoothGattCallback() {
         private void current(BluetoothGatt source,Runnable action) { handler.post(() -> { if(source==gatt) action.run(); }); }
         @Override public void onConnectionStateChange(BluetoothGatt source,int result,int state) { current(source,() -> {
+            if(state==BluetoothProfile.STATE_DISCONNECTED && vendorRead!=null && vendorRead.historyComplete() && vendorClockAttempted && !vendorSessionEnded) {
+                if(vendorClockPending) { clockUpdate=ClockUpdate.FAILED; vendorClockResult="Clock update could not be confirmed; imported readings were retained."; }
+                finishVendorHistory(false); closeFinishedWlp(); return;
+            }
             if(state==BluetoothProfile.STATE_DISCONNECTED && vendorSessionEnded) { closeFinishedWlp(); return; }
             if(state==BluetoothProfile.STATE_DISCONNECTED && wlpConnection!=null && wlpConnection.shutdownExpected()) { closeFinishedWlp(); return; }
             if(state==BluetoothProfile.STATE_DISCONNECTED && registrationWriting) { fail("X7 disconnected before the registration END acknowledgment."); return; }

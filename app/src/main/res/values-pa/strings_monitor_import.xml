@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="monitor_time_not_updated">ਸਮਾਂ ਅੱਪਡੇਟ ਨਹੀਂ ਹੋਇਆ</string>
+    <string name="monitor_clock_skipped">ਇਹ ਬਲੱਡ ਪ੍ਰੈਸ਼ਰ ਮਾਨੀਟਰ ਆਪਣੇ ਆਪ ਸਮਾਂ ਅੱਪਡੇਟ ਕਰਨ ਦੀ ਸਹੂਲਤ ਨਹੀਂ ਦਿੰਦਾ। ਇਸ ਦਾ ਸਮਾਂ ਖੁਦ ਸੈੱਟ ਕਰੋ।</string>
+    <string name="monitor_clock_failed">ਬਲੱਡ ਪ੍ਰੈਸ਼ਰ ਮਾਨੀਟਰ ਦਾ ਸਮਾਂ ਅੱਪਡੇਟ ਨਹੀਂ ਹੋ ਸਕਿਆ। ਮਾਨੀਟਰ ਉੱਤੇ ਸਮਾਂ ਜਾਂਚੋ ਜਾਂ ਸੈੱਟ ਕਰੋ।</string>
+    <string name="monitor_session_unconfirmed">ਮਾਪ ਸੁਰੱਖਿਅਤ ਕੀਤੇ ਗਏ ਹਨ, ਪਰ ਬਲੱਡ ਪ੍ਰੈਸ਼ਰ ਮਾਨੀਟਰ ਨੇ ਡਾਟਾ ਭੇਜਣਾ ਪੂਰਾ ਹੋਣ ਦੀ ਪੁਸ਼ਟੀ ਨਹੀਂ ਕੀਤੀ। ਦੁਬਾਰਾ ਆਯਾਤ ਕਰਨ ਤੋਂ ਪਹਿਲਾਂ ਮੁੜ ਕਨੈਕਟ ਕਰੋ।</string>
+</resources>

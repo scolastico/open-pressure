@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="monitor_time_not_updated">Čas nebyl aktualizován</string>
+    <string name="monitor_clock_skipped">Tento tlakoměr nepodporuje automatickou aktualizaci času. Nastavte čas ručně.</string>
+    <string name="monitor_clock_failed">Čas tlakoměru se nepodařilo aktualizovat. Zkontrolujte nebo nastavte čas přímo na tlakoměru.</string>
+    <string name="monitor_session_unconfirmed">Měření jsou uložena, ale tlakoměr nepotvrdil dokončení přenosu. Před dalším importem se znovu připojte.</string>
+</resources>

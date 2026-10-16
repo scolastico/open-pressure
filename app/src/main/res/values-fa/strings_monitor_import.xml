@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="monitor_time_not_updated">زمان به‌روزرسانی نشد</string>
+    <string name="monitor_clock_skipped">این دستگاه فشار خون از به‌روزرسانی خودکار زمان پشتیبانی نمی‌کند. زمان آن را به‌صورت دستی تنظیم کنید.</string>
+    <string name="monitor_clock_failed">زمان دستگاه فشار خون به‌روزرسانی نشد. زمان را روی دستگاه بررسی یا تنظیم کنید.</string>
+    <string name="monitor_session_unconfirmed">اندازه‌گیری‌ها ذخیره شده‌اند، اما دستگاه فشار خون پایان انتقال را تأیید نکرد. پیش از وارد کردن دوباره، مجدداً متصل شوید.</string>
+</resources>

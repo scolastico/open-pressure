@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="monitor_time_not_updated">Ba a sabunta lokaci ba</string>
+    <string name="monitor_clock_skipped">Wannan na\'urar auna hawan jini ba ta goyan bayan sabunta lokaci ta atomatik. Saita lokacinta da hannu.</string>
+    <string name="monitor_clock_failed">Ba a iya sabunta lokacin na\'urar auna hawan jini ba. Duba ko saita lokacin a kan na\'urarka.</string>
+    <string name="monitor_session_unconfirmed">An adana ma\'aunai, amma na\'urar auna hawan jini ba ta tabbatar da cewa an gama canja bayanai ba. Sake haɗawa kafin sake shigo da ma\'aunai.</string>
+</resources>

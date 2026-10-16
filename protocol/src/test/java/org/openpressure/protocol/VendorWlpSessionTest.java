@@ -14,6 +14,7 @@ public final class VendorWlpSessionTest {
         modernSingleChannel();
         everyModelReadsEveryBank();
         failedReadAndEndStatuses();
+        clockFailureKeepsHistoryInOneSession();
         rejects(() -> new VendorWlpSession(null));
         rejects(() -> new VendorWlpSession(model("HEM-7150T"),0));
         rejects(() -> new VendorWlpSession(model("HEM-7150T"),17));
@@ -126,6 +127,32 @@ public final class VendorWlpSessionTest {
         if(!model.legacyUnlock) { check(session.accept(0,frame),"modern complete response advances"); return; }
         int parts=(frame.length+15)/16;
         for(int i=0;i<parts;i++) check(session.accept(i,Arrays.copyOfRange(frame,i*16,Math.min((i+1)*16,frame.length)))==(i==parts-1),"legacy response advances only at complete frame");
+    }
+    private static void clockFailureKeepsHistoryInOneSession() {
+        // A peer that drops Bluetooth on END must receive all history and optional work first.
+        for(int status:new int[]{0,5,-1,-2,-3}) {
+            VendorMemoryModel model=model("HEM-7156T");
+            LegacyUnlock pairing=LegacyUnlock.pair(new byte[16]);
+            for(byte[] ack:new byte[][]{hex("8200"),hex("8000"),hex("8100")}) { pairing.command(); pairing.accept(ack); }
+            check(pairing.complete(),"pairing finishes before the only history session starts");
+            VendorWlpSession session=new VendorWlpSession(model);
+            check(!session.historyComplete(),"unstarted history cannot proceed to optional work");
+            same("0800000000100018",session.command()); acceptFrame(session,model,START);
+            while(!session.historyComplete()) {
+                byte[] command=session.command();
+                check(command[1]==1,"no intermediate END or START during history");
+                acceptFrame(session,model,reply(command));
+            }
+            check(session.received()==1920 && !session.complete(),"both 7156 banks available before optional clock and END");
+            java.util.List<String> events=new java.util.ArrayList<>();
+            OperationQueue queue=new OperationQueue(error -> { throw new AssertionError(error); });
+            queue.add("clock",() -> { if(status==-3) throw new IllegalArgumentException("Rejected clock write"); return status!=-2; },() -> events.add("clock accepted"),error -> events.add("clock skipped"));
+            queue.add("end",() -> { same("080f000000000007",session.command()); acceptFrame(session,model,hex("088f000000000087")); return true; },() -> events.add("end"));
+            if(status==-1) queue.timeout("clock"); else queue.complete("clock",status);
+            queue.complete("end",0);
+            check(events.equals(java.util.List.of(status==0?"clock accepted":"clock skipped","end")),"clock errors and timeout still allow END");
+            check(session.complete() && session.data().length==1920,"clock outcome never discards imported history");
+        }
     }
     private static VendorWlpSession started() {
         VendorWlpSession s=new VendorWlpSession(model("HEM-7150T")); s.command();

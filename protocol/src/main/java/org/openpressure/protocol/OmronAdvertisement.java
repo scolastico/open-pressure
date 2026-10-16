@@ -8,6 +8,10 @@ import java.util.List;
 public final class OmronAdvertisement {
     public final boolean clockUnset, pairingMode, standardMode, streamingMode, forcedTransfer;
     public final List<User> users;
+    /** Discovery hint only; the Device Information identity still selects the protocol/map. */
+    public static boolean hasKnownName(String name) {
+        return name!=null && name.length()>9 && name.regionMatches(true,0,"BLEsmart_",0,9);
+    }
     private OmronAdvertisement(int flags,List<User> users) {
         clockUnset=(flags & 4)!=0; pairingMode=(flags & 8)!=0; standardMode=(flags & 32)!=0;
         streamingMode=(flags & 16)!=0; forcedTransfer=(flags & 64)!=0;

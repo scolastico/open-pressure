@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="monitor_time_not_updated">時刻が更新されていません</string>
+    <string name="monitor_clock_skipped">この血圧計は時刻の自動更新に対応していません。手動で時刻を設定してください。</string>
+    <string name="monitor_clock_failed">血圧計の時刻を更新できませんでした。血圧計で時刻を確認または設定してください。</string>
+    <string name="monitor_session_unconfirmed">測定値は保存されていますが、血圧計から転送完了の確認が得られませんでした。再度インポートする前に接続し直してください。</string>
+</resources>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="monitor_time_not_updated">وقت اپ ڈیٹ نہیں ہوا</string>
+    <string name="monitor_clock_skipped">یہ بلڈ پریشر مانیٹر وقت کو خودکار طور پر اپ ڈیٹ کرنے کی سہولت نہیں دیتا۔ اس کا وقت خود سیٹ کریں۔</string>
+    <string name="monitor_clock_failed">بلڈ پریشر مانیٹر کا وقت اپ ڈیٹ نہیں ہو سکا۔ مانیٹر پر وقت چیک کریں یا سیٹ کریں۔</string>
+    <string name="monitor_session_unconfirmed">پیمائشیں محفوظ ہیں، لیکن بلڈ پریشر مانیٹر نے منتقلی مکمل ہونے کی تصدیق نہیں کی۔ دوبارہ درآمد کرنے سے پہلے پھر سے جڑیں۔</string>
+</resources>
