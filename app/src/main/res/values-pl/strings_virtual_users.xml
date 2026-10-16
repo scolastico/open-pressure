@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="vp_title">Użytkownicy wirtualni</string>
+    <string name="vp_enabled">Korzystaj z wirtualnych użytkowników</string>
+    <string name="vp_intro">Twórz nazwane profile zamiast korzystać z numerów użytkowników ciśnieniomierza. Wybierz, do kogo należy każdy nowy pomiar. Gdy ta funkcja jest włączona, wymagany jest co najmniej jeden profil.</string>
+    <string name="vp_add">Dodaj użytkownika</string>
+    <string name="vp_name">Nazwa</string>
+    <string name="vp_rename">Przemianować</string>
+    <string name="vp_delete">Usuń użytkownika</string>
+    <string name="vp_delete_help">Wybierz użytkownika, który powinien otrzymać zapisane przez niego pomiary. Usunięcie użytkownika nie powoduje usunięcia pomiarów ani zmiany kopii już przesłanych gdzie indziej.</string>
+    <string name="vp_last_user">Zachowaj co najmniej jednego użytkownika.</string>
+    <string name="vp_name_invalid">Wpisz niepustą nazwę zawierającą nie więcej niż 100 znaków.</string>
+    <string name="vp_save_failed">Nie udało się zapisać tej zmiany. Spróbuj ponownie.</string>
+    <string name="vp_first_user">Utwórz pierwszego użytkownika</string>
+    <string name="vp_unassigned">Nieprzypisany</string>
+    <string name="vp_assign_title">Kto dokonał tego pomiaru?</string>
+    <string name="vp_assign_help">Wybierz użytkownika dla tego pomiaru. Pomiary oczekujące są wyświetlane od najstarszego do najnowszego. Możesz wrócić później, nie tracąc ich.</string>
+    <string name="vp_later">Później</string>
+    <string name="vp_pending_count">%1$d pomiarów czeka na użytkownika</string>
+    <string name="vp_pending_channel">Przypisz pomiary użytkownikom</string>
+    <string name="vp_pending_channel_description">Nowe pomiary, które wymagają użytkownika, zanim będą mogły zostać zapisane lub wyeksportowane.</string>
+    <string name="vp_pending_notification_title">Wybierz, kto mierzył</string>
+    <string name="vp_pending_notification_text">%1$d pomiarów zostało zapisanych i czeka na wybranie użytkownika. Kliknij, aby je przypisać.</string>
+    <string name="vp_no_pending">Wszystkie pomiary mają użytkownika.</string>
+    <string name="vp_assign_action">Przypisz oczekujące pomiary</string>
+    <string name="vp_monitor_bank">Bank pamięci monitora ciśnienia krwi %1$s</string>
+    <string name="vp_monitor_bank_hint">Bank pamięci ciśnieniomierza (1 lub 2)</string>
+    <string name="vp_health_intro">Wybierz własnego wirtualnego użytkownika przed włączeniem eksportu Health Connect. Eksportowane będą tylko pomiary przypisane temu użytkownikowi. Nieprzypisane pomiary pozostają prywatne, dopóki nie wybierzesz, kto je wykonał.</string>
+    <string name="vp_health_choose">Wybierz własnego użytkownika.</string>
+    <string name="vp_health_selected">Wybrany użytkownik: %1$s</string>
+    <string name="vp_health_summary">%1$s: %2$d wyeksportowano; %3$d pominięto.</string>
+    <string name="vp_health_history">Włączenie eksportu obejmuje kwalifikujące się zapisane odczyty przypisane do wybranego użytkownika. Pomiary oczekujące na użytkownika nie są eksportowane.</string>
+    <string name="vp_health_shared">Health Connect reprezentuje jedną osobę. Wybierz tylko własnego użytkownika. Po przełączeniu między trybem banku pamięci ciśnieniomierza a trybem użytkownika wirtualnego należy wybrać własnego użytkownika i ponownie włączyć eksport.</string>
+    <string name="vp_pending_privacy">Pomiary, które nie zostały przypisane do użytkownika, przechowywane są w tymczasowej kolejce prywatnej, nawet w trybie przekazowym. Nie są dodawane do historii pomiarów, przesyłania Health Connect ani HTTP, dopóki ich nie przypiszesz.</string>
+    <string name="vp_mode_change_help">Istniejąca historia pomiarów zostaje zachowana. Wcześniej zapisane pomiary bez użytkownika wirtualnego są wyświetlane jako nieprzypisane. Wyłączenie tej funkcji powoduje zachowanie zarówno oczekujących pomiarów, jak i nazwanych profili.</string>
+    <string name="vp_delete_confirm">Usunąć %1$s?</string>
+</resources>

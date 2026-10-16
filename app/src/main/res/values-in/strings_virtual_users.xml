@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="vp_title">Pengguna maya</string>
+    <string name="vp_enabled">Gunakan pengguna virtual</string>
+    <string name="vp_intro">Buat profil bernama alih-alih menggunakan nomor pengguna monitor tekanan darah. Pilih milik siapa setiap pengukuran baru. Setidaknya satu profil diperlukan saat fitur ini diaktifkan.</string>
+    <string name="vp_add">Tambahkan pengguna</string>
+    <string name="vp_name">Nama</string>
+    <string name="vp_rename">Ganti nama</string>
+    <string name="vp_delete">Hapus pengguna</string>
+    <string name="vp_delete_help">Pilih pengguna yang akan menerima pengukuran tersimpan pengguna ini. Menghapus pengguna tidak menghapus pengukuran atau mengubah salinan yang telah dikirim ke tempat lain.</string>
+    <string name="vp_last_user">Pertahankan setidaknya satu pengguna.</string>
+    <string name="vp_name_invalid">Masukkan nama yang tidak kosong, maksimal 100 karakter.</string>
+    <string name="vp_save_failed">Tidak dapat menyimpan perubahan ini. Coba lagi.</string>
+    <string name="vp_first_user">Buat pengguna pertama Anda</string>
+    <string name="vp_unassigned">Belum ditetapkan</string>
+    <string name="vp_assign_title">Siapa yang melakukan pengukuran ini?</string>
+    <string name="vp_assign_help">Pilih pengguna untuk pengukuran ini. Pengukuran yang tertunda ditampilkan dari yang terlama hingga terbaru. Anda dapat kembali lagi nanti tanpa kehilangannya.</string>
+    <string name="vp_later">Nanti</string>
+    <string name="vp_pending_count">%1$d pengukuran menunggu pengguna</string>
+    <string name="vp_pending_channel">Tetapkan pengukuran kepada pengguna</string>
+    <string name="vp_pending_channel_description">Pengukuran baru yang dibutuhkan pengguna sebelum dapat diarsipkan atau diekspor.</string>
+    <string name="vp_pending_notification_title">Pilih siapa yang mengukur</string>
+    <string name="vp_pending_notification_text">%1$d pengukuran disimpan dan menunggu Anda memilih pengguna. Ketuk untuk menetapkannya.</string>
+    <string name="vp_no_pending">Semua pengukuran memiliki pengguna.</string>
+    <string name="vp_assign_action">Tetapkan pengukuran yang tertunda</string>
+    <string name="vp_monitor_bank">Bank memori monitor tekanan darah %1$s</string>
+    <string name="vp_monitor_bank_hint">Bank memori monitor tekanan darah (1 atau 2)</string>
+    <string name="vp_health_intro">Pilih pengguna virtual Anda sendiri sebelum mengaktifkan ekspor Health Connect. Hanya pengukuran yang ditetapkan untuk pengguna tersebut yang akan diekspor. Pengukuran yang belum ditetapkan tetap bersifat pribadi sampai Anda memilih siapa yang melakukannya.</string>
+    <string name="vp_health_choose">Pilih pengguna Anda sendiri.</string>
+    <string name="vp_health_selected">Pengguna terpilih: %1$s</string>
+    <string name="vp_health_summary">%1$s: %2$d diekspor; %3$d dilewati.</string>
+    <string name="vp_health_history">Mengaktifkan ekspor mencakup bacaan tersimpan yang memenuhi syarat yang diberikan kepada pengguna yang dipilih. Pengukuran yang menunggu pengguna tidak diekspor.</string>
+    <string name="vp_health_shared">Health Connect mewakili satu orang. Pilih hanya pengguna Anda sendiri. Saat Anda beralih antara mode bank memori monitor tekanan darah dan mode pengguna virtual, Anda harus memilih pengguna Anda sendiri dan mengaktifkan ekspor lagi.</string>
+    <string name="vp_pending_privacy">Pengukuran yang belum ditetapkan ke pengguna disimpan dalam antrian pribadi sementara, bahkan dalam mode passthrough. Data tersebut tidak ditambahkan ke riwayat pengukuran, Health Connect, atau unggahan HTTP hingga Anda menetapkannya.</string>
+    <string name="vp_mode_change_help">Riwayat pengukuran yang ada disimpan. Pengukuran yang disimpan sebelumnya tanpa pengguna virtual ditampilkan sebagai belum ditetapkan. Menonaktifkan fitur ini akan mempertahankan pengukuran yang tertunda dan profil yang Anda beri nama.</string>
+    <string name="vp_delete_confirm">Hapus %1$s?</string>
+</resources>

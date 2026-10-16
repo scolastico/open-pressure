@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="vp_title">ምናባዊ ተጠቃሚዎች</string>
+    <string name="vp_enabled">ምናባዊ ተጠቃሚዎችን ተጠቀም</string>
+    <string name="vp_intro">የደም ግፊት መቆጣጠሪያውን የተጠቃሚ ቁጥሮች ከመጠቀም ይልቅ የተሰየሙ መገለጫዎችን ይፍጠሩ። እያንዳንዱ አዲስ መለኪያ የማን እንደሆነ ይምረጡ። ይህ ባህሪ ሲነቃ ቢያንስ አንድ መገለጫ ያስፈልጋል።</string>
+    <string name="vp_add">ተጠቃሚ አክል</string>
+    <string name="vp_name">ስም</string>
+    <string name="vp_rename">እንደገና ይሰይሙ</string>
+    <string name="vp_delete">ተጠቃሚን ያስወግዱ</string>
+    <string name="vp_delete_help">የዚህን ተጠቃሚ የተቀመጡ መለኪያዎች መቀበል ያለበትን ተጠቃሚ ይምረጡ። ተጠቃሚን ማስወገድ መለኪያዎችን አይሰርዝም ወይም ቀደም ሲል ወደ ሌላ ቦታ የተላኩ ቅጂዎችን አይቀይርም።</string>
+    <string name="vp_last_user">ቢያንስ አንድ ተጠቃሚ ያቆዩ።</string>
+    <string name="vp_name_invalid">ከ100 ቁምፊዎች የማይበልጥ ባዶ ያልሆነ ስም ያስገቡ።</string>
+    <string name="vp_save_failed">ይህን ለውጥ ማስቀመጥ አልተቻለም። እንደገና ይሞክሩ።</string>
+    <string name="vp_first_user">የመጀመሪያ ተጠቃሚዎን ይፍጠሩ</string>
+    <string name="vp_unassigned">ያልተመደበ</string>
+    <string name="vp_assign_title">ይህን መለኪያ ማን ወሰደ?</string>
+    <string name="vp_assign_help">ለዚህ መለኪያ ተጠቃሚ ይምረጡ። በመጠባበቅ ላይ ያሉ መለኪያዎች ከአሮጌው እስከ አዲሱ ይታያሉ። በኋላ ላይ ሳይጠፉ መመለስ ይችላሉ።</string>
+    <string name="vp_later">በኋላ</string>
+    <string name="vp_pending_count">%1$d መለኪያዎች ተጠቃሚን እየጠበቁ ናቸው።</string>
+    <string name="vp_pending_channel">መለኪያዎችን ለተጠቃሚዎች መድብ</string>
+    <string name="vp_pending_channel_description">ከመመዝገብ ወይም ወደ ውጭ ከመላክ በፊት ተጠቃሚ የሚያስፈልጋቸው አዳዲስ መለኪያዎች።</string>
+    <string name="vp_pending_notification_title">ማን እንደለካ ይምረጡ</string>
+    <string name="vp_pending_notification_text">%1$d መለኪያዎች ተቀምጠው ተጠቃሚ እንድትመርጡ እየጠበቁ ናቸው። እነሱን ለመመደብ መታ ያድርጉ።</string>
+    <string name="vp_no_pending">ሁሉም መለኪያዎች ተጠቃሚ አላቸው።</string>
+    <string name="vp_assign_action">በመጠባበቅ ላይ ያሉ መለኪያዎችን ይመድቡ</string>
+    <string name="vp_monitor_bank">የደም ግፊት መቆጣጠሪያ ሚሞሪ ባንክ %1$s</string>
+    <string name="vp_monitor_bank_hint">የደም ግፊት መቆጣጠሪያ ማህደረ ትውስታ ባንክ (1 ወይም 2)</string>
+    <string name="vp_health_intro">Health Connect ወደ ውጭ መላክ ከማንቃትዎ በፊት የራስዎን ምናባዊ ተጠቃሚ ይምረጡ። ለዚያ ተጠቃሚ የተመደቡ ልኬቶች ብቻ ወደ ውጭ ይላካሉ። ማን እንደወሰዳቸው እስኪመርጡ ድረስ ያልተመደቡ መለኪያዎች ግላዊ እንደሆኑ ይቆያሉ።</string>
+    <string name="vp_health_choose">የራስዎን ተጠቃሚ ይምረጡ።</string>
+    <string name="vp_health_selected">የተመረጠ ተጠቃሚ፡ %1$s</string>
+    <string name="vp_health_summary">%1$s፡ %2$d ወደ ውጭ ተልኳል; %3$d ተዘሏል</string>
+    <string name="vp_health_history">ወደ ውጭ መላክን ማንቃት ለተመረጠው ተጠቃሚ የተመደቡ የተቀመጡ ንባቦችን ያካትታል። ተጠቃሚን በመጠባበቅ ላይ ያሉ መለኪያዎች ወደ ውጭ አይላኩም።</string>
+    <string name="vp_health_shared">Health Connect አንድን ሰው ይወክላል። የራስዎን ተጠቃሚ ብቻ ይምረጡ። በደም ግፊት መቆጣጠሪያ ሜሞሪ-ባንክ ሁነታ እና በቨርቹዋል ተጠቃሚ ሁነታ መካከል ሲቀያየሩ የራስዎን ተጠቃሚ መርጠው ወደ ውጭ መላክ እንደገና ማንቃት አለብዎት።</string>
+    <string name="vp_pending_privacy">ለተጠቃሚ ያልተመደቡ መለኪያዎች በጊዜያዊ የግል ወረፋ ውስጥ ይቀመጣሉ፣ በማለፍ ሁነታም ቢሆን። እስክትመድቧቸው ድረስ ወደ ልኬት ታሪክ፣ Health Connect ወይም HTTP ሰቀላዎች አይታከሉም።</string>
+    <string name="vp_mode_change_help">ነባር የመለኪያ ታሪክ ተቀምጧል። ያለ ምናባዊ ተጠቃሚ ከዚህ ቀደም የተቀመጡ ልኬቶች ያልተመደቡ ሆነው ይታያሉ። ይህን ባህሪ ማጥፋት ሁለቱንም በመጠባበቅ ላይ ያሉትን መለኪያዎች እና የተሰየሙ መገለጫዎችን ይጠብቃል።</string>
+    <string name="vp_delete_confirm">%1$s ይወገድ?</string>
+</resources>

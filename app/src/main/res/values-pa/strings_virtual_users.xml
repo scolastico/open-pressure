@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="vp_title">ਵਰਚੁਅਲ ਉਪਭੋਗਤਾ</string>
+    <string name="vp_enabled">ਵਰਚੁਅਲ ਉਪਭੋਗਤਾਵਾਂ ਦੀ ਵਰਤੋਂ ਕਰੋ</string>
+    <string name="vp_intro">ਬਲੱਡ ਪ੍ਰੈਸ਼ਰ ਮਾਨੀਟਰ ਦੇ ਉਪਭੋਗਤਾ ਨੰਬਰਾਂ ਦੀ ਵਰਤੋਂ ਕਰਨ ਦੀ ਬਜਾਏ ਨਾਮਿਤ ਪ੍ਰੋਫਾਈਲ ਬਣਾਓ। ਚੁਣੋ ਕਿ ਹਰੇਕ ਨਵਾਂ ਮਾਪ ਕਿਸ ਨਾਲ ਸਬੰਧਤ ਹੈ। ਇਸ ਵਿਸ਼ੇਸ਼ਤਾ ਦੇ ਸਮਰੱਥ ਹੋਣ \'ਤੇ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਪ੍ਰੋਫਾਈਲ ਦੀ ਲੋੜ ਹੁੰਦੀ ਹੈ।</string>
+    <string name="vp_add">ਉਪਭੋਗਤਾ ਸ਼ਾਮਲ ਕਰੋ</string>
+    <string name="vp_name">ਨਾਮ</string>
+    <string name="vp_rename">ਨਾਮ ਬਦਲੋ</string>
+    <string name="vp_delete">ਉਪਭੋਗਤਾ ਨੂੰ ਹਟਾਓ</string>
+    <string name="vp_delete_help">ਉਹ ਉਪਭੋਗਤਾ ਚੁਣੋ ਜਿਸਨੂੰ ਇਸ ਉਪਭੋਗਤਾ ਦੇ ਸੁਰੱਖਿਅਤ ਕੀਤੇ ਮਾਪ ਪ੍ਰਾਪਤ ਕਰਨੇ ਚਾਹੀਦੇ ਹਨ। ਕਿਸੇ ਉਪਭੋਗਤਾ ਨੂੰ ਹਟਾਉਣਾ ਮਾਪਾਂ ਨੂੰ ਨਹੀਂ ਮਿਟਾਉਂਦਾ ਹੈ ਜਾਂ ਪਹਿਲਾਂ ਤੋਂ ਕਿਤੇ ਹੋਰ ਭੇਜੀਆਂ ਗਈਆਂ ਕਾਪੀਆਂ ਨੂੰ ਨਹੀਂ ਬਦਲਦਾ ਹੈ।</string>
+    <string name="vp_last_user">ਘੱਟੋ-ਘੱਟ ਇੱਕ ਉਪਭੋਗਤਾ ਰੱਖੋ।</string>
+    <string name="vp_name_invalid">100 ਤੋਂ ਵੱਧ ਅੱਖਰਾਂ ਦਾ ਇੱਕ ਗੈਰ-ਖਾਲੀ ਨਾਮ ਦਰਜ ਕਰੋ।</string>
+    <string name="vp_save_failed">ਇਸ ਤਬਦੀਲੀ ਨੂੰ ਸੁਰੱਖਿਅਤ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਿਆ। ਫਿਰ ਕੋਸ਼ਿਸ਼ ਕਰੋ.</string>
+    <string name="vp_first_user">ਆਪਣਾ ਪਹਿਲਾ ਉਪਭੋਗਤਾ ਬਣਾਓ</string>
+    <string name="vp_unassigned">ਅਸਾਈਨ ਨਹੀਂ ਕੀਤਾ ਗਿਆ</string>
+    <string name="vp_assign_title">ਇਹ ਮਾਪ ਕਿਸਨੇ ਲਿਆ?</string>
+    <string name="vp_assign_help">ਇਸ ਮਾਪ ਲਈ ਇੱਕ ਉਪਭੋਗਤਾ ਚੁਣੋ। ਬਕਾਇਆ ਮਾਪ ਸਭ ਤੋਂ ਪੁਰਾਣੇ ਤੋਂ ਨਵੇਂ ਤੱਕ ਦਿਖਾਏ ਗਏ ਹਨ। ਤੁਸੀਂ ਬਾਅਦ ਵਿੱਚ ਉਹਨਾਂ ਨੂੰ ਗੁਆਏ ਬਿਨਾਂ ਵਾਪਸ ਆ ਸਕਦੇ ਹੋ।</string>
+    <string name="vp_later">ਬਾਅਦ ਵਿੱਚ</string>
+    <string name="vp_pending_count">%1$d ਮਾਪ ਇੱਕ ਉਪਭੋਗਤਾ ਦੀ ਉਡੀਕ ਕਰ ਰਿਹਾ ਹੈ</string>
+    <string name="vp_pending_channel">ਉਪਭੋਗਤਾਵਾਂ ਨੂੰ ਮਾਪ ਨਿਰਧਾਰਤ ਕਰੋ</string>
+    <string name="vp_pending_channel_description">ਨਵੇਂ ਮਾਪ ਜਿਨ੍ਹਾਂ ਨੂੰ ਫਾਈਲ ਜਾਂ ਨਿਰਯਾਤ ਕੀਤੇ ਜਾਣ ਤੋਂ ਪਹਿਲਾਂ ਉਪਭੋਗਤਾ ਦੀ ਲੋੜ ਹੁੰਦੀ ਹੈ।</string>
+    <string name="vp_pending_notification_title">ਚੁਣੋ ਕਿ ਕਿਸ ਨੇ ਮਾਪਿਆ ਹੈ</string>
+    <string name="vp_pending_notification_text">%1$d ਮਾਪ ਸੁਰੱਖਿਅਤ ਕੀਤੇ ਗਏ ਹਨ ਅਤੇ ਤੁਹਾਡੇ ਦੁਆਰਾ ਉਪਭੋਗਤਾ ਚੁਣਨ ਦੀ ਉਡੀਕ ਕਰ ਰਹੇ ਹਨ। ਉਹਨਾਂ ਨੂੰ ਜ਼ਿੰਮੇ ਲਗਾਉਣ ਲਈ ਟੈਪ ਕਰੋ।</string>
+    <string name="vp_no_pending">ਸਾਰੇ ਮਾਪਾਂ ਦਾ ਇੱਕ ਉਪਭੋਗਤਾ ਹੁੰਦਾ ਹੈ।</string>
+    <string name="vp_assign_action">ਬਕਾਇਆ ਮਾਪ ਨਿਰਧਾਰਤ ਕਰੋ</string>
+    <string name="vp_monitor_bank">ਬਲੱਡ ਪ੍ਰੈਸ਼ਰ ਮਾਨੀਟਰ ਮੈਮੋਰੀ ਬੈਂਕ %1$s</string>
+    <string name="vp_monitor_bank_hint">ਬਲੱਡ ਪ੍ਰੈਸ਼ਰ ਮਾਨੀਟਰ ਮੈਮੋਰੀ ਬੈਂਕ (1 ਜਾਂ 2)</string>
+    <string name="vp_health_intro">Health Connect ਨਿਰਯਾਤ ਨੂੰ ਸਮਰੱਥ ਕਰਨ ਤੋਂ ਪਹਿਲਾਂ ਆਪਣਾ ਖੁਦ ਦਾ ਵਰਚੁਅਲ ਉਪਭੋਗਤਾ ਚੁਣੋ। ਸਿਰਫ਼ ਉਸ ਉਪਭੋਗਤਾ ਲਈ ਨਿਰਧਾਰਤ ਮਾਪ ਨਿਰਯਾਤ ਕੀਤੇ ਜਾਣਗੇ। ਅਸਾਈਨ ਕੀਤੇ ਮਾਪ ਉਦੋਂ ਤੱਕ ਨਿੱਜੀ ਰਹਿੰਦੇ ਹਨ ਜਦੋਂ ਤੱਕ ਤੁਸੀਂ ਇਹ ਨਹੀਂ ਚੁਣਦੇ ਕਿ ਉਹਨਾਂ ਨੂੰ ਕਿਸ ਨੇ ਲਿਆ ਹੈ।</string>
+    <string name="vp_health_choose">ਆਪਣਾ ਖੁਦ ਦਾ ਉਪਭੋਗਤਾ ਚੁਣੋ।</string>
+    <string name="vp_health_selected">ਚੁਣਿਆ ਗਿਆ ਉਪਭੋਗਤਾ: %1$s</string>
+    <string name="vp_health_summary">%1$s: %2$d ਨਿਰਯਾਤ ਕੀਤਾ ਗਿਆ; %3$d ਛੱਡਿਆ ਗਿਆ।</string>
+    <string name="vp_health_history">ਨਿਰਯਾਤ ਨੂੰ ਸਮਰੱਥ ਕਰਨ ਵਿੱਚ ਚੁਣੇ ਗਏ ਉਪਭੋਗਤਾ ਨੂੰ ਨਿਰਧਾਰਤ ਕੀਤੇ ਗਏ ਯੋਗ ਸੁਰੱਖਿਅਤ ਰੀਡਿੰਗ ਸ਼ਾਮਲ ਹੁੰਦੇ ਹਨ। ਉਪਭੋਗਤਾ ਦੀ ਉਡੀਕ ਕਰਨ ਵਾਲੇ ਮਾਪ ਨਿਰਯਾਤ ਨਹੀਂ ਕੀਤੇ ਜਾਂਦੇ ਹਨ।</string>
+    <string name="vp_health_shared">Health Connect ਇੱਕ ਵਿਅਕਤੀ ਨੂੰ ਦਰਸਾਉਂਦਾ ਹੈ। ਸਿਰਫ਼ ਆਪਣੇ ਖੁਦ ਦੇ ਉਪਭੋਗਤਾ ਚੁਣੋ। ਜਦੋਂ ਤੁਸੀਂ ਬਲੱਡ ਪ੍ਰੈਸ਼ਰ ਮਾਨੀਟਰ ਮੈਮੋਰੀ-ਬੈਂਕ ਮੋਡ ਅਤੇ ਵਰਚੁਅਲ-ਯੂਜ਼ਰ ਮੋਡ ਵਿਚਕਾਰ ਸਵਿਚ ਕਰਦੇ ਹੋ, ਤਾਂ ਤੁਹਾਨੂੰ ਆਪਣੇ ਖੁਦ ਦੇ ਉਪਭੋਗਤਾ ਦੀ ਚੋਣ ਕਰਨੀ ਚਾਹੀਦੀ ਹੈ ਅਤੇ ਨਿਰਯਾਤ ਨੂੰ ਦੁਬਾਰਾ ਚਾਲੂ ਕਰਨਾ ਚਾਹੀਦਾ ਹੈ।</string>
+    <string name="vp_pending_privacy">ਉਹ ਮਾਪ ਜੋ ਕਿਸੇ ਉਪਭੋਗਤਾ ਨੂੰ ਨਿਰਧਾਰਤ ਨਹੀਂ ਕੀਤੇ ਗਏ ਹਨ, ਇੱਕ ਅਸਥਾਈ ਨਿੱਜੀ ਕਤਾਰ ਵਿੱਚ ਰੱਖੇ ਜਾਂਦੇ ਹਨ, ਇੱਥੋਂ ਤੱਕ ਕਿ ਪਾਸਥਰੂ ਮੋਡ ਵਿੱਚ ਵੀ। ਉਹਨਾਂ ਨੂੰ ਮਾਪ ਇਤਿਹਾਸ, Health Connect ਜਾਂ HTTP ਅੱਪਲੋਡਾਂ ਵਿੱਚ ਸ਼ਾਮਲ ਨਹੀਂ ਕੀਤਾ ਜਾਂਦਾ ਹੈ ਜਦੋਂ ਤੱਕ ਤੁਸੀਂ ਉਹਨਾਂ ਨੂੰ ਅਸਾਈਨ ਨਹੀਂ ਕਰਦੇ।</string>
+    <string name="vp_mode_change_help">ਮੌਜੂਦਾ ਮਾਪ ਇਤਿਹਾਸ ਰੱਖਿਆ ਗਿਆ ਹੈ। ਵਰਚੁਅਲ ਉਪਭੋਗਤਾ ਤੋਂ ਬਿਨਾਂ ਪਹਿਲਾਂ ਸੁਰੱਖਿਅਤ ਕੀਤੇ ਮਾਪਾਂ ਨੂੰ ਅਸਾਈਨ ਨਾ ਕੀਤੇ ਵਜੋਂ ਦਿਖਾਇਆ ਗਿਆ ਹੈ। ਇਸ ਵਿਸ਼ੇਸ਼ਤਾ ਨੂੰ ਬੰਦ ਕਰਨ ਨਾਲ ਲੰਬਿਤ ਮਾਪ ਅਤੇ ਤੁਹਾਡੇ ਨਾਮਿਤ ਪ੍ਰੋਫਾਈਲਾਂ ਦੋਵਾਂ ਨੂੰ ਸੁਰੱਖਿਅਤ ਰੱਖਿਆ ਜਾਵੇਗਾ।</string>
+    <string name="vp_delete_confirm">ਕੀ %1$s ਨੂੰ ਹਟਾਉਣਾ ਹੈ?</string>
+</resources>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="vp_title">Pengguna maya</string>
+    <string name="vp_enabled">Gunakan pengguna maya</string>
+    <string name="vp_intro">Buat profil bernama dan bukannya menggunakan nombor pengguna monitor tekanan darah. Pilih milik siapa setiap ukuran baharu. Sekurang-kurangnya satu profil diperlukan semasa ciri ini didayakan.</string>
+    <string name="vp_add">Tambah pengguna</string>
+    <string name="vp_name">Nama</string>
+    <string name="vp_rename">Namakan semula</string>
+    <string name="vp_delete">Alih keluar pengguna</string>
+    <string name="vp_delete_help">Pilih pengguna yang sepatutnya menerima ukuran yang disimpan pengguna ini. Mengalih keluar pengguna tidak memadamkan ukuran atau menukar salinan yang telah dihantar ke tempat lain.</string>
+    <string name="vp_last_user">Simpan sekurang-kurangnya seorang pengguna.</string>
+    <string name="vp_name_invalid">Masukkan nama tidak kosong tidak lebih daripada 100 aksara.</string>
+    <string name="vp_save_failed">Tidak dapat menyimpan perubahan ini. Cuba lagi.</string>
+    <string name="vp_first_user">Buat pengguna pertama anda</string>
+    <string name="vp_unassigned">Tidak ditugaskan</string>
+    <string name="vp_assign_title">Siapa yang mengambil ukuran ini?</string>
+    <string name="vp_assign_help">Pilih pengguna untuk ukuran ini. Pengukuran belum selesai ditunjukkan daripada yang paling lama kepada yang terbaru. Anda boleh kembali kemudian tanpa kehilangan mereka.</string>
+    <string name="vp_later">Nanti</string>
+    <string name="vp_pending_count">%1$d ukuran menunggu pengguna</string>
+    <string name="vp_pending_channel">Berikan ukuran kepada pengguna</string>
+    <string name="vp_pending_channel_description">Ukuran baharu yang memerlukan pengguna sebelum boleh difailkan atau dieksport.</string>
+    <string name="vp_pending_notification_title">Pilih siapa yang mengukur</string>
+    <string name="vp_pending_notification_text">%1$d ukuran disimpan dan menunggu anda memilih pengguna. Ketik untuk menetapkan mereka.</string>
+    <string name="vp_no_pending">Semua ukuran mempunyai pengguna.</string>
+    <string name="vp_assign_action">Tetapkan ukuran yang belum selesai</string>
+    <string name="vp_monitor_bank">Bank memori monitor tekanan darah %1$s</string>
+    <string name="vp_monitor_bank_hint">Bank memori monitor tekanan darah (1 atau 2)</string>
+    <string name="vp_health_intro">Pilih pengguna maya anda sendiri sebelum mendayakan eksport Health Connect. Hanya ukuran yang ditetapkan untuk pengguna tersebut akan dieksport. Ukuran yang tidak ditetapkan kekal peribadi sehingga anda memilih siapa yang mengambilnya.</string>
+    <string name="vp_health_choose">Pilih pengguna anda sendiri.</string>
+    <string name="vp_health_selected">Pengguna terpilih: %1$s</string>
+    <string name="vp_health_summary">%1$s: %2$d dieksport; %3$d dilangkau.</string>
+    <string name="vp_health_history">Mendayakan eksport termasuk bacaan tersimpan yang layak yang diberikan kepada pengguna yang dipilih. Pengukuran yang menunggu pengguna tidak dieksport.</string>
+    <string name="vp_health_shared">Health Connect mewakili satu orang. Pilih hanya pengguna anda sendiri. Apabila anda bertukar antara mod bank memori monitor tekanan darah dan mod pengguna maya, anda mesti memilih pengguna anda sendiri dan mendayakan eksport semula.</string>
+    <string name="vp_pending_privacy">Ukuran yang belum diberikan kepada pengguna disimpan dalam baris gilir peribadi sementara, walaupun dalam mod laluan. Ia tidak ditambahkan pada sejarah pengukuran, muat naik Health Connect atau HTTP sehingga anda menetapkannya.</string>
+    <string name="vp_mode_change_help">Sejarah pengukuran sedia ada disimpan. Ukuran yang disimpan sebelum ini tanpa pengguna maya ditunjukkan sebagai tidak ditetapkan. Mematikan ciri ini mengekalkan kedua-dua ukuran yang belum selesai dan profil anda yang dinamakan.</string>
+    <string name="vp_delete_confirm">Alih keluar %1$s?</string>
+</resources>

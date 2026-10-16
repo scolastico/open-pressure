@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="vp_title">आभासी उपयोगकर्ता</string>
+    <string name="vp_enabled">आभासी उपयोगकर्ताओं का प्रयोग करें</string>
+    <string name="vp_intro">ब्लड प्रेशर मॉनिटर के उपयोगकर्ता नंबरों का उपयोग करने के बजाय नामित प्रोफ़ाइल बनाएं। चुनें कि प्रत्येक नया माप किसका है। यह सुविधा सक्षम होने पर कम से कम एक प्रोफ़ाइल आवश्यक है।</string>
+    <string name="vp_add">उपयोगकर्ता जोड़ें</string>
+    <string name="vp_name">नाम</string>
+    <string name="vp_rename">नाम बदलें</string>
+    <string name="vp_delete">उपयोगकर्ता को हटाएँ</string>
+    <string name="vp_delete_help">वह उपयोगकर्ता चुनें जिसे इस उपयोगकर्ता के सहेजे गए माप प्राप्त होने चाहिए। किसी उपयोगकर्ता को हटाने से माप नहीं हटते हैं या पहले से कहीं और भेजी गई प्रतियों में परिवर्तन नहीं होता है।</string>
+    <string name="vp_last_user">कम से कम एक उपयोगकर्ता रखें.</string>
+    <string name="vp_name_invalid">100 अक्षरों से अधिक का गैर-रिक्त नाम दर्ज करें।</string>
+    <string name="vp_save_failed">इस परिवर्तन को सहेजा नहीं जा सका. पुनः प्रयास करें।</string>
+    <string name="vp_first_user">अपना पहला उपयोगकर्ता बनाएं</string>
+    <string name="vp_unassigned">सौंपे नहीं गए</string>
+    <string name="vp_assign_title">यह माप किसने लिया?</string>
+    <string name="vp_assign_help">इस माप के लिए एक उपयोगकर्ता चुनें. लंबित माप सबसे पुराने से नवीनतम तक दिखाए गए हैं। आप उन्हें खोए बिना बाद में वापस आ सकते हैं।</string>
+    <string name="vp_later">बाद में</string>
+    <string name="vp_pending_count">%1$d माप उपयोगकर्ता की प्रतीक्षा कर रहे हैं</string>
+    <string name="vp_pending_channel">उपयोगकर्ताओं को माप निर्दिष्ट करें</string>
+    <string name="vp_pending_channel_description">नए माप जिन्हें फ़ाइल करने या निर्यात करने से पहले उपयोगकर्ता की आवश्यकता होती है।</string>
+    <string name="vp_pending_notification_title">चुनें कि किसने माप किया</string>
+    <string name="vp_pending_notification_text">%1$d माप सहेजे गए हैं और आपके उपयोगकर्ता चुनने की प्रतीक्षा कर रहे हैं। उन्हें असाइन करने के लिए टैप करें.</string>
+    <string name="vp_no_pending">सभी मापों का एक उपयोगकर्ता होता है.</string>
+    <string name="vp_assign_action">लंबित माप निर्दिष्ट करें</string>
+    <string name="vp_monitor_bank">ब्लड प्रेशर मॉनिटर मेमोरी बैंक %1$s</string>
+    <string name="vp_monitor_bank_hint">ब्लड प्रेशर मॉनिटर मेमोरी बैंक (1 या 2)</string>
+    <string name="vp_health_intro">Health Connect निर्यात सक्षम करने से पहले अपना स्वयं का वर्चुअल उपयोगकर्ता चुनें। केवल उस उपयोगकर्ता के लिए निर्दिष्ट माप निर्यात किए जाएंगे। बिना निर्दिष्ट माप तब तक निजी रहते हैं जब तक आप यह नहीं चुन लेते कि उन्हें किसने लिया।</string>
+    <string name="vp_health_choose">अपना स्वयं का उपयोगकर्ता चुनें.</string>
+    <string name="vp_health_selected">चयनित उपयोगकर्ता: %1$s</string>
+    <string name="vp_health_summary">%1$s: %2$d निर्यात किया गया; %3$d छोड़ दिया गया.</string>
+    <string name="vp_health_history">निर्यात को सक्षम करने में चयनित उपयोगकर्ता को निर्दिष्ट योग्य सहेजे गए रीडिंग शामिल हैं। उपयोगकर्ता के लिए प्रतीक्षारत माप निर्यात नहीं किए जाते हैं.</string>
+    <string name="vp_health_shared">Health Connect एक व्यक्ति का प्रतिनिधित्व करता है। केवल अपना उपयोगकर्ता चुनें. जब आप ब्लड प्रेशर मॉनिटर मेमोरी-बैंक मोड और वर्चुअल-यूज़र मोड के बीच स्विच करते हैं, तो आपको अपना स्वयं का उपयोगकर्ता चुनना होगा और निर्यात को फिर से सक्षम करना होगा।</string>
+    <string name="vp_pending_privacy">जो माप किसी उपयोगकर्ता को नहीं सौंपे गए हैं, उन्हें अस्थायी निजी कतार में रखा जाता है, यहां तक ​​कि पासथ्रू मोड में भी। जब तक आप उन्हें असाइन नहीं करते तब तक उन्हें माप इतिहास, Health Connect या HTTP अपलोड में नहीं जोड़ा जाता है।</string>
+    <string name="vp_mode_change_help">मौजूदा माप इतिहास रखा जाता है. वर्चुअल उपयोगकर्ता के बिना पहले से सहेजे गए मापों को अनअसाइन्ड के रूप में दिखाया गया है। इस सुविधा को बंद करने से लंबित माप और आपके नामित प्रोफ़ाइल दोनों सुरक्षित रहते हैं।</string>
+    <string name="vp_delete_confirm">%1$s हटाएं?</string>
+</resources>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="vp_title">Utenti virtuali</string>
+    <string name="vp_enabled">Utilizza utenti virtuali</string>
+    <string name="vp_intro">Crea profili con nome invece di utilizzare i numeri utente del misuratore di pressione sanguigna. Scegli a chi appartiene ogni nuova misurazione. È richiesto almeno un profilo mentre questa funzionalità è abilitata.</string>
+    <string name="vp_add">Aggiungi utente</string>
+    <string name="vp_name">Nome</string>
+    <string name="vp_rename">Rinominare</string>
+    <string name="vp_delete">Rimuovi utente</string>
+    <string name="vp_delete_help">Scegli l\'utente che dovrà ricevere le misurazioni salvate di questo utente. La rimozione di un utente non elimina le misurazioni né modifica le copie già inviate altrove.</string>
+    <string name="vp_last_user">Mantieni almeno un utente.</string>
+    <string name="vp_name_invalid">Immettere un nome non vuoto di non più di 100 caratteri.</string>
+    <string name="vp_save_failed">Impossibile salvare questa modifica. Riprova.</string>
+    <string name="vp_first_user">Crea il tuo primo utente</string>
+    <string name="vp_unassigned">Non assegnato</string>
+    <string name="vp_assign_title">Chi ha effettuato questa misurazione?</string>
+    <string name="vp_assign_help">Scegli un utente per questa misurazione. Le misurazioni in sospeso vengono visualizzate dalla più vecchia alla più recente. Puoi tornare più tardi senza perderli.</string>
+    <string name="vp_later">Dopo</string>
+    <string name="vp_pending_count">%1$d misurazioni in attesa di un utente</string>
+    <string name="vp_pending_channel">Assegnare le misurazioni agli utenti</string>
+    <string name="vp_pending_channel_description">Nuove misurazioni che necessitano di un utente prima di poter essere archiviate o esportate.</string>
+    <string name="vp_pending_notification_title">Scegli chi ha misurato</string>
+    <string name="vp_pending_notification_text">%1$d misurazioni sono salvate e aspettano che tu scelga un utente. Tocca per assegnarli.</string>
+    <string name="vp_no_pending">Tutte le misurazioni hanno un utente.</string>
+    <string name="vp_assign_action">Assegnare le misurazioni in sospeso</string>
+    <string name="vp_monitor_bank">Banco di memoria del monitor della pressione arteriosa %1$s</string>
+    <string name="vp_monitor_bank_hint">Banco di memoria del misuratore di pressione arteriosa (1 o 2)</string>
+    <string name="vp_health_intro">Scegli il tuo utente virtuale prima di abilitare l\'esportazione Health Connect. Verranno esportate solo le misurazioni assegnate per quell\'utente. Le misurazioni non assegnate rimangono private finché non scegli chi le ha effettuate.</string>
+    <string name="vp_health_choose">Scegli il tuo utente.</string>
+    <string name="vp_health_selected">Utente selezionato: %1$s</string>
+    <string name="vp_health_summary">%1$s: %2$d esportato; %3$d saltato.</string>
+    <string name="vp_health_history">L\'abilitazione dell\'esportazione include le letture salvate idonee assegnate all\'utente selezionato. Le misurazioni in attesa di un utente non vengono esportate.</string>
+    <string name="vp_health_shared">Health Connect rappresenta una persona. Scegli solo il tuo utente. Quando si passa dalla modalità banco di memoria del misuratore di pressione arteriosa alla modalità utente virtuale, è necessario selezionare il proprio utente e abilitare nuovamente l\'esportazione.</string>
+    <string name="vp_pending_privacy">Le misurazioni non ancora assegnate a un utente restano in una coda privata temporanea, anche in modalità passthrough. Non vengono aggiunte alla cronologia, a Health Connect o agli invii HTTP finché non le assegni.</string>
+    <string name="vp_mode_change_help">La cronologia delle misurazioni esistente viene mantenuta. Le misurazioni salvate in precedenza senza un utente virtuale vengono visualizzate come non assegnate. La disattivazione di questa funzionalità preserva sia le misurazioni in sospeso che i profili con nome.</string>
+    <string name="vp_delete_confirm">Rimuovere %1$s?</string>
+</resources>

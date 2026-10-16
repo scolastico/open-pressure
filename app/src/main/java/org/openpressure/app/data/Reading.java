@@ -10,6 +10,8 @@ public final class Reading {
     public double systolic,diastolic;
     public Double pulse,map;
     public Integer user,status;
+    public Integer virtualUserId;
+    public String virtualUserName;
     public Boolean afib;
     public String fingerprint,healthClientId,healthTime;
     public Integer healthOffset;

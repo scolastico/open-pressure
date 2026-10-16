@@ -20,6 +20,8 @@ public final class PdfReportData {
     private static final int CHART_PAGE_SIZE = 48;
     private static final double MMHG_PER_KPA = 7.50062;
     public final int selectedUser;
+    public final boolean virtualUsers;
+    public final Map<Integer,String> profileNames;
     public final LocalDate from, to;
     public final ZoneId zone;
     public final List<Entry> entries;
@@ -27,7 +29,7 @@ public final class PdfReportData {
     public final List<ChartPage> charts;
 
     private PdfReportData(int selectedUser, LocalDate from, LocalDate to, ZoneId zone,
-            List<Entry> entries, List<Summary> summaries, List<ChartPage> charts) {
+            List<Entry> entries, List<Summary> summaries, List<ChartPage> charts,boolean virtualUsers,Map<Integer,String> profileNames) {
         this.selectedUser = selectedUser;
         this.from = from;
         this.to = to;
@@ -35,13 +37,18 @@ public final class PdfReportData {
         this.entries = immutableCopy(entries);
         this.summaries = immutableCopy(summaries);
         this.charts = immutableCopy(charts);
+        this.virtualUsers=virtualUsers;
+        this.profileNames=Collections.unmodifiableMap(new java.util.HashMap<>(profileNames));
     }
 
     public static PdfReportData create(List<Reading> source, int selectedUser,
             LocalDate from, LocalDate to, ZoneId zone) {
+        return createInternal(source,selectedUser,from,to,zone,false,Collections.emptyMap());
+    }
+    private static PdfReportData createInternal(List<Reading> source,int selectedUser,LocalDate from,LocalDate to,ZoneId zone,boolean virtualUsers,Map<Integer,String> names) {
         Objects.requireNonNull(source, "source");
         Objects.requireNonNull(zone, "zone");
-        if (selectedUser < 0 || selectedUser > 2) {
+        if (virtualUsers ? selectedUser>0 || selectedUser==Integer.MIN_VALUE : selectedUser < 0 || selectedUser > 2) {
             throw new IllegalArgumentException("Profile must be all, 1, or 2");
         }
         if ((from == null) != (to == null) || (from != null && from.isAfter(to))) {
@@ -49,7 +56,7 @@ public final class PdfReportData {
         }
         List<Entry> entries = new ArrayList<>();
         for (Reading reading : source) {
-            Entry entry = new Entry(Objects.requireNonNull(reading, "reading"), zone);
+            Entry entry = new Entry(Objects.requireNonNull(reading, "reading"), zone,virtualUsers);
             if (selectedUser != 0 && !Integer.valueOf(selectedUser).equals(entry.user)) continue;
             LocalDate date = entry.displayTime.toLocalDate();
             if (from != null && (date.isBefore(from) || date.isAfter(to))) continue;
@@ -71,7 +78,10 @@ public final class PdfReportData {
                         rows.subList(start, Math.min(start + CHART_PAGE_SIZE, rows.size()))));
             }
         }
-        return new PdfReportData(selectedUser, from, to, zone, entries, summaries, charts);
+        return new PdfReportData(selectedUser, from, to, zone, entries, summaries, charts,virtualUsers,names);
+    }
+    public static PdfReportData createVirtual(List<Reading> source,int selectedUser,LocalDate from,LocalDate to,ZoneId zone,Map<Integer,String> names) {
+        return createInternal(source,selectedUser,from,to,zone,true,names);
     }
 
     public static final class Entry {
@@ -83,7 +93,7 @@ public final class PdfReportData {
         public final Boolean afib;
         public final String device, name, source, notes, unit;
 
-        private Entry(Reading reading, ZoneId zone) {
+        private Entry(Reading reading, ZoneId zone,boolean virtualUsers) {
             id = reading.id;
             received = reading.received;
             time = parseTime(reading.time);
@@ -92,7 +102,7 @@ public final class PdfReportData {
             diastolic = reading.diastolic;
             pulse = reading.pulse;
             map = reading.map;
-            user = reading.user;
+            user = virtualUsers ? reading.virtualUserId==null?null:-reading.virtualUserId : reading.user;
             status = reading.status;
             afib = reading.afib;
             device = safeText(reading.device);

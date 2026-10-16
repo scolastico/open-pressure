@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="vp_title">भर्चुअल प्रयोगकर्ताहरू</string>
+    <string name="vp_enabled">भर्चुअल प्रयोगकर्ताहरू प्रयोग गर्नुहोस्</string>
+    <string name="vp_intro">रक्तचाप मनिटरको प्रयोगकर्ता नम्बरहरू प्रयोग गर्नुको सट्टा नामित प्रोफाइलहरू सिर्जना गर्नुहोस्। प्रत्येक नयाँ मापन कसको हो छान्नुहोस्। यो सुविधा सक्षम हुँदा कम्तिमा एक प्रोफाइल आवश्यक छ।</string>
+    <string name="vp_add">प्रयोगकर्ता थप्नुहोस्</string>
+    <string name="vp_name">नाम</string>
+    <string name="vp_rename">पुन: नामाकरण गर्नुहोस्</string>
+    <string name="vp_delete">प्रयोगकर्ता हटाउनुहोस्</string>
+    <string name="vp_delete_help">यो प्रयोगकर्ताको बचत गरिएको मापन प्राप्त गर्ने प्रयोगकर्ता छान्नुहोस्। प्रयोगकर्ता हटाउनाले मापनहरू मेटाउँदैन वा अन्यत्र पठाइएका प्रतिलिपिहरू परिवर्तन गर्दैन।</string>
+    <string name="vp_last_user">कम्तिमा एक प्रयोगकर्ता राख्नुहोस्।</string>
+    <string name="vp_name_invalid">100 वर्णहरू भन्दा बढी नभएको गैर-खाली नाम प्रविष्ट गर्नुहोस्।</string>
+    <string name="vp_save_failed">यो परिवर्तन सुरक्षित गर्न सकिएन। पुन: प्रयास गर्नुहोस्।</string>
+    <string name="vp_first_user">आफ्नो पहिलो प्रयोगकर्ता सिर्जना गर्नुहोस्</string>
+    <string name="vp_unassigned">तोकिएको छैन</string>
+    <string name="vp_assign_title">यो नाप कसले लियो?</string>
+    <string name="vp_assign_help">यो मापनको लागि प्रयोगकर्ता छान्नुहोस्। पेन्डिङ मापन सबैभन्दा पुरानो देखि नयाँ देखाइन्छ। तपाईं तिनीहरूलाई नगुमाई पछि फर्कन सक्नुहुन्छ।</string>
+    <string name="vp_later">पछि</string>
+    <string name="vp_pending_count">%1$d मापन प्रयोगकर्ताको प्रतीक्षा गर्दै</string>
+    <string name="vp_pending_channel">प्रयोगकर्ताहरूलाई मापन तोक्नुहोस्</string>
+    <string name="vp_pending_channel_description">नयाँ मापनहरू जुन प्रयोगकर्तालाई फाइल गर्न वा निर्यात गर्नु अघि आवश्यक पर्दछ।</string>
+    <string name="vp_pending_notification_title">कसले मापन गरेको छनोट गर्नुहोस्</string>
+    <string name="vp_pending_notification_text">%1$d मापनहरू बचत गरिएका छन् र तपाईंले प्रयोगकर्ता छनौट गर्नका लागि पर्खिरहेका छन्। तिनीहरूलाई असाइन गर्न ट्याप गर्नुहोस्।</string>
+    <string name="vp_no_pending">सबै मापन एक प्रयोगकर्ता छ।</string>
+    <string name="vp_assign_action">पेन्डिङ मापन तोक्नुहोस्</string>
+    <string name="vp_monitor_bank">रक्तचाप मनिटर मेमोरी बैंक %1$s</string>
+    <string name="vp_monitor_bank_hint">रक्तचाप मनिटर मेमोरी बैंक (1 वा 2)</string>
+    <string name="vp_health_intro">Health Connect निर्यात सक्षम गर्नु अघि आफ्नै भर्चुअल प्रयोगकर्ता छान्नुहोस्। त्यो प्रयोगकर्ताको लागि तोकिएको मापन मात्र निर्यात गरिनेछ। कसले लिएको छनोट नगरुन्जेल मापनहरू निजी रहन्छन्।</string>
+    <string name="vp_health_choose">तपाईको आफ्नै प्रयोगकर्ता छान्नुहोस्।</string>
+    <string name="vp_health_selected">चयन गरिएको प्रयोगकर्ता: %1$s</string>
+    <string name="vp_health_summary">%1$s: %2$d निर्यात गरियो; %3$d छाडियो।</string>
+    <string name="vp_health_history">निर्यात सक्षम गर्नाले चयन गरिएको प्रयोगकर्तालाई तोकिएको योग्य बचत गरिएका पठनहरू समावेश गर्दछ। प्रयोगकर्ताको लागि प्रतिक्षा गरिएको मापन निर्यात गरिएको छैन।</string>
+    <string name="vp_health_shared">Health Connect ले एक व्यक्तिलाई प्रतिनिधित्व गर्दछ। तपाईको आफ्नै प्रयोगकर्ता मात्र छान्नुहोस्। जब तपाइँ रक्तचाप मोनिटर मेमोरी-बैंक मोड र भर्चुअल-प्रयोगकर्ता मोड बीच स्विच गर्नुहुन्छ, तपाइँले तपाइँको आफ्नै प्रयोगकर्ता चयन गर्नुपर्छ र पुन: निर्यात सक्षम गर्नुपर्छ।</string>
+    <string name="vp_pending_privacy">प्रयोगकर्तालाई तोकिएको छैन मापनहरू अस्थायी निजी लाममा राखिन्छ, पासथ्रु मोडमा पनि। तपाईंले तिनीहरूलाई असाइन नगरेसम्म तिनीहरू मापन इतिहास, Health Connect वा HTTP अपलोडहरूमा थपिएका छैनन्।</string>
+    <string name="vp_mode_change_help">अवस्थित मापन इतिहास राखिएको छ। भर्चुअल प्रयोगकर्ता बिना पहिले सुरक्षित गरिएको मापनहरू असाइन नगरिएको रूपमा देखाइन्छ। यो सुविधा बन्द गर्दा विचाराधीन मापन र तपाइँको नामित प्रोफाइलहरू दुवै सुरक्षित हुन्छ।</string>
+    <string name="vp_delete_confirm">%1$s हटाउने हो?</string>
+</resources>

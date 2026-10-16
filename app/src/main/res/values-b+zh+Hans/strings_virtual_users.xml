@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="vp_title">虚拟用户</string>
+    <string name="vp_enabled">使用虚拟用户</string>
+    <string name="vp_intro">创建命名配置文件，而不是使用血压监测仪的用户编号。选择每个新测量值属于谁。启用此功能时，至少需要一个配置文件。</string>
+    <string name="vp_add">添加用户</string>
+    <string name="vp_name">姓名</string>
+    <string name="vp_rename">重命名</string>
+    <string name="vp_delete">删除用户</string>
+    <string name="vp_delete_help">选择应接收该用户保存的测量值的用户。删除用户不会删除测量结果或更改已发送到其他地方的副本。</string>
+    <string name="vp_last_user">保留至少一名用户。</string>
+    <string name="vp_name_invalid">输入不超过 100 个字符的非空名称。</string>
+    <string name="vp_save_failed">无法保存此更改。再试一次。</string>
+    <string name="vp_first_user">创建您的第一个用户</string>
+    <string name="vp_unassigned">未分配</string>
+    <string name="vp_assign_title">谁进行了这个测量？</string>
+    <string name="vp_assign_help">选择用于此测量的用户。待处理的测量按从最旧到最新的顺序显示。您可以稍后返回而不会丢失它们。</string>
+    <string name="vp_later">之后</string>
+    <string name="vp_pending_count">%1$d 次测量正在等待用户</string>
+    <string name="vp_pending_channel">将测量值分配给用户</string>
+    <string name="vp_pending_channel_description">新测量需要用户才能归档或导出。</string>
+    <string name="vp_pending_notification_title">选择测量者</string>
+    <string name="vp_pending_notification_text">%1$d 个测量值已保存并等待您选择用户。点击以分配它们。</string>
+    <string name="vp_no_pending">所有测量都有一个用户。</string>
+    <string name="vp_assign_action">分配待处理的测量</string>
+    <string name="vp_monitor_bank">血压计内存库%1$s</string>
+    <string name="vp_monitor_bank_hint">血压计内存库（1 或 2）</string>
+    <string name="vp_health_intro">在启用 Health Connect 导出之前选择您自己的虚拟用户。仅导出为该用户指定的测量值。未分配的测量结果将保持私密状态，直到您选择由谁进行测量。</string>
+    <string name="vp_health_choose">选择您自己的用户。</string>
+    <string name="vp_health_selected">所选用户：%1$s</string>
+    <string name="vp_health_summary">%1$s：%2$d 已导出； %3$d 已跳过。</string>
+    <string name="vp_health_history">启用导出包括分配给所选用户的符合条件的已保存读数。等待用户的测量结果不会被导出。</string>
+    <string name="vp_health_shared">Health Connect代表​​一个人。仅选择您自己的用户。当您在血压计内存库模式和虚拟用户模式之间切换时，您必须选择自己的用户并再次启用导出。</string>
+    <string name="vp_pending_privacy">即使在直通模式下，尚未分配给用户的测量也会保留在临时专用队列中。在您分配它们之前，它们不会添加到测量历史记录、Health Connect 或 HTTP 上传中。</string>
+    <string name="vp_mode_change_help">保留现有的测量历史记录。以前在没有虚拟用户的情况下保存的测量显示为未分配。关闭此功能会保留待处理的测量和您命名的配置文件。</string>
+    <string name="vp_delete_confirm">删除%1$s？</string>
+</resources>

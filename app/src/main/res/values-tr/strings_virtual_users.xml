@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="vp_title">Sanal kullanıcılar</string>
+    <string name="vp_enabled">Sanal kullanıcıları kullan</string>
+    <string name="vp_intro">Tansiyon ölçüm cihazının kullanıcı numaralarını kullanmak yerine adlandırılmış profiller oluşturun. Her yeni ölçümün kime ait olduğunu seçin. Bu özellik etkinleştirildiğinde en az bir profil gereklidir.</string>
+    <string name="vp_add">Kullanıcı ekle</string>
+    <string name="vp_name">İsim</string>
+    <string name="vp_rename">Yeniden isimlendirmek</string>
+    <string name="vp_delete">Kullanıcıyı kaldır</string>
+    <string name="vp_delete_help">Bu kullanıcının kayıtlı ölçümlerini alması gereken kullanıcıyı seçin. Bir kullanıcıyı kaldırmak, ölçümleri silmez veya başka bir yere gönderilmiş olan kopyaları değiştirmez.</string>
+    <string name="vp_last_user">En az bir kullanıcıyı koruyun.</string>
+    <string name="vp_name_invalid">En fazla 100 karakterden oluşan, boş olmayan bir ad girin.</string>
+    <string name="vp_save_failed">Bu değişiklik kaydedilemedi. Tekrar deneyin.</string>
+    <string name="vp_first_user">İlk kullanıcınızı oluşturun</string>
+    <string name="vp_unassigned">Atanmamış</string>
+    <string name="vp_assign_title">Bu ölçümü kim aldı?</string>
+    <string name="vp_assign_help">Bu ölçüm için bir kullanıcı seçin. Bekleyen ölçümler en eskiden en yeniye doğru gösterilir. Daha sonra onları kaybetmeden geri dönebilirsiniz.</string>
+    <string name="vp_later">Daha sonra</string>
+    <string name="vp_pending_count">%1$d ölçüm bir kullanıcıyı bekliyor</string>
+    <string name="vp_pending_channel">Ölçümleri kullanıcılara atayın</string>
+    <string name="vp_pending_channel_description">Dosyalanmadan veya dışa aktarılmadan önce kullanıcıya ihtiyaç duyan yeni ölçümler.</string>
+    <string name="vp_pending_notification_title">Kimin ölçtüğünü seçin</string>
+    <string name="vp_pending_notification_text">%1$d ölçüm kaydedildi ve kullanıcı seçmenizi bekliyor. Bunları atamak için dokunun.</string>
+    <string name="vp_no_pending">Tüm ölçümlerin bir kullanıcısı vardır.</string>
+    <string name="vp_assign_action">Bekleyen ölçümleri ata</string>
+    <string name="vp_monitor_bank">Kan basıncı monitörü hafıza bankası %1$s</string>
+    <string name="vp_monitor_bank_hint">Kan basıncı monitörü hafıza bankası (1 veya 2)</string>
+    <string name="vp_health_intro">Health Connect dışa aktarımını etkinleştirmeden önce kendi sanal kullanıcınızı seçin. Yalnızca o kullanıcıya atanmış ölçümler dışa aktarılacaktır. Atanmamış ölçümler, siz onları kimin aldığını seçene kadar gizli kalır.</string>
+    <string name="vp_health_choose">Kendi kullanıcınızı seçin.</string>
+    <string name="vp_health_selected">Seçilen kullanıcı: %1$s</string>
+    <string name="vp_health_summary">%1$s: %2$d dışa aktarıldı; %3$d atlandı.</string>
+    <string name="vp_health_history">Dışa aktarmanın etkinleştirilmesi, seçilen kullanıcıya atanan uygun kayıtlı okumaları içerir. Kullanıcıyı bekleyen ölçümler dışa aktarılmaz.</string>
+    <string name="vp_health_shared">Health Connect bir kişiyi temsil eder. Yalnızca kendi kullanıcınızı seçin. Kan basıncı monitörünün hafıza bankası modu ile sanal kullanıcı modu arasında geçiş yaptığınızda, kendi kullanıcınızı seçmeniz ve aktarımı yeniden etkinleştirmeniz gerekir.</string>
+    <string name="vp_pending_privacy">Bir kullanıcıya atanmamış ölçümler, geçiş modunda bile geçici bir özel kuyrukta tutulur. Siz atayana kadar ölçüm geçmişine, Health Connect veya HTTP yüklemelerine eklenmezler.</string>
+    <string name="vp_mode_change_help">Mevcut ölçüm geçmişi tutulur. Sanal kullanıcı olmadan önceden kaydedilen ölçümler atanmamış olarak gösterilir. Bu özelliğin kapatılması hem bekleyen ölçümleri hem de adlandırılmış profillerinizi korur.</string>
+    <string name="vp_delete_confirm">%1$s kaldırılsın mı?</string>
+</resources>

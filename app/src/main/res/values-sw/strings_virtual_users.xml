@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="vp_title">Watumiaji wa mtandaoni</string>
+    <string name="vp_enabled">Tumia watumiaji pepe</string>
+    <string name="vp_intro">Unda wasifu uliotajwa badala ya kutumia nambari za watumiaji wa kidhibiti shinikizo la damu. Chagua kila kipimo kipya ni cha nani. Angalau wasifu mmoja unahitajika wakati kipengele hiki kikiwashwa.</string>
+    <string name="vp_add">Ongeza mtumiaji</string>
+    <string name="vp_name">Jina</string>
+    <string name="vp_rename">Badilisha jina</string>
+    <string name="vp_delete">Ondoa mtumiaji</string>
+    <string name="vp_delete_help">Chagua mtumiaji ambaye anafaa kupokea vipimo vilivyohifadhiwa vya mtumiaji huyu. Kuondoa mtumiaji hakufuti vipimo au kubadilisha nakala ambazo tayari zimetumwa kwingine.</string>
+    <string name="vp_last_user">Weka angalau mtumiaji mmoja.</string>
+    <string name="vp_name_invalid">Weka jina lisilo tupu lisilozidi herufi 100.</string>
+    <string name="vp_save_failed">Haikuweza kuhifadhi mabadiliko haya. Jaribu tena.</string>
+    <string name="vp_first_user">Unda mtumiaji wako wa kwanza</string>
+    <string name="vp_unassigned">Haijakabidhiwa</string>
+    <string name="vp_assign_title">Nani alichukua kipimo hiki?</string>
+    <string name="vp_assign_help">Chagua mtumiaji kwa kipimo hiki. Vipimo vinavyosubiri vinaonyeshwa kutoka kwa zamani hadi mpya zaidi. Unaweza kurudi baadaye bila kuwapoteza.</string>
+    <string name="vp_later">Baadaye</string>
+    <string name="vp_pending_count">Vipimo %1$d vinasubiri mtumiaji</string>
+    <string name="vp_pending_channel">Wape watumiaji vipimo</string>
+    <string name="vp_pending_channel_description">Vipimo vipya vinavyohitaji mtumiaji kabla ya kuwasilishwa au kuhamishwa.</string>
+    <string name="vp_pending_notification_title">Chagua nani aliyepima</string>
+    <string name="vp_pending_notification_text">Vipimo %1$d vimehifadhiwa na vinasubiri uchague mtumiaji. Gusa ili kuwakabidhi.</string>
+    <string name="vp_no_pending">Vipimo vyote vina mtumiaji.</string>
+    <string name="vp_assign_action">Weka vipimo vinavyosubiri</string>
+    <string name="vp_monitor_bank">Benki ya kumbukumbu ya kidhibiti shinikizo la damu %1$s</string>
+    <string name="vp_monitor_bank_hint">Benki ya kumbukumbu ya kidhibiti shinikizo la damu (1 au 2)</string>
+    <string name="vp_health_intro">Chagua mtumiaji wako binafsi kabla ya kuwezesha usafirishaji wa Health Connect. Vipimo vilivyowekwa kwa mtumiaji huyo pekee ndivyo vitasafirishwa. Vipimo ambavyo havijakabidhiwa husalia kuwa vya faragha hadi uchague aliyevichukua.</string>
+    <string name="vp_health_choose">Chagua mtumiaji wako mwenyewe.</string>
+    <string name="vp_health_selected">Mtumiaji aliyechaguliwa: %1$s</string>
+    <string name="vp_health_summary">%1$s: %2$d imetumwa; %3$d imerukwa.</string>
+    <string name="vp_health_history">Kuwezesha uhamishaji kunajumuisha usomaji unaostahiki uliohifadhiwa uliokabidhiwa kwa mtumiaji aliyechaguliwa. Vipimo vinavyosubiri mtumiaji havihamishwi.</string>
+    <string name="vp_health_shared">Health Connect inawakilisha mtu mmoja. Chagua mtumiaji wako pekee. Unapobadilisha kati ya modi ya benki ya kumbukumbu ya kufuatilia shinikizo la damu na hali ya mtumiaji-pepe, lazima uchague mtumiaji wako mwenyewe na uwashe uhamishaji tena.</string>
+    <string name="vp_pending_privacy">Vipimo ambavyo havijawekwa kwa mtumiaji huwekwa kwenye foleni ya faragha ya muda, hata katika hali ya kupita. Haziongezwe kwenye historia ya vipimo, upakiaji wa Health Connect au HTTP hadi uzikabidhi.</string>
+    <string name="vp_mode_change_help">Historia iliyopo ya kipimo huhifadhiwa. Vipimo vilivyohifadhiwa hapo awali bila mtumiaji pepe huonyeshwa kama ambavyo havijakabidhiwa. Kuzima kipengele hiki huhifadhi vipimo vinavyosubiri na wasifu uliotajwa.</string>
+    <string name="vp_delete_confirm">Ungependa kuondoa %1$s?</string>
+</resources>

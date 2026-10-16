@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="vp_title">Virtuaaliset käyttäjät</string>
+    <string name="vp_enabled">Käytä virtuaalisia käyttäjiä</string>
+    <string name="vp_intro">Luo nimettyjä profiileja verenpainemittarin käyttäjänumeroiden käyttämisen sijaan. Valitse, kenelle kukin uusi mittaus kuuluu. Vähintään yksi profiili vaaditaan, kun tämä ominaisuus on käytössä.</string>
+    <string name="vp_add">Lisää käyttäjä</string>
+    <string name="vp_name">Nimi</string>
+    <string name="vp_rename">Nimeä uudelleen</string>
+    <string name="vp_delete">Poista käyttäjä</string>
+    <string name="vp_delete_help">Valitse käyttäjä, jonka pitäisi vastaanottaa tämän käyttäjän tallentamat mittaukset. Käyttäjän poistaminen ei poista mittauksia tai muuta jo muualle lähetettyjä kopioita.</string>
+    <string name="vp_last_user">Säilytä vähintään yksi käyttäjä.</string>
+    <string name="vp_name_invalid">Kirjoita ei-tyhjä nimi, jossa on enintään 100 merkkiä.</string>
+    <string name="vp_save_failed">Tätä muutosta ei voitu tallentaa. Yritä uudelleen.</string>
+    <string name="vp_first_user">Luo ensimmäinen käyttäjäsi</string>
+    <string name="vp_unassigned">Määrittämätön</string>
+    <string name="vp_assign_title">Kuka tämän mittauksen otti?</string>
+    <string name="vp_assign_help">Valitse käyttäjä tälle mittaukselle. Odottavat mittaukset näytetään vanhimmasta uusimpaan. Voit palata myöhemmin menettämättä niitä.</string>
+    <string name="vp_later">Myöhemmin</string>
+    <string name="vp_pending_count">%1$d mittausta odottamassa käyttäjää</string>
+    <string name="vp_pending_channel">Määritä mittaukset käyttäjille</string>
+    <string name="vp_pending_channel_description">Uudet mittaukset, jotka tarvitsevat käyttäjän ennen kuin ne voidaan tallentaa tai viedä.</string>
+    <string name="vp_pending_notification_title">Valitse kuka mittasi</string>
+    <string name="vp_pending_notification_text">%1$d mittausta on tallennettu ja odottaa, että valitset käyttäjän. Määritä ne napauttamalla.</string>
+    <string name="vp_no_pending">Kaikilla mittauksilla on käyttäjä.</string>
+    <string name="vp_assign_action">Määritä odottavat mitat</string>
+    <string name="vp_monitor_bank">Verenpainemittarin muistipankki %1$s</string>
+    <string name="vp_monitor_bank_hint">Verenpainemittarin muistipankki (1 tai 2)</string>
+    <string name="vp_health_intro">Valitse oma virtuaalikäyttäjäsi ennen kuin otat Health Connect-viennin käyttöön. Vain tälle käyttäjälle määritetyt mitat viedään. Määrittämättömät mittaukset pysyvät yksityisinä, kunnes valitset, kuka ne otti.</string>
+    <string name="vp_health_choose">Valitse oma käyttäjäsi.</string>
+    <string name="vp_health_selected">Valittu käyttäjä: %1$s</string>
+    <string name="vp_health_summary">%1$s: %2$d viety; %3$d ohitettu.</string>
+    <string name="vp_health_history">Viennin ottaminen käyttöön sisältää valitulle käyttäjälle määritetyt kelvolliset tallennetut lukemat. Käyttäjää odottavia mittauksia ei viedä.</string>
+    <string name="vp_health_shared">Health Connect edustaa yhtä henkilöä. Valitse vain oma käyttäjäsi. Kun vaihdat verenpainemittarin muistipankkitilan ja virtuaalikäyttäjätilan välillä, sinun on valittava oma käyttäjä ja otettava vienti uudelleen käyttöön.</string>
+    <string name="vp_pending_privacy">Mittaukset, joita ei ole määritetty käyttäjälle, säilytetään väliaikaisessa yksityisessä jonossa, jopa läpimenotilassa. Niitä ei lisätä mittaushistoriaan, Health Connect- tai HTTP-latauksiin, ennen kuin määrität ne.</string>
+    <string name="vp_mode_change_help">Olemassa oleva mittaushistoria säilytetään. Aiemmin tallennetut mittaukset ilman virtuaalista käyttäjää näytetään määrittämättöminä. Tämän ominaisuuden poistaminen käytöstä säilyttää sekä odottavat mittaukset että nimetyt profiilisi.</string>
+    <string name="vp_delete_confirm">Poistetaanko %1$s?</string>
+</resources>

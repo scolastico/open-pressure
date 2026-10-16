@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="vp_title">Masu amfani da gaskiya</string>
+    <string name="vp_enabled">Yi amfani da masu amfani da kama-da-wane</string>
+    <string name="vp_intro">Ƙirƙirar bayanan martaba mai suna maimakon amfani da lambobin masu amfani na mai lura da hawan jini. Zaɓi wanda kowane sabon ma\'auni yake. Ana buƙatar aƙalla bayanin martaba ɗaya yayin da ake kunna wannan fasalin.</string>
+    <string name="vp_add">Ƙara mai amfani</string>
+    <string name="vp_name">Suna</string>
+    <string name="vp_rename">Sake suna</string>
+    <string name="vp_delete">Cire mai amfani</string>
+    <string name="vp_delete_help">Zaɓi mai amfani wanda yakamata ya karɓi ma\'aunin da aka ajiye na mai amfani. Cire mai amfani baya share ma\'auni ko canza kwafin da aka riga aka aika a wani wuri.</string>
+    <string name="vp_last_user">Ajiye aƙalla mai amfani ɗaya.</string>
+    <string name="vp_name_invalid">Shigar da sunan mara komai wanda bai wuce haruffa 100 ba.</string>
+    <string name="vp_save_failed">An kasa ajiye wannan canjin. Gwada kuma.</string>
+    <string name="vp_first_user">Ƙirƙiri mai amfani na farko</string>
+    <string name="vp_unassigned">Ba a sanyawa ba</string>
+    <string name="vp_assign_title">Wanene ya ɗauki wannan awo?</string>
+    <string name="vp_assign_help">Zaɓi mai amfani don wannan ma\'aunin. Ana nuna ma\'auni masu jiran aiki daga mafi tsufa zuwa sababbi. Kuna iya dawowa daga baya ba tare da rasa su ba.</string>
+    <string name="vp_later">Daga baya</string>
+    <string name="vp_pending_count">%1$d ma\'auni yana jiran mai amfani</string>
+    <string name="vp_pending_channel">Sanya ma\'auni ga masu amfani</string>
+    <string name="vp_pending_channel_description">Sabbin ma\'auni waɗanda ke buƙatar mai amfani kafin a iya shigar da su ko fitar da su.</string>
+    <string name="vp_pending_notification_title">Zabi wanda ya auna</string>
+    <string name="vp_pending_notification_text">An ajiye ma\'auni %1$d kuma ana jiran ku don zaɓar mai amfani. Matsa don sanya su.</string>
+    <string name="vp_no_pending">Duk ma\'auni suna da mai amfani.</string>
+    <string name="vp_assign_action">Sanya ma\'auni masu jiran aiki</string>
+    <string name="vp_monitor_bank">Bankin ƙwaƙwalwar ajiyar hawan jini %1$s</string>
+    <string name="vp_monitor_bank_hint">Bankin ƙwaƙwalwar ajiyar hawan jini (1 ko 2)</string>
+    <string name="vp_health_intro">Zaɓi mai amfani na ku na kama-da-wane kafin kunna Health Connect fitarwa. Za a fitar da ma\'aunin da aka keɓance don mai amfani kawai. Ma\'aunin da ba a sanya su ba yana zama na sirri har sai kun zaɓi wanda ya ɗauka.</string>
+    <string name="vp_health_choose">Zaɓi mai amfani da ku.</string>
+    <string name="vp_health_selected">Zaɓaɓɓen mai amfani: %1$s</string>
+    <string name="vp_health_summary">%1$s: %2$d da aka fitar; %3$d ya tsallake.</string>
+    <string name="vp_health_history">Ƙaddamar da fitarwa ya haɗa da cancantar adana karatun da aka sanya wa zaɓaɓɓen mai amfani. Ba a fitar da ma\'auni da ke jiran mai amfani.</string>
+    <string name="vp_health_shared">Health Connect yana wakiltar mutum ɗaya. Zaɓi mai amfani naka kawai. Lokacin da kuka canza tsakanin yanayin yanayin ƙwaƙwalwar ajiya da hawan jini da yanayin mai amfani, dole ne ku zaɓi mai amfani da ku kuma sake kunna fitarwa.</string>
+    <string name="vp_pending_privacy">Ana ajiye ma’aunin da ba a sanya wa mai amfani ba a cikin jerin gwano na sirri na ɗan lokaci, ko da a yanayin wucewa. Ba a ƙara su zuwa tarihin aunawa, Health Connect ko abubuwan aikawa ta HTTP har sai kun sanya su ga mai amfani.</string>
+    <string name="vp_mode_change_help">Ana adana tarihin ma\'aunin da ya wanzu. Ana nuna ma\'auni da aka adana a baya ba tare da mai amfani na kama-da-wane ba ana nuna su azaman wanda ba a sanya su ba. Kashe wannan fasalin yana kiyaye ma\'aunin da ke kan gaba da bayanan martaba mai suna.</string>
+    <string name="vp_delete_confirm">Cire %1$s?</string>
+</resources>

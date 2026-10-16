@@ -28,6 +28,8 @@ Automatic X7 imports listen for changed record metadata in Bluetooth advertiseme
 
 [Measurement reminders](docs/reminders.md), on Overview, send phone notifications at chosen times and weekdays. Each reminder can skip an occurrence if you measured recently: the default window is 120 minutes, and 0 disables skipping. These reminders do not change settings on the cuff.
 
+[Virtual users](docs/virtual-users.md) optionally replace User 1/User 2 with named profiles. New measurements wait for you to choose their owner, one at a time from oldest to newest. Background notifications open the same picker; ignored notifications leave every pending measurement safely queued for the next app opening.
+
 The profile selection is shared between Overview and History and remembered when you reopen the app. The interface offers 52 language/region options; the name OpenPressure stays the same in every language. See [languages](docs/localization.md) for availability and translation review.
 
 ## Your data

@@ -621,6 +621,14 @@ public final class ProtocolTest {
     }
     private static java.util.UUID uuid(String shortUuid) { return java.util.UUID.fromString("0000"+shortUuid+"-0000-1000-8000-00805f9b34fb"); }
     private static void testHealthExport() {
+        java.time.ZoneId virtualZone=java.time.ZoneId.of("UTC");
+        java.time.Instant virtualNow=java.time.Instant.parse("2026-10-17T12:00:00Z");
+        HealthExport.Payload virtual=HealthExport.prepareVirtual("virtual-record",7,7,"2026-10-16T10:00:00",120,80,"mmHg",virtualZone,virtualNow);
+        check(virtual!=null && virtual.systolicMmHg==120,"named profile export preserves pressure");
+        rejects(() -> HealthExport.prepareVirtual("id",8,7,"2026-10-16T10:00",120,80,"mmHg",virtualZone,virtualNow));
+        rejects(() -> HealthExport.prepareVirtual("id",null,7,"2026-10-16T10:00",120,80,"mmHg",virtualZone,virtualNow));
+        rejects(() -> HealthExport.prepareVirtual("id",0,0,"2026-10-16T10:00",120,80,"mmHg",virtualZone,virtualNow));
+        rejects(() -> HealthExport.prepareVirtual("id",7,7,null,120,80,"mmHg",virtualZone,virtualNow));
         java.time.ZoneId zone=java.time.ZoneId.of("Europe/Berlin");
         java.time.Instant now=java.time.Instant.parse("2026-10-16T18:00:00Z");
         HealthExport.Payload p=HealthExport.prepare("stable-record",1,1,"2026-10-16T14:30:45",120,80,"mmHg",zone,now);

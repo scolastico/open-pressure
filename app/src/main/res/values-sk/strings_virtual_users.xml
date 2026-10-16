@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="vp_title">Virtuálni používatelia</string>
+    <string name="vp_enabled">Použite virtuálnych používateľov</string>
+    <string name="vp_intro">Vytvorte pomenované profily namiesto použitia používateľských čísel tlakomeru. Vyberte, komu každé nové meranie patrí. Kým je táto funkcia povolená, vyžaduje sa aspoň jeden profil.</string>
+    <string name="vp_add">Pridať používateľa</string>
+    <string name="vp_name">Meno</string>
+    <string name="vp_rename">Premenovať</string>
+    <string name="vp_delete">Odstrániť používateľa</string>
+    <string name="vp_delete_help">Vyberte používateľa, ktorý by mal dostávať uložené merania tohto používateľa. Odstránenie používateľa nevymaže merania ani nezmení kópie, ktoré už boli odoslané inde.</string>
+    <string name="vp_last_user">Ponechajte aspoň jedného používateľa.</string>
+    <string name="vp_name_invalid">Zadajte neprázdny názov v dĺžke maximálne 100 znakov.</string>
+    <string name="vp_save_failed">Túto zmenu sa nepodarilo uložiť. Skúste to znova.</string>
+    <string name="vp_first_user">Vytvorte si prvého používateľa</string>
+    <string name="vp_unassigned">Nepriradené</string>
+    <string name="vp_assign_title">Kto vykonal toto meranie?</string>
+    <string name="vp_assign_help">Vyberte používateľa pre toto meranie. Nespracované merania sú zobrazené od najstarších po najnovšie. Môžete sa vrátiť neskôr bez toho, aby ste ich stratili.</string>
+    <string name="vp_later">Neskôr</string>
+    <string name="vp_pending_count">%1$d meraní čakajúcich na používateľa</string>
+    <string name="vp_pending_channel">Priraďte používateľom merania</string>
+    <string name="vp_pending_channel_description">Nové merania, ktoré vyžadujú používateľa pred ich uložením alebo exportom.</string>
+    <string name="vp_pending_notification_title">Vyberte si, kto meral</string>
+    <string name="vp_pending_notification_text">%1$d merania sú uložené a čakajú, kým si vyberiete používateľa. Klepnutím ich priradíte.</string>
+    <string name="vp_no_pending">Všetky merania majú používateľa.</string>
+    <string name="vp_assign_action">Priraďte čakajúce merania</string>
+    <string name="vp_monitor_bank">Pamäťová banka monitora krvného tlaku %1$s</string>
+    <string name="vp_monitor_bank_hint">Pamäťová banka monitora krvného tlaku (1 alebo 2)</string>
+    <string name="vp_health_intro">Pred povolením exportu Health Connect si vyberte svojho vlastného virtuálneho používateľa. Exportujú sa iba priradené merania pre daného používateľa. Nepriradené merania zostanú súkromné, kým nezvolíte, kto ich vykonal.</string>
+    <string name="vp_health_choose">Vyberte si vlastného používateľa.</string>
+    <string name="vp_health_selected">Vybraný používateľ: %1$s</string>
+    <string name="vp_health_summary">%1$s: exportované %2$d; %3$d preskočené.</string>
+    <string name="vp_health_history">Povolenie exportu zahŕňa vhodné uložené hodnoty priradené vybranému používateľovi. Merania čakajúce na používateľa sa neexportujú.</string>
+    <string name="vp_health_shared">Health Connect predstavuje jednu osobu. Vyberte si iba vlastného používateľa. Keď prepnete medzi režimom pamäťovej banky monitora krvného tlaku a režimom virtuálneho používateľa, musíte si vybrať vlastného používateľa a znova povoliť export.</string>
+    <string name="vp_pending_privacy">Merania, ktoré neboli priradené používateľovi, sa uchovávajú v dočasnom súkromnom rade, a to aj v režime prechodu. Kým ich nepriradíte, nepridajú sa do histórie meraní, Health Connect alebo HTTP.</string>
+    <string name="vp_mode_change_help">Existujúca história meraní sa uchováva. Predtým uložené merania bez virtuálneho používateľa sa zobrazia ako nepriradené. Vypnutím tejto funkcie sa zachovajú čakajúce merania aj vaše pomenované profily.</string>
+    <string name="vp_delete_confirm">Odstrániť %1$s?</string>
+</resources>

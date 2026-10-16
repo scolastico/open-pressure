@@ -33,6 +33,7 @@ public final class HttpPayload {
             put(json,"pulse",reading.getAsDouble("pulse")); json.put("unit",reading.getAsString("unit"));
             put(json,"status",reading.getAsInteger("status"));
             Integer afib=reading.getAsInteger("afib"); put(json,"atrial_fibrillation",afib==null?null:afib!=0);
+            if(reading.getAsInteger("virtual_user_id")!=null) { json.put("profile_id",reading.getAsInteger("virtual_user_id")); put(json,"profile_name",reading.getAsString("virtual_user_name")); }
             return json.toString();
         } catch(JSONException invalid) { throw new IllegalArgumentException("Invalid reading for forwarding",invalid); }
     }

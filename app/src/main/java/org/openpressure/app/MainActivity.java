@@ -28,6 +28,8 @@ import org.openpressure.app.forwarding.HttpForwardingSettingsActivity;
 import org.openpressure.app.automatic.*;
 import org.openpressure.app.notifications.NewReadingNotifications;
 import org.openpressure.app.reminders.RemindersActivity;
+import org.openpressure.app.profiles.VirtualUsersActivity;
+import org.openpressure.app.profiles.AssignmentActivity;
 import org.openpressure.app.pdf.PdfReportData;
 import org.openpressure.app.pdf.PdfReportWriter;
 
@@ -51,7 +53,7 @@ public final class MainActivity extends Activity {
     private LocalDate renderedDay;
     private ScrollView scroll;
     private int tab,filterUser,days,historyLimit=100;
-    private boolean bound,uiVisible,advancedExpanded;
+    private boolean bound,uiVisible,advancedExpanded,virtualMode;
     private AlertDialog consentDialog;
     private int pendingExportKind, pendingExportUser, pendingExportDays;
     private final Handler handler=new Handler(Looper.getMainLooper());
@@ -66,10 +68,10 @@ public final class MainActivity extends Activity {
     };
     @Override public void onCreate(Bundle state) {
         super.onCreate(state); store=((PressureApp)getApplication()).store();
-        filterUser=getPreferences(MODE_PRIVATE).getInt("selected_profile",0);
-        if(filterUser<0 || filterUser>2) filterUser=0;
+        virtualMode=store.virtualUsersEnabled();
+        filterUser=getPreferences(MODE_PRIVATE).getInt(virtualMode?"selected_virtual_profile":"selected_profile",0);
         if(state!=null) {
-            tab=state.getInt("tab"); filterUser=state.getInt("user"); days=state.getInt("days");
+            tab=state.getInt("tab"); if(state.getBoolean("virtualMode",false)==virtualMode) filterUser=state.getInt("user"); days=state.getInt("days");
             pendingExportKind=state.getInt("exportKind"); pendingExportUser=state.getInt("exportUser"); pendingExportDays=state.getInt("exportDays"); pendingDumpExportPath=state.getString("dumpExportPath");
             pendingPdfExportPath=state.getString("pdfExportPath");
         }
@@ -91,11 +93,11 @@ public final class MainActivity extends Activity {
             render();
         }
     }
-    @Override protected void onResume() { super.onResume(); ensureExperimentalConsent(); if(store!=null) { if(!LocalDate.now().equals(renderedDay)) render(); else refreshMonitor(); } }
+    @Override protected void onResume() { super.onResume(); ensureExperimentalConsent(); if(store!=null) render(); }
     @Override protected void onStart() { super.onStart(); uiVisible=true; if(monitor!=null) monitor.setUiVisible(this,true); }
     @Override protected void onStop() { uiVisible=false; if(monitor!=null) monitor.setUiVisible(this,false); super.onStop(); }
     @Override public void onSaveInstanceState(Bundle out) {
-        super.onSaveInstanceState(out); out.putInt("tab",tab); out.putInt("user",filterUser); out.putInt("days",days);
+        super.onSaveInstanceState(out); out.putInt("tab",tab); out.putInt("user",filterUser); out.putInt("days",days); out.putBoolean("virtualMode",virtualMode);
         out.putInt("exportKind",pendingExportKind); out.putInt("exportUser",pendingExportUser); out.putInt("exportDays",pendingExportDays); out.putString("dumpExportPath",pendingDumpExportPath);
         out.putString("pdfExportPath",pendingPdfExportPath);
     }
@@ -129,6 +131,7 @@ public final class MainActivity extends Activity {
         consentDialog.show();
     }
     private void render() {
+        validateProfileSelection();
         int position=scroll==null?0:scroll.getScrollY();
         if(root==null) {
             root=new LinearLayout(this); root.setOrientation(LinearLayout.VERTICAL); root.setBackgroundColor(BG);
@@ -219,7 +222,11 @@ public final class MainActivity extends Activity {
     }
     private void today() {
         title(getString(R.string.main_overview),getString(R.string.main_overview_subtitle));
-        add(content,button(getString(R.string.reminder_title),() -> startActivity(new Intent(this,RemindersActivity.class)),false),8);
+        int pending=store.pendingAssignmentsCount();
+        if(pending>0) {
+            add(content,text(getString(R.string.vp_pending_count,pending),15,TEAL,true),10);
+            add(content,button(getString(R.string.vp_assign_action),() -> startActivity(new Intent(this,AssignmentActivity.class)),false),6);
+        }
         filters(false);
         List<Reading> readings=visibleReadings();
         LinearLayout latest=card(); latest.setBackground(background(0xffe2eee7,0xffe2eee7));
@@ -246,7 +253,15 @@ public final class MainActivity extends Activity {
                 double sys=0,dia=0; for(Reading r:recent) { sys+=r.sysMmHg(); dia+=r.diaMmHg(); }
                 add(summary,text(pressureValues(sys/recent.size(),dia/recent.size(),true),27,INK,true),10);
                 add(summary,text(getResources().getQuantityString(R.plurals.main_average_readings,recent.size(),number(recent.size())),14,MUTED,false),5);
-                Collections.reverse(recent); TrendView trend=new TrendView(this,recent); summary.addView(trend,new LinearLayout.LayoutParams(-1,dp(170)));
+                Collections.reverse(recent);
+                if(virtualMode && filterUser==0) {
+                    Map<Integer,List<Reading>> profiles=new LinkedHashMap<>();
+                    for(Reading reading:recent) profiles.computeIfAbsent(reading.virtualUserId,ignored -> new ArrayList<>()).add(reading);
+                    for(List<Reading> profile:profiles.values()) {
+                        add(summary,text(userLabel(profile.get(0)),16,INK,true),14);
+                        summary.addView(new TrendView(this,profile),new LinearLayout.LayoutParams(-1,dp(170)));
+                    }
+                } else summary.addView(new TrendView(this,recent),new LinearLayout.LayoutParams(-1,dp(170)));
             } content.addView(summary);
         }
         LinearLayout actions=card(); label(actions,getString(R.string.main_your_readings));
@@ -257,6 +272,8 @@ public final class MainActivity extends Activity {
         automaticCard();
         if(monitor!=null && (monitor.ready || monitor.scanning)) statusCard();
         add(content,text(getString(R.string.main_measurement_note),13,MUTED,false),12);
+        add(content,button(getString(R.string.reminder_title),() -> startActivity(new Intent(this,RemindersActivity.class)),false),8);
+        add(content,button(getString(R.string.vp_title),() -> startActivity(new Intent(this,VirtualUsersActivity.class)),false),8);
     }
     private void history() {
         title(getString(R.string.main_history),getString(R.string.main_history_subtitle)); filters(true);
@@ -280,9 +297,10 @@ public final class MainActivity extends Activity {
     }
     private void clearHistoryDialog() {
         if(historyClearing) return;
+        List<Integer> scopes=profileScopes(); String[] labels=profileLabels(scopes);
         final int[] selected={0};
         new AlertDialog.Builder(this).setTitle(getString(R.string.main_clear_scope_title))
-                .setSingleChoiceItems(new String[]{profileLabel(0),profileLabel(1),profileLabel(2)},0,(dialog,which) -> selected[0]=which)
+                .setSingleChoiceItems(labels,0,(dialog,which) -> selected[0]=scopes.get(which))
                 .setNegativeButton(getString(R.string.main_cancel),null)
                 .setPositiveButton(getString(R.string.main_continue),(dialog,which) -> confirmClearHistory(selected[0])).show();
     }
@@ -407,9 +425,36 @@ public final class MainActivity extends Activity {
         statusDetail=text("",15,MUTED,false); add(status,statusDetail,7); content.addView(status);
         if(monitor==null) { setText(statusHeading,getString(R.string.main_connection)); setText(statusText,getString(R.string.main_starting)); } else updateStatus();
     }
+    private void validateProfileSelection() {
+        boolean enabled=store.virtualUsersEnabled();
+        if(enabled!=virtualMode) { virtualMode=enabled; filterUser=getPreferences(MODE_PRIVATE).getInt(virtualMode?"selected_virtual_profile":"selected_profile",0); }
+        boolean valid=filterUser==0;
+        if(virtualMode) { for(VirtualUser user:store.virtualUsers()) if(filterUser==-user.id) valid=true; }
+        else valid=filterUser>=0 && filterUser<=2;
+        if(!valid) { filterUser=0; saveProfileSelection(); }
+    }
+    private void saveProfileSelection() { getPreferences(MODE_PRIVATE).edit().putInt(virtualMode?"selected_virtual_profile":"selected_profile",filterUser).apply(); }
+    private List<Integer> profileScopes() {
+        List<Integer> scopes=new ArrayList<>(); scopes.add(0);
+        if(virtualMode) { for(VirtualUser profile:store.virtualUsers()) scopes.add(-profile.id); }
+        else { scopes.add(1); scopes.add(2); }
+        return scopes;
+    }
+    private String[] profileLabels(List<Integer> scopes) { String[] labels=new String[scopes.size()]; for(int i=0;i<labels.length;i++) labels[i]=profileLabel(scopes.get(i)); return labels; }
     private void filters(boolean dates) {
-        LinearLayout bank=row(); String[] names={profileLabel(0),profileLabel(1),profileLabel(2)};
-        for(int i=0;i<3;i++) { final int u=i; bank.addView(button(names[i],() -> { filterUser=u; getPreferences(MODE_PRIVATE).edit().putInt("selected_profile",u).apply(); render(); },filterUser==i),new LinearLayout.LayoutParams(0,-2,1)); } add(content,bank,10);
+        if(virtualMode) {
+            Button selected=button(profileLabel(filterUser),() -> {
+                List<Integer> scopes=profileScopes(); String[] labels=profileLabels(scopes);
+                new AlertDialog.Builder(this).setTitle(R.string.main_choose_user).setSingleChoiceItems(labels,scopes.indexOf(filterUser),(dialog,index) -> {
+                    filterUser=scopes.get(index); saveProfileSelection(); dialog.dismiss(); historyLimit=100; render();
+                }).setNegativeButton(R.string.main_cancel,null).show();
+            },true);
+            selected.setTag("virtual_profile_filter"); add(content,selected,10);
+        } else {
+            LinearLayout bank=row();
+            for(int i=0;i<3;i++) { final int user=i; bank.addView(button(profileLabel(i),() -> { filterUser=user; saveProfileSelection(); historyLimit=100; render(); },filterUser==i),new LinearLayout.LayoutParams(0,-2,1)); }
+            add(content,bank,10);
+        }
         if(dates) {
             LinearLayout range=row(); int[] options={0,7,30}; String[] labels={getString(R.string.main_all_time),getString(R.string.main_seven_days),getString(R.string.main_thirty_days)};
             for(int i=0;i<3;i++) { final int n=options[i]; range.addView(button(labels[i],() -> { days=n; render(); },days==n),new LinearLayout.LayoutParams(0,-2,1)); } add(content,range,6);
@@ -436,20 +481,21 @@ public final class MainActivity extends Activity {
     private void manualEntry() {
         LinearLayout form=form(); EditText sys=input(getString(R.string.main_systolic_hint),"",true),dia=input(getString(R.string.main_diastolic_hint),"",true),pulse=input(getString(R.string.main_pulse_hint),"",true);
         EditText bank=input(getString(R.string.main_user_hint),filterUser==2?"2":"1",true),time=input(getString(R.string.main_date_time_hint),editableDateTime(LocalDateTime.now().withSecond(0).withNano(0)),false),notes=input(getString(R.string.main_notes),"",false);
-        for(EditText field:new EditText[]{sys,dia,pulse,bank,time,notes}) add(form,field,8);
+        final boolean virtual=store.virtualUsersEnabled();
+        for(EditText field:virtual?new EditText[]{sys,dia,pulse,time,notes}:new EditText[]{sys,dia,pulse,bank,time,notes}) add(form,field,8);
         AlertDialog dialog=new AlertDialog.Builder(this).setTitle(getString(R.string.main_add_reading)).setView(wrap(form)).setNegativeButton(getString(R.string.main_cancel),null).setPositiveButton(getString(R.string.main_save),null).create();
         dialog.setOnShowListener(x -> dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v -> {
             try {
-                int user=Integer.parseInt(bank.getText().toString()); if(user<1||user>2) throw new IllegalArgumentException("Choose user 1 or 2");
+                int user=virtual?0:Integer.parseInt(bank.getText().toString()); if(!virtual && (user<1||user>2)) throw new IllegalArgumentException("Choose user 1 or 2");
                 String p=pulse.getText().toString().trim(); store.addManual(parseNumber(sys.getText().toString()),parseNumber(dia.getText().toString()),p.isEmpty()?null:parseNumber(p),user,parseDateTime(time.getText().toString().trim()),notes.getText().toString()); dialog.dismiss(); render();
                 HttpForwardingSettings.Config forwarding=HttpForwardingSettings.get(this);
-                if(forwarding.enabled() && !forwarding.keepLocal) toast(getString(R.string.http_queued));
+                if(!virtual && forwarding.enabled() && !forwarding.keepLocal) toast(getString(R.string.http_queued));
             } catch(Exception ex) { toast(getString(R.string.main_entry_invalid,editableDateTime(LocalDateTime.now()))); }
         })); dialog.show();
     }
     private void userDialog() {
         LinearLayout form=form(); add(form,text(getString(R.string.main_user_consent_explanation),15,MUTED,false),0);
-        EditText bank=input(getString(R.string.main_user_bank_hint),String.valueOf(monitor.user),true),code=input(getString(R.string.main_consent_code_hint),String.valueOf(monitor.consentCode),true); add(form,bank,12); add(form,code,8);
+        EditText bank=input(getString(virtualMode?R.string.vp_monitor_bank_hint:R.string.main_user_bank_hint),String.valueOf(monitor.user),true),code=input(getString(R.string.main_consent_code_hint),String.valueOf(monitor.consentCode),true); add(form,bank,12); add(form,code,8);
         AlertDialog dialog=new AlertDialog.Builder(this).setTitle(getString(R.string.main_monitor_user)).setView(wrap(form)).setNegativeButton(getString(R.string.main_cancel),null).setNeutralButton(getString(R.string.main_register),null).setPositiveButton(getString(R.string.main_authenticate),null).create();
         dialog.setOnShowListener(x -> {
             View.OnClickListener action=v -> { try {
@@ -656,10 +702,13 @@ public final class MainActivity extends Activity {
         // A detached configuration keeps report language stable while the picker is open.
         Context reportContext=getApplicationContext().createConfigurationContext(new android.content.res.Configuration(getResources().getConfiguration()));
         ZoneId zone=ZoneId.systemDefault();
+        final boolean virtual=store.virtualUsersEnabled();
+        final Map<Integer,String> profileNames=new LinkedHashMap<>();
+        if(virtual) for(VirtualUser profile:store.virtualUsers()) profileNames.put(-profile.id,profile.name);
         pdfPreparationWorker=new Thread(() -> {
             File snapshot=null;
             try {
-                PdfReportData report=PdfReportData.create(store.readings(selectedUser),selectedUser,from,to,zone);
+                PdfReportData report=virtual?PdfReportData.createVirtual(store.readings(selectedUser),selectedUser,from,to,zone,profileNames):PdfReportData.create(store.readings(selectedUser),selectedUser,from,to,zone);
                 if(report.entries.isEmpty()) {
                     handler.post(() -> finishPdfPreparation(token,R.string.pdf_no_readings)); return;
                 }
@@ -768,6 +817,13 @@ public final class MainActivity extends Activity {
         catch(java.time.format.DateTimeParseException ignored) { return getString(R.string.main_unavailable); }
     }
     private String pulseLabel(Reading r) { return r.pulse==null?getString(R.string.main_pulse_unavailable):getString(R.string.main_pulse_value,number(r.pulse)); }
-    private String userLabel(Reading r) { return r.user==null?getString(R.string.main_user_unspecified):r.user==255?getString(R.string.main_guest):profileLabel(r.user); }
-    private String profileLabel(int user) { return user==0?getString(R.string.main_all_users):getString(R.string.main_user_number,number(user)); }
+    private String userLabel(Reading r) {
+        if(virtualMode) return r.virtualUserName==null?getString(R.string.vp_unassigned):r.virtualUserName;
+        return r.user==null?getString(R.string.main_user_unspecified):r.user==255?getString(R.string.main_guest):profileLabel(r.user);
+    }
+    private String profileLabel(int user) {
+        if(user==0) return getString(R.string.main_all_users);
+        if(user<0) { for(VirtualUser profile:store.virtualUsers()) if(user==-profile.id) return profile.name; return getString(R.string.vp_unassigned); }
+        return getString(virtualMode?R.string.vp_monitor_bank:R.string.main_user_number,number(user));
+    }
 }

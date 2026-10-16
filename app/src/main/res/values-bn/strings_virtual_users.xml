@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="vp_title">ভার্চুয়াল ব্যবহারকারী</string>
+    <string name="vp_enabled">ভার্চুয়াল ব্যবহারকারীদের ব্যবহার করুন</string>
+    <string name="vp_intro">রক্তচাপ মনিটরের ব্যবহারকারীর নম্বর ব্যবহার করার পরিবর্তে নামযুক্ত প্রোফাইল তৈরি করুন। প্রতিটি নতুন পরিমাপ কার অন্তর্গত তা চয়ন করুন৷ এই বৈশিষ্ট্যটি সক্ষম থাকাকালীন কমপক্ষে একটি প্রোফাইল প্রয়োজন৷</string>
+    <string name="vp_add">ব্যবহারকারী যোগ করুন</string>
+    <string name="vp_name">নাম</string>
+    <string name="vp_rename">নাম পরিবর্তন করুন</string>
+    <string name="vp_delete">ব্যবহারকারীকে সরান</string>
+    <string name="vp_delete_help">এই ব্যবহারকারীর সংরক্ষিত পরিমাপ পাওয়া উচিত এমন ব্যবহারকারীকে বেছে নিন। একজন ব্যবহারকারীকে সরিয়ে দিলে পরিমাপ মুছে যায় না বা অন্য কোথাও পাঠানো কপি পরিবর্তন হয় না।</string>
+    <string name="vp_last_user">অন্তত একজন ব্যবহারকারী রাখুন।</string>
+    <string name="vp_name_invalid">100টির বেশি অক্ষরের একটি অ-খালি নাম লিখুন।</string>
+    <string name="vp_save_failed">এই পরিবর্তন সংরক্ষণ করা যায়নি. আবার চেষ্টা করুন</string>
+    <string name="vp_first_user">আপনার প্রথম ব্যবহারকারী তৈরি করুন</string>
+    <string name="vp_unassigned">আনঅ্যাসাইন করা হয়েছে</string>
+    <string name="vp_assign_title">কে এই পরিমাপ নিয়েছে?</string>
+    <string name="vp_assign_help">এই পরিমাপের জন্য একটি ব্যবহারকারী চয়ন করুন. মুলতুবি পরিমাপ প্রাচীনতম থেকে নতুন দেখানো হয়. আপনি সেগুলি না হারিয়ে পরে ফিরে আসতে পারেন৷</string>
+    <string name="vp_later">পরে</string>
+    <string name="vp_pending_count">%1$d পরিমাপ একজন ব্যবহারকারীর জন্য অপেক্ষা করছে৷</string>
+    <string name="vp_pending_channel">ব্যবহারকারীদের পরিমাপ বরাদ্দ করুন</string>
+    <string name="vp_pending_channel_description">নতুন পরিমাপ যেগুলি ফাইল বা রপ্তানি করার আগে ব্যবহারকারীর প্রয়োজন।</string>
+    <string name="vp_pending_notification_title">কে পরিমাপ করেছে চয়ন করুন</string>
+    <string name="vp_pending_notification_text">%1$d পরিমাপ সংরক্ষণ করা হয়েছে এবং আপনি একজন ব্যবহারকারী বেছে নেওয়ার জন্য অপেক্ষা করছেন৷ তাদের বরাদ্দ করতে আলতো চাপুন।</string>
+    <string name="vp_no_pending">সমস্ত পরিমাপ একটি ব্যবহারকারী আছে.</string>
+    <string name="vp_assign_action">মুলতুবি পরিমাপ বরাদ্দ</string>
+    <string name="vp_monitor_bank">রক্তচাপ মনিটর মেমরি ব্যাঙ্ক %1$s</string>
+    <string name="vp_monitor_bank_hint">রক্তচাপ মনিটর মেমরি ব্যাঙ্ক (1 বা 2)</string>
+    <string name="vp_health_intro">Health Connect রপ্তানি সক্ষম করার আগে আপনার নিজস্ব ভার্চুয়াল ব্যবহারকারী চয়ন করুন৷ শুধুমাত্র সেই ব্যবহারকারীর জন্য নির্ধারিত পরিমাপ রপ্তানি করা হবে। অনির্ধারিত পরিমাপগুলি ব্যক্তিগত থাকে যতক্ষণ না আপনি বেছে নিন কে সেগুলি নিয়েছে৷</string>
+    <string name="vp_health_choose">আপনার নিজের ব্যবহারকারী চয়ন করুন.</string>
+    <string name="vp_health_selected">নির্বাচিত ব্যবহারকারী: %1$s</string>
+    <string name="vp_health_summary">%1$s: %2$d রপ্তানি হয়েছে; %3$d এড়িয়ে গেছে।</string>
+    <string name="vp_health_history">রপ্তানি সক্ষম করার মধ্যে নির্বাচিত ব্যবহারকারীকে বরাদ্দ করা যোগ্য সংরক্ষিত রিডিং অন্তর্ভুক্ত রয়েছে। ব্যবহারকারীর জন্য অপেক্ষা করা পরিমাপ রপ্তানি করা হয় না।</string>
+    <string name="vp_health_shared">Health Connect একজন ব্যক্তির প্রতিনিধিত্ব করে। শুধুমাত্র আপনার নিজস্ব ব্যবহারকারী চয়ন করুন. আপনি যখন রক্তচাপ মনিটর মেমরি-ব্যাঙ্ক মোড এবং ভার্চুয়াল-ব্যবহারকারী মোডের মধ্যে স্যুইচ করেন, আপনাকে অবশ্যই আপনার নিজের ব্যবহারকারী নির্বাচন করতে হবে এবং আবার রপ্তানি সক্ষম করতে হবে৷</string>
+    <string name="vp_pending_privacy">যে পরিমাপগুলি কোনও ব্যবহারকারীকে বরাদ্দ করা হয়নি সেগুলিকে একটি অস্থায়ী ব্যক্তিগত সারিতে রাখা হয়, এমনকি পাসথ্রু মোডেও। আপনি তাদের বরাদ্দ না করা পর্যন্ত সেগুলি পরিমাপের ইতিহাস, Health Connect বা HTTP আপলোডে যোগ করা হয় না।</string>
+    <string name="vp_mode_change_help">বিদ্যমান পরিমাপের ইতিহাস রাখা হয়। ভার্চুয়াল ব্যবহারকারী ছাড়া পূর্বে সংরক্ষিত পরিমাপগুলি আনঅ্যাসাইন করা হিসাবে দেখানো হয়েছে। এই বৈশিষ্ট্যটি বন্ধ করা মুলতুবি পরিমাপ এবং আপনার নামযুক্ত প্রোফাইল উভয়ই সংরক্ষণ করে।</string>
+    <string name="vp_delete_confirm">%1$s সরাতে চান?</string>
+</resources>

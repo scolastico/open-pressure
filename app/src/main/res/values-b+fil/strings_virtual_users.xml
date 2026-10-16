@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="vp_title">Mga virtual na gumagamit</string>
+    <string name="vp_enabled">Gumamit ng mga virtual na gumagamit</string>
+    <string name="vp_intro">Gumawa ng mga pinangalanang profile sa halip na gamitin ang mga numero ng gumagamit ng blood pressure monitor. Piliin kung kanino nabibilang ang bawat bagong sukat. Kailangan ng kahit isang profile habang naka-enable ang feature na ito.</string>
+    <string name="vp_add">Magdagdag ng user</string>
+    <string name="vp_name">Pangalan</string>
+    <string name="vp_rename">Palitan ang pangalan</string>
+    <string name="vp_delete">Alisin ang user</string>
+    <string name="vp_delete_help">Piliin ang user na dapat makatanggap ng mga naka-save na sukat ng user na ito. Ang pag-alis ng user ay hindi nagtatanggal ng mga sukat o nagbabago ng mga kopyang naipadala na sa ibang lugar.</string>
+    <string name="vp_last_user">Panatilihin ang hindi bababa sa isang user.</string>
+    <string name="vp_name_invalid">Maglagay ng walang laman na pangalan na hindi hihigit sa 100 character.</string>
+    <string name="vp_save_failed">Hindi ma-save ang pagbabagong ito. Subukan muli.</string>
+    <string name="vp_first_user">Lumikha ng iyong unang user</string>
+    <string name="vp_unassigned">Hindi nakatalaga</string>
+    <string name="vp_assign_title">Sino ang kumuha ng sukat na ito?</string>
+    <string name="vp_assign_help">Pumili ng user para sa pagsukat na ito. Ang mga nakabinbing sukat ay ipinapakita mula sa pinakaluma hanggang sa pinakabago. Maaari kang bumalik sa ibang pagkakataon nang hindi nawawala ang mga ito.</string>
+    <string name="vp_later">Mamaya</string>
+    <string name="vp_pending_count">%1$d na mga sukat ang naghihintay para sa isang user</string>
+    <string name="vp_pending_channel">Magtalaga ng mga sukat sa mga user</string>
+    <string name="vp_pending_channel_description">Mga bagong sukat na nangangailangan ng isang user bago sila maisampa o ma-export.</string>
+    <string name="vp_pending_notification_title">Piliin kung sino ang sumukat</string>
+    <string name="vp_pending_notification_text">%1$d na mga sukat ang nai-save at naghihintay na pumili ka ng user. I-tap para italaga sila.</string>
+    <string name="vp_no_pending">Ang lahat ng mga sukat ay may gumagamit.</string>
+    <string name="vp_assign_action">Magtalaga ng mga nakabinbing sukat</string>
+    <string name="vp_monitor_bank">Bank ng memorya ng blood pressure monitor %1$s</string>
+    <string name="vp_monitor_bank_hint">Memorya ng blood pressure monitor (1 o 2)</string>
+    <string name="vp_health_intro">Piliin ang iyong sariling virtual na user bago i-enable ang Health Connect export. Tanging ang mga nakatalagang sukat para sa user na iyon ang ie-export. Nananatiling pribado ang mga hindi nakatalagang sukat hanggang sa piliin mo kung sino ang kumuha sa kanila.</string>
+    <string name="vp_health_choose">Pumili ng sarili mong user.</string>
+    <string name="vp_health_selected">Piniling user: %1$s</string>
+    <string name="vp_health_summary">%1$s: %2$d ang na-export; Nilaktawan ang %3$d.</string>
+    <string name="vp_health_history">Kasama sa pagpapagana ng pag-export ang mga kwalipikadong naka-save na pagbabasa na itinalaga sa napiling user. Ang mga pagsukat na naghihintay para sa isang user ay hindi na-export.</string>
+    <string name="vp_health_shared">Ang Health Connect ay kumakatawan sa isang tao. Piliin lamang ang sarili mong user. Kapag lumipat ka sa pagitan ng blood pressure monitor memory-bank mode at virtual-user mode, dapat mong piliin ang iyong sariling user at paganahin muli ang pag-export.</string>
+    <string name="vp_pending_privacy">Ang mga sukat na hindi naitalaga sa isang user ay pinananatili sa isang pansamantalang pribadong pila, kahit na sa passthrough mode. Hindi idinaragdag ang mga ito sa history ng pagsukat, Health Connect o HTTP na pag-upload hanggang sa italaga mo ang mga ito.</string>
+    <string name="vp_mode_change_help">Ang kasalukuyang kasaysayan ng pagsukat ay pinananatili. Ang mga dating na-save na sukat na walang virtual na user ay ipinapakita bilang hindi nakatalaga. Ang pag-off sa feature na ito ay mapapanatili ang mga nakabinbing sukat at ang iyong mga pinangalanang profile.</string>
+    <string name="vp_delete_confirm">Alisin ang %1$s?</string>
+</resources>

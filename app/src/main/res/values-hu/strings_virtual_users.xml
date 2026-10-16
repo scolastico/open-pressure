@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="vp_title">Virtuális felhasználók</string>
+    <string name="vp_enabled">Használj virtuális felhasználókat</string>
+    <string name="vp_intro">Hozzon létre névvel ellátott profilokat a vérnyomásmérő felhasználói számok használata helyett. Válassza ki, hogy az egyes új mérések kihez tartoznak. Ha ez a funkció engedélyezve van, legalább egy profil szükséges.</string>
+    <string name="vp_add">Felhasználó hozzáadása</string>
+    <string name="vp_name">Név</string>
+    <string name="vp_rename">Átnevezés</string>
+    <string name="vp_delete">Felhasználó eltávolítása</string>
+    <string name="vp_delete_help">Válassza ki azt a felhasználót, aki megkapja a felhasználó mentett méréseit. A felhasználó eltávolítása nem törli a méréseket, és nem módosítja a máshová küldött másolatokat.</string>
+    <string name="vp_last_user">Maradjon meg legalább egy felhasználó.</string>
+    <string name="vp_name_invalid">Adjon meg egy nem üres nevet, amely legfeljebb 100 karakter lehet.</string>
+    <string name="vp_save_failed">Nem sikerült menteni ezt a módosítást. Próbáld újra.</string>
+    <string name="vp_first_user">Hozza létre első felhasználóját</string>
+    <string name="vp_unassigned">Nincs hozzárendelve</string>
+    <string name="vp_assign_title">Ki végezte ezt a mérést?</string>
+    <string name="vp_assign_help">Válasszon felhasználót ehhez a méréshez. A függőben lévő mérések a legrégebbitől a legújabbig jelennek meg. Később visszatérhet anélkül, hogy elveszítené őket.</string>
+    <string name="vp_later">Később</string>
+    <string name="vp_pending_count">%1$d mérés vár egy felhasználóra</string>
+    <string name="vp_pending_channel">Mérések hozzárendelése a felhasználókhoz</string>
+    <string name="vp_pending_channel_description">Új mérések, amelyek iktatása vagy exportálása előtt felhasználóra van szükség.</string>
+    <string name="vp_pending_notification_title">Válassza ki, ki mért</string>
+    <string name="vp_pending_notification_text">%1$d mérés mentésre került, és arra vár, hogy felhasználót válasszon. Érintse meg a hozzárendelésükhöz.</string>
+    <string name="vp_no_pending">Minden mérésnek van felhasználója.</string>
+    <string name="vp_assign_action">Függőben lévő mérések hozzárendelése</string>
+    <string name="vp_monitor_bank">Vérnyomásmérő memória bank %1$s</string>
+    <string name="vp_monitor_bank_hint">Vérnyomásmérő memóriabank (1 vagy 2)</string>
+    <string name="vp_health_intro">A Health Connect export engedélyezése előtt válassza ki saját virtuális felhasználóját. Csak az adott felhasználóhoz rendelt mérések kerülnek exportálásra. A hozzá nem rendelt mérések mindaddig privátak maradnak, amíg ki nem választja, hogy ki végezte őket.</string>
+    <string name="vp_health_choose">Válassza ki a saját felhasználóját.</string>
+    <string name="vp_health_selected">Kiválasztott felhasználó: %1$s</string>
+    <string name="vp_health_summary">%1$s: %2$d exportálva; %3$d kihagyva.</string>
+    <string name="vp_health_history">Az exportálás engedélyezése magában foglalja a kiválasztott felhasználóhoz rendelt mentett értékeket. A felhasználóra váró mérések nem kerülnek exportálásra.</string>
+    <string name="vp_health_shared">A Health Connect egy személyt jelöl. Csak a saját felhasználóját válassza ki. Amikor a vérnyomásmérő memóriabank mód és a virtuális felhasználói mód között vált, ki kell választania saját felhasználóját, és újra engedélyeznie kell az exportálást.</string>
+    <string name="vp_pending_privacy">A felhasználóhoz nem rendelt mérések ideiglenes privát sorban maradnak, még átjelentkezési módban is. Addig nem adódnak hozzá a mérési előzményekhez, a Health Connect vagy HTTP-feltöltésekhez, amíg hozzá nem rendeli őket.</string>
+    <string name="vp_mode_change_help">A meglévő mérési előzmények megőrződnek. A virtuális felhasználó nélkül korábban elmentett mérések hozzárendelés nélküliként jelennek meg. A funkció kikapcsolása megőrzi a függőben lévő méréseket és az elnevezett profilokat.</string>
+    <string name="vp_delete_confirm">Eltávolítja a következőt: %1$s?</string>
+</resources>

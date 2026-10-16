@@ -132,9 +132,11 @@ public class HttpForwardingStoreTest {
         store.packet("synthetic-cuff","synthetic-characteristic",packet,"synthetic note");
         SQLiteDatabase db=store.getWritableDatabase();
         db.execSQL("INSERT INTO reading_tombstones(receipt) VALUES('synthetic-old-hash')");
-        db.execSQL("DROP TABLE IF EXISTS http_outbox"); db.execSQL("DROP TABLE IF EXISTS http_receipts"); db.setVersion(4);
+        db.execSQL("DROP TABLE IF EXISTS http_outbox"); db.execSQL("DROP TABLE IF EXISTS http_receipts");
+        db.execSQL("DROP TABLE assignment_receipts"); db.execSQL("DROP TABLE assignment_inbox"); db.execSQL("DROP TABLE profile_configuration");
+        db.execSQL("DROP INDEX reading_profile"); db.execSQL("ALTER TABLE readings DROP COLUMN virtual_user_id"); db.execSQL("DROP TABLE virtual_users"); db.setVersion(4);
         store.close(); store=new ReadingStore(context);
-        assertEquals(5,store.getReadableDatabase().getVersion());
+        assertEquals(6,store.getReadableDatabase().getVersion());
         assertEquals(1,store.historyCount(0)); assertEquals("synthetic-client",store.healthPending(1,10).get(0).healthClientId);
         assertEquals(0,count("http_outbox")); assertEquals(0,count("http_receipts"));
         assertEquals(1,count("packets")); assertEquals(1,count("devices")); assertEquals(1,count("reading_tombstones"));

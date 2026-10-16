@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="vp_title">Virtuella användare</string>
+    <string name="vp_enabled">Använd virtuella användare</string>
+    <string name="vp_intro">Skapa namngivna profiler istället för att använda blodtrycksmätarens användarnummer. Välj vem varje ny mätning tillhör. Minst en profil krävs medan den här funktionen är aktiverad.</string>
+    <string name="vp_add">Lägg till användare</string>
+    <string name="vp_name">Namn</string>
+    <string name="vp_rename">Döpa om</string>
+    <string name="vp_delete">Ta bort användare</string>
+    <string name="vp_delete_help">Välj den användare som ska ta emot denna användares sparade mått. Att ta bort en användare tar inte bort mätningar eller ändrar kopior som redan skickats någon annanstans.</string>
+    <string name="vp_last_user">Behåll minst en användare.</string>
+    <string name="vp_name_invalid">Ange ett icke-tomt namn på högst 100 tecken.</string>
+    <string name="vp_save_failed">Det gick inte att spara den här ändringen. Försök igen.</string>
+    <string name="vp_first_user">Skapa din första användare</string>
+    <string name="vp_unassigned">Otilldelad</string>
+    <string name="vp_assign_title">Vem gjorde denna mätning?</string>
+    <string name="vp_assign_help">Välj en användare för denna mätning. Väntande mätningar visas från äldsta till nyaste. Du kan återvända senare utan att förlora dem.</string>
+    <string name="vp_later">Senare</string>
+    <string name="vp_pending_count">%1$d mätningar väntar på en användare</string>
+    <string name="vp_pending_channel">Tilldela mått till användare</string>
+    <string name="vp_pending_channel_description">Nya mätningar som behöver en användare innan de kan arkiveras eller exporteras.</string>
+    <string name="vp_pending_notification_title">Välj vem som mätte</string>
+    <string name="vp_pending_notification_text">%1$d mätningar har sparats och väntar på att du ska välja en användare. Tryck för att tilldela dem.</string>
+    <string name="vp_no_pending">Alla mätningar har en användare.</string>
+    <string name="vp_assign_action">Tilldela väntande mätningar</string>
+    <string name="vp_monitor_bank">Blodtrycksmätare minnesbank %1$s</string>
+    <string name="vp_monitor_bank_hint">Minnesbank för blodtrycksmätare (1 eller 2)</string>
+    <string name="vp_health_intro">Välj din egen virtuella användare innan du aktiverar Health Connect-export. Endast tilldelade mått för den användaren kommer att exporteras. Otilldelade mätningar förblir privata tills du väljer vem som tog dem.</string>
+    <string name="vp_health_choose">Välj din egen användare.</string>
+    <string name="vp_health_selected">Vald användare: %1$s</string>
+    <string name="vp_health_summary">%1$s: %2$d exporterad; %3$d hoppade över.</string>
+    <string name="vp_health_history">Aktivering av export inkluderar kvalificerade sparade avläsningar som tilldelats den valda användaren. Mätningar som väntar på en användare exporteras inte.</string>
+    <string name="vp_health_shared">Health Connect representerar en person. Välj bara din egen användare. När du växlar mellan blodtrycksmätarens minnesbankläge och det virtuella användarläget måste du välja din egen användare och aktivera export igen.</string>
+    <string name="vp_pending_privacy">Mätningar som inte har tilldelats en användare hålls i en tillfällig privat kö, även i passthrough-läge. De läggs inte till i mäthistorik, Health Connect eller HTTP-uppladdningar förrän du tilldelar dem.</string>
+    <string name="vp_mode_change_help">Befintlig mäthistorik behålls. Tidigare sparade mätningar utan en virtuell användare visas som otilldelade. Om du stänger av den här funktionen bevaras både de väntande mätningarna och dina namngivna profiler.</string>
+    <string name="vp_delete_confirm">Vill du ta bort %1$s?</string>
+</resources>

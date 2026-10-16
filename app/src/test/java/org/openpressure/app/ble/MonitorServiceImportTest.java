@@ -122,6 +122,25 @@ public class MonitorServiceImportTest {
         HttpForwardingSettings.save(monitor,endpoint,"",true);
         assertEquals("A completed result must retain its actual storage outcome",detail,MonitorUi.detail(monitor,monitor));
     }
+    @Test public void virtualUsersRetainBothBanksUntilExplicitAssignmentWithoutEarlyForwarding() throws Exception {
+        String endpoint="https://example.invalid/measurements";
+        ExperimentalConsent.accept(monitor); HttpForwardingSettings.save(monitor,endpoint,"",false);
+        store.createVirtualUser("Synthetic A"); store.createVirtualUser("Synthetic B");
+        int person=store.createVirtualUser("Synthetic C").id; store.setVirtualUsersEnabled(true);
+        pair(); readAllHistory(); writeDone(last(),0); dataReply(last(),hex("088f000000000087"),false);
+        assertEquals("History transfer complete",monitor.status);
+        assertEquals(2,monitor.addedInTransfer); assertEquals(2,monitor.pendingInTransfer);
+        assertEquals(0,monitor.storedInTransfer); assertEquals(0,monitor.queuedInTransfer);
+        assertEquals(2,store.pendingAssignmentsCount()); assertEquals(0,store.historyCount(0));
+        assertEquals(0,store.httpOutbox().count(endpoint));
+        assertTrue(store.healthPending(-person,10).isEmpty());
+        String detail=MonitorUi.detail(monitor,monitor);
+        assertTrue(detail.contains(monitor.getString(R.string.vp_pending_count,2)));
+        store.assignPending(store.nextPendingAssignment().id,person);
+        store.assignPending(store.nextPendingAssignment().id,person);
+        assertEquals(0,store.pendingAssignmentsCount()); assertEquals(2,store.httpOutbox().count(endpoint));
+        assertEquals(0,store.historyCount(0)); assertEquals(detail,MonitorUi.detail(monitor,monitor));
+    }
     @Test public void changingStoragePolicyDuringImportReportsActualSavedAndQueuedCounts() throws Exception {
         String endpoint="https://example.invalid/measurements";
         ExperimentalConsent.accept(monitor); HttpForwardingSettings.save(monitor,endpoint,"",true);

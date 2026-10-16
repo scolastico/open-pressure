@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="vp_title">가상 사용자</string>
+    <string name="vp_enabled">가상 사용자 사용</string>
+    <string name="vp_intro">혈압계의 사용자 번호를 사용하는 대신 명명된 프로필을 만듭니다. 각각의 새로운 측정값이 누구에게 속할지 선택하세요. 이 기능을 활성화하는 동안 하나 이상의 프로필이 필요합니다.</string>
+    <string name="vp_add">사용자 추가</string>
+    <string name="vp_name">이름</string>
+    <string name="vp_rename">이름 바꾸기</string>
+    <string name="vp_delete">사용자 삭제</string>
+    <string name="vp_delete_help">이 사용자가 저장한 측정값을 수신할 사용자를 선택하세요. 사용자를 제거해도 측정값이 삭제되거나 이미 다른 곳으로 전송된 사본이 변경되지 않습니다.</string>
+    <string name="vp_last_user">사용자를 한 명 이상 유지하세요.</string>
+    <string name="vp_name_invalid">100자 이하의 비어 있지 않은 이름을 입력하세요.</string>
+    <string name="vp_save_failed">이 변경사항을 저장할 수 없습니다. 다시 시도해 보세요.</string>
+    <string name="vp_first_user">첫 번째 사용자 만들기</string>
+    <string name="vp_unassigned">할당되지 않음</string>
+    <string name="vp_assign_title">누가 이 측정을 했나요?</string>
+    <string name="vp_assign_help">이 측정에 대한 사용자를 선택하세요. 보류 중인 측정값은 가장 오래된 것부터 최신 것 순으로 표시됩니다. 나중에 잃어버리지 않고 다시 돌아올 수 있습니다.</string>
+    <string name="vp_later">나중에</string>
+    <string name="vp_pending_count">사용자를 기다리는 %1$d개 측정값</string>
+    <string name="vp_pending_channel">사용자에게 측정 할당</string>
+    <string name="vp_pending_channel_description">새로운 측정값을 보관하거나 내보내려면 먼저 사용자가 필요합니다.</string>
+    <string name="vp_pending_notification_title">측정한 사람을 선택하세요</string>
+    <string name="vp_pending_notification_text">%1$d개의 측정값이 저장되었으며 사용자 선택을 기다리고 있습니다. 할당하려면 탭하세요.</string>
+    <string name="vp_no_pending">모든 측정에는 사용자가 있습니다.</string>
+    <string name="vp_assign_action">보류 중인 측정 할당</string>
+    <string name="vp_monitor_bank">혈압 모니터 메모리 뱅크 %1$s</string>
+    <string name="vp_monitor_bank_hint">혈압계 메모리 뱅크(1 또는 2)</string>
+    <string name="vp_health_intro">Health Connect 내보내기를 활성화하기 전에 자신의 가상 사용자를 선택하세요. 해당 사용자에게 할당된 측정값만 내보내집니다. 할당되지 않은 측정은 측정한 사람을 선택할 때까지 비공개로 유지됩니다.</string>
+    <string name="vp_health_choose">자신의 사용자를 선택하십시오.</string>
+    <string name="vp_health_selected">선택된 사용자: %1$s</string>
+    <string name="vp_health_summary">%1$s: %2$d 내보냈습니다. %3$d 건너뛰었습니다.</string>
+    <string name="vp_health_history">내보내기를 활성화하면 선택한 사용자에게 할당된 적격한 저장된 판독값이 포함됩니다. 사용자를 기다리는 측정값은 내보내지지 않습니다.</string>
+    <string name="vp_health_shared">Health Connect는 한 사람을 나타냅니다. 자신의 사용자만 선택하세요. 혈압 모니터 메모리 뱅크 모드와 가상 사용자 모드 사이를 전환하는 경우 자신의 사용자를 선택하고 내보내기를 다시 활성화해야 합니다.</string>
+    <string name="vp_pending_privacy">사용자에게 할당되지 않은 측정은 통과 모드에서도 임시 개인 대기열에 보관됩니다. 할당할 때까지 측정 기록, Health Connect 또는 HTTP 업로드에 추가되지 않습니다.</string>
+    <string name="vp_mode_change_help">기존 측정 이력은 유지됩니다. 가상 사용자 없이 이전에 저장된 측정값은 할당되지 않은 것으로 표시됩니다. 이 기능을 끄면 보류 중인 측정값과 명명된 프로필이 모두 보존됩니다.</string>
+    <string name="vp_delete_confirm">%1$s을(를) 제거하시겠습니까?</string>
+</resources>

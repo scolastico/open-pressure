@@ -70,6 +70,16 @@ With a 120-minute suppression window, accept a recent measurement, import an old
 
 Reboot, update the app, change the clock/timezone and test daylight saving transitions on a dedicated test device. Confirm future reminders recover, missed powered-off occurrences are not replayed, stale/deleted schedules do not notify and repeated local times do not produce duplicate alerts. Record phone/Android version and actual delivery observations separately from automated results.
 
+## Virtual users
+
+Use synthetic/disposable measurements. Start with the feature off and confirm the existing monitor-bank flow. Enable it after creating a named user; add at least three users, rename them and remove one only after choosing a replacement. Verify that the last user cannot be removed and no measurement disappears. Check long names, larger fonts and RTL layout, especially systolic/diastolic order.
+
+Take/import new measurements with the app foregrounded on different screens, then backgrounded. Confirm foreground assignment asks who measured; background notifications show a pending count and open the same picker directly. Ignore/swipe notifications, deny notification permission, take several measurements and restart the app/process. The queue must survive and process oldest first, with no implicit selection. Later/back must preserve the queue without immediately reopening it in the same foreground session. Repeated imports must not prompt again for the same stored record.
+
+Check named-person filters, trends, CSV/PDF and counted deletion independently of physical banks. Registration controls must still use valid monitor memory banks, never virtual IDs. Existing history must stay accessible as Unassigned. Test switching the mode off with pending work, then back on. In HTTP passthrough, no history or Health Connect row should appear; assignment must precede an upload and its original destination must remain bound after settings changes.
+
+With disposable Health Connect data, confirm mode changes invalidate old export consent, only the explicitly selected named person exports, pending measurements never export and deleting/replacing a profile cannot authorize a different person through an old selection. Server/provider copies remain after local renames/removal. Record physical-phone lifecycle, notification, translation and provider observations separately from simulated tests.
+
 ## Other device families
 
 Repeat relevant steps per exact service layout, model and firmware. Standard BP, Optional Service RACP, UDS and time-characteristic behavior need actual captures before being marked tested. Verify explicit time writes by read-back or cuff inspection, including around midnight. STP and encrypted X7 require separate first-pair/saved-key/authentication tests. Other WLP maps remain blocked until independently implemented and reviewed; do not bypass model checks for a test.

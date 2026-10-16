@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="vp_title">کاربران مجازی</string>
+    <string name="vp_enabled">از کاربران مجازی استفاده کنید</string>
+    <string name="vp_intro">به جای استفاده از شماره کاربری فشار خون، پروفایل های نامگذاری شده ایجاد کنید. انتخاب کنید که هر اندازه گیری جدید به چه کسی تعلق دارد. تا زمانی که این ویژگی فعال است، حداقل یک نمایه مورد نیاز است.</string>
+    <string name="vp_add">کاربر اضافه کنید</string>
+    <string name="vp_name">نام</string>
+    <string name="vp_rename">تغییر نام دهید</string>
+    <string name="vp_delete">حذف کاربر</string>
+    <string name="vp_delete_help">کاربری را انتخاب کنید که باید اندازه گیری های ذخیره شده این کاربر را دریافت کند. حذف یک کاربر، اندازه‌گیری‌ها را حذف نمی‌کند یا کپی‌هایی را که قبلاً به جای دیگری ارسال شده است، تغییر نمی‌دهد.</string>
+    <string name="vp_last_user">حداقل یک کاربر را حفظ کنید.</string>
+    <string name="vp_name_invalid">نامی غیر خالی با حداکثر 100 کاراکتر وارد کنید.</string>
+    <string name="vp_save_failed">این تغییر ذخیره نشد. دوباره امتحان کنید.</string>
+    <string name="vp_first_user">اولین کاربر خود را ایجاد کنید</string>
+    <string name="vp_unassigned">واگذار نشده است</string>
+    <string name="vp_assign_title">چه کسی این اندازه گیری را انجام داده است؟</string>
+    <string name="vp_assign_help">یک کاربر برای این اندازه گیری انتخاب کنید. اندازه گیری های معلق از قدیمی ترین تا جدیدترین نشان داده شده است. می توانید بعداً بدون از دست دادن آنها برگردید.</string>
+    <string name="vp_later">بعدا</string>
+    <string name="vp_pending_count">%1$d اندازه‌گیری در انتظار کاربر است</string>
+    <string name="vp_pending_channel">اندازه گیری را به کاربران اختصاص دهید</string>
+    <string name="vp_pending_channel_description">اندازه‌گیری‌های جدیدی که قبل از ثبت یا صادر شدن به کاربر نیاز دارند.</string>
+    <string name="vp_pending_notification_title">انتخاب کنید که چه کسی اندازه گیری می کند</string>
+    <string name="vp_pending_notification_text">%1$d اندازه‌گیری ذخیره شده است و منتظر انتخاب کاربر است. برای اختصاص دادن به آنها ضربه بزنید.</string>
+    <string name="vp_no_pending">تمام اندازه گیری ها یک کاربر دارند.</string>
+    <string name="vp_assign_action">تعیین اندازه گیری های معلق</string>
+    <string name="vp_monitor_bank">بانک حافظه مانیتور فشار خون %1$s</string>
+    <string name="vp_monitor_bank_hint">بانک حافظه مانیتور فشار خون (1 یا 2)</string>
+    <string name="vp_health_intro">قبل از فعال کردن صادرات Health Connect، کاربر مجازی خود را انتخاب کنید. فقط اندازه گیری های اختصاص داده شده برای آن کاربر صادر خواهد شد. اندازه‌گیری‌های تعیین‌نشده خصوصی می‌مانند تا زمانی که انتخاب کنید چه کسی آنها را انجام داده است.</string>
+    <string name="vp_health_choose">کاربر خود را انتخاب کنید</string>
+    <string name="vp_health_selected">کاربر انتخابی: %1$s</string>
+    <string name="vp_health_summary">%1$s: %2$d صادر شد. %3$d رد شد.</string>
+    <string name="vp_health_history">فعال کردن صادرات شامل خواندن های ذخیره شده واجد شرایط است که به کاربر انتخابی اختصاص داده شده است. اندازه‌گیری‌های منتظر کاربر صادر نمی‌شوند.</string>
+    <string name="vp_health_shared">Health Connect نشان دهنده یک شخص است. فقط کاربر خود را انتخاب کنید. هنگامی که بین حالت بانک حافظه مانیتور فشار خون و حالت کاربر مجازی جابجا می شوید، باید کاربر خود را انتخاب کرده و دوباره صادرات را فعال کنید.</string>
+    <string name="vp_pending_privacy">اندازه‌گیری‌هایی که به کاربر اختصاص داده نشده‌اند، حتی در حالت عبور در یک صف خصوصی موقت نگهداری می‌شوند. آنها به تاریخچه اندازه گیری، آپلودهای Health Connect یا HTTP اضافه نمی شوند تا زمانی که آنها را اختصاص دهید.</string>
+    <string name="vp_mode_change_help">تاریخچه اندازه گیری موجود نگهداری می شود. اندازه‌گیری‌های ذخیره‌شده قبلی بدون کاربر مجازی به‌عنوان تعیین‌نشده نشان داده می‌شوند. با خاموش کردن این ویژگی، هم اندازه‌گیری‌های معلق و هم پروفایل‌های نام‌گذاری شده شما حفظ می‌شود.</string>
+    <string name="vp_delete_confirm">%1$s حذف شود؟</string>
+</resources>

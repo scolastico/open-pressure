@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="vp_title">Abasebenzisi ababonakalayo</string>
+    <string name="vp_enabled">Sebenzisa abasebenzisi ababonakalayo</string>
+    <string name="vp_intro">Dala amaphrofayili aqanjiwe esikhundleni sokusebenzisa izinombolo zomsebenzisi zoqapha umfutho wegazi. Khetha ukuthi isilinganiso esisha ngasinye esikabani. Kudingeka okungenani iphrofayela eyodwa ngenkathi lesi sici sivuliwe.</string>
+    <string name="vp_add">Engeza umsebenzisi</string>
+    <string name="vp_name">Igama</string>
+    <string name="vp_rename">Qamba kabusha</string>
+    <string name="vp_delete">Susa umsebenzisi</string>
+    <string name="vp_delete_help">Khetha umsebenzisi okufanele athole izilinganiso ezilondoloziwe zalo msebenzisi. Ukususa umsebenzisi akususi izilinganiso noma kushintsha amakhophi asethunyelwe kwenye indawo.</string>
+    <string name="vp_last_user">Gcina okungenani umsebenzisi oyedwa.</string>
+    <string name="vp_name_invalid">Faka igama elingelona elingenalutho elinezinhlamvu ezingeqile kweziyi-100.</string>
+    <string name="vp_save_failed">Ayikwazanga ukulondoloza lolu shintsho. Zama futhi.</string>
+    <string name="vp_first_user">Dala umsebenzisi wakho wokuqala</string>
+    <string name="vp_unassigned">Akunikeziwe</string>
+    <string name="vp_assign_title">Ubani othathe lesi silinganiso?</string>
+    <string name="vp_assign_help">Khetha umsebenzisi walesi silinganiso. Izilinganiso ezilindile ziboniswa kusukela kwezindala ukuya kwezintsha kakhulu. Ungabuya kamuva ngaphandle kokulahlekelwa yizo.</string>
+    <string name="vp_later">Kamuva</string>
+    <string name="vp_pending_count">%1$d izilinganiso zilinde umsebenzisi</string>
+    <string name="vp_pending_channel">Nikeza izilinganiso kubasebenzisi</string>
+    <string name="vp_pending_channel_description">Izilinganiso ezintsha ezidinga umsebenzisi ngaphambi kokuthi zifakwe kufayela noma zithekeliswe.</string>
+    <string name="vp_pending_notification_title">Khetha ukuthi ubani olinganise</string>
+    <string name="vp_pending_notification_text">%1$d izilinganiso zilondoloziwe futhi zilindele ukuthi ukhethe umsebenzisi. Thepha ukuze ubanikeze.</string>
+    <string name="vp_no_pending">Zonke izilinganiso zinomsebenzisi.</string>
+    <string name="vp_assign_action">Nikeza izilinganiso ezilindile</string>
+    <string name="vp_monitor_bank">Ibhange lememori lokuqapha umfutho wegazi %1$s</string>
+    <string name="vp_monitor_bank_hint">Ibhange lememori lokuqapha umfutho wegazi (1 noma 2)</string>
+    <string name="vp_health_intro">Khetha owakho umsebenzisi obonakalayo ngaphambi kokunika amandla ukuthunyelwa kwe-Health Connect. Izilinganiso ezinikeziwe kuphela zalowo msebenzisi zizothunyelwa. Izilinganiso ezingabelwe zihlala ziyimfihlo uze ukhethe ukuthi ubani ozithathile.</string>
+    <string name="vp_health_choose">Khetha umsebenzisi wakho.</string>
+    <string name="vp_health_selected">Umsebenzisi okhethiwe: %1$s</string>
+    <string name="vp_health_summary">%1$s: %2$d ikhishiwe; %3$d kweqiwe.</string>
+    <string name="vp_health_history">Ukunika amandla ukuthunyelwa kufaka phakathi ukufundwa okulondoloziwe okufanelekile okwabelwa umsebenzisi okhethiwe. Izilinganiso ezilindele umsebenzisi azithunyelwa ngaphandle.</string>
+    <string name="vp_health_shared">I-Health Connect imele umuntu oyedwa. Khetha umsebenzisi wakho kuphela. Uma ushintsha phakathi kwemodi yokuqapha umfutho wegazi we-memory bank kanye ne-virtual-user mode, kufanele ukhethe umsebenzisi wakho bese uvumela ukuthekelisa futhi.</string>
+    <string name="vp_pending_privacy">Izilinganiso ezinganikezwanga kumsebenzisi zigcinwa kumugqa oyimfihlo wesikhashana, ngisho nakumodi yokudlula. Ayengezwa kumlando wokulinganisa, i-Health Connect noma okulayishiwe kwe-HTTP uze uwabele.</string>
+    <string name="vp_mode_change_help">Umlando wokulinganisa okhona uyagcinwa. Izilinganiso ezilondolozwe ngaphambilini ngaphandle komsebenzisi obonakalayo ziboniswa njengezingabelwe. Ukuvala lesi sici kulondoloza kokubili izilinganiso ezilindile kanye namaphrofayela akho aqanjwe igama.</string>
+    <string name="vp_delete_confirm">Susa i-%1$s?</string>
+</resources>

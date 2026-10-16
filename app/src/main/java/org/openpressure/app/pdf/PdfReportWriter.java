@@ -70,6 +70,7 @@ public final class PdfReportWriter {
         NumberFormat format=(NumberFormat)numbers.clone();format.setMaximumFractionDigits(1);return format.format(value);
     }
     private String profile(Integer user) {
+        if(report.virtualUsers) return user==null?s(R.string.vp_unassigned):report.profileNames.getOrDefault(user,s(R.string.vp_unassigned));
         return user==null?s(R.string.main_user_unspecified):user==255?s(R.string.main_guest):s(R.string.main_user_number,n(user));
     }
     private String selected() { return report.selectedUser==0?s(R.string.main_all_users):profile(report.selectedUser); }

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="vp_title">आभासी वापरकर्ते</string>
+    <string name="vp_enabled">आभासी वापरकर्ते वापरा</string>
+    <string name="vp_intro">ब्लड प्रेशर मॉनिटरचे वापरकर्ता क्रमांक वापरण्याऐवजी नामांकित प्रोफाइल तयार करा. प्रत्येक नवीन मोजमाप कोणाचे आहे ते निवडा. हे वैशिष्ट्य सक्षम असताना किमान एक प्रोफाइल आवश्यक आहे.</string>
+    <string name="vp_add">वापरकर्ता जोडा</string>
+    <string name="vp_name">नाव</string>
+    <string name="vp_rename">नाव बदला</string>
+    <string name="vp_delete">वापरकर्ता काढा</string>
+    <string name="vp_delete_help">या वापरकर्त्याचे जतन केलेले मोजमाप ज्याला मिळावे तो वापरकर्ता निवडा. वापरकर्त्याला काढून टाकणे मोजमाप हटवत नाही किंवा इतरत्र आधीपासून पाठवलेल्या प्रती बदलत नाहीत.</string>
+    <string name="vp_last_user">किमान एक वापरकर्ता ठेवा.</string>
+    <string name="vp_name_invalid">100 पेक्षा जास्त वर्ण नसलेले रिक्त नाव प्रविष्ट करा.</string>
+    <string name="vp_save_failed">हा बदल जतन करू शकलो नाही. पुन्हा प्रयत्न करा.</string>
+    <string name="vp_first_user">तुमचा पहिला वापरकर्ता तयार करा</string>
+    <string name="vp_unassigned">असाइन केलेले नाही</string>
+    <string name="vp_assign_title">हे मोजमाप कोणी घेतले?</string>
+    <string name="vp_assign_help">या मोजमापासाठी वापरकर्ता निवडा. प्रलंबित मोजमाप सर्वात जुने ते नवीनतम दर्शवले आहेत. तुम्ही त्यांना न गमावता नंतर परत येऊ शकता.</string>
+    <string name="vp_later">नंतर</string>
+    <string name="vp_pending_count">%1$d मोजमाप वापरकर्त्याची वाट पाहत आहे</string>
+    <string name="vp_pending_channel">वापरकर्त्यांना मोजमाप नियुक्त करा</string>
+    <string name="vp_pending_channel_description">नवीन मोजमाप ज्यांना वापरकर्त्याची आवश्यकता आहे ते दाखल करण्यापूर्वी किंवा निर्यात करण्यापूर्वी.</string>
+    <string name="vp_pending_notification_title">कोण मोजले ते निवडा</string>
+    <string name="vp_pending_notification_text">%1$d मोजमाप जतन केले आहेत आणि तुम्ही वापरकर्ता निवडण्याची वाट पाहत आहात. त्यांना नियुक्त करण्यासाठी टॅप करा.</string>
+    <string name="vp_no_pending">सर्व मोजमापांचा वापरकर्ता असतो.</string>
+    <string name="vp_assign_action">प्रलंबित मोजमाप नियुक्त करा</string>
+    <string name="vp_monitor_bank">रक्तदाब मॉनिटर मेमरी बँक %1$s</string>
+    <string name="vp_monitor_bank_hint">ब्लड प्रेशर मॉनिटर मेमरी बँक (1 किंवा 2)</string>
+    <string name="vp_health_intro">Health Connect निर्यात सक्षम करण्यापूर्वी तुमचा स्वतःचा आभासी वापरकर्ता निवडा. केवळ त्या वापरकर्त्यासाठी नियुक्त केलेले मोजमाप निर्यात केले जातील. नियुक्त न केलेले मोजमाप तुम्ही कोणी घेतले हे निवडेपर्यंत खाजगी राहतात.</string>
+    <string name="vp_health_choose">तुमचा स्वतःचा वापरकर्ता निवडा.</string>
+    <string name="vp_health_selected">निवडलेला वापरकर्ता: %1$s</string>
+    <string name="vp_health_summary">%1$s: %2$d निर्यात केले; %3$d वगळले.</string>
+    <string name="vp_health_history">निर्यात सक्षम करण्यामध्ये निवडलेल्या वापरकर्त्याला नियुक्त केलेले पात्र जतन केलेले वाचन समाविष्ट आहे. वापरकर्त्याची वाट पाहणारे मोजमाप निर्यात केले जात नाहीत.</string>
+    <string name="vp_health_shared">Health Connect एका व्यक्तीचे प्रतिनिधित्व करतो. फक्त तुमचा स्वतःचा वापरकर्ता निवडा. जेव्हा तुम्ही ब्लड प्रेशर मॉनिटर मेमरी-बँक मोड आणि व्हर्च्युअल-वापरकर्ता मोड दरम्यान स्विच करता, तेव्हा तुम्ही तुमचा स्वतःचा वापरकर्ता निवडला पाहिजे आणि पुन्हा निर्यात सक्षम करा.</string>
+    <string name="vp_pending_privacy">वापरकर्त्याला नियुक्त न केलेले माप तात्पुरत्या खाजगी रांगेत ठेवले जातात, अगदी पासथ्रू मोडमध्ये देखील. तुम्ही त्यांना नियुक्त करेपर्यंत ते मोजमाप इतिहास, Health Connect किंवा HTTP अपलोडमध्ये जोडले जात नाहीत.</string>
+    <string name="vp_mode_change_help">विद्यमान मोजमाप इतिहास ठेवला आहे. व्हर्च्युअल वापरकर्त्याशिवाय पूर्वी जतन केलेली मोजमाप असाइन न केलेली म्हणून दर्शविली आहेत. हे वैशिष्ट्य बंद केल्याने प्रलंबित मापे आणि तुमच्या नामांकित प्रोफाईल या दोहोंचे रक्षण होते.</string>
+    <string name="vp_delete_confirm">%1$s काढायचे?</string>
+</resources>

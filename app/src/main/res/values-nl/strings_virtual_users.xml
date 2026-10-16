@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="vp_title">Virtuele gebruikers</string>
+    <string name="vp_enabled">Gebruik virtuele gebruikers</string>
+    <string name="vp_intro">Maak benoemde profielen aan in plaats van de gebruikersnummers van de bloeddrukmeter te gebruiken. Kies van wie elke nieuwe meting is. Er is ten minste één profiel vereist als deze functie is ingeschakeld.</string>
+    <string name="vp_add">Gebruiker toevoegen</string>
+    <string name="vp_name">Naam</string>
+    <string name="vp_rename">Hernoemen</string>
+    <string name="vp_delete">Gebruiker verwijderen</string>
+    <string name="vp_delete_help">Kies de gebruiker die de opgeslagen metingen van deze gebruiker moet ontvangen. Als u een gebruiker verwijdert, worden metingen niet verwijderd of worden kopieën gewijzigd die al elders zijn verzonden.</string>
+    <string name="vp_last_user">Houd minimaal één gebruiker aan.</string>
+    <string name="vp_name_invalid">Voer een niet-lege naam in van maximaal 100 tekens.</string>
+    <string name="vp_save_failed">Kan deze wijziging niet opslaan. Probeer het opnieuw.</string>
+    <string name="vp_first_user">Maak uw eerste gebruiker aan</string>
+    <string name="vp_unassigned">Niet toegewezen</string>
+    <string name="vp_assign_title">Wie heeft deze meting uitgevoerd?</string>
+    <string name="vp_assign_help">Kies een gebruiker voor deze meting. Metingen die in behandeling zijn, worden weergegeven van oud naar nieuw. Je kunt later terugkeren zonder ze kwijt te raken.</string>
+    <string name="vp_later">Later</string>
+    <string name="vp_pending_count">%1$d metingen wachten op een gebruiker</string>
+    <string name="vp_pending_channel">Wijs metingen toe aan gebruikers</string>
+    <string name="vp_pending_channel_description">Nieuwe metingen waarvoor een gebruiker nodig is voordat ze kunnen worden opgeslagen of geëxporteerd.</string>
+    <string name="vp_pending_notification_title">Kies wie heeft gemeten</string>
+    <string name="vp_pending_notification_text">%1$d metingen zijn opgeslagen en wachten totdat u een gebruiker kiest. Tik om ze toe te wijzen.</string>
+    <string name="vp_no_pending">Alle metingen hebben een gebruiker.</string>
+    <string name="vp_assign_action">Wijs lopende metingen toe</string>
+    <string name="vp_monitor_bank">Geheugenbank %1$s van de bloeddrukmeter</string>
+    <string name="vp_monitor_bank_hint">Geheugenbank bloeddrukmeter (1 of 2)</string>
+    <string name="vp_health_intro">Kies uw eigen virtuele gebruiker voordat u Health Connect-export inschakelt. Alleen toegewezen metingen voor die gebruiker worden geëxporteerd. Niet-toegewezen metingen blijven privé totdat u kiest wie ze heeft uitgevoerd.</string>
+    <string name="vp_health_choose">Kies uw eigen gebruiker.</string>
+    <string name="vp_health_selected">Geselecteerde gebruiker: %1$s</string>
+    <string name="vp_health_summary">%1$s: %2$d geëxporteerd; %3$d overgeslagen.</string>
+    <string name="vp_health_history">Als u het exporteren inschakelt, worden ook in aanmerking komende opgeslagen metingen opgenomen die aan de geselecteerde gebruiker zijn toegewezen. Metingen die wachten op een gebruiker worden niet geëxporteerd.</string>
+    <string name="vp_health_shared">Health Connect vertegenwoordigt één persoon. Kies alleen uw eigen gebruiker. Wanneer u schakelt tussen de geheugenbankmodus van de bloeddrukmeter en de virtuele gebruikersmodus, moet u uw eigen gebruiker selecteren en de export opnieuw inschakelen.</string>
+    <string name="vp_pending_privacy">Metingen die niet aan een gebruiker zijn toegewezen, worden in een tijdelijke privéwachtrij bewaard, zelfs in de passthrough-modus. Ze worden pas toegevoegd aan de meetgeschiedenis, Health Connect of HTTP-uploads als u ze toewijst.</string>
+    <string name="vp_mode_change_help">De bestaande meetgeschiedenis wordt bijgehouden. Eerder opgeslagen metingen zonder virtuele gebruiker worden als niet-toegewezen weergegeven. Als u deze functie uitschakelt, blijven zowel de lopende metingen als uw benoemde profielen behouden.</string>
+    <string name="vp_delete_confirm">%1$s verwijderen?</string>
+</resources>

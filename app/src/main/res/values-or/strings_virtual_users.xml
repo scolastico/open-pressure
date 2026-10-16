@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="vp_title">ଭର୍ଚୁଆଲ୍ ବ୍ୟବହାରକାରୀ |</string>
+    <string name="vp_enabled">ଭର୍ଚୁଆଲ୍ ବ୍ୟବହାରକାରୀ ବ୍ୟବହାର କରନ୍ତୁ |</string>
+    <string name="vp_intro">ରକ୍ତଚାପ ମନିଟରର ବ୍ୟବହାରକାରୀ ସଂଖ୍ୟା ବ୍ୟବହାର କରିବା ପରିବର୍ତ୍ତେ ନାମିତ ପ୍ରୋଫାଇଲ୍ ସୃଷ୍ଟି କରନ୍ତୁ | ପ୍ରତ୍ୟେକ ନୂତନ ପରିମାପ କାହା ସହିତ ଅଛି ତାହା ବାଛନ୍ତୁ | ଏହି ବ feature ଶିଷ୍ଟ୍ୟ ସକ୍ଷମ ହୋଇଥିବାବେଳେ ଅତିକମରେ ଗୋଟିଏ ପ୍ରୋଫାଇଲ୍ ଆବଶ୍ୟକ |</string>
+    <string name="vp_add">ଉପଯୋଗକର୍ତ୍ତା ଯୋଡନ୍ତୁ |</string>
+    <string name="vp_name">ନାମ</string>
+    <string name="vp_rename">ନାମ ପରିବର୍ତ୍ତନ କରନ୍ତୁ |</string>
+    <string name="vp_delete">ଉପଯୋଗକର୍ତ୍ତା ଅପସାରଣ କରନ୍ତୁ |</string>
+    <string name="vp_delete_help">ଉପଭୋକ୍ତା ଚୟନ କରନ୍ତୁ ଯିଏ ଏହି ଉପଭୋକ୍ତାଙ୍କର ସଞ୍ଚିତ ମାପ ଗ୍ରହଣ କରିବା ଉଚିତ୍ | ଏକ ଉପଭୋକ୍ତା ଅପସାରଣ କରିବା ମାପ ବିଲୋପ କରେ ନାହିଁ କିମ୍ବା ଅନ୍ୟତ୍ର ପଠାଯାଇଥିବା କପି ପରିବର୍ତ୍ତନ କରେ ନାହିଁ |</string>
+    <string name="vp_last_user">ଅତିକମରେ ଜଣେ ଉପଭୋକ୍ତା ରଖନ୍ତୁ |</string>
+    <string name="vp_name_invalid">100 ରୁ ଅଧିକ ଅକ୍ଷରର ଏକ ଖାଲି ନାମ ପ୍ରବେଶ କରନ୍ତୁ |</string>
+    <string name="vp_save_failed">ଏହି ପରିବର୍ତ୍ତନ ସଞ୍ଚୟ କରିପାରିଲା ନାହିଁ | ପୁନର୍ବାର ଚେଷ୍ଟା କରନ୍ତୁ |</string>
+    <string name="vp_first_user">ଆପଣଙ୍କର ପ୍ରଥମ ଉପଭୋକ୍ତା ସୃଷ୍ଟି କରନ୍ତୁ |</string>
+    <string name="vp_unassigned">ଅଣସଂରକ୍ଷିତ |</string>
+    <string name="vp_assign_title">କିଏ ଏହି ମାପ ନେଇଥିଲେ?</string>
+    <string name="vp_assign_help">ଏହି ମାପ ପାଇଁ ଏକ ଉପଭୋକ୍ତା ବାଛନ୍ତୁ | ବିଚାରାଧୀନ ମାପଗୁଡିକ ପୁରାତନରୁ ନୂତନ ପର୍ଯ୍ୟନ୍ତ ଦର୍ଶାଯାଇଛି | ସେଗୁଡିକ ହରାଇ ଆପଣ ପରେ ଫେରିପାରିବେ |</string>
+    <string name="vp_later">ପରେ</string>
+    <string name="vp_pending_count">%1$d ମାପ ଏକ ଉପଭୋକ୍ତା ପାଇଁ ଅପେକ୍ଷା କରେ |</string>
+    <string name="vp_pending_channel">ଉପଭୋକ୍ତାମାନଙ୍କୁ ମାପ ନ୍ୟସ୍ତ କରନ୍ତୁ |</string>
+    <string name="vp_pending_channel_description">ନୂତନ ମାପଗୁଡିକ ଯାହା ଦାଖଲ କିମ୍ବା ରପ୍ତାନି ହେବା ପୂର୍ବରୁ ଏକ ଉପଭୋକ୍ତା ଆବଶ୍ୟକ କରେ |</string>
+    <string name="vp_pending_notification_title">କିଏ ମାପିଲେ ବାଛନ୍ତୁ |</string>
+    <string name="vp_pending_notification_text">%1$d ମାପ ସଞ୍ଚୟ ହୋଇଛି ଏବଂ ଆପଣଙ୍କୁ ଏକ ଉପଭୋକ୍ତା ବାଛିବା ପାଇଁ ଅପେକ୍ଷା କରିଛି | ସେମାନଙ୍କୁ ନ୍ୟସ୍ତ କରିବାକୁ ଟ୍ୟାପ୍ କରନ୍ତୁ |</string>
+    <string name="vp_no_pending">ସମସ୍ତ ମାପର ଏକ ଉପଭୋକ୍ତା ଅଛି |</string>
+    <string name="vp_assign_action">ବିଚାରାଧୀନ ମାପଗୁଡିକ ନ୍ୟସ୍ତ କରନ୍ତୁ |</string>
+    <string name="vp_monitor_bank">ବ୍ଲଡ ପ୍ରେସର ମନିଟର ମେମୋରୀ ବ୍ୟାଙ୍କ%1$s |</string>
+    <string name="vp_monitor_bank_hint">ବ୍ଲଡ ପ୍ରେସର ମନିଟର ମେମୋରୀ ବ୍ୟାଙ୍କ (1 କିମ୍ବା 2)</string>
+    <string name="vp_health_intro">Health Connect ରପ୍ତାନି ସକ୍ଷମ କରିବା ପୂର୍ବରୁ ଆପଣଙ୍କର ନିଜର ଭର୍ଚୁଆଲ୍ ବ୍ୟବହାରକାରୀ ବାଛନ୍ତୁ | ସେହି ଉପଭୋକ୍ତା ପାଇଁ କେବଳ ନ୍ୟସ୍ତ ହୋଇଥିବା ମାପଗୁଡିକ ରପ୍ତାନି ହେବ | ଅଣସଂରକ୍ଷିତ ମାପଗୁଡିକ ବ୍ୟକ୍ତିଗତ ରହିଥାଏ ଯେପର୍ଯ୍ୟନ୍ତ ଆପଣ ସେଗୁଡିକୁ କିଏ ନେଇଛନ୍ତି ତାହା ବାଛିବେ |</string>
+    <string name="vp_health_choose">ଆପଣଙ୍କର ନିଜ ବ୍ୟବହାରକାରୀ ବାଛନ୍ତୁ |</string>
+    <string name="vp_health_selected">ମନୋନୀତ ଉପଭୋକ୍ତା:%1$s |</string>
+    <string name="vp_health_summary">%1$s:%2$d ରପ୍ତାନି ହୋଇଛି; %3$d ଛାଡିଦେଲେ |</string>
+    <string name="vp_health_history">ରପ୍ତାନି ସକ୍ଷମ କରିବା ଦ୍ୱାରା ମନୋନୀତ ଉପଭୋକ୍ତାଙ୍କୁ ଦିଆଯାଇଥିବା ଯୋଗ୍ୟ ସଂରକ୍ଷିତ ପଠନ ଅନ୍ତର୍ଭୁକ୍ତ | ଏକ ଉପଭୋକ୍ତା ପାଇଁ ଅପେକ୍ଷା କରୁଥିବା ମାପଗୁଡିକ ରପ୍ତାନି ହୁଏ ନାହିଁ |</string>
+    <string name="vp_health_shared">Health Connect ଜଣେ ବ୍ୟକ୍ତିଙ୍କୁ ପ୍ରତିନିଧିତ୍ୱ କରେ | କେବଳ ଆପଣଙ୍କର ନିଜ ବ୍ୟବହାରକାରୀ ବାଛନ୍ତୁ | ଯେତେବେଳେ ଆପଣ ବ୍ଲଡ ପ୍ରେସର ମନିଟର ମେମୋରୀ-ବ୍ୟାଙ୍କ ମୋଡ୍ ଏବଂ ଭର୍ଚୁଆଲ୍-ୟୁଜର୍ ମୋଡ୍ ମଧ୍ୟରେ ସୁଇଚ୍ କରନ୍ତି, ଆପଣ ନିଶ୍ଚିତ ଭାବରେ ଆପଣଙ୍କର ନିଜ ବ୍ୟବହାରକାରୀଙ୍କୁ ବାଛିବେ ଏବଂ ପୁନର୍ବାର ରପ୍ତାନି ସକ୍ଷମ କରିବେ |</string>
+    <string name="vp_pending_privacy">ପରିମାପ ଯାହା ଏକ ଉପଭୋକ୍ତାଙ୍କୁ ନ୍ୟସ୍ତ ହୋଇନାହିଁ, ଏକ ଅସ୍ଥାୟୀ ବ୍ୟକ୍ତିଗତ ଧାଡିରେ, ଏପରିକି ପାସଷ୍ଟ୍ରୋ ମୋଡ୍ ରେ ରଖାଯାଏ | ସେଗୁଡିକ ମାପିବା ଇତିହାସ, Health Connect କିମ୍ବା HTTP ଅପଲୋଡ୍ ସହିତ ଯୋଡାଯାଏ ନାହିଁ ଯେପର୍ଯ୍ୟନ୍ତ ଆପଣ ସେମାନଙ୍କୁ ନ୍ୟସ୍ତ ନକରନ୍ତି |</string>
+    <string name="vp_mode_change_help">ବିଦ୍ୟମାନ ମାପ ଇତିହାସ ରଖାଯାଇଛି | ଏକ ଭର୍ଚୁଆଲ୍ ୟୁଜର୍ ବିନା ପୂର୍ବରୁ ସଞ୍ଚିତ ମାପଗୁଡିକ ଅଣସଂଗଠିତ ଭାବରେ ଦେଖାଯାଏ | ଏହି ବ feature ଶିଷ୍ଟ୍ୟକୁ ବନ୍ଦ କରିବା ଉଭୟ ବିଚାରାଧୀନ ମାପ ଏବଂ ଆପଣଙ୍କର ନାମିତ ପ୍ରୋଫାଇଲଗୁଡ଼ିକୁ ସଂରକ୍ଷଣ କରେ |</string>
+    <string name="vp_delete_confirm">%1$s ଅପସାରଣ କରନ୍ତୁ?</string>
+</resources>

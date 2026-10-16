@@ -20,6 +20,13 @@ public final class HealthExport {
     }
     public static Payload prepare(String fingerprint,Integer user,int selectedUser,String localTime,double systolic,double diastolic,String unit,ZoneId zone,Instant now) {
         if(selectedUser<1 || selectedUser>2 || user==null || user!=selectedUser) throw new IllegalArgumentException("Reading is not from the selected user bank");
+        return prepareValues(fingerprint,localTime,systolic,diastolic,unit,zone,now);
+    }
+    public static Payload prepareVirtual(String fingerprint,Integer user,int selectedUser,String localTime,double systolic,double diastolic,String unit,ZoneId zone,Instant now) {
+        if(selectedUser<1 || user==null || user!=selectedUser) throw new IllegalArgumentException("Reading is not from the selected virtual user");
+        return prepareValues(fingerprint,localTime,systolic,diastolic,unit,zone,now);
+    }
+    private static Payload prepareValues(String fingerprint,String localTime,double systolic,double diastolic,String unit,ZoneId zone,Instant now) {
         if(fingerprint==null || fingerprint.isEmpty()) throw new IllegalArgumentException("Reading has no stable identity");
         if(localTime==null || zone==null || now==null) throw new IllegalArgumentException("Reading has no usable device timestamp");
         double factor;

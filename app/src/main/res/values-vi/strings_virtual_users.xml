@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="vp_title">Người dùng ảo</string>
+    <string name="vp_enabled">Sử dụng người dùng ảo</string>
+    <string name="vp_intro">Tạo hồ sơ được đặt tên thay vì sử dụng số người dùng của máy đo huyết áp. Chọn mỗi phép đo mới thuộc về ai. Cần có ít nhất một hồ sơ khi tính năng này được bật.</string>
+    <string name="vp_add">Thêm người dùng</string>
+    <string name="vp_name">Tên</string>
+    <string name="vp_rename">Đổi tên</string>
+    <string name="vp_delete">Xóa người dùng</string>
+    <string name="vp_delete_help">Chọn người dùng sẽ nhận số đo đã lưu của người dùng này. Việc xóa người dùng sẽ không xóa các phép đo hoặc thay đổi các bản sao đã được gửi ở nơi khác.</string>
+    <string name="vp_last_user">Giữ ít nhất một người dùng.</string>
+    <string name="vp_name_invalid">Nhập tên không trống không quá 100 ký tự.</string>
+    <string name="vp_save_failed">Không thể lưu thay đổi này. Hãy thử lại.</string>
+    <string name="vp_first_user">Tạo người dùng đầu tiên của bạn</string>
+    <string name="vp_unassigned">Chưa được chỉ định</string>
+    <string name="vp_assign_title">Ai đã thực hiện phép đo này?</string>
+    <string name="vp_assign_help">Chọn người dùng cho phép đo này. Các phép đo đang chờ xử lý được hiển thị từ cũ nhất đến mới nhất. Bạn có thể quay lại sau mà không làm mất chúng.</string>
+    <string name="vp_later">Sau đó</string>
+    <string name="vp_pending_count">%1$d phép đo đang chờ người dùng</string>
+    <string name="vp_pending_channel">Gán số đo cho người dùng</string>
+    <string name="vp_pending_channel_description">Các phép đo mới cần có người dùng trước khi có thể lưu trữ hoặc xuất chúng.</string>
+    <string name="vp_pending_notification_title">Chọn người đo</string>
+    <string name="vp_pending_notification_text">%1$d số đo được lưu và chờ bạn chọn người dùng. Nhấn để gán chúng.</string>
+    <string name="vp_no_pending">Tất cả các phép đo đều có người dùng.</string>
+    <string name="vp_assign_action">Chỉ định các phép đo đang chờ xử lý</string>
+    <string name="vp_monitor_bank">Ngân hàng bộ nhớ máy đo huyết áp %1$s</string>
+    <string name="vp_monitor_bank_hint">Ngân hàng bộ nhớ máy đo huyết áp (1 hoặc 2)</string>
+    <string name="vp_health_intro">Chọn người dùng ảo của riêng bạn trước khi bật xuất Health Connect. Chỉ các phép đo được chỉ định cho người dùng đó mới được xuất. Các phép đo chưa được chỉ định vẫn ở chế độ riêng tư cho đến khi bạn chọn người thực hiện chúng.</string>
+    <string name="vp_health_choose">Chọn người dùng của riêng bạn.</string>
+    <string name="vp_health_selected">Người dùng đã chọn: %1$s</string>
+    <string name="vp_health_summary">%1$s: %2$d đã xuất; %3$d bị bỏ qua.</string>
+    <string name="vp_health_history">Kích hoạt xuất bao gồm các bài đọc đã lưu đủ điều kiện được chỉ định cho người dùng đã chọn. Các phép đo đang chờ người dùng sẽ không được xuất.</string>
+    <string name="vp_health_shared">Health Connect đại diện cho một người. Chỉ chọn người dùng của riêng bạn. Khi chuyển đổi giữa chế độ ngân hàng bộ nhớ của máy đo huyết áp và chế độ người dùng ảo, bạn phải chọn người dùng của riêng mình và bật lại xuất.</string>
+    <string name="vp_pending_privacy">Các phép đo chưa được chỉ định cho người dùng sẽ được giữ trong hàng đợi riêng tư tạm thời, ngay cả ở chế độ truyền qua. Chúng không được thêm vào lịch sử đo lường, tải lên Health Connect hoặc HTTP cho đến khi bạn chỉ định chúng.</string>
+    <string name="vp_mode_change_help">Lịch sử đo hiện tại được lưu giữ. Các phép đo đã lưu trước đó mà không có người dùng ảo sẽ được hiển thị dưới dạng chưa được chỉ định. Tắt tính năng này sẽ bảo toàn cả các phép đo đang chờ xử lý và các cấu hình được đặt tên của bạn.</string>
+    <string name="vp_delete_confirm">Xóa %1$s?</string>
+</resources>

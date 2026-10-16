@@ -37,6 +37,8 @@ Only a full expected record count and validated END checkpoint the advertised re
 
 ## New-reading alerts
 
+With [virtual users](virtual-users.md) enabled, new automatic readings first enter the persistent assignment inbox. The separate **Measurement assignment** channel asks you to choose who measured and opens the oldest-first picker. Ignored or blocked notifications retain every pending measurement for the next foreground session. Assignment must commit before a reading becomes eligible for local history or exports; raw monitor bank numbers never guess ownership.
+
 When an automatic transfer saves new readings and finishes while monitor/import screens are not visible, the **New readings** channel posts one count-only alert opening unfiltered History. Pressure, pulse, bank and device address are absent. Repeated packets, zero inserts and foreground completion do not alert. A failed/interrupted transfer can still alert for new readings already saved; inspect History/diagnostics for completeness. END and disconnect cannot produce two alerts for the same attempt.
 
 On Android 13+, a background mode requests `POST_NOTIFICATIONS` when needed. **Allow reading notifications** requests permission where Android allows, otherwise opens app notification settings. A blocked New readings channel opens channel settings. Denial suppresses reading alerts without interrupting read-only imports. Companion mode still has no persistent foreground-service notification; notification mode retains its service notification according to Android's platform behavior.

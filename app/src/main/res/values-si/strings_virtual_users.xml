@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="vp_title">අතථ්‍ය පරිශීලකයන්</string>
+    <string name="vp_enabled">අතථ්‍ය පරිශීලකයන් භාවිතා කරන්න</string>
+    <string name="vp_intro">රුධිර පීඩන මොනිටරයේ පරිශීලක අංක භාවිතා කිරීම වෙනුවට නම් කරන ලද පැතිකඩ සාදන්න. එක් එක් නව මිනුම අයිති කාටදැයි තෝරන්න. මෙම විශේෂාංගය සබල කර ඇති අතර අවම වශයෙන් එක් පැතිකඩක් අවශ්‍ය වේ.</string>
+    <string name="vp_add">පරිශීලක එකතු කරන්න</string>
+    <string name="vp_name">නම</string>
+    <string name="vp_rename">නැවත නම් කරන්න</string>
+    <string name="vp_delete">පරිශීලක ඉවත් කරන්න</string>
+    <string name="vp_delete_help">මෙම පරිශීලකයාගේ සුරකින ලද මිනුම් ලබා ගත යුතු පරිශීලකයා තෝරන්න. පරිශීලකයෙකු ඉවත් කිරීම මිනුම් මකා දැමීම හෝ දැනටමත් වෙනත් තැනකට යවා ඇති පිටපත් වෙනස් නොකරයි.</string>
+    <string name="vp_last_user">අවම වශයෙන් එක් පරිශීලකයෙකු තබා ගන්න.</string>
+    <string name="vp_name_invalid">අක්ෂර 100 කට නොවැඩි හිස් නොවන නමක් ඇතුළත් කරන්න.</string>
+    <string name="vp_save_failed">මෙම වෙනස සුරැකීමට නොහැකි විය. නැවත උත්සාහ කරන්න.</string>
+    <string name="vp_first_user">ඔබේ පළමු පරිශීලකයා සාදන්න</string>
+    <string name="vp_unassigned">පැවරී නැත</string>
+    <string name="vp_assign_title">මෙම මිනුම ගත්තේ කවුද?</string>
+    <string name="vp_assign_help">මෙම මිනුම සඳහා පරිශීලකයෙකු තෝරන්න. පොරොත්තු මිනුම් පැරණි සිට අලුත්ම දක්වා පෙන්වයි. ඔබට ඒවා අහිමි නොවී පසුව ආපසු යා හැක.</string>
+    <string name="vp_later">පසුව</string>
+    <string name="vp_pending_count">පරිශීලකයෙකු සඳහා මිනුම් %1$dක් රැඳී සිටියි</string>
+    <string name="vp_pending_channel">පරිශීලකයින්ට මිනුම් පවරන්න</string>
+    <string name="vp_pending_channel_description">ගොනු කිරීමට හෝ අපනයනය කිරීමට පෙර පරිශීලකයෙකුට අවශ්‍ය නව මිනුම්.</string>
+    <string name="vp_pending_notification_title">මනින ලද අය තෝරන්න</string>
+    <string name="vp_pending_notification_text">මිනුම් %1$dක් සුරකින අතර ඔබ පරිශීලකයෙකු තෝරා ගන්නා තෙක් බලා සිටී. ඒවා පැවරීමට තට්ටු කරන්න.</string>
+    <string name="vp_no_pending">සියලුම මිනුම් සඳහා පරිශීලකයෙකු සිටී.</string>
+    <string name="vp_assign_action">අපේක්ෂිත මිනුම් පවරන්න</string>
+    <string name="vp_monitor_bank">රුධිර පීඩන නිරීක්ෂණ මතක බැංකුව %1$s</string>
+    <string name="vp_monitor_bank_hint">රුධිර පීඩන මොනිටරය මතක බැංකුව (1 හෝ 2)</string>
+    <string name="vp_health_intro">Health Connect අපනයනය සබල කිරීමට පෙර ඔබේම අතථ්‍ය පරිශීලක තෝරන්න. එම පරිශීලකයා සඳහා පවරා ඇති මිනුම් පමණක් නිර්යාත කරනු ලැබේ. ඔබ ඒවා ගත්තේ කවුරුන්ද යන්න තෝරා ගන්නා තෙක් පවරනු නොලද මිනුම් පුද්ගලිකව පවතී.</string>
+    <string name="vp_health_choose">ඔබේම පරිශීලකයෙකු තෝරන්න.</string>
+    <string name="vp_health_selected">තෝරාගත් පරිශීලක: %1$s</string>
+    <string name="vp_health_summary">%1$s: %2$d නිර්යාත කරන ලදී; %3$d මඟ හැරිණි.</string>
+    <string name="vp_health_history">නිර්යාත කිරීම සබල කිරීම තෝරා ගත් පරිශීලකයාට පවරා ඇති සුදුසුකම් ලත් සුරැකි කියවීම් ඇතුළත් වේ. පරිශීලකයෙකු සඳහා රැඳී සිටින මිනුම් නිර්යාත නොකෙරේ.</string>
+    <string name="vp_health_shared">Health Connect එක් පුද්ගලයෙකු නියෝජනය කරයි. ඔබේම පරිශීලකයා පමණක් තෝරන්න. ඔබ රුධිර පීඩන මොනිටරය මතක බැංකු මාදිලිය සහ අථත්‍ය-පරිශීලක මාදිලිය අතර මාරු වන විට, ඔබ ඔබේම පරිශීලකයා තෝරා නැවත අපනයනය සක්‍රීය කළ යුතුය.</string>
+    <string name="vp_pending_privacy">පරිශීලකයෙකුට පවරනු නොලබන මිනුම් පාස්ත්‍රෝ ප්‍රකාරයේදී පවා තාවකාලික පුද්ගලික පෝලිමක තබා ඇත. ඔබ ඒවා පවරන තෙක් ඒවා මිනුම් ඉතිහාසය, Health Connect හෝ HTTP උඩුගත කිරීම් වෙත එක් නොකෙරේ.</string>
+    <string name="vp_mode_change_help">පවතින මිනුම් ඉතිහාසය තබා ඇත. අතථ්‍ය පරිශීලකයෙකු නොමැතිව කලින් සුරකින ලද මිනුම් පැවරී නොමැති ලෙස පෙන්වයි. මෙම විශේෂාංගය ක්‍රියාවිරහිත කිරීම පොරොත්තු මිනුම් සහ ඔබේ නම් කළ පැතිකඩ යන දෙකම ආරක්ෂා කරයි.</string>
+    <string name="vp_delete_confirm">%1$s ඉවත් කරන්නද?</string>
+</resources>

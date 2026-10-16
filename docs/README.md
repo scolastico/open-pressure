@@ -10,6 +10,7 @@ Current guides describe the implementation and its evidence. Hardware results ap
 | [Health Connect](health-connect.md) | Optional one-bank export, privacy, timestamps and retry behavior |
 | [HTTP forwarding](http-forwarding.md) | Optional measurement POSTs, Authorization, passthrough and durable retry queue |
 | [Measurement reminders](reminders.md) | Phone schedules, weekday repetition, recent-measurement skipping and Android permissions |
+| [Virtual users](virtual-users.md) | Optional named profiles, persistent ownership queue, assignment notifications and export isolation |
 | [Protocol reference](protocol.md) | Service selection, X7 map and framing, independently recovered cryptography, source evidence |
 | [Safety boundaries](safety.md) | Outgoing command policy, exact registration writes, backup requirements and memory limits |
 | [omblepy comparison](omblepy-comparison.md) | Pinned source audit, per-model maps, implemented vendor paths and validation limits |

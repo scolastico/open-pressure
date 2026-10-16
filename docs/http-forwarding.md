@@ -16,6 +16,8 @@ Passthrough permits temporary on-device persistence for delivery reliability. It
 
 Optional [measurement reminders](reminders.md) retain only minimal measurement timing and occurrence skip markers for recent-measurement suppression, including after an upload is acknowledged. They do not add local history or another copy of measurement values.
 
+With [virtual users](virtual-users.md) enabled, new measurements first wait in a temporary private assignment queue, even in passthrough. Only explicit ownership assignment moves them to the upload queue. Each pending reading retains its original URL and storage choice; changing settings does not reroute it. Hash-only assignment receipts retain the selected profile ID after delivery so repeated imports do not prompt again. Profile names are personal data and are included in assigned HTTP payloads.
+
 ## Delivery and retries
 
 The app queues readings transactionally with their optional local-history insertion. Uploads run off the UI/Bluetooth thread through WorkManager, with network constraints, backoff and periodic recovery. Server errors and unavailable networks retain the queued payload for retry. Android power management, network availability and process scheduling can delay delivery.
@@ -45,6 +47,7 @@ Each request is a `POST` to the configured URL, with `Content-Type: application/
 | `unit` | `mmHg` or `kPa` |
 | `status` | Measurement status bits, or `null` |
 | `atrial_fibrillation` | Separate boolean AFib flag, or `null`; an irregular-pulse flag does not imply AFib |
+| `profile_id`, `profile_name` | Present for an assigned virtual user: stable local profile ID and name at assignment; `user` still identifies the monitor bank |
 
 Raw Bluetooth packets, notes, pairing keys and authorization values are not part of the JSON payload. Both user banks can be forwarded; Health Connect's separate one-bank selection does not filter this feature. Changing a local note does not generate a new measurement upload.
 

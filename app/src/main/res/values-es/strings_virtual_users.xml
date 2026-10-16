@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="vp_title">Usuarios virtuales</string>
+    <string name="vp_enabled">Utilice usuarios virtuales</string>
+    <string name="vp_intro">Cree perfiles con nombre en lugar de utilizar los números de usuario del monitor de presión arterial. Elige a quién pertenece cada nueva medición. Se requiere al menos un perfil mientras esta función está habilitada.</string>
+    <string name="vp_add">Agregar usuario</string>
+    <string name="vp_name">Nombre</string>
+    <string name="vp_rename">Rebautizar</string>
+    <string name="vp_delete">Eliminar usuario</string>
+    <string name="vp_delete_help">Elija el usuario que debe recibir las mediciones guardadas de este usuario. Eliminar un usuario no elimina las mediciones ni cambia las copias ya enviadas a otro lugar.</string>
+    <string name="vp_last_user">Mantenga al menos un usuario.</string>
+    <string name="vp_name_invalid">Introduzca un nombre no vacío de no más de 100 caracteres.</string>
+    <string name="vp_save_failed">No se pudo guardar este cambio. Intentar otra vez.</string>
+    <string name="vp_first_user">Crea tu primer usuario</string>
+    <string name="vp_unassigned">No asignado</string>
+    <string name="vp_assign_title">¿A quién corresponde esta medición?</string>
+    <string name="vp_assign_help">Elija un usuario para esta medición. Las mediciones pendientes se muestran del más antiguo al más nuevo. Podrás regresar más tarde sin perderlos.</string>
+    <string name="vp_later">Más tarde</string>
+    <string name="vp_pending_count">%1$d mediciones esperando a un usuario</string>
+    <string name="vp_pending_channel">Asignar mediciones a usuarios</string>
+    <string name="vp_pending_channel_description">Nuevas mediciones que necesitan un usuario antes de poder archivarse o exportarse.</string>
+    <string name="vp_pending_notification_title">Elige quién midió</string>
+    <string name="vp_pending_notification_text">%1$d mediciones están guardadas y esperando a que elijas un usuario. Toca para asignarlos.</string>
+    <string name="vp_no_pending">Todas las medidas tienen un usuario.</string>
+    <string name="vp_assign_action">Asignar medidas pendientes</string>
+    <string name="vp_monitor_bank">Banco de memoria del monitor de presión arterial %1$s</string>
+    <string name="vp_monitor_bank_hint">Banco de memoria del tensiómetro (1 o 2)</string>
+    <string name="vp_health_intro">Elija su propio usuario virtual antes de habilitar la exportación Health Connect. Solo se exportarán las mediciones asignadas para ese usuario. Las mediciones no asignadas permanecen privadas hasta que usted elija quién las tomó.</string>
+    <string name="vp_health_choose">Elige tu propio usuario.</string>
+    <string name="vp_health_selected">Usuario seleccionado: %1$s</string>
+    <string name="vp_health_summary">%1$s: %2$d exportado; %3$d omitido.</string>
+    <string name="vp_health_history">Al habilitar la exportación se incluyen lecturas guardadas elegibles asignadas al usuario seleccionado. Las medidas en espera de un usuario no se exportan.</string>
+    <string name="vp_health_shared">Health Connect representa una persona. Elige sólo tu propio usuario. Cuando cambia entre el modo de banco de memoria del monitor de presión arterial y el modo de usuario virtual, debe seleccionar su propio usuario y habilitar la exportación nuevamente.</string>
+    <string name="vp_pending_privacy">Las mediciones que no se han asignado a un usuario se conservan en una cola privada temporal, incluso en modo de transferencia. No se añaden al historial de mediciones, a Health Connect ni a los envíos HTTP hasta que las asigne.</string>
+    <string name="vp_mode_change_help">Se mantiene el historial de mediciones existente. Las mediciones guardadas previamente sin un usuario virtual se muestran como no asignadas. Al desactivar esta función se conservan tanto las mediciones pendientes como los perfiles nombrados.</string>
+    <string name="vp_delete_confirm">¿Quitar %1$s?</string>
+</resources>

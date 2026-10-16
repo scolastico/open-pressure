@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="vp_title">Utilisateurs virtuels</string>
+    <string name="vp_enabled">Utiliser des utilisateurs virtuels</string>
+    <string name="vp_intro">Créez des profils nommés au lieu d\'utiliser les numéros d\'utilisateur du tensiomètre. Choisissez à qui appartient chaque nouvelle mesure. Au moins un profil est requis lorsque cette fonctionnalité est activée.</string>
+    <string name="vp_add">Ajouter un utilisateur</string>
+    <string name="vp_name">Nom</string>
+    <string name="vp_rename">Rebaptiser</string>
+    <string name="vp_delete">Supprimer un utilisateur</string>
+    <string name="vp_delete_help">Choisissez l\'utilisateur qui doit recevoir les mesures enregistrées de cet utilisateur. La suppression d\'un utilisateur ne supprime pas les mesures ni ne modifie les copies déjà envoyées ailleurs.</string>
+    <string name="vp_last_user">Conservez au moins un utilisateur.</string>
+    <string name="vp_name_invalid">Saisissez un nom non vide ne dépassant pas 100 caractères.</string>
+    <string name="vp_save_failed">Impossible d\'enregistrer cette modification. Essayer à nouveau.</string>
+    <string name="vp_first_user">Créez votre premier utilisateur</string>
+    <string name="vp_unassigned">Non attribué</string>
+    <string name="vp_assign_title">Qui a pris cette mesure ?</string>
+    <string name="vp_assign_help">Choisissez un utilisateur pour cette mesure. Les mesures en attente sont affichées de la plus ancienne à la plus récente. Vous pourrez revenir plus tard sans les perdre.</string>
+    <string name="vp_later">Plus tard</string>
+    <string name="vp_pending_count">%1$d mesures en attente d\'un utilisateur</string>
+    <string name="vp_pending_channel">Attribuer des mesures aux utilisateurs</string>
+    <string name="vp_pending_channel_description">Nouvelles mesures qui nécessitent un utilisateur avant de pouvoir être archivées ou exportées.</string>
+    <string name="vp_pending_notification_title">Choisissez qui a mesuré</string>
+    <string name="vp_pending_notification_text">%1$d mesures sont enregistrées et attendent que vous choisissiez un utilisateur. Appuyez pour les attribuer.</string>
+    <string name="vp_no_pending">Toutes les mesures ont un utilisateur.</string>
+    <string name="vp_assign_action">Attribuer des mesures en attente</string>
+    <string name="vp_monitor_bank">Banque de mémoire du tensiomètre %1$s</string>
+    <string name="vp_monitor_bank_hint">Banque mémoire du tensiomètre (1 ou 2)</string>
+    <string name="vp_health_intro">Choisissez votre propre utilisateur virtuel avant d\'activer l\'exportation Health Connect. Seules les mesures attribuées à cet utilisateur seront exportées. Les mesures non attribuées restent privées jusqu\'à ce que vous choisissiez qui les a prises.</string>
+    <string name="vp_health_choose">Choisissez votre propre utilisateur.</string>
+    <string name="vp_health_selected">Utilisateur sélectionné : %1$s</string>
+    <string name="vp_health_summary">%1$s : %2$d exportés ; %3$d ignoré.</string>
+    <string name="vp_health_history">L\'activation de l\'exportation inclut les lectures enregistrées éligibles attribuées à l\'utilisateur sélectionné. Les mesures en attente d\'un utilisateur ne sont pas exportées.</string>
+    <string name="vp_health_shared">Health Connect représente une personne. Choisissez uniquement votre propre utilisateur. Lorsque vous basculez entre le mode banque de mémoire du tensiomètre et le mode utilisateur virtuel, vous devez sélectionner votre propre utilisateur et activer à nouveau l\'exportation.</string>
+    <string name="vp_pending_privacy">Les mesures qui n’ont pas été attribuées à un utilisateur sont conservées dans une file d’attente privée temporaire, même en mode passthrough. Elles ne sont ajoutées ni à l’historique des mesures, ni à Health Connect, ni aux envois HTTP avant que vous les ayez attribuées.</string>
+    <string name="vp_mode_change_help">L’historique des mesures existant est conservé. Les mesures précédemment enregistrées sans utilisateur virtuel sont affichées comme non attribuées. La désactivation de cette fonctionnalité préserve à la fois les mesures en attente et vos profils nommés.</string>
+    <string name="vp_delete_confirm">Supprimer %1$s ?</string>
+</resources>

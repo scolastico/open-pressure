@@ -11,15 +11,26 @@ tombstone=next(s for s in statements if s.startswith('CREATE TABLE reading_tombs
 receipt=hashlib.sha256(b'stable').hexdigest()
 outbox=next(s for s in statements if s.startswith('CREATE TABLE http_outbox('))
 http_receipts=next(s for s in statements if s.startswith('CREATE TABLE http_receipts('))
-for old in (1,2,3,4,5):
+profiles=next(s for s in statements if s.startswith('CREATE TABLE virtual_users('))
+profile_config=next(s for s in statements if s.startswith('CREATE TABLE profile_configuration('))
+assignment_inbox=next(s for s in statements if s.startswith('CREATE TABLE assignment_inbox('))
+assignment_receipts=next(s for s in statements if s.startswith('CREATE TABLE assignment_receipts('))
+profile_column=next(s for s in statements if s.startswith('ALTER TABLE readings ADD COLUMN virtual_user_id'))
+def add_profiles(db):
+    for sql in (profiles,profile_column,profile_config,assignment_inbox,assignment_receipts): db.execute(sql)
+for old in (1,2,3,4,5,6):
     db=sqlite3.connect(':memory:'); db.execute('PRAGMA foreign_keys=ON')
     db.execute(readings.replace(', afib INTEGER','') if old==1 else readings)
     db.execute("INSERT INTO readings(id,fingerprint,device,name,received,sys,dia,unit,source,raw) VALUES(7,'stable','cuff','X7',1,120,80,'mmHg','wlp-history','abc')")
     if old>=3: db.execute(health); db.execute("INSERT INTO health_exports(reading_id,client_id,state) VALUES(7,'exported',1)")
+    if old>=4: db.execute(tombstone)
+    if old>=5: db.execute(outbox); db.execute(http_receipts)
+    if old>=6: add_profiles(db)
     if old<2: db.execute('ALTER TABLE readings ADD COLUMN afib INTEGER')
     if old<3: db.execute(health)
-    db.execute(tombstone)
-    db.execute(outbox); db.execute(http_receipts)
+    if old<4: db.execute(tombstone)
+    if old<5: db.execute(outbox); db.execute(http_receipts)
+    if old<6: add_profiles(db)
     assert db.execute('SELECT fingerprint FROM readings').fetchone()==('stable',)
     if old>=3: assert db.execute('SELECT client_id FROM health_exports').fetchone()==('exported',)
     db.commit()
@@ -59,26 +70,29 @@ count_method=re.search(r'public synchronized int historyCount\(int user\) \{(.*?
 count_query=re.search(r'rawQuery\("([^"]+)"',count_method[1])[1]
 devices=next(s for s in statements if s.startswith('CREATE TABLE devices('))
 packets=next(s for s in statements if s.startswith('CREATE TABLE packets('))
-for user,remaining in ((0,[]),(1,[(2,),(4,),(5,)]),(2,[(1,),(3,),(4,),(5,)])):
+for user,remaining in ((0,[]),(1,[(2,),(4,),(5,)]),(2,[(1,),(3,),(4,),(5,)]),(-3,[(2,),(3,),(4,),(5,)])) :
     db=sqlite3.connect(':memory:'); db.execute('PRAGMA foreign_keys=ON')
     for sql in (readings,health,tombstone,devices,packets): db.execute(sql)
+    add_profiles(db)
+    db.execute("INSERT INTO virtual_users(id,name) VALUES(3,'Synthetic person')")
     # Two banks, multiple dates, manual and unassigned readings all share the store.
     for id,bank,time,kind in ((1,1,'2020-01-01T12:00:00','wlp-history'),(2,2,'2026-10-16T12:00:00','wlp-history'),(3,1,None,'manual'),(4,None,None,'manual'),(5,0,None,'manual')):
         db.execute('INSERT INTO readings(id,fingerprint,device,name,time,received,sys,dia,user,unit,source,raw,notes) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)',
                    (id,'fingerprint-'+str(id),'cuff','X7',time,1,120,80,bank,'mmHg',kind,'raw','private note'))
         db.execute('INSERT INTO health_exports(reading_id,client_id,state) VALUES(?,?,1)',(id,'health-'+str(id)))
+    db.execute("UPDATE readings SET virtual_user_id=3 WHERE id=1")
     db.execute("INSERT INTO devices VALUES('cuff','X7','x7',1)")
     db.execute("INSERT INTO packets VALUES(1,1,'cuff','characteristic','payload','note')")
     prior=hashlib.sha256(b'previously deleted').hexdigest()
     db.execute('INSERT INTO reading_tombstones VALUES(?)',(prior,)); db.commit()
-    assert db.execute(count_query,(str(user),str(user))).fetchone()==(5-len(remaining),), 'count must match Android string selection bindings'
+    assert db.execute(count_query,(str(user),)*5).fetchone()==(5-len(remaining),), 'count must match Android string selection bindings'
     def clear(failure=None):
         with db:
-            selected=db.execute(query,(str(user),str(user))).fetchall()
+            selected=db.execute(query,(str(user),)*5).fetchall()
             for index,(fingerprint,) in enumerate(selected):
                 db.execute(insert,(hashlib.sha256(fingerprint.encode()).hexdigest(),))
                 if failure=='receipt' and index==0: raise RuntimeError('receipt interrupted')
-            db.execute('DELETE FROM readings WHERE '+where,(str(user),str(user)))
+            db.execute('DELETE FROM readings WHERE '+where,(str(user),)*5)
             if failure=='delete': raise RuntimeError('commit interrupted')
     # Failure after partial receipts, and after deletion, must leave all local data intact.
     for failure in ('receipt','delete'):
@@ -88,7 +102,7 @@ for user,remaining in ((0,[]),(1,[(2,),(4,),(5,)]),(2,[(1,),(3,),(4,),(5,)])):
         assert db.execute('SELECT count(*) FROM health_exports').fetchone()==(5,)
         assert db.execute('SELECT receipt FROM reading_tombstones').fetchall()==[(prior,)]
     # Real SQLite write failures must also leave receipts, notes and export metadata intact.
-    selected_fingerprints=db.execute(query,(str(user),str(user))).fetchall()
+    selected_fingerprints=db.execute(query,(str(user),)*5).fetchall()
     assert len(selected_fingerprints)==5-len(remaining), 'bank scope must match Android string selection bindings'
     last_fingerprint=selected_fingerprints[-1][0]
     rejected_receipt=hashlib.sha256(last_fingerprint.encode()).hexdigest()
@@ -138,4 +152,4 @@ with db:
 assert db.execute('SELECT COUNT(*) FROM http_outbox').fetchone()==(0,)
 assert db.execute('SELECT destination,event_key FROM http_receipts').fetchall()==[(destination,key)]
 db.close()
-print('Storage SQL: migrations 1–4, fresh v5, scoped bulk clear, rollback, deletion receipts, HTTP outbox and health cascade passed')
+print('Storage SQL: migrations 1–5, fresh v6, scoped bulk clear, rollback, deletion receipts, HTTP outbox and health cascade passed')

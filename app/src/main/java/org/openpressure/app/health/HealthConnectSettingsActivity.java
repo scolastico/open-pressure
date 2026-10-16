@@ -6,6 +6,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.Context;
 import org.openpressure.app.data.ReadingStore;
+import org.openpressure.app.data.VirtualUser;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -33,15 +34,20 @@ public final class HealthConnectSettingsActivity extends Activity {
     private final Handler handler=new Handler(Looper.getMainLooper());
     private final Runnable listener=() -> handler.post(this::updateViews);
     private HealthConnectSync sync;
-    private TextView status,selection;
+    private TextView status,selection,intro,history,shared;
+    private ReadingStore store;
+    private boolean virtualMode;
+    private String profileSignature="";
+    private long profileRevision;
     private RadioGroup banks;
-    private RadioButton bankOne,bankTwo;
     private Button enable,disable,syncNow,manage,install;
     private AlertDialog consentDialog;
 
     @Override public void onCreate(Bundle state) {
         super.onCreate(state);
         sync=((PressureApp)getApplication()).healthConnect();
+        store=((PressureApp)getApplication()).store();
+        virtualMode=store.virtualUsersEnabled();
         LinearLayout page=new LinearLayout(this);
         page.setOrientation(LinearLayout.VERTICAL);
         page.setPaddingRelative(dp(22),dp(20),dp(22),dp(28));
@@ -57,18 +63,17 @@ public final class HealthConnectSettingsActivity extends Activity {
         add(page,button(getString(R.string.settings_back),this::finish,false),0);
         add(page,text(getString(R.string.health_title),30,INK,true),18);
         add(page,text(getString(R.string.health_subtitle),17,TEAL,true),8);
-        add(page,text(getString(R.string.health_intro),16,INK,false),16);
+        intro=text("",16,INK,false); add(page,intro,16);
         status=text("",16,INK,true);
         status.setAccessibilityLiveRegion(View.ACCESSIBILITY_LIVE_REGION_POLITE);
         add(page,status,20);
         selection=text("",15,MUTED,false);
         add(page,selection,8);
         banks=new RadioGroup(this);
-        bankOne=bank(getString(R.string.health_user_one),R.id.health_bank_one); bankTwo=bank(getString(R.string.health_user_two),R.id.health_bank_two);
-        banks.addView(bankOne); banks.addView(bankTwo);
         add(page,banks,12);
         int chosen=state==null?(sync.enabled()?sync.selectedUser():0):state.getInt("bank",0);
-        if(chosen==1 || chosen==2) banks.check(chosen==1?R.id.health_bank_one:R.id.health_bank_two);
+        if(state!=null && state.getLong("profile_revision",-1)!=store.virtualUsersRevision()) chosen=0;
+        rebuildChoices(chosen);
         banks.setOnCheckedChangeListener((group,id) -> updateViews());
         enable=button(getString(R.string.health_enable),this::enableExport,true);
         disable=button(getString(R.string.health_disable),() -> { sync.disable(); updateViews(); },false);
@@ -76,8 +81,8 @@ public final class HealthConnectSettingsActivity extends Activity {
         install=button(getString(R.string.health_install),() -> open(sync.installIntent()),false);
         manage=button(getString(R.string.health_manage),() -> open(sync.manageIntent()),false);
         add(page,enable,12); add(page,disable,8); add(page,syncNow,8); add(page,install,8); add(page,manage,8);
-        add(page,text(getString(R.string.health_history_help),15,MUTED,false),20);
-        add(page,text(getString(R.string.health_shared_help),15,MUTED,false),14);
+        history=text("",15,MUTED,false); add(page,history,20);
+        shared=text("",15,MUTED,false); add(page,shared,14);
         add(page,text(getString(R.string.health_copies_help),15,MUTED,false),14);
         add(page,button(getString(R.string.health_privacy_action),() -> startActivity(new Intent(this,HealthConnectPrivacyActivity.class)),false),14);
         updateViews();
@@ -91,7 +96,7 @@ public final class HealthConnectSettingsActivity extends Activity {
         super.onDestroy();
     }
     @Override public void onSaveInstanceState(Bundle out) {
-        super.onSaveInstanceState(out); out.putInt("bank",selectedBank());
+        super.onSaveInstanceState(out); out.putInt("bank",selectedBank()); out.putLong("profile_revision",profileRevision);
     }
     @Override protected void onActivityResult(int requestCode,int resultCode,Intent data) {
         super.onActivityResult(requestCode,resultCode,data);
@@ -105,7 +110,7 @@ public final class HealthConnectSettingsActivity extends Activity {
 
     private void enableExport() {
         int bank=selectedBank();
-        if(bank!=1 && bank!=2) { toast(getString(R.string.health_choose_user)); return; }
+        if(!validChoice(bank)) { toast(getString(virtualMode?R.string.vp_health_choose:R.string.health_choose_user)); return; }
         if(!ExperimentalConsent.accepted(this)) { showExperimentalConsent(); return; }
         if(sync.availability()!=HealthConnectClient.SDK_AVAILABLE) { sync.refresh(); updateViews(); return; }
         sync.prepareEnable(bank);
@@ -141,6 +146,7 @@ public final class HealthConnectSettingsActivity extends Activity {
 
     private void updateViews() {
         if(isFinishing() || isDestroyed() || enable==null) return;
+        refreshChoices();
         boolean active=sync.enabled();
         int available=sync.availability();
         if(available==HealthConnectClient.SDK_UNAVAILABLE_PROVIDER_UPDATE_REQUIRED) {
@@ -148,11 +154,18 @@ public final class HealthConnectSettingsActivity extends Activity {
         } else if(available==HealthConnectClient.SDK_UNAVAILABLE) {
             status.setText(Build.VERSION.SDK_INT<28?getString(R.string.health_android_required):getString(R.string.health_unavailable_local));
         } else status.setText(localizedStatus(this,sync));
-        selection.setText(active?getString(R.string.health_selection_active,sync.selectedUser()):getString(R.string.health_selection_off));
-        if(active && (sync.selectedUser()==1 || sync.selectedUser()==2)) banks.check(sync.selectedUser()==1?R.id.health_bank_one:R.id.health_bank_two);
-        bankOne.setEnabled(!active); bankTwo.setEnabled(!active);
+        intro.setText(virtualMode?R.string.vp_health_intro:R.string.health_intro);
+        history.setText(virtualMode?R.string.vp_health_history:R.string.health_history_help);
+        shared.setText(virtualMode?R.string.vp_health_shared:R.string.health_shared_help);
+        selection.setText(active?(virtualMode?getString(R.string.vp_health_selected,profileName(store,sync.selectedUser())):getString(R.string.health_selection_active,sync.selectedUser())):
+                getString(virtualMode?R.string.vp_health_choose:R.string.health_selection_off));
+        for(int i=0;i<banks.getChildCount();i++) {
+            RadioButton choice=(RadioButton)banks.getChildAt(i);
+            if(active && ((Integer)choice.getTag())==sync.selectedUser() && !choice.isChecked()) choice.setChecked(true);
+            choice.setEnabled(!active);
+        }
         enable.setVisibility(active?View.GONE:View.VISIBLE);
-        enable.setEnabled(available==HealthConnectClient.SDK_AVAILABLE && (selectedBank()==1 || selectedBank()==2));
+        enable.setEnabled(available==HealthConnectClient.SDK_AVAILABLE && validChoice(selectedBank()));
         disable.setVisibility(active?View.VISIBLE:View.GONE);
         syncNow.setVisibility(active?View.VISIBLE:View.GONE);
         syncNow.setEnabled(available==HealthConnectClient.SDK_AVAILABLE);
@@ -178,7 +191,8 @@ public final class HealthConnectSettingsActivity extends Activity {
         else if(sync.enabled()) {
             ReadingStore store=((PressureApp)context.getApplicationContext()).store();
             int skipped=store.healthSkippedCount(sync.selectedUser());
-            String summary=context.getString(R.string.health_status_summary,sync.selectedUser(),store.healthExportedCount(sync.selectedUser()),skipped);
+            String summary=store.virtualUsersEnabled()?context.getString(R.string.vp_health_summary,profileName(store,sync.selectedUser()),store.healthExportedCount(sync.selectedUser()),skipped):
+                    context.getString(R.string.health_status_summary,sync.selectedUser(),store.healthExportedCount(sync.selectedUser()),skipped);
             return skipped>0?summary+"\n"+context.getString(R.string.health_status_skipped):summary;
         } else message=R.string.health_status_off;
         return context.getString(message);
@@ -190,8 +204,46 @@ public final class HealthConnectSettingsActivity extends Activity {
         catch(ActivityNotFoundException | SecurityException failure) { toast(getString(R.string.health_open_failed)); }
     }
     private int selectedBank() {
-        int id=banks.getCheckedRadioButtonId();
-        return id==R.id.health_bank_one?1:id==R.id.health_bank_two?2:0;
+        View selected=banks.findViewById(banks.getCheckedRadioButtonId());
+        return selected!=null && selected.getTag() instanceof Integer?(Integer)selected.getTag():0;
+    }
+    private boolean validChoice(int token) {
+        if(!virtualMode) return token==1 || token==2;
+        for(VirtualUser user:store.virtualUsers()) if(token==-user.id) return true;
+        return false;
+    }
+    private static String profileName(ReadingStore store,int token) {
+        for(VirtualUser user:store.virtualUsers()) if(token==-user.id) return user.name;
+        return "";
+    }
+    private String choicesSignature() {
+        StringBuilder signature=new StringBuilder().append(store.virtualUsersEnabled()).append(':').append(store.virtualUsersRevision());
+        if(store.virtualUsersEnabled()) for(VirtualUser user:store.virtualUsers()) signature.append(':').append(user.id).append(':').append(user.name.length()).append(':').append(user.name);
+        return signature.toString();
+    }
+    private void refreshChoices() {
+        if(profileSignature.equals(choicesSignature())) return;
+        int chosen=selectedBank();
+        if(virtualMode!=store.virtualUsersEnabled() || profileRevision!=store.virtualUsersRevision()) chosen=0;
+        rebuildChoices(chosen);
+    }
+    private void rebuildChoices(int chosen) {
+        banks.setOnCheckedChangeListener(null);
+        banks.clearCheck(); banks.removeAllViews();
+        virtualMode=store.virtualUsersEnabled();
+        if(virtualMode) {
+            for(VirtualUser user:store.virtualUsers()) {
+                RadioButton choice=bank(user.name,View.generateViewId()); choice.setTag(-user.id); banks.addView(choice);
+                if(chosen==-user.id) choice.setChecked(true);
+            }
+        } else {
+            RadioButton one=bank(getString(R.string.health_user_one),R.id.health_bank_one),two=bank(getString(R.string.health_user_two),R.id.health_bank_two);
+            one.setTag(1); two.setTag(2); banks.addView(one); banks.addView(two);
+            if(chosen==1 || chosen==2) banks.check(chosen==1?one.getId():two.getId());
+        }
+        profileRevision=store.virtualUsersRevision();
+        profileSignature=choicesSignature();
+        banks.setOnCheckedChangeListener((group,id) -> updateViews());
     }
     private RadioButton bank(String label,int id) {
         RadioButton b=new RadioButton(this); b.setId(id); b.setText(label); b.setTextSize(16); b.setTextColor(INK); b.setMinHeight(dp(52)); return b;

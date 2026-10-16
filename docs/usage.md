@@ -34,6 +34,8 @@ Background automatic imports, raw EEPROM dumps and EEPROM-based clock/counter ch
 
 ## History and local data
 
+Optional [Virtual users](virtual-users.md), on Overview, lets you create and rename named profiles instead of the usual User 1/User 2 choices. New readings are retained in an assignment queue until you choose who took them. Foreground use opens the oldest pending reading; a background notification opens the same screen. Ignoring it or choosing Later keeps all pending readings for your next visit. Existing history stays intact and is not guessed into named profiles.
+
 Open **Measurement reminders** on Overview to create phone notifications at your chosen times and weekdays. Each reminder can skip an occurrence after a recent measurement; the default window is 120 minutes, and 0 disables skipping. With no weekdays selected, the reminder runs once. These settings do not change alarms on the cuff. See [measurement reminders](reminders.md) for permissions, timing and privacy details.
 
 Optional [HTTP forwarding](http-forwarding.md) is available in **Devices → Advanced**. Configure a destination URL and optional Authorization header value to send new measurements. Local history remains enabled by default. Turning off **Keep new readings in local history** enables passthrough: new readings are queued privately until accepted by the server, without adding them to local history or Health Connect. Existing history stays. Clearing the destination disables forwarding and restores local storage for future readings.

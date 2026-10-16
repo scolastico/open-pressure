@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="vp_title">Virtuelle brukere</string>
+    <string name="vp_enabled">Bruk virtuelle brukere</string>
+    <string name="vp_intro">Lag navngitte profiler i stedet for å bruke blodtrykksmålerens brukernummer. Velg hvem hver nye måling tilhører. Minst én profil kreves mens denne funksjonen er aktivert.</string>
+    <string name="vp_add">Legg til bruker</string>
+    <string name="vp_name">Navn</string>
+    <string name="vp_rename">Gi nytt navn</string>
+    <string name="vp_delete">Fjern bruker</string>
+    <string name="vp_delete_help">Velg brukeren som skal motta denne brukerens lagrede målinger. Å fjerne en bruker sletter ikke målinger eller endrer kopier som allerede er sendt andre steder.</string>
+    <string name="vp_last_user">Behold minst én bruker.</string>
+    <string name="vp_name_invalid">Skriv inn et ikke-tomt navn på ikke mer enn 100 tegn.</string>
+    <string name="vp_save_failed">Kunne ikke lagre denne endringen. Prøv igjen.</string>
+    <string name="vp_first_user">Opprett din første bruker</string>
+    <string name="vp_unassigned">Ikke tilordnet</string>
+    <string name="vp_assign_title">Hvem tok denne målingen?</string>
+    <string name="vp_assign_help">Velg en bruker for denne målingen. Ventende målinger vises fra eldste til nyeste. Du kan komme tilbake senere uten å miste dem.</string>
+    <string name="vp_later">Seinere</string>
+    <string name="vp_pending_count">%1$d målinger venter på en bruker</string>
+    <string name="vp_pending_channel">Tilordne målinger til brukere</string>
+    <string name="vp_pending_channel_description">Nye målinger som trenger en bruker før de kan arkiveres eller eksporteres.</string>
+    <string name="vp_pending_notification_title">Velg hvem som målte</string>
+    <string name="vp_pending_notification_text">%1$d målinger er lagret og venter på at du skal velge en bruker. Trykk for å tilordne dem.</string>
+    <string name="vp_no_pending">Alle målinger har en bruker.</string>
+    <string name="vp_assign_action">Tilordne ventende målinger</string>
+    <string name="vp_monitor_bank">Blodtrykksmåler minnebank %1$s</string>
+    <string name="vp_monitor_bank_hint">Blodtrykksmåler minnebank (1 eller 2)</string>
+    <string name="vp_health_intro">Velg din egen virtuelle bruker før du aktiverer Health Connect-eksport. Kun tildelte målinger for den brukeren vil bli eksportert. Ikke-tildelte målinger forblir private til du velger hvem som tok dem.</string>
+    <string name="vp_health_choose">Velg din egen bruker.</string>
+    <string name="vp_health_selected">Valgt bruker: %1$s</string>
+    <string name="vp_health_summary">%1$s: %2$d eksportert; %3$d hoppet over.</string>
+    <string name="vp_health_history">Aktivering av eksport inkluderer kvalifiserte lagrede avlesninger tildelt den valgte brukeren. Målinger som venter på en bruker eksporteres ikke.</string>
+    <string name="vp_health_shared">Health Connect representerer én person. Velg kun din egen bruker. Når du bytter mellom blodtrykksmålerens minnebankmodus og virtuell brukermodus, må du velge din egen bruker og aktivere eksport igjen.</string>
+    <string name="vp_pending_privacy">Målinger som ikke er tilordnet en bruker, holdes i en midlertidig privat kø, selv i passthrough-modus. De legges ikke til målehistorikk, Health Connect eller HTTP-opplastinger før du tilordner dem.</string>
+    <string name="vp_mode_change_help">Eksisterende målehistorikk beholdes. Tidligere lagrede målinger uten en virtuell bruker vises som ikke tildelt. Hvis du slår av denne funksjonen, bevares både de ventende målingene og de navngitte profilene dine.</string>
+    <string name="vp_delete_confirm">Vil du fjerne %1$s?</string>
+</resources>

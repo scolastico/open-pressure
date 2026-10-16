@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="vp_title">ورچوئل صارفین</string>
+    <string name="vp_enabled">ورچوئل صارفین استعمال کریں۔</string>
+    <string name="vp_intro">بلڈ پریشر مانیٹر کے صارف نمبر استعمال کرنے کے بجائے نام کی پروفائلز بنائیں۔ منتخب کریں کہ ہر نئی پیمائش کس سے تعلق رکھتی ہے۔ اس خصوصیت کے فعال ہونے کے دوران کم از کم ایک پروفائل درکار ہے۔</string>
+    <string name="vp_add">صارف شامل کریں۔</string>
+    <string name="vp_name">نام</string>
+    <string name="vp_rename">نام تبدیل کریں۔</string>
+    <string name="vp_delete">صارف کو ہٹا دیں۔</string>
+    <string name="vp_delete_help">اس صارف کا انتخاب کریں جسے اس صارف کی محفوظ کردہ پیمائشیں موصول ہونی چاہئیں۔ کسی صارف کو ہٹانے سے پیمائش حذف نہیں ہوتی ہے یا پہلے سے کہیں اور بھیجی گئی کاپیاں تبدیل نہیں ہوتی ہیں۔</string>
+    <string name="vp_last_user">کم از کم ایک صارف رکھیں۔</string>
+    <string name="vp_name_invalid">100 سے زیادہ حروف کا غیر خالی نام درج کریں۔</string>
+    <string name="vp_save_failed">اس تبدیلی کو محفوظ نہیں کیا جا سکا۔ دوبارہ کوشش کریں۔</string>
+    <string name="vp_first_user">اپنا پہلا صارف بنائیں</string>
+    <string name="vp_unassigned">غیر تفویض کردہ</string>
+    <string name="vp_assign_title">یہ پیمائش کس نے لی؟</string>
+    <string name="vp_assign_help">اس پیمائش کے لیے صارف کا انتخاب کریں۔ زیر التواء پیمائشیں قدیم سے تازہ ترین تک دکھائی جاتی ہیں۔ آپ انہیں کھوئے بغیر بعد میں واپس آ سکتے ہیں۔</string>
+    <string name="vp_later">بعد میں</string>
+    <string name="vp_pending_count">%1$d پیمائشیں صارف کا انتظار کر رہی ہیں۔</string>
+    <string name="vp_pending_channel">صارفین کو پیمائش تفویض کریں۔</string>
+    <string name="vp_pending_channel_description">نئی پیمائشیں جنہیں فائل کرنے یا برآمد کرنے سے پہلے صارف کی ضرورت ہوتی ہے۔</string>
+    <string name="vp_pending_notification_title">منتخب کریں کہ کس نے پیمائش کی۔</string>
+    <string name="vp_pending_notification_text">%1$d پیمائشیں محفوظ ہیں اور آپ کے صارف کا انتخاب کرنے کا انتظار کر رہی ہیں۔ انہیں تفویض کرنے کے لیے تھپتھپائیں۔</string>
+    <string name="vp_no_pending">تمام پیمائش کا ایک صارف ہوتا ہے۔</string>
+    <string name="vp_assign_action">زیر التواء پیمائش تفویض کریں۔</string>
+    <string name="vp_monitor_bank">بلڈ پریشر مانیٹر میموری بینک %1$s</string>
+    <string name="vp_monitor_bank_hint">بلڈ پریشر مانیٹر میموری بینک (1 یا 2)</string>
+    <string name="vp_health_intro">Health Connect برآمد کو فعال کرنے سے پہلے اپنا ورچوئل صارف منتخب کریں۔ صرف اس صارف کے لیے تفویض کردہ پیمائشیں برآمد کی جائیں گی۔ غیر تفویض کردہ پیمائشیں اس وقت تک نجی رہتی ہیں جب تک آپ یہ نہیں منتخب کرتے کہ انہیں کس نے لیا ہے۔</string>
+    <string name="vp_health_choose">اپنا صارف خود منتخب کریں۔</string>
+    <string name="vp_health_selected">منتخب صارف: %1$s</string>
+    <string name="vp_health_summary">%1$s: %2$d برآمد کیا گیا؛ %3$d چھوڑ دیا گیا۔</string>
+    <string name="vp_health_history">برآمد کو فعال کرنے میں منتخب صارف کو تفویض کردہ اہل محفوظ شدہ ریڈنگز شامل ہیں۔ صارف کے انتظار میں پیمائشیں برآمد نہیں کی جاتی ہیں۔</string>
+    <string name="vp_health_shared">Health Connect ایک شخص کی نمائندگی کرتا ہے۔ صرف اپنے صارف کا انتخاب کریں۔ جب آپ بلڈ پریشر مانیٹر میموری-بینک موڈ اور ورچوئل یوزر موڈ کے درمیان سوئچ کرتے ہیں، تو آپ کو اپنے صارف کو منتخب کرنا اور دوبارہ برآمد کو فعال کرنا ہوگا۔</string>
+    <string name="vp_pending_privacy">وہ پیمائشیں جو صارف کو تفویض نہیں کی گئی ہیں ایک عارضی نجی قطار میں رکھی جاتی ہیں، یہاں تک کہ پاس تھرو موڈ میں بھی۔ انہیں پیمائش کی سرگزشت، Health Connect یا HTTP اپ لوڈز میں شامل نہیں کیا جاتا جب تک کہ آپ انہیں تفویض نہیں کرتے ہیں۔</string>
+    <string name="vp_mode_change_help">موجودہ پیمائش کی تاریخ رکھی جاتی ہے۔ ورچوئل صارف کے بغیر پہلے محفوظ کردہ پیمائش کو غیر تفویض کے طور پر دکھایا گیا ہے۔ اس خصوصیت کو بند کرنے سے زیر التواء پیمائش اور آپ کے نامزد پروفائلز دونوں محفوظ رہتے ہیں۔</string>
+    <string name="vp_delete_confirm">%1$s کو ہٹائیں؟</string>
+</resources>

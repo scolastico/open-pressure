@@ -2,6 +2,8 @@
 
 Export is **off by default**. Open Health Connect from Overview, choose your own user bank (1 or 2), enable automatic export and grant blood pressure write permission. The choice applies to that bank across all monitors. There is no all-users export because Health Connect represents one person's record. Experimental-use acceptance is also required.
 
+When [virtual users](virtual-users.md) are enabled, choose your own named profile instead of a monitor bank. Only explicitly assigned local readings for that person are eligible; pending assignment measurements are never exported. Changing between bank and virtual-user modes invalidates the previous export consent even if you later switch back. Select your own user and enable export again. Removing the selected virtual profile pauses export; choosing a replacement for local history does not authorize exporting that person's readings to an existing Health Connect selection.
+
 Health Connect needs Android 9/API 28+ and an available provider; Android 9–13 use the installed provider app and Android 14+ use the system service. OpenPressure still runs locally on Android 8. Availability/install/manage controls explain provider status. See Android's [Health Connect setup guide](https://developer.android.com/health-and-fitness/health-connect/get-started).
 
 ## Data and privacy

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="vp_title">Utilizatori virtuali</string>
+    <string name="vp_enabled">Utilizați utilizatori virtuali</string>
+    <string name="vp_intro">Creați profiluri cu nume în loc să utilizați numerele de utilizator ale tensiunii arteriale. Alege cui îi aparține fiecare măsurătoare nouă. Este necesar cel puțin un profil când această funcție este activată.</string>
+    <string name="vp_add">Adăugați utilizator</string>
+    <string name="vp_name">Nume</string>
+    <string name="vp_rename">Redenumiți</string>
+    <string name="vp_delete">Eliminați utilizatorul</string>
+    <string name="vp_delete_help">Alegeți utilizatorul care ar trebui să primească măsurătorile salvate de acest utilizator. Eliminarea unui utilizator nu șterge măsurătorile și nici nu modifică copiile deja trimise în altă parte.</string>
+    <string name="vp_last_user">Păstrați cel puțin un utilizator.</string>
+    <string name="vp_name_invalid">Introduceți un nume care nu este gol, de cel mult 100 de caractere.</string>
+    <string name="vp_save_failed">Nu s-a putut salva această modificare. Încearcă din nou.</string>
+    <string name="vp_first_user">Creați-vă primul utilizator</string>
+    <string name="vp_unassigned">Nealocat</string>
+    <string name="vp_assign_title">Cine a luat această măsurătoare?</string>
+    <string name="vp_assign_help">Alegeți un utilizator pentru această măsurătoare. Măsurătorile în așteptare sunt afișate de la cel mai vechi la cel mai nou. Vă puteți întoarce mai târziu fără a le pierde.</string>
+    <string name="vp_later">Mai târziu</string>
+    <string name="vp_pending_count">%1$d măsurători așteaptă un utilizator</string>
+    <string name="vp_pending_channel">Atribuiți măsurători utilizatorilor</string>
+    <string name="vp_pending_channel_description">Noi măsurători care au nevoie de un utilizator înainte de a putea fi depuse sau exportate.</string>
+    <string name="vp_pending_notification_title">Alege cine a măsurat</string>
+    <string name="vp_pending_notification_text">%1$d măsurători sunt salvate și așteaptă să alegeți un utilizator. Atingeți pentru a le atribui.</string>
+    <string name="vp_no_pending">Toate măsurătorile au un utilizator.</string>
+    <string name="vp_assign_action">Atribuiți măsurători în așteptare</string>
+    <string name="vp_monitor_bank">Banca de memorie pentru monitorul tensiunii arteriale %1$s</string>
+    <string name="vp_monitor_bank_hint">Bancă de memorie pentru monitorul tensiunii arteriale (1 sau 2)</string>
+    <string name="vp_health_intro">Alegeți propriul utilizator virtual înainte de a activa exportul Health Connect. Vor fi exportate numai măsurătorile alocate pentru acel utilizator. Măsurătorile nealocate rămân private până când alegeți cine le-a luat.</string>
+    <string name="vp_health_choose">Alegeți propriul utilizator.</string>
+    <string name="vp_health_selected">Utilizator selectat: %1$s</string>
+    <string name="vp_health_summary">%1$s: %2$d exportat; %3$d a fost omis.</string>
+    <string name="vp_health_history">Activarea exportului include citirile salvate eligibile atribuite utilizatorului selectat. Măsurătorile care așteaptă un utilizator nu sunt exportate.</string>
+    <string name="vp_health_shared">Health Connect reprezintă o persoană. Alegeți doar propriul utilizator. Când comutați între modul de memorie pentru monitorul tensiunii arteriale și modul de utilizator virtual, trebuie să vă selectați propriul utilizator și să activați din nou exportul.</string>
+    <string name="vp_pending_privacy">Măsurătorile care nu au fost atribuite unui utilizator sunt păstrate într-o coadă privată temporară, chiar și în modul de trecere. Acestea nu sunt adăugate la istoricul măsurătorilor, la încărcările Health Connect sau HTTP până când nu le atribuiți.</string>
+    <string name="vp_mode_change_help">Istoricul de măsurare existent este păstrat. Măsurătorile salvate anterior fără un utilizator virtual sunt afișate ca nealocate. Dezactivarea acestei funcții păstrează atât măsurătorile în așteptare, cât și profilurile numite.</string>
+    <string name="vp_delete_confirm">Eliminați %1$s?</string>
+</resources>

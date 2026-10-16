@@ -1,6 +1,6 @@
 # Measurement reminders
 
-Open **Measurement reminders** on Overview to add a reminder. Choose an hour and minute using the phone's time picker, then select the weekdays on which it should repeat. With no weekdays selected, it runs once at the next occurrence of that time. Each reminder can be edited, enabled, disabled or deleted independently.
+Open **Measurement reminders** at the bottom of Overview to add a reminder. Choose an hour and minute using the phone's time picker, then select the weekdays on which it should repeat. With no weekdays selected, it runs once at the next occurrence of that time. Each reminder can be edited, enabled, disabled or deleted independently.
 
 These are phone notifications. They do not configure alarms on the monitor, start a measurement or send any commands to a device. They use the phone's local time and follow its timezone. Swiping away a notification dismisses that occurrence; a repeating reminder remains enabled. A one-time reminder turns off after its occurrence, including when that occurrence is skipped.
 

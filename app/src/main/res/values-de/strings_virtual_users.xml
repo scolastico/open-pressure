@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="vp_title">Virtuelle Benutzer</string>
+    <string name="vp_enabled">Virtuelle Benutzer verwenden</string>
+    <string name="vp_intro">Erstelle benannte Profile, statt die Benutzernummern des Blutdruckmessgeräts zu verwenden. Wähle für jede neue Messung aus, zu wem sie gehört. Solange diese Funktion aktiviert ist, muss mindestens ein Profil vorhanden sein.</string>
+    <string name="vp_add">Benutzer hinzufügen</string>
+    <string name="vp_name">Name</string>
+    <string name="vp_rename">Umbenennen</string>
+    <string name="vp_delete">Benutzer entfernen</string>
+    <string name="vp_delete_help">Wähle den Benutzer aus, dem die gespeicherten Messungen dieses Benutzers zugeordnet werden sollen. Das Entfernen eines Benutzers löscht keine Messungen und ändert keine bereits an andere Stellen gesendeten Kopien.</string>
+    <string name="vp_last_user">Mindestens ein Benutzer muss erhalten bleiben.</string>
+    <string name="vp_name_invalid">Gib einen Namen mit 1 bis 100 Zeichen ein.</string>
+    <string name="vp_save_failed">Diese Änderung konnte nicht gespeichert werden. Versuche es erneut.</string>
+    <string name="vp_first_user">Ersten Benutzer erstellen</string>
+    <string name="vp_unassigned">Nicht zugewiesen</string>
+    <string name="vp_assign_title">Wer hat diese Messung durchgeführt?</string>
+    <string name="vp_assign_help">Wähle einen Benutzer für diese Messung. Ausstehende Messungen werden von der ältesten bis zur neuesten angezeigt. Du kannst später zurückkehren, ohne Messungen zu verlieren.</string>
+    <string name="vp_later">Später</string>
+    <string name="vp_pending_count">%1$d Messungen warten auf eine Benutzerzuweisung</string>
+    <string name="vp_pending_channel">Messungen zuweisen</string>
+    <string name="vp_pending_channel_description">Neue Messungen, die einem Benutzer zugewiesen werden müssen, bevor sie im Verlauf gespeichert oder exportiert werden können.</string>
+    <string name="vp_pending_notification_title">Wähle aus, wer gemessen hat</string>
+    <string name="vp_pending_notification_text">%1$d Messungen sind gespeichert und warten auf deine Benutzerzuweisung. Tippe, um sie zuzuweisen.</string>
+    <string name="vp_no_pending">Alle Messungen sind einem Benutzer zugewiesen.</string>
+    <string name="vp_assign_action">Ausstehende Messungen zuweisen</string>
+    <string name="vp_monitor_bank">Speicherbank %1$s des Blutdruckmessgeräts</string>
+    <string name="vp_monitor_bank_hint">Speicherbank des Blutdruckmessgeräts (1 oder 2)</string>
+    <string name="vp_health_intro">Wähle deinen eigenen virtuellen Benutzer aus, bevor du den Export nach Health Connect aktivierst. Nur diesem Benutzer zugewiesene Messungen werden exportiert. Nicht zugewiesene Messungen bleiben privat, bis du auswählst, wer sie durchgeführt hat.</string>
+    <string name="vp_health_choose">Wähle deinen eigenen Benutzer aus.</string>
+    <string name="vp_health_selected">Ausgewählter Benutzer: %1$s</string>
+    <string name="vp_health_summary">%1$s: %2$d exportiert; %3$d übersprungen.</string>
+    <string name="vp_health_history">Beim Aktivieren des Exports werden auch geeignete gespeicherte Messwerte berücksichtigt, die dem ausgewählten Benutzer zugewiesen sind. Messungen, die auf eine Benutzerzuweisung warten, werden nicht exportiert.</string>
+    <string name="vp_health_shared">Health Connect ist für eine Person bestimmt. Wähle nur deinen eigenen Benutzer aus. Nach einem Wechsel zwischen Speicherbank- und virtuellem Benutzermodus musst du deinen Benutzer auswählen und den Export erneut aktivieren.</string>
+    <string name="vp_pending_privacy">Messungen, die auf eine Benutzerzuweisung warten, bleiben in einer vorübergehenden privaten Warteschlange, auch im Durchleitungsmodus. Sie werden erst nach deiner Zuweisung zum Verlauf, zu Health Connect oder zu HTTP-Uploads hinzugefügt.</string>
+    <string name="vp_mode_change_help">Der vorhandene Verlauf bleibt erhalten. Bereits gespeicherte Messwerte ohne virtuellen Benutzer werden als nicht zugewiesen angezeigt. Wenn du diese Funktion deaktivierst, bleiben ausstehende Messungen und deine benannten Profile erhalten.</string>
+    <string name="vp_delete_confirm">%1$s entfernen?</string>
+</resources>

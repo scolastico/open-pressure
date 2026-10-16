@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="vp_title">ผู้ใช้เสมือน</string>
+    <string name="vp_enabled">ใช้ผู้ใช้เสมือน</string>
+    <string name="vp_intro">สร้างโปรไฟล์ที่มีชื่อแทนการใช้หมายเลขผู้ใช้ของเครื่องวัดความดันโลหิต เลือกว่าการวัดใหม่แต่ละรายการเป็นของใคร ต้องมีอย่างน้อยหนึ่งโปรไฟล์ในขณะที่เปิดใช้งานคุณสมบัตินี้</string>
+    <string name="vp_add">เพิ่มผู้ใช้</string>
+    <string name="vp_name">ชื่อ</string>
+    <string name="vp_rename">เปลี่ยนชื่อ</string>
+    <string name="vp_delete">ลบผู้ใช้</string>
+    <string name="vp_delete_help">เลือกผู้ใช้ที่ควรได้รับการวัดที่บันทึกไว้ของผู้ใช้รายนี้ การลบผู้ใช้ออกจะไม่ลบการวัดหรือเปลี่ยนแปลงสำเนาที่ส่งไปที่อื่นแล้ว</string>
+    <string name="vp_last_user">เก็บผู้ใช้ไว้อย่างน้อยหนึ่งคน</string>
+    <string name="vp_name_invalid">ป้อนชื่อที่ไม่ว่างเปล่าซึ่งมีอักขระไม่เกิน 100 ตัว</string>
+    <string name="vp_save_failed">ไม่สามารถบันทึกการเปลี่ยนแปลงนี้ได้ ลองอีกครั้ง</string>
+    <string name="vp_first_user">สร้างผู้ใช้รายแรกของคุณ</string>
+    <string name="vp_unassigned">ยังไม่ได้มอบหมาย</string>
+    <string name="vp_assign_title">ใครเป็นคนทำการวัดนี้?</string>
+    <string name="vp_assign_help">เลือกผู้ใช้สำหรับการวัดนี้ การวัดที่รอดำเนินการจะแสดงจากเก่าไปหาใหม่ที่สุด คุณสามารถกลับมาได้ในภายหลังโดยไม่สูญเสียพวกเขา</string>
+    <string name="vp_later">ภายหลัง</string>
+    <string name="vp_pending_count">%1$d การวัดกำลังรอผู้ใช้</string>
+    <string name="vp_pending_channel">กำหนดการวัดให้กับผู้ใช้</string>
+    <string name="vp_pending_channel_description">การวัดแบบใหม่ที่ต้องมีผู้ใช้ก่อนจึงจะสามารถยื่นหรือส่งออกได้</string>
+    <string name="vp_pending_notification_title">เลือกใครวัด</string>
+    <string name="vp_pending_notification_text">บันทึกการวัด %1$d แล้วและรอให้คุณเลือกผู้ใช้ แตะเพื่อมอบหมาย</string>
+    <string name="vp_no_pending">การวัดทั้งหมดมีผู้ใช้</string>
+    <string name="vp_assign_action">กำหนดการวัดที่ค้างอยู่</string>
+    <string name="vp_monitor_bank">คลังหน่วยความจำเครื่องวัดความดันโลหิต %1$s</string>
+    <string name="vp_monitor_bank_hint">ธนาคารหน่วยความจำเครื่องวัดความดันโลหิต (1 หรือ 2)</string>
+    <string name="vp_health_intro">เลือกผู้ใช้เสมือนของคุณเองก่อนที่จะเปิดใช้งานการส่งออก Health Connect เฉพาะการวัดที่กำหนดสำหรับผู้ใช้นั้นเท่านั้นที่จะถูกส่งออก การวัดที่ยังไม่ได้กำหนดจะยังคงเป็นส่วนตัวจนกว่าคุณจะเลือกว่าใครเป็นคนทำ</string>
+    <string name="vp_health_choose">เลือกผู้ใช้ของคุณเอง</string>
+    <string name="vp_health_selected">ผู้ใช้ที่เลือก: %1$s</string>
+    <string name="vp_health_summary">%1$s: %2$d ส่งออกแล้ว; %3$d ข้ามไป</string>
+    <string name="vp_health_history">การเปิดใช้งานการส่งออกรวมถึงการอ่านที่บันทึกไว้ที่มีสิทธิ์ซึ่งกำหนดให้กับผู้ใช้ที่เลือก การวัดที่รอผู้ใช้จะไม่ถูกส่งออก</string>
+    <string name="vp_health_shared">Health Connect เป็นตัวแทนของบุคคลหนึ่งคน เลือกเฉพาะผู้ใช้ของคุณเอง เมื่อคุณสลับระหว่างโหมดคลังหน่วยความจำของเครื่องวัดความดันโลหิตและโหมดผู้ใช้เสมือน คุณต้องเลือกผู้ใช้ของคุณเองและเปิดใช้งานการส่งออกอีกครั้ง</string>
+    <string name="vp_pending_privacy">การวัดที่ไม่ได้กำหนดให้กับผู้ใช้จะถูกเก็บไว้ในคิวส่วนตัวชั่วคราว แม้ในโหมดส่งผ่านก็ตาม ข้อมูลเหล่านี้จะไม่ถูกเพิ่มลงในประวัติการวัด การอัปโหลด Health Connect หรือ HTTP จนกว่าคุณจะกำหนด</string>
+    <string name="vp_mode_change_help">ประวัติการวัดที่มีอยู่จะถูกเก็บไว้ การวัดที่บันทึกไว้ก่อนหน้านี้โดยไม่มีผู้ใช้เสมือนจะแสดงเป็นไม่ได้กำหนด การปิดคุณสมบัตินี้จะรักษาทั้งการวัดที่รอดำเนินการและโปรไฟล์ที่มีชื่อของคุณ</string>
+    <string name="vp_delete_confirm">ลบ %1$s หรือไม่</string>
+</resources>

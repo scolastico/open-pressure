@@ -44,7 +44,7 @@ public final class MonitorService extends Service {
     public long readingsRevision;
     public long dumpRevision;
     public int user=1,consentCode=526,authenticatedUser=0,battery=-1,storedCount=-1,receivedInTransfer,addedInTransfer;
-    public int storedInTransfer,queuedInTransfer;
+    public int storedInTransfer,queuedInTransfer,pendingInTransfer;
     public ProtocolProfile profile=ProtocolProfile.UNSUPPORTED;
     public final LinkedHashMap<String,Discovered> discovered=new LinkedHashMap<>();
     private final Set<Runnable> listeners=new HashSet<>();
@@ -361,7 +361,7 @@ public final class MonitorService extends Service {
         disconnect(); stopScan(); stopAutomaticScan();
         automaticConnection=attempt!=null; automaticAttempt=attempt;
         readingNotifications.begin(automaticConnection);
-        receivedInTransfer=0; addedInTransfer=0; storedInTransfer=0; queuedInTransfer=0;
+        receivedInTransfer=0; addedInTransfer=0; storedInTransfer=0; queuedInTransfer=0; pendingInTransfer=0;
         x7FreshBondEstablished=freshBond;
         address=target; connectedName=name; pairingRequested=pair; authenticatedUser=0; storedCount=-1; deviceTime="Not read"; information="";
         clockUpdate=ClockUpdate.NONE; sessionEndUnconfirmed=false;
@@ -411,6 +411,7 @@ public final class MonitorService extends Service {
         ReadingStore.IngestionResult result=store.addResult(address,connectedName,reading,raw,source,bank,automatic);
         if(result.stored) { storedInTransfer++; readingsRevision++; }
         if(result.queued) queuedInTransfer++;
+        if(result.pending) pendingInTransfer++;
         return result.accepted();
     }
     private void stopIdleService() {
@@ -653,7 +654,7 @@ public final class MonitorService extends Service {
         try {
             vendorRead=new VendorWlpSession(vendorModel);
             vendorParsed=0; wlpRejected=0; storedCount=-1; receivedInTransfer=0; addedInTransfer=0; historyRunning=true;
-            storedInTransfer=0; queuedInTransfer=0;
+            storedInTransfer=0; queuedInTransfer=0; pendingInTransfer=0;
             vendorClockAttempted=false; vendorClockPending=false; vendorClockResult="";
             clockUpdate=ClockUpdate.NONE; sessionEndUnconfirmed=false;
             state("Reading history…","Reading the verified model's history banks before an optional clock update and a single session end.");
@@ -1094,7 +1095,7 @@ public final class MonitorService extends Service {
             if(!x7ReadReady()) return;
             if(firstSequence!=-1) { state("Read populated records","X7 imports use the current index for both users without changing counters."); return; }
             historyRunning=true; receivedInTransfer=0; addedInTransfer=0; storedCount=-1; wlpParsed=0; wlpRejected=0;
-            storedInTransfer=0; queuedInTransfer=0;
+            storedInTransfer=0; queuedInTransfer=0; pendingInTransfer=0;
             x7HistoryIndex=null; x7HistoryRanges=Collections.emptyList(); x7HistoryRange=0; x7HistoryRangeOffset=0;
             beginWlpRead(X7MemoryIndex.SETTINGS_START,X7MemoryIndex.SETTINGS_BYTES);
             return;
@@ -1102,7 +1103,7 @@ public final class MonitorService extends Service {
         if(hasUserControl && authenticatedUser!=user) { state("Authenticate first","Authenticate the selected monitor user before reading history."); return; }
         if(firstSequence < -1 || firstSequence>65535) { state("Invalid sequence","Use All records or a number from 0 to 65535."); return; }
         minimumSequence=firstSequence; historyRunning=true; receivedInTransfer=0; addedInTransfer=0; storedCount=-1;
-        storedInTransfer=0; queuedInTransfer=0;
+        storedInTransfer=0; queuedInTransfer=0; pendingInTransfer=0;
         transfer.begin();
         state("Counting stored readings…","Readings are saved as they arrive; device memory is retained.");
         responseWrite(racp,firstSequence<0?Commands.countAll():Commands.countFrom(firstSequence),45000,"History count timed out; transfer incomplete");

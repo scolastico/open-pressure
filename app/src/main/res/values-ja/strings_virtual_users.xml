@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="vp_title">仮想ユーザー</string>
+    <string name="vp_enabled">仮想ユーザーを使用する</string>
+    <string name="vp_intro">血圧モニターのユーザー番号を使用する代わりに、名前付きプロファイルを作成します。新しい測定値が誰に属するかを選択します。この機能が有効になっている間は、少なくとも 1 つのプロファイルが必要です。</string>
+    <string name="vp_add">ユーザーの追加</string>
+    <string name="vp_name">名前</string>
+    <string name="vp_rename">名前の変更</string>
+    <string name="vp_delete">ユーザーを削除する</string>
+    <string name="vp_delete_help">このユーザーの保存された測定値を受信するユーザーを選択します。ユーザーを削除しても、測定値が削除されたり、すでに他の場所に送信されたコピーが変更されたりすることはありません。</string>
+    <string name="vp_last_user">少なくとも 1 人のユーザーを保持してください。</string>
+    <string name="vp_name_invalid">100 文字以内の空でない名前を入力します。</string>
+    <string name="vp_save_failed">この変更を保存できませんでした。もう一度やり直してください。</string>
+    <string name="vp_first_user">最初のユーザーを作成する</string>
+    <string name="vp_unassigned">未割り当て</string>
+    <string name="vp_assign_title">誰がこの測定を行ったのですか?</string>
+    <string name="vp_assign_help">この測定のユーザーを選択します。保留中の測定値が古いものから新しいものへ表示されます。後で紛失することなく戻すことができます。</string>
+    <string name="vp_later">後で</string>
+    <string name="vp_pending_count">%1$d 個の測定値がユーザーを待機しています</string>
+    <string name="vp_pending_channel">ユーザーに測定値を割り当てる</string>
+    <string name="vp_pending_channel_description">新しい測定値は、ファイルまたはエクスポートする前にユーザーが必要です。</string>
+    <string name="vp_pending_notification_title">測定した人を選択してください</string>
+    <string name="vp_pending_notification_text">%1$d 個の測定値が保存され、ユーザーの選択を待っています。タップして割り当てます。</string>
+    <string name="vp_no_pending">すべての測定にはユーザーがいます。</string>
+    <string name="vp_assign_action">保留中の測定値を割り当てる</string>
+    <string name="vp_monitor_bank">血圧計メモリバンク %1$s</string>
+    <string name="vp_monitor_bank_hint">血圧計メモリバンク（1または2）</string>
+    <string name="vp_health_intro">Health Connect エクスポートを有効にする前に、独自の仮想ユーザーを選択してください。そのユーザーに割り当てられた測定値のみがエクスポートされます。割り当てられていない測定値は、測定者を選択するまで非公開のままです。</string>
+    <string name="vp_health_choose">独自のユーザーを選択してください。</string>
+    <string name="vp_health_selected">選択したユーザー: %1$s</string>
+    <string name="vp_health_summary">%1$s: %2$d がエクスポートされました。 %3$d はスキップされました。</string>
+    <string name="vp_health_history">エクスポートを有効にすると、選択したユーザーに割り当てられた対象となる保存された測定値が含まれます。ユーザーを待機している測定値はエクスポートされません。</string>
+    <string name="vp_health_shared">Health Connect は 1 人の人物を表します。自分のユーザーのみを選択してください。血圧モニターのメモリバンク モードと仮想ユーザー モードを切り替えるときは、独自のユーザーを選択し、エクスポートを再度有効にする必要があります。</string>
+    <string name="vp_pending_privacy">ユーザーに割り当てられていない測定値は、パススルー モードであっても、一時的なプライベート キューに保持されます。これらは、割り当てるまで測定履歴、Health Connect、または HTTP アップロードに追加されません。</string>
+    <string name="vp_mode_change_help">既存の測定履歴は保持されます。仮想ユーザーなしで以前に保存された測定値は、未割り当てとして表示されます。この機能をオフにすると、保留中の測定値と名前付きプロファイルの両方が保存されます。</string>
+    <string name="vp_delete_confirm">%1$sを削除しますか?</string>
+</resources>

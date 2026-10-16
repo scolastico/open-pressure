@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="vp_title">المستخدمون الافتراضيون</string>
+    <string name="vp_enabled">استخدام المستخدمين الافتراضيين</string>
+    <string name="vp_intro">أنشئ ملفات شخصية بأسماء بدلاً من استخدام أرقام المستخدمين في جهاز قياس ضغط الدم. اختر صاحب كل قياس جديد. يجب الاحتفاظ بملف شخصي واحد على الأقل ما دامت هذه الميزة مفعّلة.</string>
+    <string name="vp_add">إضافة مستخدم</string>
+    <string name="vp_name">الاسم</string>
+    <string name="vp_rename">تغيير الاسم</string>
+    <string name="vp_delete">إزالة المستخدم</string>
+    <string name="vp_delete_help">اختر المستخدم الذي ستُنقل إليه القياسات المحفوظة لهذا المستخدم. لا تؤدي إزالة المستخدم إلى حذف القياسات أو تغيير النسخ التي أُرسلت مسبقًا إلى جهات أخرى.</string>
+    <string name="vp_last_user">يجب الاحتفاظ بمستخدم واحد على الأقل.</string>
+    <string name="vp_name_invalid">أدخل اسمًا غير فارغ لا يزيد على 100 حرف.</string>
+    <string name="vp_save_failed">تعذّر حفظ هذا التغيير. حاول مرة أخرى.</string>
+    <string name="vp_first_user">إنشاء المستخدم الأول</string>
+    <string name="vp_unassigned">غير معيّن</string>
+    <string name="vp_assign_title">لمن هذا القياس؟</string>
+    <string name="vp_assign_help">اختر مستخدمًا لهذا القياس. تُعرض القياسات المعلّقة من الأقدم إلى الأحدث. يمكنك العودة لاحقًا دون فقدانها.</string>
+    <string name="vp_later">لاحقًا</string>
+    <string name="vp_pending_count">%1$d قياسات بانتظار اختيار مستخدم</string>
+    <string name="vp_pending_channel">تعيين القياسات للمستخدمين</string>
+    <string name="vp_pending_channel_description">قياسات جديدة تحتاج إلى اختيار مستخدم قبل إضافتها إلى السجل أو تصديرها.</string>
+    <string name="vp_pending_notification_title">اختر صاحب القياس</string>
+    <string name="vp_pending_notification_text">تم حفظ %1$d قياسات وهي بانتظار اختيار مستخدم. انقر لتعيينها.</string>
+    <string name="vp_no_pending">تم تعيين مستخدم لكل القياسات.</string>
+    <string name="vp_assign_action">تعيين مستخدم للقياسات المعلّقة</string>
+    <string name="vp_monitor_bank">بنك ذاكرة جهاز قياس ضغط الدم %1$s</string>
+    <string name="vp_monitor_bank_hint">بنك ذاكرة جهاز قياس ضغط الدم (1 أو 2)</string>
+    <string name="vp_health_intro">اختر المستخدم الافتراضي الخاص بك قبل تفعيل التصدير إلى Health Connect. لن تُصدّر إلا القياسات المعيّنة لهذا المستخدم. تبقى القياسات غير المعيّنة خاصة إلى أن تختار أصحابها.</string>
+    <string name="vp_health_choose">اختر المستخدم الخاص بك.</string>
+    <string name="vp_health_selected">المستخدم المحدد: %1$s</string>
+    <string name="vp_health_summary">%1$s: تم تصدير %2$d؛ تم تخطي %3$d.</string>
+    <string name="vp_health_history">يشمل تفعيل التصدير القراءات المحفوظة المؤهلة للتصدير والمعيّنة للمستخدم المحدد. لا تُصدّر القياسات التي تنتظر اختيار مستخدم.</string>
+    <string name="vp_health_shared">يمثّل Health Connect شخصًا واحدًا. اختر المستخدم الخاص بك فقط. عند التبديل بين وضع بنك ذاكرة جهاز قياس ضغط الدم ووضع المستخدمين الافتراضيين، يجب اختيار المستخدم الخاص بك وتفعيل التصدير من جديد.</string>
+    <string name="vp_pending_privacy">تُحفظ القياسات التي تنتظر اختيار مستخدم في قائمة انتظار مؤقتة وخاصة، حتى في وضع التمرير. لا تُضاف هذه القياسات إلى السجل أو Health Connect أو عمليات الرفع عبر HTTP إلى أن تعيّن مستخدمًا لها.</string>
+    <string name="vp_mode_change_help">يُحتفظ بالسجل الحالي. تظهر القراءات المحفوظة سابقًا التي لم يُعيّن لها مستخدم افتراضي على أنها غير معيّنة. عند إيقاف هذه الميزة، يُحتفظ بالقياسات المعلّقة وملفاتك الشخصية المسماة.</string>
+    <string name="vp_delete_confirm">هل تريد إزالة %1$s؟</string>
+</resources>

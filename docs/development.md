@@ -53,6 +53,8 @@ Forwarding tests use real SQLite and a loopback HTTP server with synthetic data.
 
 Reminder tests exercise local-time/weekday scheduling, one-time completion, daylight saving, exact-access fallbacks, stale deliveries and notification privacy using Robolectric. Ingestion tests cover committed local/manual/live/passthrough timing and rollback without changing BLE commands. Activity tests cover editing, persistence, permission actions and configuration changes. These checks simulate Android; validate physical-phone delivery separately using the [reminder checklist](hardware-validation.md#measurement-reminders).
 
+Virtual-user tests cover schema v5-to-v6 preservation, durable assignment/FIFO/restart behavior, receipt deduplication, captured passthrough/destination policy, rollback, arbitrary profile counts and scoped deletion. Activity/coordinator tests exercise explicit assignment, later/ignored/blocked notifications and foreground recovery. Service callbacks verify that pending assignments are accepted without prematurely claiming history or uploads. Health Connect tests require matching owner and renewed consent after mode changes; PDF snapshots group and name virtual profiles independently of monitor banks. See [virtual users](virtual-users.md) for the ownership contract.
+
 ### PDF rendering checks
 
 `PdfReportInstrumentation` is a native Android fixture runner with synthetic data only. It generates English, German and Arabic PDFs containing 121 records, mixed units, missing values and a note spanning several pages, then checks every page's orientation with Android's PDF renderer. On a dedicated test emulator, run:
@@ -82,6 +84,7 @@ Replace the emulator serial with your dedicated test device. The host check requ
 | `app/src/main/java/org/openpressure/app/health/` | Optional Health Connect preparation, outbox and workers |
 | `app/src/main/java/org/openpressure/app/forwarding/` | Optional HTTP destination/settings, measurement payloads, upload outbox and retry worker |
 | `app/src/main/java/org/openpressure/app/reminders/` | Phone reminder configuration, local-time scheduling, minimal measurement timing and notifications |
+| `app/src/main/java/org/openpressure/app/profiles/` | Named-user settings, foreground ownership picker, lifecycle coordination and count-only assignment alerts |
 | `app/src/main/java/org/openpressure/app/pdf/` | Immutable report selection, statistics and native PDF rendering |
 | `app/src/main/` | Native Android UI, manifest and localized resources |
 | `tools/` | Protocol/storage checks and optional SDK setup |

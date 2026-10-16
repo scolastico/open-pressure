@@ -48,9 +48,17 @@ class HealthConnectSync(context: Context, private val store: ReadingStore) {
     }
 
     fun enabled(): Boolean = ExperimentalConsent.accepted(context) && preferences.getBoolean("enabled", false) &&
-        preferences.getBoolean("consent", false) && selectedUser() in 1..2
+        preferences.getBoolean("consent", false) && selectionConsentCurrent()
     fun selectedUser(): Int = preferences.getInt("bank", 0)
-    fun status(): String = statusText
+    fun status(): String = if (!enabled() && !preferences.getBoolean("permission_pending", false)) disabledStatus() else statusText
+
+    private fun validSelection(bank: Int): Boolean = if (store.virtualUsersEnabled()) {
+        bank < 0 && bank != Int.MIN_VALUE && store.virtualUsers().any { it.id == -bank }
+    } else bank in 1..2
+
+    private fun selectionConsentCurrent(): Boolean =
+        preferences.getBoolean("virtual_mode", false) == store.virtualUsersEnabled() &&
+        preferences.getLong("virtual_revision", 0L) == store.virtualUsersRevision() && validSelection(selectedUser())
 
     fun availability(): Int = if (Build.VERSION.SDK_INT < 28) HealthConnectClient.SDK_UNAVAILABLE else try {
         HealthConnectClient.getSdkStatus(context)
@@ -59,17 +67,21 @@ class HealthConnectSync(context: Context, private val store: ReadingStore) {
     fun listen(listener: Runnable) { listeners.add(listener) }
     fun unlisten(listener: Runnable) { listeners.remove(listener) }
 
-    /** Called only after the settings screen explains the selected bank and the user accepts. */
+    /** Called only after the settings screen explains the selected person and the user accepts. */
     fun prepareEnable(bank: Int) {
-        require(bank in 1..2) { "Choose your own user bank, 1 or 2" }
+        require(validSelection(bank)) { "Choose your own user" }
+        val virtualMode = store.virtualUsersEnabled()
+        val virtualRevision = store.virtualUsersRevision()
         synchronized(stateLock) {
             generation++
             preferences.edit().putInt("bank", bank).putBoolean("enabled", false)
                 .putBoolean("consent", true).putBoolean("permission_pending", true)
-                .putBoolean("permission_revoked", false).apply()
+                .putBoolean("permission_revoked", false)
+                .putBoolean("virtual_mode", virtualMode)
+                .putLong("virtual_revision", virtualRevision).apply()
         }
         cancelWork()
-        publish("Waiting for blood pressure write permission for user bank $bank.")
+        publish("Waiting for blood pressure write permission.")
     }
 
     fun permissionIntent(): Intent? = if (availability() == HealthConnectClient.SDK_AVAILABLE) {
@@ -81,10 +93,10 @@ class HealthConnectSync(context: Context, private val store: ReadingStore) {
         scope.launch {
             try {
                 val granted = availability() == HealthConnectClient.SDK_AVAILABLE && hasPermission()
+                val accepted = granted && ExperimentalConsent.accepted(context) &&
+                    preferences.getBoolean("consent", false) && selectionConsentCurrent()
                 synchronized(stateLock) {
                     if (generation != requestGeneration || !preferences.getBoolean("permission_pending", false)) return@launch
-                    val accepted = granted && ExperimentalConsent.accepted(context) &&
-                        preferences.getBoolean("consent", false) && selectedUser() in 1..2
                     preferences.edit().putBoolean("permission_pending", false).putBoolean("enabled", accepted).apply()
                 }
                 if (enabled()) {
@@ -139,15 +151,15 @@ class HealthConnectSync(context: Context, private val store: ReadingStore) {
     /** Queue immediately for process durability, and append one trailing wake-up after a burst. */
     fun onRecordsChanged() {
         if (!enabled()) return
-        synchronized(stateLock) {
+        val enqueueNow = synchronized(stateLock) {
             preferences.edit().putLong("last_change", System.currentTimeMillis()).apply()
-            if (!changeWakeQueued) {
-                changeWakeQueued = true
-                enqueue(DEBOUNCE_MS)
-            }
+            val needed = !changeWakeQueued
+            changeWakeQueued = true
             handler.removeCallbacks(trailingChange)
             handler.postDelayed(trailingChange, DEBOUNCE_MS)
+            needed
         }
+        if (enqueueNow) enqueue(DEBOUNCE_MS)
     }
 
     fun manageIntent(): Intent = HealthConnectClient.getHealthConnectManageDataIntent(context)
@@ -173,7 +185,7 @@ class HealthConnectSync(context: Context, private val store: ReadingStore) {
             val completed = HealthExportRunner(
                 authorized = { authorized(token) },
                 pending = { store.healthPending(token.bank, 50) },
-                current = { reading -> store.hasReadingIdentity(reading.id, reading.fingerprint) },
+                current = { reading -> store.hasReadingIdentity(reading.id, reading.fingerprint, token.bank) },
                 prepare = { reading ->
                     HealthConnectRecords.prepare(reading, token.bank, { id, time, offset ->
                         store.prepareHealthExport(reading.id, reading.fingerprint, id, time, offset)
@@ -195,10 +207,21 @@ class HealthConnectSync(context: Context, private val store: ReadingStore) {
         }
     }
 
-    private data class Token(val bank: Int, val generation: Long)
-    private fun snapshot(): Token = synchronized(stateLock) { Token(selectedUser(), generation) }
-    private fun stillEnabled(token: Token): Boolean = synchronized(stateLock) {
-        enabled() && token.bank == selectedUser() && token.generation == generation
+    private data class Token(val bank: Int, val generation: Long, val virtualMode: Boolean, val virtualRevision: Long)
+    // Store callbacks can hold the store monitor before entering stateLock. Never invert that order.
+    private fun snapshot(): Token {
+        val virtualMode = store.virtualUsersEnabled()
+        val virtualRevision = store.virtualUsersRevision()
+        return synchronized(stateLock) { Token(selectedUser(), generation, virtualMode, virtualRevision) }
+    }
+    private fun tokenCurrentLocked(token: Token): Boolean = token.bank == selectedUser() && token.generation == generation &&
+        preferences.getBoolean("enabled", false) && preferences.getBoolean("consent", false) &&
+        preferences.getBoolean("virtual_mode", false) == token.virtualMode &&
+        preferences.getLong("virtual_revision", 0L) == token.virtualRevision
+
+    private fun stillEnabled(token: Token): Boolean {
+        if (!enabled() || token.virtualMode != store.virtualUsersEnabled() || token.virtualRevision != store.virtualUsersRevision()) return false
+        return synchronized(stateLock) { tokenCurrentLocked(token) }
     }
 
     private suspend fun hasPermission(): Boolean = HealthConnectClient.getOrCreate(context)
@@ -214,8 +237,9 @@ class HealthConnectSync(context: Context, private val store: ReadingStore) {
     }
 
     private fun pauseForPermission(token: Token) {
+        if (!stillEnabled(token)) return
         synchronized(stateLock) {
-            if (!stillEnabled(token)) return
+            if (!tokenCurrentLocked(token)) return
             generation++
             preferences.edit().putBoolean("enabled", false).putBoolean("permission_pending", false)
                 .putBoolean("permission_revoked", true).apply()
@@ -260,7 +284,8 @@ class HealthConnectSync(context: Context, private val store: ReadingStore) {
         val bank = selectedUser()
         val skipped = store.healthSkippedCount(bank)
         val explanation = if (skipped > 0) " Last skipped: ${store.healthLastError(bank)}. Skipped readings remain local." else ""
-        publish("$prefix for user bank $bank. ${store.healthExportedCount(bank)} exported; $skipped skipped.$explanation")
+        val person = if (bank < 0) store.virtualUsers().firstOrNull { it.id == -bank }?.name ?: return else "user bank $bank"
+        publish("$prefix for $person. ${store.healthExportedCount(bank)} exported; $skipped skipped.$explanation")
     }
 
     private fun publish(message: String) {

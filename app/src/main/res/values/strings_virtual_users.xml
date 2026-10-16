@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="vp_title">Virtual users</string>
+    <string name="vp_enabled">Use virtual users</string>
+    <string name="vp_intro">Create named profiles instead of using the monitor\'s user numbers. Choose who each new measurement belongs to. At least one profile is required while this feature is enabled.</string>
+    <string name="vp_add">Add user</string>
+    <string name="vp_name">Name</string>
+    <string name="vp_rename">Rename</string>
+    <string name="vp_delete">Remove user</string>
+    <string name="vp_delete_help">Choose the user who should receive this user\'s saved measurements. Removing a user does not delete measurements or change copies already sent elsewhere.</string>
+    <string name="vp_last_user">Keep at least one user.</string>
+    <string name="vp_name_invalid">Enter a non-empty name of no more than 100 characters.</string>
+    <string name="vp_save_failed">Could not save this change. Try again.</string>
+    <string name="vp_first_user">Create your first user</string>
+    <string name="vp_unassigned">Unassigned</string>
+    <string name="vp_assign_title">Who took this measurement?</string>
+    <string name="vp_assign_help">Choose a user for this measurement. Pending measurements are shown from oldest to newest. You can return later without losing them.</string>
+    <string name="vp_later">Later</string>
+    <string name="vp_pending_count">%1$d measurements waiting for a user</string>
+    <string name="vp_pending_channel">Measurement assignment</string>
+    <string name="vp_pending_channel_description">New measurements that need a user before they can be filed or exported.</string>
+    <string name="vp_pending_notification_title">Choose who measured</string>
+    <string name="vp_pending_notification_text">%1$d measurements are saved and waiting for you to choose a user. Tap to assign them.</string>
+    <string name="vp_no_pending">All measurements have a user.</string>
+    <string name="vp_assign_action">Assign pending measurements</string>
+    <string name="vp_monitor_bank">Monitor memory bank %1$s</string>
+    <string name="vp_monitor_bank_hint">Monitor memory bank (1 or 2)</string>
+    <string name="vp_health_intro">Choose your own virtual user before enabling Health Connect export. Only assigned measurements for that user will be exported. Unassigned measurements remain private until you choose who took them.</string>
+    <string name="vp_health_choose">Choose your own user.</string>
+    <string name="vp_health_selected">Selected user: %1$s</string>
+    <string name="vp_health_summary">%1$s: %2$d exported; %3$d skipped.</string>
+    <string name="vp_health_history">Enabling export includes eligible saved readings assigned to the selected user. Measurements waiting for a user are not exported.</string>
+    <string name="vp_health_shared">Health Connect represents one person. Choose only your own user. Switching between monitor-bank and virtual-user modes requires selecting your user and enabling export again.</string>
+    <string name="vp_pending_privacy">Measurements waiting for a user stay in a temporary private queue, including in passthrough mode. They are not added to history, Health Connect or HTTP uploads until you assign them.</string>
+    <string name="vp_mode_change_help">Existing history is kept. Previously saved readings without a virtual user are shown as unassigned. Turning this feature off keeps pending measurements and your named profiles.</string>
+    <string name="vp_delete_confirm">Remove %1$s?</string>
+</resources>

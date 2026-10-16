@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="vp_title">虛擬用戶</string>
+    <string name="vp_enabled">使用虛擬用戶</string>
+    <string name="vp_intro">建立命名設定文件，而不是使用血壓監測儀的使用者編號。選擇每個新測量值屬於誰。啟用此功能時，至少需要一個設定檔。</string>
+    <string name="vp_add">新增用戶</string>
+    <string name="vp_name">姓名</string>
+    <string name="vp_rename">重新命名</string>
+    <string name="vp_delete">刪除用戶</string>
+    <string name="vp_delete_help">選擇應接收該使用者儲存的測量值的使用者。刪除使用者不會刪除測量結果或變更已傳送至其他地方的副本。</string>
+    <string name="vp_last_user">保留至少一名用戶。</string>
+    <string name="vp_name_invalid">輸入不超過 100 個字元的非空名稱。</string>
+    <string name="vp_save_failed">無法儲存此變更。再試一次。</string>
+    <string name="vp_first_user">創建您的第一個用戶</string>
+    <string name="vp_unassigned">未分配</string>
+    <string name="vp_assign_title">誰進行了這個測量？</string>
+    <string name="vp_assign_help">選擇用於此測量的使用者。待處理的測量會依照從最舊到最新的順序顯示。您可以稍後返回而不會丟失它們。</string>
+    <string name="vp_later">之後</string>
+    <string name="vp_pending_count">%1$d 次測量正在等待用戶</string>
+    <string name="vp_pending_channel">將測量值指派給用戶</string>
+    <string name="vp_pending_channel_description">新測量需要使用者才能歸檔或匯出。</string>
+    <string name="vp_pending_notification_title">選擇測量者</string>
+    <string name="vp_pending_notification_text">%1$d 個測量值已儲存並等待您選擇使用者。點擊以分配它們。</string>
+    <string name="vp_no_pending">所有測量都有一個使用者。</string>
+    <string name="vp_assign_action">分配待處理的測量</string>
+    <string name="vp_monitor_bank">血壓計內存庫%1$s</string>
+    <string name="vp_monitor_bank_hint">血壓計內存庫（1 或 2）</string>
+    <string name="vp_health_intro">在啟用 Health Connect 匯出之前選擇您自己的虛擬使用者。僅匯出為該使用者指定的測量值。未分配的測量結果將保持私密狀態，直到您選擇由誰進行測量。</string>
+    <string name="vp_health_choose">選擇您自己的用戶。</string>
+    <string name="vp_health_selected">所選用戶：%1$s</string>
+    <string name="vp_health_summary">%1$s：%2$d 已匯出；%3$d 已跳過。</string>
+    <string name="vp_health_history">啟用匯出包括指派給所選使用者的符合條件的已儲存讀數。等待用戶的測量結果不會被匯出。</string>
+    <string name="vp_health_shared">Health Connect代表​​一個人。僅選擇您自己的用戶。當您在血壓計記憶體庫模式和虛擬使用者模式之間切換時，您必須選擇自己的使用者並再次啟用匯出。</string>
+    <string name="vp_pending_privacy">即使在直通模式下，尚未指派給使用者的測量也會保留在臨時專用佇列中。在您指派它們之前，它們不會新增到測量歷史記錄、Health Connect 或 HTTP 上傳中。</string>
+    <string name="vp_mode_change_help">保留現有的測量歷史記錄。先前在沒有虛擬使用者的情況下儲存的測量顯示為未指派。關閉此功能會保留待處理的測量和您命名的設定檔。</string>
+    <string name="vp_delete_confirm">刪除%1$s？</string>
+</resources>

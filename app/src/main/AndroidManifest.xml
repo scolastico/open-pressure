@@ -32,6 +32,8 @@
         <activity android:name=".automatic.AutoImportSettingsActivity" android:exported="false" />
         <activity android:name=".forwarding.HttpForwardingSettingsActivity" android:exported="false" />
         <activity android:name=".reminders.RemindersActivity" android:exported="false" />
+        <activity android:name=".profiles.VirtualUsersActivity" android:exported="false" />
+        <activity android:name=".profiles.AssignmentActivity" android:exported="false" android:launchMode="singleTop" />
         <receiver android:name=".reminders.ReminderReceiver" android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />

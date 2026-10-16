@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="vp_title">વર્ચ્યુઅલ વપરાશકર્તાઓ</string>
+    <string name="vp_enabled">વર્ચ્યુઅલ વપરાશકર્તાઓનો ઉપયોગ કરો</string>
+    <string name="vp_intro">બ્લડ પ્રેશર મોનિટરના વપરાશકર્તા નંબરનો ઉપયોગ કરવાને બદલે નામવાળી પ્રોફાઇલ્સ બનાવો. દરેક નવું માપ કોનું છે તે પસંદ કરો. જ્યારે આ સુવિધા સક્ષમ હોય ત્યારે ઓછામાં ઓછી એક પ્રોફાઇલ આવશ્યક છે.</string>
+    <string name="vp_add">વપરાશકર્તા ઉમેરો</string>
+    <string name="vp_name">નામ</string>
+    <string name="vp_rename">નામ બદલો</string>
+    <string name="vp_delete">વપરાશકર્તાને દૂર કરો</string>
+    <string name="vp_delete_help">તે વપરાશકર્તા પસંદ કરો કે જેને આ વપરાશકર્તાના સાચવેલા માપો પ્રાપ્ત કરવા જોઈએ. વપરાશકર્તાને દૂર કરવાથી માપ કાઢી નાખવામાં આવતું નથી અથવા બીજી જગ્યાએ પહેલેથી મોકલેલ નકલો બદલાતી નથી.</string>
+    <string name="vp_last_user">ઓછામાં ઓછો એક વપરાશકર્તા રાખો.</string>
+    <string name="vp_name_invalid">100 અક્ષરોથી વધુ ન હોય તેવું બિન-ખાલી નામ દાખલ કરો.</string>
+    <string name="vp_save_failed">આ ફેરફાર સાચવી શકાયો નથી. ફરી પ્રયાસ કરો.</string>
+    <string name="vp_first_user">તમારા પ્રથમ વપરાશકર્તા બનાવો</string>
+    <string name="vp_unassigned">અસાઇન કરેલ</string>
+    <string name="vp_assign_title">આ માપ કોણે લીધું?</string>
+    <string name="vp_assign_help">આ માપન માટે વપરાશકર્તા પસંદ કરો. બાકી માપન સૌથી જૂનાથી નવા સુધી બતાવવામાં આવે છે. તમે તેમને ગુમાવ્યા વિના પછીથી પાછા આવી શકો છો.</string>
+    <string name="vp_later">બાદમાં</string>
+    <string name="vp_pending_count">%1$d માપન વપરાશકર્તાની રાહ જોઈ રહ્યું છે</string>
+    <string name="vp_pending_channel">વપરાશકર્તાઓને માપન સોંપો</string>
+    <string name="vp_pending_channel_description">નવા માપન કે જેને વપરાશકર્તાને ફાઇલ કરવામાં અથવા નિકાસ કરવામાં આવે તે પહેલાં તેની જરૂર છે.</string>
+    <string name="vp_pending_notification_title">કોણે માપ્યું તે પસંદ કરો</string>
+    <string name="vp_pending_notification_text">%1$d માપ સાચવવામાં આવ્યા છે અને તમે વપરાશકર્તા પસંદ કરો તેની રાહ જોઈ રહ્યાં છે. તેમને સોંપવા માટે ટૅપ કરો.</string>
+    <string name="vp_no_pending">બધા માપનો એક વપરાશકર્તા હોય છે.</string>
+    <string name="vp_assign_action">બાકી માપન સોંપો</string>
+    <string name="vp_monitor_bank">બ્લડ પ્રેશર મોનિટર મેમરી બેંક %1$s</string>
+    <string name="vp_monitor_bank_hint">બ્લડ પ્રેશર મોનિટર મેમરી બેંક (1 અથવા 2)</string>
+    <string name="vp_health_intro">Health Connect નિકાસને સક્ષમ કરતા પહેલા તમારા પોતાના વર્ચ્યુઅલ વપરાશકર્તાને પસંદ કરો. તે વપરાશકર્તા માટે માત્ર સોંપેલ માપ નિકાસ કરવામાં આવશે. અસાઇન કરેલ માપન જ્યાં સુધી તમે પસંદ ન કરો ત્યાં સુધી તે કોણે લીધું છે તે ખાનગી રહે છે.</string>
+    <string name="vp_health_choose">તમારા પોતાના વપરાશકર્તાને પસંદ કરો.</string>
+    <string name="vp_health_selected">પસંદ કરેલ વપરાશકર્તા: %1$s</string>
+    <string name="vp_health_summary">%1$s: %2$d નિકાસ; %3$d છોડ્યું.</string>
+    <string name="vp_health_history">નિકાસને સક્ષમ કરવાથી પસંદ કરેલ વપરાશકર્તાને સોંપેલ યોગ્ય સાચવેલ રીડિંગ્સનો સમાવેશ થાય છે. વપરાશકર્તા માટે રાહ જોઈ રહેલા માપન નિકાસ કરવામાં આવતા નથી.</string>
+    <string name="vp_health_shared">Health Connect એક વ્યક્તિનું પ્રતિનિધિત્વ કરે છે. ફક્ત તમારા પોતાના વપરાશકર્તાને પસંદ કરો. જ્યારે તમે બ્લડ પ્રેશર મોનિટર મેમરી-બેંક મોડ અને વર્ચ્યુઅલ-યુઝર મોડ વચ્ચે સ્વિચ કરો છો, ત્યારે તમારે તમારો પોતાનો વપરાશકર્તા પસંદ કરવો પડશે અને ફરીથી નિકાસ સક્ષમ કરવી પડશે.</string>
+    <string name="vp_pending_privacy">માપદંડો કે જે વપરાશકર્તાને સોંપવામાં આવ્યાં નથી તે પાસથ્રુ મોડમાં પણ કામચલાઉ ખાનગી કતારમાં રાખવામાં આવે છે. જ્યાં સુધી તમે તેમને સોંપો નહીં ત્યાં સુધી તેઓ માપન ઇતિહાસ, Health Connect અથવા HTTP અપલોડ્સમાં ઉમેરવામાં આવતાં નથી.</string>
+    <string name="vp_mode_change_help">વર્તમાન માપન ઇતિહાસ રાખવામાં આવે છે. વર્ચ્યુઅલ યુઝર વિના અગાઉ સાચવેલ માપન અસાઇન કરેલ તરીકે બતાવવામાં આવે છે. આ સુવિધાને બંધ કરવાથી બાકી માપન અને તમારી નામવાળી પ્રોફાઇલ બંને સાચવવામાં આવે છે.</string>
+    <string name="vp_delete_confirm">%1$s કાઢી નાખીએ?</string>
+</resources>

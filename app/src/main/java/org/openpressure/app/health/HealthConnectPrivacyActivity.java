@@ -2,6 +2,7 @@ package org.openpressure.app.health;
 
 import android.app.Activity;
 import org.openpressure.app.R;
+import org.openpressure.app.PressureApp;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.widget.Button;
@@ -22,7 +23,12 @@ public final class HealthConnectPrivacyActivity extends Activity {
         setContentView(scroll);
         TextView heading=new TextView(this); heading.setText(getString(R.string.health_privacy_title)); heading.setTextSize(28); heading.setTextColor(0xff182d2a); heading.setTypeface(null,Typeface.BOLD); page.addView(heading);
         paragraph(page,getString(R.string.health_privacy_local));
-        paragraph(page,getString(R.string.health_privacy_choice));
+        boolean virtualMode=((PressureApp)getApplication()).store().virtualUsersEnabled();
+        paragraph(page,getString(virtualMode?R.string.vp_health_intro:R.string.health_privacy_choice));
+        if(virtualMode) {
+            paragraph(page,getString(R.string.vp_health_history));
+            paragraph(page,getString(R.string.vp_health_shared));
+        }
         paragraph(page,getString(R.string.health_privacy_shared));
         paragraph(page,getString(R.string.health_privacy_other_apps));
         paragraph(page,getString(R.string.http_privacy));

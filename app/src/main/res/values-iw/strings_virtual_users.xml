@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="vp_title">משתמשים וירטואליים</string>
+    <string name="vp_enabled">השתמש במשתמשים וירטואליים</string>
+    <string name="vp_intro">צור פרופילים בעלי שם במקום להשתמש במספרי המשתמשים של מד לחץ הדם. בחר למי שייכת כל מדידה חדשה. נדרש לפחות פרופיל אחד כאשר תכונה זו מופעלת.</string>
+    <string name="vp_add">הוסף משתמש</string>
+    <string name="vp_name">שֵׁם</string>
+    <string name="vp_rename">שנה שם</string>
+    <string name="vp_delete">הסר משתמש</string>
+    <string name="vp_delete_help">בחר את המשתמש שאמור לקבל את המדידות השמורות של משתמש זה. הסרת משתמש אינה מוחקת מדידות או משנה עותקים שכבר נשלחו למקום אחר.</string>
+    <string name="vp_last_user">שמור על משתמש אחד לפחות.</string>
+    <string name="vp_name_invalid">הזן שם לא ריק של לא יותר מ-100 תווים.</string>
+    <string name="vp_save_failed">לא ניתן לשמור את השינוי הזה. נסה שוב.</string>
+    <string name="vp_first_user">צור את המשתמש הראשון שלך</string>
+    <string name="vp_unassigned">לא הוקצה</string>
+    <string name="vp_assign_title">מי לקח את המדידה הזו?</string>
+    <string name="vp_assign_help">בחר משתמש עבור מדידה זו. מדידות ממתינות מוצגות מהישן ביותר לחדש ביותר. אתה יכול לחזור מאוחר יותר מבלי לאבד אותם.</string>
+    <string name="vp_later">מְאוּחָר יוֹתֵר</string>
+    <string name="vp_pending_count">%1$d מדידות ממתינות למשתמש</string>
+    <string name="vp_pending_channel">הקצה מדידות למשתמשים</string>
+    <string name="vp_pending_channel_description">מדידות חדשות שזקוקות למשתמש לפני שניתן לתייק או לייצא אותן.</string>
+    <string name="vp_pending_notification_title">בחר מי מדד</string>
+    <string name="vp_pending_notification_text">%1$d מדידות נשמרות ומחכות שתבחר משתמש. הקש כדי להקצות אותם.</string>
+    <string name="vp_no_pending">לכל המדידות יש משתמש.</string>
+    <string name="vp_assign_action">הקצה מדידות ממתינות</string>
+    <string name="vp_monitor_bank">בנק זיכרון למוניטור לחץ דם %1$s</string>
+    <string name="vp_monitor_bank_hint">בנק זיכרון למוניטור לחץ דם (1 או 2)</string>
+    <string name="vp_health_intro">בחר משתמש וירטואלי משלך לפני הפעלת ייצוא Health Connect. רק מידות שהוקצו עבור אותו משתמש ייצאו. מדידות שלא הוקצו נשארות פרטיות עד שתבחר מי לקח אותן.</string>
+    <string name="vp_health_choose">בחר משתמש משלך.</string>
+    <string name="vp_health_selected">משתמש נבחר: %1$s</string>
+    <string name="vp_health_summary">%1$s: %2$d מיוצא; דילג על %3$d.</string>
+    <string name="vp_health_history">הפעלת הייצוא כוללת קריאות שמורות כשירות שהוקצו למשתמש הנבחר. מדידות הממתינות למשתמש אינן מיוצאות.</string>
+    <string name="vp_health_shared">Health Connect מייצג אדם אחד. בחר רק משתמש משלך. כאשר אתה עובר בין מצב בנק הזיכרון של מד לחץ הדם למצב משתמש וירטואלי, עליך לבחור משתמש משלך ולאפשר ייצוא שוב.</string>
+    <string name="vp_pending_privacy">מדידות שלא הוקצו למשתמש נשמרות בתור פרטי זמני, אפילו במצב מעבר. הם אינם מתווספים להיסטוריית המדידות, להעלאות Health Connect או HTTP עד שתקצה אותם.</string>
+    <string name="vp_mode_change_help">היסטוריית המדידות הקיימת נשמרת. מדידות שנשמרו בעבר ללא משתמש וירטואלי מוצגות כלא הוקצו. כיבוי תכונה זו שומר הן על המדידות הממתינות והן על הפרופילים הנקובים.</string>
+    <string name="vp_delete_confirm">להסיר את %1$s?</string>
+</resources>

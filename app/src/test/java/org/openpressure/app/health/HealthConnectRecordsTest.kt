@@ -64,6 +64,36 @@ class HealthConnectRecordsTest {
         HealthConnectRecords.prepare(reading(), 1, { _, _, _ -> false }, ZoneId.of("UTC"), Instant.parse("2026-10-16T12:00:00Z"))
     }
 
+    @Test fun `virtual profile seven exports regardless of physical memory bank`() {
+        val reading = reading().apply { user = 2; virtualUserId = 7 }
+        val record = HealthConnectRecords.prepare(reading, -7, { _, _, _ -> true }, ZoneId.of("UTC"), Instant.parse("2026-10-16T12:00:00Z"))
+        assertEquals(120.0, record.systolic.inMillimetersOfMercury, 0.0)
+        assertEquals(Instant.parse("2026-10-15T10:00:00Z"), record.time)
+    }
+
+    @Test fun `virtual selection rejects another person and unassigned readings including prepared retries`() {
+        for (owner in listOf<Int?>(null, 8)) for (prepared in listOf(false, true)) {
+            val reading = reading().apply {
+                virtualUserId = owner
+                if (prepared) { healthClientId = "existing"; healthTime = "2026-10-15T08:00:00Z"; healthOffset = 7200 }
+            }
+            try {
+                HealthConnectRecords.prepare(reading, -7, { _, _, _ -> fail("Wrong owner must not be prepared"); false })
+                fail("Wrong owner must not be exported")
+            } catch (_: IllegalArgumentException) { }
+        }
+    }
+
+    @Test fun `virtual prepared retry preserves time offset and client identity`() {
+        val reading = reading().apply {
+            virtualUserId = 7; healthClientId = "stable-id"; healthTime = "2026-10-15T08:00:00Z"; healthOffset = 7200
+        }
+        val record = HealthConnectRecords.prepare(reading, -7, { _, _, _ -> fail("Retry must reuse identity"); false })
+        assertEquals("stable-id", record.metadata.clientRecordId)
+        assertEquals(Instant.parse("2026-10-15T08:00:00Z"), record.time)
+        assertEquals(ZoneOffset.ofHours(2), record.zoneOffset)
+    }
+
     private fun reading() = Reading().apply {
         fingerprint = "test-fingerprint"; user = 1; time = "2026-10-15T10:00:00"
         systolic = 120.0; diastolic = 80.0; unit = "mmHg"

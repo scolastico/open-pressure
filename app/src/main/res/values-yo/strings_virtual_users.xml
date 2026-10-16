@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="vp_title">Awọn olumulo foju</string>
+    <string name="vp_enabled">Lo awọn olumulo foju</string>
+    <string name="vp_intro">Ṣẹda awọn profaili oniwa dipo lilo awọn nọmba olumulo ti atẹle titẹ ẹjẹ. Yan ẹni ti wiwọn tuntun kọọkan jẹ ti. O kere ju profaili kan ni a nilo lakoko ti ẹya yii ti ṣiṣẹ.</string>
+    <string name="vp_add">Fi olumulo kun</string>
+    <string name="vp_name">Oruko</string>
+    <string name="vp_rename">Fun lorukọ mii</string>
+    <string name="vp_delete">Yọ olumulo kuro</string>
+    <string name="vp_delete_help">Yan olumulo ti o yẹ ki o gba awọn iwọn fifipamọ olumulo yii. Yiyọ olumulo kuro ko ni paarẹ awọn wiwọn tabi yi awọn ẹda ti a ti firanṣẹ tẹlẹ si ibomiiran pada.</string>
+    <string name="vp_last_user">Jeki o kere ju olumulo kan.</string>
+    <string name="vp_name_invalid">Tẹ orukọ ti ko ṣofo ti ko ju awọn ohun kikọ silẹ 100 lọ.</string>
+    <string name="vp_save_failed">Ko le fi iyipada yii pamọ. Gbiyanju lẹẹkansi.</string>
+    <string name="vp_first_user">Ṣẹda olumulo akọkọ rẹ</string>
+    <string name="vp_unassigned">Ti ko ni ipin</string>
+    <string name="vp_assign_title">Tani o mu iwọn yii?</string>
+    <string name="vp_assign_help">Yan olumulo kan fun wiwọn yii. Awọn wiwọn isunmọ jẹ afihan lati Atijọ si tuntun. O le pada nigbamii lai padanu wọn.</string>
+    <string name="vp_later">Nigbamii</string>
+    <string name="vp_pending_count">%1$d awọn wiwọn nduro fun olumulo kan</string>
+    <string name="vp_pending_channel">Fi awọn wiwọn si awọn olumulo</string>
+    <string name="vp_pending_channel_description">Awọn wiwọn titun ti o nilo olumulo ṣaaju ki wọn le fi silẹ tabi gbejade wọn si okeere.</string>
+    <string name="vp_pending_notification_title">Yan ẹniti o wọn</string>
+    <string name="vp_pending_notification_text">%1$d wiwọn ti wa ni ipamọ ati nduro fun ọ lati yan olumulo kan. Fọwọ ba lati fi wọn sọtọ.</string>
+    <string name="vp_no_pending">Gbogbo awọn wiwọn ni olumulo kan.</string>
+    <string name="vp_assign_action">Fi awọn wiwọn isunmọtosi</string>
+    <string name="vp_monitor_bank">Abojuto titẹ ẹjẹ ti banki iranti %1$s</string>
+    <string name="vp_monitor_bank_hint">Banki iranti atẹle titẹ ẹjẹ (1 tabi 2)</string>
+    <string name="vp_health_intro">Yan olumulo fojuhan tirẹ ṣaaju ṣiṣe Health Connect okeere. Awọn wiwọn sọtọ fun olumulo yẹn nikan ni yoo jẹ okeere. Awọn wiwọn ti a ko pin si wa ni ikọkọ titi iwọ o fi yan ẹniti o mu wọn.</string>
+    <string name="vp_health_choose">Yan olumulo tirẹ.</string>
+    <string name="vp_health_selected">Olumulo ti a yan: %1$s</string>
+    <string name="vp_health_summary">%1$s: %2$d okeere; %3$d fo.</string>
+    <string name="vp_health_history">Gbigbe okeere ṣiṣẹ pẹlu awọn kika iwe ipamọ to yẹ ti a yàn si olumulo ti o yan. Awọn wiwọn ti nduro fun olumulo ko ṣe okeere.</string>
+    <string name="vp_health_shared">Health Connect duro fun eniyan kan. Yan olumulo tirẹ nikan. Nigbati o ba yipada laarin ipo atẹle titẹ ẹjẹ ti iranti-ifowo pamọ ati ipo olumulo foju, o gbọdọ yan olumulo tirẹ ki o tun mu okeere ṣiṣẹ lẹẹkansi.</string>
+    <string name="vp_pending_privacy">Awọn wiwọn ti ko ti sọtọ si olumulo kan wa ni ipamọ ni isinyi ikọkọ igba diẹ, paapaa ni ipo irekọja. Wọn ko ṣe afikun si itan wiwọn, Health Connect tabi awọn agberu HTTP titi ti o fi yan wọn.</string>
+    <string name="vp_mode_change_help">Itan wiwọn ti o wa tẹlẹ wa ni ipamọ. Awọn wiwọn ti a fipamọ tẹlẹ laisi olumulo foju han bi awọn ti a ko ti pin. Pipa ẹya ara ẹrọ yii pa awọn wiwọn ti o nduro ati awọn profaili ti o fun ni orukọ mọ.</string>
+    <string name="vp_delete_confirm">Yọ %1$s kuro?</string>
+</resources>

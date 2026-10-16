@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="vp_title">Usuários virtuais</string>
+    <string name="vp_enabled">Use usuários virtuais</string>
+    <string name="vp_intro">Crie perfis nomeados em vez de usar os números de usuário do monitor de pressão arterial. Escolha a quem pertence cada nova medição. Pelo menos um perfil é necessário enquanto esse recurso está ativado.</string>
+    <string name="vp_add">Adicionar usuário</string>
+    <string name="vp_name">Nome</string>
+    <string name="vp_rename">Renomear</string>
+    <string name="vp_delete">Remover usuário</string>
+    <string name="vp_delete_help">Escolha o usuário que deverá receber as medidas salvas deste usuário. A remoção de um usuário não exclui medições nem altera cópias já enviadas para outro lugar.</string>
+    <string name="vp_last_user">Mantenha pelo menos um usuário.</string>
+    <string name="vp_name_invalid">Insira um nome não vazio com no máximo 100 caracteres.</string>
+    <string name="vp_save_failed">Não foi possível salvar esta alteração. Tente novamente.</string>
+    <string name="vp_first_user">Crie seu primeiro usuário</string>
+    <string name="vp_unassigned">Não atribuído</string>
+    <string name="vp_assign_title">Quem fez essa medição?</string>
+    <string name="vp_assign_help">Escolha um usuário para esta medição. As medições pendentes são mostradas da mais antiga para a mais recente. Você pode retornar mais tarde sem perdê-los.</string>
+    <string name="vp_later">Mais tarde</string>
+    <string name="vp_pending_count">%1$d medições aguardando um usuário</string>
+    <string name="vp_pending_channel">Atribuir medições aos usuários</string>
+    <string name="vp_pending_channel_description">Novas medições que precisam de um usuário antes de serem arquivadas ou exportadas.</string>
+    <string name="vp_pending_notification_title">Escolha quem mediu</string>
+    <string name="vp_pending_notification_text">%1$d medições são salvas e aguardam que você escolha um usuário. Toque para atribuí-los.</string>
+    <string name="vp_no_pending">Todas as medições têm um usuário.</string>
+    <string name="vp_assign_action">Atribuir medições pendentes</string>
+    <string name="vp_monitor_bank">Banco de memória do monitor de pressão arterial %1$s</string>
+    <string name="vp_monitor_bank_hint">Banco de memória do monitor de pressão arterial (1 ou 2)</string>
+    <string name="vp_health_intro">Escolha seu próprio usuário virtual antes de ativar a exportação Health Connect. Somente as medições atribuídas a esse usuário serão exportadas. As medições não atribuídas permanecem privadas até você escolher quem as realizou.</string>
+    <string name="vp_health_choose">Escolha seu próprio usuário.</string>
+    <string name="vp_health_selected">Usuário selecionado: %1$s</string>
+    <string name="vp_health_summary">%1$s: %2$d exportado; %3$d ignorado.</string>
+    <string name="vp_health_history">A ativação da exportação inclui leituras salvas qualificadas atribuídas ao usuário selecionado. As medições que aguardam um usuário não são exportadas.</string>
+    <string name="vp_health_shared">Health Connect representa uma pessoa. Escolha apenas seu próprio usuário. Ao alternar entre o modo de banco de memória do monitor de pressão arterial e o modo de usuário virtual, você deve selecionar seu próprio usuário e ativar a exportação novamente.</string>
+    <string name="vp_pending_privacy">As medições que ainda não foram atribuídas a um usuário ficam em uma fila privada temporária, inclusive no modo passthrough. Elas não são adicionadas ao histórico de medições, ao Health Connect ou aos envios HTTP até que você as atribua.</string>
+    <string name="vp_mode_change_help">O histórico de medições existente é mantido. As medições salvas anteriormente sem um usuário virtual são mostradas como não atribuídas. Desativar esse recurso preserva as medições pendentes e os perfis nomeados.</string>
+    <string name="vp_delete_confirm">Remover %1$s?</string>
+</resources>

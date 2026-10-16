@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="vp_title">Virtuální uživatelé</string>
+    <string name="vp_enabled">Použijte virtuální uživatele</string>
+    <string name="vp_intro">Vytvářejte pojmenované profily namísto použití uživatelských čísel monitoru krevního tlaku. Vyberte, komu každé nové měření patří. Pokud je tato funkce povolena, je vyžadován alespoň jeden profil.</string>
+    <string name="vp_add">Přidat uživatele</string>
+    <string name="vp_name">Jméno</string>
+    <string name="vp_rename">Přejmenovat</string>
+    <string name="vp_delete">Odebrat uživatele</string>
+    <string name="vp_delete_help">Vyberte uživatele, který má přijímat uložená měření tohoto uživatele. Odebráním uživatele nedojde k odstranění měření ani ke změně kopií již odeslaných jinam.</string>
+    <string name="vp_last_user">Ponechat alespoň jednoho uživatele.</string>
+    <string name="vp_name_invalid">Zadejte neprázdný název o délce maximálně 100 znaků.</string>
+    <string name="vp_save_failed">Tuto změnu nelze uložit. Zkuste to znovu.</string>
+    <string name="vp_first_user">Vytvořte svého prvního uživatele</string>
+    <string name="vp_unassigned">Nepřiřazeno</string>
+    <string name="vp_assign_title">Kdo provedl toto měření?</string>
+    <string name="vp_assign_help">Vyberte uživatele pro toto měření. Nevyřízená měření jsou zobrazena od nejstarších po nejnovější. Můžete se vrátit později, aniž byste je ztratili.</string>
+    <string name="vp_later">Později</string>
+    <string name="vp_pending_count">%1$d měření čekající na uživatele</string>
+    <string name="vp_pending_channel">Přidělte uživatelům měření</string>
+    <string name="vp_pending_channel_description">Nová měření, která před uložením nebo exportem vyžadují uživatele.</string>
+    <string name="vp_pending_notification_title">Vyberte, kdo měřil</string>
+    <string name="vp_pending_notification_text">%1$d měření jsou uložena a čekají, až si vyberete uživatele. Klepnutím je přiřadíte.</string>
+    <string name="vp_no_pending">Všechna měření mají uživatele.</string>
+    <string name="vp_assign_action">Přiřadit čekající měření</string>
+    <string name="vp_monitor_bank">Paměťová banka monitoru krevního tlaku %1$s</string>
+    <string name="vp_monitor_bank_hint">Paměťová banka monitoru krevního tlaku (1 nebo 2)</string>
+    <string name="vp_health_intro">Před povolením exportu Health Connect vyberte svého vlastního virtuálního uživatele. Budou exportována pouze přiřazená měření pro daného uživatele. Nepřiřazená měření zůstanou soukromá, dokud nezvolíte, kdo je provedl.</string>
+    <string name="vp_health_choose">Vyberte si vlastního uživatele.</string>
+    <string name="vp_health_selected">Vybraný uživatel: %1$s</string>
+    <string name="vp_health_summary">%1$s: %2$d exportováno; %3$d přeskočeno.</string>
+    <string name="vp_health_history">Povolení exportu zahrnuje vhodné uložené hodnoty přiřazené vybranému uživateli. Měření čekající na uživatele se neexportují.</string>
+    <string name="vp_health_shared">Health Connect představuje jednu osobu. Vyberte pouze svého vlastního uživatele. Když přepnete mezi režimem paměťové banky monitoru krevního tlaku a režimem virtuálního uživatele, musíte vybrat vlastního uživatele a znovu povolit export.</string>
+    <string name="vp_pending_privacy">Měření, která nebyla přiřazena uživateli, jsou uchovávána v dočasné soukromé frontě, a to i v režimu průchodu. Nejsou přidány do historie měření, Health Connect nebo HTTP uploadů, dokud je nepřiřadíte.</string>
+    <string name="vp_mode_change_help">Uchovává se stávající historie měření. Dříve uložená měření bez virtuálního uživatele se zobrazí jako nepřiřazená. Vypnutím této funkce se zachovají nevyřízená měření i vaše pojmenované profily.</string>
+    <string name="vp_delete_confirm">Odebrat %1$s?</string>
+</resources>

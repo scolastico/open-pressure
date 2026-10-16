@@ -18,7 +18,8 @@ internal object HealthConnectRecords {
         zone: ZoneId = ZoneId.systemDefault(),
         now: Instant = Instant.now(),
     ): BloodPressureRecord {
-        require(bank in 1..2 && reading.user == bank) { "Reading does not belong to your selected bank" }
+        require(if (bank < 0 && bank != Int.MIN_VALUE) reading.virtualUserId == -bank
+            else bank in 1..2 && reading.user == bank) { "Reading does not belong to your selected user" }
         val clientId: String
         val time: Instant
         val offset: ZoneOffset
@@ -31,7 +32,9 @@ internal object HealthConnectRecords {
             systolic = reading.sysMmHg()
             diastolic = reading.diaMmHg()
         } else {
-            val payload = HealthExport.prepare(reading.fingerprint, reading.user, bank, reading.time,
+            val payload = if (bank < 0) HealthExport.prepareVirtual(reading.fingerprint, reading.virtualUserId, -bank,
+                reading.time, reading.systolic, reading.diastolic, reading.unit, zone, now)
+            else HealthExport.prepare(reading.fingerprint, reading.user, bank, reading.time,
                 reading.systolic, reading.diastolic, reading.unit, zone, now)
             clientId = payload.clientRecordId
             time = payload.time

@@ -65,9 +65,10 @@ public final class MonitorUi {
         if(m.dumpRunning) return context.getString(R.string.monitor_memory_progress,m.dumpReceived,m.dumpLength);
         if(m.historyRunning) return m.storedCount>=0?context.getString(R.string.monitor_import_progress,m.receivedInTransfer,m.storedCount):context.getString(R.string.monitor_keep_nearby);
         if(title==R.string.monitor_import_complete) {
-            String summary=m.storedInTransfer>0 || m.queuedInTransfer==0?
+            String summary=m.storedInTransfer>0 || m.queuedInTransfer==0 && m.pendingInTransfer==0?
                 context.getResources().getQuantityString(R.plurals.monitor_readings_saved,m.storedInTransfer,m.storedInTransfer):"";
             if(m.queuedInTransfer>0) summary+=(summary.isEmpty()?"":"\n\n")+context.getString(R.string.http_import_count,m.queuedInTransfer);
+            if(m.pendingInTransfer>0) summary+=(summary.isEmpty()?"":"\n\n")+context.getString(R.string.vp_pending_count,m.pendingInTransfer);
             return importDetail(context,m,summary);
         }
         if(m.registrationDone || m.sessionFinished) return context.getString(R.string.monitor_reconnect_next_time);
