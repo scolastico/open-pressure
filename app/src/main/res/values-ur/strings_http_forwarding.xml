@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="http_title">HTTP کے ذریعے آگے بھیجنا</string>
+    <string name="http_intro">نئی پیمائشیں JSON کی صورت میں اپنے سرور کو بھیجیں۔ آگے بھیجنا بند کرنے کے لیے URL خالی چھوڑ دیں۔ پیمائشوں اور لاگ ان کی معلومات کی حفاظت کے لیے HTTPS استعمال کریں۔</string>
+    <string name="http_url">سرور کا URL</string>
+    <string name="http_authorization">Authorization ہیڈر کی قدر (اختیاری)</string>
+    <string name="http_keep_local">نئی پیمائشیں مقامی تاریخ میں رکھیں</string>
+    <string name="http_passthrough_help">مقامی تاریخ بند ہونے پر نئی پیمائشیں صرف عارضی اپ لوڈ قطار میں رہتی ہیں، جب تک سرور انہیں قبول نہ کر لے۔ موجودہ تاریخ برقرار رہتی ہے۔ Health Connect میں برآمد کے لیے مقامی تاریخ ضروری ہے۔</string>
+    <string name="http_invalid">درست HTTP(S) URL اور ایک سطر پر مشتمل Authorization قدر درج کریں۔</string>
+    <string name="http_status">اس سرور کے لیے زیر التوا: %1$d</string>
+    <string name="http_retry">زیر التوا اپ لوڈز دوبارہ آزمائیں</string>
+    <string name="http_failed">کچھ اپ لوڈز ابھی قبول نہیں ہوئے۔ خودکار طور پر دوبارہ کوشش ہوگی۔</string>
+    <string name="http_queued">پیمائش آگے بھیجنے کی قطار میں ہے</string>
+    <string name="http_saved">آگے بھیجنے کی ترتیبات محفوظ ہو گئیں</string>
+    <string name="http_import_count">آگے بھیجنے کے لیے قبول کردہ نئی پیمائشیں: %1$d</string>
+    <string name="http_destination_help">قطار میں موجود پیمائشیں اپنے اصل سرور سے منسلک رہتی ہیں۔ URL بدلنے سے پچھلے سرور کو اپ لوڈز رک جاتے ہیں۔</string>
+    <string name="http_privacy">HTTP کے ذریعے آگے بھیجنا اختیاری ہے اور پہلے سے بند ہوتا ہے۔ فعال ہونے پر نئی پیمائشیں آپ کے بتائے ہوئے سرور کو بھیجی جاتی ہیں۔ زیر التوا اپ لوڈز قبول ہونے تک نجی طور پر محفوظ رہتے ہیں۔ مقامی تاریخ کے بغیر آگے بھیجنے سے مقامی تاریخ یا Health Connect میں پیمائشیں شامل نہیں ہوتیں۔ پہلے محفوظ کیا ہوا ڈیٹا برقرار رہتا ہے۔</string>
+    <string name="http_save_failed">آگے بھیجنے کی ترتیبات محفوظ نہیں ہو سکیں۔ دوبارہ کوشش کریں۔</string>
+</resources>

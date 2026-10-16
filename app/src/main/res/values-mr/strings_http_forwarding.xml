@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="http_title">HTTP फॉरवर्डिंग</string>
+    <string name="http_intro">नवीन मोजमापे JSON म्हणून तुमच्या सर्व्हरवर पाठवा. फॉरवर्डिंग बंद करण्यासाठी URL रिकामा ठेवा. मोजमापे आणि लॉगिन माहिती सुरक्षित ठेवण्यासाठी HTTPS वापरा.</string>
+    <string name="http_url">सर्व्हर URL</string>
+    <string name="http_authorization">Authorization हेडरचे मूल्य (पर्यायी)</string>
+    <string name="http_keep_local">नवीन मोजमापे स्थानिक इतिहासात ठेवा</string>
+    <string name="http_passthrough_help">स्थानिक इतिहास बंद असताना नवीन मोजमापे फक्त तात्पुरत्या अपलोड रांगेत राहतात, जोपर्यंत सर्व्हर ती स्वीकारत नाही. विद्यमान इतिहास राहतो. Health Connect निर्यातीसाठी स्थानिक इतिहास आवश्यक आहे.</string>
+    <string name="http_invalid">वैध HTTP(S) URL आणि एकाच ओळीतील Authorization मूल्य टाका.</string>
+    <string name="http_status">या सर्व्हरसाठी प्रलंबित: %1$d</string>
+    <string name="http_retry">प्रलंबित अपलोड पुन्हा करून पाहा</string>
+    <string name="http_failed">काही अपलोड अजून स्वीकारलेले नाहीत. आपोआप पुन्हा प्रयत्न केले जातील.</string>
+    <string name="http_queued">मोजमाप फॉरवर्डिंग रांगेत जोडले</string>
+    <string name="http_saved">फॉरवर्डिंग सेटिंग्ज जतन केल्या</string>
+    <string name="http_import_count">फॉरवर्डिंगसाठी स्वीकारलेली नवीन मोजमापे: %1$d</string>
+    <string name="http_destination_help">रांगेतील मोजमापे मूळ सर्व्हरशी जोडलेली राहतात. URL बदलल्यास आधीच्या सर्व्हरवरील अपलोड थांबतात.</string>
+    <string name="http_privacy">HTTP फॉरवर्डिंग पर्यायी आहे आणि सुरुवातीला बंद असते. सुरू केल्यावर नवीन मोजमापे तुम्ही दिलेल्या सर्व्हरवर पाठवली जातात. प्रलंबित अपलोड स्वीकारले जाईपर्यंत खासगीपणे साठवले जातात. स्थानिक इतिहासाशिवाय फॉरवर्डिंग केल्याने स्थानिक इतिहासात किंवा Health Connect मध्ये मोजमापे जोडली जात नाहीत. आधी जतन केलेला डेटा राहतो.</string>
+    <string name="http_save_failed">फॉरवर्डिंग सेटिंग्ज जतन करता आल्या नाहीत. पुन्हा प्रयत्न करा.</string>
+</resources>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="http_title">Přeposílání přes HTTP</string>
+    <string name="http_intro">Odesílejte nová měření jako JSON na svůj server. Přeposílání vypnete ponecháním prázdné adresy URL. Používejte HTTPS k ochraně měření a přihlašovacích údajů.</string>
+    <string name="http_url">URL serveru</string>
+    <string name="http_authorization">Hodnota hlavičky Authorization (volitelné)</string>
+    <string name="http_keep_local">Uchovávat nová měření v místní historii</string>
+    <string name="http_passthrough_help">Když je místní historie vypnutá, nová měření zůstávají pouze v dočasné frontě odesílání, dokud je server nepřijme. Dosavadní historie zůstává. Export do Health Connect vyžaduje místní historii.</string>
+    <string name="http_invalid">Zadejte platnou adresu URL HTTP(S) a hodnotu Authorization na jednom řádku.</string>
+    <string name="http_status">Čeká pro tento server: %1$d</string>
+    <string name="http_retry">Zkusit čekající odesílání znovu</string>
+    <string name="http_failed">Některá odesílání ještě nebyla přijata. Automaticky se zopakují.</string>
+    <string name="http_queued">Měření zařazeno do fronty přeposílání</string>
+    <string name="http_saved">Nastavení přeposílání uloženo</string>
+    <string name="http_import_count">Nová měření přijatá k přeposlání: %1$d</string>
+    <string name="http_destination_help">Měření ve frontě zůstávají přiřazena původnímu serveru. Změna URL pozastaví odesílání na předchozí server.</string>
+    <string name="http_privacy">Přeposílání přes HTTP je volitelné a ve výchozím stavu vypnuté. Po zapnutí se nová měření odesílají na vámi určený server. Čekající odesílání se ukládají soukromě až do přijetí. Přeposílání bez místní historie nepřidává měření do místní historie ani do Health Connect. Dříve uložená data zůstávají.</string>
+    <string name="http_save_failed">Nastavení přeposílání se nepodařilo uložit. Zkuste to znovu.</string>
+</resources>

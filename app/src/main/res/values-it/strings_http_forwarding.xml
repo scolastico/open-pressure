@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="http_title">Inoltro HTTP</string>
+    <string name="http_intro">Invia le nuove misurazioni come JSON al tuo server. Lascia vuoto l\'URL per disattivare l\'inoltro. Usa HTTPS per proteggere le misurazioni e le credenziali.</string>
+    <string name="http_url">URL del server</string>
+    <string name="http_authorization">Valore dell\'intestazione Authorization (facoltativo)</string>
+    <string name="http_keep_local">Conserva le nuove misurazioni nella cronologia locale</string>
+    <string name="http_passthrough_help">Con la cronologia locale disattivata, le nuove misurazioni restano solo in una coda di invio temporanea finché il server non le accetta. La cronologia esistente viene conservata. L\'esportazione in Health Connect richiede la cronologia locale.</string>
+    <string name="http_invalid">Inserisci un URL HTTP(S) valido e un valore Authorization su una sola riga.</string>
+    <string name="http_status">In attesa per questo server: %1$d</string>
+    <string name="http_retry">Riprova gli invii in attesa</string>
+    <string name="http_failed">Alcuni invii non sono ancora stati accettati. Verranno ritentati automaticamente.</string>
+    <string name="http_queued">Misurazione in coda per l\'inoltro</string>
+    <string name="http_saved">Impostazioni di inoltro salvate</string>
+    <string name="http_import_count">Nuove misurazioni accettate per l\'inoltro: %1$d</string>
+    <string name="http_destination_help">Le misurazioni in coda restano assegnate al server originale. Modificare l\'URL mette in pausa gli invii al server precedente.</string>
+    <string name="http_privacy">L\'inoltro HTTP è facoltativo e disattivato per impostazione predefinita. Quando è attivo, le nuove misurazioni vengono inviate al server specificato. Gli invii in attesa sono conservati in modo privato fino all\'accettazione. L\'inoltro senza cronologia locale non aggiunge misurazioni alla cronologia locale o a Health Connect. I dati già salvati vengono conservati.</string>
+    <string name="http_save_failed">Impossibile salvare le impostazioni di inoltro. Riprova.</string>
+</resources>

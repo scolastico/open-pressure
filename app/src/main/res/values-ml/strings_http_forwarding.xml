@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="http_title">HTTP കൈമാറ്റം</string>
+    <string name="http_intro">പുതിയ അളവുകൾ JSON ആയി നിങ്ങളുടെ സെർവറിലേക്ക് അയയ്ക്കുക. കൈമാറ്റം ഓഫാക്കാൻ URL ശൂന്യമാക്കുക. അളവുകളും ലോഗിൻ വിവരങ്ങളും സംരക്ഷിക്കാൻ HTTPS ഉപയോഗിക്കുക.</string>
+    <string name="http_url">സെർവർ URL</string>
+    <string name="http_authorization">Authorization ഹെഡറിന്റെ മൂല്യം (ഐച്ഛികം)</string>
+    <string name="http_keep_local">പുതിയ അളവുകൾ പ്രാദേശിക ചരിത്രത്തിൽ സൂക്ഷിക്കുക</string>
+    <string name="http_passthrough_help">പ്രാദേശിക ചരിത്രം ഓഫായിരിക്കുമ്പോൾ, സെർവർ സ്വീകരിക്കുന്നതുവരെ പുതിയ അളവുകൾ താൽക്കാലിക അപ്‌ലോഡ് ക്യൂവിൽ മാത്രം തുടരും. നിലവിലെ ചരിത്രം തുടരും. Health Connect കയറ്റുമതിക്ക് പ്രാദേശിക ചരിത്രം വേണം.</string>
+    <string name="http_invalid">സാധുവായ HTTP(S) URL ഉം ഒറ്റവരിയിലുള്ള Authorization മൂല്യവും നൽകുക.</string>
+    <string name="http_status">ഈ സെർവറിനായി കാത്തിരിക്കുന്നത്: %1$d</string>
+    <string name="http_retry">കാത്തിരിക്കുന്ന അപ്‌ലോഡുകൾ വീണ്ടും ശ്രമിക്കുക</string>
+    <string name="http_failed">ചില അപ്‌ലോഡുകൾ ഇതുവരെ സ്വീകരിച്ചിട്ടില്ല. സ്വയമേവ വീണ്ടും ശ്രമിക്കും.</string>
+    <string name="http_queued">അളവ് കൈമാറ്റ ക്യൂവിൽ ചേർത്തു</string>
+    <string name="http_saved">കൈമാറ്റ ക്രമീകരണങ്ങൾ സംരക്ഷിച്ചു</string>
+    <string name="http_import_count">കൈമാറ്റത്തിനായി സ്വീകരിച്ച പുതിയ അളവുകൾ: %1$d</string>
+    <string name="http_destination_help">ക്യൂവിലെ അളവുകൾ അവയുടെ യഥാർത്ഥ സെർവറുമായി ബന്ധിപ്പിച്ചുതന്നെ തുടരും. URL മാറ്റുന്നത് മുൻ സെർവറിലേക്കുള്ള അപ്‌ലോഡുകൾ നിർത്തിവയ്ക്കും.</string>
+    <string name="http_privacy">HTTP കൈമാറ്റം ഐച്ഛികവും തുടക്കത്തിൽ ഓഫുമാണ്. ഓണാക്കിയാൽ പുതിയ അളവുകൾ നിങ്ങൾ നൽകുന്ന സെർവറിലേക്ക് അയയ്ക്കും. സ്വീകരിക്കുന്നതുവരെ കാത്തിരിക്കുന്ന അപ്‌ലോഡുകൾ സ്വകാര്യമായി സൂക്ഷിക്കും. പ്രാദേശിക ചരിത്രമില്ലാത്ത കൈമാറ്റം പ്രാദേശിക ചരിത്രത്തിലോ Health Connect-ലോ അളവുകൾ ചേർക്കില്ല. മുമ്പ് സൂക്ഷിച്ച ഡാറ്റ തുടരും.</string>
+    <string name="http_save_failed">കൈമാറ്റ ക്രമീകരണങ്ങൾ സംരക്ഷിക്കാനായില്ല. വീണ്ടും ശ്രമിക്കുക.</string>
+</resources>

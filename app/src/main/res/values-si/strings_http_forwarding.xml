@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="http_title">HTTP යොමු කිරීම</string>
+    <string name="http_intro">නව මිනුම් JSON ලෙස ඔබේ සේවාදායකයට යවන්න. යොමු කිරීම අක්‍රිය කිරීමට URL හිස්ව තබන්න. මිනුම් සහ පිවිසුම් තොරතුරු ආරක්ෂා කිරීමට HTTPS භාවිත කරන්න.</string>
+    <string name="http_url">සේවාදායක URL</string>
+    <string name="http_authorization">Authorization ශීර්ෂ අගය (විකල්ප)</string>
+    <string name="http_keep_local">නව මිනුම් දේශීය ඉතිහාසයේ තබන්න</string>
+    <string name="http_passthrough_help">දේශීය ඉතිහාසය අක්‍රිය විට, සේවාදායකය පිළිගන්නා තෙක් නව මිනුම් තාවකාලික උඩුගත පෝලිමක පමණක් පවතී. පවතින ඉතිහාසය රැකේ. Health Connect වෙත අපනයනයට දේශීය ඉතිහාසය අවශ්‍යයි.</string>
+    <string name="http_invalid">වලංගු HTTP(S) URL සහ තනි පේළියක Authorization අගයක් ඇතුළත් කරන්න.</string>
+    <string name="http_status">මෙම සේවාදායකය සඳහා පොරොත්තුවේ: %1$d</string>
+    <string name="http_retry">පොරොත්තු උඩුගත කිරීම් නැවත උත්සාහ කරන්න</string>
+    <string name="http_failed">සමහර උඩුගත කිරීම් තවම පිළිගෙන නැත. ස්වයංක්‍රීයව නැවත උත්සාහ කෙරේ.</string>
+    <string name="http_queued">මිනුම යොමු කිරීමේ පෝලිමට එක් කළා</string>
+    <string name="http_saved">යොමු කිරීමේ සැකසුම් සුරැකුණා</string>
+    <string name="http_import_count">යොමු කිරීමට පිළිගත් නව මිනුම්: %1$d</string>
+    <string name="http_destination_help">පෝලිමේ මිනුම් ඒවායේ මුල් සේවාදායකයටම බැඳී පවතී. URL වෙනස් කිරීම පෙර සේවාදායකයට උඩුගත කිරීම් නවතයි.</string>
+    <string name="http_privacy">HTTP යොමු කිරීම විකල්පයක් වන අතර මුලින් අක්‍රියයි. සක්‍රිය කළ විට නව මිනුම් ඔබ සඳහන් කරන සේවාදායකයට යැවේ. පොරොත්තු උඩුගත කිරීම් පිළිගන්නා තෙක් පෞද්ගලිකව ගබඩා කෙරේ. දේශීය ඉතිහාසය රහිත යොමු කිරීම දේශීය ඉතිහාසයට හෝ Health Connect වෙත මිනුම් එක් නොකරයි. පෙර සුරැකි දත්ත පවතී.</string>
+    <string name="http_save_failed">යොමු කිරීමේ සැකසුම් සුරැකීමට නොහැකි විය. නැවත උත්සාහ කරන්න.</string>
+</resources>

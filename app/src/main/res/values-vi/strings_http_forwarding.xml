@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="http_title">Chuyển tiếp HTTP</string>
+    <string name="http_intro">Gửi kết quả đo mới dưới dạng JSON đến máy chủ của bạn. Để trống URL để tắt chuyển tiếp. Dùng HTTPS để bảo vệ kết quả đo và thông tin đăng nhập.</string>
+    <string name="http_url">URL máy chủ</string>
+    <string name="http_authorization">Giá trị tiêu đề Authorization (không bắt buộc)</string>
+    <string name="http_keep_local">Giữ kết quả đo mới trong lịch sử cục bộ</string>
+    <string name="http_passthrough_help">Khi tắt lịch sử cục bộ, kết quả đo mới chỉ nằm trong hàng đợi tải lên tạm thời cho đến khi máy chủ chấp nhận. Lịch sử hiện có được giữ lại. Xuất sang Health Connect cần lịch sử cục bộ.</string>
+    <string name="http_invalid">Nhập URL HTTP(S) hợp lệ và giá trị Authorization trên một dòng.</string>
+    <string name="http_status">Đang chờ cho máy chủ này: %1$d</string>
+    <string name="http_retry">Thử lại các lượt tải lên đang chờ</string>
+    <string name="http_failed">Một số lượt tải lên chưa được chấp nhận. Hệ thống sẽ tự động thử lại.</string>
+    <string name="http_queued">Đã thêm kết quả đo vào hàng đợi chuyển tiếp</string>
+    <string name="http_saved">Đã lưu cài đặt chuyển tiếp</string>
+    <string name="http_import_count">Kết quả đo mới được nhận để chuyển tiếp: %1$d</string>
+    <string name="http_destination_help">Kết quả đo trong hàng đợi vẫn gắn với máy chủ ban đầu. Đổi URL sẽ tạm dừng tải lên máy chủ trước đó.</string>
+    <string name="http_privacy">Chuyển tiếp HTTP là tùy chọn và mặc định tắt. Khi bật, kết quả đo mới được gửi đến máy chủ bạn chỉ định. Các lượt tải lên đang chờ được lưu riêng tư cho đến khi được chấp nhận. Chuyển tiếp không lưu lịch sử cục bộ sẽ không thêm kết quả đo vào lịch sử cục bộ hoặc Health Connect. Dữ liệu đã lưu trước đó vẫn được giữ lại.</string>
+    <string name="http_save_failed">Không thể lưu cài đặt chuyển tiếp. Vui lòng thử lại.</string>
+</resources>

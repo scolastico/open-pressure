@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="http_title">Pagpapasa sa HTTP</string>
+    <string name="http_intro">Ipadala ang mga bagong sukat bilang JSON sa iyong server. Iwang blangko ang URL para i-off ang pagpapasa. Gumamit ng HTTPS para protektahan ang mga sukat at impormasyon sa pag-login.</string>
+    <string name="http_url">URL ng server</string>
+    <string name="http_authorization">Halaga ng Authorization header (opsyonal)</string>
+    <string name="http_keep_local">Itago ang mga bagong sukat sa lokal na history</string>
+    <string name="http_passthrough_help">Kapag naka-off ang lokal na history, nasa pansamantalang pila ng pag-upload lang ang mga bagong sukat hanggang tanggapin ng server. Mananatili ang kasalukuyang history. Kailangan ng lokal na history para mag-export sa Health Connect.</string>
+    <string name="http_invalid">Maglagay ng wastong HTTP(S) URL at Authorization na nasa iisang linya.</string>
+    <string name="http_status">Naghihintay para sa server na ito: %1$d</string>
+    <string name="http_retry">Subukan ulit ang mga nakabinbing upload</string>
+    <string name="http_failed">Hindi pa tinatanggap ang ilang upload. Awtomatikong susubukan ulit ang mga ito.</string>
+    <string name="http_queued">Nakapila ang sukat para sa pagpapasa</string>
+    <string name="http_saved">Na-save ang mga setting ng pagpapasa</string>
+    <string name="http_import_count">Mga bagong sukat na tinanggap para ipasa: %1$d</string>
+    <string name="http_destination_help">Mananatiling nakatalaga sa orihinal na server ang mga nakapilang sukat. Ihihinto muna ng pagbabago ng URL ang mga upload sa dating server.</string>
+    <string name="http_privacy">Opsyonal ang pagpapasa sa HTTP at naka-off bilang default. Kapag naka-on, ipinapadala ang mga bagong sukat sa server na itinakda mo. Pribadong itinatago ang mga nakabinbing upload hanggang tanggapin. Ang pagpapasa nang walang lokal na history ay hindi nagdaragdag ng sukat sa lokal na history o Health Connect. Mananatili ang dating naka-save na data.</string>
+    <string name="http_save_failed">Hindi ma-save ang mga setting ng pagpapasa. Pakisubukan ulit.</string>
+</resources>

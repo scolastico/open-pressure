@@ -23,6 +23,8 @@ import java.util.*;
 import org.openpressure.app.ble.MonitorService;
 import org.openpressure.app.data.*;
 import org.openpressure.app.health.HealthConnectSettingsActivity;
+import org.openpressure.app.forwarding.HttpForwardingSettings;
+import org.openpressure.app.forwarding.HttpForwardingSettingsActivity;
 import org.openpressure.app.automatic.*;
 import org.openpressure.app.notifications.NewReadingNotifications;
 import org.openpressure.app.pdf.PdfReportData;
@@ -354,6 +356,7 @@ public final class MainActivity extends Activity {
         if(advancedExpanded) advancedDeviceControls();
     }
     private void advancedDeviceControls() {
+        add(content,button(getString(R.string.http_title),() -> startActivity(new Intent(this,HttpForwardingSettingsActivity.class)),false),8);
         LinearLayout information=card(); label(information,getString(R.string.main_monitor_information));
         add(information,button(getString(R.string.main_model_hint,monitor.modelHint),this::modelDialog,false),8);
         if(!monitor.information.isEmpty()) add(information,text(monitor.information.trim(),14,MUTED,false),8);
@@ -432,6 +435,8 @@ public final class MainActivity extends Activity {
             try {
                 int user=Integer.parseInt(bank.getText().toString()); if(user<1||user>2) throw new IllegalArgumentException("Choose user 1 or 2");
                 String p=pulse.getText().toString().trim(); store.addManual(parseNumber(sys.getText().toString()),parseNumber(dia.getText().toString()),p.isEmpty()?null:parseNumber(p),user,parseDateTime(time.getText().toString().trim()),notes.getText().toString()); dialog.dismiss(); render();
+                HttpForwardingSettings.Config forwarding=HttpForwardingSettings.get(this);
+                if(forwarding.enabled() && !forwarding.keepLocal) toast(getString(R.string.http_queued));
             } catch(Exception ex) { toast(getString(R.string.main_entry_invalid,editableDateTime(LocalDateTime.now()))); }
         })); dialog.show();
     }

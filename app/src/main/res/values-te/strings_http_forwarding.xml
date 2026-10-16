@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="http_title">HTTP ఫార్వార్డింగ్</string>
+    <string name="http_intro">కొత్త కొలతలను JSON రూపంలో మీ సర్వర్‌కు పంపండి. ఫార్వార్డింగ్ ఆపడానికి URL ఖాళీగా ఉంచండి. కొలతలు, లాగిన్ వివరాలను రక్షించడానికి HTTPS ఉపయోగించండి.</string>
+    <string name="http_url">సర్వర్ URL</string>
+    <string name="http_authorization">Authorization హెడర్ విలువ (ఐచ్ఛికం)</string>
+    <string name="http_keep_local">కొత్త కొలతలను స్థానిక చరిత్రలో ఉంచండి</string>
+    <string name="http_passthrough_help">స్థానిక చరిత్ర ఆఫ్‌లో ఉంటే, సర్వర్ అంగీకరించే వరకు కొత్త కొలతలు తాత్కాలిక అప్‌లోడ్ క్యూలో మాత్రమే ఉంటాయి. ఇప్పటికే ఉన్న చరిత్ర ఉంటుంది. Health Connect ఎగుమతికి స్థానిక చరిత్ర అవసరం.</string>
+    <string name="http_invalid">చెల్లుబాటు అయ్యే HTTP(S) URL, ఒకే పంక్తిలో Authorization విలువ ఇవ్వండి.</string>
+    <string name="http_status">ఈ సర్వర్ కోసం పెండింగ్‌లో: %1$d</string>
+    <string name="http_retry">పెండింగ్ అప్‌లోడ్‌లను మళ్లీ ప్రయత్నించండి</string>
+    <string name="http_failed">కొన్ని అప్‌లోడ్‌లు ఇంకా అంగీకరించబడలేదు. స్వయంచాలకంగా మళ్లీ ప్రయత్నిస్తారు.</string>
+    <string name="http_queued">కొలత ఫార్వార్డింగ్ క్యూలో చేరింది</string>
+    <string name="http_saved">ఫార్వార్డింగ్ సెట్టింగ్‌లు సేవ్ అయ్యాయి</string>
+    <string name="http_import_count">ఫార్వార్డింగ్ కోసం అంగీకరించిన కొత్త కొలతలు: %1$d</string>
+    <string name="http_destination_help">క్యూలోని కొలతలు వాటి అసలు సర్వర్‌కే కేటాయించబడి ఉంటాయి. URL మార్చితే మునుపటి సర్వర్‌కు అప్‌లోడ్‌లు ఆగుతాయి.</string>
+    <string name="http_privacy">HTTP ఫార్వార్డింగ్ ఐచ్ఛికం, మొదట ఆఫ్‌లో ఉంటుంది. ఆన్ చేస్తే కొత్త కొలతలు మీరు పేర్కొన్న సర్వర్‌కు పంపబడతాయి. పెండింగ్ అప్‌లోడ్‌లు అంగీకరించే వరకు గోప్యంగా నిల్వ ఉంటాయి. స్థానిక చరిత్ర లేకుండా ఫార్వార్డింగ్ చేయడం స్థానిక చరిత్రకు లేదా Health Connectకు కొలతలను జోడించదు. గతంలో సేవ్ చేసిన డేటా ఉంటుంది.</string>
+    <string name="http_save_failed">ఫార్వార్డింగ్ సెట్టింగ్‌లను సేవ్ చేయలేకపోయాము. మళ్లీ ప్రయత్నించండి.</string>
+</resources>

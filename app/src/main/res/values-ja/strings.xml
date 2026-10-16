@@ -136,7 +136,7 @@
     <string name="main_user_consent_explanation">血圧モニターで選択したユーザーを選択し、その同意コードを入力します。デフォルトのコードは 526 です。血圧計がペアリング モードにあるときに新しいユーザーをセットアップする場合にのみ登録してください。</string>
     <string name="main_memory_read_explanation">血圧モニターのメモリの読み取り専用コピーを JSON として保存します。健康データや個人を特定するデータが含まれる場合があります。新しいコピーが以前のローカル メモリ エクスポートを置き換えます。\n\nデフォルトでは、メモリ全体や調整バックアップではなく、0x0010 で 68 バイトの設定が読み取られます。他の範囲は利用できない場合があります。</string>
     <string name="main_x7_register_explanation">血圧計のラベルに HEM-7380T1-EOSL と記載されていることを確認してください。\n\n設定のバックアップが保存されました。登録により、選択したユーザーと時計が更新され、そのユーザーの以前のアプリの関連付けが置き換えられる場合があります。既存の測定値、誕生日、その他の設定は保持されます。\n\n登録せずに読む場合は、キャンセルして接続してください。</string>
-    <string name="main_about_message">Bluetooth 経由で血圧測定値をインポートするための独立したアプリ。 Omron X7 Smart AFib (HEM-7380T1-EOSL) でテスト済み。他の血圧計はテストされていません。オムロンコードは付属しておりません。\n\n測定値はこの携帯電話に残ります。クラウド アカウントやインターネット アクセスはありません。オプションの Health Connect エクスポートには許可が必要です。ローカル測定値を削除しても、既存の Health Connect コピーは削除されません。データを保持するには、アンインストールする前にエクスポートしてください。\n\n履歴とメモリのインポートは読み取り専用です。登録と時計の変更には確認が必要です。詳細オプションには、メモリと診断のエクスポートが含まれており、これには正常性と識別データが含まれる場合があります。\n\n血圧計で測定を開始します。不規則な脈拍フラグは AFib の結果ではありません。</string>
+    <string name="main_about_message">Bluetooth 経由で血圧測定値をインポートするための独立したアプリ。 Omron X7 Smart AFib (HEM-7380T1-EOSL) でテスト済み。他の血圧計はテストされていません。オムロンコードは付属しておりません。\n\n初期設定では、測定値はこのスマートフォン内に保存されます。任意の HTTP 転送は、設定した場合のみ新しい測定値を選択したサーバーに送信します。端末内の履歴をオフにすると、測定値はサーバーが受け付けるまで一時的なアップロード待ち一覧に残ります。任意の Health Connect エクスポートには許可が必要です。端末内の測定値を削除しても、Health Connect や外部サーバーのコピーは削除されません。データを残すには、アンインストール前にエクスポートしてください。\n\n履歴とメモリのインポートは読み取り専用です。登録と時計の変更には確認が必要です。詳細オプションには、メモリと診断のエクスポートが含まれており、これには正常性と識別データが含まれる場合があります。\n\n血圧計で測定を開始します。不規則な脈拍フラグは AFib の結果ではありません。</string>
     <string name="main_clear_confirmation">%1$s のすべての日付の測定値 %2$s 件とそのメモを削除しますか？履歴の絞り込み条件に関係なく削除されます。\n\n血圧計のメモリ内のデータと Health Connect にある既存のコピーは保持されます。保存済みの血圧計、ペア設定、バックアップ、設定も保持されます。自動インポートでは削除した測定値は復元されません。血圧計の測定履歴を手動でインポートすると復元できます。</string>
     <string name="main_battery">バッテリー: %1$s</string>
     <string name="main_change_user">%1$s · ユーザーの変更</string>
@@ -349,10 +349,10 @@
     <string name="health_unavailable">Health Connect はこの電話では利用できません。</string>
     <string name="health_open_failed">Health Connectを開けませんでした。インストールされており、最新であることを確認してください。</string>
     <string name="health_privacy_title">プライバシーとHealth Connect</string>
-    <string name="health_privacy_local">OpenPressure は、測定値と保存された血圧モニターのデータを携帯電話に保存します。アカウント、サーバー、インターネット アクセス、分析機能はありません。 Android のバックアップは無効になっています。</string>
+    <string name="health_privacy_local">初期設定では、OpenPressure は測定値と保存済み血圧計のデータをスマートフォン内に非公開で保存します。任意の HTTP 転送は、設定した場合のみ利用できます。アカウントや利用状況の分析はありません。Android のバックアップは無効です。</string>
     <string name="health_privacy_choice">Health Connect エクスポートはオプションであり、デフォルトではオフになっています。自分の血圧計ユーザー番号 (1 または 2) を選択し、血圧を書き込む許可を与えます。 measurements for that user from every saved blood pressure monitor are exported to your personal Health Connect record, including existing and future measurements.ゲストの測定値と有効な日時のない測定値はスキップされます。</string>
     <string name="health_privacy_shared">最高血圧と最低血圧、測定時間、デバイス情報のみがエクスポートされます。血圧計の時間にはタイムゾーンがないため、最初にエクスポートしたときに携帯電話のタイムゾーンが使用され、保存されます。脈拍、不規則な心拍フラグ、メモ、および生のデバイス データはエクスポートされません。 OpenPressure は、健康データの読み取り許可を要求せず、Health Connect レコードを読み取りません。</string>
-    <string name="health_privacy_other_apps">OpenPressure は携帯電話からデータを送信しません。 Health Connect は、エクスポートされたコピーをデバイスに保存します。 Health Connect を通じて個別にアクセスを許可した場合、他のアプリがそれらのコピーを読み取りまたは転送する可能性があります。独自のプライバシー ポリシーが適用されます。</string>
+    <string name="health_privacy_other_apps">Health Connect はエクスポートしたコピーを端末内に保存します。Health Connect で許可すると、他のアプリがコピーを読み取ったり転送したりでき、そのアプリのプライバシーポリシーが適用されます。OpenPressure の任意の HTTP 転送は新しい測定値を選択したサーバーに送信し、そのサーバーのプライバシーポリシーが適用されます。</string>
     <string name="health_privacy_delete">OpenPressure で今後のエクスポートをオフにすることができます。エクスポートをオフにしたり、ローカル測定を削除したり、OpenPressure をアンインストールしても、既存の Health Connect コピーは削除されません。 Health Connect を使用してレコードを管理し、権限を取り消します。 OpenPressure をアンインストールすると、ローカル測定値と保存された血圧モニター データが削除されます。ローカル データを保持したい場合は、まずローカル データをエクスポートします。</string>
     <string name="settings_close">この画面を閉じます</string>
     <string name="settings_auto_change_failed">自動インポートを変更できませんでした。別のオプションを試してください。</string>

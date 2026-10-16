@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="http_title">HTTP ફોરવર્ડિંગ</string>
+    <string name="http_intro">નવા માપ JSON તરીકે તમારા સર્વરને મોકલો. ફોરવર્ડિંગ બંધ કરવા URL ખાલી રાખો. માપ અને લૉગિન માહિતી સુરક્ષિત રાખવા HTTPS વાપરો.</string>
+    <string name="http_url">સર્વર URL</string>
+    <string name="http_authorization">Authorization હેડરનું મૂલ્ય (વૈકલ્પિક)</string>
+    <string name="http_keep_local">નવા માપ સ્થાનિક ઇતિહાસમાં રાખો</string>
+    <string name="http_passthrough_help">સ્થાનિક ઇતિહાસ બંધ હોય ત્યારે નવા માપ માત્ર અસ્થાયી અપલોડ કતારમાં રહે છે જ્યાં સુધી સર્વર તેમને સ્વીકારે નહીં. હાલનો ઇતિહાસ રહે છે. Health Connect નિકાસ માટે સ્થાનિક ઇતિહાસ જરૂરી છે.</string>
+    <string name="http_invalid">માન્ય HTTP(S) URL અને એક લીટીનું Authorization મૂલ્ય દાખલ કરો.</string>
+    <string name="http_status">આ સર્વર માટે બાકી: %1$d</string>
+    <string name="http_retry">બાકી અપલોડ ફરી અજમાવો</string>
+    <string name="http_failed">કેટલાક અપલોડ હજી સ્વીકારાયા નથી. આપમેળે ફરી પ્રયાસ થશે.</string>
+    <string name="http_queued">માપ ફોરવર્ડિંગ કતારમાં ઉમેરાયું</string>
+    <string name="http_saved">ફોરવર્ડિંગ સેટિંગ્સ સાચવાઈ</string>
+    <string name="http_import_count">ફોરવર્ડિંગ માટે સ્વીકારાયેલા નવા માપ: %1$d</string>
+    <string name="http_destination_help">કતારનાં માપ તેમના મૂળ સર્વર સાથે જોડાયેલાં રહે છે. URL બદલવાથી અગાઉના સર્વરના અપલોડ થોભે છે.</string>
+    <string name="http_privacy">HTTP ફોરવર્ડિંગ વૈકલ્પિક છે અને મૂળભૂત રીતે બંધ છે. ચાલુ હોય ત્યારે નવા માપ તમે જણાવેલા સર્વરને મોકલાય છે. બાકી અપલોડ સ્વીકારાય ત્યાં સુધી ખાનગી રીતે સંગ્રહાય છે. સ્થાનિક ઇતિહાસ વગર ફોરવર્ડિંગથી સ્થાનિક ઇતિહાસ કે Health Connect માં માપ ઉમેરાતાં નથી. પહેલાં સાચવેલો ડેટા રહે છે.</string>
+    <string name="http_save_failed">ફોરવર્ડિંગ સેટિંગ્સ સાચવી શકાઈ નથી. ફરી પ્રયાસ કરો.</string>
+</resources>

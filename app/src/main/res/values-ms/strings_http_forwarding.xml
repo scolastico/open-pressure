@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="http_title">Pemajuan HTTP</string>
+    <string name="http_intro">Hantar bacaan baharu sebagai JSON ke pelayan anda. Biarkan URL kosong untuk mematikan pemajuan. Gunakan HTTPS untuk melindungi bacaan dan bukti kelayakan.</string>
+    <string name="http_url">URL pelayan</string>
+    <string name="http_authorization">Nilai pengepala Authorization (pilihan)</string>
+    <string name="http_keep_local">Simpan bacaan baharu dalam sejarah setempat</string>
+    <string name="http_passthrough_help">Apabila sejarah setempat dimatikan, bacaan baharu hanya berada dalam baris gilir muat naik sementara sehingga pelayan menerimanya. Sejarah sedia ada kekal. Eksport ke Health Connect memerlukan sejarah setempat.</string>
+    <string name="http_invalid">Masukkan URL HTTP(S) yang sah dan nilai Authorization satu baris.</string>
+    <string name="http_status">Menunggu untuk pelayan ini: %1$d</string>
+    <string name="http_retry">Cuba semula muat naik tertunda</string>
+    <string name="http_failed">Sesetengah muat naik belum diterima. Muat naik akan dicuba semula secara automatik.</string>
+    <string name="http_queued">Bacaan dalam baris gilir pemajuan</string>
+    <string name="http_saved">Tetapan pemajuan disimpan</string>
+    <string name="http_import_count">Bacaan baharu diterima untuk pemajuan: %1$d</string>
+    <string name="http_destination_help">Bacaan dalam baris gilir kekal dikaitkan dengan pelayan asalnya. Menukar URL menjeda muat naik ke pelayan sebelumnya.</string>
+    <string name="http_privacy">Pemajuan HTTP adalah pilihan dan dimatikan secara lalai. Apabila diaktifkan, bacaan baharu dihantar ke pelayan yang anda tentukan. Muat naik tertunda disimpan secara peribadi sehingga diterima. Pemajuan tanpa sejarah setempat tidak menambah bacaan ke sejarah setempat atau Health Connect. Data yang disimpan sebelum ini kekal.</string>
+    <string name="http_save_failed">Tetapan pemajuan tidak dapat disimpan. Sila cuba lagi.</string>
+</resources>

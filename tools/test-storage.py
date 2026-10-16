@@ -9,7 +9,9 @@ readings=next(s for s in statements if s.startswith('CREATE TABLE readings('))
 health=next(s for s in statements if s.startswith('CREATE TABLE health_exports('))
 tombstone=next(s for s in statements if s.startswith('CREATE TABLE reading_tombstones('))
 receipt=hashlib.sha256(b'stable').hexdigest()
-for old in (1,2,3,4):
+outbox=next(s for s in statements if s.startswith('CREATE TABLE http_outbox('))
+http_receipts=next(s for s in statements if s.startswith('CREATE TABLE http_receipts('))
+for old in (1,2,3,4,5):
     db=sqlite3.connect(':memory:'); db.execute('PRAGMA foreign_keys=ON')
     db.execute(readings.replace(', afib INTEGER','') if old==1 else readings)
     db.execute("INSERT INTO readings(id,fingerprint,device,name,received,sys,dia,unit,source,raw) VALUES(7,'stable','cuff','X7',1,120,80,'mmHg','wlp-history','abc')")
@@ -17,6 +19,7 @@ for old in (1,2,3,4):
     if old<2: db.execute('ALTER TABLE readings ADD COLUMN afib INTEGER')
     if old<3: db.execute(health)
     db.execute(tombstone)
+    db.execute(outbox); db.execute(http_receipts)
     assert db.execute('SELECT fingerprint FROM readings').fetchone()==('stable',)
     if old>=3: assert db.execute('SELECT client_id FROM health_exports').fetchone()==('exported',)
     db.commit()
@@ -113,4 +116,26 @@ for user,remaining in ((0,[]),(1,[(2,),(4,),(5,)]),(2,[(1,),(3,),(4,),(5,)])):
     clear() # Empty selection is safe and preserves previous suppression receipts.
     assert {row[0] for row in db.execute('SELECT receipt FROM reading_tombstones')}==receipts
     db.close()
-print('Storage SQL: migrations 1–3, fresh v4, scoped bulk clear, rollback, deletion receipts and health cascade passed')
+# The actual v5 schema must preserve event identity and roll back receipt/payload changes together.
+db=sqlite3.connect(':memory:')
+db.execute(outbox); db.execute(http_receipts)
+endpoint='https://example.invalid/measurements'
+key=hashlib.sha256(b'synthetic reading').hexdigest()
+destination=hashlib.sha256(endpoint.encode()).hexdigest()
+payload='{"schema_version":1,"id":"'+key+'"}'
+db.execute('INSERT INTO http_outbox(endpoint,event_key,payload) VALUES(?,?,?)',(endpoint,key,payload)); db.commit()
+try:
+    with db:
+        db.execute('INSERT INTO http_receipts(destination,event_key) VALUES(?,?)',(destination,key))
+        db.execute('DELETE FROM http_outbox WHERE endpoint=? AND event_key=?',(endpoint,key))
+        raise RuntimeError('synthetic interruption')
+except RuntimeError: pass
+assert db.execute('SELECT payload FROM http_outbox').fetchall()==[(payload,)]
+assert db.execute('SELECT COUNT(*) FROM http_receipts').fetchone()==(0,)
+with db:
+    db.execute('INSERT INTO http_receipts(destination,event_key) VALUES(?,?)',(destination,key))
+    db.execute('DELETE FROM http_outbox WHERE endpoint=? AND event_key=?',(endpoint,key))
+assert db.execute('SELECT COUNT(*) FROM http_outbox').fetchone()==(0,)
+assert db.execute('SELECT destination,event_key FROM http_receipts').fetchall()==[(destination,key)]
+db.close()
+print('Storage SQL: migrations 1–4, fresh v5, scoped bulk clear, rollback, deletion receipts, HTTP outbox and health cascade passed')

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="http_title">HTTP 転送</string>
+    <string name="http_intro">新しい測定値を JSON 形式でサーバーに送信します。転送をオフにするには URL を空欄にしてください。測定値と認証情報を保護するため、HTTPS を使用してください。</string>
+    <string name="http_url">サーバーの URL</string>
+    <string name="http_authorization">Authorization ヘッダーの値（任意）</string>
+    <string name="http_keep_local">新しい測定値を端末内の履歴に保存</string>
+    <string name="http_passthrough_help">端末内の履歴をオフにすると、新しい測定値はサーバーが受け付けるまで一時的なアップロード待ち一覧にのみ保存されます。既存の履歴は残ります。Health Connect へのエクスポートには端末内の履歴が必要です。</string>
+    <string name="http_invalid">有効な HTTP(S) URL と、1 行の Authorization 値を入力してください。</string>
+    <string name="http_status">このサーバーへの送信待ち：%1$d</string>
+    <string name="http_retry">送信待ちのアップロードを再試行</string>
+    <string name="http_failed">一部のアップロードがまだ受け付けられていません。自動的に再試行します。</string>
+    <string name="http_queued">測定値を転送待ちに追加しました</string>
+    <string name="http_saved">転送設定を保存しました</string>
+    <string name="http_import_count">転送用に受け付けた新しい測定値：%1$d</string>
+    <string name="http_destination_help">送信待ちの測定値は元のサーバーに割り当てられたままです。URL を変更すると、以前のサーバーへのアップロードが一時停止します。</string>
+    <string name="http_privacy">HTTP 転送は任意で、初期設定ではオフです。有効にすると、新しい測定値が指定したサーバーに送信されます。送信待ちデータは受け付けられるまで非公開で保存されます。端末内の履歴を残さない転送では、端末内の履歴や Health Connect に測定値を追加しません。以前に保存したデータは残ります。</string>
+    <string name="http_save_failed">転送設定を保存できませんでした。もう一度お試しください。</string>
+</resources>

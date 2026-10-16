@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="http_title">HTTP-doorsturen</string>
+    <string name="http_intro">Stuur nieuwe metingen als JSON naar uw server. Laat de URL leeg om doorsturen uit te schakelen. Gebruik HTTPS om metingen en toegangsgegevens te beschermen.</string>
+    <string name="http_url">Server-URL</string>
+    <string name="http_authorization">Waarde van de Authorization-header (optioneel)</string>
+    <string name="http_keep_local">Nieuwe metingen in de lokale geschiedenis bewaren</string>
+    <string name="http_passthrough_help">Als de lokale geschiedenis uitstaat, blijven nieuwe metingen alleen in een tijdelijke verzendwachtrij totdat de server ze accepteert. De bestaande geschiedenis blijft behouden. Export naar Health Connect vereist lokale geschiedenis.</string>
+    <string name="http_invalid">Voer een geldige HTTP(S)-URL en een Authorization-waarde op één regel in.</string>
+    <string name="http_status">In afwachting voor deze server: %1$d</string>
+    <string name="http_retry">Wachtende uploads opnieuw proberen</string>
+    <string name="http_failed">Sommige uploads zijn nog niet geaccepteerd. Ze worden automatisch opnieuw geprobeerd.</string>
+    <string name="http_queued">Meting in wachtrij voor doorsturen</string>
+    <string name="http_saved">Instellingen voor doorsturen opgeslagen</string>
+    <string name="http_import_count">Nieuwe metingen geaccepteerd voor doorsturen: %1$d</string>
+    <string name="http_destination_help">Metingen in de wachtrij blijven gekoppeld aan hun oorspronkelijke server. Als u de URL wijzigt, worden uploads naar de vorige server gepauzeerd.</string>
+    <string name="http_privacy">HTTP-doorsturen is optioneel en staat standaard uit. Als het aanstaat, worden nieuwe metingen verzonden naar de server die u opgeeft. Wachtende uploads worden privé bewaard totdat ze zijn geaccepteerd. Doorsturen zonder lokale geschiedenis voegt geen metingen toe aan de lokale geschiedenis of Health Connect. Eerder opgeslagen gegevens blijven behouden.</string>
+    <string name="http_save_failed">De instellingen voor doorsturen konden niet worden opgeslagen. Probeer het opnieuw.</string>
+</resources>

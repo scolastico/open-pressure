@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="http_title">Turawa ta HTTP</string>
+    <string name="http_intro">Tura sabbin ma\'aunai a matsayin JSON zuwa sabarka. Bar URL babu komai don kashe turawa. Yi amfani da HTTPS don kare ma\'aunai da bayanan shiga.</string>
+    <string name="http_url">URL na saba</string>
+    <string name="http_authorization">Ƙimar taken Authorization (na zaɓi)</string>
+    <string name="http_keep_local">Ajiye sabbin ma\'aunai a tarihin cikin waya</string>
+    <string name="http_passthrough_help">Idan an kashe tarihin cikin waya, sabbin ma\'aunai suna zama a layin ɗorawa na ɗan lokaci kawai har sai saba ta karɓe su. Tarihin da yake akwai yana nan. Fitarwa zuwa Health Connect na buƙatar tarihin cikin waya.</string>
+    <string name="http_invalid">Shigar da ingantaccen URL na HTTP(S) da ƙimar Authorization a layi ɗaya.</string>
+    <string name="http_status">Masu jira don wannan saba: %1$d</string>
+    <string name="http_retry">Sake gwada ɗorawar da ke jira</string>
+    <string name="http_failed">Ba a karɓi wasu ɗorawa ba tukuna. Za a sake gwada su ta atomatik.</string>
+    <string name="http_queued">An saka ma\'auni a layin turawa</string>
+    <string name="http_saved">An adana saitunan turawa</string>
+    <string name="http_import_count">Sabbin ma\'aunai da aka karɓa don turawa: %1$d</string>
+    <string name="http_destination_help">Ma\'aunan da ke layi suna nan a haɗe da sabar asalinsu. Canza URL yana dakatar da ɗorawa zuwa sabar da ta gabata.</string>
+    <string name="http_privacy">Turawa ta HTTP zaɓi ce kuma a kashe take da farko. Idan an kunna, ana tura sabbin ma\'aunai zuwa sabar da ka zaɓa. Ana adana ɗorawar da ke jira a keɓance har sai an karɓe su. Turawa ba tare da tarihin cikin waya ba ba ta ƙara ma\'aunai a tarihin cikin waya ko Health Connect. Bayanan da aka riga aka adana suna nan.</string>
+    <string name="http_save_failed">Ba a iya adana saitunan turawa ba. A sake gwadawa.</string>
+</resources>

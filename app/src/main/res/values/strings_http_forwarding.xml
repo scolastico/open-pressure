@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="http_title">HTTP forwarding</string>
+    <string name="http_intro">Send new measurements as JSON to your server. Leave the URL empty to turn forwarding off. Use HTTPS to protect measurements and credentials.</string>
+    <string name="http_url">Server URL</string>
+    <string name="http_authorization">Authorization header value (optional)</string>
+    <string name="http_keep_local">Keep new readings in local history</string>
+    <string name="http_passthrough_help">With local history off, new readings stay only in a temporary upload queue until the server accepts them. Existing history stays. Health Connect export needs local history.</string>
+    <string name="http_invalid">Enter a valid HTTP(S) URL and a single-line Authorization value.</string>
+    <string name="http_status">Pending for this server: %1$d</string>
+    <string name="http_retry">Retry pending uploads</string>
+    <string name="http_failed">Some uploads have not been accepted. They will retry automatically.</string>
+    <string name="http_queued">Reading queued for forwarding</string>
+    <string name="http_saved">Forwarding settings saved</string>
+    <string name="http_import_count">New readings accepted for forwarding: %1$d</string>
+    <string name="http_destination_help">Queued readings stay assigned to their original server. Changing the URL pauses uploads to the previous server.</string>
+    <string name="http_privacy">HTTP forwarding is optional and off by default. When enabled, new measurements are sent to the server you specify. Pending uploads are stored privately until accepted. Passthrough does not add readings to local history or Health Connect. Previously saved data stays.</string>
+    <string name="http_save_failed">Could not save forwarding settings. Please try again.</string>
+</resources>

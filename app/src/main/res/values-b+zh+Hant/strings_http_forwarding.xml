@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="http_title">HTTP 轉送</string>
+    <string name="http_intro">將新的測量結果以 JSON 格式傳送到你的伺服器。將 URL 留空可關閉轉送。請使用 HTTPS 保護測量結果和登入憑證。</string>
+    <string name="http_url">伺服器 URL</string>
+    <string name="http_authorization">Authorization 標頭值（選填）</string>
+    <string name="http_keep_local">將新的測量結果保留在本機歷史記錄中</string>
+    <string name="http_passthrough_help">關閉本機歷史記錄後，新的測量結果只會保存在暫存上傳佇列中，直到伺服器接受。現有歷史記錄會保留。匯出至 Health Connect 需要本機歷史記錄。</string>
+    <string name="http_invalid">請輸入有效的 HTTP(S) URL 和單行 Authorization 值。</string>
+    <string name="http_status">等待傳送至此伺服器：%1$d</string>
+    <string name="http_retry">重試待上傳項目</string>
+    <string name="http_failed">部分上傳尚未被接受。系統將自動重試。</string>
+    <string name="http_queued">測量結果已加入轉送佇列</string>
+    <string name="http_saved">轉送設定已儲存</string>
+    <string name="http_import_count">已接受供轉送的新測量結果：%1$d</string>
+    <string name="http_destination_help">佇列中的測量結果仍指定給原伺服器。變更 URL 會暫停向上一個伺服器上傳。</string>
+    <string name="http_privacy">HTTP 轉送為選用功能，預設關閉。啟用後，新的測量結果會傳送到你指定的伺服器。待上傳資料會私密儲存，直到被接受。僅轉送模式不會將測量結果加入本機歷史記錄或 Health Connect。先前儲存的資料會保留。</string>
+    <string name="http_save_failed">無法儲存轉送設定。請重試。</string>
+</resources>

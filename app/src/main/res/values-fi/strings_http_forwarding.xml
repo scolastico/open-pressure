@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="http_title">HTTP-välitys</string>
+    <string name="http_intro">Lähetä uudet mittaukset JSON-muodossa palvelimellesi. Poista välitys käytöstä jättämällä URL tyhjäksi. Suojaa mittaukset ja tunnistetiedot käyttämällä HTTPS-yhteyttä.</string>
+    <string name="http_url">Palvelimen URL</string>
+    <string name="http_authorization">Authorization-otsakkeen arvo (valinnainen)</string>
+    <string name="http_keep_local">Säilytä uudet mittaukset paikallisessa historiassa</string>
+    <string name="http_passthrough_help">Kun paikallinen historia on pois käytöstä, uudet mittaukset ovat vain tilapäisessä lähetysjonossa, kunnes palvelin hyväksyy ne. Aiempi historia säilyy. Vienti Health Connect -palveluun edellyttää paikallista historiaa.</string>
+    <string name="http_invalid">Anna kelvollinen HTTP(S)-URL ja yksirivinen Authorization-arvo.</string>
+    <string name="http_status">Odottaa tälle palvelimelle: %1$d</string>
+    <string name="http_retry">Yritä jonossa olevia lähetyksiä uudelleen</string>
+    <string name="http_failed">Joitakin lähetyksiä ei ole vielä hyväksytty. Niitä yritetään automaattisesti uudelleen.</string>
+    <string name="http_queued">Mittaus lisätty välitysjonoon</string>
+    <string name="http_saved">Välitysasetukset tallennettu</string>
+    <string name="http_import_count">Uusia mittauksia hyväksytty välitettäväksi: %1$d</string>
+    <string name="http_destination_help">Jonossa olevat mittaukset pysyvät sidottuina alkuperäiseen palvelimeen. URL:n vaihtaminen keskeyttää lähetykset aiemmalle palvelimelle.</string>
+    <string name="http_privacy">HTTP-välitys on valinnainen ja oletuksena pois käytöstä. Kun se on käytössä, uudet mittaukset lähetetään määrittämällesi palvelimelle. Odottavat lähetykset tallennetaan yksityisesti hyväksymiseen asti. Välitys ilman paikallista historiaa ei lisää mittauksia paikalliseen historiaan tai Health Connect -palveluun. Aiemmin tallennetut tiedot säilyvät.</string>
+    <string name="http_save_failed">Välitysasetuksia ei voitu tallentaa. Yritä uudelleen.</string>
+</resources>

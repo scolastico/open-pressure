@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="http_title">HTTP yönlendirme</string>
+    <string name="http_intro">Yeni ölçümleri JSON olarak sunucunuza gönderin. Yönlendirmeyi kapatmak için URL\'yi boş bırakın. Ölçümleri ve kimlik bilgilerini korumak için HTTPS kullanın.</string>
+    <string name="http_url">Sunucu URL\'si</string>
+    <string name="http_authorization">Authorization başlık değeri (isteğe bağlı)</string>
+    <string name="http_keep_local">Yeni ölçümleri yerel geçmişte tut</string>
+    <string name="http_passthrough_help">Yerel geçmiş kapalıyken yeni ölçümler, sunucu kabul edene kadar yalnızca geçici bir yükleme kuyruğunda kalır. Mevcut geçmiş korunur. Health Connect dışa aktarımı yerel geçmiş gerektirir.</string>
+    <string name="http_invalid">Geçerli bir HTTP(S) URL\'si ve tek satırlık Authorization değeri girin.</string>
+    <string name="http_status">Bu sunucu için bekleyen: %1$d</string>
+    <string name="http_retry">Bekleyen yüklemeleri yeniden dene</string>
+    <string name="http_failed">Bazı yüklemeler henüz kabul edilmedi. Otomatik olarak yeniden denenecekler.</string>
+    <string name="http_queued">Ölçüm yönlendirme kuyruğuna alındı</string>
+    <string name="http_saved">Yönlendirme ayarları kaydedildi</string>
+    <string name="http_import_count">Yönlendirme için kabul edilen yeni ölçümler: %1$d</string>
+    <string name="http_destination_help">Kuyruktaki ölçümler ilk sunucularına bağlı kalır. URL\'yi değiştirmek önceki sunucuya yüklemeleri duraklatır.</string>
+    <string name="http_privacy">HTTP yönlendirme isteğe bağlıdır ve varsayılan olarak kapalıdır. Açıldığında yeni ölçümler belirttiğiniz sunucuya gönderilir. Bekleyen yüklemeler kabul edilene kadar özel olarak saklanır. Yerel geçmiş olmadan yönlendirme, yerel geçmişe veya Health Connect\'e ölçüm eklemez. Önceden kaydedilmiş veriler korunur.</string>
+    <string name="http_save_failed">Yönlendirme ayarları kaydedilemedi. Lütfen tekrar deneyin.</string>
+</resources>

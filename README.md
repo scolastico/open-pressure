@@ -22,13 +22,15 @@ Known vendor-memory imports read all mapped user banks without resetting unread 
 
 Automatic X7 imports listen for changed record metadata in Bluetooth advertisements, then fetch history. Choose **Automatic import settings** to use visible-app listening (default), turn it off, enable a background notification, or use Android companion mode. Companion mode needs Android 12+, Bluetooth enabled and separate Android approval for each saved monitor. Background modes request notification permission on Android 13+; alerts show a count of new readings without pressure values. Android power management and cuff advertising affect when imports happen. See [automatic imports](docs/automatic-import.md).
 
-[Health Connect export](docs/health-connect.md) is optional and **off by default**. Choose your own bank, 1 or 2, and grant blood pressure write permission. Only that bank's eligible blood pressure readings are exported. Pulse, AFib flags, notes and raw data stay local.
+[Health Connect export](docs/health-connect.md) is optional and **off by default**. Choose your own bank, 1 or 2, and grant blood pressure write permission. Only that bank's eligible blood pressure readings are exported through Health Connect; that export excludes pulse, AFib flags, notes and raw data.
+
+[HTTP forwarding](docs/http-forwarding.md), in **Devices → Advanced**, can send new measurements to your own HTTP(S) endpoint with an optional Authorization header value. It is off by default. Local history stays enabled unless you select passthrough; in that mode, a temporary upload queue retains readings until the server accepts them, without adding them to local history or Health Connect.
 
 The profile selection is shared between Overview and History and remembered when you reopen the app. The interface offers 52 language/region options; the name OpenPressure stays the same in every language. See [languages](docs/localization.md) for availability and translation review.
 
 ## Your data
 
-The app has no Internet permission, account, analytics or backend. Readings and snapshots stay in private app storage; saved pairing keys use Android Keystore. Android app backup and device transfer are disabled. Export anything you want to keep before uninstalling.
+The app needs no account and has no analytics or hosted backend. Readings and snapshots stay in private app storage by default; saved pairing keys use Android Keystore. Network access is used only for optional HTTP forwarding to the endpoint you configure. Android app backup and device transfer are disabled. Export anything you want to keep before uninstalling.
 
 Deleting a reading or using **Clear local history** affects this phone only. Clearing offers All users / User 1 / User 2 and confirms the number of readings across all dates. It keeps cuff memory and existing Health Connect copies. Automatic imports respect local deletions recorded by current versions; a deliberate manual history import can restore those readings. Saved monitors, keys and snapshots remain.
 

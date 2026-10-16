@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="http_title">HTTP 전달</string>
+    <string name="http_intro">새 측정값을 JSON으로 서버에 보냅니다. 전달을 끄려면 URL을 비워 두세요. 측정값과 인증 정보를 보호하려면 HTTPS를 사용하세요.</string>
+    <string name="http_url">서버 URL</string>
+    <string name="http_authorization">Authorization 헤더 값(선택 사항)</string>
+    <string name="http_keep_local">새 측정값을 로컬 기록에 보관</string>
+    <string name="http_passthrough_help">로컬 기록을 끄면 새 측정값은 서버가 수락할 때까지 임시 업로드 대기열에만 보관됩니다. 기존 기록은 유지됩니다. Health Connect 내보내기에는 로컬 기록이 필요합니다.</string>
+    <string name="http_invalid">유효한 HTTP(S) URL과 한 줄로 된 Authorization 값을 입력하세요.</string>
+    <string name="http_status">이 서버에 전송 대기 중: %1$d</string>
+    <string name="http_retry">대기 중인 업로드 다시 시도</string>
+    <string name="http_failed">일부 업로드가 아직 수락되지 않았습니다. 자동으로 다시 시도합니다.</string>
+    <string name="http_queued">측정값이 전달 대기열에 추가됨</string>
+    <string name="http_saved">전달 설정이 저장됨</string>
+    <string name="http_import_count">전달을 위해 접수된 새 측정값: %1$d</string>
+    <string name="http_destination_help">대기열의 측정값은 원래 서버에 계속 연결됩니다. URL을 변경하면 이전 서버로의 업로드가 일시 중지됩니다.</string>
+    <string name="http_privacy">HTTP 전달은 선택 사항이며 기본적으로 꺼져 있습니다. 켜면 새 측정값이 지정한 서버로 전송됩니다. 대기 중인 업로드는 수락될 때까지 비공개로 저장됩니다. 로컬 기록 없이 전달하면 로컬 기록이나 Health Connect에 측정값이 추가되지 않습니다. 이전에 저장한 데이터는 유지됩니다.</string>
+    <string name="http_save_failed">전달 설정을 저장할 수 없습니다. 다시 시도하세요.</string>
+</resources>

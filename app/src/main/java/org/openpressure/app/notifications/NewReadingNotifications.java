@@ -51,8 +51,8 @@ public final class NewReadingNotifications {
         return channel==null || channel.getImportance()!=NotificationManager.IMPORTANCE_NONE;
     }
 
-    public static void show(Context context,int count) {
-        if(count<=0) return;
+    public static void show(Context context,int stored,int queued) {
+        if(stored<=0 && queued<=0) return;
         try {
             createChannel(context);
             if(!enabled(context)) return;
@@ -62,7 +62,8 @@ public final class NewReadingNotifications {
                     .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP)
                     .putExtra(EXTRA_OPEN_HISTORY,true);
             PendingIntent open=PendingIntent.getActivity(context,NOTIFICATION_ID,intent,PendingIntent.FLAG_IMMUTABLE|PendingIntent.FLAG_UPDATE_CURRENT);
-            String text=context.getResources().getQuantityString(R.plurals.notice_readings_saved,count,count);
+            String text=stored>0?context.getResources().getQuantityString(R.plurals.notice_readings_saved,stored,stored):"";
+            if(queued>0) text+=(text.isEmpty()?"":"\n\n")+context.getString(R.string.http_import_count,queued);
             Notification publicVersion=new Notification.Builder(context,CHANNEL_ID)
                     .setSmallIcon(R.drawable.ic_pressure)
                     .setContentTitle(context.getString(R.string.notice_app_name))

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="http_title">Redirecționare HTTP</string>
+    <string name="http_intro">Trimiteți măsurători noi ca JSON către serverul dvs. Lăsați URL-ul gol pentru a opri redirecționarea. Folosiți HTTPS pentru a proteja măsurătorile și datele de autentificare.</string>
+    <string name="http_url">URL-ul serverului</string>
+    <string name="http_authorization">Valoarea antetului Authorization (opțional)</string>
+    <string name="http_keep_local">Păstrați măsurătorile noi în istoricul local</string>
+    <string name="http_passthrough_help">Când istoricul local este oprit, măsurătorile noi rămân doar într-o coadă temporară de încărcare până când serverul le acceptă. Istoricul existent se păstrează. Exportul în Health Connect necesită istoric local.</string>
+    <string name="http_invalid">Introduceți un URL HTTP(S) valid și o valoare Authorization pe o singură linie.</string>
+    <string name="http_status">În așteptare pentru acest server: %1$d</string>
+    <string name="http_retry">Reîncercați încărcările în așteptare</string>
+    <string name="http_failed">Unele încărcări nu au fost încă acceptate. Vor fi reîncercate automat.</string>
+    <string name="http_queued">Măsurătoare pusă în coada de redirecționare</string>
+    <string name="http_saved">Setările de redirecționare au fost salvate</string>
+    <string name="http_import_count">Măsurători noi acceptate pentru redirecționare: %1$d</string>
+    <string name="http_destination_help">Măsurătorile din coadă rămân asociate serverului original. Schimbarea URL-ului întrerupe încărcările către serverul anterior.</string>
+    <string name="http_privacy">Redirecționarea HTTP este opțională și oprită implicit. Când este activată, măsurătorile noi sunt trimise serverului specificat. Încărcările în așteptare sunt stocate privat până la acceptare. Redirecționarea fără istoric local nu adaugă măsurători în istoricul local sau în Health Connect. Datele salvate anterior se păstrează.</string>
+    <string name="http_save_failed">Setările de redirecționare nu au putut fi salvate. Încercați din nou.</string>
+</resources>

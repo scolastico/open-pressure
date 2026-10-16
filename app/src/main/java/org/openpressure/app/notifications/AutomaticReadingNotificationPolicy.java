@@ -1,6 +1,6 @@
 package org.openpressure.app.notifications;
 
-/** Counts locally inserted readings in a single automatic transfer. */
+/** Counts new readings accepted into history or the upload queue in a single automatic transfer. */
 public final class AutomaticReadingNotificationPolicy {
     private boolean automatic;
     private int inserted;

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="http_title">Пересилання через HTTP</string>
+    <string name="http_intro">Надсилайте нові вимірювання у форматі JSON на свій сервер. Залиште URL порожнім, щоб вимкнути пересилання. Використовуйте HTTPS для захисту вимірювань і облікових даних.</string>
+    <string name="http_url">URL сервера</string>
+    <string name="http_authorization">Значення заголовка Authorization (необов\'язково)</string>
+    <string name="http_keep_local">Зберігати нові вимірювання в локальній історії</string>
+    <string name="http_passthrough_help">Якщо локальну історію вимкнено, нові вимірювання залишаються лише в тимчасовій черзі надсилання, доки сервер їх не прийме. Наявна історія зберігається. Для експорту в Health Connect потрібна локальна історія.</string>
+    <string name="http_invalid">Введіть дійсний URL HTTP(S) і значення Authorization в один рядок.</string>
+    <string name="http_status">Очікують надсилання на цей сервер: %1$d</string>
+    <string name="http_retry">Повторити надсилання з черги</string>
+    <string name="http_failed">Деякі надсилання ще не прийнято. Спроби буде повторено автоматично.</string>
+    <string name="http_queued">Вимірювання додано в чергу пересилання</string>
+    <string name="http_saved">Налаштування пересилання збережено</string>
+    <string name="http_import_count">Нових вимірювань прийнято для пересилання: %1$d</string>
+    <string name="http_destination_help">Вимірювання в черзі залишаються пов\'язаними з початковим сервером. Зміна URL призупиняє надсилання на попередній сервер.</string>
+    <string name="http_privacy">Пересилання через HTTP необов\'язкове й типово вимкнене. Якщо його ввімкнено, нові вимірювання надсилаються на вказаний вами сервер. Дані в черзі зберігаються приватно до прийняття сервером. Пересилання без локальної історії не додає вимірювання в локальну історію або Health Connect. Раніше збережені дані залишаються.</string>
+    <string name="http_save_failed">Не вдалося зберегти налаштування пересилання. Спробуйте ще раз.</string>
+</resources>

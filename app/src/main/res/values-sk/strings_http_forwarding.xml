@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="http_title">Preposielanie cez HTTP</string>
+    <string name="http_intro">Posielajte nové merania ako JSON na svoj server. Preposielanie vypnete ponechaním prázdnej adresy URL. Používajte HTTPS na ochranu meraní a prihlasovacích údajov.</string>
+    <string name="http_url">URL servera</string>
+    <string name="http_authorization">Hodnota hlavičky Authorization (voliteľné)</string>
+    <string name="http_keep_local">Uchovávať nové merania v miestnej histórii</string>
+    <string name="http_passthrough_help">Keď je miestna história vypnutá, nové merania zostávajú iba v dočasnom rade na odoslanie, kým ich server neprijme. Existujúca história zostáva. Export do Health Connect vyžaduje miestnu históriu.</string>
+    <string name="http_invalid">Zadajte platnú adresu URL HTTP(S) a hodnotu Authorization v jednom riadku.</string>
+    <string name="http_status">Čaká pre tento server: %1$d</string>
+    <string name="http_retry">Znova skúsiť čakajúce odosielania</string>
+    <string name="http_failed">Niektoré odosielania ešte neboli prijaté. Automaticky sa zopakujú.</string>
+    <string name="http_queued">Meranie zaradené na preposlanie</string>
+    <string name="http_saved">Nastavenia preposielania uložené</string>
+    <string name="http_import_count">Nové merania prijaté na preposlanie: %1$d</string>
+    <string name="http_destination_help">Merania v rade zostávajú priradené pôvodnému serveru. Zmena URL pozastaví odosielanie na predchádzajúci server.</string>
+    <string name="http_privacy">Preposielanie cez HTTP je voliteľné a predvolene vypnuté. Po zapnutí sa nové merania posielajú na vami určený server. Čakajúce odosielania sa ukladajú súkromne až do prijatia. Preposielanie bez miestnej histórie nepridáva merania do miestnej histórie ani do Health Connect. Predtým uložené údaje zostávajú.</string>
+    <string name="http_save_failed">Nastavenia preposielania sa nepodarilo uložiť. Skúste to znova.</string>
+</resources>

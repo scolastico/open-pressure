@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="http_title">Ukudlulisela nge-HTTP</string>
+    <string name="http_intro">Thumela izilinganiso ezintsha njenge-JSON kuseva yakho. Shiya i-URL ingenalutho ukuze uvale ukudlulisela. Sebenzisa i-HTTPS ukuvikela izilinganiso nemininingwane yokungena.</string>
+    <string name="http_url">I-URL yeseva</string>
+    <string name="http_authorization">Inani lesihloko se-Authorization (uyazikhethela)</string>
+    <string name="http_keep_local">Gcina izilinganiso ezintsha emlandweni wasendaweni</string>
+    <string name="http_passthrough_help">Uma umlando wasendaweni uvaliwe, izilinganiso ezintsha zihlala kuphela emgqeni wesikhashana wokulayisha kuze kube iseva iyazamukela. Umlando okhona uyagcinwa. Ukuthekelisa ku-Health Connect kudinga umlando wasendaweni.</string>
+    <string name="http_invalid">Faka i-URL ye-HTTP(S) evumelekile nenani le-Authorization elisemgqeni owodwa.</string>
+    <string name="http_status">Okulindele le seva: %1$d</string>
+    <string name="http_retry">Zama futhi ukulayisha okulindile</string>
+    <string name="http_failed">Okunye ukulayisha akukamukelwa. Kuzozanywa futhi ngokuzenzakalelayo.</string>
+    <string name="http_queued">Isilinganiso sisemgqeni wokudlulisela</string>
+    <string name="http_saved">Izilungiselelo zokudlulisela zilondoloziwe</string>
+    <string name="http_import_count">Izilinganiso ezintsha ezamukelwe ukuze zidluliselwe: %1$d</string>
+    <string name="http_destination_help">Izilinganiso ezisemgqeni zihlala zabelwe iseva yazo yokuqala. Ukushintsha i-URL kumisa okwesikhashana ukulayisha kuseva yangaphambilini.</string>
+    <string name="http_privacy">Ukudlulisela nge-HTTP kuyazikhethela futhi kuvaliwe ekuqaleni. Uma kuvuliwe, izilinganiso ezintsha zithunyelwa kuseva oyishoyo. Ukulayisha okulindile kugcinwa ngasese kuze kwamukelwe. Ukudlulisela ngaphandle komlando wasendaweni akufaki izilinganiso emlandweni wasendaweni noma ku-Health Connect. Idatha eyayilondoloziwe iyagcinwa.</string>
+    <string name="http_save_failed">Izilungiselelo zokudlulisela azikwazanga ukulondolozwa. Sicela uzame futhi.</string>
+</resources>

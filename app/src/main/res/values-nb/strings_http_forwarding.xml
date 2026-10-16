@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="http_title">Videresending via HTTP</string>
+    <string name="http_intro">Send nye målinger som JSON til serveren din. La URL-feltet være tomt for å slå av videresending. Bruk HTTPS for å beskytte målinger og påloggingsopplysninger.</string>
+    <string name="http_url">Serverens URL</string>
+    <string name="http_authorization">Verdi for Authorization-header (valgfritt)</string>
+    <string name="http_keep_local">Behold nye målinger i lokal historikk</string>
+    <string name="http_passthrough_help">Når lokal historikk er av, blir nye målinger bare liggende i en midlertidig opplastingskø til serveren godtar dem. Eksisterende historikk beholdes. Eksport til Health Connect krever lokal historikk.</string>
+    <string name="http_invalid">Skriv inn en gyldig HTTP(S)-URL og en Authorization-verdi på én linje.</string>
+    <string name="http_status">Venter for denne serveren: %1$d</string>
+    <string name="http_retry">Prøv ventende opplastinger på nytt</string>
+    <string name="http_failed">Noen opplastinger er ikke godtatt ennå. De prøves på nytt automatisk.</string>
+    <string name="http_queued">Måling lagt i kø for videresending</string>
+    <string name="http_saved">Innstillinger for videresending lagret</string>
+    <string name="http_import_count">Nye målinger mottatt for videresending: %1$d</string>
+    <string name="http_destination_help">Målinger i kø forblir knyttet til den opprinnelige serveren. Endring av URL setter opplastinger til den forrige serveren på pause.</string>
+    <string name="http_privacy">Videresending via HTTP er valgfritt og av som standard. Når den er på, sendes nye målinger til serveren du angir. Ventende opplastinger lagres privat til de godtas. Videresending uten lokal historikk legger ikke målinger til i lokal historikk eller Health Connect. Tidligere lagrede data beholdes.</string>
+    <string name="http_save_failed">Kunne ikke lagre innstillingene for videresending. Prøv igjen.</string>
+</resources>

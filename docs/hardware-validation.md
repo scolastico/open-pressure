@@ -54,6 +54,12 @@ A result for companion **approval** alone is not evidence of background transfer
 
 Use a phone/provider with disposable or backed-up test records. Verify initial-off state, explicit bank selection, granted/denied/revoked permission, pressure/time/count, repeated export without duplicates, new imports while UI is closed and disabling a pending queue. Excluded banks, pulse, AFib, notes and raw data must remain absent. Local deletion/disable must retain existing provider copies. Test Android 9–13 provider permission flow and Android 14+ native flow when devices are available.
 
+## HTTP forwarding
+
+Use a receiver and synthetic/disposable measurements under your control. Verify the default is off and ordinary local imports are unchanged. Configure HTTPS and the required Authorization value, then compare user bank, original time, units, pressure, pulse and flags with the received JSON. Verify credentials, raw packets and notes are absent from payloads and diagnostics.
+
+Test local-history-on and passthrough separately. In passthrough, verify no new history, Health Connect rows or packet diagnostics are retained, while existing history and required safety backups stay intact. Lose network connectivity naturally, restart the app, restore connectivity and confirm queued delivery with the same idempotency key and cleanup only after a 2xx response. Confirm rejected authorization and redirects retain the queue. Change the URL and ensure old queued records are not rerouted; restore it to resume. Test clearing the URL, updating authorization, background scheduling and English/German/Arabic screens with large fonts. Do not send private health fixtures to a public test service.
+
 ## Other device families
 
 Repeat relevant steps per exact service layout, model and firmware. Standard BP, Optional Service RACP, UDS and time-characteristic behavior need actual captures before being marked tested. Verify explicit time writes by read-back or cuff inspection, including around midnight. STP and encrypted X7 require separate first-pair/saved-key/authentication tests. Other WLP maps remain blocked until independently implemented and reviewed; do not bypass model checks for a test.

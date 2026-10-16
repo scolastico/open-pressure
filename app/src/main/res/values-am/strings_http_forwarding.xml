@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="http_title">በHTTP ማስተላለፍ</string>
+    <string name="http_intro">አዲስ ልኬቶችን በJSON ቅርጽ ወደ አገልጋይዎ ይላኩ። ማስተላለፍን ለማጥፋት URLን ባዶ ይተዉ። ልኬቶችንና የመግቢያ መረጃዎችን ለመጠበቅ HTTPS ይጠቀሙ።</string>
+    <string name="http_url">የአገልጋይ URL</string>
+    <string name="http_authorization">የAuthorization ራስጌ እሴት (አማራጭ)</string>
+    <string name="http_keep_local">አዲስ ልኬቶችን በስልኩ ታሪክ ውስጥ ያስቀምጡ</string>
+    <string name="http_passthrough_help">የስልኩ ታሪክ ሲጠፋ፣ አዲስ ልኬቶች አገልጋዩ እስኪቀበላቸው ድረስ በጊዜያዊ የሰቀላ ወረፋ ብቻ ይቆያሉ። ያለው ታሪክ ይቀመጣል። ወደ Health Connect መላክ የስልኩን ታሪክ ይፈልጋል።</string>
+    <string name="http_invalid">ትክክለኛ የHTTP(S) URL እና አንድ መስመር ያለው የAuthorization እሴት ያስገቡ።</string>
+    <string name="http_status">ለዚህ አገልጋይ በመጠባበቅ ላይ፦ %1$d</string>
+    <string name="http_retry">በመጠባበቅ ላይ ያሉ ሰቀላዎችን እንደገና ይሞክሩ</string>
+    <string name="http_failed">አንዳንድ ሰቀላዎች ገና አልተቀበሉም። በራስ-ሰር እንደገና ይሞከራሉ።</string>
+    <string name="http_queued">ልኬቱ ለመላክ በወረፋ ተጨምሯል</string>
+    <string name="http_saved">የማስተላለፊያ ቅንብሮች ተቀምጠዋል</string>
+    <string name="http_import_count">ለማስተላለፍ የተቀበሉ አዲስ ልኬቶች፦ %1$d</string>
+    <string name="http_destination_help">በወረፋ ያሉ ልኬቶች ከመጀመሪያ አገልጋያቸው ጋር እንደተያያዙ ይቆያሉ። URLን መቀየር ወደ ቀድሞው አገልጋይ የሚደረጉ ሰቀላዎችን ለጊዜው ያቆማል።</string>
+    <string name="http_privacy">በHTTP ማስተላለፍ አማራጭ ሲሆን በመጀመሪያ ጠፍቶ ይቆያል። ሲበራ አዲስ ልኬቶች ወደ መረጡት አገልጋይ ይላካሉ። በመጠባበቅ ላይ ያሉ ሰቀላዎች እስኪቀበሉ ድረስ በግል ይቀመጣሉ። ያለ ስልክ ታሪክ ማስተላለፍ ልኬቶችን ወደ ስልኩ ታሪክ ወይም Health Connect አይጨምርም። ከዚህ በፊት የተቀመጡ ውሂቦች ይቆያሉ።</string>
+    <string name="http_save_failed">የማስተላለፊያ ቅንብሮችን ማስቀመጥ አልተቻለም። እንደገና ይሞክሩ።</string>
+</resources>

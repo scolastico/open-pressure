@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="http_title">HTTP ਰਾਹੀਂ ਅੱਗੇ ਭੇਜਣਾ</string>
+    <string name="http_intro">ਨਵੇਂ ਮਾਪ ਆਪਣੇ ਸਰਵਰ ਨੂੰ JSON ਵਜੋਂ ਭੇਜੋ। ਅੱਗੇ ਭੇਜਣਾ ਬੰਦ ਕਰਨ ਲਈ URL ਖਾਲੀ ਛੱਡੋ। ਮਾਪ ਅਤੇ ਲਾਗਇਨ ਜਾਣਕਾਰੀ ਸੁਰੱਖਿਅਤ ਰੱਖਣ ਲਈ HTTPS ਵਰਤੋ।</string>
+    <string name="http_url">ਸਰਵਰ ਦਾ URL</string>
+    <string name="http_authorization">Authorization ਹੈਡਰ ਦਾ ਮੁੱਲ (ਵਿਕਲਪਿਕ)</string>
+    <string name="http_keep_local">ਨਵੇਂ ਮਾਪ ਸਥਾਨਕ ਇਤਿਹਾਸ ਵਿੱਚ ਰੱਖੋ</string>
+    <string name="http_passthrough_help">ਸਥਾਨਕ ਇਤਿਹਾਸ ਬੰਦ ਹੋਣ ਉੱਤੇ ਨਵੇਂ ਮਾਪ ਸਿਰਫ਼ ਅਸਥਾਈ ਅੱਪਲੋਡ ਕਤਾਰ ਵਿੱਚ ਰਹਿੰਦੇ ਹਨ ਜਦੋਂ ਤੱਕ ਸਰਵਰ ਉਨ੍ਹਾਂ ਨੂੰ ਸਵੀਕਾਰ ਨਹੀਂ ਕਰਦਾ। ਮੌਜੂਦਾ ਇਤਿਹਾਸ ਰਹਿੰਦਾ ਹੈ। Health Connect ਵਿੱਚ ਨਿਰਯਾਤ ਲਈ ਸਥਾਨਕ ਇਤਿਹਾਸ ਲੋੜੀਂਦਾ ਹੈ।</string>
+    <string name="http_invalid">ਵੈਧ HTTP(S) URL ਅਤੇ ਇੱਕ ਲਾਈਨ ਦਾ Authorization ਮੁੱਲ ਦਾਖਲ ਕਰੋ।</string>
+    <string name="http_status">ਇਸ ਸਰਵਰ ਲਈ ਬਕਾਇਆ: %1$d</string>
+    <string name="http_retry">ਬਕਾਇਆ ਅੱਪਲੋਡ ਮੁੜ ਅਜ਼ਮਾਓ</string>
+    <string name="http_failed">ਕੁਝ ਅੱਪਲੋਡ ਅਜੇ ਸਵੀਕਾਰ ਨਹੀਂ ਹੋਏ। ਆਪਣੇ ਆਪ ਮੁੜ ਕੋਸ਼ਿਸ਼ ਕੀਤੀ ਜਾਵੇਗੀ।</string>
+    <string name="http_queued">ਮਾਪ ਅੱਗੇ ਭੇਜਣ ਦੀ ਕਤਾਰ ਵਿੱਚ ਹੈ</string>
+    <string name="http_saved">ਅੱਗੇ ਭੇਜਣ ਦੀਆਂ ਸੈਟਿੰਗਾਂ ਸੁਰੱਖਿਅਤ ਕੀਤੀਆਂ ਗਈਆਂ</string>
+    <string name="http_import_count">ਅੱਗੇ ਭੇਜਣ ਲਈ ਸਵੀਕਾਰ ਕੀਤੇ ਨਵੇਂ ਮਾਪ: %1$d</string>
+    <string name="http_destination_help">ਕਤਾਰ ਵਾਲੇ ਮਾਪ ਆਪਣੇ ਅਸਲ ਸਰਵਰ ਨਾਲ ਜੁੜੇ ਰਹਿੰਦੇ ਹਨ। URL ਬਦਲਣ ਨਾਲ ਪਿਛਲੇ ਸਰਵਰ ਦੇ ਅੱਪਲੋਡ ਰੁਕ ਜਾਂਦੇ ਹਨ।</string>
+    <string name="http_privacy">HTTP ਰਾਹੀਂ ਅੱਗੇ ਭੇਜਣਾ ਵਿਕਲਪਿਕ ਹੈ ਅਤੇ ਮੂਲ ਰੂਪ ਵਿੱਚ ਬੰਦ ਹੈ। ਚਾਲੂ ਹੋਣ ਉੱਤੇ ਨਵੇਂ ਮਾਪ ਤੁਹਾਡੇ ਦੱਸੇ ਸਰਵਰ ਨੂੰ ਭੇਜੇ ਜਾਂਦੇ ਹਨ। ਬਕਾਇਆ ਅੱਪਲੋਡ ਸਵੀਕਾਰ ਹੋਣ ਤੱਕ ਨਿੱਜੀ ਤੌਰ ਉੱਤੇ ਰੱਖੇ ਜਾਂਦੇ ਹਨ। ਸਥਾਨਕ ਇਤਿਹਾਸ ਤੋਂ ਬਿਨਾਂ ਅੱਗੇ ਭੇਜਣ ਨਾਲ ਸਥਾਨਕ ਇਤਿਹਾਸ ਜਾਂ Health Connect ਵਿੱਚ ਮਾਪ ਨਹੀਂ ਜੁੜਦੇ। ਪਹਿਲਾਂ ਸੁਰੱਖਿਅਤ ਡਾਟਾ ਰਹਿੰਦਾ ਹੈ।</string>
+    <string name="http_save_failed">ਅੱਗੇ ਭੇਜਣ ਦੀਆਂ ਸੈਟਿੰਗਾਂ ਸੁਰੱਖਿਅਤ ਨਹੀਂ ਹੋ ਸਕੀਆਂ। ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।</string>
+</resources>

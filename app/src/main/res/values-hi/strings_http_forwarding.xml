@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="http_title">HTTP फ़ॉरवर्डिंग</string>
+    <string name="http_intro">नए माप अपने सर्वर पर JSON के रूप में भेजें। फ़ॉरवर्डिंग बंद करने के लिए URL खाली छोड़ें। माप और लॉगिन जानकारी सुरक्षित रखने के लिए HTTPS इस्तेमाल करें।</string>
+    <string name="http_url">सर्वर URL</string>
+    <string name="http_authorization">Authorization हेडर का मान (वैकल्पिक)</string>
+    <string name="http_keep_local">नए माप स्थानीय इतिहास में रखें</string>
+    <string name="http_passthrough_help">स्थानीय इतिहास बंद होने पर नए माप केवल अस्थायी अपलोड कतार में रहते हैं, जब तक सर्वर उन्हें स्वीकार न करे। मौजूदा इतिहास बना रहता है। Health Connect में निर्यात के लिए स्थानीय इतिहास ज़रूरी है।</string>
+    <string name="http_invalid">मान्य HTTP(S) URL और एक पंक्ति में Authorization मान डालें।</string>
+    <string name="http_status">इस सर्वर के लिए लंबित: %1$d</string>
+    <string name="http_retry">लंबित अपलोड फिर आज़माएँ</string>
+    <string name="http_failed">कुछ अपलोड अभी स्वीकार नहीं हुए हैं। अपने आप फिर कोशिश की जाएगी।</string>
+    <string name="http_queued">माप फ़ॉरवर्डिंग कतार में जोड़ा गया</string>
+    <string name="http_saved">फ़ॉरवर्डिंग सेटिंग सहेजी गईं</string>
+    <string name="http_import_count">फ़ॉरवर्डिंग के लिए स्वीकार किए गए नए माप: %1$d</string>
+    <string name="http_destination_help">कतार में मौजूद माप अपने मूल सर्वर से जुड़े रहते हैं। URL बदलने पर पिछले सर्वर के अपलोड रुक जाते हैं।</string>
+    <string name="http_privacy">HTTP फ़ॉरवर्डिंग वैकल्पिक है और डिफ़ॉल्ट रूप से बंद है। चालू करने पर नए माप आपके बताए सर्वर को भेजे जाते हैं। लंबित अपलोड स्वीकार होने तक निजी तौर पर रखे जाते हैं। स्थानीय इतिहास के बिना फ़ॉरवर्डिंग से स्थानीय इतिहास या Health Connect में माप नहीं जुड़ते। पहले सहेजा गया डेटा बना रहता है।</string>
+    <string name="http_save_failed">फ़ॉरवर्डिंग सेटिंग सहेजी नहीं जा सकीं। फिर से कोशिश करें।</string>
+</resources>

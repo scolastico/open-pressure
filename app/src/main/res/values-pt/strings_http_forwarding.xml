@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="http_title">Encaminhamento HTTP</string>
+    <string name="http_intro">Envie novas medições como JSON para seu servidor. Deixe a URL vazia para desativar o encaminhamento. Use HTTPS para proteger as medições e as credenciais.</string>
+    <string name="http_url">URL do servidor</string>
+    <string name="http_authorization">Valor do cabeçalho Authorization (opcional)</string>
+    <string name="http_keep_local">Manter novas medições no histórico local</string>
+    <string name="http_passthrough_help">Com o histórico local desativado, as novas medições ficam apenas em uma fila temporária de envio até que o servidor as aceite. O histórico existente é mantido. A exportação para o Health Connect precisa do histórico local.</string>
+    <string name="http_invalid">Insira uma URL HTTP(S) válida e um valor de Authorization em uma única linha.</string>
+    <string name="http_status">Pendentes para este servidor: %1$d</string>
+    <string name="http_retry">Tentar novamente os envios pendentes</string>
+    <string name="http_failed">Alguns envios ainda não foram aceitos. Eles serão tentados novamente de forma automática.</string>
+    <string name="http_queued">Medição na fila de encaminhamento</string>
+    <string name="http_saved">Configurações de encaminhamento salvas</string>
+    <string name="http_import_count">Novas medições aceitas para encaminhamento: %1$d</string>
+    <string name="http_destination_help">As medições na fila continuam vinculadas ao servidor original. Alterar a URL pausa os envios para o servidor anterior.</string>
+    <string name="http_privacy">O encaminhamento HTTP é opcional e vem desativado. Quando ativado, novas medições são enviadas ao servidor que você indicar. Os envios pendentes são armazenados de forma privada até serem aceitos. O envio sem histórico local não adiciona medições ao histórico local nem ao Health Connect. Os dados já salvos são mantidos.</string>
+    <string name="http_save_failed">Não foi possível salvar as configurações de encaminhamento. Tente novamente.</string>
+</resources>

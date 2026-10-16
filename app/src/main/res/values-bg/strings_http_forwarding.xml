@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="http_title">Препращане по HTTP</string>
+    <string name="http_intro">Изпращайте нови измервания като JSON към своя сървър. Оставете URL празен, за да изключите препращането. Използвайте HTTPS за защита на измерванията и данните за достъп.</string>
+    <string name="http_url">URL на сървъра</string>
+    <string name="http_authorization">Стойност на заглавката Authorization (по избор)</string>
+    <string name="http_keep_local">Запазване на новите измервания в локалната история</string>
+    <string name="http_passthrough_help">При изключена локална история новите измервания остават само във временна опашка за качване, докато сървърът ги приеме. Съществуващата история се запазва. Експортирането в Health Connect изисква локална история.</string>
+    <string name="http_invalid">Въведете валиден HTTP(S) URL и стойност на Authorization на един ред.</string>
+    <string name="http_status">Чакащи за този сървър: %1$d</string>
+    <string name="http_retry">Повторен опит за чакащите качвания</string>
+    <string name="http_failed">Някои качвания още не са приети. Ще се опитат отново автоматично.</string>
+    <string name="http_queued">Измерването е в опашката за препращане</string>
+    <string name="http_saved">Настройките за препращане са запазени</string>
+    <string name="http_import_count">Нови измервания, приети за препращане: %1$d</string>
+    <string name="http_destination_help">Измерванията в опашката остават свързани с първоначалния си сървър. Промяната на URL спира временно качванията към предишния сървър.</string>
+    <string name="http_privacy">Препращането по HTTP е по избор и е изключено по подразбиране. Когато е включено, новите измервания се изпращат към посочения сървър. Чакащите качвания се съхраняват поверително до приемането им. Препращането без локална история не добавя измервания в локалната история или Health Connect. Запазените по-рано данни остават.</string>
+    <string name="http_save_failed">Настройките за препращане не можаха да бъдат запазени. Опитайте отново.</string>
+</resources>

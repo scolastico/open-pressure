@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="http_title">HTTP ফরওয়ার্ডিং</string>
+    <string name="http_intro">নতুন মাপ JSON হিসেবে আপনার সার্ভারে পাঠান। ফরওয়ার্ডিং বন্ধ করতে URL খালি রাখুন। মাপ ও লগইন তথ্য সুরক্ষিত রাখতে HTTPS ব্যবহার করুন।</string>
+    <string name="http_url">সার্ভারের URL</string>
+    <string name="http_authorization">Authorization হেডারের মান (ঐচ্ছিক)</string>
+    <string name="http_keep_local">নতুন মাপ স্থানীয় ইতিহাসে রাখুন</string>
+    <string name="http_passthrough_help">স্থানীয় ইতিহাস বন্ধ থাকলে নতুন মাপ শুধু অস্থায়ী আপলোড সারিতে থাকে, যতক্ষণ না সার্ভার সেগুলি গ্রহণ করে। আগের ইতিহাস থাকে। Health Connect-এ রপ্তানি করতে স্থানীয় ইতিহাস প্রয়োজন।</string>
+    <string name="http_invalid">বৈধ HTTP(S) URL এবং এক লাইনের Authorization মান লিখুন।</string>
+    <string name="http_status">এই সার্ভারের জন্য অপেক্ষমাণ: %1$d</string>
+    <string name="http_retry">অপেক্ষমাণ আপলোড আবার চেষ্টা করুন</string>
+    <string name="http_failed">কিছু আপলোড এখনও গৃহীত হয়নি। স্বয়ংক্রিয়ভাবে আবার চেষ্টা করা হবে।</string>
+    <string name="http_queued">মাপ ফরওয়ার্ডিং সারিতে রাখা হয়েছে</string>
+    <string name="http_saved">ফরওয়ার্ডিং সেটিংস সংরক্ষিত হয়েছে</string>
+    <string name="http_import_count">ফরওয়ার্ডিংয়ের জন্য গৃহীত নতুন মাপ: %1$d</string>
+    <string name="http_destination_help">সারিতে থাকা মাপগুলি তাদের মূল সার্ভারের সঙ্গেই যুক্ত থাকে। URL বদলালে আগের সার্ভারে আপলোড স্থগিত হয়।</string>
+    <string name="http_privacy">HTTP ফরওয়ার্ডিং ঐচ্ছিক এবং শুরুতে বন্ধ থাকে। চালু করলে নতুন মাপ আপনার নির্দিষ্ট সার্ভারে পাঠানো হয়। অপেক্ষমাণ আপলোড গৃহীত না হওয়া পর্যন্ত ব্যক্তিগতভাবে সংরক্ষিত থাকে। স্থানীয় ইতিহাস ছাড়া ফরওয়ার্ডিং স্থানীয় ইতিহাস বা Health Connect-এ মাপ যোগ করে না। আগে সংরক্ষিত তথ্য থাকে।</string>
+    <string name="http_save_failed">ফরওয়ার্ডিং সেটিংস সংরক্ষণ করা যায়নি। আবার চেষ্টা করুন।</string>
+</resources>

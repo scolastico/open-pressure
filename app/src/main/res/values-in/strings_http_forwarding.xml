@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="http_title">Penerusan HTTP</string>
+    <string name="http_intro">Kirim hasil pengukuran baru sebagai JSON ke server Anda. Kosongkan URL untuk menonaktifkan penerusan. Gunakan HTTPS untuk melindungi hasil pengukuran dan kredensial.</string>
+    <string name="http_url">URL server</string>
+    <string name="http_authorization">Nilai header Authorization (opsional)</string>
+    <string name="http_keep_local">Simpan hasil pengukuran baru di riwayat lokal</string>
+    <string name="http_passthrough_help">Jika riwayat lokal nonaktif, hasil pengukuran baru hanya berada dalam antrean unggah sementara sampai server menerimanya. Riwayat yang ada tetap tersimpan. Ekspor ke Health Connect memerlukan riwayat lokal.</string>
+    <string name="http_invalid">Masukkan URL HTTP(S) yang valid dan nilai Authorization dalam satu baris.</string>
+    <string name="http_status">Tertunda untuk server ini: %1$d</string>
+    <string name="http_retry">Coba lagi unggahan tertunda</string>
+    <string name="http_failed">Beberapa unggahan belum diterima. Unggahan akan dicoba lagi secara otomatis.</string>
+    <string name="http_queued">Hasil pengukuran masuk antrean penerusan</string>
+    <string name="http_saved">Pengaturan penerusan disimpan</string>
+    <string name="http_import_count">Hasil pengukuran baru yang diterima untuk diteruskan: %1$d</string>
+    <string name="http_destination_help">Hasil pengukuran dalam antrean tetap terkait dengan server asalnya. Mengubah URL menjeda unggahan ke server sebelumnya.</string>
+    <string name="http_privacy">Penerusan HTTP bersifat opsional dan nonaktif secara default. Saat aktif, hasil pengukuran baru dikirim ke server yang Anda tentukan. Unggahan tertunda disimpan secara privat sampai diterima. Penerusan tanpa riwayat lokal tidak menambahkan hasil pengukuran ke riwayat lokal atau Health Connect. Data yang tersimpan sebelumnya tetap ada.</string>
+    <string name="http_save_failed">Pengaturan penerusan tidak dapat disimpan. Coba lagi.</string>
+</resources>

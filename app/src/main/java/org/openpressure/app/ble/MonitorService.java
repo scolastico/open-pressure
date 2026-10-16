@@ -44,6 +44,7 @@ public final class MonitorService extends Service {
     public long readingsRevision;
     public long dumpRevision;
     public int user=1,consentCode=526,authenticatedUser=0,battery=-1,storedCount=-1,receivedInTransfer,addedInTransfer;
+    public int storedInTransfer,queuedInTransfer;
     public ProtocolProfile profile=ProtocolProfile.UNSUPPORTED;
     public final LinkedHashMap<String,Discovered> discovered=new LinkedHashMap<>();
     private final Set<Runnable> listeners=new HashSet<>();
@@ -360,7 +361,7 @@ public final class MonitorService extends Service {
         disconnect(); stopScan(); stopAutomaticScan();
         automaticConnection=attempt!=null; automaticAttempt=attempt;
         readingNotifications.begin(automaticConnection);
-        receivedInTransfer=0; addedInTransfer=0;
+        receivedInTransfer=0; addedInTransfer=0; storedInTransfer=0; queuedInTransfer=0;
         x7FreshBondEstablished=freshBond;
         address=target; connectedName=name; pairingRequested=pair; authenticatedUser=0; storedCount=-1; deviceTime="Not read"; information="";
         clockUpdate=ClockUpdate.NONE; sessionEndUnconfirmed=false;
@@ -403,7 +404,14 @@ public final class MonitorService extends Service {
         scheduleAutomaticRefresh();
     }
     private void notifyAutomaticReadings() {
-        NewReadingNotifications.show(this,readingNotifications.finish(visibleOwners.isEmpty()));
+        if(readingNotifications.finish(visibleOwners.isEmpty())>0)
+            NewReadingNotifications.show(this,storedInTransfer,queuedInTransfer);
+    }
+    private boolean acceptReading(BloodPressure reading,byte[] raw,String source,Integer bank,boolean automatic) {
+        ReadingStore.IngestionResult result=store.addResult(address,connectedName,reading,raw,source,bank,automatic);
+        if(result.stored) { storedInTransfer++; readingsRevision++; }
+        if(result.queued) queuedInTransfer++;
+        return result.accepted();
     }
     private void stopIdleService() {
         // Keep the single persistence owner alive across Activity recreation until its last save settles.
@@ -645,6 +653,7 @@ public final class MonitorService extends Service {
         try {
             vendorRead=new VendorWlpSession(vendorModel);
             vendorParsed=0; wlpRejected=0; storedCount=-1; receivedInTransfer=0; addedInTransfer=0; historyRunning=true;
+            storedInTransfer=0; queuedInTransfer=0;
             vendorClockAttempted=false; vendorClockPending=false; vendorClockResult="";
             clockUpdate=ClockUpdate.NONE; sessionEndUnconfirmed=false;
             state("Reading history…","Reading the verified model's history banks before an optional clock update and a single session end.");
@@ -687,7 +696,7 @@ public final class MonitorService extends Service {
                         BloodPressure reading=vendorModel.parse(raw,range.user);
                         if(reading!=null) {
                             receivedInTransfer++;
-                            if(store.add(address,connectedName,reading,raw,"vendor-history",range.user)) { addedInTransfer++; readingsRevision++; }
+                            if(acceptReading(reading,raw,"vendor-history",range.user,false)) addedInTransfer++;
                         }
                     } catch(IllegalArgumentException ex) {
                         wlpRejected++; store.packet(address,"vendor-record",raw,"Rejected "+vendorModel.id+" bank "+range.user+": "+ex.getMessage());
@@ -729,7 +738,7 @@ public final class MonitorService extends Service {
         vendorSessionEnded=ended; sessionFinished=true; ready=false; canHistory=false; canTime=false; historyRunning=false;
         storedCount=receivedInTransfer;
         state(wlpRejected==0?"History transfer complete":"History transfer incomplete",
-            addedInTransfer+" new readings saved · "+receivedInTransfer+" decoded · "+wlpRejected+" rejected slots. Erased slots were skipped. "+vendorClockResult+
+            addedInTransfer+" new readings accepted · "+receivedInTransfer+" decoded · "+wlpRejected+" rejected slots. Erased slots were skipped. "+vendorClockResult+
             (ended?" The monitor acknowledged END.":" Session END was not acknowledged.")+" Reconnect for another transfer.");
     }
 
@@ -891,7 +900,7 @@ public final class MonitorService extends Service {
                         X7Record record=X7Record.parse(raw,bank);
                         if(record!=null) {
                             receivedInTransfer++;
-                            if(store.add(address,connectedName,record.measurement,raw,"wlp-history",bank,automaticConnection)) { addedInTransfer++; readingsRevision++; readingNotifications.readingInserted(); }
+                            if(acceptReading(record.measurement,raw,"wlp-history",bank,automaticConnection)) { addedInTransfer++; readingNotifications.readingInserted(); }
                         } else { wlpRejected++; store.packet(address,"wlp-record",raw,"Erased slot inside populated bank "+bank+" slot "+slot); }
                     } catch(IllegalArgumentException ex) { wlpRejected++; store.packet(address,"wlp-record",raw,"Rejected bank "+bank+" slot "+slot+": "+ex.getMessage()); }
                 }
@@ -921,7 +930,7 @@ public final class MonitorService extends Service {
                     }
                     historyRunning=false;
                     notifyAutomaticReadings();
-                    state(wlpRejected==0 && receivedInTransfer==storedCount?"History transfer complete":"History transfer incomplete",addedInTransfer+" new readings saved · "+receivedInTransfer+" / "+storedCount+" decoded · "+wlpRejected+" rejected slots. Device counters were retained. The cuff acknowledged END; wake and reconnect it for another transfer.");
+                    state(wlpRejected==0 && receivedInTransfer==storedCount?"History transfer complete":"History transfer incomplete",addedInTransfer+" new readings accepted · "+receivedInTransfer+" / "+storedCount+" decoded · "+wlpRejected+" rejected slots. Device counters were retained. The cuff acknowledged END; wake and reconnect it for another transfer.");
                 }
                 if(automaticConnection) {
                     long session=generation;
@@ -1085,6 +1094,7 @@ public final class MonitorService extends Service {
             if(!x7ReadReady()) return;
             if(firstSequence!=-1) { state("Read populated records","X7 imports use the current index for both users without changing counters."); return; }
             historyRunning=true; receivedInTransfer=0; addedInTransfer=0; storedCount=-1; wlpParsed=0; wlpRejected=0;
+            storedInTransfer=0; queuedInTransfer=0;
             x7HistoryIndex=null; x7HistoryRanges=Collections.emptyList(); x7HistoryRange=0; x7HistoryRangeOffset=0;
             beginWlpRead(X7MemoryIndex.SETTINGS_START,X7MemoryIndex.SETTINGS_BYTES);
             return;
@@ -1092,6 +1102,7 @@ public final class MonitorService extends Service {
         if(hasUserControl && authenticatedUser!=user) { state("Authenticate first","Authenticate the selected monitor user before reading history."); return; }
         if(firstSequence < -1 || firstSequence>65535) { state("Invalid sequence","Use All records or a number from 0 to 65535."); return; }
         minimumSequence=firstSequence; historyRunning=true; receivedInTransfer=0; addedInTransfer=0; storedCount=-1;
+        storedInTransfer=0; queuedInTransfer=0;
         transfer.begin();
         state("Counting stored readings…","Readings are saved as they arrive; device memory is retained.");
         responseWrite(racp,firstSequence<0?Commands.countAll():Commands.countFrom(firstSequence),45000,"History count timed out; transfer incomplete");
@@ -1149,13 +1160,14 @@ public final class MonitorService extends Service {
             try {
                 BloodPressure bp=BloodPressure.parse(bytes);
                 Integer fallback=authenticatedUser>0?authenticatedUser:null;
-                boolean added=store.add(address,connectedName,bp,bytes,historyRunning?"history":"bluetooth",fallback);
-                if(added) readingsRevision++;
+                boolean added=acceptReading(bp,bytes,historyRunning?"history":"bluetooth",fallback,false);
                 if(historyRunning) { transfer.measurement(true,added); updateTransferCounters(); armPhase(45000,"History stalled; partial readings were retained"); }
                 changed();
             } catch(IllegalArgumentException ex) {
                 if(historyRunning) { transfer.measurement(false,false); updateTransferCounters(); armPhase(45000,"History stalled; partial readings were retained"); }
                 state("Unrecognized reading","Packet saved in diagnostics: "+ex.getMessage());
+            } catch(android.database.sqlite.SQLiteException ex) {
+                fail("Could not retain the reading in local history or the upload queue. Free storage and reconnect to retry.");
             }
         } else if(c.equals(racp) && historyRunning) handleHistory(bytes);
     }

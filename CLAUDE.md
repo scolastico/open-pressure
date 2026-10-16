@@ -16,6 +16,7 @@ the user's decision. Also read `~/.claude/CLAUDE.md`.
 - Read the relevant feature guides: [usage](docs/usage.md),
   [automatic imports](docs/automatic-import.md),
   [Health Connect](docs/health-connect.md) and [localization](docs/localization.md).
+- Before network or passthrough changes, read [HTTP forwarding](docs/http-forwarding.md).
 
 Use current guides for implementation decisions. Original supplied notes under
 `docs/reference/decompilation/` remain verbatim; put corrections in maintained
@@ -53,7 +54,12 @@ tests does not prove that a command is safe for physical hardware.
   memory or existing Health Connect copies.
 - Health Connect stays optional, off by default and limited to the selected bank
   and documented BP fields, with write-only permission and stable retry identity.
-  Preserve the app's local-only design and lack of Internet permission/backend.
+  Keep network forwarding off by default and restricted to the user's explicitly
+  configured HTTP(S) destination. Preserve the temporary upload queue, destination
+  binding, acknowledgment-based cleanup and hash-only delivery receipts. Never
+  log/export Authorization values or include them in measurement payloads. In
+  passthrough mode, do not retain new readings in history, Health Connect or raw
+  packet diagnostics; existing history and explicit safety backups remain intact.
 - Put user-facing text in localized resources, preserve placeholders/plurals and
   invariant product names, and check long text, larger fonts and RTL presentation.
   Explain user choices in plain language; protocol internals belong in technical

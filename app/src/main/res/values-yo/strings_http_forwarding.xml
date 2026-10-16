@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="http_title">Fífi ránṣẹ́ nípasẹ̀ HTTP</string>
+    <string name="http_intro">Fi àwọn ìwọ̀n tuntun ránṣẹ́ gẹ́gẹ́ bí JSON sí olupin rẹ. Fi URL sílẹ̀ ní òfo láti pa fífi ránṣẹ́. Lo HTTPS láti dáàbò bo àwọn ìwọ̀n àti ìsọfúnni ìwọlé.</string>
+    <string name="http_url">URL olupin</string>
+    <string name="http_authorization">Iye àkọlé Authorization (àṣàyàn)</string>
+    <string name="http_keep_local">Tọ́jú àwọn ìwọ̀n tuntun sínú ìtàn lórí fóònù</string>
+    <string name="http_passthrough_help">Tí ìtàn lórí fóònù bá wa ní pípa, àwọn ìwọ̀n tuntun yóò wà nínú ìlà ìgbésókè fún ìgbà díẹ̀ nìkan títí olupin yóò fi gbà wọ́n. Ìtàn tó wà tẹ́lẹ̀ yóò dúró. Fífi sí Health Connect nílò ìtàn lórí fóònù.</string>
+    <string name="http_invalid">Tẹ URL HTTP(S) tó tọ́ àti iye Authorization tó wà ní ìlà kan ṣoṣo sílẹ̀.</string>
+    <string name="http_status">Tó ń dúró de olupin yìí: %1$d</string>
+    <string name="http_retry">Tún gbìyànjú àwọn ìgbésókè tó ń dúró</string>
+    <string name="http_failed">A kò tíì gba àwọn ìgbésókè kan. Ètò náà yóò tún gbìyànjú wọn fúnra rẹ̀.</string>
+    <string name="http_queued">A ti fi ìwọ̀n sínú ìlà fífi ránṣẹ́</string>
+    <string name="http_saved">A ti fi àwọn ètò fífi ránṣẹ́ pamọ́</string>
+    <string name="http_import_count">Àwọn ìwọ̀n tuntun tí a gbà láti fi ránṣẹ́: %1$d</string>
+    <string name="http_destination_help">Àwọn ìwọ̀n tó wà ní ìlà yóò ṣì wà ní ìsopọ̀ pẹ̀lú olupin ìpilẹ̀ṣẹ̀ wọn. Yíyí URL padà dá ìgbésókè sí olupin tẹ́lẹ̀ dúró fún ìgbà díẹ̀.</string>
+    <string name="http_privacy">Fífi ránṣẹ́ nípasẹ̀ HTTP jẹ́ àṣàyàn, ó sì wa ní pípa ní ìbẹ̀rẹ̀. Tí o bá tàn án, a ó fi àwọn ìwọ̀n tuntun ránṣẹ́ sí olupin tí o yàn. A ó fi àwọn ìgbésókè tó ń dúró pamọ́ ní ìkọ̀kọ̀ títí a ó fi gbà wọ́n. Fífi ránṣẹ́ láìsí ìtàn lórí fóònù kò fi ìwọ̀n kún ìtàn lórí fóònù tàbí Health Connect. Dátà tí a ti fi pamọ́ tẹ́lẹ̀ yóò dúró.</string>
+    <string name="http_save_failed">A kò lè fi àwọn ètò fífi ránṣẹ́ pamọ́. Jọ̀wọ́ gbìyànjú lẹ́ẹ̀kan sí i.</string>
+</resources>

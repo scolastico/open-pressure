@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="http_title">Przekazywanie przez HTTP</string>
+    <string name="http_intro">Wysyłaj nowe pomiary jako JSON na swój serwer. Pozostaw pusty adres URL, aby wyłączyć przekazywanie. Używaj HTTPS, aby chronić pomiary i dane uwierzytelniające.</string>
+    <string name="http_url">Adres URL serwera</string>
+    <string name="http_authorization">Wartość nagłówka Authorization (opcjonalnie)</string>
+    <string name="http_keep_local">Zapisuj nowe pomiary w lokalnej historii</string>
+    <string name="http_passthrough_help">Gdy lokalna historia jest wyłączona, nowe pomiary pozostają tylko w tymczasowej kolejce wysyłania, aż serwer je zaakceptuje. Dotychczasowa historia pozostaje. Eksport do Health Connect wymaga lokalnej historii.</string>
+    <string name="http_invalid">Wpisz prawidłowy adres URL HTTP(S) i wartość Authorization w jednym wierszu.</string>
+    <string name="http_status">Oczekujące dla tego serwera: %1$d</string>
+    <string name="http_retry">Ponów oczekujące wysyłanie</string>
+    <string name="http_failed">Niektóre wysyłki nie zostały jeszcze zaakceptowane. Próby zostaną powtórzone automatycznie.</string>
+    <string name="http_queued">Pomiar dodano do kolejki przekazywania</string>
+    <string name="http_saved">Ustawienia przekazywania zapisane</string>
+    <string name="http_import_count">Nowe pomiary przyjęte do przekazania: %1$d</string>
+    <string name="http_destination_help">Pomiary w kolejce pozostają przypisane do pierwotnego serwera. Zmiana adresu URL wstrzymuje wysyłanie do poprzedniego serwera.</string>
+    <string name="http_privacy">Przekazywanie przez HTTP jest opcjonalne i domyślnie wyłączone. Po włączeniu nowe pomiary są wysyłane na wskazany serwer. Oczekujące wysyłki są przechowywane prywatnie do zaakceptowania. Przekazywanie bez lokalnej historii nie dodaje pomiarów do lokalnej historii ani do Health Connect. Zapisane wcześniej dane pozostają.</string>
+    <string name="http_save_failed">Nie udało się zapisać ustawień przekazywania. Spróbuj ponownie.</string>
+</resources>

@@ -6,11 +6,13 @@ Health Connect needs Android 9/API 28+ and an available provider; Android 9–13
 
 ## Data and privacy
 
-Only `android.permission.health.WRITE_BLOOD_PRESSURE` is requested. OpenPressure does not request health-record read permission, read existing Health Connect records, or delete provider copies. It has no Internet permission or backend. The privacy screen is available without enabling export or Bluetooth.
+Only `android.permission.health.WRITE_BLOOD_PRESSURE` is requested for Health Connect. OpenPressure does not request health-record read permission, read existing Health Connect records, or delete provider copies. The separate, off-by-default [HTTP forwarding](http-forwarding.md) feature uses network permission to reach a user-configured server; it is independent of Health Connect. The privacy screen is available without enabling export or Bluetooth.
 
 Exports contain systolic/diastolic pressure, measurement time/zone offset, source metadata and an opaque client record ID. kPa values convert to mmHg. Manual entries use manual-entry attribution; cuff records use actively-recorded attribution. Device type is SDK unknown rather than an invented category. Pulse, AFib flags, notes, raw packets, EEPROM data, guest/unknown users and unselected banks are excluded.
 
 Other apps may access or transfer Health Connect copies if separately authorized; their policies apply. Disabling export, deleting local readings or uninstalling OpenPressure retains existing provider copies. Manage those records and permissions in Health Connect.
+
+Passthrough HTTP forwarding does not insert new local history rows, so those measurements do not enter Health Connect. Previously stored eligible readings can still export when Health Connect remains enabled. Keeping local history and enabling both features sends eligible new readings through their independent export paths.
 
 ## Timestamp and value validation
 

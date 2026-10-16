@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="http_title">Vidarebefordran via HTTP</string>
+    <string name="http_intro">Skicka nya mätningar som JSON till din server. Lämna URL-fältet tomt för att stänga av vidarebefordran. Använd HTTPS för att skydda mätningar och inloggningsuppgifter.</string>
+    <string name="http_url">Serverns URL</string>
+    <string name="http_authorization">Värde för Authorization-headern (valfritt)</string>
+    <string name="http_keep_local">Spara nya mätningar i lokal historik</string>
+    <string name="http_passthrough_help">När lokal historik är avstängd finns nya mätningar bara i en tillfällig uppladdningskö tills servern godkänner dem. Befintlig historik finns kvar. Export till Health Connect kräver lokal historik.</string>
+    <string name="http_invalid">Ange en giltig HTTP(S)-URL och ett Authorization-värde på en enda rad.</string>
+    <string name="http_status">Väntar för den här servern: %1$d</string>
+    <string name="http_retry">Försök igen med väntande uppladdningar</string>
+    <string name="http_failed">Vissa uppladdningar har inte godkänts ännu. Nya försök görs automatiskt.</string>
+    <string name="http_queued">Mätning köad för vidarebefordran</string>
+    <string name="http_saved">Inställningar för vidarebefordran sparade</string>
+    <string name="http_import_count">Nya mätningar mottagna för vidarebefordran: %1$d</string>
+    <string name="http_destination_help">Köade mätningar förblir kopplade till sin ursprungliga server. Om du ändrar URL pausas uppladdningar till den tidigare servern.</string>
+    <string name="http_privacy">Vidarebefordran via HTTP är valfri och avstängd som standard. När den är på skickas nya mätningar till den server du anger. Väntande uppladdningar lagras privat tills de godkänns. Vidarebefordran utan lokal historik lägger inte till mätningar i lokal historik eller Health Connect. Tidigare sparade data finns kvar.</string>
+    <string name="http_save_failed">Det gick inte att spara inställningarna för vidarebefordran. Försök igen.</string>
+</resources>

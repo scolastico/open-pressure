@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="http_title">Пересылка по HTTP</string>
+    <string name="http_intro">Отправляйте новые измерения на свой сервер в формате JSON. Оставьте URL пустым, чтобы отключить пересылку. Используйте HTTPS для защиты измерений и учётных данных.</string>
+    <string name="http_url">URL сервера</string>
+    <string name="http_authorization">Значение заголовка Authorization (необязательно)</string>
+    <string name="http_keep_local">Сохранять новые измерения в локальной истории</string>
+    <string name="http_passthrough_help">Если локальная история отключена, новые измерения остаются только во временной очереди отправки, пока сервер их не примет. Существующая история сохраняется. Для экспорта в Health Connect нужна локальная история.</string>
+    <string name="http_invalid">Введите допустимый URL HTTP(S) и значение Authorization в одну строку.</string>
+    <string name="http_status">Ожидают отправки на этот сервер: %1$d</string>
+    <string name="http_retry">Повторить ожидающие отправки</string>
+    <string name="http_failed">Некоторые отправки ещё не приняты. Попытки будут повторены автоматически.</string>
+    <string name="http_queued">Измерение добавлено в очередь пересылки</string>
+    <string name="http_saved">Настройки пересылки сохранены</string>
+    <string name="http_import_count">Новых измерений принято для пересылки: %1$d</string>
+    <string name="http_destination_help">Измерения в очереди остаются привязаны к исходному серверу. Изменение URL приостанавливает отправку на предыдущий сервер.</string>
+    <string name="http_privacy">Пересылка по HTTP необязательна и по умолчанию отключена. Если она включена, новые измерения отправляются на указанный вами сервер. Данные в очереди хранятся в закрытом хранилище до приёма сервером. Пересылка без локальной истории не добавляет измерения в локальную историю или Health Connect. Ранее сохранённые данные остаются.</string>
+    <string name="http_save_failed">Не удалось сохранить настройки пересылки. Попробуйте ещё раз.</string>
+</resources>

@@ -10,7 +10,9 @@ import org.junit.runner.RunWith;
 import org.openpressure.app.R;
 import org.openpressure.app.automatic.AutoImportSettings;
 import org.openpressure.app.data.ReadingStore;
+import org.openpressure.app.data.ExperimentalConsent;
 import org.openpressure.app.data.VendorPairingKeys;
+import org.openpressure.app.forwarding.HttpForwardingSettings;
 import org.openpressure.app.ui.MonitorUi;
 import org.openpressure.protocol.*;
 import org.robolectric.Robolectric;
@@ -101,6 +103,51 @@ public class MonitorServiceImportTest {
         dataReply(last(),hex("088f000000000087"),false);
         assertImported();
         assertTrue(MonitorUi.detail(monitor,monitor).contains(monitor.getString(R.string.monitor_clock_failed)));
+    }
+    @Test public void passthroughQueuesBothBanksWithoutRetainingHistoryHealthExportsOrPackets() throws Exception {
+        String endpoint="https://example.invalid/measurements";
+        ExperimentalConsent.accept(monitor);
+        HttpForwardingSettings.save(monitor,endpoint,"Bearer synthetic-test-token",false);
+        pair(); readAllHistory(); writeDone(last(),0);
+        dataReply(last(),hex("088f000000000087"),false);
+        assertEquals("History transfer complete",monitor.status);
+        assertEquals(2,monitor.addedInTransfer); assertEquals(2,monitor.receivedInTransfer);
+        assertEquals(0,store.historyCount(0)); assertEquals(2,store.httpOutbox().count(endpoint));
+        assertTrue(store.healthPending(1,10).isEmpty()); assertTrue(store.healthPending(2,10).isEmpty());
+        assertEquals("received,device,characteristic,payload,note\n",store.diagnostics());
+        String detail=MonitorUi.detail(monitor,monitor);
+        assertTrue(detail.contains(monitor.getString(R.string.http_import_count,2)));
+        assertFalse(detail.contains(monitor.getResources().getQuantityString(R.plurals.monitor_readings_saved,2,2)));
+        assertFalse(detail.contains("synthetic-test-token"));
+        HttpForwardingSettings.save(monitor,endpoint,"",true);
+        assertEquals("A completed result must retain its actual storage outcome",detail,MonitorUi.detail(monitor,monitor));
+    }
+    @Test public void changingStoragePolicyDuringImportReportsActualSavedAndQueuedCounts() throws Exception {
+        String endpoint="https://example.invalid/measurements";
+        ExperimentalConsent.accept(monitor); HttpForwardingSettings.save(monitor,endpoint,"",true);
+        pair(); dataReply(last(),startReply(),false); dataReply(last(),historyReply(last().bytes),false);
+        HttpForwardingSettings.save(monitor,endpoint,"",false);
+        int reads=1;
+        while(last().characteristic.getService()==vendor && last().bytes.length==8 && last().bytes[1]==1) {
+            Write request=last(); dataReply(request,historyReply(request.bytes),reads++%2==0);
+        }
+        assertEquals(120,reads); writeDone(last(),0); dataReply(last(),hex("088f000000000087"),false);
+        assertEquals("History transfer complete",monitor.status);
+        assertEquals(1,store.historyCount(0)); assertEquals(2,store.httpOutbox().count(endpoint));
+        String detail=MonitorUi.detail(monitor,monitor);
+        assertTrue(detail.contains(monitor.getResources().getQuantityString(R.plurals.monitor_readings_saved,1,1)));
+        assertTrue(detail.contains(monitor.getString(R.string.http_import_count,2)));
+    }
+    @Test public void queueStorageFailureDuringStandardMeasurementDisconnectsWithoutClaimingSuccess() throws Exception {
+        String endpoint="https://example.invalid/measurements";
+        ExperimentalConsent.accept(monitor); HttpForwardingSettings.save(monitor,endpoint,"",false);
+        monitor.profile=ProtocolProfile.STANDARD_BP; monitor.ready=true; monitor.canHistory=true;
+        BluetoothGattService bp=new BluetoothGattService(Uuids.BP,BluetoothGattService.SERVICE_TYPE_PRIMARY);
+        BluetoothGattCharacteristic measurement=characteristic(bp,Uuids.MEASUREMENT,BluetoothGattCharacteristic.PROPERTY_INDICATE);
+        store.getWritableDatabase().execSQL("CREATE TRIGGER reject_upload BEFORE INSERT ON http_outbox BEGIN SELECT RAISE(ABORT,'synthetic storage failure'); END");
+        callback.onCharacteristicChanged(gatt,measurement,hex("00780050005d00")); idle();
+        assertEquals("Action failed",monitor.status); assertFalse(monitor.ready); assertFalse(monitor.canHistory);
+        assertEquals(0,store.historyCount(0)); assertEquals(0,store.httpOutbox().count(endpoint)); assertEquals(0,monitor.addedInTransfer);
     }
     @Test public void missingClockIsReportedAsSkippedWithoutAnyClockWrite() throws Exception {
         when(gatt.getService(Uuids.CTS)).thenReturn(null);

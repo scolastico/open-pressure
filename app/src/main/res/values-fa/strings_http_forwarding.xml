@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="http_title">ارسال از طریق HTTP</string>
+    <string name="http_intro">اندازه‌گیری‌های جدید را به‌صورت JSON به سرور خود بفرستید. برای خاموش کردن ارسال، نشانی URL را خالی بگذارید. برای محافظت از اندازه‌گیری‌ها و اطلاعات ورود از HTTPS استفاده کنید.</string>
+    <string name="http_url">نشانی URL سرور</string>
+    <string name="http_authorization">مقدار سربرگ Authorization (اختیاری)</string>
+    <string name="http_keep_local">نگهداری اندازه‌گیری‌های جدید در تاریخچه محلی</string>
+    <string name="http_passthrough_help">وقتی تاریخچه محلی خاموش است، اندازه‌گیری‌های جدید فقط در صف موقت بارگذاری می‌مانند تا سرور آن‌ها را بپذیرد. تاریخچه موجود حفظ می‌شود. خروجی به Health Connect به تاریخچه محلی نیاز دارد.</string>
+    <string name="http_invalid">یک نشانی معتبر HTTP(S) و مقدار تک‌خطی Authorization وارد کنید.</string>
+    <string name="http_status">در انتظار برای این سرور: %1$d</string>
+    <string name="http_retry">تلاش دوباره برای بارگذاری‌های معلق</string>
+    <string name="http_failed">برخی بارگذاری‌ها هنوز پذیرفته نشده‌اند. تلاش دوباره خودکار انجام می‌شود.</string>
+    <string name="http_queued">اندازه‌گیری در صف ارسال قرار گرفت</string>
+    <string name="http_saved">تنظیمات ارسال ذخیره شد</string>
+    <string name="http_import_count">اندازه‌گیری‌های جدید پذیرفته‌شده برای ارسال: %1$d</string>
+    <string name="http_destination_help">اندازه‌گیری‌های صف به سرور اصلی خود اختصاص دارند. تغییر URL بارگذاری به سرور قبلی را متوقف می‌کند.</string>
+    <string name="http_privacy">ارسال از طریق HTTP اختیاری و به‌طور پیش‌فرض خاموش است. در صورت فعال بودن، اندازه‌گیری‌های جدید به سروری که مشخص می‌کنید فرستاده می‌شوند. بارگذاری‌های معلق تا زمان پذیرش به‌صورت خصوصی ذخیره می‌شوند. ارسال بدون تاریخچه محلی، اندازه‌گیری‌ها را به تاریخچه محلی یا Health Connect اضافه نمی‌کند. داده‌های قبلی حفظ می‌شوند.</string>
+    <string name="http_save_failed">تنظیمات ارسال ذخیره نشد. دوباره تلاش کنید.</string>
+</resources>

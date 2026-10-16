@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="http_title">העברה באמצעות HTTP</string>
+    <string name="http_intro">שליחת מדידות חדשות כ־JSON לשרת שלך. כדי לכבות את ההעברה, יש להשאיר את כתובת ה־URL ריקה. יש להשתמש ב־HTTPS כדי להגן על המדידות ופרטי הגישה.</string>
+    <string name="http_url">כתובת URL של השרת</string>
+    <string name="http_authorization">ערך כותרת Authorization (לא חובה)</string>
+    <string name="http_keep_local">שמירת מדידות חדשות בהיסטוריה המקומית</string>
+    <string name="http_passthrough_help">כשההיסטוריה המקומית כבויה, מדידות חדשות נשמרות רק בתור העלאה זמני עד שהשרת מקבל אותן. ההיסטוריה הקיימת נשמרת. ייצוא אל Health Connect דורש היסטוריה מקומית.</string>
+    <string name="http_invalid">יש להזין כתובת URL תקינה מסוג HTTP(S) וערך Authorization בשורה אחת.</string>
+    <string name="http_status">בהמתנה לשרת זה: %1$d</string>
+    <string name="http_retry">ניסיון חוזר להעלאות ממתינות</string>
+    <string name="http_failed">חלק מההעלאות עדיין לא התקבלו. ניסיונות חוזרים יתבצעו אוטומטית.</string>
+    <string name="http_queued">המדידה נוספה לתור ההעברה</string>
+    <string name="http_saved">הגדרות ההעברה נשמרו</string>
+    <string name="http_import_count">מדידות חדשות שהתקבלו להעברה: %1$d</string>
+    <string name="http_destination_help">מדידות בתור נשארות משויכות לשרת המקורי שלהן. שינוי כתובת ה־URL משהה העלאות לשרת הקודם.</string>
+    <string name="http_privacy">העברה באמצעות HTTP היא לבחירה וכבויה כברירת מחדל. כשהיא מופעלת, מדידות חדשות נשלחות לשרת שהוגדר. העלאות ממתינות נשמרות באופן פרטי עד לקבלתן. העברה ללא היסטוריה מקומית אינה מוסיפה מדידות להיסטוריה המקומית או אל Health Connect. נתונים שכבר נשמרו נשארים.</string>
+    <string name="http_save_failed">לא ניתן לשמור את הגדרות ההעברה. יש לנסות שוב.</string>
+</resources>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="http_title">HTTP-továbbítás</string>
+    <string name="http_intro">Küldje az új méréseket JSON formátumban saját kiszolgálójára. A továbbítás kikapcsolásához hagyja üresen az URL-t. A mérések és a hitelesítő adatok védelméhez használjon HTTPS-t.</string>
+    <string name="http_url">Kiszolgáló URL-je</string>
+    <string name="http_authorization">Authorization fejléc értéke (nem kötelező)</string>
+    <string name="http_keep_local">Új mérések megőrzése a helyi előzményekben</string>
+    <string name="http_passthrough_help">Ha a helyi előzmények ki vannak kapcsolva, az új mérések csak egy ideiglenes feltöltési sorban maradnak, amíg a kiszolgáló elfogadja őket. A meglévő előzmények megmaradnak. A Health Connect exportjához helyi előzmények szükségesek.</string>
+    <string name="http_invalid">Adjon meg érvényes HTTP(S) URL-t és egysoros Authorization értéket.</string>
+    <string name="http_status">Függőben ennél a kiszolgálónál: %1$d</string>
+    <string name="http_retry">Függő feltöltések újrapróbálása</string>
+    <string name="http_failed">Néhány feltöltést még nem fogadott el a kiszolgáló. A rendszer automatikusan újrapróbálja őket.</string>
+    <string name="http_queued">Mérés továbbítási sorba állítva</string>
+    <string name="http_saved">Továbbítási beállítások mentve</string>
+    <string name="http_import_count">Továbbításra elfogadott új mérések: %1$d</string>
+    <string name="http_destination_help">A sorban álló mérések az eredeti kiszolgálóhoz rendelve maradnak. Az URL módosítása szünetelteti a feltöltést a korábbi kiszolgálóra.</string>
+    <string name="http_privacy">A HTTP-továbbítás választható, és alapból ki van kapcsolva. Bekapcsolva az új méréseket az Ön által megadott kiszolgálóra küldi. A függő feltöltések az elfogadásig privát tárhelyen maradnak. A helyi előzmények nélküli továbbítás nem ad méréseket a helyi előzményekhez vagy a Health Connect adataihoz. A korábban mentett adatok megmaradnak.</string>
+    <string name="http_save_failed">Nem sikerült menteni a továbbítás beállításait. Próbálja újra.</string>
+</resources>

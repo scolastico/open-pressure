@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="http_title">HTTP 转发</string>
+    <string name="http_intro">将新的测量结果以 JSON 格式发送到你的服务器。将 URL 留空可关闭转发。请使用 HTTPS 保护测量结果和登录凭据。</string>
+    <string name="http_url">服务器 URL</string>
+    <string name="http_authorization">Authorization 标头值（可选）</string>
+    <string name="http_keep_local">将新的测量结果保留在本地历史记录中</string>
+    <string name="http_passthrough_help">关闭本地历史记录后，新的测量结果仅保存在临时上传队列中，直到服务器接受。现有历史记录会保留。导出到 Health Connect 需要本地历史记录。</string>
+    <string name="http_invalid">请输入有效的 HTTP(S) URL 和单行 Authorization 值。</string>
+    <string name="http_status">等待发送到此服务器：%1$d</string>
+    <string name="http_retry">重试待上传项目</string>
+    <string name="http_failed">部分上传尚未被接受。系统将自动重试。</string>
+    <string name="http_queued">测量结果已加入转发队列</string>
+    <string name="http_saved">转发设置已保存</string>
+    <string name="http_import_count">已接受用于转发的新测量结果：%1$d</string>
+    <string name="http_destination_help">队列中的测量结果仍分配给原服务器。更改 URL 会暂停向上一个服务器上传。</string>
+    <string name="http_privacy">HTTP 转发为可选功能，默认关闭。启用后，新的测量结果会发送到你指定的服务器。待上传数据会私密存储，直到被接受。仅转发模式不会将测量结果添加到本地历史记录或 Health Connect。先前保存的数据会保留。</string>
+    <string name="http_save_failed">无法保存转发设置。请重试。</string>
+</resources>

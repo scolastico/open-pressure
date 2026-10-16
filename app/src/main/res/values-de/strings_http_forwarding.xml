@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="http_title">HTTP-Weiterleitung</string>
+    <string name="http_intro">Sende neue Messwerte als JSON an deinen Server. Lass die URL leer, um die Weiterleitung auszuschalten. Verwende HTTPS, um Messwerte und Zugangsdaten zu schützen.</string>
+    <string name="http_url">Server-URL</string>
+    <string name="http_authorization">Wert des Authorization-Headers (optional)</string>
+    <string name="http_keep_local">Neue Messwerte im lokalen Verlauf speichern</string>
+    <string name="http_passthrough_help">Bei ausgeschaltetem lokalem Verlauf bleiben neue Messwerte nur in einer vorübergehenden Upload-Warteschlange, bis der Server sie annimmt. Der vorhandene Verlauf bleibt erhalten. Der Export zu Health Connect benötigt den lokalen Verlauf.</string>
+    <string name="http_invalid">Gib eine gültige HTTP(S)-URL und einen einzeiligen Authorization-Wert ein.</string>
+    <string name="http_status">Für diesen Server ausstehend: %1$d</string>
+    <string name="http_retry">Ausstehende Uploads erneut versuchen</string>
+    <string name="http_failed">Einige Uploads wurden noch nicht angenommen. Sie werden automatisch erneut versucht.</string>
+    <string name="http_queued">Messwert zur Weiterleitung vorgemerkt</string>
+    <string name="http_saved">Einstellungen zur Weiterleitung gespeichert</string>
+    <string name="http_import_count">Neue zur Weiterleitung angenommene Messwerte: %1$d</string>
+    <string name="http_destination_help">Vorgemerkte Messwerte bleiben ihrem ursprünglichen Server zugeordnet. Eine Änderung der URL pausiert Uploads an den vorherigen Server.</string>
+    <string name="http_privacy">Die HTTP-Weiterleitung ist optional und standardmäßig ausgeschaltet. Wenn sie eingeschaltet ist, werden neue Messwerte an den von dir angegebenen Server gesendet. Ausstehende Uploads werden bis zur Annahme privat gespeichert. Die reine Weiterleitung fügt dem lokalen Verlauf oder Health Connect keine Messwerte hinzu. Bereits gespeicherte Daten bleiben erhalten.</string>
+    <string name="http_save_failed">Die Einstellungen zur Weiterleitung konnten nicht gespeichert werden. Versuche es erneut.</string>
+</resources>

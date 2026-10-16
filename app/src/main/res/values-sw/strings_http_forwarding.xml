@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="http_title">Kutuma kwa HTTP</string>
+    <string name="http_intro">Tuma vipimo vipya kama JSON kwenye seva yako. Acha URL wazi ili kuzima utumaji. Tumia HTTPS kulinda vipimo na taarifa za kuingia.</string>
+    <string name="http_url">URL ya seva</string>
+    <string name="http_authorization">Thamani ya kichwa cha Authorization (hiari)</string>
+    <string name="http_keep_local">Hifadhi vipimo vipya katika historia ya ndani</string>
+    <string name="http_passthrough_help">Historia ya ndani ikizimwa, vipimo vipya hubaki tu kwenye foleni ya muda ya kupakia hadi seva ivikubali. Historia iliyopo hubaki. Kutuma kwa Health Connect kunahitaji historia ya ndani.</string>
+    <string name="http_invalid">Weka URL halali ya HTTP(S) na thamani ya Authorization ya mstari mmoja.</string>
+    <string name="http_status">Vinasubiri seva hii: %1$d</string>
+    <string name="http_retry">Jaribu tena upakiaji unaosubiri</string>
+    <string name="http_failed">Baadhi ya upakiaji haujakubaliwa bado. Utajaribiwa tena kiotomatiki.</string>
+    <string name="http_queued">Kipimo kimewekwa kwenye foleni ya kutuma</string>
+    <string name="http_saved">Mipangilio ya kutuma imehifadhiwa</string>
+    <string name="http_import_count">Vipimo vipya vilivyopokelewa ili kutumwa: %1$d</string>
+    <string name="http_destination_help">Vipimo kwenye foleni hubaki vimehusishwa na seva yake ya awali. Kubadili URL husitisha upakiaji kwenye seva ya awali.</string>
+    <string name="http_privacy">Kutuma kwa HTTP ni hiari na kumezimwa mwanzoni. Kukiwashwa, vipimo vipya hutumwa kwenye seva unayobainisha. Upakiaji unaosubiri huhifadhiwa kwa faragha hadi ukubaliwe. Kutuma bila historia ya ndani hakuongezi vipimo kwenye historia ya ndani au Health Connect. Data iliyohifadhiwa awali hubaki.</string>
+    <string name="http_save_failed">Mipangilio ya kutuma haikuweza kuhifadhiwa. Jaribu tena.</string>
+</resources>

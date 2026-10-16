@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="http_title">HTTP ଫରୱାର୍ଡିଂ</string>
+    <string name="http_intro">ନୂଆ ମାପଗୁଡ଼ିକୁ JSON ଭାବରେ ଆପଣଙ୍କ ସର୍ଭରକୁ ପଠାନ୍ତୁ। ଫରୱାର୍ଡିଂ ବନ୍ଦ କରିବାକୁ URL ଖାଲି ରଖନ୍ତୁ। ମାପ ଓ ଲଗଇନ୍ ତଥ୍ୟ ସୁରକ୍ଷିତ ରଖିବାକୁ HTTPS ବ୍ୟବହାର କରନ୍ତୁ।</string>
+    <string name="http_url">ସର୍ଭର URL</string>
+    <string name="http_authorization">Authorization ହେଡର୍ ମୂଲ୍ୟ (ବୈକଳ୍ପିକ)</string>
+    <string name="http_keep_local">ନୂଆ ମାପ ସ୍ଥାନୀୟ ଇତିହାସରେ ରଖନ୍ତୁ</string>
+    <string name="http_passthrough_help">ସ୍ଥାନୀୟ ଇତିହାସ ବନ୍ଦ ଥିଲେ ନୂଆ ମାପ କେବଳ ଅସ୍ଥାୟୀ ଅପଲୋଡ୍ ଧାଡ଼ିରେ ରହେ, ଯେପର୍ଯ୍ୟନ୍ତ ସର୍ଭର ଗ୍ରହଣ ନ କରେ। ପୂର୍ବ ଇତିହାସ ରହେ। Health Connect ରପ୍ତାନି ପାଇଁ ସ୍ଥାନୀୟ ଇତିହାସ ଦରକାର।</string>
+    <string name="http_invalid">ବୈଧ HTTP(S) URL ଏବଂ ଗୋଟିଏ ଧାଡ଼ିର Authorization ମୂଲ୍ୟ ଦିଅନ୍ତୁ।</string>
+    <string name="http_status">ଏହି ସର୍ଭର ପାଇଁ ବାକି: %1$d</string>
+    <string name="http_retry">ବାକି ଅପଲୋଡ୍ ପୁଣି ଚେଷ୍ଟା କରନ୍ତୁ</string>
+    <string name="http_failed">କିଛି ଅପଲୋଡ୍ ଏପର୍ଯ୍ୟନ୍ତ ଗ୍ରହଣ ହୋଇନାହିଁ। ସ୍ୱୟଂଚାଳିତ ଭାବରେ ପୁଣି ଚେଷ୍ଟା ହେବ।</string>
+    <string name="http_queued">ମାପ ଫରୱାର୍ଡିଂ ଧାଡ଼ିରେ ଯୋଡ଼ାଗଲା</string>
+    <string name="http_saved">ଫରୱାର୍ଡିଂ ସେଟିଂସ୍ ସଞ୍ଚୟ ହେଲା</string>
+    <string name="http_import_count">ଫରୱାର୍ଡିଂ ପାଇଁ ଗ୍ରହଣ ହୋଇଥିବା ନୂଆ ମାପ: %1$d</string>
+    <string name="http_destination_help">ଧାଡ଼ିରେ ଥିବା ମାପ ମୂଳ ସର୍ଭର ସହ ଯୋଡ଼ି ହୋଇ ରହେ। URL ବଦଳାଇଲେ ପୂର୍ବ ସର୍ଭରକୁ ଅପଲୋଡ୍ ଅଟକିଯାଏ।</string>
+    <string name="http_privacy">HTTP ଫରୱାର୍ଡିଂ ବୈକଳ୍ପିକ ଓ ପ୍ରଥମେ ବନ୍ଦ ଥାଏ। ଚାଲୁ କଲେ ନୂଆ ମାପ ଆପଣ ଦେଇଥିବା ସର୍ଭରକୁ ପଠାଯାଏ। ଗ୍ରହଣ ହେବା ଯାଏ ବାକି ଅପଲୋଡ୍ ବ୍ୟକ୍ତିଗତ ଭାବରେ ସଞ୍ଚୟ ହୁଏ। ସ୍ଥାନୀୟ ଇତିହାସ ବିନା ଫରୱାର୍ଡିଂ ସ୍ଥାନୀୟ ଇତିହାସ କିମ୍ବା Health Connect ରେ ମାପ ଯୋଡ଼େ ନାହିଁ। ପୂର୍ବରୁ ସଞ୍ଚିତ ତଥ୍ୟ ରହେ।</string>
+    <string name="http_save_failed">ଫରୱାର୍ଡିଂ ସେଟିଂସ୍ ସଞ୍ଚୟ ହୋଇପାରିଲା ନାହିଁ। ପୁଣି ଚେଷ୍ଟା କରନ୍ତୁ।</string>
+</resources>

@@ -16,7 +16,7 @@ For a fresh SDK, the optional helper downloads Google's command-line tools, acce
 bash tools/setup-sdk.sh /absolute/path/to/Android/Sdk
 ```
 
-The current dependencies are declared in the Gradle files: Android Gradle plugin 8.13.2, Kotlin 2.3.0, Health Connect 1.1.0, WorkManager 2.10.5 and coroutines 1.10.2. The wrapper and initial dependency setup require network access; the installed app itself has no Internet permission.
+The current dependencies are declared in the Gradle files: Android Gradle plugin 8.13.2, Kotlin 2.3.0, Health Connect 1.1.0, WorkManager 2.10.5 and coroutines 1.10.2. The wrapper and initial dependency setup require network access. The installed app has network permission for optional, off-by-default [HTTP forwarding](http-forwarding.md) to the user's configured endpoint.
 
 ## Checks
 
@@ -49,6 +49,8 @@ The protocol suite checks packet bounds/fields, SFLOAT and kPa, dates, manufactu
 
 These tests add test-only Robolectric and Mockito dependencies. The first run also downloads Robolectric's Android runtime; populate that runtime cache with an online test run before running offline. They simulate Android behavior and do not replace the phone/cuff and visual checks in the hardware guide.
 
+Forwarding tests use real SQLite and a loopback HTTP server with synthetic data. They exercise POST bodies/Authorization/idempotency, 2xx/error/redirect handling, restarts and retries, endpoint binding, schema v4-to-v5 preservation, transaction rollback, consent defaults, passthrough isolation, scheduling failure and cancellation. UI tests isolate WorkManager scheduling so they cannot dispatch real requests. Service tests cover passthrough callbacks and accurate stored/queued summaries, including a storage-policy change during an import. The receiver contract and pending-data policy are in [HTTP forwarding](http-forwarding.md).
+
 ### PDF rendering checks
 
 `PdfReportInstrumentation` is a native Android fixture runner with synthetic data only. It generates English, German and Arabic PDFs containing 121 records, mixed units, missing values and a note spanning several pages, then checks every page's orientation with Android's PDF renderer. On a dedicated test emulator, run:
@@ -76,6 +78,7 @@ Replace the emulator serial with your dedicated test device. The host check requ
 | `app/src/main/java/org/openpressure/app/data/` | Private SQLite storage, diagnostics, snapshots, exports and key wrapping |
 | `app/src/main/java/org/openpressure/app/automatic/` | Automatic import settings, services and companion presence |
 | `app/src/main/java/org/openpressure/app/health/` | Optional Health Connect preparation, outbox and workers |
+| `app/src/main/java/org/openpressure/app/forwarding/` | Optional HTTP destination/settings, measurement payloads, upload outbox and retry worker |
 | `app/src/main/java/org/openpressure/app/pdf/` | Immutable report selection, statistics and native PDF rendering |
 | `app/src/main/` | Native Android UI, manifest and localized resources |
 | `tools/` | Protocol/storage checks and optional SDK setup |

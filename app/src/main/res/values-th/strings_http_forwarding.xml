@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="http_title">การส่งต่อ HTTP</string>
+    <string name="http_intro">ส่งค่าที่วัดใหม่เป็น JSON ไปยังเซิร์ฟเวอร์ของคุณ เว้น URL ว่างไว้เพื่อปิดการส่งต่อ ใช้ HTTPS เพื่อปกป้องค่าที่วัดและข้อมูลเข้าสู่ระบบ</string>
+    <string name="http_url">URL ของเซิร์ฟเวอร์</string>
+    <string name="http_authorization">ค่าของส่วนหัว Authorization (ไม่บังคับ)</string>
+    <string name="http_keep_local">เก็บค่าที่วัดใหม่ในประวัติภายในเครื่อง</string>
+    <string name="http_passthrough_help">เมื่อปิดประวัติภายในเครื่อง ค่าที่วัดใหม่จะอยู่ในคิวอัปโหลดชั่วคราวเท่านั้นจนกว่าเซิร์ฟเวอร์จะยอมรับ ประวัติเดิมยังคงอยู่ การส่งออกไปยัง Health Connect ต้องมีประวัติภายในเครื่อง</string>
+    <string name="http_invalid">ป้อน URL แบบ HTTP(S) ที่ถูกต้องและค่า Authorization ในบรรทัดเดียว</string>
+    <string name="http_status">รอส่งไปยังเซิร์ฟเวอร์นี้: %1$d</string>
+    <string name="http_retry">ลองอัปโหลดรายการที่รออยู่อีกครั้ง</string>
+    <string name="http_failed">บางรายการยังไม่ได้รับการยอมรับ ระบบจะลองอัปโหลดอีกครั้งโดยอัตโนมัติ</string>
+    <string name="http_queued">เพิ่มค่าที่วัดในคิวส่งต่อแล้ว</string>
+    <string name="http_saved">บันทึกการตั้งค่าการส่งต่อแล้ว</string>
+    <string name="http_import_count">ค่าที่วัดใหม่ที่รับไว้เพื่อส่งต่อ: %1$d</string>
+    <string name="http_destination_help">ค่าที่วัดในคิวยังคงผูกกับเซิร์ฟเวอร์เดิม การเปลี่ยน URL จะหยุดการอัปโหลดไปยังเซิร์ฟเวอร์ก่อนหน้าชั่วคราว</string>
+    <string name="http_privacy">การส่งต่อ HTTP เป็นทางเลือกและปิดไว้โดยค่าเริ่มต้น เมื่อเปิด ค่าที่วัดใหม่จะส่งไปยังเซิร์ฟเวอร์ที่คุณระบุ รายการที่รออัปโหลดจะเก็บไว้เป็นส่วนตัวจนกว่าจะได้รับการยอมรับ การส่งต่อโดยไม่เก็บประวัติภายในเครื่องจะไม่เพิ่มค่าที่วัดในประวัติภายในเครื่องหรือ Health Connect ข้อมูลที่บันทึกไว้ก่อนหน้ายังคงอยู่</string>
+    <string name="http_save_failed">บันทึกการตั้งค่าการส่งต่อไม่ได้ โปรดลองอีกครั้ง</string>
+</resources>

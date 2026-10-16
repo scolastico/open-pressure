@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="http_title">HTTP फर्वार्डिङ</string>
+    <string name="http_intro">नयाँ मापनहरू JSON का रूपमा आफ्नो सर्भरमा पठाउनुहोस्। फर्वार्डिङ बन्द गर्न URL खाली छोड्नुहोस्। मापन र लगइन विवरण सुरक्षित राख्न HTTPS प्रयोग गर्नुहोस्।</string>
+    <string name="http_url">सर्भर URL</string>
+    <string name="http_authorization">Authorization हेडरको मान (वैकल्पिक)</string>
+    <string name="http_keep_local">नयाँ मापन स्थानीय इतिहासमा राख्नुहोस्</string>
+    <string name="http_passthrough_help">स्थानीय इतिहास बन्द हुँदा नयाँ मापनहरू सर्भरले स्वीकार नगरेसम्म अस्थायी अपलोड लाइनमा मात्र रहन्छन्। पुरानो इतिहास रहन्छ। Health Connect निर्यातका लागि स्थानीय इतिहास चाहिन्छ।</string>
+    <string name="http_invalid">मान्य HTTP(S) URL र एकै हरफको Authorization मान लेख्नुहोस्।</string>
+    <string name="http_status">यो सर्भरका लागि बाँकी: %1$d</string>
+    <string name="http_retry">बाँकी अपलोड फेरि प्रयास गर्नुहोस्</string>
+    <string name="http_failed">केही अपलोड अझै स्वीकार भएका छैनन्। स्वतः फेरि प्रयास गरिनेछ।</string>
+    <string name="http_queued">मापन फर्वार्डिङ लाइनमा राखियो</string>
+    <string name="http_saved">फर्वार्डिङ सेटिङ सुरक्षित भयो</string>
+    <string name="http_import_count">फर्वार्डिङका लागि स्वीकारिएका नयाँ मापन: %1$d</string>
+    <string name="http_destination_help">लाइनमा रहेका मापनहरू आफ्नै मूल सर्भरसँग जोडिइरहन्छन्। URL बदल्दा अघिल्लो सर्भरमा अपलोड रोकिन्छ।</string>
+    <string name="http_privacy">HTTP फर्वार्डिङ वैकल्पिक हो र सुरुमा बन्द हुन्छ। खुला हुँदा नयाँ मापन तपाईंले दिएको सर्भरमा पठाइन्छन्। बाँकी अपलोड स्वीकार नहुन्जेल निजी रूपमा राखिन्छन्। स्थानीय इतिहासबिनाको फर्वार्डिङले स्थानीय इतिहास वा Health Connect मा मापन थप्दैन। पहिले सुरक्षित गरिएका डाटा रहन्छन्।</string>
+    <string name="http_save_failed">फर्वार्डिङ सेटिङ सुरक्षित गर्न सकिएन। फेरि प्रयास गर्नुहोस्।</string>
+</resources>

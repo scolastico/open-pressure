@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="http_title">Videresendelse via HTTP</string>
+    <string name="http_intro">Send nye målinger som JSON til din server. Lad URL-feltet være tomt for at slå videresendelse fra. Brug HTTPS til at beskytte målinger og loginoplysninger.</string>
+    <string name="http_url">Serverens URL</string>
+    <string name="http_authorization">Værdi for Authorization-header (valgfrit)</string>
+    <string name="http_keep_local">Behold nye målinger i lokal historik</string>
+    <string name="http_passthrough_help">Når lokal historik er slået fra, findes nye målinger kun i en midlertidig uploadkø, indtil serveren accepterer dem. Eksisterende historik bevares. Eksport til Health Connect kræver lokal historik.</string>
+    <string name="http_invalid">Indtast en gyldig HTTP(S)-URL og en Authorization-værdi på én linje.</string>
+    <string name="http_status">Afventer for denne server: %1$d</string>
+    <string name="http_retry">Prøv ventende uploads igen</string>
+    <string name="http_failed">Nogle uploads er endnu ikke accepteret. De forsøges automatisk igen.</string>
+    <string name="http_queued">Måling sat i kø til videresendelse</string>
+    <string name="http_saved">Indstillinger for videresendelse gemt</string>
+    <string name="http_import_count">Nye målinger modtaget til videresendelse: %1$d</string>
+    <string name="http_destination_help">Målinger i kø forbliver knyttet til deres oprindelige server. Ændring af URL sætter uploads til den forrige server på pause.</string>
+    <string name="http_privacy">Videresendelse via HTTP er valgfri og slået fra som standard. Når den er slået til, sendes nye målinger til den server, du angiver. Ventende uploads gemmes privat, indtil de accepteres. Videresendelse uden lokal historik føjer ikke målinger til lokal historik eller Health Connect. Tidligere gemte data bevares.</string>
+    <string name="http_save_failed">Indstillingerne for videresendelse kunne ikke gemmes. Prøv igen.</string>
+</resources>

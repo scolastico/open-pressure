@@ -25,6 +25,7 @@ public final class HealthConnectPrivacyActivity extends Activity {
         paragraph(page,getString(R.string.health_privacy_choice));
         paragraph(page,getString(R.string.health_privacy_shared));
         paragraph(page,getString(R.string.health_privacy_other_apps));
+        paragraph(page,getString(R.string.http_privacy));
         paragraph(page,getString(R.string.health_privacy_delete));
         Button close=new Button(this); close.setText(getString(R.string.settings_close)); close.setAllCaps(false); close.setMinHeight(dp(50)); close.setOnClickListener(v -> finish()); page.addView(close);
     }

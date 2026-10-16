@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="http_title">Transfert HTTP</string>
+    <string name="http_intro">Envoyez les nouvelles mesures au format JSON à votre serveur. Laissez l\'URL vide pour désactiver le transfert. Utilisez HTTPS pour protéger les mesures et les identifiants.</string>
+    <string name="http_url">URL du serveur</string>
+    <string name="http_authorization">Valeur de l\'en-tête Authorization (facultatif)</string>
+    <string name="http_keep_local">Conserver les nouvelles mesures dans l\'historique local</string>
+    <string name="http_passthrough_help">Lorsque l\'historique local est désactivé, les nouvelles mesures restent uniquement dans une file d\'envoi temporaire jusqu\'à leur acceptation par le serveur. L\'historique existant est conservé. L\'exportation vers Health Connect nécessite l\'historique local.</string>
+    <string name="http_invalid">Saisissez une URL HTTP(S) valide et une valeur Authorization sur une seule ligne.</string>
+    <string name="http_status">En attente pour ce serveur : %1$d</string>
+    <string name="http_retry">Réessayer les envois en attente</string>
+    <string name="http_failed">Certains envois n\'ont pas encore été acceptés. Ils seront réessayés automatiquement.</string>
+    <string name="http_queued">Mesure mise en attente de transfert</string>
+    <string name="http_saved">Paramètres de transfert enregistrés</string>
+    <string name="http_import_count">Nouvelles mesures acceptées pour le transfert : %1$d</string>
+    <string name="http_destination_help">Les mesures en attente restent associées à leur serveur d\'origine. Modifier l\'URL suspend les envois vers le serveur précédent.</string>
+    <string name="http_privacy">Le transfert HTTP est facultatif et désactivé par défaut. Lorsqu\'il est activé, les nouvelles mesures sont envoyées au serveur que vous indiquez. Les envois en attente sont stockés de manière privée jusqu\'à leur acceptation. Le transfert sans historique local n\'ajoute aucune mesure à l\'historique local ni à Health Connect. Les données déjà enregistrées sont conservées.</string>
+    <string name="http_save_failed">Impossible d\'enregistrer les paramètres de transfert. Veuillez réessayer.</string>
+</resources>

@@ -136,7 +136,7 @@
     <string name="main_user_consent_explanation">选择在血压计上选择的用户并输入其同意代码。默认代码为 526。注册仅用于在血压计处于配对模式时设置新用户。</string>
     <string name="main_memory_read_explanation">将血压计内存的只读副本保存为 JSON。它可能包含健康和识别数据。新的副本将替换之前的本地内存导出。\n\n默认读取 0x0010 处的 68 字节设置，而不是完整内存或校准备份。其他范围可能不可用。</string>
     <string name="main_x7_register_explanation">检查您的血压计标签上是否写有 HEM-7380T1-EOSL。\n\n设置备份已保存。注册会更新所选用户和时钟，并可能会替换该用户之前的应用程序关联。现有的测量值、生日和其他设置将被保留。\n\n要在不注册的情况下阅读，请取消并使用 Connect。</string>
-    <string name="main_about_message">用于通过蓝牙导入血压测量值的独立应用程序。使用欧姆龙 X7 智能 AFib (HEM-7380T1-EOSL) 进行测试；其他血压计未经测试。不包括欧姆龙代码。\n\n测量结果保留在这部手机上。没有云帐户或互联网访问。可选的 Health Connect 导出需要您的许可。删除本地测量值不会删除现有的 Health Connect 副本。卸载前导出以保留您的数据。\n\n历史记录和内存导入是只读的。注册和时钟更改需要确认。高级选项包括内存和诊断导出，其中可能包含健康和识别数据。\n\n开始在血压计上进行测量。不规则脉搏标志不是 AFib 结果。</string>
+    <string name="main_about_message">用于通过蓝牙导入血压测量值的独立应用程序。使用欧姆龙 X7 智能 AFib (HEM-7380T1-EOSL) 进行测试；其他血压计未经测试。不包括欧姆龙代码。\n\n默认情况下，测量结果保存在此手机上。只有在你配置后，可选的 HTTP 转发才会将新的测量结果发送到你选择的服务器。关闭本地历史记录后，测量结果会在临时上传队列中等待，直到服务器接受。可选的 Health Connect 导出需要你的许可。删除本地测量结果不会删除 Health Connect 或外部服务器上的副本。请在卸载前导出以保留数据。\n\n历史记录和内存导入是只读的。注册和时钟更改需要确认。高级选项包括内存和诊断导出，其中可能包含健康和识别数据。\n\n开始在血压计上进行测量。不规则脉搏标志不是 AFib 结果。</string>
     <string name="main_clear_confirmation">要删除 %1$s 在所有日期的 %2$s 条测量记录及其备注吗？记录筛选条件不会缩小此次删除的范围。\n\n血压计内存中的数据和 Health Connect 中已有的副本会保留。已保存的血压计、配对、备份和设置也会保留。自动导入不会恢复已删除的测量记录；手动导入血压计的历史记录可以恢复这些记录。</string>
     <string name="main_battery">电池：%1$s</string>
     <string name="main_change_user">%1$s · 更改用户</string>
@@ -349,10 +349,10 @@
     <string name="health_unavailable">Health Connect 在此手机上不可用。</string>
     <string name="health_open_failed">无法打开 Health Connect。检查它是否已安装并且是最新的。</string>
     <string name="health_privacy_title">隐私和 Health Connect</string>
-    <string name="health_privacy_local">OpenPressure 在您的手机上存储您的测量结果和保存的血压监测仪数据。它没有帐户、服务器、互联网访问或分析。 Android 备份已禁用。</string>
+    <string name="health_privacy_local">默认情况下，OpenPressure 将测量结果和已保存的血压计数据私密存储在你的手机上。只有在你配置后，才可使用可选的 HTTP 转发。无需账户，也没有使用情况分析。Android 备份已禁用。</string>
     <string name="health_privacy_choice">Health Connect 导出是可选的，默认情况下处于关闭状态。您选择自己的血压计用户编号（1 或 2）并授予写入血压的权限。每个保存的血压监测仪中该用户的测量值都会导出到您的个人 Health Connect 记录中，包括现有和未来的测量值。访客测量以及没有有效日期和时间的测量将被跳过。</string>
     <string name="health_privacy_shared">仅导出收缩压和舒张压、测量时间和设备信息。血压计时间没有时区，因此首次导出时将使用并保存您手机的时区。不会导出脉搏、不规则心跳标记、注释和原始设备数据。 OpenPressure 不请求读取健康数据的权限，也不读取 Health Connect 记录。</string>
-    <string name="health_privacy_other_apps">OpenPressure 不会从您的手机发送任何数据。 Health Connect 将导出的副本存储在您的设备上。如果您通过 Health Connect 单独授予其他应用程序访问权限，则其他应用程序可以读取或传输这些副本。他们自己的隐私政策适用。</string>
+    <string name="health_privacy_other_apps">Health Connect 将导出的副本保存在你的设备上。如果你在 Health Connect 中授权，其他应用可以读取或传输这些副本，并适用其各自的隐私政策。OpenPressure 的可选 HTTP 转发会将新的测量结果发送到你选择的服务器，并适用该服务器的隐私政策。</string>
     <string name="health_privacy_delete">您可以在 OpenPressure 中关闭未来的导出。关闭导出、删除本地测量或卸载 OpenPressure 不会删除现有的 Health Connect 副本。使用Health Connect来管理其记录并撤销权限。卸载 OpenPressure 将删除其本地测量值和保存的血压监测仪数据。如果您想保留本地数据，请先将其导出。</string>
     <string name="settings_close">关闭此屏幕</string>
     <string name="settings_auto_change_failed">无法更改自动导入。尝试另一个选择。</string>

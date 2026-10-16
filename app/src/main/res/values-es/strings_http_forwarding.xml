@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="http_title">Reenvío HTTP</string>
+    <string name="http_intro">Envía nuevas mediciones como JSON a tu servidor. Deja la URL vacía para desactivar el reenvío. Usa HTTPS para proteger las mediciones y las credenciales.</string>
+    <string name="http_url">URL del servidor</string>
+    <string name="http_authorization">Valor de la cabecera Authorization (opcional)</string>
+    <string name="http_keep_local">Guardar nuevas mediciones en el historial local</string>
+    <string name="http_passthrough_help">Con el historial local desactivado, las nuevas mediciones permanecen solo en una cola temporal de envío hasta que el servidor las acepta. El historial existente se conserva. La exportación a Health Connect necesita el historial local.</string>
+    <string name="http_invalid">Introduce una URL HTTP(S) válida y un valor de Authorization de una sola línea.</string>
+    <string name="http_status">Pendientes para este servidor: %1$d</string>
+    <string name="http_retry">Reintentar envíos pendientes</string>
+    <string name="http_failed">Algunos envíos aún no se han aceptado. Se reintentarán automáticamente.</string>
+    <string name="http_queued">Medición en cola para el reenvío</string>
+    <string name="http_saved">Ajustes de reenvío guardados</string>
+    <string name="http_import_count">Nuevas mediciones aceptadas para el reenvío: %1$d</string>
+    <string name="http_destination_help">Las mediciones en cola siguen asignadas a su servidor original. Cambiar la URL pausa los envíos al servidor anterior.</string>
+    <string name="http_privacy">El reenvío HTTP es opcional y está desactivado de forma predeterminada. Al activarlo, las nuevas mediciones se envían al servidor que indiques. Los envíos pendientes se almacenan de forma privada hasta que se aceptan. El envío sin historial local no añade mediciones al historial local ni a Health Connect. Los datos ya guardados se conservan.</string>
+    <string name="http_save_failed">No se pudieron guardar los ajustes de reenvío. Vuelve a intentarlo.</string>
+</resources>

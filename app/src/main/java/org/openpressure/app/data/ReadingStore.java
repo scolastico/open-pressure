@@ -6,10 +6,15 @@ import android.database.sqlite.*;
 import java.util.*;
 import java.time.LocalDateTime;
 import org.openpressure.protocol.BloodPressure;
+import org.openpressure.app.forwarding.*;
 
 public final class ReadingStore extends SQLiteOpenHelper {
-    private Runnable changeListener;
-    public ReadingStore(Context context) { super(context,"pressure.db",null,4); }
+    private Runnable changeListener,forwardingListener;
+    private final Context context;
+    private final HttpOutbox httpOutbox=new HttpOutbox(this);
+    public ReadingStore(Context context) { super(context,"pressure.db",null,5); this.context=context.getApplicationContext(); }
+    public HttpOutbox httpOutbox() { return httpOutbox; }
+    public synchronized void setForwardingListener(Runnable listener) { forwardingListener=listener; }
     @Override public void onConfigure(SQLiteDatabase db) { db.enableWriteAheadLogging(); db.setForeignKeyConstraintsEnabled(true); }
     @Override public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE readings(id INTEGER PRIMARY KEY, fingerprint TEXT UNIQUE, device TEXT NOT NULL, name TEXT NOT NULL, time TEXT, received INTEGER NOT NULL, sys REAL NOT NULL, dia REAL NOT NULL, map REAL, pulse REAL, user INTEGER, status INTEGER, afib INTEGER, unit TEXT NOT NULL, source TEXT NOT NULL, raw TEXT NOT NULL, notes TEXT NOT NULL DEFAULT '')");
@@ -18,12 +23,18 @@ public final class ReadingStore extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE packets(id INTEGER PRIMARY KEY, received INTEGER NOT NULL, device TEXT NOT NULL, characteristic TEXT NOT NULL, payload TEXT NOT NULL, note TEXT NOT NULL)");
         createHealthExports(db);
         createDeletionReceipts(db);
+        createHttpForwarding(db);
     }
     @Override public void onUpgrade(SQLiteDatabase db,int oldVersion,int newVersion) {
-        if(oldVersion<1 || newVersion!=4) throw new IllegalStateException("Unsupported database version");
+        if(oldVersion<1 || newVersion!=5) throw new IllegalStateException("Unsupported database version");
         if(oldVersion<2) db.execSQL("ALTER TABLE readings ADD COLUMN afib INTEGER");
         if(oldVersion<3) createHealthExports(db);
         if(oldVersion<4) createDeletionReceipts(db);
+        if(oldVersion<5) createHttpForwarding(db);
+    }
+    private void createHttpForwarding(SQLiteDatabase db) {
+        db.execSQL("CREATE TABLE http_outbox(id INTEGER PRIMARY KEY AUTOINCREMENT, endpoint TEXT NOT NULL, event_key TEXT NOT NULL, payload TEXT NOT NULL, UNIQUE(endpoint,event_key))");
+        db.execSQL("CREATE TABLE http_receipts(destination TEXT NOT NULL, event_key TEXT NOT NULL, PRIMARY KEY(destination,event_key))");
     }
     private void createDeletionReceipts(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE reading_tombstones(receipt TEXT PRIMARY KEY NOT NULL)");
@@ -33,35 +44,60 @@ public final class ReadingStore extends SQLiteOpenHelper {
     }
     public synchronized void setChangeListener(Runnable listener) { changeListener=listener; }
     private void readingsChanged() { if(changeListener!=null) changeListener.run(); }
+    /** The committed ingestion outcome, independent of later forwarding settings changes. */
+    public static final class IngestionResult {
+        public final boolean stored,queued;
+        private IngestionResult(boolean stored,boolean queued) { this.stored=stored; this.queued=queued; }
+        public boolean accepted() { return stored || queued; }
+    }
     public synchronized boolean add(String device,String name,BloodPressure bp,byte[] raw,String source,Integer fallbackUser) {
         return add(device,name,bp,raw,source,fallbackUser,false);
     }
     public synchronized boolean add(String device,String name,BloodPressure bp,byte[] raw,String source,Integer fallbackUser,boolean automatic) {
+        return addResult(device,name,bp,raw,source,fallbackUser,automatic).accepted();
+    }
+    public synchronized IngestionResult addResult(String device,String name,BloodPressure bp,byte[] raw,String source,Integer fallbackUser,boolean automatic) {
         Integer user=bp.userId==null ? fallbackUser : bp.userId;
         String timestamp=bp.time==null ? null : bp.time.toString();
         // Stored memory packets retain their raw identity even with an unset clock; live SIG values do not.
         String fingerprint=ReadingFingerprint.create(device,user,timestamp,hex(raw),source);
-        // An automatic full-history refresh must not undo a local deletion. Explicit imports may restore it.
-        if(automatic) try(Cursor c=getReadableDatabase().rawQuery("SELECT 1 FROM reading_tombstones WHERE receipt=?",new String[]{DeletionReceipt.key(fingerprint)})) {
-            if(c.moveToFirst()) return false;
-        }
         ContentValues v=new ContentValues(); v.put("fingerprint",fingerprint); v.put("device",device); v.put("name",name);
         v.put("time",timestamp); v.put("received",System.currentTimeMillis()); v.put("sys",bp.systolic); v.put("dia",bp.diastolic);
         if(Double.isFinite(bp.meanArterialPressure)) v.put("map",bp.meanArterialPressure);
         v.put("pulse",bp.pulse); v.put("user",user); v.put("status",bp.status); v.put("unit",bp.kpa?"kPa":"mmHg");
         if(bp.atrialFibrillation!=null) v.put("afib",bp.atrialFibrillation?1:0);
         v.put("source",source); v.put("raw",hex(raw));
-        boolean added=getWritableDatabase().insertWithOnConflict("readings",null,v,SQLiteDatabase.CONFLICT_IGNORE)!=-1;
-        if(added) readingsChanged();
-        return added;
+        return ingest(v,automatic);
+    }
+    private IngestionResult ingest(ContentValues values,boolean automatic) {
+        String fingerprint=values.getAsString("fingerprint"), key=HttpPayload.sha256(fingerprint);
+        HttpForwardingSettings.Config config=HttpForwardingSettings.get(context);
+        boolean forwarding=config.enabled() && ExperimentalConsent.accepted(context);
+        boolean local=!forwarding || config.keepLocal;
+        SQLiteDatabase db=getWritableDatabase();
+        boolean inserted=false,queued=false;
+        db.beginTransaction();
+        try {
+            try(Cursor c=db.rawQuery("SELECT 1 FROM readings WHERE fingerprint=?",new String[]{fingerprint})) {
+                if(c.moveToFirst()) return new IngestionResult(false,false);
+            }
+            if(automatic) try(Cursor c=db.rawQuery("SELECT 1 FROM reading_tombstones WHERE receipt=?",new String[]{key})) {
+                if(c.moveToFirst()) return new IngestionResult(false,false);
+            }
+            if(forwarding) queued=HttpOutbox.enqueue(db,config.endpoint,key,values);
+            if(local) { db.insertOrThrow("readings",null,values); inserted=true; }
+            db.setTransactionSuccessful();
+        } finally { db.endTransaction(); }
+        if(inserted) readingsChanged();
+        if(queued && forwardingListener!=null) forwardingListener.run();
+        return new IngestionResult(inserted,queued);
     }
     public synchronized void addManual(double sys,double dia,Double pulse,int user,LocalDateTime time,String notes) {
         if(!Double.isFinite(sys)||!Double.isFinite(dia)||sys<=dia||dia<=0||sys>400||dia>300||pulse!=null&&(!Double.isFinite(pulse)||pulse<=0||pulse>300)) throw new IllegalArgumentException("Check the pressure and pulse values");
         ContentValues v=new ContentValues(); v.put("fingerprint",UUID.randomUUID().toString()); v.put("device","manual"); v.put("name","Manual entry");
         v.put("time",time.toString()); v.put("received",System.currentTimeMillis()); v.put("sys",sys); v.put("dia",dia); v.put("pulse",pulse);
         v.put("user",user); v.put("unit","mmHg"); v.put("source","manual"); v.put("raw",""); v.put("notes",notes);
-        getWritableDatabase().insertOrThrow("readings",null,v);
-        readingsChanged();
+        ingest(v,false);
     }
     public synchronized List<Reading> readings(int user) {
         List<Reading> result=new ArrayList<>();
@@ -173,6 +209,8 @@ public final class ReadingStore extends SQLiteOpenHelper {
         try(Cursor c=getReadableDatabase().rawQuery("SELECT h.error FROM health_exports h JOIN readings r ON r.id=h.reading_id WHERE r.user=? AND h.state=2 ORDER BY r.id DESC LIMIT 1",new String[]{""+user})) { return c.moveToFirst()?c.getString(0):""; }
     }
     public synchronized void packet(String device,String characteristic,byte[] bytes,String note) {
+        HttpForwardingSettings.Config config=HttpForwardingSettings.get(context);
+        if(config.enabled() && !config.keepLocal) return;
         ContentValues v=new ContentValues(); v.put("received",System.currentTimeMillis()); v.put("device",device); v.put("characteristic",characteristic); v.put("payload",hex(bytes)); v.put("note",note);
         SQLiteDatabase db=getWritableDatabase(); db.insertOrThrow("packets",null,v);
         db.execSQL("DELETE FROM packets WHERE id <= (SELECT COALESCE(MAX(id),0)-500 FROM packets)");

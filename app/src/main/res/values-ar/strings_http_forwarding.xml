@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="http_title">إعادة التوجيه عبر HTTP</string>
+    <string name="http_intro">أرسل القياسات الجديدة بصيغة JSON إلى خادمك. اترك عنوان URL فارغًا لإيقاف إعادة التوجيه. استخدم HTTPS لحماية القياسات وبيانات الدخول.</string>
+    <string name="http_url">عنوان URL للخادم</string>
+    <string name="http_authorization">قيمة ترويسة Authorization (اختياري)</string>
+    <string name="http_keep_local">الاحتفاظ بالقياسات الجديدة في السجل المحلي</string>
+    <string name="http_passthrough_help">عند إيقاف السجل المحلي، تبقى القياسات الجديدة فقط في قائمة رفع مؤقتة حتى يقبلها الخادم. يبقى السجل الموجود محفوظًا. يتطلب التصدير إلى Health Connect سجلًا محليًا.</string>
+    <string name="http_invalid">أدخل عنوان URL صالحًا يستخدم HTTP(S) وقيمة Authorization في سطر واحد.</string>
+    <string name="http_status">قيد الانتظار لهذا الخادم: %1$d</string>
+    <string name="http_retry">إعادة محاولة عمليات الرفع المعلقة</string>
+    <string name="http_failed">لم تُقبل بعض عمليات الرفع بعد. ستتم إعادة المحاولة تلقائيًا.</string>
+    <string name="http_queued">أُضيف القياس إلى قائمة إعادة التوجيه</string>
+    <string name="http_saved">تم حفظ إعدادات إعادة التوجيه</string>
+    <string name="http_import_count">القياسات الجديدة المقبولة لإعادة التوجيه: %1$d</string>
+    <string name="http_destination_help">تبقى القياسات المعلقة مرتبطة بخادمها الأصلي. يؤدي تغيير عنوان URL إلى إيقاف الرفع إلى الخادم السابق مؤقتًا.</string>
+    <string name="http_privacy">إعادة التوجيه عبر HTTP اختيارية ومتوقفة افتراضيًا. عند تفعيلها، تُرسل القياسات الجديدة إلى الخادم الذي تحدده. تُخزن عمليات الرفع المعلقة بشكل خاص حتى قبولها. لا تضيف إعادة التوجيه دون سجل محلي قياسات إلى السجل المحلي أو Health Connect. تبقى البيانات المحفوظة سابقًا.</string>
+    <string name="http_save_failed">تعذر حفظ إعدادات إعادة التوجيه. حاول مرة أخرى.</string>
+</resources>
