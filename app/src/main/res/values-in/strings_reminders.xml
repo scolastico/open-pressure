@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="reminder_title">Pengingat pengukuran</string>
+    <string name="reminder_intro">Pilih kapan ponsel mengingatkan Anda untuk mengukur. Pengingat ini tidak mengubah alarm pada alat pengukur tekanan darah Anda.</string>
+    <string name="reminder_add">Tambah pengingat</string>
+    <string name="reminder_empty">Belum ada pengingat.</string>
+    <string name="reminder_time">Waktu</string>
+    <string name="reminder_days">Ulangi pada hari</string>
+    <string name="reminder_once">Sekali (tidak ada hari yang dipilih)</string>
+    <string name="reminder_skip_minutes">Lewati jika sudah mengukur dalam beberapa menit sebelumnya</string>
+    <string name="reminder_skip_help">Lewati pengingat kali ini jika pengukuran pengguna mana pun tercatat dalam jumlah menit ini sebelum waktu terjadwal. Nilai bawaan adalah 120 menit (2 jam). Atur 0 agar selalu mengingatkan. Mengimpor riwayat lama tidak dihitung sebagai pengukuran terbaru.</string>
+    <string name="reminder_enabled">Aktif</string>
+    <string name="reminder_edit">Edit</string>
+    <string name="reminder_delete">Hapus pengingat</string>
+    <string name="reminder_delete_confirm">Hapus pengingat ini? Pengukuran yang tersimpan tetap ada.</string>
+    <string name="reminder_invalid">Masukkan 0 atau jumlah menit berupa bilangan bulat positif.</string>
+    <string name="reminder_save_failed">Tidak dapat menyimpan pengingat. Coba lagi.</string>
+    <string name="reminder_exact_help">Izinkan alarm dan pengingat agar waktunya tepat. Tanpa akses ini, Android mungkin menyampaikan pengingat terlambat. Buka kembali OpenPressure jika Anda mencabut akses di setelan sistem.</string>
+    <string name="reminder_exact_allow">Izinkan pengingat tepat waktu</string>
+    <string name="reminder_notifications_help">Notifikasi pengingat dinonaktifkan. Aktifkan di setelan Android untuk menerima pengingat.</string>
+    <string name="reminder_notifications_allow">Aktifkan notifikasi pengingat</string>
+    <string name="reminder_channel">Pengingat pengukuran</string>
+    <string name="reminder_channel_description">Pengingat pada waktu pengukuran yang Anda pilih.</string>
+    <string name="reminder_notification_title">Waktunya mengukur</string>
+    <string name="reminder_notification_text">Ukur tekanan darah Anda saat sempat.</string>
+</resources>

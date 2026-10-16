@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="reminder_title">Promemoria di misurazione</string>
+    <string name="reminder_intro">Scegli quando il telefono ti ricorda di effettuare una misurazione. Questi promemoria non modificano gli allarmi del misuratore.</string>
+    <string name="reminder_add">Aggiungi promemoria</string>
+    <string name="reminder_empty">Nessun promemoria.</string>
+    <string name="reminder_time">Ora</string>
+    <string name="reminder_days">Ripeti nei giorni</string>
+    <string name="reminder_once">Una volta (nessun giorno selezionato)</string>
+    <string name="reminder_skip_minutes">Salta se è stata effettuata una misurazione nei minuti precedenti</string>
+    <string name="reminder_skip_help">Salta questa occorrenza se è stata registrata una misurazione di qualsiasi utente entro questo numero di minuti prima dell’orario previsto. Il valore predefinito è 120 minuti (2 ore). Imposta 0 per ricevere sempre il promemoria. L’importazione della cronologia precedente non conta come una misurazione recente.</string>
+    <string name="reminder_enabled">Attivo</string>
+    <string name="reminder_edit">Modifica</string>
+    <string name="reminder_delete">Elimina promemoria</string>
+    <string name="reminder_delete_confirm">Eliminare questo promemoria? Le misurazioni salvate verranno conservate.</string>
+    <string name="reminder_invalid">Inserisci 0 o un numero intero positivo di minuti.</string>
+    <string name="reminder_save_failed">Impossibile salvare il promemoria. Riprova.</string>
+    <string name="reminder_exact_help">Consenti sveglie e promemoria per rispettare gli orari esatti. Senza questo accesso, Android potrebbe ritardare i promemoria. Riapri OpenPressure se revochi l’accesso nelle impostazioni di sistema.</string>
+    <string name="reminder_exact_allow">Consenti promemoria precisi</string>
+    <string name="reminder_notifications_help">Le notifiche dei promemoria sono disattivate. Attivale nelle impostazioni Android per ricevere i promemoria.</string>
+    <string name="reminder_notifications_allow">Attiva notifiche dei promemoria</string>
+    <string name="reminder_channel">Promemoria di misurazione</string>
+    <string name="reminder_channel_description">Promemoria agli orari di misurazione che scegli.</string>
+    <string name="reminder_notification_title">È ora di misurare</string>
+    <string name="reminder_notification_text">Misura la pressione arteriosa quando ti è comodo.</string>
+</resources>

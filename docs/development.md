@@ -51,6 +51,8 @@ These tests add test-only Robolectric and Mockito dependencies. The first run al
 
 Forwarding tests use real SQLite and a loopback HTTP server with synthetic data. They exercise POST bodies/Authorization/idempotency, 2xx/error/redirect handling, restarts and retries, endpoint binding, schema v4-to-v5 preservation, transaction rollback, consent defaults, passthrough isolation, scheduling failure and cancellation. UI tests isolate WorkManager scheduling so they cannot dispatch real requests. Service tests cover passthrough callbacks and accurate stored/queued summaries, including a storage-policy change during an import. The receiver contract and pending-data policy are in [HTTP forwarding](http-forwarding.md).
 
+Reminder tests exercise local-time/weekday scheduling, one-time completion, daylight saving, exact-access fallbacks, stale deliveries and notification privacy using Robolectric. Ingestion tests cover committed local/manual/live/passthrough timing and rollback without changing BLE commands. Activity tests cover editing, persistence, permission actions and configuration changes. These checks simulate Android; validate physical-phone delivery separately using the [reminder checklist](hardware-validation.md#measurement-reminders).
+
 ### PDF rendering checks
 
 `PdfReportInstrumentation` is a native Android fixture runner with synthetic data only. It generates English, German and Arabic PDFs containing 121 records, mixed units, missing values and a note spanning several pages, then checks every page's orientation with Android's PDF renderer. On a dedicated test emulator, run:
@@ -79,6 +81,7 @@ Replace the emulator serial with your dedicated test device. The host check requ
 | `app/src/main/java/org/openpressure/app/automatic/` | Automatic import settings, services and companion presence |
 | `app/src/main/java/org/openpressure/app/health/` | Optional Health Connect preparation, outbox and workers |
 | `app/src/main/java/org/openpressure/app/forwarding/` | Optional HTTP destination/settings, measurement payloads, upload outbox and retry worker |
+| `app/src/main/java/org/openpressure/app/reminders/` | Phone reminder configuration, local-time scheduling, minimal measurement timing and notifications |
 | `app/src/main/java/org/openpressure/app/pdf/` | Immutable report selection, statistics and native PDF rendering |
 | `app/src/main/` | Native Android UI, manifest and localized resources |
 | `tools/` | Protocol/storage checks and optional SDK setup |

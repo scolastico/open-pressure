@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="reminder_title">ମାପର ସ୍ମାରକ</string>
+    <string name="reminder_intro">ଆପଣଙ୍କ ଫୋନ୍ କେତେବେଳେ ମାପ ନେବାକୁ ମନେ ପକାଇବ ତାହା ବାଛନ୍ତୁ। ଏହି ସ୍ମାରକଗୁଡ଼ିକ ଆପଣଙ୍କ ରକ୍ତଚାପ ମାପକର ଆଲାର୍ମ ବଦଳାଏ ନାହିଁ।</string>
+    <string name="reminder_add">ସ୍ମାରକ ଯୋଡ଼ନ୍ତୁ</string>
+    <string name="reminder_empty">ଏପର୍ଯ୍ୟନ୍ତ କୌଣସି ସ୍ମାରକ ନାହିଁ।</string>
+    <string name="reminder_time">ସମୟ</string>
+    <string name="reminder_days">ଏହି ଦିନଗୁଡ଼ିକରେ ପୁନରାବୃତ୍ତି</string>
+    <string name="reminder_once">ଥରେ (ସପ୍ତାହର କୌଣସି ଦିନ ବଛାଯାଇନାହିଁ)</string>
+    <string name="reminder_skip_minutes">ପୂର୍ବ ଏତିକି ମିନିଟ୍‌ରେ ମାପ ନିଆଯାଇଥିଲେ ଛାଡ଼ନ୍ତୁ</string>
+    <string name="reminder_skip_help">ନିର୍ଦ୍ଧାରିତ ସମୟ ପୂର୍ବରୁ ଏତିକି ମିନିଟ୍ ମଧ୍ୟରେ ଯେକୌଣସି ବ୍ୟବହାରକାରୀଙ୍କ ମାପ ରେକର୍ଡ ହୋଇଥିଲେ ଏହି ଥର ଛାଡ଼ନ୍ତୁ। ଡିଫଲ୍ଟ ହେଉଛି 120 ମିନିଟ୍ (2 ଘଣ୍ଟା)। ସବୁବେଳେ ମନେ ପକାଇବା ପାଇଁ 0 ରଖନ୍ତୁ। ପୁରୁଣା ଇତିହାସ ଆମଦାନି କରିବା ସାମ୍ପ୍ରତିକ ମାପ ଭାବେ ଗଣାଯାଏ ନାହିଁ।</string>
+    <string name="reminder_enabled">ସକ୍ରିୟ</string>
+    <string name="reminder_edit">ସମ୍ପାଦନା କରନ୍ତୁ</string>
+    <string name="reminder_delete">ସ୍ମାରକ ବିଲୋପ କରନ୍ତୁ</string>
+    <string name="reminder_delete_confirm">ଏହି ସ୍ମାରକ ବିଲୋପ କରିବେ? ସଞ୍ଚିତ ମାପଗୁଡ଼ିକ ରହିବ।</string>
+    <string name="reminder_invalid">0 କିମ୍ବା ମିନିଟ୍‌ର ଧନାତ୍ମକ ପୂର୍ଣ୍ଣ ସଂଖ୍ୟା ଦିଅନ୍ତୁ।</string>
+    <string name="reminder_save_failed">ସ୍ମାରକ ସଞ୍ଚୟ ହୋଇପାରିଲା ନାହିଁ। ପୁଣି ଚେଷ୍ଟା କରନ୍ତୁ।</string>
+    <string name="reminder_exact_help">ସଠିକ୍ ସମୟ ପାଇଁ ଆଲାର୍ମ ଏବଂ ସ୍ମାରକର ଅନୁମତି ଦିଅନ୍ତୁ। ଏହି ଅନୁମତି ବିନା Android ସ୍ମାରକ ବିଳମ୍ବରେ ଦେଇପାରେ। ସିଷ୍ଟମ୍ ସେଟିଂସ୍‌ରେ ଅନୁମତି ରଦ୍ଦ କଲେ OpenPressure ପୁଣି ଖୋଲନ୍ତୁ।</string>
+    <string name="reminder_exact_allow">ସଠିକ୍ ସ୍ମାରକର ଅନୁମତି ଦିଅନ୍ତୁ</string>
+    <string name="reminder_notifications_help">ସ୍ମାରକ ବିଜ୍ଞପ୍ତି ବନ୍ଦ ଅଛି। ସ୍ମାରକ ପାଇବାକୁ Android ସେଟିଂସ୍‌ରେ ସେଗୁଡ଼ିକ ଚାଲୁ କରନ୍ତୁ।</string>
+    <string name="reminder_notifications_allow">ସ୍ମାରକ ବିଜ୍ଞପ୍ତି ଚାଲୁ କରନ୍ତୁ</string>
+    <string name="reminder_channel">ମାପର ସ୍ମାରକ</string>
+    <string name="reminder_channel_description">ଆପଣ ବାଛିଥିବା ମାପ ସମୟରେ ସ୍ମାରକ।</string>
+    <string name="reminder_notification_title">ମାପ ନେବାର ସମୟ</string>
+    <string name="reminder_notification_text">ସୁବିଧା ହେଲେ ଆପଣଙ୍କ ରକ୍ତଚାପ ମାପନ୍ତୁ।</string>
+</resources>

@@ -17,6 +17,7 @@ the user's decision. Also read `~/.claude/CLAUDE.md`.
   [automatic imports](docs/automatic-import.md),
   [Health Connect](docs/health-connect.md) and [localization](docs/localization.md).
 - Before network or passthrough changes, read [HTTP forwarding](docs/http-forwarding.md).
+- Before reminder or alarm changes, read [measurement reminders](docs/reminders.md).
 
 Use current guides for implementation decisions. Original supplied notes under
 `docs/reference/decompilation/` remain verbatim; put corrections in maintained
@@ -60,6 +61,10 @@ tests does not prove that a command is safe for physical hardware.
   log/export Authorization values or include them in measurement payloads. In
   passthrough mode, do not retain new readings in history, Health Connect or raw
   packet diagnostics; existing history and explicit safety backups remain intact.
+- Measurement reminders are phone-only notifications. Preserve weekday/local-time
+  scheduling, permission fallbacks, stale-alarm rejection and occurrence-only
+  suppression. Old history receipt time must not count as a recent measurement;
+  passthrough suppression may retain only the documented minimal timing metadata.
 - Put user-facing text in localized resources, preserve placeholders/plurals and
   invariant product names, and check long text, larger fonts and RTL presentation.
   Explain user choices in plain language; protocol internals belong in technical

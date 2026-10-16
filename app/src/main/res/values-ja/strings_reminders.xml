@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="reminder_title">測定リマインダー</string>
+    <string name="reminder_intro">スマートフォンで測定をお知らせする時刻を選びます。これらのリマインダーは血圧計のアラームを変更しません。</string>
+    <string name="reminder_add">リマインダーを追加</string>
+    <string name="reminder_empty">リマインダーはまだありません。</string>
+    <string name="reminder_time">時刻</string>
+    <string name="reminder_days">繰り返す曜日</string>
+    <string name="reminder_once">1回のみ（曜日の選択なし）</string>
+    <string name="reminder_skip_minutes">直前の指定分数内に測定済みならスキップ</string>
+    <string name="reminder_skip_help">予定時刻の前の指定分数内に、いずれかのユーザーの測定が記録されていた場合は、今回の通知をスキップします。初期値は120分（2時間）です。常に通知するには0に設定してください。過去の履歴のインポートは最近の測定とはみなされません。</string>
+    <string name="reminder_enabled">有効</string>
+    <string name="reminder_edit">編集</string>
+    <string name="reminder_delete">リマインダーを削除</string>
+    <string name="reminder_delete_confirm">このリマインダーを削除しますか？保存済みの測定値は残ります。</string>
+    <string name="reminder_invalid">0または正の整数で分数を入力してください。</string>
+    <string name="reminder_save_failed">リマインダーを保存できませんでした。もう一度お試しください。</string>
+    <string name="reminder_exact_help">正確な時刻に通知するため、アラームとリマインダーを許可してください。このアクセス権がない場合、Androidで通知が遅れることがあります。システム設定でアクセス権を取り消した場合は、OpenPressureを開き直してください。</string>
+    <string name="reminder_exact_allow">正確なリマインダーを許可</string>
+    <string name="reminder_notifications_help">リマインダーの通知がオフになっています。通知を受け取るにはAndroidの設定で有効にしてください。</string>
+    <string name="reminder_notifications_allow">リマインダーの通知を有効にする</string>
+    <string name="reminder_channel">測定リマインダー</string>
+    <string name="reminder_channel_description">選択した測定時刻にお知らせします。</string>
+    <string name="reminder_notification_title">測定の時間です</string>
+    <string name="reminder_notification_text">都合のよいときに血圧を測定してください。</string>
+</resources>

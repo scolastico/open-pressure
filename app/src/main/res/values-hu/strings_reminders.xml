@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="reminder_title">Mérési emlékeztetők</string>
+    <string name="reminder_intro">Válassza ki, mikor emlékeztesse a telefon a mérésre. Ezek az emlékeztetők nem módosítják a vérnyomásmérő riasztásait.</string>
+    <string name="reminder_add">Emlékeztető hozzáadása</string>
+    <string name="reminder_empty">Még nincsenek emlékeztetők.</string>
+    <string name="reminder_time">Időpont</string>
+    <string name="reminder_days">Ismétlés ezeken a napokon</string>
+    <string name="reminder_once">Egyszer (nincs kiválasztott hétköznap)</string>
+    <string name="reminder_skip_minutes">Kihagyás, ha mérés történt az előző percekben</string>
+    <string name="reminder_skip_help">Ez az alkalom kimarad, ha az ütemezett időpont előtti megadott számú percen belül bármely felhasználó mérését rögzítették. Az alapérték 120 perc (2 óra). A 0 beállítással mindig kap emlékeztetőt. Régebbi előzmények importálása nem számít friss mérésnek.</string>
+    <string name="reminder_enabled">Engedélyezve</string>
+    <string name="reminder_edit">Szerkesztés</string>
+    <string name="reminder_delete">Emlékeztető törlése</string>
+    <string name="reminder_delete_confirm">Törli ezt az emlékeztetőt? A mentett mérések megmaradnak.</string>
+    <string name="reminder_invalid">Adjon meg 0-t vagy pozitív egész percértéket.</string>
+    <string name="reminder_save_failed">Nem sikerült menteni az emlékeztetőt. Próbálja újra.</string>
+    <string name="reminder_exact_help">A pontos időzítéshez engedélyezze az ébresztéseket és emlékeztetőket. E hozzáférés nélkül az Android késve kézbesítheti az emlékeztetőket. Nyissa meg újra az OpenPressure alkalmazást, ha a rendszerbeállításokban visszavonja a hozzáférést.</string>
+    <string name="reminder_exact_allow">Pontos emlékeztetők engedélyezése</string>
+    <string name="reminder_notifications_help">Az emlékeztetők értesítései ki vannak kapcsolva. Emlékeztetők fogadásához kapcsolja be őket az Android beállításaiban.</string>
+    <string name="reminder_notifications_allow">Emlékeztető értesítések bekapcsolása</string>
+    <string name="reminder_channel">Mérési emlékeztetők</string>
+    <string name="reminder_channel_description">Emlékeztetők az Ön által választott mérési időpontokban.</string>
+    <string name="reminder_notification_title">Ideje mérni</string>
+    <string name="reminder_notification_text">Mérje meg vérnyomását, amikor alkalmas.</string>
+</resources>

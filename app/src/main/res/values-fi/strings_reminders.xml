@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="reminder_title">Mittausmuistutukset</string>
+    <string name="reminder_intro">Valitse, milloin puhelin muistuttaa mittaamisesta. Nämä muistutukset eivät muuta verenpainemittarin hälytyksiä.</string>
+    <string name="reminder_add">Lisää muistutus</string>
+    <string name="reminder_empty">Ei vielä muistutuksia.</string>
+    <string name="reminder_time">Aika</string>
+    <string name="reminder_days">Toista päivinä</string>
+    <string name="reminder_once">Kerran (ei valittuja viikonpäiviä)</string>
+    <string name="reminder_skip_minutes">Ohita, jos mittaus tehtiin edeltävien minuuttien aikana</string>
+    <string name="reminder_skip_help">Ohita tämä kerta, jos kenen tahansa käyttäjän mittaus on kirjattu tämän minuuttimäärän sisällä ennen ajastettua aikaa. Oletusarvo on 120 minuuttia (2 tuntia). Aseta arvoksi 0, jos haluat muistutuksen aina. Vanhan historian tuomista ei lasketa äskettäiseksi mittaukseksi.</string>
+    <string name="reminder_enabled">Käytössä</string>
+    <string name="reminder_edit">Muokkaa</string>
+    <string name="reminder_delete">Poista muistutus</string>
+    <string name="reminder_delete_confirm">Poistetaanko tämä muistutus? Tallennetut mittaukset säilyvät.</string>
+    <string name="reminder_invalid">Anna 0 tai positiivinen kokonaislukumäärä minuutteja.</string>
+    <string name="reminder_save_failed">Muistutusta ei voitu tallentaa. Yritä uudelleen.</string>
+    <string name="reminder_exact_help">Salli herätykset ja muistutukset tarkkaa ajoitusta varten. Ilman tätä käyttöoikeutta Android voi toimittaa muistutukset myöhässä. Avaa OpenPressure uudelleen, jos perut käyttöoikeuden järjestelmäasetuksissa.</string>
+    <string name="reminder_exact_allow">Salli tarkat muistutukset</string>
+    <string name="reminder_notifications_help">Muistutusten ilmoitukset on poistettu käytöstä. Ota ne käyttöön Androidin asetuksissa, jotta saat muistutuksia.</string>
+    <string name="reminder_notifications_allow">Ota muistutusten ilmoitukset käyttöön</string>
+    <string name="reminder_channel">Mittausmuistutukset</string>
+    <string name="reminder_channel_description">Muistutukset valitseminasi mittausaikoina.</string>
+    <string name="reminder_notification_title">Aika mitata</string>
+    <string name="reminder_notification_text">Mittaa verenpaineesi sopivana hetkenä.</string>
+</resources>

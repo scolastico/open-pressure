@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="reminder_title">တိုင်းတာရန် သတိပေးချက်များ</string>
+    <string name="reminder_intro">သင့်ဖုန်းက တိုင်းတာရန် မည်သည့်အချိန်တွင် သတိပေးမည်ကို ရွေးပါ။ ဤသတိပေးချက်များသည် သင့်သွေးပေါင်ချိန်စက်ရှိ နှိုးစက်များကို မပြောင်းလဲပါ။</string>
+    <string name="reminder_add">သတိပေးချက် ထည့်ရန်</string>
+    <string name="reminder_empty">သတိပေးချက် မရှိသေးပါ။</string>
+    <string name="reminder_time">အချိန်</string>
+    <string name="reminder_days">ဤနေ့များတွင် ထပ်လုပ်ရန်</string>
+    <string name="reminder_once">တစ်ကြိမ်သာ (ရက်များ မရွေးထားပါ)</string>
+    <string name="reminder_skip_minutes">မတိုင်မီ မိနစ်အတွင်း တိုင်းတာထားလျှင် ကျော်ရန်</string>
+    <string name="reminder_skip_help">သတ်မှတ်ချိန်မတိုင်မီ ဤမိနစ်အရေအတွက်အတွင်း မည်သည့်အသုံးပြုသူ၏ တိုင်းတာချက်မဆို မှတ်တမ်းတင်ထားလျှင် ယခုအကြိမ်ကို ကျော်ပါ။ မူလသတ်မှတ်ချက်မှာ 120 မိနစ် (2 နာရီ) ဖြစ်သည်။ အမြဲသတိပေးရန် 0 သတ်မှတ်ပါ။ မှတ်တမ်းဟောင်းများ တင်သွင်းခြင်းကို မကြာသေးမီက တိုင်းတာမှုအဖြစ် မသတ်မှတ်ပါ။</string>
+    <string name="reminder_enabled">ဖွင့်ထားသည်</string>
+    <string name="reminder_edit">ပြင်ရန်</string>
+    <string name="reminder_delete">သတိပေးချက် ဖျက်ရန်</string>
+    <string name="reminder_delete_confirm">ဤသတိပေးချက်ကို ဖျက်မလား။ သိမ်းဆည်းထားသော တိုင်းတာချက်များ ဆက်ရှိပါမည်။</string>
+    <string name="reminder_invalid">မိနစ်အရေအတွက်ကို 0 သို့မဟုတ် အပေါင်းကိန်းပြည့်ဖြင့် ရိုက်ထည့်ပါ။</string>
+    <string name="reminder_save_failed">သတိပေးချက်ကို မသိမ်းနိုင်ပါ။ ထပ်ကြိုးစားပါ။</string>
+    <string name="reminder_exact_help">အချိန်တိကျစေရန် နှိုးစက်များနှင့် သတိပေးချက်များကို ခွင့်ပြုပါ။ ဤခွင့်ပြုချက်မရှိလျှင် Android က သတိပေးချက်များကို နောက်ကျမှ ပေးနိုင်သည်။ စနစ်ဆက်တင်များတွင် ခွင့်ပြုချက်ရုပ်သိမ်းပါက OpenPressure ကို ပြန်ဖွင့်ပါ။</string>
+    <string name="reminder_exact_allow">အချိန်တိကျသော သတိပေးချက်များ ခွင့်ပြုရန်</string>
+    <string name="reminder_notifications_help">သတိပေးချက် အသိပေးမှုများကို ပိတ်ထားသည်။ သတိပေးချက်များရရန် Android ဆက်တင်များတွင် ဖွင့်ပါ။</string>
+    <string name="reminder_notifications_allow">သတိပေးချက် အသိပေးမှုများ ဖွင့်ရန်</string>
+    <string name="reminder_channel">တိုင်းတာရန် သတိပေးချက်များ</string>
+    <string name="reminder_channel_description">သင်ရွေးထားသော တိုင်းတာချိန်များတွင် သတိပေးချက်များ။</string>
+    <string name="reminder_notification_title">တိုင်းတာရန် အချိန်တန်ပါပြီ</string>
+    <string name="reminder_notification_text">အဆင်ပြေသည့်အချိန်တွင် သွေးပေါင်ချိန် တိုင်းတာပါ။</string>
+</resources>

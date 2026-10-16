@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="reminder_title">Izikhumbuzi zokukala</string>
+    <string name="reminder_intro">Khetha ukuthi ifoni yakho ikukhumbuze nini ukukala. Lezi zikhumbuzi azishintshi ama-alamu emshinini wakho wokukala umfutho wegazi.</string>
+    <string name="reminder_add">Engeza isikhumbuzi</string>
+    <string name="reminder_empty">Azikho izikhumbuzi okwamanje.</string>
+    <string name="reminder_time">Isikhathi</string>
+    <string name="reminder_days">Phinda ngezinsuku</string>
+    <string name="reminder_once">Kanye (azikho izinsuku zeviki ezikhethiwe)</string>
+    <string name="reminder_skip_minutes">Yeqa uma kukaliwe emizuzwini edlule</string>
+    <string name="reminder_skip_help">Yeqa lesi sikhathi uma ukulinganisa kwanoma yimuphi umsebenzisi kuqoshwe phakathi kwale nombolo yemizuzu ngaphambi kwesikhathi esihleliwe. Okuzenzakalelayo yimizuzu engu-120 (amahora angu-2). Setha u-0 ukuze uhlale ukhunjuzwa. Ukungenisa umlando omdala akubalwa njengokukala kwakamuva.</string>
+    <string name="reminder_enabled">Kunikwe amandla</string>
+    <string name="reminder_edit">Hlela</string>
+    <string name="reminder_delete">Susa isikhumbuzi</string>
+    <string name="reminder_delete_confirm">Susa lesi sikhumbuzi? Izilinganiso ezilondoloziwe zizohlala.</string>
+    <string name="reminder_invalid">Faka u-0 noma inombolo ephelele yemizuzu engaphezu kuka-0.</string>
+    <string name="reminder_save_failed">Ayikwazanga ukulondoloza isikhumbuzi. Zama futhi.</string>
+    <string name="reminder_exact_help">Vumela ama-alamu nezikhumbuzi ukuze zifike ngesikhathi esiqondile. Ngaphandle kwale mvume, i-Android ingase ibambezele izikhumbuzi. Vula i-OpenPressure futhi uma uhoxisa imvume kuzilungiselelo zesistimu.</string>
+    <string name="reminder_exact_allow">Vumela izikhumbuzi ngesikhathi esiqondile</string>
+    <string name="reminder_notifications_help">Izaziso zezikhumbuzi zivaliwe. Zivule kuzilungiselelo ze-Android ukuze uthole izikhumbuzi.</string>
+    <string name="reminder_notifications_allow">Vula izaziso zezikhumbuzi</string>
+    <string name="reminder_channel">Izikhumbuzi zokukala</string>
+    <string name="reminder_channel_description">Izikhumbuzi ngezikhathi zokukala ozikhethayo.</string>
+    <string name="reminder_notification_title">Isikhathi sokukala</string>
+    <string name="reminder_notification_text">Kala umfutho wegazi lakho uma usuthola ithuba.</string>
+</resources>

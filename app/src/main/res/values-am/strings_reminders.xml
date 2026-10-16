@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="reminder_title">የመለኪያ ማስታወሻዎች</string>
+    <string name="reminder_intro">ስልክዎ እንዲለኩ መቼ እንደሚያስታውስዎ ይምረጡ። እነዚህ ማስታወሻዎች በደም ግፊት መለኪያዎ ላይ ያሉ ማንቂያዎችን አይቀይሩም።</string>
+    <string name="reminder_add">ማስታወሻ ጨምር</string>
+    <string name="reminder_empty">እስካሁን ማስታወሻዎች የሉም።</string>
+    <string name="reminder_time">ሰዓት</string>
+    <string name="reminder_days">በእነዚህ ቀናት ድገም</string>
+    <string name="reminder_once">አንድ ጊዜ (የሳምንት ቀናት አልተመረጡም)</string>
+    <string name="reminder_skip_minutes">ባለፉት ደቂቃዎች ውስጥ ከተለካ ዝለል</string>
+    <string name="reminder_skip_help">ከታቀደው ሰዓት በፊት በዚህ የደቂቃ ብዛት ውስጥ የማንኛውም ተጠቃሚ መለኪያ ከተመዘገበ ይህን ጊዜ ዝለል። ነባሪው 120 ደቂቃዎች (2 ሰዓታት) ነው። ሁልጊዜ ለማስታወስ 0 ያዘጋጁ። የቆየ ታሪክ ማስገባት እንደ ቅርብ ጊዜ መለኪያ አይቆጠርም።</string>
+    <string name="reminder_enabled">ነቅቷል</string>
+    <string name="reminder_edit">አርትዕ</string>
+    <string name="reminder_delete">ማስታወሻ ሰርዝ</string>
+    <string name="reminder_delete_confirm">ይህን ማስታወሻ ይሰርዙ? የተቀመጡ መለኪያዎች ይቀራሉ።</string>
+    <string name="reminder_invalid">0 ወይም አዎንታዊ ሙሉ የደቂቃ ብዛት ያስገቡ።</string>
+    <string name="reminder_save_failed">ማስታወሻውን ማስቀመጥ አልተቻለም። እንደገና ይሞክሩ።</string>
+    <string name="reminder_exact_help">ለትክክለኛ ጊዜ ማንቂያዎችን እና ማስታወሻዎችን ይፍቀዱ። ይህ ፈቃድ ከሌለ Android ማስታወሻዎችን ሊያዘገይ ይችላል። በስርዓት ቅንብሮች ፈቃዱን ከሰረዙ OpenPressure እንደገና ይክፈቱ።</string>
+    <string name="reminder_exact_allow">ትክክለኛ የጊዜ ማስታወሻዎችን ፍቀድ</string>
+    <string name="reminder_notifications_help">የማስታወሻ ማሳወቂያዎች ጠፍተዋል። ማስታወሻዎችን ለማግኘት በAndroid ቅንብሮች ያብሯቸው።</string>
+    <string name="reminder_notifications_allow">የማስታወሻ ማሳወቂያዎችን አብራ</string>
+    <string name="reminder_channel">የመለኪያ ማስታወሻዎች</string>
+    <string name="reminder_channel_description">በመረጧቸው የመለኪያ ሰዓቶች የሚሰጡ ማስታወሻዎች።</string>
+    <string name="reminder_notification_title">የመለካት ጊዜ ነው</string>
+    <string name="reminder_notification_text">ሲመችዎ የደም ግፊትዎን ይለኩ።</string>
+</resources>

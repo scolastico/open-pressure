@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="reminder_title">Mementouri pentru măsurare</string>
+    <string name="reminder_intro">Alege când să îți amintească telefonul să măsori. Aceste mementouri nu modifică alarmele tensiometrului.</string>
+    <string name="reminder_add">Adaugă memento</string>
+    <string name="reminder_empty">Încă nu există mementouri.</string>
+    <string name="reminder_time">Ora</string>
+    <string name="reminder_days">Repetă în zilele</string>
+    <string name="reminder_once">O singură dată (nicio zi selectată)</string>
+    <string name="reminder_skip_minutes">Omite dacă s-a măsurat în minutele precedente</string>
+    <string name="reminder_skip_help">Omite această apariție dacă s-a înregistrat o măsurătoare a oricărui utilizator în acest număr de minute înainte de ora programată. Valoarea implicită este 120 de minute (2 ore). Setează 0 pentru a primi mereu mementouri. Importul unui istoric mai vechi nu este considerat o măsurătoare recentă.</string>
+    <string name="reminder_enabled">Activat</string>
+    <string name="reminder_edit">Editează</string>
+    <string name="reminder_delete">Șterge mementoul</string>
+    <string name="reminder_delete_confirm">Ștergi acest memento? Măsurătorile salvate vor rămâne.</string>
+    <string name="reminder_invalid">Introdu 0 sau un număr întreg pozitiv de minute.</string>
+    <string name="reminder_save_failed">Mementoul nu a putut fi salvat. Încearcă din nou.</string>
+    <string name="reminder_exact_help">Permite alarmele și mementourile pentru o oră exactă. Fără acest acces, Android poate livra mementourile cu întârziere. Redeschide OpenPressure dacă revoci accesul în setările sistemului.</string>
+    <string name="reminder_exact_allow">Permite mementouri precise</string>
+    <string name="reminder_notifications_help">Notificările pentru mementouri sunt dezactivate. Activează-le în setările Android pentru a primi mementouri.</string>
+    <string name="reminder_notifications_allow">Activează notificările pentru mementouri</string>
+    <string name="reminder_channel">Mementouri pentru măsurare</string>
+    <string name="reminder_channel_description">Mementouri la orele de măsurare alese de tine.</string>
+    <string name="reminder_notification_title">E timpul să măsori</string>
+    <string name="reminder_notification_text">Măsoară tensiunea arterială când îți este convenabil.</string>
+</resources>

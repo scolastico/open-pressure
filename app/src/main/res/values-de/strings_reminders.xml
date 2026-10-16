@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="reminder_title">Erinnerungen zur Messung</string>
+    <string name="reminder_intro">Wähle, wann dein Smartphone dich ans Messen erinnert. Diese Erinnerungen ändern keine Alarme an deinem Blutdruckmessgerät.</string>
+    <string name="reminder_add">Erinnerung hinzufügen</string>
+    <string name="reminder_empty">Noch keine Erinnerungen.</string>
+    <string name="reminder_time">Uhrzeit</string>
+    <string name="reminder_days">Wiederholen am</string>
+    <string name="reminder_once">Einmalig (keine Wochentage ausgewählt)</string>
+    <string name="reminder_skip_minutes">Überspringen, wenn in den letzten Minuten gemessen</string>
+    <string name="reminder_skip_help">Diese Erinnerung überspringen, wenn innerhalb dieser Anzahl Minuten vor dem geplanten Zeitpunkt eine Messung eines beliebigen Benutzers aufgezeichnet wurde. Die Voreinstellung ist 120 Minuten (2 Stunden). Bei 0 wird immer erinnert. Der Import älterer Verlaufsdaten zählt nicht als kürzlich erfolgte Messung.</string>
+    <string name="reminder_enabled">Aktiviert</string>
+    <string name="reminder_edit">Bearbeiten</string>
+    <string name="reminder_delete">Erinnerung löschen</string>
+    <string name="reminder_delete_confirm">Diese Erinnerung löschen? Gespeicherte Messungen bleiben erhalten.</string>
+    <string name="reminder_invalid">0 oder eine positive ganze Anzahl Minuten eingeben.</string>
+    <string name="reminder_save_failed">Die Erinnerung konnte nicht gespeichert werden. Erneut versuchen.</string>
+    <string name="reminder_exact_help">Erlaube Alarme und Erinnerungen für eine genaue Zeitplanung. Ohne diesen Zugriff kann Android Erinnerungen verspätet anzeigen. Öffne OpenPressure erneut, wenn du den Zugriff in den Systemeinstellungen entziehst.</string>
+    <string name="reminder_exact_allow">Genaue Erinnerungen erlauben</string>
+    <string name="reminder_notifications_help">Benachrichtigungen für Erinnerungen sind deaktiviert. Aktiviere sie in den Android-Einstellungen, um Erinnerungen zu erhalten.</string>
+    <string name="reminder_notifications_allow">Erinnerungsbenachrichtigungen aktivieren</string>
+    <string name="reminder_channel">Erinnerungen zur Messung</string>
+    <string name="reminder_channel_description">Erinnerungen zu den von dir gewählten Messzeiten.</string>
+    <string name="reminder_notification_title">Zeit zum Messen</string>
+    <string name="reminder_notification_text">Miss deinen Blutdruck, wenn es dir passt.</string>
+</resources>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="reminder_title">Recordatorios de medición</string>
+    <string name="reminder_intro">Elige cuándo quieres que el teléfono te recuerde medir la presión. Estos recordatorios no cambian las alarmas del tensiómetro.</string>
+    <string name="reminder_add">Añadir recordatorio</string>
+    <string name="reminder_empty">Todavía no hay recordatorios.</string>
+    <string name="reminder_time">Hora</string>
+    <string name="reminder_days">Repetir los días</string>
+    <string name="reminder_once">Una vez (sin días seleccionados)</string>
+    <string name="reminder_skip_minutes">Omitir si se midió en los minutos anteriores</string>
+    <string name="reminder_skip_help">Omite esta ocasión si se registró una medición de cualquier usuario en este número de minutos antes de la hora programada. El valor predeterminado es 120 minutos (2 horas). Usa 0 para recordar siempre. Importar un historial antiguo no cuenta como una medición reciente.</string>
+    <string name="reminder_enabled">Activado</string>
+    <string name="reminder_edit">Editar</string>
+    <string name="reminder_delete">Eliminar recordatorio</string>
+    <string name="reminder_delete_confirm">¿Eliminar este recordatorio? Las mediciones guardadas se conservarán.</string>
+    <string name="reminder_invalid">Introduce 0 o un número entero positivo de minutos.</string>
+    <string name="reminder_save_failed">No se pudo guardar el recordatorio. Inténtalo de nuevo.</string>
+    <string name="reminder_exact_help">Permite alarmas y recordatorios para que lleguen a la hora exacta. Sin este acceso, Android podría retrasarlos. Vuelve a abrir OpenPressure si revocas el acceso en los ajustes del sistema.</string>
+    <string name="reminder_exact_allow">Permitir recordatorios precisos</string>
+    <string name="reminder_notifications_help">Las notificaciones de recordatorios están desactivadas. Actívalas en los ajustes de Android para recibir recordatorios.</string>
+    <string name="reminder_notifications_allow">Activar notificaciones de recordatorios</string>
+    <string name="reminder_channel">Recordatorios de medición</string>
+    <string name="reminder_channel_description">Recordatorios a las horas de medición que elijas.</string>
+    <string name="reminder_notification_title">Hora de medirse</string>
+    <string name="reminder_notification_text">Mide tu presión arterial cuando te venga bien.</string>
+</resources>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="reminder_title">मोजमापाची स्मरणपत्रे</string>
+    <string name="reminder_intro">तुमच्या फोनने मोजमापाची आठवण कधी करून द्यावी ते निवडा. ही स्मरणपत्रे तुमच्या रक्तदाब मापकावरील अलार्म बदलत नाहीत.</string>
+    <string name="reminder_add">स्मरणपत्र जोडा</string>
+    <string name="reminder_empty">अद्याप कोणतीही स्मरणपत्रे नाहीत.</string>
+    <string name="reminder_time">वेळ</string>
+    <string name="reminder_days">या दिवशी पुन्हा करा</string>
+    <string name="reminder_once">एकदा (आठवड्याचे दिवस निवडलेले नाहीत)</string>
+    <string name="reminder_skip_minutes">मागील इतक्या मिनिटांत मोजमाप झाले असल्यास वगळा</string>
+    <string name="reminder_skip_help">नियोजित वेळेच्या आधी इतक्या मिनिटांच्या आत कोणत्याही वापरकर्त्याचे मोजमाप नोंदवले असल्यास या वेळचे स्मरणपत्र वगळा. पूर्वनिर्धारित मूल्य 120 मिनिटे (2 तास) आहे. नेहमी आठवण करून देण्यासाठी 0 ठेवा. जुना इतिहास आयात करणे अलीकडील मोजमाप मानले जात नाही.</string>
+    <string name="reminder_enabled">सुरू</string>
+    <string name="reminder_edit">संपादित करा</string>
+    <string name="reminder_delete">स्मरणपत्र हटवा</string>
+    <string name="reminder_delete_confirm">हे स्मरणपत्र हटवायचे? जतन केलेली मोजमापे कायम राहतील.</string>
+    <string name="reminder_invalid">0 किंवा मिनिटांची धन पूर्ण संख्या लिहा.</string>
+    <string name="reminder_save_failed">स्मरणपत्र जतन करता आले नाही. पुन्हा प्रयत्न करा.</string>
+    <string name="reminder_exact_help">अचूक वेळेसाठी अलार्म आणि स्मरणपत्रांना परवानगी द्या. या प्रवेशाशिवाय Android स्मरणपत्रे उशिरा देऊ शकते. सिस्टम सेटिंग्जमध्ये प्रवेश रद्द केल्यास OpenPressure पुन्हा उघडा.</string>
+    <string name="reminder_exact_allow">अचूक स्मरणपत्रांना परवानगी द्या</string>
+    <string name="reminder_notifications_help">स्मरणपत्रांच्या सूचना बंद आहेत. स्मरणपत्रे मिळवण्यासाठी Android सेटिंग्जमध्ये त्या सुरू करा.</string>
+    <string name="reminder_notifications_allow">स्मरणपत्रांच्या सूचना सुरू करा</string>
+    <string name="reminder_channel">मोजमापाची स्मरणपत्रे</string>
+    <string name="reminder_channel_description">तुम्ही निवडलेल्या मोजमापाच्या वेळी स्मरणपत्रे.</string>
+    <string name="reminder_notification_title">मोजमापाची वेळ</string>
+    <string name="reminder_notification_text">सोयीच्या वेळी तुमचा रक्तदाब मोजा.</string>
+</resources>

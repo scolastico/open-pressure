@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="reminder_title">측정 알림</string>
+    <string name="reminder_intro">휴대전화에서 측정 알림을 보낼 시간을 선택하세요. 이 알림은 혈압계의 알람을 변경하지 않습니다.</string>
+    <string name="reminder_add">알림 추가</string>
+    <string name="reminder_empty">아직 알림이 없습니다.</string>
+    <string name="reminder_time">시간</string>
+    <string name="reminder_days">반복 요일</string>
+    <string name="reminder_once">한 번만 (선택한 요일 없음)</string>
+    <string name="reminder_skip_minutes">이전 몇 분 이내에 측정했다면 건너뛰기</string>
+    <string name="reminder_skip_help">예약 시간 전 설정한 분 이내에 어느 사용자의 측정이든 기록되었다면 이번 알림을 건너뜁니다. 기본값은 120분(2시간)입니다. 항상 알리려면 0으로 설정하세요. 과거 기록 가져오기는 최근 측정으로 간주되지 않습니다.</string>
+    <string name="reminder_enabled">사용</string>
+    <string name="reminder_edit">수정</string>
+    <string name="reminder_delete">알림 삭제</string>
+    <string name="reminder_delete_confirm">이 알림을 삭제할까요? 저장된 측정값은 유지됩니다.</string>
+    <string name="reminder_invalid">분 단위로 0 또는 양의 정수를 입력하세요.</string>
+    <string name="reminder_save_failed">알림을 저장할 수 없습니다. 다시 시도하세요.</string>
+    <string name="reminder_exact_help">정확한 시간에 알리려면 알람 및 리마인더를 허용하세요. 이 권한이 없으면 Android에서 알림이 지연될 수 있습니다. 시스템 설정에서 권한을 취소했다면 OpenPressure를 다시 여세요.</string>
+    <string name="reminder_exact_allow">정확한 알림 허용</string>
+    <string name="reminder_notifications_help">측정 알림의 알림 권한이 꺼져 있습니다. 알림을 받으려면 Android 설정에서 켜세요.</string>
+    <string name="reminder_notifications_allow">측정 알림 켜기</string>
+    <string name="reminder_channel">측정 알림</string>
+    <string name="reminder_channel_description">선택한 측정 시간에 보내는 알림입니다.</string>
+    <string name="reminder_notification_title">측정할 시간입니다</string>
+    <string name="reminder_notification_text">편할 때 혈압을 측정하세요.</string>
+</resources>

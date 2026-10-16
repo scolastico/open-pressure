@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="reminder_title">Mga paalala sa pagsukat</string>
+    <string name="reminder_intro">Piliin kung kailan ka paaalalahanan ng telepono mong magsukat. Hindi binabago ng mga paalalang ito ang mga alarma sa iyong panukat ng presyon ng dugo.</string>
+    <string name="reminder_add">Magdagdag ng paalala</string>
+    <string name="reminder_empty">Wala pang mga paalala.</string>
+    <string name="reminder_time">Oras</string>
+    <string name="reminder_days">Ulitin sa mga araw</string>
+    <string name="reminder_once">Isang beses (walang napiling araw ng linggo)</string>
+    <string name="reminder_skip_minutes">Laktawan kung nagsukat sa mga nakaraang minuto</string>
+    <string name="reminder_skip_help">Laktawan ang pagkakataong ito kung may naitalang sukat mula sa sinumang user sa loob ng ganitong karaming minuto bago ang nakatakdang oras. Ang default ay 120 minuto (2 oras). Itakda sa 0 para laging magpaalala. Ang pag-import ng lumang history ay hindi binibilang na kamakailang pagsukat.</string>
+    <string name="reminder_enabled">Naka-enable</string>
+    <string name="reminder_edit">I-edit</string>
+    <string name="reminder_delete">Tanggalin ang paalala</string>
+    <string name="reminder_delete_confirm">Tanggalin ang paalalang ito? Mananatili ang mga na-save na sukat.</string>
+    <string name="reminder_invalid">Maglagay ng 0 o positibong buong bilang ng minuto.</string>
+    <string name="reminder_save_failed">Hindi ma-save ang paalala. Subukan muli.</string>
+    <string name="reminder_exact_help">Payagan ang mga alarma at paalala para sa eksaktong oras. Kung wala ang access na ito, maaaring maantala ng Android ang mga paalala. Buksan muli ang OpenPressure kung babawiin mo ang access sa mga setting ng system.</string>
+    <string name="reminder_exact_allow">Payagan ang mga paalala sa eksaktong oras</string>
+    <string name="reminder_notifications_help">Naka-off ang mga notification ng paalala. I-enable ang mga ito sa mga setting ng Android para makatanggap ng mga paalala.</string>
+    <string name="reminder_notifications_allow">I-enable ang mga notification ng paalala</string>
+    <string name="reminder_channel">Mga paalala sa pagsukat</string>
+    <string name="reminder_channel_description">Mga paalala sa mga oras ng pagsukat na pipiliin mo.</string>
+    <string name="reminder_notification_title">Oras na para magsukat</string>
+    <string name="reminder_notification_text">Sukatin ang iyong presyon ng dugo kapag may pagkakataon.</string>
+</resources>

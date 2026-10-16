@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="reminder_title">Lembretes de medição</string>
+    <string name="reminder_intro">Escolha quando o telefone deve lembrar de medir. Estes lembretes não alteram os alarmes do medidor.</string>
+    <string name="reminder_add">Adicionar lembrete</string>
+    <string name="reminder_empty">Ainda não há lembretes.</string>
+    <string name="reminder_time">Hora</string>
+    <string name="reminder_days">Repetir nos dias</string>
+    <string name="reminder_once">Uma vez (nenhum dia selecionado)</string>
+    <string name="reminder_skip_minutes">Ignorar se houve medição nos minutos anteriores</string>
+    <string name="reminder_skip_help">Ignore esta ocorrência se uma medição de qualquer usuário tiver sido registrada dentro deste número de minutos antes do horário agendado. O padrão é 120 minutos (2 horas). Defina 0 para lembrar sempre. Importar um histórico antigo não conta como uma medição recente.</string>
+    <string name="reminder_enabled">Ativado</string>
+    <string name="reminder_edit">Editar</string>
+    <string name="reminder_delete">Excluir lembrete</string>
+    <string name="reminder_delete_confirm">Excluir este lembrete? As medições salvas serão mantidas.</string>
+    <string name="reminder_invalid">Insira 0 ou um número inteiro positivo de minutos.</string>
+    <string name="reminder_save_failed">Não foi possível salvar o lembrete. Tente novamente.</string>
+    <string name="reminder_exact_help">Permita alarmes e lembretes para horários precisos. Sem esse acesso, o Android pode atrasar os lembretes. Reabra o OpenPressure se revogar o acesso nas configurações do sistema.</string>
+    <string name="reminder_exact_allow">Permitir lembretes precisos</string>
+    <string name="reminder_notifications_help">As notificações de lembretes estão desativadas. Ative-as nas configurações do Android para receber lembretes.</string>
+    <string name="reminder_notifications_allow">Ativar notificações de lembretes</string>
+    <string name="reminder_channel">Lembretes de medição</string>
+    <string name="reminder_channel_description">Lembretes nos horários de medição que você escolher.</string>
+    <string name="reminder_notification_title">Hora de medir</string>
+    <string name="reminder_notification_text">Meça a pressão arterial quando for conveniente.</string>
+</resources>

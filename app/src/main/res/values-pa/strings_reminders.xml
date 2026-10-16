@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="reminder_title">ਮਾਪ ਦੇ ਰਿਮਾਈਂਡਰ</string>
+    <string name="reminder_intro">ਚੁਣੋ ਕਿ ਤੁਹਾਡਾ ਫ਼ੋਨ ਤੁਹਾਨੂੰ ਮਾਪ ਲੈਣ ਦੀ ਯਾਦ ਕਦੋਂ ਦਿਵਾਏ। ਇਹ ਰਿਮਾਈਂਡਰ ਤੁਹਾਡੇ ਬਲੱਡ ਪ੍ਰੈਸ਼ਰ ਮਾਨੀਟਰ ਦੇ ਅਲਾਰਮ ਨਹੀਂ ਬਦਲਦੇ।</string>
+    <string name="reminder_add">ਰਿਮਾਈਂਡਰ ਜੋੜੋ</string>
+    <string name="reminder_empty">ਹਾਲੇ ਕੋਈ ਰਿਮਾਈਂਡਰ ਨਹੀਂ ਹੈ।</string>
+    <string name="reminder_time">ਸਮਾਂ</string>
+    <string name="reminder_days">ਇਨ੍ਹਾਂ ਦਿਨਾਂ ਨੂੰ ਦੁਹਰਾਓ</string>
+    <string name="reminder_once">ਇੱਕ ਵਾਰ (ਹਫ਼ਤੇ ਦਾ ਕੋਈ ਦਿਨ ਨਹੀਂ ਚੁਣਿਆ)</string>
+    <string name="reminder_skip_minutes">ਪਿਛਲੇ ਇੰਨੇ ਮਿੰਟਾਂ ਵਿੱਚ ਮਾਪ ਲਿਆ ਹੋਵੇ ਤਾਂ ਛੱਡੋ</string>
+    <string name="reminder_skip_help">ਜੇ ਤਹਿ ਸਮੇਂ ਤੋਂ ਪਹਿਲਾਂ ਇੰਨੇ ਮਿੰਟਾਂ ਦੇ ਅੰਦਰ ਕਿਸੇ ਵੀ ਵਰਤੋਂਕਾਰ ਦਾ ਮਾਪ ਦਰਜ ਹੋਇਆ ਹੋਵੇ ਤਾਂ ਇਸ ਵਾਰ ਦਾ ਰਿਮਾਈਂਡਰ ਛੱਡੋ। ਮੂਲ ਮੁੱਲ 120 ਮਿੰਟ (2 ਘੰਟੇ) ਹੈ। ਹਮੇਸ਼ਾ ਯਾਦ ਦਿਵਾਉਣ ਲਈ 0 ਰੱਖੋ। ਪੁਰਾਣਾ ਇਤਿਹਾਸ ਆਯਾਤ ਕਰਨਾ ਹਾਲੀਆ ਮਾਪ ਨਹੀਂ ਗਿਣਿਆ ਜਾਂਦਾ।</string>
+    <string name="reminder_enabled">ਚਾਲੂ</string>
+    <string name="reminder_edit">ਸੋਧੋ</string>
+    <string name="reminder_delete">ਰਿਮਾਈਂਡਰ ਮਿਟਾਓ</string>
+    <string name="reminder_delete_confirm">ਇਹ ਰਿਮਾਈਂਡਰ ਮਿਟਾਉਣਾ ਹੈ? ਸੁਰੱਖਿਅਤ ਮਾਪ ਬਣੇ ਰਹਿਣਗੇ।</string>
+    <string name="reminder_invalid">0 ਜਾਂ ਮਿੰਟਾਂ ਦੀ ਧਨਾਤਮਕ ਪੂਰਨ ਸੰਖਿਆ ਦਰਜ ਕਰੋ।</string>
+    <string name="reminder_save_failed">ਰਿਮਾਈਂਡਰ ਸੁਰੱਖਿਅਤ ਨਹੀਂ ਹੋ ਸਕਿਆ। ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।</string>
+    <string name="reminder_exact_help">ਸਹੀ ਸਮੇਂ ਲਈ ਅਲਾਰਮਾਂ ਅਤੇ ਰਿਮਾਈਂਡਰਾਂ ਦੀ ਇਜਾਜ਼ਤ ਦਿਓ। ਇਸ ਪਹੁੰਚ ਤੋਂ ਬਿਨਾਂ Android ਰਿਮਾਈਂਡਰ ਦੇਰ ਨਾਲ ਦੇ ਸਕਦਾ ਹੈ। ਜੇ ਤੁਸੀਂ ਸਿਸਟਮ ਸੈਟਿੰਗਾਂ ਵਿੱਚ ਪਹੁੰਚ ਰੱਦ ਕਰਦੇ ਹੋ ਤਾਂ OpenPressure ਮੁੜ ਖੋਲ੍ਹੋ।</string>
+    <string name="reminder_exact_allow">ਸਹੀ ਸਮੇਂ ਦੇ ਰਿਮਾਈਂਡਰਾਂ ਦੀ ਇਜਾਜ਼ਤ ਦਿਓ</string>
+    <string name="reminder_notifications_help">ਰਿਮਾਈਂਡਰ ਸੂਚਨਾਵਾਂ ਬੰਦ ਹਨ। ਰਿਮਾਈਂਡਰ ਪ੍ਰਾਪਤ ਕਰਨ ਲਈ Android ਸੈਟਿੰਗਾਂ ਵਿੱਚ ਇਨ੍ਹਾਂ ਨੂੰ ਚਾਲੂ ਕਰੋ।</string>
+    <string name="reminder_notifications_allow">ਰਿਮਾਈਂਡਰ ਸੂਚਨਾਵਾਂ ਚਾਲੂ ਕਰੋ</string>
+    <string name="reminder_channel">ਮਾਪ ਦੇ ਰਿਮਾਈਂਡਰ</string>
+    <string name="reminder_channel_description">ਤੁਹਾਡੇ ਚੁਣੇ ਮਾਪ ਦੇ ਸਮਿਆਂ ਉੱਤੇ ਰਿਮਾਈਂਡਰ।</string>
+    <string name="reminder_notification_title">ਮਾਪ ਲੈਣ ਦਾ ਸਮਾਂ</string>
+    <string name="reminder_notification_text">ਸਹੂਲਤ ਹੋਣ ਤੇ ਆਪਣਾ ਬਲੱਡ ਪ੍ਰੈਸ਼ਰ ਮਾਪੋ।</string>
+</resources>

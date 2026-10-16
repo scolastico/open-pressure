@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="reminder_title">അളവെടുപ്പ് ഓർമ്മപ്പെടുത്തലുകൾ</string>
+    <string name="reminder_intro">അളവെടുക്കാൻ ഫോൺ എപ്പോൾ ഓർമ്മപ്പെടുത്തണമെന്ന് തിരഞ്ഞെടുക്കുക. ഈ ഓർമ്മപ്പെടുത്തലുകൾ നിങ്ങളുടെ രക്തസമ്മർദ ഉപകരണത്തിലെ അലാറങ്ങൾ മാറ്റില്ല.</string>
+    <string name="reminder_add">ഓർമ്മപ്പെടുത്തൽ ചേർക്കുക</string>
+    <string name="reminder_empty">ഇതുവരെ ഓർമ്മപ്പെടുത്തലുകളില്ല.</string>
+    <string name="reminder_time">സമയം</string>
+    <string name="reminder_days">ഈ ദിവസങ്ങളിൽ ആവർത്തിക്കുക</string>
+    <string name="reminder_once">ഒരിക്കൽ (ആഴ്ചയിലെ ദിവസങ്ങൾ തിരഞ്ഞെടുത്തിട്ടില്ല)</string>
+    <string name="reminder_skip_minutes">മുമ്പത്തെ ഇത്ര മിനിറ്റിൽ അളവെടുത്തെങ്കിൽ ഒഴിവാക്കുക</string>
+    <string name="reminder_skip_help">നിശ്ചയിച്ച സമയത്തിന് മുമ്പ് ഇത്ര മിനിറ്റിനുള്ളിൽ ഏതെങ്കിലും ഉപയോക്താവിന്റെ അളവ് രേഖപ്പെടുത്തിയിട്ടുണ്ടെങ്കിൽ ഈ തവണ ഒഴിവാക്കുക. സ്ഥിരമൂല്യം 120 മിനിറ്റ് (2 മണിക്കൂർ) ആണ്. എപ്പോഴും ഓർമ്മപ്പെടുത്താൻ 0 നൽകുക. പഴയ ചരിത്രം ഇറക്കുമതി ചെയ്യുന്നത് സമീപകാല അളവായി കണക്കാക്കില്ല.</string>
+    <string name="reminder_enabled">പ്രവർത്തനക്ഷമം</string>
+    <string name="reminder_edit">തിരുത്തുക</string>
+    <string name="reminder_delete">ഓർമ്മപ്പെടുത്തൽ ഇല്ലാതാക്കുക</string>
+    <string name="reminder_delete_confirm">ഈ ഓർമ്മപ്പെടുത്തൽ ഇല്ലാതാക്കണോ? സംരക്ഷിച്ച അളവുകൾ നിലനിൽക്കും.</string>
+    <string name="reminder_invalid">മിനിറ്റുകൾ 0 അല്ലെങ്കിൽ ധന പൂർണ്ണസംഖ്യയായി നൽകുക.</string>
+    <string name="reminder_save_failed">ഓർമ്മപ്പെടുത്തൽ സംരക്ഷിക്കാനായില്ല. വീണ്ടും ശ്രമിക്കുക.</string>
+    <string name="reminder_exact_help">കൃത്യമായ സമയത്തിനായി അലാറങ്ങളും ഓർമ്മപ്പെടുത്തലുകളും അനുവദിക്കുക. ഈ അനുമതിയില്ലാതെ Android ഓർമ്മപ്പെടുത്തലുകൾ വൈകി നൽകിയേക്കാം. സിസ്റ്റം ക്രമീകരണങ്ങളിൽ അനുമതി റദ്ദാക്കിയാൽ OpenPressure വീണ്ടും തുറക്കുക.</string>
+    <string name="reminder_exact_allow">കൃത്യമായ ഓർമ്മപ്പെടുത്തലുകൾ അനുവദിക്കുക</string>
+    <string name="reminder_notifications_help">ഓർമ്മപ്പെടുത്തൽ അറിയിപ്പുകൾ ഓഫാണ്. ഓർമ്മപ്പെടുത്തലുകൾ ലഭിക്കാൻ Android ക്രമീകരണങ്ങളിൽ അവ ഓണാക്കുക.</string>
+    <string name="reminder_notifications_allow">ഓർമ്മപ്പെടുത്തൽ അറിയിപ്പുകൾ ഓണാക്കുക</string>
+    <string name="reminder_channel">അളവെടുപ്പ് ഓർമ്മപ്പെടുത്തലുകൾ</string>
+    <string name="reminder_channel_description">നിങ്ങൾ തിരഞ്ഞെടുക്കുന്ന അളവെടുപ്പ് സമയങ്ങളിൽ ഓർമ്മപ്പെടുത്തലുകൾ.</string>
+    <string name="reminder_notification_title">അളവെടുക്കേണ്ട സമയം</string>
+    <string name="reminder_notification_text">സൗകര്യമുള്ളപ്പോൾ നിങ്ങളുടെ രക്തസമ്മർദം അളക്കുക.</string>
+</resources>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="reminder_title">Нагадування про вимірювання</string>
+    <string name="reminder_intro">Виберіть, коли телефон нагадуватиме про вимірювання. Ці нагадування не змінюють сигнали на тонометрі.</string>
+    <string name="reminder_add">Додати нагадування</string>
+    <string name="reminder_empty">Нагадувань поки немає.</string>
+    <string name="reminder_time">Час</string>
+    <string name="reminder_days">Повторювати за днями</string>
+    <string name="reminder_once">Один раз (дні тижня не вибрано)</string>
+    <string name="reminder_skip_minutes">Пропускати, якщо вимірювання було в попередні хвилини</string>
+    <string name="reminder_skip_help">Пропустити це спрацювання, якщо за вказану кількість хвилин до запланованого часу було записано вимірювання будь-якого користувача. Типове значення — 120 хвилин (2 години). Укажіть 0, щоб нагадувати завжди. Імпорт давнішої історії не вважається нещодавнім вимірюванням.</string>
+    <string name="reminder_enabled">Увімкнено</string>
+    <string name="reminder_edit">Змінити</string>
+    <string name="reminder_delete">Видалити нагадування</string>
+    <string name="reminder_delete_confirm">Видалити це нагадування? Збережені вимірювання залишаться.</string>
+    <string name="reminder_invalid">Введіть 0 або додатне ціле число хвилин.</string>
+    <string name="reminder_save_failed">Не вдалося зберегти нагадування. Спробуйте ще раз.</string>
+    <string name="reminder_exact_help">Дозвольте будильники й нагадування для точного часу спрацювання. Без цього доступу Android може затримувати нагадування. Відкрийте OpenPressure знову, якщо відкличете доступ у системних налаштуваннях.</string>
+    <string name="reminder_exact_allow">Дозволити точні нагадування</string>
+    <string name="reminder_notifications_help">Сповіщення про нагадування вимкнено. Увімкніть їх у налаштуваннях Android, щоб отримувати нагадування.</string>
+    <string name="reminder_notifications_allow">Увімкнути сповіщення про нагадування</string>
+    <string name="reminder_channel">Нагадування про вимірювання</string>
+    <string name="reminder_channel_description">Нагадування у вибраний вами час вимірювань.</string>
+    <string name="reminder_notification_title">Час виміряти тиск</string>
+    <string name="reminder_notification_text">Виміряйте артеріальний тиск, коли вам буде зручно.</string>
+</resources>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="reminder_title">मापनका सम्झाउने सूचनाहरू</string>
+    <string name="reminder_intro">तपाईंको फोनले मापन गर्न कहिले सम्झाउने हो छान्नुहोस्। यी सूचनाहरूले रक्तचाप यन्त्रका अलार्महरू परिवर्तन गर्दैनन्।</string>
+    <string name="reminder_add">सम्झाउने सूचना थप्नुहोस्</string>
+    <string name="reminder_empty">अहिलेसम्म कुनै सम्झाउने सूचना छैन।</string>
+    <string name="reminder_time">समय</string>
+    <string name="reminder_days">यी दिनहरूमा दोहोर्‍याउनुहोस्</string>
+    <string name="reminder_once">एक पटक (हप्ताका दिनहरू छानिएका छैनन्)</string>
+    <string name="reminder_skip_minutes">अघिल्ला यति मिनेटमा मापन भएमा छोड्नुहोस्</string>
+    <string name="reminder_skip_help">तोकिएको समयअघि यति मिनेटभित्र जुनसुकै प्रयोगकर्ताको मापन रेकर्ड भएको छ भने यस पटक छोड्नुहोस्। पूर्वनिर्धारित मान 120 मिनेट (2 घण्टा) हो। सधैँ सम्झाउन 0 राख्नुहोस्। पुरानो इतिहास आयात गर्नु हालैको मापन मानिँदैन।</string>
+    <string name="reminder_enabled">सक्रिय</string>
+    <string name="reminder_edit">सम्पादन गर्नुहोस्</string>
+    <string name="reminder_delete">सम्झाउने सूचना मेटाउनुहोस्</string>
+    <string name="reminder_delete_confirm">यो सम्झाउने सूचना मेटाउने हो? सुरक्षित मापनहरू रहिरहनेछन्।</string>
+    <string name="reminder_invalid">0 वा मिनेटको धनात्मक पूर्ण सङ्ख्या प्रविष्ट गर्नुहोस्।</string>
+    <string name="reminder_save_failed">सम्झाउने सूचना सुरक्षित गर्न सकिएन। फेरि प्रयास गर्नुहोस्।</string>
+    <string name="reminder_exact_help">ठीक समयमा सूचना दिन अलार्म र सम्झाउने सूचनाहरूलाई अनुमति दिनुहोस्। यो पहुँचबिना Android ले ढिलो सूचना दिन सक्छ। प्रणाली सेटिङमा पहुँच रद्द गर्नुभयो भने OpenPressure फेरि खोल्नुहोस्।</string>
+    <string name="reminder_exact_allow">ठीक समयका सम्झाउने सूचनालाई अनुमति दिनुहोस्</string>
+    <string name="reminder_notifications_help">सम्झाउने सूचनाका नोटिफिकेसनहरू बन्द छन्। सम्झाउने सूचना पाउन Android सेटिङमा तिनलाई सक्रिय गर्नुहोस्।</string>
+    <string name="reminder_notifications_allow">सम्झाउने नोटिफिकेसनहरू सक्रिय गर्नुहोस्</string>
+    <string name="reminder_channel">मापनका सम्झाउने सूचनाहरू</string>
+    <string name="reminder_channel_description">तपाईंले छानेका मापन समयमा सम्झाउने सूचनाहरू।</string>
+    <string name="reminder_notification_title">मापन गर्ने समय</string>
+    <string name="reminder_notification_text">अनुकूल हुँदा आफ्नो रक्तचाप नाप्नुहोस्।</string>
+</resources>

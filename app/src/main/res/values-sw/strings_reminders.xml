@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="reminder_title">Vikumbusho vya kupima</string>
+    <string name="reminder_intro">Chagua wakati simu yako itakukumbusha kupima. Vikumbusho hivi havibadilishi kengele kwenye kifaa chako cha kupima shinikizo la damu.</string>
+    <string name="reminder_add">Ongeza kikumbusho</string>
+    <string name="reminder_empty">Bado hakuna vikumbusho.</string>
+    <string name="reminder_time">Muda</string>
+    <string name="reminder_days">Rudia siku za</string>
+    <string name="reminder_once">Mara moja (hakuna siku za wiki zilizochaguliwa)</string>
+    <string name="reminder_skip_minutes">Ruka ikiwa kipimo kilifanywa katika dakika zilizotangulia</string>
+    <string name="reminder_skip_help">Ruka tukio hili ikiwa kipimo cha mtumiaji yeyote kilirekodiwa ndani ya idadi hii ya dakika kabla ya muda uliopangwa. Chaguo-msingi ni dakika 120 (saa 2). Weka 0 ili kukumbushwa kila wakati. Kuleta historia ya zamani hakuhesabiwi kama kipimo cha hivi karibuni.</string>
+    <string name="reminder_enabled">Kimewashwa</string>
+    <string name="reminder_edit">Hariri</string>
+    <string name="reminder_delete">Futa kikumbusho</string>
+    <string name="reminder_delete_confirm">Ungependa kufuta kikumbusho hiki? Vipimo vilivyohifadhiwa vitabaki.</string>
+    <string name="reminder_invalid">Weka 0 au idadi chanya kamili ya dakika.</string>
+    <string name="reminder_save_failed">Haikuweza kuhifadhi kikumbusho. Jaribu tena.</string>
+    <string name="reminder_exact_help">Ruhusu kengele na vikumbusho ili vifike kwa muda sahihi. Bila ruhusa hii, Android inaweza kuchelewesha vikumbusho. Fungua tena OpenPressure ukiondoa ruhusa katika mipangilio ya mfumo.</string>
+    <string name="reminder_exact_allow">Ruhusu vikumbusho vya muda sahihi</string>
+    <string name="reminder_notifications_help">Arifa za vikumbusho zimezimwa. Ziwashe katika mipangilio ya Android ili kupokea vikumbusho.</string>
+    <string name="reminder_notifications_allow">Washa arifa za vikumbusho</string>
+    <string name="reminder_channel">Vikumbusho vya kupima</string>
+    <string name="reminder_channel_description">Vikumbusho katika nyakati za kupima unazochagua.</string>
+    <string name="reminder_notification_title">Ni wakati wa kupima</string>
+    <string name="reminder_notification_text">Pima shinikizo lako la damu unapopata nafasi.</string>
+</resources>

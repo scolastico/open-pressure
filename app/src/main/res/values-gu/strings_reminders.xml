@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="reminder_title">માપના રિમાઇન્ડર</string>
+    <string name="reminder_intro">તમારો ફોન તમને ક્યારે માપ લેવાનું યાદ કરાવે તે પસંદ કરો. આ રિમાઇન્ડર તમારા બ્લડ પ્રેશર મોનિટરના અલાર્મ બદલતા નથી.</string>
+    <string name="reminder_add">રિમાઇન્ડર ઉમેરો</string>
+    <string name="reminder_empty">હજુ કોઈ રિમાઇન્ડર નથી.</string>
+    <string name="reminder_time">સમય</string>
+    <string name="reminder_days">આ દિવસોએ પુનરાવર્તન</string>
+    <string name="reminder_once">એક વાર (અઠવાડિયાનો કોઈ દિવસ પસંદ કરેલો નથી)</string>
+    <string name="reminder_skip_minutes">પાછલી આટલી મિનિટોમાં માપ લીધું હોય તો છોડો</string>
+    <string name="reminder_skip_help">નિર્ધારિત સમય પહેલાં આટલી મિનિટોની અંદર કોઈપણ વપરાશકર્તાનું માપ નોંધાયું હોય તો આ વખતનું રિમાઇન્ડર છોડો. મૂળભૂત મૂલ્ય 120 મિનિટ (2 કલાક) છે. હંમેશાં યાદ કરાવવા માટે 0 સેટ કરો. જૂનો ઇતિહાસ આયાત કરવો તાજેતરનું માપ ગણાતું નથી.</string>
+    <string name="reminder_enabled">ચાલુ</string>
+    <string name="reminder_edit">ફેરફાર કરો</string>
+    <string name="reminder_delete">રિમાઇન્ડર કાઢી નાખો</string>
+    <string name="reminder_delete_confirm">આ રિમાઇન્ડર કાઢી નાખવું છે? સાચવેલા માપ જળવાશે.</string>
+    <string name="reminder_invalid">0 અથવા મિનિટોની ધન પૂર્ણ સંખ્યા દાખલ કરો.</string>
+    <string name="reminder_save_failed">રિમાઇન્ડર સાચવી શકાયું નહીં. ફરી પ્રયાસ કરો.</string>
+    <string name="reminder_exact_help">ચોક્કસ સમય માટે અલાર્મ અને રિમાઇન્ડરની મંજૂરી આપો. આ ઍક્સેસ વિના Android રિમાઇન્ડર મોડાં આપી શકે છે. સિસ્ટમ સેટિંગમાં ઍક્સેસ રદ કરો તો OpenPressure ફરી ખોલો.</string>
+    <string name="reminder_exact_allow">ચોક્કસ સમયના રિમાઇન્ડરની મંજૂરી આપો</string>
+    <string name="reminder_notifications_help">રિમાઇન્ડરની સૂચનાઓ બંધ છે. રિમાઇન્ડર મેળવવા માટે Android સેટિંગમાં તેમને ચાલુ કરો.</string>
+    <string name="reminder_notifications_allow">રિમાઇન્ડરની સૂચનાઓ ચાલુ કરો</string>
+    <string name="reminder_channel">માપના રિમાઇન્ડર</string>
+    <string name="reminder_channel_description">તમે પસંદ કરેલા માપના સમયે રિમાઇન્ડર.</string>
+    <string name="reminder_notification_title">માપ લેવાનો સમય</string>
+    <string name="reminder_notification_text">અનુકૂળ હોય ત્યારે તમારું બ્લડ પ્રેશર માપો.</string>
+</resources>

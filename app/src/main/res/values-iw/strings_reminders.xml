@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="reminder_title">תזכורות למדידה</string>
+    <string name="reminder_intro">בחרו מתי הטלפון יזכיר לכם למדוד. התזכורות האלה אינן משנות את ההתראות במכשיר למדידת לחץ הדם.</string>
+    <string name="reminder_add">הוספת תזכורת</string>
+    <string name="reminder_empty">אין עדיין תזכורות.</string>
+    <string name="reminder_time">שעה</string>
+    <string name="reminder_days">חזרה בימים</string>
+    <string name="reminder_once">פעם אחת (לא נבחרו ימים בשבוע)</string>
+    <string name="reminder_skip_minutes">דילוג אם בוצעה מדידה בדקות הקודמות</string>
+    <string name="reminder_skip_help">דילוג על המופע הזה אם נרשמה מדידה של משתמש כלשהו בטווח הדקות הזה לפני השעה המתוכננת. ברירת המחדל היא 120 דקות (שעתיים). הגדירו 0 כדי לקבל תזכורת תמיד. ייבוא היסטוריה ישנה אינו נחשב למדידה שבוצעה לאחרונה.</string>
+    <string name="reminder_enabled">מופעלת</string>
+    <string name="reminder_edit">עריכה</string>
+    <string name="reminder_delete">מחיקת תזכורת</string>
+    <string name="reminder_delete_confirm">למחוק את התזכורת הזו? המדידות השמורות יישארו.</string>
+    <string name="reminder_invalid">הזינו 0 או מספר שלם חיובי של דקות.</string>
+    <string name="reminder_save_failed">לא ניתן לשמור את התזכורת. נסו שוב.</string>
+    <string name="reminder_exact_help">אפשרו התראות ותזכורות לתזמון מדויק. ללא גישה זו, Android עשוי לשלוח תזכורות באיחור. פתחו מחדש את OpenPressure אם תבטלו את הגישה בהגדרות המערכת.</string>
+    <string name="reminder_exact_allow">מתן הרשאה לתזכורות מדויקות</string>
+    <string name="reminder_notifications_help">ההתראות על תזכורות כבויות. הפעילו אותן בהגדרות Android כדי לקבל תזכורות.</string>
+    <string name="reminder_notifications_allow">הפעלת התראות על תזכורות</string>
+    <string name="reminder_channel">תזכורות למדידה</string>
+    <string name="reminder_channel_description">תזכורות בזמני המדידה שתבחרו.</string>
+    <string name="reminder_notification_title">הגיע הזמן למדוד</string>
+    <string name="reminder_notification_text">מדדו את לחץ הדם כשנוח לכם.</string>
+</resources>

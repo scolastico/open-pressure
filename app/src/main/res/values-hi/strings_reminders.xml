@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="reminder_title">माप के रिमाइंडर</string>
+    <string name="reminder_intro">चुनें कि आपका फ़ोन आपको माप लेने की याद कब दिलाए। ये रिमाइंडर आपके ब्लड प्रेशर मॉनिटर के अलार्म नहीं बदलते।</string>
+    <string name="reminder_add">रिमाइंडर जोड़ें</string>
+    <string name="reminder_empty">अभी कोई रिमाइंडर नहीं है।</string>
+    <string name="reminder_time">समय</string>
+    <string name="reminder_days">इन दिनों दोहराएँ</string>
+    <string name="reminder_once">एक बार (सप्ताह का कोई दिन नहीं चुना गया)</string>
+    <string name="reminder_skip_minutes">अगर पिछले इतने मिनटों में माप लिया गया हो तो छोड़ें</string>
+    <string name="reminder_skip_help">अगर तय समय से पहले इतने मिनटों के भीतर किसी भी उपयोगकर्ता का माप दर्ज किया गया हो, तो इस बार रिमाइंडर छोड़ दें। डिफ़ॉल्ट 120 मिनट (2 घंटे) है। हमेशा याद दिलाने के लिए 0 सेट करें। पुराना इतिहास इंपोर्ट करना हाल का माप नहीं माना जाता।</string>
+    <string name="reminder_enabled">चालू</string>
+    <string name="reminder_edit">बदलें</string>
+    <string name="reminder_delete">रिमाइंडर मिटाएँ</string>
+    <string name="reminder_delete_confirm">यह रिमाइंडर मिटाएँ? सहेजे गए माप बने रहेंगे।</string>
+    <string name="reminder_invalid">0 या मिनटों की धनात्मक पूर्ण संख्या दर्ज करें।</string>
+    <string name="reminder_save_failed">रिमाइंडर सहेजा नहीं जा सका। फिर से कोशिश करें।</string>
+    <string name="reminder_exact_help">सटीक समय के लिए अलार्म और रिमाइंडर की अनुमति दें। इस ऐक्सेस के बिना Android रिमाइंडर देर से दे सकता है। अगर आप सिस्टम सेटिंग में ऐक्सेस रद्द करते हैं, तो OpenPressure फिर से खोलें।</string>
+    <string name="reminder_exact_allow">सटीक रिमाइंडर की अनुमति दें</string>
+    <string name="reminder_notifications_help">रिमाइंडर सूचनाएँ बंद हैं। रिमाइंडर पाने के लिए Android सेटिंग में इन्हें चालू करें।</string>
+    <string name="reminder_notifications_allow">रिमाइंडर सूचनाएँ चालू करें</string>
+    <string name="reminder_channel">माप के रिमाइंडर</string>
+    <string name="reminder_channel_description">आपके चुने हुए माप के समय पर रिमाइंडर।</string>
+    <string name="reminder_notification_title">माप लेने का समय</string>
+    <string name="reminder_notification_text">सुविधा होने पर अपना ब्लड प्रेशर मापें।</string>
+</resources>

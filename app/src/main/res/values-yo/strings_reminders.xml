@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="reminder_title">Àwọn ìránnilétí ìwọ̀n</string>
+    <string name="reminder_intro">Yan ìgbà tí fóònù rẹ yóò rán ọ létí láti wọn. Àwọn ìránnilétí wọ̀nyí kò yí àwọn aago ìtaniji lórí ẹ̀rọ ìwọ̀n ìfúnpá rẹ padà.</string>
+    <string name="reminder_add">Fi ìránnilétí kún</string>
+    <string name="reminder_empty">Kò tíì sí ìránnilétí.</string>
+    <string name="reminder_time">Àkókò</string>
+    <string name="reminder_days">Tún ṣe ní àwọn ọjọ́</string>
+    <string name="reminder_once">Ẹ̀ẹ̀kan (a kò yan ọjọ́ ọ̀sẹ̀ kankan)</string>
+    <string name="reminder_skip_minutes">Fo bí a bá ti wọn ní àwọn ìṣẹ́jú ṣáájú</string>
+    <string name="reminder_skip_help">Fo ìgbà yìí bí a bá ti ṣe àkọsílẹ̀ ìwọ̀n ẹnikẹ́ni nínú iye ìṣẹ́jú yìí ṣáájú àkókò tí a ṣètò. Àtòjọ ìbẹ̀rẹ̀ jẹ́ ìṣẹ́jú 120 (wákàtí 2). Ṣètò sí 0 láti máa ránni létí ní gbogbo ìgbà. Kíkó ìtàn àtijọ́ wọlé kò kà sí ìwọ̀n tuntun.</string>
+    <string name="reminder_enabled">Ti ṣiṣẹ́</string>
+    <string name="reminder_edit">Ṣàtúnṣe</string>
+    <string name="reminder_delete">Pa ìránnilétí rẹ́</string>
+    <string name="reminder_delete_confirm">Pa ìránnilétí yìí rẹ́? Àwọn ìwọ̀n tí a fipamọ́ yóò wà síbẹ̀.</string>
+    <string name="reminder_invalid">Tẹ 0 tàbí iye ìṣẹ́jú tó jẹ́ odidi nọ́ńbà rere sínú rẹ̀.</string>
+    <string name="reminder_save_failed">A kò lè fipamọ́ ìránnilétí náà. Gbìyànjú lẹ́ẹ̀kan sí i.</string>
+    <string name="reminder_exact_help">Gba àwọn aago ìtaniji àti ìránnilétí láàyè fún àkókò tó péye. Láìsí àṣẹ yìí, Android lè fi ìránnilétí ránṣẹ́ pẹ́. Tún ṣí OpenPressure bí o bá fagilé àṣẹ nínú ètò ẹ̀rọ.</string>
+    <string name="reminder_exact_allow">Gba ìránnilétí àkókò tó péye láàyè</string>
+    <string name="reminder_notifications_help">Àwọn ìfitónilétí ìránnilétí ti wà ní pípa. Tàn wọ́n nínú ètò Android láti gba ìránnilétí.</string>
+    <string name="reminder_notifications_allow">Tan àwọn ìfitónilétí ìránnilétí</string>
+    <string name="reminder_channel">Àwọn ìránnilétí ìwọ̀n</string>
+    <string name="reminder_channel_description">Àwọn ìránnilétí ní àwọn àkókò ìwọ̀n tí o yàn.</string>
+    <string name="reminder_notification_title">Àkókò láti wọn ti tó</string>
+    <string name="reminder_notification_text">Wọn ìfúnpá rẹ nígbà tó bá rọrùn fún ọ.</string>
+</resources>

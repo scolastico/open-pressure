@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="reminder_title">การเตือนให้วัด</string>
+    <string name="reminder_intro">เลือกเวลาที่ให้โทรศัพท์เตือนให้คุณวัดค่า การเตือนเหล่านี้ไม่เปลี่ยนการตั้งปลุกบนเครื่องวัดความดันของคุณ</string>
+    <string name="reminder_add">เพิ่มการเตือน</string>
+    <string name="reminder_empty">ยังไม่มีการเตือน</string>
+    <string name="reminder_time">เวลา</string>
+    <string name="reminder_days">ทำซ้ำในวัน</string>
+    <string name="reminder_once">ครั้งเดียว (ไม่ได้เลือกวันในสัปดาห์)</string>
+    <string name="reminder_skip_minutes">ข้ามหากวัดแล้วในช่วงนาทีก่อนหน้า</string>
+    <string name="reminder_skip_help">ข้ามการเตือนครั้งนี้หากมีการบันทึกการวัดของผู้ใช้คนใดก็ตามภายในจำนวนนาทีนี้ก่อนเวลาที่กำหนด ค่าเริ่มต้นคือ 120 นาที (2 ชั่วโมง) ตั้งเป็น 0 เพื่อเตือนทุกครั้ง การนำเข้าประวัติเก่าไม่นับเป็นการวัดล่าสุด</string>
+    <string name="reminder_enabled">เปิดใช้งาน</string>
+    <string name="reminder_edit">แก้ไข</string>
+    <string name="reminder_delete">ลบการเตือน</string>
+    <string name="reminder_delete_confirm">ลบการเตือนนี้หรือไม่? ค่าที่บันทึกไว้จะยังคงอยู่</string>
+    <string name="reminder_invalid">ป้อน 0 หรือจำนวนนาทีที่เป็นจำนวนเต็มบวก</string>
+    <string name="reminder_save_failed">บันทึกการเตือนไม่สำเร็จ ลองอีกครั้ง</string>
+    <string name="reminder_exact_help">อนุญาตนาฬิกาปลุกและการช่วยเตือนเพื่อให้ตรงเวลา หากไม่มีสิทธิ์นี้ Android อาจส่งการเตือนล่าช้า เปิด OpenPressure อีกครั้งหากคุณเพิกถอนสิทธิ์ในการตั้งค่าระบบ</string>
+    <string name="reminder_exact_allow">อนุญาตการเตือนที่ตรงเวลา</string>
+    <string name="reminder_notifications_help">การแจ้งเตือนสำหรับการเตือนถูกปิดอยู่ เปิดในการตั้งค่า Android เพื่อรับการเตือน</string>
+    <string name="reminder_notifications_allow">เปิดการแจ้งเตือนสำหรับการเตือน</string>
+    <string name="reminder_channel">การเตือนให้วัด</string>
+    <string name="reminder_channel_description">เตือนตามเวลาวัดที่คุณเลือก</string>
+    <string name="reminder_notification_title">ถึงเวลาวัดแล้ว</string>
+    <string name="reminder_notification_text">วัดความดันโลหิตเมื่อคุณสะดวก</string>
+</resources>

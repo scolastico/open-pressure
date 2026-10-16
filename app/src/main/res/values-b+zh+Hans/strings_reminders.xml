@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="reminder_title">测量提醒</string>
+    <string name="reminder_intro">选择手机提醒您测量的时间。这些提醒不会更改血压计上的闹钟。</string>
+    <string name="reminder_add">添加提醒</string>
+    <string name="reminder_empty">尚无提醒。</string>
+    <string name="reminder_time">时间</string>
+    <string name="reminder_days">重复日期</string>
+    <string name="reminder_once">仅一次（未选择星期）</string>
+    <string name="reminder_skip_minutes">若此前数分钟内已测量则跳过</string>
+    <string name="reminder_skip_help">如果任意用户在预定时间前的指定分钟数内有测量记录，则跳过本次提醒。默认值为120分钟（2小时）。设为0则始终提醒。导入较早的历史记录不算作近期测量。</string>
+    <string name="reminder_enabled">已启用</string>
+    <string name="reminder_edit">编辑</string>
+    <string name="reminder_delete">删除提醒</string>
+    <string name="reminder_delete_confirm">删除此提醒？已保存的测量记录将保留。</string>
+    <string name="reminder_invalid">请输入0或正整数分钟数。</string>
+    <string name="reminder_save_failed">无法保存提醒。请重试。</string>
+    <string name="reminder_exact_help">允许闹钟和提醒以确保准时提醒。没有此权限时，Android可能会延迟发送提醒。如果您在系统设置中撤销权限，请重新打开OpenPressure。</string>
+    <string name="reminder_exact_allow">允许精确提醒</string>
+    <string name="reminder_notifications_help">提醒通知已关闭。请在Android设置中启用，以接收提醒。</string>
+    <string name="reminder_notifications_allow">启用提醒通知</string>
+    <string name="reminder_channel">测量提醒</string>
+    <string name="reminder_channel_description">在您选择的测量时间发送提醒。</string>
+    <string name="reminder_notification_title">该测量了</string>
+    <string name="reminder_notification_text">请在方便时测量血压。</string>
+</resources>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="reminder_title">মাপের রিমাইন্ডার</string>
+    <string name="reminder_intro">আপনার ফোন কখন মাপ নেওয়ার কথা মনে করাবে তা বেছে নিন। এই রিমাইন্ডারগুলি আপনার রক্তচাপ মাপার যন্ত্রের অ্যালার্ম বদলায় না।</string>
+    <string name="reminder_add">রিমাইন্ডার যোগ করুন</string>
+    <string name="reminder_empty">এখনও কোনো রিমাইন্ডার নেই।</string>
+    <string name="reminder_time">সময়</string>
+    <string name="reminder_days">এই দিনগুলিতে পুনরাবৃত্তি</string>
+    <string name="reminder_once">একবার (সপ্তাহের কোনো দিন বাছা হয়নি)</string>
+    <string name="reminder_skip_minutes">আগের এত মিনিটের মধ্যে মাপ নেওয়া হলে এড়িয়ে যান</string>
+    <string name="reminder_skip_help">নির্ধারিত সময়ের আগে এই সংখ্যক মিনিটের মধ্যে যেকোনো ব্যবহারকারীর মাপ নথিভুক্ত হয়ে থাকলে এইবারের রিমাইন্ডার এড়িয়ে যান। ডিফল্ট হল 120 মিনিট (2 ঘণ্টা)। সবসময় মনে করাতে 0 দিন। পুরোনো ইতিহাস আমদানি করা সাম্প্রতিক মাপ হিসেবে গণ্য হয় না।</string>
+    <string name="reminder_enabled">চালু</string>
+    <string name="reminder_edit">সম্পাদনা করুন</string>
+    <string name="reminder_delete">রিমাইন্ডার মুছুন</string>
+    <string name="reminder_delete_confirm">এই রিমাইন্ডার মুছবেন? সংরক্ষিত মাপগুলি থেকে যাবে।</string>
+    <string name="reminder_invalid">0 বা মিনিটের ধনাত্মক পূর্ণ সংখ্যা লিখুন।</string>
+    <string name="reminder_save_failed">রিমাইন্ডার সংরক্ষণ করা যায়নি। আবার চেষ্টা করুন।</string>
+    <string name="reminder_exact_help">সঠিক সময়ের জন্য অ্যালার্ম ও রিমাইন্ডারের অনুমতি দিন। এই অনুমতি ছাড়া Android দেরিতে রিমাইন্ডার দিতে পারে। সিস্টেম সেটিংসে অনুমতি বাতিল করলে OpenPressure আবার খুলুন।</string>
+    <string name="reminder_exact_allow">সঠিক সময়ের রিমাইন্ডারের অনুমতি দিন</string>
+    <string name="reminder_notifications_help">রিমাইন্ডারের বিজ্ঞপ্তি বন্ধ আছে। রিমাইন্ডার পেতে Android সেটিংসে এগুলি চালু করুন।</string>
+    <string name="reminder_notifications_allow">রিমাইন্ডারের বিজ্ঞপ্তি চালু করুন</string>
+    <string name="reminder_channel">মাপের রিমাইন্ডার</string>
+    <string name="reminder_channel_description">আপনার বেছে নেওয়া মাপের সময়ে রিমাইন্ডার।</string>
+    <string name="reminder_notification_title">মাপ নেওয়ার সময়</string>
+    <string name="reminder_notification_text">সুবিধামতো আপনার রক্তচাপ মাপুন।</string>
+</resources>

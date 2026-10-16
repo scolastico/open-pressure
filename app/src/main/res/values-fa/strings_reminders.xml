@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="reminder_title">یادآورهای اندازه‌گیری</string>
+    <string name="reminder_intro">انتخاب کنید تلفن چه زمانی اندازه‌گیری را به شما یادآوری کند. این یادآورها زنگ‌های دستگاه فشارخون شما را تغییر نمی‌دهند.</string>
+    <string name="reminder_add">افزودن یادآور</string>
+    <string name="reminder_empty">هنوز یادآوری وجود ندارد.</string>
+    <string name="reminder_time">زمان</string>
+    <string name="reminder_days">تکرار در روزهای</string>
+    <string name="reminder_once">یک بار (هیچ روزی از هفته انتخاب نشده)</string>
+    <string name="reminder_skip_minutes">رد کردن اگر در دقایق قبل اندازه‌گیری شده باشد</string>
+    <string name="reminder_skip_help">اگر اندازه‌گیری هر کاربری در این تعداد دقیقه پیش از زمان برنامه‌ریزی‌شده ثبت شده باشد، این نوبت رد می‌شود. پیش‌فرض 120 دقیقه (2 ساعت) است. برای یادآوری همیشگی، 0 را وارد کنید. وارد کردن سابقه قدیمی، اندازه‌گیری اخیر محسوب نمی‌شود.</string>
+    <string name="reminder_enabled">فعال</string>
+    <string name="reminder_edit">ویرایش</string>
+    <string name="reminder_delete">حذف یادآور</string>
+    <string name="reminder_delete_confirm">این یادآور حذف شود؟ اندازه‌گیری‌های ذخیره‌شده باقی می‌مانند.</string>
+    <string name="reminder_invalid">0 یا تعداد دقیقه‌ای به‌صورت عدد صحیح مثبت وارد کنید.</string>
+    <string name="reminder_save_failed">ذخیره یادآور ممکن نشد. دوباره تلاش کنید.</string>
+    <string name="reminder_exact_help">برای زمان‌بندی دقیق، زنگ‌ها و یادآورها را مجاز کنید. بدون این دسترسی، Android ممکن است یادآورها را با تأخیر ارائه کند. اگر دسترسی را در تنظیمات سیستم لغو کردید، OpenPressure را دوباره باز کنید.</string>
+    <string name="reminder_exact_allow">اجازه به یادآورهای دقیق</string>
+    <string name="reminder_notifications_help">اعلان‌های یادآور خاموش هستند. برای دریافت یادآورها، آن‌ها را در تنظیمات Android فعال کنید.</string>
+    <string name="reminder_notifications_allow">فعال کردن اعلان‌های یادآور</string>
+    <string name="reminder_channel">یادآورهای اندازه‌گیری</string>
+    <string name="reminder_channel_description">یادآورها در زمان‌های اندازه‌گیری انتخابی شما.</string>
+    <string name="reminder_notification_title">زمان اندازه‌گیری است</string>
+    <string name="reminder_notification_text">هر وقت مناسب بود فشارخون خود را اندازه بگیرید.</string>
+</resources>

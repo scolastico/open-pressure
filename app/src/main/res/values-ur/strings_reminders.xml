@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="reminder_title">پیمائش کی یاد دہانیاں</string>
+    <string name="reminder_intro">منتخب کریں کہ فون کب پیمائش کی یاد دلائے۔ یہ یاد دہانیاں آپ کے بلڈ پریشر آلے کے الارم تبدیل نہیں کرتیں۔</string>
+    <string name="reminder_add">یاد دہانی شامل کریں</string>
+    <string name="reminder_empty">ابھی کوئی یاد دہانی نہیں۔</string>
+    <string name="reminder_time">وقت</string>
+    <string name="reminder_days">ان دنوں دہرائیں</string>
+    <string name="reminder_once">ایک بار (ہفتے کے دن منتخب نہیں)</string>
+    <string name="reminder_skip_minutes">اگر پچھلے منٹوں میں پیمائش ہوئی ہو تو چھوڑ دیں</string>
+    <string name="reminder_skip_help">اگر مقررہ وقت سے پہلے اتنے منٹوں کے اندر کسی بھی صارف کی پیمائش درج ہوئی ہو تو یہ بار چھوڑ دیں۔ پہلے سے طے شدہ قدر 120 منٹ (2 گھنٹے) ہے۔ ہمیشہ یاد دلانے کے لیے 0 مقرر کریں۔ پرانی تاریخ درآمد کرنا حالیہ پیمائش شمار نہیں ہوتا۔</string>
+    <string name="reminder_enabled">فعال</string>
+    <string name="reminder_edit">ترمیم کریں</string>
+    <string name="reminder_delete">یاد دہانی حذف کریں</string>
+    <string name="reminder_delete_confirm">یہ یاد دہانی حذف کریں؟ محفوظ پیمائشیں برقرار رہیں گی۔</string>
+    <string name="reminder_invalid">0 یا منٹوں کی مثبت صحیح عددی تعداد درج کریں۔</string>
+    <string name="reminder_save_failed">یاد دہانی محفوظ نہیں ہو سکی۔ دوبارہ کوشش کریں۔</string>
+    <string name="reminder_exact_help">درست وقت کے لیے الارم اور یاد دہانیوں کی اجازت دیں۔ اس رسائی کے بغیر Android یاد دہانیاں دیر سے دے سکتا ہے۔ اگر آپ سسٹم کی ترتیبات میں رسائی منسوخ کریں تو OpenPressure دوبارہ کھولیں۔</string>
+    <string name="reminder_exact_allow">درست وقت کی یاد دہانیوں کی اجازت دیں</string>
+    <string name="reminder_notifications_help">یاد دہانی کی اطلاعات بند ہیں۔ یاد دہانیاں حاصل کرنے کے لیے انہیں Android کی ترتیبات میں فعال کریں۔</string>
+    <string name="reminder_notifications_allow">یاد دہانی کی اطلاعات فعال کریں</string>
+    <string name="reminder_channel">پیمائش کی یاد دہانیاں</string>
+    <string name="reminder_channel_description">آپ کے منتخب کردہ پیمائش کے اوقات پر یاد دہانیاں۔</string>
+    <string name="reminder_notification_title">پیمائش کا وقت ہے</string>
+    <string name="reminder_notification_text">جب سہولت ہو اپنا بلڈ پریشر ناپیں۔</string>
+</resources>

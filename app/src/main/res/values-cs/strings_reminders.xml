@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="reminder_title">Připomínky měření</string>
+    <string name="reminder_intro">Zvolte, kdy vám má telefon připomenout měření. Tyto připomínky nemění budíky na vašem tlakoměru.</string>
+    <string name="reminder_add">Přidat připomínku</string>
+    <string name="reminder_empty">Zatím žádné připomínky.</string>
+    <string name="reminder_time">Čas</string>
+    <string name="reminder_days">Opakovat ve dnech</string>
+    <string name="reminder_once">Jednou (nejsou vybrány dny v týdnu)</string>
+    <string name="reminder_skip_minutes">Přeskočit, pokud proběhlo měření v předchozích minutách</string>
+    <string name="reminder_skip_help">Přeskočit tento výskyt, pokud bylo v tomto počtu minut před plánovaným časem zaznamenáno měření kteréhokoli uživatele. Výchozí hodnota je 120 minut (2 hodiny). Nastavte 0 pro připomenutí pokaždé. Import starší historie se nepovažuje za nedávné měření.</string>
+    <string name="reminder_enabled">Zapnuto</string>
+    <string name="reminder_edit">Upravit</string>
+    <string name="reminder_delete">Smazat připomínku</string>
+    <string name="reminder_delete_confirm">Smazat tuto připomínku? Uložená měření zůstanou zachována.</string>
+    <string name="reminder_invalid">Zadejte 0 nebo kladný celý počet minut.</string>
+    <string name="reminder_save_failed">Připomínku se nepodařilo uložit. Zkuste to znovu.</string>
+    <string name="reminder_exact_help">Povolte budíky a připomenutí pro přesné načasování. Bez tohoto přístupu může Android připomínky doručovat pozdě. Pokud přístup odeberete v nastavení systému, znovu otevřete OpenPressure.</string>
+    <string name="reminder_exact_allow">Povolit přesné připomínky</string>
+    <string name="reminder_notifications_help">Oznámení připomínek jsou vypnuta. Zapněte je v nastavení Androidu, abyste dostávali připomínky.</string>
+    <string name="reminder_notifications_allow">Zapnout oznámení připomínek</string>
+    <string name="reminder_channel">Připomínky měření</string>
+    <string name="reminder_channel_description">Připomínky ve vámi zvolených časech měření.</string>
+    <string name="reminder_notification_title">Čas na měření</string>
+    <string name="reminder_notification_text">Změřte si krevní tlak, až se vám to bude hodit.</string>
+</resources>

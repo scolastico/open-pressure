@@ -14,6 +14,8 @@ Import summaries and background alerts report the actual number of readings stor
 
 Passthrough permits temporary on-device persistence for delivery reliability. It is not a promise that measurements never touch disk or that deleting an acknowledged payload securely erases storage media. Hash-only receipts remain to prevent repeated cuff history from uploading the same measurement again. Disabling forwarding restores local storage for future readings; it does not delete existing data or queued payloads.
 
+Optional [measurement reminders](reminders.md) retain only minimal measurement timing and occurrence skip markers for recent-measurement suppression, including after an upload is acknowledged. They do not add local history or another copy of measurement values.
+
 ## Delivery and retries
 
 The app queues readings transactionally with their optional local-history insertion. Uploads run off the UI/Bluetooth thread through WorkManager, with network constraints, backoff and periodic recovery. Server errors and unavailable networks retain the queued payload for retry. Android power management, network availability and process scheduling can delay delivery.

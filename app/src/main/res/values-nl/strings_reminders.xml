@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="reminder_title">Meetherinneringen</string>
+    <string name="reminder_intro">Kies wanneer je telefoon je eraan herinnert te meten. Deze herinneringen veranderen de alarmen op je bloeddrukmeter niet.</string>
+    <string name="reminder_add">Herinnering toevoegen</string>
+    <string name="reminder_empty">Nog geen herinneringen.</string>
+    <string name="reminder_time">Tijd</string>
+    <string name="reminder_days">Herhalen op</string>
+    <string name="reminder_once">Eenmalig (geen weekdagen geselecteerd)</string>
+    <string name="reminder_skip_minutes">Overslaan als er in de voorgaande minuten is gemeten</string>
+    <string name="reminder_skip_help">Sla deze keer over als binnen dit aantal minuten vóór het geplande tijdstip een meting van een willekeurige gebruiker is vastgelegd. De standaard is 120 minuten (2 uur). Stel 0 in om altijd te herinneren. Het importeren van oudere geschiedenis telt niet als een recente meting.</string>
+    <string name="reminder_enabled">Ingeschakeld</string>
+    <string name="reminder_edit">Bewerken</string>
+    <string name="reminder_delete">Herinnering verwijderen</string>
+    <string name="reminder_delete_confirm">Deze herinnering verwijderen? Opgeslagen metingen blijven behouden.</string>
+    <string name="reminder_invalid">Voer 0 of een positief geheel aantal minuten in.</string>
+    <string name="reminder_save_failed">De herinnering kon niet worden opgeslagen. Probeer het opnieuw.</string>
+    <string name="reminder_exact_help">Sta alarmen en herinneringen toe voor nauwkeurige tijdstippen. Zonder deze toegang kan Android herinneringen te laat weergeven. Open OpenPressure opnieuw als je de toegang intrekt in de systeeminstellingen.</string>
+    <string name="reminder_exact_allow">Nauwkeurige herinneringen toestaan</string>
+    <string name="reminder_notifications_help">Meldingen voor herinneringen staan uit. Schakel ze in via de Android-instellingen om herinneringen te ontvangen.</string>
+    <string name="reminder_notifications_allow">Herinneringsmeldingen inschakelen</string>
+    <string name="reminder_channel">Meetherinneringen</string>
+    <string name="reminder_channel_description">Herinneringen op de meettijdstippen die je kiest.</string>
+    <string name="reminder_notification_title">Tijd om te meten</string>
+    <string name="reminder_notification_text">Meet je bloeddruk wanneer het je uitkomt.</string>
+</resources>

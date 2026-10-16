@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="reminder_title">కొలత రిమైండర్‌లు</string>
+    <string name="reminder_intro">కొలత తీసుకోమని మీ ఫోన్ ఎప్పుడు గుర్తుచేయాలో ఎంచుకోండి. ఈ రిమైండర్‌లు మీ రక్తపోటు పరికరంలోని అలారాలను మార్చవు.</string>
+    <string name="reminder_add">రిమైండర్‌ను జోడించు</string>
+    <string name="reminder_empty">ఇంకా రిమైండర్‌లు లేవు.</string>
+    <string name="reminder_time">సమయం</string>
+    <string name="reminder_days">ఈ రోజుల్లో పునరావృతం</string>
+    <string name="reminder_once">ఒకసారి (వారంలోని రోజులు ఎంచుకోలేదు)</string>
+    <string name="reminder_skip_minutes">మునుపటి ఇన్ని నిమిషాల్లో కొలత తీసుకుంటే దాటవేయి</string>
+    <string name="reminder_skip_help">నిర్ణయించిన సమయానికి ముందు ఇన్ని నిమిషాల్లో ఏ వినియోగదారి కొలత అయినా నమోదైతే ఈ సారి దాటవేయండి. డిఫాల్ట్ 120 నిమిషాలు (2 గంటలు). ఎప్పుడూ గుర్తుచేయడానికి 0 పెట్టండి. పాత చరిత్రను దిగుమతి చేయడం ఇటీవలి కొలతగా పరిగణించబడదు.</string>
+    <string name="reminder_enabled">ప్రారంభించబడింది</string>
+    <string name="reminder_edit">సవరించు</string>
+    <string name="reminder_delete">రిమైండర్‌ను తొలగించు</string>
+    <string name="reminder_delete_confirm">ఈ రిమైండర్‌ను తొలగించాలా? సేవ్ చేసిన కొలతలు అలాగే ఉంటాయి.</string>
+    <string name="reminder_invalid">నిమిషాలను 0 లేదా ధన పూర్ణసంఖ్యగా నమోదు చేయండి.</string>
+    <string name="reminder_save_failed">రిమైండర్‌ను సేవ్ చేయలేకపోయాము. మళ్లీ ప్రయత్నించండి.</string>
+    <string name="reminder_exact_help">ఖచ్చితమైన సమయం కోసం అలారాలు, రిమైండర్‌లను అనుమతించండి. ఈ యాక్సెస్ లేకపోతే Android రిమైండర్‌లను ఆలస్యంగా ఇవ్వవచ్చు. సిస్టమ్ సెట్టింగ్‌లలో యాక్సెస్ రద్దు చేస్తే OpenPressure మళ్లీ తెరవండి.</string>
+    <string name="reminder_exact_allow">ఖచ్చితమైన రిమైండర్‌లను అనుమతించు</string>
+    <string name="reminder_notifications_help">రిమైండర్ నోటిఫికేషన్‌లు ఆఫ్‌లో ఉన్నాయి. రిమైండర్‌లను పొందడానికి Android సెట్టింగ్‌లలో వాటిని ఆన్ చేయండి.</string>
+    <string name="reminder_notifications_allow">రిమైండర్ నోటిఫికేషన్‌లను ఆన్ చేయి</string>
+    <string name="reminder_channel">కొలత రిమైండర్‌లు</string>
+    <string name="reminder_channel_description">మీరు ఎంచుకున్న కొలత సమయాల్లో రిమైండర్‌లు.</string>
+    <string name="reminder_notification_title">కొలత తీసుకునే సమయం</string>
+    <string name="reminder_notification_text">వీలున్నప్పుడు మీ రక్తపోటును కొలవండి.</string>
+</resources>

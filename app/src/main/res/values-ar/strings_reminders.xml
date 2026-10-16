@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="reminder_title">تذكيرات القياس</string>
+    <string name="reminder_intro">اختر متى يذكّرك هاتفك بالقياس. لا تغيّر هذه التذكيرات منبّهات جهاز قياس ضغط الدم.</string>
+    <string name="reminder_add">إضافة تذكير</string>
+    <string name="reminder_empty">لا توجد تذكيرات بعد.</string>
+    <string name="reminder_time">الوقت</string>
+    <string name="reminder_days">التكرار في أيام</string>
+    <string name="reminder_once">مرة واحدة (لم تُحدَّد أيام الأسبوع)</string>
+    <string name="reminder_skip_minutes">تخطي التذكير إذا تم القياس خلال الدقائق السابقة</string>
+    <string name="reminder_skip_help">تخطّ هذا الموعد إذا سُجّل قياس لأي مستخدم خلال هذا العدد من الدقائق قبل وقته المجدول. القيمة الافتراضية هي 120 دقيقة (ساعتان). اضبطه على 0 للتذكير دائمًا. لا يُعد استيراد سجل قديم قياسًا حديثًا.</string>
+    <string name="reminder_enabled">مفعّل</string>
+    <string name="reminder_edit">تعديل</string>
+    <string name="reminder_delete">حذف التذكير</string>
+    <string name="reminder_delete_confirm">هل تريد حذف هذا التذكير؟ ستبقى القياسات المحفوظة.</string>
+    <string name="reminder_invalid">أدخل 0 أو عددًا صحيحًا موجبًا من الدقائق.</string>
+    <string name="reminder_save_failed">تعذّر حفظ التذكير. حاول مرة أخرى.</string>
+    <string name="reminder_exact_help">اسمح بالمنبّهات والتذكيرات لضبط التوقيت بدقة. بدون هذا الإذن، قد يؤخّر Android التذكيرات. أعد فتح OpenPressure إذا ألغيت الإذن في إعدادات النظام.</string>
+    <string name="reminder_exact_allow">السماح بالتذكيرات الدقيقة</string>
+    <string name="reminder_notifications_help">إشعارات التذكير متوقفة. فعّلها في إعدادات Android لتلقي التذكيرات.</string>
+    <string name="reminder_notifications_allow">تفعيل إشعارات التذكير</string>
+    <string name="reminder_channel">تذكيرات القياس</string>
+    <string name="reminder_channel_description">تذكيرات في أوقات القياس التي تختارها.</string>
+    <string name="reminder_notification_title">حان وقت القياس</string>
+    <string name="reminder_notification_text">قِس ضغط دمك عندما يناسبك ذلك.</string>
+</resources>

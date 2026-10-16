@@ -7,6 +7,7 @@ import java.util.*;
 import java.time.LocalDateTime;
 import org.openpressure.protocol.BloodPressure;
 import org.openpressure.app.forwarding.*;
+import org.openpressure.app.reminders.ReminderMeasurements;
 
 public final class ReadingStore extends SQLiteOpenHelper {
     private Runnable changeListener,forwardingListener;
@@ -88,9 +89,35 @@ public final class ReadingStore extends SQLiteOpenHelper {
             if(local) { db.insertOrThrow("readings",null,values); inserted=true; }
             db.setTransactionSuccessful();
         } finally { db.endTransaction(); }
+        if(inserted || queued) recordReminderMeasurement(values);
         if(inserted) readingsChanged();
         if(queued && forwardingListener!=null) forwardingListener.run();
         return new IngestionResult(inserted,queued);
+    }
+    private void recordReminderMeasurement(ContentValues values) {
+        try {
+            String timestamp=values.getAsString("time");
+            ReminderMeasurements.record(context,timestamp==null?null:LocalDateTime.parse(timestamp),
+                    values.getAsLong("received"),values.getAsString("source"));
+        } catch(RuntimeException unavailable) {
+            // Reminder metadata is best effort; the accepted reading is already durable.
+        }
+    }
+    /** Recover recent timing from existing dated history when upgrading from versions without reminders. */
+    public synchronized void restoreReminderMeasurement() {
+        try(Cursor c=getReadableDatabase().rawQuery("SELECT time,received,source FROM readings WHERE time IS NOT NULL ORDER BY time DESC",null)) {
+            while(c.moveToNext()) {
+                try {
+                    LocalDateTime time=LocalDateTime.parse(c.getString(0));
+                    long epoch=time.atZone(java.time.ZoneId.systemDefault()).toInstant().toEpochMilli();
+                    if(epoch<=0 || epoch>c.getLong(1) || epoch>System.currentTimeMillis()) continue;
+                    // Validate the original receipt above, but merge against today's clock so
+                    // old history cannot reset newer live/passthrough timing during startup.
+                    ReminderMeasurements.record(context,time,System.currentTimeMillis(),c.getString(2));
+                    break;
+                } catch(java.time.DateTimeException | ArithmeticException invalid) { /* Skip unusable stored clocks. */ }
+            }
+        } catch(RuntimeException unavailable) { /* Timing recovery must not prevent normal app startup. */ }
     }
     public synchronized void addManual(double sys,double dia,Double pulse,int user,LocalDateTime time,String notes) {
         if(!Double.isFinite(sys)||!Double.isFinite(dia)||sys<=dia||dia<=0||sys>400||dia>300||pulse!=null&&(!Double.isFinite(pulse)||pulse<=0||pulse>300)) throw new IllegalArgumentException("Check the pressure and pulse values");

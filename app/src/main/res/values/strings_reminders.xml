@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="reminder_title">Measurement reminders</string>
+    <string name="reminder_intro">Choose when your phone reminds you to measure. These reminders do not change alarms on your monitor.</string>
+    <string name="reminder_add">Add reminder</string>
+    <string name="reminder_empty">No reminders yet.</string>
+    <string name="reminder_time">Time</string>
+    <string name="reminder_days">Repeat on</string>
+    <string name="reminder_once">Once (no weekdays selected)</string>
+    <string name="reminder_skip_minutes">Skip if measured in the previous minutes</string>
+    <string name="reminder_skip_help">Skip this occurrence if a measurement from any user was recorded within this many minutes before its scheduled time. The default is 120 minutes (2 hours). Set 0 to always remind. Importing older history does not count as a recent measurement.</string>
+    <string name="reminder_enabled">Enabled</string>
+    <string name="reminder_edit">Edit</string>
+    <string name="reminder_delete">Delete reminder</string>
+    <string name="reminder_delete_confirm">Delete this reminder? Saved measurements will remain.</string>
+    <string name="reminder_invalid">Enter 0 or a positive whole number of minutes.</string>
+    <string name="reminder_save_failed">Could not save the reminder. Try again.</string>
+    <string name="reminder_exact_help">Allow alarms and reminders for precise timing. Without this access, Android may deliver reminders late. Reopen OpenPressure if you revoke access in system settings.</string>
+    <string name="reminder_exact_allow">Allow precise reminders</string>
+    <string name="reminder_notifications_help">Reminder notifications are turned off. Enable them in Android settings to receive reminders.</string>
+    <string name="reminder_notifications_allow">Enable reminder notifications</string>
+    <string name="reminder_channel">Measurement reminders</string>
+    <string name="reminder_channel_description">Reminders at the measurement times you choose.</string>
+    <string name="reminder_notification_title">Time to measure</string>
+    <string name="reminder_notification_text">Take a blood pressure measurement when convenient.</string>
+</resources>

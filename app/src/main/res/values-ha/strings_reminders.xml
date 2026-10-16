@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="reminder_title">Tunatarwar aunawa</string>
+    <string name="reminder_intro">Zaɓi lokacin da wayarka za ta tunatar da kai ka auna. Waɗannan tunatarwar ba sa canza ƙararrawar na’urar auna hawan jininka.</string>
+    <string name="reminder_add">Ƙara tunatarwa</string>
+    <string name="reminder_empty">Babu tunatarwa tukuna.</string>
+    <string name="reminder_time">Lokaci</string>
+    <string name="reminder_days">Maimaita a ranakun</string>
+    <string name="reminder_once">Sau ɗaya (ba a zaɓi ranakun mako ba)</string>
+    <string name="reminder_skip_minutes">Tsallake idan an auna a cikin mintunan da suka gabata</string>
+    <string name="reminder_skip_help">Tsallake wannan karon idan an rubuta ma’aunin kowane mai amfani a cikin wannan adadin mintuna kafin lokacin da aka tsara. Tsohon saitin shi ne mintuna 120 (awa 2). Saita 0 don tunatarwa koyaushe. Shigo da tsohon tarihi ba ya ƙidayuwa a matsayin sabon aunawa.</string>
+    <string name="reminder_enabled">An kunna</string>
+    <string name="reminder_edit">Gyara</string>
+    <string name="reminder_delete">Goge tunatarwa</string>
+    <string name="reminder_delete_confirm">A goge wannan tunatarwar? Ma’aunin da aka adana za su kasance.</string>
+    <string name="reminder_invalid">Shigar da 0 ko cikakken adadin mintuna mai kyau.</string>
+    <string name="reminder_save_failed">An kasa adana tunatarwar. Sake gwadawa.</string>
+    <string name="reminder_exact_help">Ba da izinin ƙararrawa da tunatarwa don su zo a daidai lokaci. Ba tare da wannan izini ba, Android na iya jinkirta tunatarwar. Sake buɗe OpenPressure idan ka janye izinin a saitunan tsarin.</string>
+    <string name="reminder_exact_allow">Ba da izinin tunatarwa a daidai lokaci</string>
+    <string name="reminder_notifications_help">An kashe sanarwar tunatarwa. Kunna su a saitunan Android don karɓar tunatarwa.</string>
+    <string name="reminder_notifications_allow">Kunna sanarwar tunatarwa</string>
+    <string name="reminder_channel">Tunatarwar aunawa</string>
+    <string name="reminder_channel_description">Tunatarwa a lokutan aunawa da ka zaɓa.</string>
+    <string name="reminder_notification_title">Lokacin aunawa ya yi</string>
+    <string name="reminder_notification_text">Auna hawan jininka idan ka samu dama.</string>
+</resources>

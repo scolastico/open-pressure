@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="reminder_title">Напомняния за измерване</string>
+    <string name="reminder_intro">Изберете кога телефонът да ви напомня да измерите. Тези напомняния не променят алармите на апарата за кръвно налягане.</string>
+    <string name="reminder_add">Добавяне на напомняне</string>
+    <string name="reminder_empty">Все още няма напомняния.</string>
+    <string name="reminder_time">Час</string>
+    <string name="reminder_days">Повтаряне в дни</string>
+    <string name="reminder_once">Еднократно (няма избрани дни)</string>
+    <string name="reminder_skip_minutes">Пропускане, ако е измерено през предходните минути</string>
+    <string name="reminder_skip_help">Пропускане на това напомняне, ако в посочения брой минути преди планирания час е записано измерване на който и да е потребител. По подразбиране е 120 минути (2 часа). Задайте 0, за да се напомня винаги. Импортирането на по-стара история не се смята за скорошно измерване.</string>
+    <string name="reminder_enabled">Включено</string>
+    <string name="reminder_edit">Редактиране</string>
+    <string name="reminder_delete">Изтриване на напомняне</string>
+    <string name="reminder_delete_confirm">Да се изтрие ли това напомняне? Запазените измервания ще останат.</string>
+    <string name="reminder_invalid">Въведете 0 или положителен цял брой минути.</string>
+    <string name="reminder_save_failed">Напомнянето не можа да бъде запазено. Опитайте отново.</string>
+    <string name="reminder_exact_help">Разрешете алармите и напомнянията за точно време. Без този достъп Android може да доставя напомнянията със закъснение. Отворете отново OpenPressure, ако отнемете достъпа в системните настройки.</string>
+    <string name="reminder_exact_allow">Разрешаване на точни напомняния</string>
+    <string name="reminder_notifications_help">Известията за напомняния са изключени. Включете ги в настройките на Android, за да получавате напомняния.</string>
+    <string name="reminder_notifications_allow">Включване на известията за напомняния</string>
+    <string name="reminder_channel">Напомняния за измерване</string>
+    <string name="reminder_channel_description">Напомняния в избраните от вас часове за измерване.</string>
+    <string name="reminder_notification_title">Време е за измерване</string>
+    <string name="reminder_notification_text">Измерете кръвното си налягане, когато ви е удобно.</string>
+</resources>

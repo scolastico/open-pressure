@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="reminder_title">Mätningspåminnelser</string>
+    <string name="reminder_intro">Välj när telefonen ska påminna dig om att mäta. Dessa påminnelser ändrar inte larmen på din blodtrycksmätare.</string>
+    <string name="reminder_add">Lägg till påminnelse</string>
+    <string name="reminder_empty">Inga påminnelser ännu.</string>
+    <string name="reminder_time">Tid</string>
+    <string name="reminder_days">Upprepa på</string>
+    <string name="reminder_once">En gång (inga veckodagar valda)</string>
+    <string name="reminder_skip_minutes">Hoppa över om en mätning gjorts under föregående minuter</string>
+    <string name="reminder_skip_help">Hoppa över detta tillfälle om en mätning från någon användare har registrerats inom detta antal minuter före den schemalagda tiden. Standardvärdet är 120 minuter (2 timmar). Ange 0 för att alltid påminna. Import av äldre historik räknas inte som en nyligen gjord mätning.</string>
+    <string name="reminder_enabled">Aktiverad</string>
+    <string name="reminder_edit">Redigera</string>
+    <string name="reminder_delete">Ta bort påminnelse</string>
+    <string name="reminder_delete_confirm">Ta bort denna påminnelse? Sparade mätningar finns kvar.</string>
+    <string name="reminder_invalid">Ange 0 eller ett positivt helt antal minuter.</string>
+    <string name="reminder_save_failed">Det gick inte att spara påminnelsen. Försök igen.</string>
+    <string name="reminder_exact_help">Tillåt alarm och påminnelser för exakt tidhållning. Utan denna åtkomst kan Android leverera påminnelser sent. Öppna OpenPressure igen om du återkallar åtkomsten i systeminställningarna.</string>
+    <string name="reminder_exact_allow">Tillåt exakta påminnelser</string>
+    <string name="reminder_notifications_help">Aviseringar för påminnelser är avstängda. Aktivera dem i Android-inställningarna för att få påminnelser.</string>
+    <string name="reminder_notifications_allow">Aktivera påminnelseaviseringar</string>
+    <string name="reminder_channel">Mätningspåminnelser</string>
+    <string name="reminder_channel_description">Påminnelser vid de mättider du väljer.</string>
+    <string name="reminder_notification_title">Dags att mäta</string>
+    <string name="reminder_notification_text">Mät ditt blodtryck när det passar dig.</string>
+</resources>

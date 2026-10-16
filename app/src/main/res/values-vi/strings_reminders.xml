@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="reminder_title">Lời nhắc đo</string>
+    <string name="reminder_intro">Chọn thời điểm điện thoại nhắc bạn đo. Các lời nhắc này không thay đổi báo thức trên máy đo huyết áp của bạn.</string>
+    <string name="reminder_add">Thêm lời nhắc</string>
+    <string name="reminder_empty">Chưa có lời nhắc.</string>
+    <string name="reminder_time">Giờ</string>
+    <string name="reminder_days">Lặp lại vào</string>
+    <string name="reminder_once">Một lần (chưa chọn ngày trong tuần)</string>
+    <string name="reminder_skip_minutes">Bỏ qua nếu đã đo trong số phút trước đó</string>
+    <string name="reminder_skip_help">Bỏ qua lần nhắc này nếu đã ghi nhận phép đo của bất kỳ người dùng nào trong số phút này trước giờ đã hẹn. Mặc định là 120 phút (2 giờ). Đặt 0 để luôn nhắc. Nhập lịch sử cũ không được tính là phép đo gần đây.</string>
+    <string name="reminder_enabled">Đã bật</string>
+    <string name="reminder_edit">Chỉnh sửa</string>
+    <string name="reminder_delete">Xóa lời nhắc</string>
+    <string name="reminder_delete_confirm">Xóa lời nhắc này? Các phép đo đã lưu vẫn được giữ lại.</string>
+    <string name="reminder_invalid">Nhập 0 hoặc số phút là số nguyên dương.</string>
+    <string name="reminder_save_failed">Không thể lưu lời nhắc. Hãy thử lại.</string>
+    <string name="reminder_exact_help">Cho phép báo thức và lời nhắc để nhắc đúng giờ. Nếu không có quyền này, Android có thể gửi lời nhắc muộn. Mở lại OpenPressure nếu bạn thu hồi quyền trong phần cài đặt hệ thống.</string>
+    <string name="reminder_exact_allow">Cho phép lời nhắc chính xác</string>
+    <string name="reminder_notifications_help">Thông báo lời nhắc đang tắt. Bật trong phần cài đặt Android để nhận lời nhắc.</string>
+    <string name="reminder_notifications_allow">Bật thông báo lời nhắc</string>
+    <string name="reminder_channel">Lời nhắc đo</string>
+    <string name="reminder_channel_description">Lời nhắc vào các giờ đo bạn chọn.</string>
+    <string name="reminder_notification_title">Đến giờ đo</string>
+    <string name="reminder_notification_text">Hãy đo huyết áp khi thuận tiện.</string>
+</resources>

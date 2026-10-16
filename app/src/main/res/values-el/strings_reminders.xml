@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="reminder_title">Υπενθυμίσεις μέτρησης</string>
+    <string name="reminder_intro">Επιλέξτε πότε το τηλέφωνό σας σάς υπενθυμίζει να μετρηθείτε. Αυτές οι υπενθυμίσεις δεν αλλάζουν τις ειδοποιήσεις στο πιεσόμετρό σας.</string>
+    <string name="reminder_add">Προσθήκη υπενθύμισης</string>
+    <string name="reminder_empty">Δεν υπάρχουν ακόμα υπενθυμίσεις.</string>
+    <string name="reminder_time">Ώρα</string>
+    <string name="reminder_days">Επανάληψη τις ημέρες</string>
+    <string name="reminder_once">Μία φορά (δεν επιλέχθηκαν ημέρες)</string>
+    <string name="reminder_skip_minutes">Παράλειψη αν έγινε μέτρηση στα προηγούμενα λεπτά</string>
+    <string name="reminder_skip_help">Παράλειψη αυτής της εμφάνισης αν καταγράφηκε μέτρηση οποιουδήποτε χρήστη εντός αυτού του αριθμού λεπτών πριν από την προγραμματισμένη ώρα. Η προεπιλογή είναι 120 λεπτά (2 ώρες). Ορίστε 0 για υπενθύμιση κάθε φορά. Η εισαγωγή παλαιότερου ιστορικού δεν μετρά ως πρόσφατη μέτρηση.</string>
+    <string name="reminder_enabled">Ενεργή</string>
+    <string name="reminder_edit">Επεξεργασία</string>
+    <string name="reminder_delete">Διαγραφή υπενθύμισης</string>
+    <string name="reminder_delete_confirm">Να διαγραφεί αυτή η υπενθύμιση; Οι αποθηκευμένες μετρήσεις θα παραμείνουν.</string>
+    <string name="reminder_invalid">Εισαγάγετε 0 ή θετικό ακέραιο αριθμό λεπτών.</string>
+    <string name="reminder_save_failed">Δεν ήταν δυνατή η αποθήκευση της υπενθύμισης. Δοκιμάστε ξανά.</string>
+    <string name="reminder_exact_help">Επιτρέψτε ξυπνητήρια και υπενθυμίσεις για ακριβή χρονισμό. Χωρίς αυτή την πρόσβαση, το Android ενδέχεται να καθυστερεί τις υπενθυμίσεις. Ανοίξτε ξανά το OpenPressure αν ανακαλέσετε την πρόσβαση στις ρυθμίσεις συστήματος.</string>
+    <string name="reminder_exact_allow">Να επιτρέπονται ακριβείς υπενθυμίσεις</string>
+    <string name="reminder_notifications_help">Οι ειδοποιήσεις υπενθυμίσεων είναι απενεργοποιημένες. Ενεργοποιήστε τες στις ρυθμίσεις Android για να λαμβάνετε υπενθυμίσεις.</string>
+    <string name="reminder_notifications_allow">Ενεργοποίηση ειδοποιήσεων υπενθυμίσεων</string>
+    <string name="reminder_channel">Υπενθυμίσεις μέτρησης</string>
+    <string name="reminder_channel_description">Υπενθυμίσεις στις ώρες μέτρησης που επιλέγετε.</string>
+    <string name="reminder_notification_title">Ώρα για μέτρηση</string>
+    <string name="reminder_notification_text">Μετρήστε την αρτηριακή σας πίεση όταν σας βολεύει.</string>
+</resources>

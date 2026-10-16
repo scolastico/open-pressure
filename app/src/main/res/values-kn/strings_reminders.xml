@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="reminder_title">ಅಳತೆಯ ಜ್ಞಾಪನೆಗಳು</string>
+    <string name="reminder_intro">ಅಳತೆ ಮಾಡಲು ನಿಮ್ಮ ಫೋನ್ ಯಾವಾಗ ನೆನಪಿಸಬೇಕು ಎಂಬುದನ್ನು ಆಯ್ಕೆಮಾಡಿ. ಈ ಜ್ಞಾಪನೆಗಳು ನಿಮ್ಮ ರಕ್ತದೊತ್ತಡ ಮಾಪಕದ ಅಲಾರಂಗಳನ್ನು ಬದಲಿಸುವುದಿಲ್ಲ.</string>
+    <string name="reminder_add">ಜ್ಞಾಪನೆ ಸೇರಿಸಿ</string>
+    <string name="reminder_empty">ಇನ್ನೂ ಜ್ಞಾಪನೆಗಳಿಲ್ಲ.</string>
+    <string name="reminder_time">ಸಮಯ</string>
+    <string name="reminder_days">ಈ ದಿನಗಳಲ್ಲಿ ಪುನರಾವರ್ತಿಸಿ</string>
+    <string name="reminder_once">ಒಮ್ಮೆ (ವಾರದ ದಿನಗಳನ್ನು ಆಯ್ಕೆಮಾಡಿಲ್ಲ)</string>
+    <string name="reminder_skip_minutes">ಹಿಂದಿನ ಇಷ್ಟು ನಿಮಿಷಗಳಲ್ಲಿ ಅಳತೆ ಮಾಡಿದ್ದರೆ ಬಿಟ್ಟುಬಿಡಿ</string>
+    <string name="reminder_skip_help">ನಿಗದಿತ ಸಮಯಕ್ಕಿಂತ ಮೊದಲು ಇಷ್ಟು ನಿಮಿಷಗಳ ಒಳಗೆ ಯಾವುದೇ ಬಳಕೆದಾರರ ಅಳತೆ ದಾಖಲಾಗಿದ್ದರೆ ಈ ಬಾರಿಯ ಜ್ಞಾಪನೆಯನ್ನು ಬಿಟ್ಟುಬಿಡಿ. ಡೀಫಾಲ್ಟ್ 120 ನಿಮಿಷಗಳು (2 ಗಂಟೆಗಳು). ಯಾವಾಗಲೂ ನೆನಪಿಸಲು 0 ಹೊಂದಿಸಿ. ಹಳೆಯ ಇತಿಹಾಸವನ್ನು ಆಮದು ಮಾಡುವುದು ಇತ್ತೀಚಿನ ಅಳತೆಯೆಂದು ಪರಿಗಣಿಸಲಾಗುವುದಿಲ್ಲ.</string>
+    <string name="reminder_enabled">ಸಕ್ರಿಯವಾಗಿದೆ</string>
+    <string name="reminder_edit">ಸಂಪಾದಿಸಿ</string>
+    <string name="reminder_delete">ಜ್ಞಾಪನೆ ಅಳಿಸಿ</string>
+    <string name="reminder_delete_confirm">ಈ ಜ್ಞಾಪನೆಯನ್ನು ಅಳಿಸಬೇಕೇ? ಉಳಿಸಿದ ಅಳತೆಗಳು ಹಾಗೆಯೇ ಉಳಿಯುತ್ತವೆ.</string>
+    <string name="reminder_invalid">ನಿಮಿಷಗಳನ್ನು 0 ಅಥವಾ ಧನ ಪೂರ್ಣಸಂಖ್ಯೆಯಾಗಿ ನಮೂದಿಸಿ.</string>
+    <string name="reminder_save_failed">ಜ್ಞಾಪನೆಯನ್ನು ಉಳಿಸಲಾಗಲಿಲ್ಲ. ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.</string>
+    <string name="reminder_exact_help">ನಿಖರ ಸಮಯಕ್ಕಾಗಿ ಅಲಾರಂಗಳು ಮತ್ತು ಜ್ಞಾಪನೆಗಳಿಗೆ ಅನುಮತಿ ನೀಡಿ. ಈ ಪ್ರವೇಶವಿಲ್ಲದೆ Android ಜ್ಞಾಪನೆಗಳನ್ನು ತಡವಾಗಿ ನೀಡಬಹುದು. ಸಿಸ್ಟಂ ಸೆಟ್ಟಿಂಗ್‌ಗಳಲ್ಲಿ ಪ್ರವೇಶ ರದ್ದುಗೊಳಿಸಿದರೆ OpenPressure ಮತ್ತೆ ತೆರೆಯಿರಿ.</string>
+    <string name="reminder_exact_allow">ನಿಖರ ಜ್ಞಾಪನೆಗಳಿಗೆ ಅನುಮತಿಸಿ</string>
+    <string name="reminder_notifications_help">ಜ್ಞಾಪನೆಯ ಅಧಿಸೂಚನೆಗಳು ಆಫ್ ಆಗಿವೆ. ಜ್ಞಾಪನೆಗಳನ್ನು ಪಡೆಯಲು Android ಸೆಟ್ಟಿಂಗ್‌ಗಳಲ್ಲಿ ಅವುಗಳನ್ನು ಆನ್ ಮಾಡಿ.</string>
+    <string name="reminder_notifications_allow">ಜ್ಞಾಪನೆಯ ಅಧಿಸೂಚನೆಗಳನ್ನು ಆನ್ ಮಾಡಿ</string>
+    <string name="reminder_channel">ಅಳತೆಯ ಜ್ಞಾಪನೆಗಳು</string>
+    <string name="reminder_channel_description">ನೀವು ಆಯ್ಕೆಮಾಡಿದ ಅಳತೆಯ ಸಮಯಗಳಲ್ಲಿ ಜ್ಞಾಪನೆಗಳು.</string>
+    <string name="reminder_notification_title">ಅಳತೆ ಮಾಡುವ ಸಮಯ</string>
+    <string name="reminder_notification_text">ಅನುಕೂಲವಾದಾಗ ನಿಮ್ಮ ರಕ್ತದೊತ್ತಡವನ್ನು ಅಳೆಯಿರಿ.</string>
+</resources>

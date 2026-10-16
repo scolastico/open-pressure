@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="reminder_title">Målepåminnelser</string>
+    <string name="reminder_intro">Velg når telefonen skal minne deg på å måle. Disse påminnelsene endrer ikke alarmene på blodtrykksmåleren.</string>
+    <string name="reminder_add">Legg til påminnelse</string>
+    <string name="reminder_empty">Ingen påminnelser ennå.</string>
+    <string name="reminder_time">Tid</string>
+    <string name="reminder_days">Gjenta på</string>
+    <string name="reminder_once">Én gang (ingen ukedager valgt)</string>
+    <string name="reminder_skip_minutes">Hopp over hvis det er målt i de foregående minuttene</string>
+    <string name="reminder_skip_help">Hopp over denne forekomsten hvis en måling fra en hvilken som helst bruker ble registrert innen dette antallet minutter før planlagt tidspunkt. Standardverdien er 120 minutter (2 timer). Angi 0 for alltid å varsle. Import av eldre historikk teller ikke som en nylig måling.</string>
+    <string name="reminder_enabled">Aktivert</string>
+    <string name="reminder_edit">Rediger</string>
+    <string name="reminder_delete">Slett påminnelse</string>
+    <string name="reminder_delete_confirm">Slette denne påminnelsen? Lagrede målinger beholdes.</string>
+    <string name="reminder_invalid">Skriv inn 0 eller et positivt helt antall minutter.</string>
+    <string name="reminder_save_failed">Kunne ikke lagre påminnelsen. Prøv igjen.</string>
+    <string name="reminder_exact_help">Tillat alarmer og påminnelser for nøyaktige tidspunkt. Uten denne tilgangen kan Android levere påminnelser sent. Åpne OpenPressure på nytt hvis du trekker tilbake tilgangen i systeminnstillingene.</string>
+    <string name="reminder_exact_allow">Tillat nøyaktige påminnelser</string>
+    <string name="reminder_notifications_help">Varsler for påminnelser er slått av. Slå dem på i Android-innstillingene for å få påminnelser.</string>
+    <string name="reminder_notifications_allow">Slå på påminnelsesvarsler</string>
+    <string name="reminder_channel">Målepåminnelser</string>
+    <string name="reminder_channel_description">Påminnelser ved måletidene du velger.</string>
+    <string name="reminder_notification_title">Tid for å måle</string>
+    <string name="reminder_notification_text">Mål blodtrykket når det passer deg.</string>
+</resources>

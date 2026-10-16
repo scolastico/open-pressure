@@ -60,6 +60,16 @@ Use a receiver and synthetic/disposable measurements under your control. Verify 
 
 Test local-history-on and passthrough separately. In passthrough, verify no new history, Health Connect rows or packet diagnostics are retained, while existing history and required safety backups stay intact. Lose network connectivity naturally, restart the app, restore connectivity and confirm queued delivery with the same idempotency key and cleanup only after a 2xx response. Confirm rejected authorization and redirects retain the queue. Change the URL and ensure old queued records are not rerouted; restore it to resume. Test clearing the URL, updating authorization, background scheduling and English/German/Arabic screens with large fonts. Do not send private health fixtures to a public test service.
 
+## Measurement reminders
+
+Use disposable measurements and phone-only schedules; no monitor commands are required. Create, edit, enable, disable and delete several reminders, including different weekday combinations and a one-time reminder with no weekdays. Check 12/24-hour time, persisted drafts after rotation, larger fonts and English/German/Arabic layouts.
+
+Test notification permission allowed, denied and revoked, and a blocked Measurement reminders channel. Test exact-alarm access granted and denied on Android 12+, revoke it and reopen the app, then compare scheduled and actual notification times with the screen off and under the phone's power-management settings. Check normal swipe dismissal and tapping to open the app. Do not infer precise delivery from simulated alarms.
+
+With a 120-minute suppression window, accept a recent measurement, import an old measurement, and test 0 to disable skipping. Verify one skipped occurrence leaves a repeating reminder active. Repeat in HTTP passthrough after the queued payload has been acknowledged; no new local history or pressure-value metadata should appear. Measurements from either bank can qualify. Test a late-delivered alert with a measurement after its scheduled time.
+
+Reboot, update the app, change the clock/timezone and test daylight saving transitions on a dedicated test device. Confirm future reminders recover, missed powered-off occurrences are not replayed, stale/deleted schedules do not notify and repeated local times do not produce duplicate alerts. Record phone/Android version and actual delivery observations separately from automated results.
+
 ## Other device families
 
 Repeat relevant steps per exact service layout, model and firmware. Standard BP, Optional Service RACP, UDS and time-characteristic behavior need actual captures before being marked tested. Verify explicit time writes by read-back or cuff inspection, including around midnight. STP and encrypted X7 require separate first-pair/saved-key/authentication tests. Other WLP maps remain blocked until independently implemented and reviewed; do not bypass model checks for a test.

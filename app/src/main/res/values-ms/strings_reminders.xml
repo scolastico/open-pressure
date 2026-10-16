@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="reminder_title">Peringatan pengukuran</string>
+    <string name="reminder_intro">Pilih bila telefon anda mengingatkan anda untuk mengukur. Peringatan ini tidak mengubah penggera pada alat pengukur tekanan darah anda.</string>
+    <string name="reminder_add">Tambah peringatan</string>
+    <string name="reminder_empty">Belum ada peringatan.</string>
+    <string name="reminder_time">Masa</string>
+    <string name="reminder_days">Ulang pada hari</string>
+    <string name="reminder_once">Sekali (tiada hari dipilih)</string>
+    <string name="reminder_skip_minutes">Langkau jika sudah mengukur dalam minit sebelumnya</string>
+    <string name="reminder_skip_help">Langkau peringatan kali ini jika pengukuran mana-mana pengguna direkodkan dalam bilangan minit ini sebelum masa yang dijadualkan. Nilai lalai ialah 120 minit (2 jam). Tetapkan 0 untuk sentiasa mengingatkan. Mengimport sejarah lama tidak dikira sebagai pengukuran terkini.</string>
+    <string name="reminder_enabled">Diaktifkan</string>
+    <string name="reminder_edit">Edit</string>
+    <string name="reminder_delete">Padam peringatan</string>
+    <string name="reminder_delete_confirm">Padam peringatan ini? Pengukuran yang disimpan akan kekal.</string>
+    <string name="reminder_invalid">Masukkan 0 atau bilangan minit dalam nombor bulat positif.</string>
+    <string name="reminder_save_failed">Tidak dapat menyimpan peringatan. Cuba lagi.</string>
+    <string name="reminder_exact_help">Benarkan penggera dan peringatan untuk masa yang tepat. Tanpa akses ini, Android mungkin menyampaikan peringatan lewat. Buka semula OpenPressure jika anda membatalkan akses dalam tetapan sistem.</string>
+    <string name="reminder_exact_allow">Benarkan peringatan tepat masa</string>
+    <string name="reminder_notifications_help">Pemberitahuan peringatan dimatikan. Aktifkannya dalam tetapan Android untuk menerima peringatan.</string>
+    <string name="reminder_notifications_allow">Aktifkan pemberitahuan peringatan</string>
+    <string name="reminder_channel">Peringatan pengukuran</string>
+    <string name="reminder_channel_description">Peringatan pada masa pengukuran yang anda pilih.</string>
+    <string name="reminder_notification_title">Masa untuk mengukur</string>
+    <string name="reminder_notification_text">Ukur tekanan darah anda apabila sesuai.</string>
+</resources>

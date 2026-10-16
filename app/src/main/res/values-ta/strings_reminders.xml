@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="reminder_title">அளவீட்டு நினைவூட்டல்கள்</string>
+    <string name="reminder_intro">அளவிட உங்கள் தொலைபேசி எப்போது நினைவூட்ட வேண்டும் என்பதைத் தேர்ந்தெடுக்கவும். இந்த நினைவூட்டல்கள் உங்கள் இரத்த அழுத்தக் கருவியின் அலாரங்களை மாற்றாது.</string>
+    <string name="reminder_add">நினைவூட்டலைச் சேர்</string>
+    <string name="reminder_empty">இன்னும் நினைவூட்டல்கள் இல்லை.</string>
+    <string name="reminder_time">நேரம்</string>
+    <string name="reminder_days">இந்த நாட்களில் மீண்டும்</string>
+    <string name="reminder_once">ஒருமுறை (வார நாட்கள் தேர்ந்தெடுக்கப்படவில்லை)</string>
+    <string name="reminder_skip_minutes">முந்தைய இத்தனை நிமிடங்களில் அளவிட்டிருந்தால் தவிர்</string>
+    <string name="reminder_skip_help">திட்டமிட்ட நேரத்திற்கு முன் இத்தனை நிமிடங்களுக்குள் எந்தப் பயனரின் அளவீடாவது பதிவாகியிருந்தால் இந்த முறையைத் தவிர்க்கவும். இயல்புநிலை 120 நிமிடங்கள் (2 மணிநேரம்). எப்போதும் நினைவூட்ட 0 என அமைக்கவும். பழைய வரலாற்றை இறக்குமதி செய்வது சமீபத்திய அளவீடாகக் கருதப்படாது.</string>
+    <string name="reminder_enabled">இயக்கப்பட்டது</string>
+    <string name="reminder_edit">திருத்து</string>
+    <string name="reminder_delete">நினைவூட்டலை நீக்கு</string>
+    <string name="reminder_delete_confirm">இந்த நினைவூட்டலை நீக்கவா? சேமித்த அளவீடுகள் இருக்கும்.</string>
+    <string name="reminder_invalid">நிமிடங்களை 0 அல்லது நேர்ம முழு எண்ணாக உள்ளிடவும்.</string>
+    <string name="reminder_save_failed">நினைவூட்டலைச் சேமிக்க முடியவில்லை. மீண்டும் முயலவும்.</string>
+    <string name="reminder_exact_help">துல்லியமான நேரத்திற்கு அலாரங்கள் மற்றும் நினைவூட்டல்களை அனுமதிக்கவும். இந்த அணுகல் இல்லாமல் Android நினைவூட்டல்களைத் தாமதமாக வழங்கலாம். கணினி அமைப்புகளில் அணுகலை நீக்கினால் OpenPressure ஐ மீண்டும் திறக்கவும்.</string>
+    <string name="reminder_exact_allow">துல்லியமான நினைவூட்டல்களை அனுமதி</string>
+    <string name="reminder_notifications_help">நினைவூட்டல் அறிவிப்புகள் முடக்கப்பட்டுள்ளன. நினைவூட்டல்களைப் பெற Android அமைப்புகளில் அவற்றை இயக்கவும்.</string>
+    <string name="reminder_notifications_allow">நினைவூட்டல் அறிவிப்புகளை இயக்கு</string>
+    <string name="reminder_channel">அளவீட்டு நினைவூட்டல்கள்</string>
+    <string name="reminder_channel_description">நீங்கள் தேர்ந்தெடுக்கும் அளவீட்டு நேரங்களில் நினைவூட்டல்கள்.</string>
+    <string name="reminder_notification_title">அளவிடும் நேரம்</string>
+    <string name="reminder_notification_text">வசதியானபோது உங்கள் இரத்த அழுத்தத்தை அளவிடவும்.</string>
+</resources>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="reminder_title">මිනුම් මතක් කිරීම්</string>
+    <string name="reminder_intro">මිනුමක් ගැනීමට ඔබේ දුරකථනය කවදා මතක් කළ යුතුදැයි තෝරන්න. මෙම මතක් කිරීම් ඔබේ රුධිර පීඩන මාපකයේ එලාම් වෙනස් නොකරයි.</string>
+    <string name="reminder_add">මතක් කිරීමක් එක් කරන්න</string>
+    <string name="reminder_empty">තවම මතක් කිරීම් නැත.</string>
+    <string name="reminder_time">වේලාව</string>
+    <string name="reminder_days">මෙම දිනවල නැවත</string>
+    <string name="reminder_once">වරක් (සතියේ දින තෝරා නැත)</string>
+    <string name="reminder_skip_minutes">පෙර මෙතරම් මිනිත්තු තුළ මැන ඇත්නම් මඟ හරින්න</string>
+    <string name="reminder_skip_help">නියමිත වේලාවට පෙර මෙතරම් මිනිත්තු තුළ ඕනෑම පරිශීලකයෙකුගේ මිනුමක් සටහන් වී ඇත්නම් මෙම වාරය මඟ හරින්න. පෙරනිමිය මිනිත්තු 120 (පැය 2) යි. සෑම විටම මතක් කිරීමට 0 සකසන්න. පැරණි ඉතිහාසය ආයාත කිරීම මෑත මිනුමක් ලෙස නොසැලකේ.</string>
+    <string name="reminder_enabled">සක්‍රියයි</string>
+    <string name="reminder_edit">සංස්කරණය</string>
+    <string name="reminder_delete">මතක් කිරීම මකන්න</string>
+    <string name="reminder_delete_confirm">මෙම මතක් කිරීම මකන්නද? සුරැකි මිනුම් පවතිනු ඇත.</string>
+    <string name="reminder_invalid">මිනිත්තු ගණන ලෙස 0 හෝ ධන පූර්ණ සංඛ්‍යාවක් ඇතුළත් කරන්න.</string>
+    <string name="reminder_save_failed">මතක් කිරීම සුරැකීමට නොහැකි විය. නැවත උත්සාහ කරන්න.</string>
+    <string name="reminder_exact_help">නිවැරදි වේලාව සඳහා එලාම් සහ මතක් කිරීම්වලට අවසර දෙන්න. මෙම ප්‍රවේශය නොමැතිව Android මතක් කිරීම් ප්‍රමාද කළ හැක. පද්ධති සැකසීම්වල ප්‍රවේශය අවලංගු කළහොත් OpenPressure නැවත විවෘත කරන්න.</string>
+    <string name="reminder_exact_allow">නිවැරදි වේලාවේ මතක් කිරීම්වලට අවසර දෙන්න</string>
+    <string name="reminder_notifications_help">මතක් කිරීමේ දැනුම්දීම් අක්‍රියයි. මතක් කිරීම් ලැබීමට Android සැකසීම්වල ඒවා සක්‍රිය කරන්න.</string>
+    <string name="reminder_notifications_allow">මතක් කිරීමේ දැනුම්දීම් සක්‍රිය කරන්න</string>
+    <string name="reminder_channel">මිනුම් මතක් කිරීම්</string>
+    <string name="reminder_channel_description">ඔබ තෝරන මිනුම් වේලාවල මතක් කිරීම්.</string>
+    <string name="reminder_notification_title">මැනීමට වේලාවයි</string>
+    <string name="reminder_notification_text">පහසු අවස්ථාවක ඔබේ රුධිර පීඩනය මැන ගන්න.</string>
+</resources>

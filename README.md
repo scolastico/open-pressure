@@ -26,6 +26,8 @@ Automatic X7 imports listen for changed record metadata in Bluetooth advertiseme
 
 [HTTP forwarding](docs/http-forwarding.md), in **Devices → Advanced**, can send new measurements to your own HTTP(S) endpoint with an optional Authorization header value. It is off by default. Local history stays enabled unless you select passthrough; in that mode, a temporary upload queue retains readings until the server accepts them, without adding them to local history or Health Connect.
 
+[Measurement reminders](docs/reminders.md), on Overview, send phone notifications at chosen times and weekdays. Each reminder can skip an occurrence if you measured recently: the default window is 120 minutes, and 0 disables skipping. These reminders do not change settings on the cuff.
+
 The profile selection is shared between Overview and History and remembered when you reopen the app. The interface offers 52 language/region options; the name OpenPressure stays the same in every language. See [languages](docs/localization.md) for availability and translation review.
 
 ## Your data

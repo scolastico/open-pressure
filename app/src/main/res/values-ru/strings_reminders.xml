@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="reminder_title">Напоминания об измерении</string>
+    <string name="reminder_intro">Выберите, когда телефон будет напоминать об измерении. Эти напоминания не меняют сигналы на тонометре.</string>
+    <string name="reminder_add">Добавить напоминание</string>
+    <string name="reminder_empty">Напоминаний пока нет.</string>
+    <string name="reminder_time">Время</string>
+    <string name="reminder_days">Повторять по дням</string>
+    <string name="reminder_once">Один раз (дни недели не выбраны)</string>
+    <string name="reminder_skip_minutes">Пропускать, если измерение было в предыдущие минуты</string>
+    <string name="reminder_skip_help">Пропустить это срабатывание, если за указанное число минут до назначенного времени было записано измерение любого пользователя. По умолчанию — 120 минут (2 часа). Укажите 0, чтобы напоминать всегда. Импорт старой истории не считается недавним измерением.</string>
+    <string name="reminder_enabled">Включено</string>
+    <string name="reminder_edit">Изменить</string>
+    <string name="reminder_delete">Удалить напоминание</string>
+    <string name="reminder_delete_confirm">Удалить это напоминание? Сохранённые измерения останутся.</string>
+    <string name="reminder_invalid">Введите 0 или положительное целое число минут.</string>
+    <string name="reminder_save_failed">Не удалось сохранить напоминание. Повторите попытку.</string>
+    <string name="reminder_exact_help">Разрешите будильники и напоминания для точного времени срабатывания. Без этого доступа Android может задерживать напоминания. Снова откройте OpenPressure, если отзовёте доступ в системных настройках.</string>
+    <string name="reminder_exact_allow">Разрешить точные напоминания</string>
+    <string name="reminder_notifications_help">Уведомления о напоминаниях отключены. Включите их в настройках Android, чтобы получать напоминания.</string>
+    <string name="reminder_notifications_allow">Включить уведомления о напоминаниях</string>
+    <string name="reminder_channel">Напоминания об измерении</string>
+    <string name="reminder_channel_description">Напоминания в выбранное вами время измерений.</string>
+    <string name="reminder_notification_title">Пора измерить давление</string>
+    <string name="reminder_notification_text">Измерьте артериальное давление, когда вам будет удобно.</string>
+</resources>

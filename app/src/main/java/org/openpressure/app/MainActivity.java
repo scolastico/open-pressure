@@ -27,6 +27,7 @@ import org.openpressure.app.forwarding.HttpForwardingSettings;
 import org.openpressure.app.forwarding.HttpForwardingSettingsActivity;
 import org.openpressure.app.automatic.*;
 import org.openpressure.app.notifications.NewReadingNotifications;
+import org.openpressure.app.reminders.RemindersActivity;
 import org.openpressure.app.pdf.PdfReportData;
 import org.openpressure.app.pdf.PdfReportWriter;
 
@@ -73,12 +74,17 @@ public final class MainActivity extends Activity {
             pendingPdfExportPath=state.getString("pdfExportPath");
         }
         if(getIntent().getBooleanExtra("open_history",false)) { tab=1; days=0; getIntent().removeExtra("open_history"); }
+        if(getIntent().getBooleanExtra("open_reminders_overview",false)) { tab=0; getIntent().removeExtra("open_reminders_overview"); }
         render();
         ensureExperimentalConsent();
     }
     @Override protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent); setIntent(intent);
-        if(intent.getBooleanExtra("open_history",false)) {
+        if(intent.getBooleanExtra("open_reminders_overview",false)) {
+            intent.removeExtra("open_reminders_overview"); tab=0;
+            if(scroll!=null) scroll.scrollTo(0,0);
+            render();
+        } else if(intent.getBooleanExtra("open_history",false)) {
             intent.removeExtra("open_history"); tab=1; historyLimit=100;
             days=0;
             if(scroll!=null) scroll.scrollTo(0,0);
@@ -213,6 +219,7 @@ public final class MainActivity extends Activity {
     }
     private void today() {
         title(getString(R.string.main_overview),getString(R.string.main_overview_subtitle));
+        add(content,button(getString(R.string.reminder_title),() -> startActivity(new Intent(this,RemindersActivity.class)),false),8);
         filters(false);
         List<Reading> readings=visibleReadings();
         LinearLayout latest=card(); latest.setBackground(background(0xffe2eee7,0xffe2eee7));
