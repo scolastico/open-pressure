@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="pdf_export">صادرات PDF</string>
+    <string name="pdf_dialog_title">اندازه گیری فشار خون را به صورت فایل PDF صادر کنید</string>
+    <string name="pdf_range_all">تمام تاریخ ها</string>
+    <string name="pdf_range_custom">محدوده تاریخ</string>
+    <string name="pdf_from">تاریخ شروع: %1$s</string>
+    <string name="pdf_to">تاریخ پایان: %1$s</string>
+    <string name="pdf_range_invalid">تاریخ شروع باید در تاریخ پایان یا قبل از آن باشد.</string>
+    <string name="pdf_no_readings">هیچ اندازه‌گیری در این محدوده تاریخ برای نمایه انتخابی وجود ندارد.</string>
+    <string name="pdf_preparing">در حال آماده سازی PDF…</string>
+    <string name="pdf_exported">PDF صادر شد.</string>
+    <string name="pdf_failed">PDF صادر نشد. لطفا دوباره امتحان کنید.</string>
+    <string name="pdf_range_help">همه اندازه‌گیری‌ها را برای این نمایه صادر کنید یا محدوده تاریخ را انتخاب کنید. هر دو تاریخ گنجانده شده است.</string>
+    <string name="pdf_report_title">گزارش فشار خون</string>
+    <string name="pdf_report_overview">نمای کلی</string>
+    <string name="pdf_report_charts">نمودارها</string>
+    <string name="pdf_report_records">سوابق تفصیلی</string>
+    <string name="pdf_report_generated">ایجاد شده: %1$s</string>
+    <string name="pdf_report_period">%1$s – %2$s</string>
+    <string name="pdf_report_count">اندازه‌گیری: %1$s</string>
+    <string name="pdf_report_average_pressure">فشار خون متوسط: %1$s / %2$s میلی متر جیوه</string>
+    <string name="pdf_report_pressure_range">سیستولیک: %1$s–%2$s · دیاستولیک: %3$s–%4$s میلی‌متر جیوه</string>
+    <string name="pdf_report_average_pulse">میانگین پالس: %1$s ضربان در دقیقه</string>
+    <string name="pdf_report_pulse_range">محدوده پالس: %1$s–%2$s ضربان در دقیقه</string>
+    <string name="pdf_report_time_note">زمان اندازه گیری فشار خون منطقه زمانی ندارد. زمان‌های اندازه‌گیری از دست رفته از تاریخ دریافتی استفاده می‌کنند و در سوابق مشخص می‌شوند.</string>
+    <string name="pdf_report_flags_note">اندیکاتورها توسط مانیتور فشار خون گزارش می شوند. نشانگر نبض نامنظم جدا از فیبریلاسیون دهلیزی (AFib) است.</string>
+    <string name="pdf_report_chart_note">هر نمودار شامل حداکثر 48 اندازه گیری فشار خون برای یک پروفایل کاربر است. فشار خون بر حسب میلی متر جیوه نشان داده می شود. جدول داده ها واحدهای اندازه گیری اصلی را حفظ می کند.</string>
+    <string name="pdf_report_more_profiles">پروفایل های کاربر اضافی در صفحات نمودار و در صفحات رکورد اندازه گیری فهرست شده است.</string>
+    <string name="pdf_report_page">صفحه %1$s</string>
+    <string name="pdf_report_date">تاریخ و زمان</string>
+    <string name="pdf_report_profile">نمایه</string>
+    <string name="pdf_report_pressure">فشار خون</string>
+    <string name="pdf_report_pulse">نبض</string>
+    <string name="pdf_report_map">میانگین فشار خون شریانی</string>
+    <string name="pdf_report_flags">نشانگرهای فشار خون</string>
+    <string name="pdf_report_device">مانیتور فشار خون و منبع داده</string>
+    <string name="pdf_report_no_flags">بدون نشانگر دستگاه</string>
+    <string name="pdf_report_no_pulse">هیچ مقدار پالس موجود نیست</string>
+    <string name="pdf_report_no_pressure">هیچ مقدار فشار خون موجود نیست</string>
+    <string name="pdf_report_notes">یادداشت ها</string>
+    <string name="pdf_report_number">#</string>
+</resources>

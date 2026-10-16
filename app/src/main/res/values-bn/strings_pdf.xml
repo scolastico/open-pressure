@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="pdf_export">পিডিএফ রপ্তানি করুন</string>
+    <string name="pdf_dialog_title">একটি PDF ফাইল হিসাবে রক্তচাপ পরিমাপ রপ্তানি করুন</string>
+    <string name="pdf_range_all">সব তারিখ</string>
+    <string name="pdf_range_custom">তারিখ পরিসীমা</string>
+    <string name="pdf_from">শুরুর তারিখ: %1$s</string>
+    <string name="pdf_to">শেষ তারিখ: %1$s</string>
+    <string name="pdf_range_invalid">শুরুর তারিখ অবশ্যই শেষের তারিখে বা তার আগে হতে হবে।</string>
+    <string name="pdf_no_readings">নির্বাচিত প্রোফাইলের জন্য এই তারিখ পরিসরে কোন পরিমাপ নেই।</string>
+    <string name="pdf_preparing">পিডিএফ তৈরি করা হচ্ছে...</string>
+    <string name="pdf_exported">পিডিএফ এক্সপোর্ট করা হয়েছে।</string>
+    <string name="pdf_failed">PDF রপ্তানি করা যায়নি. আবার চেষ্টা করুন.</string>
+    <string name="pdf_range_help">এই প্রোফাইলের জন্য সমস্ত পরিমাপ রপ্তানি করুন, বা একটি তারিখ পরিসীমা চয়ন করুন৷ উভয় তারিখ অন্তর্ভুক্ত করা হয়.</string>
+    <string name="pdf_report_title">রক্তচাপের রিপোর্ট</string>
+    <string name="pdf_report_overview">ওভারভিউ</string>
+    <string name="pdf_report_charts">চার্ট</string>
+    <string name="pdf_report_records">বিস্তারিত রেকর্ড</string>
+    <string name="pdf_report_generated">তৈরি হয়েছে: %1$s</string>
+    <string name="pdf_report_period">%1$s – %2$s</string>
+    <string name="pdf_report_count">পরিমাপ: %1$s</string>
+    <string name="pdf_report_average_pressure">গড় রক্তচাপ: %1$s / %2$s mmHg</string>
+    <string name="pdf_report_pressure_range">সিস্টোলিক: %1$s–%2$s · ডায়াস্টোলিক: %3$s–%4$s mmHg</string>
+    <string name="pdf_report_average_pulse">গড় পালস: %1$s bpm</string>
+    <string name="pdf_report_pulse_range">পালস পরিসীমা: %1$s–%2$s bpm</string>
+    <string name="pdf_report_time_note">ব্লাড প্রেশার মনিটরের কোন টাইম জোন নেই। অনুপস্থিত পরিমাপ সময় প্রাপ্ত তারিখ ব্যবহার করে এবং রেকর্ডে চিহ্নিত করা হয়।</string>
+    <string name="pdf_report_flags_note">সূচকগুলি রক্তচাপ মনিটর দ্বারা রিপোর্ট করা হয়। একটি অনিয়মিত নাড়ি নির্দেশক অ্যাট্রিয়াল ফাইব্রিলেশন (AFib) থেকে পৃথক।</string>
+    <string name="pdf_report_chart_note">প্রতিটি চার্টে একজন ব্যবহারকারীর প্রোফাইলের জন্য 48টি পর্যন্ত রক্তচাপ পরিমাপ রয়েছে। রক্তচাপ mmHg এ দেখানো হয়; ডেটা টেবিল মূল পরিমাপ ইউনিট ধরে রাখে।</string>
+    <string name="pdf_report_more_profiles">অতিরিক্ত ব্যবহারকারী প্রোফাইল চার্ট পৃষ্ঠা এবং পরিমাপ রেকর্ড পৃষ্ঠায় তালিকাভুক্ত করা হয়.</string>
+    <string name="pdf_report_page">পৃষ্ঠা %1$s</string>
+    <string name="pdf_report_date">তারিখ এবং সময়</string>
+    <string name="pdf_report_profile">প্রোফাইল</string>
+    <string name="pdf_report_pressure">রক্তচাপ</string>
+    <string name="pdf_report_pulse">নাড়ি</string>
+    <string name="pdf_report_map">গড় ধমনী রক্তচাপ</string>
+    <string name="pdf_report_flags">রক্তচাপ মনিটর সূচক</string>
+    <string name="pdf_report_device">রক্তচাপ মনিটর এবং ডেটা উত্স</string>
+    <string name="pdf_report_no_flags">কোনো ডিভাইস সূচক নেই</string>
+    <string name="pdf_report_no_pulse">কোন নাড়ি মান উপলব্ধ</string>
+    <string name="pdf_report_no_pressure">রক্তচাপের কোনো মান উপলব্ধ নেই</string>
+    <string name="pdf_report_notes">নোট</string>
+    <string name="pdf_report_number">#</string>
+</resources>

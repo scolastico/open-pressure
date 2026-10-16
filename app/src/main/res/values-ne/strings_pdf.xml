@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="pdf_export">PDF निर्यात गर्नुहोस्</string>
+    <string name="pdf_dialog_title">पीडीएफ फाइलको रूपमा रक्तचाप मापन निर्यात गर्नुहोस्</string>
+    <string name="pdf_range_all">सबै मितिहरू</string>
+    <string name="pdf_range_custom">मिति दायरा</string>
+    <string name="pdf_from">सुरु मिति: %1$s</string>
+    <string name="pdf_to">अन्त्य मिति: %1$s</string>
+    <string name="pdf_range_invalid">सुरु मिति अन्त्य मिति वा अघि हुनुपर्छ।</string>
+    <string name="pdf_no_readings">चयन गरिएको प्रोफाइलको लागि यो मिति दायरामा कुनै मापन छैन।</string>
+    <string name="pdf_preparing">PDF तयार गर्दै...</string>
+    <string name="pdf_exported">PDF निर्यात गरियो।</string>
+    <string name="pdf_failed">PDF निर्यात गर्न सकिएन। कृपया पुन: प्रयास गर्नुहोस्।</string>
+    <string name="pdf_range_help">यो प्रोफाइलको लागि सबै मापनहरू निर्यात गर्नुहोस्, वा मिति दायरा छनौट गर्नुहोस्। दुबै मितिहरू समावेश छन्।</string>
+    <string name="pdf_report_title">रक्तचाप रिपोर्ट</string>
+    <string name="pdf_report_overview">अवलोकन</string>
+    <string name="pdf_report_charts">चार्टहरू</string>
+    <string name="pdf_report_records">विस्तृत अभिलेख</string>
+    <string name="pdf_report_generated">उत्पन्न: %1$s</string>
+    <string name="pdf_report_period">%1$s - %2$s</string>
+    <string name="pdf_report_count">मापन: %1$s</string>
+    <string name="pdf_report_average_pressure">औसत रक्तचाप: %1$s / %2$s mmHg</string>
+    <string name="pdf_report_pressure_range">सिस्टोलिक: %1$s–%2$s · डायस्टोलिक: %3$s–%4$s mmHg</string>
+    <string name="pdf_report_average_pulse">औसत पल्स: %1$s bpm</string>
+    <string name="pdf_report_pulse_range">पल्स दायरा: %1$s–%2$s bpm</string>
+    <string name="pdf_report_time_note">रक्तचाप मनिटर समय को कुनै समय क्षेत्र छैन। छुटेको मापन समयहरू प्राप्त मिति प्रयोग गर्दछ र अभिलेखहरूमा चिन्ह लगाइन्छ।</string>
+    <string name="pdf_report_flags_note">सूचकहरू रक्तचाप मनिटर द्वारा रिपोर्ट गरिएको छ। एक अनियमित पल्स सूचक atrial fibrillation (AFib) बाट अलग छ।</string>
+    <string name="pdf_report_chart_note">प्रत्येक चार्टले एक प्रयोगकर्ता प्रोफाइलको लागि 48 सम्म रक्तचाप मापन समावेश गर्दछ। रक्तचाप mmHg मा देखाइएको छ; डाटा तालिकाले मूल मापन एकाइहरू राख्छ।</string>
+    <string name="pdf_report_more_profiles">अतिरिक्त प्रयोगकर्ता प्रोफाइलहरू चार्ट पृष्ठहरूमा र मापन रेकर्ड पृष्ठहरूमा सूचीबद्ध छन्।</string>
+    <string name="pdf_report_page">पृष्ठ %1$s</string>
+    <string name="pdf_report_date">मिति र समय</string>
+    <string name="pdf_report_profile">प्रोफाइल</string>
+    <string name="pdf_report_pressure">रक्तचाप</string>
+    <string name="pdf_report_pulse">पल्स</string>
+    <string name="pdf_report_map">औसत धमनी रक्तचाप</string>
+    <string name="pdf_report_flags">रक्तचाप मनिटर सूचकहरू</string>
+    <string name="pdf_report_device">रक्तचाप मनिटर र डाटा स्रोत</string>
+    <string name="pdf_report_no_flags">कुनै उपकरण संकेतकहरू छैनन्</string>
+    <string name="pdf_report_no_pulse">कुनै पल्स मानहरू उपलब्ध छैनन्</string>
+    <string name="pdf_report_no_pressure">रक्तचाप मानहरू उपलब्ध छैनन्</string>
+    <string name="pdf_report_notes">नोटहरू</string>
+    <string name="pdf_report_number">#</string>
+</resources>

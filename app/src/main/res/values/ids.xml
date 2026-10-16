@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="health_bank_one" type="id" />
+    <item name="health_bank_two" type="id" />
+</resources>

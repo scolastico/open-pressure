@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="pdf_export">PDF exportieren</string>
+    <string name="pdf_dialog_title">Messwerte als PDF exportieren</string>
+    <string name="pdf_range_all">Gesamter Zeitraum</string>
+    <string name="pdf_range_custom">Zeitraum</string>
+    <string name="pdf_from">Von: %1$s</string>
+    <string name="pdf_to">Bis: %1$s</string>
+    <string name="pdf_range_invalid">Das Startdatum muss vor oder am Enddatum liegen.</string>
+    <string name="pdf_no_readings">Für das ausgewählte Profil liegen in diesem Zeitraum keine Messwerte vor.</string>
+    <string name="pdf_preparing">PDF wird erstellt…</string>
+    <string name="pdf_exported">PDF exportiert.</string>
+    <string name="pdf_failed">Die PDF-Datei konnte nicht exportiert werden. Bitte versuche es erneut.</string>
+    <string name="pdf_range_help">Exportiere alle Messwerte dieses Profils oder wähle einen Zeitraum. Beide Datumsgrenzen sind eingeschlossen.</string>
+    <string name="pdf_report_title">Blutdruckbericht</string>
+    <string name="pdf_report_overview">Übersicht</string>
+    <string name="pdf_report_charts">Diagramme</string>
+    <string name="pdf_report_records">Detailliertes Messprotokoll</string>
+    <string name="pdf_report_generated">Erstellt: %1$s</string>
+    <string name="pdf_report_period">%1$s – %2$s</string>
+    <string name="pdf_report_count">Messungen: %1$s</string>
+    <string name="pdf_report_average_pressure">Durchschnittlicher Blutdruck: %1$s / %2$s mmHg</string>
+    <string name="pdf_report_pressure_range">Systolisch: %1$s–%2$s · Diastolisch: %3$s–%4$s mmHg</string>
+    <string name="pdf_report_average_pulse">Durchschnittlicher Puls: %1$s bpm</string>
+    <string name="pdf_report_pulse_range">Pulsbereich: %1$s–%2$s bpm</string>
+    <string name="pdf_report_time_note">Die Uhrzeiten des Messgeräts enthalten keine Zeitzone. Fehlt die Messzeit, wird das Empfangsdatum verwendet und im Messprotokoll gekennzeichnet.</string>
+    <string name="pdf_report_flags_note">Die Hinweise stammen vom Messgerät. Ein Hinweis auf einen unregelmäßigen Puls ist von Vorhofflimmern (AFib) zu unterscheiden.</string>
+    <string name="pdf_report_chart_note">Jedes Diagramm enthält bis zu 48 Messungen eines Profils. Der Blutdruck wird in mmHg angezeigt; die Tabelle behält die ursprünglichen Einheiten bei.</string>
+    <string name="pdf_report_more_profiles">Weitere Profile findest du auf den Diagramm- und Protokollseiten.</string>
+    <string name="pdf_report_page">Seite %1$s</string>
+    <string name="pdf_report_date">Datum und Uhrzeit</string>
+    <string name="pdf_report_profile">Profil</string>
+    <string name="pdf_report_pressure">Blutdruck</string>
+    <string name="pdf_report_pulse">Puls</string>
+    <string name="pdf_report_map">Mittlerer arterieller Druck</string>
+    <string name="pdf_report_flags">Gerätehinweise</string>
+    <string name="pdf_report_device">Messgerät und Quelle</string>
+    <string name="pdf_report_no_flags">Keine Gerätehinweise</string>
+    <string name="pdf_report_no_pulse">Keine Pulswerte verfügbar</string>
+    <string name="pdf_report_no_pressure">Keine Blutdruckwerte verfügbar</string>
+    <string name="pdf_report_notes">Anmerkungen</string>
+    <string name="pdf_report_number">Nr.</string>
+</resources>

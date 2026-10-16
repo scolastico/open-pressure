@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="pdf_export">Exporter un PDF</string>
+    <string name="pdf_dialog_title">Exporter les mesures au format PDF</string>
+    <string name="pdf_range_all">Toutes les dates</string>
+    <string name="pdf_range_custom">Plage de dates</string>
+    <string name="pdf_from">Du : %1$s</string>
+    <string name="pdf_to">Au : %1$s</string>
+    <string name="pdf_range_invalid">La date de début doit être égale ou antérieure à la date de fin.</string>
+    <string name="pdf_no_readings">Aucune mesure dans cette plage de dates pour le profil sélectionné.</string>
+    <string name="pdf_preparing">Préparation du PDF…</string>
+    <string name="pdf_exported">PDF exporté.</string>
+    <string name="pdf_failed">Impossible d\'exporter le PDF. Veuillez réessayer.</string>
+    <string name="pdf_range_help">Exportez toutes les mesures de ce profil ou choisissez une plage de dates. Les deux dates sont incluses.</string>
+    <string name="pdf_report_title">Rapport de tension artérielle</string>
+    <string name="pdf_report_overview">Aperçu</string>
+    <string name="pdf_report_charts">Graphiques</string>
+    <string name="pdf_report_records">Relevés détaillés</string>
+    <string name="pdf_report_generated">Généré : %1$s</string>
+    <string name="pdf_report_period">%1$s – %2$s</string>
+    <string name="pdf_report_count">Mesures : %1$s</string>
+    <string name="pdf_report_average_pressure">Tension artérielle moyenne : %1$s / %2$s mmHg</string>
+    <string name="pdf_report_pressure_range">Systolique : %1$s–%2$s · Diastolique : %3$s–%4$s mmHg</string>
+    <string name="pdf_report_average_pulse">Pouls moyen : %1$s bpm</string>
+    <string name="pdf_report_pulse_range">Plage de pouls : %1$s–%2$s bpm</string>
+    <string name="pdf_report_time_note">Les heures des tensiomètres n’ont pas de fuseau horaire. Les temps de mesure manquants utilisent la date de réception et sont marqués dans les enregistrements.</string>
+    <string name="pdf_report_flags_note">Les indicateurs sont rapportés par le tensiomètre. Un indicateur de pouls irrégulier est distinct de la fibrillation auriculaire (AFib).</string>
+    <string name="pdf_report_chart_note">Chaque graphique contient jusqu’à 48 mesures pour un profil. La pression artérielle est indiquée en mmHg ; le tableau conserve les unités d’origine.</string>
+    <string name="pdf_report_more_profiles">Des profils d\'utilisateurs supplémentaires sont répertoriés sur les pages de graphiques et sur les pages d\'enregistrement de mesure.</string>
+    <string name="pdf_report_page">Page %1$s</string>
+    <string name="pdf_report_date">Date et heure</string>
+    <string name="pdf_report_profile">Profil</string>
+    <string name="pdf_report_pressure">Pression artérielle</string>
+    <string name="pdf_report_pulse">Impulsion</string>
+    <string name="pdf_report_map">Pression artérielle moyenne</string>
+    <string name="pdf_report_flags">Indicateurs du tensiomètre</string>
+    <string name="pdf_report_device">Tensiomètre et source</string>
+    <string name="pdf_report_no_flags">Aucun indicateur de l’appareil</string>
+    <string name="pdf_report_no_pulse">Aucune valeur d\'impulsion disponible</string>
+    <string name="pdf_report_no_pressure">Aucune valeur de tension artérielle disponible</string>
+    <string name="pdf_report_notes">Remarques</string>
+    <string name="pdf_report_number">N°</string>
+</resources>

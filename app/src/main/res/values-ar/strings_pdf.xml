@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="pdf_export">تصدير PDF</string>
+    <string name="pdf_dialog_title">تصدير القياسات بصيغة PDF</string>
+    <string name="pdf_range_all">جميع التواريخ</string>
+    <string name="pdf_range_custom">النطاق الزمني</string>
+    <string name="pdf_from">من: %1$s</string>
+    <string name="pdf_to">إلى: %1$s</string>
+    <string name="pdf_range_invalid">يجب أن يكون تاريخ البدء في تاريخ الانتهاء أو قبله.</string>
+    <string name="pdf_no_readings">لا توجد قياسات في هذا النطاق الزمني للملف الشخصي المحدد.</string>
+    <string name="pdf_preparing">جارٍ تحضير ملف PDF…</string>
+    <string name="pdf_exported">تم تصدير ملف PDF.</string>
+    <string name="pdf_failed">لا يمكن تصدير ملف PDF. يرجى المحاولة مرة أخرى.</string>
+    <string name="pdf_range_help">قم بتصدير جميع القياسات لهذا الملف الشخصي، أو اختر نطاقًا زمنيًا. يتم تضمين كلا التاريخين.</string>
+    <string name="pdf_report_title">تقرير ضغط الدم</string>
+    <string name="pdf_report_overview">ملخص</string>
+    <string name="pdf_report_charts">الرسوم البيانية</string>
+    <string name="pdf_report_records">السجلات التفصيلية</string>
+    <string name="pdf_report_generated">تم الإنشاء: %1$s</string>
+    <string name="pdf_report_period">%1$s – %2$s</string>
+    <string name="pdf_report_count">القياسات: %1$s</string>
+    <string name="pdf_report_average_pressure">متوسط ​​ضغط الدم: %1$s / %2$s مم زئبق</string>
+    <string name="pdf_report_pressure_range">الضغط الانقباضي: %1$s–%2$s · الضغط الانبساطي: %3$s–%4$s مم زئبق</string>
+    <string name="pdf_report_average_pulse">متوسط ​​النبض: %1$s نبضة في الدقيقة</string>
+    <string name="pdf_report_pulse_range">نطاق النبض: %1$s–%2$s نبضة في الدقيقة</string>
+    <string name="pdf_report_time_note">أوقات مراقبة ضغط الدم ليس لها منطقة زمنية. تستخدم أوقات القياس المفقودة تاريخ الاستلام ويتم وضع علامة عليها في السجلات.</string>
+    <string name="pdf_report_flags_note">يتم الإبلاغ عن المؤشرات بواسطة جهاز قياس ضغط الدم. مؤشر النبض غير المنتظم منفصل عن الرجفان الأذيني (AFib).</string>
+    <string name="pdf_report_chart_note">يحتوي كل مخطط على ما يصل إلى 48 قياسًا لضغط الدم لملف تعريف مستخدم واحد. يظهر ضغط الدم بالملليمتر الزئبق. يحتفظ جدول البيانات بوحدات القياس الأصلية.</string>
+    <string name="pdf_report_more_profiles">يتم إدراج ملفات تعريف المستخدمين الإضافية في صفحات المخطط وفي صفحات سجل القياس.</string>
+    <string name="pdf_report_page">الصفحة %1$s</string>
+    <string name="pdf_report_date">التاريخ والوقت</string>
+    <string name="pdf_report_profile">حساب تعريفي</string>
+    <string name="pdf_report_pressure">ضغط الدم</string>
+    <string name="pdf_report_pulse">نبض</string>
+    <string name="pdf_report_map">متوسط الضغط الشرياني</string>
+    <string name="pdf_report_flags">مؤشرات جهاز قياس الضغط</string>
+    <string name="pdf_report_device">جهاز قياس الضغط والمصدر</string>
+    <string name="pdf_report_no_flags">لا توجد مؤشرات من الجهاز</string>
+    <string name="pdf_report_no_pulse">لا توجد قيم نبض متاحة</string>
+    <string name="pdf_report_no_pressure">لا توجد قيم ضغط الدم المتاحة</string>
+    <string name="pdf_report_notes">ملحوظات</string>
+    <string name="pdf_report_number">رقم</string>
+</resources>

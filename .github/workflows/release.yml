@@ -1,0 +1,147 @@
+name: Release APK
+run-name: Release ${{ inputs.version }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Semantic version without v (for example 0.4.0 or 0.4.0-rc.1)'
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-apk
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    defaults:
+      run:
+        shell: bash
+    env:
+      GH_REPO: ${{ github.repository }}
+    steps:
+      - name: Check out selected branch and complete history
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: ${{ github.ref_name }}
+          fetch-depth: 0
+
+      - name: Set up Java 17
+        uses: actions/setup-java@b6effb05e454b25005698d916606bdc6ffcbf961 # v5
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: gradle
+
+      - name: Validate branch and signing credentials
+        env:
+          ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+        run: |
+          [[ "$GITHUB_REF_TYPE" == branch ]] || { echo 'Select a branch, not a tag.' >&2; exit 1; }
+          for name in ANDROID_KEYSTORE_BASE64 ANDROID_KEYSTORE_PASSWORD ANDROID_KEY_ALIAS ANDROID_KEY_PASSWORD; do
+            [[ -n "${!name}" ]] || { echo "Missing repository secret: $name" >&2; exit 1; }
+          done
+          umask 077
+          printf '%s' "$ANDROID_KEYSTORE_BASE64" | base64 --decode > "$RUNNER_TEMP/release.keystore"
+          keytool -list -keystore "$RUNNER_TEMP/release.keystore" \
+            -storepass:env ANDROID_KEYSTORE_PASSWORD -alias "$ANDROID_KEY_ALIAS" > /dev/null
+
+      - name: Prepare semantic version and commit-count revision
+        id: version
+        env:
+          REQUESTED_VERSION: ${{ inputs.version }}
+        run: |
+          metadata=$(python3 tools/prepare-release.py "$REQUESTED_VERSION")
+          jq -r 'to_entries[] | "\(.key)=\(.value)"' <<< "$metadata" >> "$GITHUB_OUTPUT"
+
+      - name: Commit and push the release version
+        id: commit
+        env:
+          RELEASE_TAG: ${{ steps.version.outputs.tag }}
+          REVISION: ${{ steps.version.outputs.revision }}
+          CHANGED: ${{ steps.version.outputs.changed }}
+          RELEASE_BRANCH: ${{ github.ref_name }}
+        run: |
+          if git show-ref --verify --quiet "refs/tags/$RELEASE_TAG"; then
+            [[ "$CHANGED" == false && "$(git rev-parse "$RELEASE_TAG^{commit}")" == "$(git rev-parse HEAD)" ]] || {
+              echo "Tag $RELEASE_TAG already belongs to another release." >&2; exit 1;
+            }
+          fi
+          if [[ "$CHANGED" == true ]]; then
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git add -- app/build.gradle
+            git commit --allow-empty -m "chore(release): $RELEASE_TAG"
+          fi
+          [[ "$(git rev-list --count HEAD)" == "$REVISION" ]]
+          git push origin "HEAD:refs/heads/$RELEASE_BRANCH"
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@9fc6c4e9069bf8d3d10b2204b1fb8f6ef7065407 # v3
+
+      - name: Install project SDK packages
+        run: sdkmanager 'platforms;android-36' 'build-tools;35.0.0'
+
+      - name: Test and build the committed release
+        run: |
+          python3 tools/test-release.py
+          python3 tools/test-storage.py
+          python3 tools/check-locales.py
+          bash ./gradlew --no-daemon :protocol:check :app:testReleaseUnitTest :app:assembleRelease :app:lintRelease
+
+      - name: Align, sign and verify APK
+        id: apk
+        env:
+          RELEASE_VERSION: ${{ steps.version.outputs.version }}
+          REVISION: ${{ steps.version.outputs.revision }}
+          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+        run: |
+          tools="$ANDROID_HOME/build-tools/35.0.0"
+          apk="$RUNNER_TEMP/OpenPressure-$RELEASE_VERSION.apk"
+          "$tools/zipalign" -p -f 4 app/build/outputs/apk/release/app-release-unsigned.apk "$RUNNER_TEMP/aligned.apk"
+          "$tools/apksigner" sign --ks "$RUNNER_TEMP/release.keystore" \
+            --ks-key-alias "$ANDROID_KEY_ALIAS" --ks-pass env:ANDROID_KEYSTORE_PASSWORD \
+            --key-pass env:ANDROID_KEY_PASSWORD --out "$apk" "$RUNNER_TEMP/aligned.apk"
+          "$tools/apksigner" verify --verbose "$apk"
+          "$tools/zipalign" -c -v 4 "$apk"
+          actual=$("$tools/aapt" dump badging "$apk" | sed -n "s/.* versionCode='\([0-9]*\)'.*/\1/p")
+          [[ "$actual" == "$REVISION" ]]
+          echo "path=$apk" >> "$GITHUB_OUTPUT"
+
+      - name: Tag the built commit and publish GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ steps.version.outputs.tag }}
+          RELEASE_SHA: ${{ steps.commit.outputs.sha }}
+          PRERELEASE: ${{ steps.version.outputs.prerelease }}
+          APK: ${{ steps.apk.outputs.path }}
+        run: |
+          if ! git show-ref --verify --quiet "refs/tags/$RELEASE_TAG"; then
+            git tag "$RELEASE_TAG" "$RELEASE_SHA"
+          fi
+          [[ "$(git rev-parse "$RELEASE_TAG^{commit}")" == "$RELEASE_SHA" ]]
+          git push origin "refs/tags/$RELEASE_TAG"
+          if draft=$(gh release view "$RELEASE_TAG" --json isDraft --jq '.isDraft' 2>/dev/null); then
+            [[ "$draft" == true ]] || { echo 'This release is already published.' >&2; exit 1; }
+          else
+            gh release create "$RELEASE_TAG" --verify-tag --target "$RELEASE_SHA" \
+              --title "OpenPressure $RELEASE_TAG" --generate-notes --draft --prerelease="$PRERELEASE"
+          fi
+          gh release upload "$RELEASE_TAG" "$APK" --clobber
+          gh release edit "$RELEASE_TAG" --draft=false --prerelease="$PRERELEASE"
+
+      - name: Remove signing material
+        if: always()
+        run: rm -f -- "$RUNNER_TEMP/release.keystore"

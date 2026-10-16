@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="pdf_export">Экспорт PDF</string>
+    <string name="pdf_dialog_title">Экспорт измерений в PDF</string>
+    <string name="pdf_range_all">Все даты</string>
+    <string name="pdf_range_custom">Диапазон дат</string>
+    <string name="pdf_from">С: %1$s</string>
+    <string name="pdf_to">По: %1$s</string>
+    <string name="pdf_range_invalid">Дата начала должна быть не позднее даты окончания.</string>
+    <string name="pdf_no_readings">Для выбранного профиля в этом диапазоне дат нет измерений.</string>
+    <string name="pdf_preparing">Подготовка PDF…</string>
+    <string name="pdf_exported">PDF экспортирован.</string>
+    <string name="pdf_failed">Не удалось экспортировать PDF-файл. Пожалуйста, попробуйте еще раз.</string>
+    <string name="pdf_range_help">Экспортируйте все измерения для этого профиля или выберите диапазон дат. Обе даты включены.</string>
+    <string name="pdf_report_title">Отчет об артериальном давлении</string>
+    <string name="pdf_report_overview">Обзор</string>
+    <string name="pdf_report_charts">Графики</string>
+    <string name="pdf_report_records">Подробные записи измерений</string>
+    <string name="pdf_report_generated">Сгенерировано: %1$s</string>
+    <string name="pdf_report_period">%1$s – %2$s</string>
+    <string name="pdf_report_count">Размеры: %1$s</string>
+    <string name="pdf_report_average_pressure">Среднее артериальное давление: %1$s / %2$s мм рт.ст.</string>
+    <string name="pdf_report_pressure_range">Систолическое: %1$s–%2$s · Диастолическое: %3$s–%4$s мм рт.ст.</string>
+    <string name="pdf_report_average_pulse">Средний пульс: %1$s уд./мин.</string>
+    <string name="pdf_report_pulse_range">Диапазон пульса: %1$s–%2$s уд./мин.</string>
+    <string name="pdf_report_time_note">Время тонометра не имеет часового пояса. Для отсутствующих значений времени измерения используется полученная дата, и они отмечаются в записях.</string>
+    <string name="pdf_report_flags_note">Показатели сообщает тонометр. Индикатор нерегулярного пульса отличается от фибрилляции предсердий (ФП).</string>
+    <string name="pdf_report_chart_note">Каждая диаграмма содержит до 48 измерений артериального давления для одного профиля пользователя. Артериальное давление показано в мм рт. ст.; таблица данных сохраняет исходные единицы измерения.</string>
+    <string name="pdf_report_more_profiles">Дополнительные профили пользователей перечислены на страницах диаграмм и на страницах записей измерений.</string>
+    <string name="pdf_report_page">Страница %1$s</string>
+    <string name="pdf_report_date">Дата и время</string>
+    <string name="pdf_report_profile">Профиль</string>
+    <string name="pdf_report_pressure">Артериальное давление</string>
+    <string name="pdf_report_pulse">Пульс</string>
+    <string name="pdf_report_map">Среднее артериальное давление</string>
+    <string name="pdf_report_flags">Индикаторы тонометра</string>
+    <string name="pdf_report_device">Тонометр и источник</string>
+    <string name="pdf_report_no_flags">Нет индикаторов устройства</string>
+    <string name="pdf_report_no_pulse">Нет доступных значений пульса</string>
+    <string name="pdf_report_no_pressure">Нет данных о артериальном давлении</string>
+    <string name="pdf_report_notes">Примечания</string>
+    <string name="pdf_report_number">№</string>
+</resources>

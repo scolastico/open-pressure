@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="pdf_export">PDF exporteren</string>
+    <string name="pdf_dialog_title">Metingen als PDF exporteren</string>
+    <string name="pdf_range_all">Alle datums</string>
+    <string name="pdf_range_custom">Datumbereik</string>
+    <string name="pdf_from">Van: %1$s</string>
+    <string name="pdf_to">Tot en met: %1$s</string>
+    <string name="pdf_range_invalid">De startdatum moet op of vóór de einddatum liggen.</string>
+    <string name="pdf_no_readings">Geen metingen in dit datumbereik voor het geselecteerde profiel.</string>
+    <string name="pdf_preparing">PDF voorbereiden...</string>
+    <string name="pdf_exported">PDF geëxporteerd.</string>
+    <string name="pdf_failed">Kan de PDF niet exporteren. Probeer het opnieuw.</string>
+    <string name="pdf_range_help">Exporteer alle metingen voor dit profiel of kies een datumbereik. Beide data zijn inbegrepen.</string>
+    <string name="pdf_report_title">Bloeddrukrapport</string>
+    <string name="pdf_report_overview">Overzicht</string>
+    <string name="pdf_report_charts">Grafieken</string>
+    <string name="pdf_report_records">Gedetailleerd meetoverzicht</string>
+    <string name="pdf_report_generated">Gegenereerd: %1$s</string>
+    <string name="pdf_report_period">%1$s – %2$s</string>
+    <string name="pdf_report_count">Afmetingen: %1$s</string>
+    <string name="pdf_report_average_pressure">Gemiddelde bloeddruk: %1$s / %2$s mmHg</string>
+    <string name="pdf_report_pressure_range">Systolisch: %1$s–%2$s · Diastolisch: %3$s–%4$s mmHg</string>
+    <string name="pdf_report_average_pulse">Gemiddelde hartslag: %1$s bpm</string>
+    <string name="pdf_report_pulse_range">Hartslagbereik: %1$s–%2$s bpm</string>
+    <string name="pdf_report_time_note">Bloeddrukmetertijden hebben geen tijdzone. Ontbrekende meettijden gebruiken de ontvangen datum en worden in de administratie gemarkeerd.</string>
+    <string name="pdf_report_flags_note">Indicatoren worden gerapporteerd door de bloeddrukmeter. Een onregelmatige polsindicator staat los van atriale fibrillatie (AFib).</string>
+    <string name="pdf_report_chart_note">Elke grafiek bevat maximaal 48 metingen voor één profiel. De bloeddruk wordt weergegeven in mmHg; de tabel behoudt de oorspronkelijke eenheden.</string>
+    <string name="pdf_report_more_profiles">Overige profielen staan op de grafiekpagina’s en de pagina’s met meetgegevens.</string>
+    <string name="pdf_report_page">Pagina %1$s</string>
+    <string name="pdf_report_date">Datum en tijd</string>
+    <string name="pdf_report_profile">Profiel</string>
+    <string name="pdf_report_pressure">Bloeddruk</string>
+    <string name="pdf_report_pulse">Puls</string>
+    <string name="pdf_report_map">Gemiddelde arteriële druk</string>
+    <string name="pdf_report_flags">Meldingen van de bloeddrukmeter</string>
+    <string name="pdf_report_device">Bloeddrukmeter en bron</string>
+    <string name="pdf_report_no_flags">Geen apparaatmeldingen</string>
+    <string name="pdf_report_no_pulse">Geen polswaarden beschikbaar</string>
+    <string name="pdf_report_no_pressure">Geen bloeddrukwaarden beschikbaar</string>
+    <string name="pdf_report_notes">Opmerkingen</string>
+    <string name="pdf_report_number">Nr.</string>
+</resources>

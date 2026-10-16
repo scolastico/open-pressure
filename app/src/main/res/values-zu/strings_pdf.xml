@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="pdf_export">Khipha i-PDF</string>
+    <string name="pdf_dialog_title">Khipha izilinganiso zomfutho wegazi njengefayela le-PDF</string>
+    <string name="pdf_range_all">Zonke izinsuku</string>
+    <string name="pdf_range_custom">Ibanga ledethi</string>
+    <string name="pdf_from">Idethi yokuqala: %1$s</string>
+    <string name="pdf_to">Idethi yokuphela: %1$s</string>
+    <string name="pdf_range_invalid">Idethi yokuqala kufanele ibe ngedethi yokugcina noma ngaphambi kwayo.</string>
+    <string name="pdf_no_readings">Azikho izilinganiso kuleli banga ledethi zephrofayela ekhethiwe.</string>
+    <string name="pdf_preparing">Ilungiselela i-PDF...</string>
+    <string name="pdf_exported">I-PDF ikhishiwe.</string>
+    <string name="pdf_failed">Ayikwazanga ukukhipha i-PDF. Sicela uzame futhi.</string>
+    <string name="pdf_range_help">Khipha zonke izilinganiso zale phrofayela, noma khetha ibanga ledethi. Zombili izinsuku zifakiwe.</string>
+    <string name="pdf_report_title">Umbiko womfutho wegazi</string>
+    <string name="pdf_report_overview">Uhlolojikelele</string>
+    <string name="pdf_report_charts">Amashadi</string>
+    <string name="pdf_report_records">Amarekhodi anemininingwane</string>
+    <string name="pdf_report_generated">Kwenziwe: %1$s</string>
+    <string name="pdf_report_period">%1$s – %2$s</string>
+    <string name="pdf_report_count">Izilinganiso: %1$s</string>
+    <string name="pdf_report_average_pressure">Umfutho wegazi omaphakathi: %1$s / %2$s mmHg</string>
+    <string name="pdf_report_pressure_range">I-Systolic: %1$s–%2$s · I-Diastolic: %3$s–%4$s mmHg</string>
+    <string name="pdf_report_average_pulse">Isilinganiso sokushaya kwenhliziyo: %1$s bpm</string>
+    <string name="pdf_report_pulse_range">Ububanzi be-Pulse: %1$s–%2$s bpm</string>
+    <string name="pdf_report_time_note">Izikhathi zokuqapha umfutho wegazi azinayo indawo yesikhathi. Izikhathi zokulinganisa ezingekho zisebenzisa idethi eyamukelwe futhi zimakwe kumarekhodi.</string>
+    <string name="pdf_report_flags_note">Izinkomba zibikwa yi-blood pressure monitor. Inkomba ye-pulse engavamile ihlukile ku-atrial fibrillation (AFib).</string>
+    <string name="pdf_report_chart_note">Ishadi ngalinye liqukethe izilinganiso zomfutho wegazi ezingafika kwezingu-48 kuphrofayela yomsebenzisi oyedwa. Umfutho wegazi uboniswa ku-mmHg; ithebula ledatha ligcina amayunithi okulinganisa asekuqaleni.</string>
+    <string name="pdf_report_more_profiles">Amaphrofayli engeziwe omsebenzisi afakwe ohlwini emakhasini eshadi nasemakhasini okurekhoda okulinganisa.</string>
+    <string name="pdf_report_page">Ikhasi %1$s</string>
+    <string name="pdf_report_date">Usuku nesikhathi</string>
+    <string name="pdf_report_profile">Iphrofayela</string>
+    <string name="pdf_report_pressure">Ukushaya kwegazi</string>
+    <string name="pdf_report_pulse">I-Pulse</string>
+    <string name="pdf_report_map">Umfutho wegazi ophakathi nendawo</string>
+    <string name="pdf_report_flags">Izinkomba zokuqapha umfutho wegazi</string>
+    <string name="pdf_report_device">Imonitha yomfutho wegazi kanye nomthombo wedatha</string>
+    <string name="pdf_report_no_flags">Azikho izinkomba zedivayisi</string>
+    <string name="pdf_report_no_pulse">Awekho amanani okushaya kwenhliziyo atholakalayo</string>
+    <string name="pdf_report_no_pressure">Awekho amanani omfutho wegazi atholakalayo</string>
+    <string name="pdf_report_notes">Amanothi</string>
+    <string name="pdf_report_number">#</string>
+</resources>

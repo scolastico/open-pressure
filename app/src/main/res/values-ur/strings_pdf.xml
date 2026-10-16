@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="pdf_export">پی ڈی ایف ایکسپورٹ کریں۔</string>
+    <string name="pdf_dialog_title">بلڈ پریشر کی پیمائش کو پی ڈی ایف فائل کے طور پر ایکسپورٹ کریں۔</string>
+    <string name="pdf_range_all">تمام تاریخیں۔</string>
+    <string name="pdf_range_custom">تاریخ کی حد</string>
+    <string name="pdf_from">تاریخ آغاز: %1$s</string>
+    <string name="pdf_to">اختتامی تاریخ: %1$s</string>
+    <string name="pdf_range_invalid">شروع کی تاریخ اختتامی تاریخ پر یا اس سے پہلے ہونی چاہیے۔</string>
+    <string name="pdf_no_readings">منتخب پروفائل کے لیے اس تاریخ کی حد میں کوئی پیمائش نہیں ہے۔</string>
+    <string name="pdf_preparing">پی ڈی ایف تیار ہو رہی ہے…</string>
+    <string name="pdf_exported">PDF برآمد کی گئی۔</string>
+    <string name="pdf_failed">PDF کو برآمد نہیں کیا جا سکا۔ براہ کرم دوبارہ کوشش کریں۔</string>
+    <string name="pdf_range_help">اس پروفائل کے لیے تمام پیمائشیں برآمد کریں، یا تاریخ کی حد منتخب کریں۔ دونوں تاریخیں شامل ہیں۔</string>
+    <string name="pdf_report_title">بلڈ پریشر کی رپورٹ</string>
+    <string name="pdf_report_overview">جائزہ</string>
+    <string name="pdf_report_charts">چارٹس</string>
+    <string name="pdf_report_records">تفصیلی ریکارڈ</string>
+    <string name="pdf_report_generated">تیار کردہ: %1$s</string>
+    <string name="pdf_report_period">%1$s – %2$s</string>
+    <string name="pdf_report_count">پیمائش: %1$s</string>
+    <string name="pdf_report_average_pressure">اوسط بلڈ پریشر: %1$s / %2$s mmHg</string>
+    <string name="pdf_report_pressure_range">سسٹولک: %1$s–%2$s · Diastolic: %3$s–%4$s mmHg</string>
+    <string name="pdf_report_average_pulse">اوسط نبض: %1$s bpm</string>
+    <string name="pdf_report_pulse_range">نبض کی حد: %1$s–%2$s bpm</string>
+    <string name="pdf_report_time_note">بلڈ پریشر مانیٹر کے اوقات کا کوئی ٹائم زون نہیں ہوتا ہے۔ گم شدہ پیمائش کے اوقات موصول ہونے والی تاریخ کا استعمال کرتے ہیں اور ریکارڈ میں نشان زد ہوتے ہیں۔</string>
+    <string name="pdf_report_flags_note">اشارے بلڈ پریشر مانیٹر کے ذریعہ رپورٹ کیے جاتے ہیں۔ ایک فاسد نبض اشارے ایٹریل فیبریلیشن (AFib) سے الگ ہے۔</string>
+    <string name="pdf_report_chart_note">ہر چارٹ میں ایک صارف پروفائل کے لیے 48 تک بلڈ پریشر کی پیمائش ہوتی ہے۔ بلڈ پریشر mmHg میں دکھایا گیا ہے۔ ڈیٹا ٹیبل اصل پیمائش کی اکائیوں کو برقرار رکھتا ہے۔</string>
+    <string name="pdf_report_more_profiles">اضافی صارف پروفائلز چارٹ کے صفحات اور پیمائش کے ریکارڈ کے صفحات پر درج ہیں۔</string>
+    <string name="pdf_report_page">صفحہ %1$s</string>
+    <string name="pdf_report_date">تاریخ اور وقت</string>
+    <string name="pdf_report_profile">پروفائل</string>
+    <string name="pdf_report_pressure">بلڈ پریشر</string>
+    <string name="pdf_report_pulse">نبض</string>
+    <string name="pdf_report_map">اوسط آرٹیریل بلڈ پریشر</string>
+    <string name="pdf_report_flags">بلڈ پریشر مانیٹر کے اشارے</string>
+    <string name="pdf_report_device">بلڈ پریشر مانیٹر اور ڈیٹا سورس</string>
+    <string name="pdf_report_no_flags">آلہ کے اشارے نہیں ہیں۔</string>
+    <string name="pdf_report_no_pulse">نبض کی کوئی قدر دستیاب نہیں ہے۔</string>
+    <string name="pdf_report_no_pressure">بلڈ پریشر کی کوئی قدر دستیاب نہیں۔</string>
+    <string name="pdf_report_notes">نوٹس</string>
+    <string name="pdf_report_number">#</string>
+</resources>

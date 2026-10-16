@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="pdf_export">Eksporter PDF</string>
+    <string name="pdf_dialog_title">Eksporter blodtryksmålinger som en PDF-fil</string>
+    <string name="pdf_range_all">Alle datoer</string>
+    <string name="pdf_range_custom">Datointerval</string>
+    <string name="pdf_from">Startdato: %1$s</string>
+    <string name="pdf_to">Slutdato: %1$s</string>
+    <string name="pdf_range_invalid">Startdatoen skal være på eller før slutdatoen.</string>
+    <string name="pdf_no_readings">Ingen målinger i dette datointerval for den valgte profil.</string>
+    <string name="pdf_preparing">Forbereder PDF...</string>
+    <string name="pdf_exported">PDF eksporteret.</string>
+    <string name="pdf_failed">Kunne ikke eksportere PDF\'en. Prøv venligst igen.</string>
+    <string name="pdf_range_help">Eksporter alle målinger for denne profil, eller vælg et datointerval. Begge datoer er inkluderet.</string>
+    <string name="pdf_report_title">Blodtryksrapport</string>
+    <string name="pdf_report_overview">Oversigt</string>
+    <string name="pdf_report_charts">Diagrammer</string>
+    <string name="pdf_report_records">Detaljerede optegnelser</string>
+    <string name="pdf_report_generated">Genereret: %1$s</string>
+    <string name="pdf_report_period">%1$s – %2$s</string>
+    <string name="pdf_report_count">Mål: %1$s</string>
+    <string name="pdf_report_average_pressure">Gennemsnitligt blodtryk: %1$s / %2$s mmHg</string>
+    <string name="pdf_report_pressure_range">Systolisk: %1$s–%2$s · Diastolisk: %3$s–%4$s mmHg</string>
+    <string name="pdf_report_average_pulse">Gennemsnitlig puls: %1$s bpm</string>
+    <string name="pdf_report_pulse_range">Pulsinterval: %1$s–%2$s bpm</string>
+    <string name="pdf_report_time_note">Blodtryksmålerens tider har ingen tidszone. Manglende måletider bruger modtaget dato og er markeret i journalerne.</string>
+    <string name="pdf_report_flags_note">Indikatorer rapporteres af blodtryksmåleren. En uregelmæssig pulsindikator er adskilt fra atrieflimren (AFib).</string>
+    <string name="pdf_report_chart_note">Hvert diagram indeholder op til 48 blodtryksmålinger for én brugerprofil. Blodtrykket er vist i mmHg; datatabellen bevarer de originale måleenheder.</string>
+    <string name="pdf_report_more_profiles">Yderligere brugerprofiler er angivet på diagramsiderne og på målepostsiderne.</string>
+    <string name="pdf_report_page">Side %1$s</string>
+    <string name="pdf_report_date">Dato og tid</string>
+    <string name="pdf_report_profile">Profil</string>
+    <string name="pdf_report_pressure">Blodtryk</string>
+    <string name="pdf_report_pulse">Puls</string>
+    <string name="pdf_report_map">Gennemsnitligt arterielt blodtryk</string>
+    <string name="pdf_report_flags">Indikatorer for blodtryksmålere</string>
+    <string name="pdf_report_device">Blodtryksmåler og datakilde</string>
+    <string name="pdf_report_no_flags">Ingen enhedsindikatorer</string>
+    <string name="pdf_report_no_pulse">Ingen tilgængelige pulsværdier</string>
+    <string name="pdf_report_no_pressure">Ingen tilgængelige blodtryksværdier</string>
+    <string name="pdf_report_notes">Noter</string>
+    <string name="pdf_report_number">#</string>
+</resources>

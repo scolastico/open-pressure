@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="pdf_export">PDFをエクスポート</string>
+    <string name="pdf_dialog_title">測定記録をPDFでエクスポート</string>
+    <string name="pdf_range_all">全期間</string>
+    <string name="pdf_range_custom">日付範囲</string>
+    <string name="pdf_from">開始日：%1$s</string>
+    <string name="pdf_to">終了日：%1$s</string>
+    <string name="pdf_range_invalid">開始日は終了日以前である必要があります。</string>
+    <string name="pdf_no_readings">選択したプロファイルのこの日付範囲には測定値がありません。</string>
+    <string name="pdf_preparing">PDFを準備中…</string>
+    <string name="pdf_exported">PDF がエクスポートされました。</string>
+    <string name="pdf_failed">PDF をエクスポートできませんでした。もう一度試してください。</string>
+    <string name="pdf_range_help">このプロファイルのすべての測定値をエクスポートするか、日付範囲を選択します。両方の日付が含まれます。</string>
+    <string name="pdf_report_title">血圧レポート</string>
+    <string name="pdf_report_overview">概要</string>
+    <string name="pdf_report_charts">チャート</string>
+    <string name="pdf_report_records">詳細な測定記録</string>
+    <string name="pdf_report_generated">生成されました: %1$s</string>
+    <string name="pdf_report_period">%1$s – %2$s</string>
+    <string name="pdf_report_count">測定値: %1$s</string>
+    <string name="pdf_report_average_pressure">平均血圧: %1$s / %2$s mmHg</string>
+    <string name="pdf_report_pressure_range">収縮期: %1$s–%2$s · 拡張期: %3$s–%4$s mmHg</string>
+    <string name="pdf_report_average_pulse">平均脈拍: %1$s bpm</string>
+    <string name="pdf_report_pulse_range">パルス範囲: %1$s–%2$s bpm</string>
+    <string name="pdf_report_time_note">血圧計の時間にはタイムゾーンがありません。欠落している測定時間は受信した日付を使用し、記録にマークされます。</string>
+    <string name="pdf_report_flags_note">指標は血圧モニターによって報告されます。不規則な脈拍インジケーターは心房細動 (AFib) とは別のものです。</string>
+    <string name="pdf_report_chart_note">各グラフには、1 つのユーザー プロファイルに対して最大 48 個の血圧測定値が含まれています。血圧は mmHg で表示されます。データ テーブルには元の測定単位が保持されます。</string>
+    <string name="pdf_report_more_profiles">その他のプロファイルはグラフと測定記録のページに記載されています。</string>
+    <string name="pdf_report_page">ページ %1$s</string>
+    <string name="pdf_report_date">日時</string>
+    <string name="pdf_report_profile">プロフィール</string>
+    <string name="pdf_report_pressure">血圧</string>
+    <string name="pdf_report_pulse">脈</string>
+    <string name="pdf_report_map">平均動脈圧</string>
+    <string name="pdf_report_flags">血圧計の検出表示</string>
+    <string name="pdf_report_device">血圧計とデータソース</string>
+    <string name="pdf_report_no_flags">機器の検出表示なし</string>
+    <string name="pdf_report_no_pulse">利用可能なパルス値がありません</string>
+    <string name="pdf_report_no_pressure">血圧の値がありません</string>
+    <string name="pdf_report_notes">注意事項</string>
+    <string name="pdf_report_number">番号</string>
+</resources>

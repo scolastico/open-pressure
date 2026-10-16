@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="pdf_export">ஏற்றுமதி PDF</string>
+    <string name="pdf_dialog_title">இரத்த அழுத்த அளவீடுகளை PDF கோப்பாக ஏற்றுமதி செய்யவும்</string>
+    <string name="pdf_range_all">அனைத்து தேதிகளும்</string>
+    <string name="pdf_range_custom">தேதி வரம்பு</string>
+    <string name="pdf_from">தொடக்க தேதி: %1$s</string>
+    <string name="pdf_to">முடிவு தேதி: %1$s</string>
+    <string name="pdf_range_invalid">தொடக்கத் தேதி இறுதித் தேதி அல்லது அதற்கு முன் இருக்க வேண்டும்.</string>
+    <string name="pdf_no_readings">தேர்ந்தெடுக்கப்பட்ட சுயவிவரத்திற்கான இந்த தேதி வரம்பில் அளவீடுகள் இல்லை.</string>
+    <string name="pdf_preparing">PDF தயார் செய்கிறது…</string>
+    <string name="pdf_exported">PDF ஏற்றுமதி செய்யப்பட்டது.</string>
+    <string name="pdf_failed">PDF ஐ ஏற்றுமதி செய்ய முடியவில்லை. மீண்டும் முயற்சிக்கவும்.</string>
+    <string name="pdf_range_help">இந்த சுயவிவரத்திற்கான அனைத்து அளவீடுகளையும் ஏற்றுமதி செய்யவும் அல்லது தேதி வரம்பைத் தேர்வு செய்யவும். இரண்டு தேதிகளும் சேர்க்கப்பட்டுள்ளன.</string>
+    <string name="pdf_report_title">இரத்த அழுத்த அறிக்கை</string>
+    <string name="pdf_report_overview">கண்ணோட்டம்</string>
+    <string name="pdf_report_charts">விளக்கப்படங்கள்</string>
+    <string name="pdf_report_records">விரிவான பதிவுகள்</string>
+    <string name="pdf_report_generated">உருவாக்கியது: %1$s</string>
+    <string name="pdf_report_period">%1$s - %2$s</string>
+    <string name="pdf_report_count">அளவீடுகள்: %1$s</string>
+    <string name="pdf_report_average_pressure">சராசரி இரத்த அழுத்தம்: %1$s / %2$s mmHg</string>
+    <string name="pdf_report_pressure_range">சிஸ்டாலிக்: %1$s–%2$s · டயஸ்டாலிக்: %3$s–%4$s mmHg</string>
+    <string name="pdf_report_average_pulse">சராசரி துடிப்பு: %1$s bpm</string>
+    <string name="pdf_report_pulse_range">துடிப்பு வரம்பு: %1$s–%2$s bpm</string>
+    <string name="pdf_report_time_note">இரத்த அழுத்த மானிட்டர் நேரங்களுக்கு நேர மண்டலம் இல்லை. விடுபட்ட அளவீட்டு நேரங்கள் பெறப்பட்ட தேதியைப் பயன்படுத்துகின்றன மற்றும் பதிவுகளில் குறிக்கப்பட்டுள்ளன.</string>
+    <string name="pdf_report_flags_note">இரத்த அழுத்த மானிட்டர் மூலம் குறிகாட்டிகள் தெரிவிக்கப்படுகின்றன. ஒரு ஒழுங்கற்ற துடிப்பு காட்டி ஏட்ரியல் ஃபைப்ரிலேஷனிலிருந்து (AFib) தனித்தனியாக உள்ளது.</string>
+    <string name="pdf_report_chart_note">ஒவ்வொரு விளக்கப்படத்திலும் ஒரு பயனர் சுயவிவரத்திற்கான 48 இரத்த அழுத்த அளவீடுகள் வரை இருக்கும். இரத்த அழுத்தம் mmHg இல் காட்டப்படுகிறது; தரவு அட்டவணை அசல் அளவீட்டு அலகுகளை வைத்திருக்கிறது.</string>
+    <string name="pdf_report_more_profiles">கூடுதல் பயனர் சுயவிவரங்கள் விளக்கப்படப் பக்கங்களிலும் அளவீட்டுப் பதிவுப் பக்கங்களிலும் பட்டியலிடப்பட்டுள்ளன.</string>
+    <string name="pdf_report_page">பக்கம் %1$s</string>
+    <string name="pdf_report_date">தேதி மற்றும் நேரம்</string>
+    <string name="pdf_report_profile">சுயவிவரம்</string>
+    <string name="pdf_report_pressure">இரத்த அழுத்தம்</string>
+    <string name="pdf_report_pulse">துடிப்பு</string>
+    <string name="pdf_report_map">சராசரி தமனி இரத்த அழுத்தம்</string>
+    <string name="pdf_report_flags">இரத்த அழுத்த மானிட்டர் குறிகாட்டிகள்</string>
+    <string name="pdf_report_device">இரத்த அழுத்த மானிட்டர் மற்றும் தரவு ஆதாரம்</string>
+    <string name="pdf_report_no_flags">சாதன குறிகாட்டிகள் இல்லை</string>
+    <string name="pdf_report_no_pulse">துடிப்பு மதிப்புகள் இல்லை</string>
+    <string name="pdf_report_no_pressure">இரத்த அழுத்த மதிப்புகள் இல்லை</string>
+    <string name="pdf_report_notes">குறிப்புகள்</string>
+    <string name="pdf_report_number">#</string>
+</resources>

@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="pdf_export">Eksportuj PDF</string>
+    <string name="pdf_dialog_title">Eksportuj pomiary do PDF</string>
+    <string name="pdf_range_all">Wszystkie daty</string>
+    <string name="pdf_range_custom">Zakres dat</string>
+    <string name="pdf_from">Od: %1$s</string>
+    <string name="pdf_to">Do: %1$s</string>
+    <string name="pdf_range_invalid">Data rozpoczęcia musi przypadać w dniu zakończenia lub wcześniejsza.</string>
+    <string name="pdf_no_readings">Brak pomiarów w tym zakresie dat dla wybranego profilu.</string>
+    <string name="pdf_preparing">Przygotowuję plik PDF…</string>
+    <string name="pdf_exported">Wyeksportowano do pliku PDF.</string>
+    <string name="pdf_failed">Nie można wyeksportować pliku PDF. Spróbuj ponownie.</string>
+    <string name="pdf_range_help">Wyeksportuj wszystkie pomiary dla tego profilu lub wybierz zakres dat. Obie daty są uwzględnione.</string>
+    <string name="pdf_report_title">Raport ciśnienia krwi</string>
+    <string name="pdf_report_overview">Przegląd</string>
+    <string name="pdf_report_charts">Wykresy</string>
+    <string name="pdf_report_records">Szczegółowe zapisy pomiarów</string>
+    <string name="pdf_report_generated">Wygenerowano: %1$s</string>
+    <string name="pdf_report_period">%1$s – %2$s</string>
+    <string name="pdf_report_count">Pomiary: %1$s</string>
+    <string name="pdf_report_average_pressure">Średnie ciśnienie krwi: %1$s / %2$s mmHg</string>
+    <string name="pdf_report_pressure_range">Skurczowe: %1$s–%2$s · Rozkurczowe: %3$s–%4$s mmHg</string>
+    <string name="pdf_report_average_pulse">Średni puls: %1$s bpm</string>
+    <string name="pdf_report_pulse_range">Zakres impulsu: %1$s–%2$s bpm</string>
+    <string name="pdf_report_time_note">Godziny pomiaru ciśnienia krwi nie mają strefy czasowej. Brakujące czasy pomiarów opierają się na otrzymanej dacie i są zaznaczane w ewidencji.</string>
+    <string name="pdf_report_flags_note">Wskaźniki są zgłaszane przez ciśnieniomierz. Wskaźnik nieregularnego tętna jest odrębny od migotania przedsionków (AFib).</string>
+    <string name="pdf_report_chart_note">Każdy wykres zawiera do 48 pomiarów ciśnienia krwi dla jednego profilu użytkownika. Ciśnienie krwi jest pokazane w mmHg; tabela danych zachowuje oryginalne jednostki miary.</string>
+    <string name="pdf_report_more_profiles">Dodatkowe profile użytkowników są wymienione na stronach wykresów i na stronach zapisów pomiarów.</string>
+    <string name="pdf_report_page">Strona %1$s</string>
+    <string name="pdf_report_date">Data i godzina</string>
+    <string name="pdf_report_profile">Profil</string>
+    <string name="pdf_report_pressure">Ciśnienie krwi</string>
+    <string name="pdf_report_pulse">Puls</string>
+    <string name="pdf_report_map">Średnie ciśnienie tętnicze</string>
+    <string name="pdf_report_flags">Wskaźniki ciśnieniomierza</string>
+    <string name="pdf_report_device">Ciśnieniomierz i źródło</string>
+    <string name="pdf_report_no_flags">Brak wskaźników urządzenia</string>
+    <string name="pdf_report_no_pulse">Brak dostępnych wartości tętna</string>
+    <string name="pdf_report_no_pressure">Brak dostępnych wartości ciśnienia krwi</string>
+    <string name="pdf_report_notes">Notatki</string>
+    <string name="pdf_report_number">Nr</string>
+</resources>

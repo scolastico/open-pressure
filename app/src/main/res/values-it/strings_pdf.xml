@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="pdf_export">Esporta PDF</string>
+    <string name="pdf_dialog_title">Esporta le misurazioni in PDF</string>
+    <string name="pdf_range_all">Tutte le date</string>
+    <string name="pdf_range_custom">Intervallo di date</string>
+    <string name="pdf_from">Dal: %1$s</string>
+    <string name="pdf_to">Al: %1$s</string>
+    <string name="pdf_range_invalid">La data di inizio deve essere uguale o precedente alla data di fine.</string>
+    <string name="pdf_no_readings">Nessuna misurazione in questo intervallo di date per il profilo selezionato.</string>
+    <string name="pdf_preparing">Preparazione del PDF...</string>
+    <string name="pdf_exported">PDF esportato.</string>
+    <string name="pdf_failed">Impossibile esportare il PDF. Per favore riprova.</string>
+    <string name="pdf_range_help">Esporta tutte le misurazioni per questo profilo o scegli un intervallo di date. Entrambe le date sono incluse.</string>
+    <string name="pdf_report_title">Rapporto sulla pressione sanguigna</string>
+    <string name="pdf_report_overview">Panoramica</string>
+    <string name="pdf_report_charts">Grafici</string>
+    <string name="pdf_report_records">Registro dettagliato delle misurazioni</string>
+    <string name="pdf_report_generated">Generato: %1$s</string>
+    <string name="pdf_report_period">%1$s – %2$s</string>
+    <string name="pdf_report_count">Misure: %1$s</string>
+    <string name="pdf_report_average_pressure">Pressione sanguigna media: %1$s / %2$s mmHg</string>
+    <string name="pdf_report_pressure_range">Sistolica: %1$s–%2$s · Diastolica: %3$s–%4$s mmHg</string>
+    <string name="pdf_report_average_pulse">Impulso medio: %1$s bpm</string>
+    <string name="pdf_report_pulse_range">Intervallo di pulsazioni: %1$s–%2$s bpm</string>
+    <string name="pdf_report_time_note">Gli orari del monitor della pressione arteriosa non hanno fuso orario. I tempi di misurazione mancanti utilizzano la data ricevuta e vengono contrassegnati nei record.</string>
+    <string name="pdf_report_flags_note">Gli indicatori sono riportati dal misuratore di pressione sanguigna. Un indicatore di polso irregolare è separato dalla fibrillazione atriale (AFib).</string>
+    <string name="pdf_report_chart_note">Ogni grafico contiene fino a 48 misurazioni per un profilo. La pressione arteriosa è indicata in mmHg; la tabella conserva le unità originali.</string>
+    <string name="pdf_report_more_profiles">Ulteriori profili utente sono elencati nelle pagine dei grafici e nelle pagine dei record delle misurazioni.</string>
+    <string name="pdf_report_page">Pagina %1$s</string>
+    <string name="pdf_report_date">Data e ora</string>
+    <string name="pdf_report_profile">Profilo</string>
+    <string name="pdf_report_pressure">Pressione sanguigna</string>
+    <string name="pdf_report_pulse">Impulso</string>
+    <string name="pdf_report_map">Pressione arteriosa media</string>
+    <string name="pdf_report_flags">Indicatori del misuratore</string>
+    <string name="pdf_report_device">Misuratore e fonte</string>
+    <string name="pdf_report_no_flags">Nessun indicatore del dispositivo</string>
+    <string name="pdf_report_no_pulse">Nessun valore di pulsazione disponibile</string>
+    <string name="pdf_report_no_pressure">Nessun valore di pressione sanguigna disponibile</string>
+    <string name="pdf_report_notes">Note</string>
+    <string name="pdf_report_number">N.</string>
+</resources>

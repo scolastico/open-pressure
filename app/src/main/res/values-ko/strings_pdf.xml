@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="pdf_export">PDF 내보내기</string>
+    <string name="pdf_dialog_title">측정값을 PDF로 내보내기</string>
+    <string name="pdf_range_all">전체 기간</string>
+    <string name="pdf_range_custom">기간</string>
+    <string name="pdf_from">시작일: %1$s</string>
+    <string name="pdf_to">종료일: %1$s</string>
+    <string name="pdf_range_invalid">시작 날짜는 종료 날짜 또는 그 이전이어야 합니다.</string>
+    <string name="pdf_no_readings">선택한 프로필에 대해 이 날짜 범위에 대한 측정값이 없습니다.</string>
+    <string name="pdf_preparing">PDF 준비 중…</string>
+    <string name="pdf_exported">PDF를 내보냈습니다.</string>
+    <string name="pdf_failed">PDF를 내보낼 수 없습니다. 다시 시도해 주세요.</string>
+    <string name="pdf_range_help">이 프로필에 대한 모든 측정값을 내보내거나 날짜 범위를 선택하세요. 두 날짜가 모두 포함됩니다.</string>
+    <string name="pdf_report_title">혈압 보고서</string>
+    <string name="pdf_report_overview">개요</string>
+    <string name="pdf_report_charts">차트</string>
+    <string name="pdf_report_records">상세 측정 기록</string>
+    <string name="pdf_report_generated">생성됨: %1$s</string>
+    <string name="pdf_report_period">%1$s – %2$s</string>
+    <string name="pdf_report_count">측정값: %1$s</string>
+    <string name="pdf_report_average_pressure">평균 혈압: %1$s / %2$s mmHg</string>
+    <string name="pdf_report_pressure_range">수축기: %1$s~%2$s · 확장기: %3$s~%4$s mmHg</string>
+    <string name="pdf_report_average_pulse">평균 맥박: %1$sbpm</string>
+    <string name="pdf_report_pulse_range">맥박 범위: %1$s~%2$sbpm</string>
+    <string name="pdf_report_time_note">혈압 측정 시간에는 시간대가 없습니다. 누락된 측정 시간은 수신된 날짜를 사용하고 기록에 표시됩니다.</string>
+    <string name="pdf_report_flags_note">지표는 혈압 모니터에 의해 보고됩니다. 불규칙한 맥박 표시기는 심방세동(AFib)과 별개입니다.</string>
+    <string name="pdf_report_chart_note">각 차트에는 하나의 사용자 프로필에 대해 최대 48개의 혈압 측정값이 포함됩니다. 혈압은 mmHg로 표시됩니다. 데이터 테이블은 원래 측정 단위를 유지합니다.</string>
+    <string name="pdf_report_more_profiles">추가 사용자 프로필은 차트 페이지와 측정 기록 페이지에 나열됩니다.</string>
+    <string name="pdf_report_page">페이지 %1$s</string>
+    <string name="pdf_report_date">날짜 및 시간</string>
+    <string name="pdf_report_profile">윤곽</string>
+    <string name="pdf_report_pressure">혈압</string>
+    <string name="pdf_report_pulse">맥박</string>
+    <string name="pdf_report_map">평균 동맥압</string>
+    <string name="pdf_report_flags">혈압계 표시</string>
+    <string name="pdf_report_device">혈압계 및 출처</string>
+    <string name="pdf_report_no_flags">기기 표시 없음</string>
+    <string name="pdf_report_no_pulse">사용 가능한 펄스 값이 없습니다.</string>
+    <string name="pdf_report_no_pressure">사용 가능한 혈압 값이 없습니다.</string>
+    <string name="pdf_report_notes">메모</string>
+    <string name="pdf_report_number">번호</string>
+</resources>

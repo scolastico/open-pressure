@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="pdf_export">ส่งออก PDF</string>
+    <string name="pdf_dialog_title">ส่งออกการวัดความดันโลหิตเป็นไฟล์ PDF</string>
+    <string name="pdf_range_all">วันที่ทั้งหมด</string>
+    <string name="pdf_range_custom">ช่วงวันที่</string>
+    <string name="pdf_from">วันที่เริ่มต้น: %1$s</string>
+    <string name="pdf_to">วันที่สิ้นสุด: %1$s</string>
+    <string name="pdf_range_invalid">วันที่เริ่มต้นจะต้องอยู่ในหรือก่อนวันที่สิ้นสุด</string>
+    <string name="pdf_no_readings">ไม่มีการวัดในช่วงวันที่นี้สำหรับโปรไฟล์ที่เลือก</string>
+    <string name="pdf_preparing">กำลังเตรียม PDF...</string>
+    <string name="pdf_exported">ส่งออก PDF แล้ว</string>
+    <string name="pdf_failed">ไม่สามารถส่งออก PDF ได้ โปรดลองอีกครั้ง</string>
+    <string name="pdf_range_help">ส่งออกการวัดทั้งหมดสำหรับโปรไฟล์นี้ หรือเลือกช่วงวันที่ รวมวันที่ทั้งสองไว้ด้วย</string>
+    <string name="pdf_report_title">รายงานความดันโลหิต</string>
+    <string name="pdf_report_overview">ภาพรวม</string>
+    <string name="pdf_report_charts">แผนภูมิ</string>
+    <string name="pdf_report_records">บันทึกโดยละเอียด</string>
+    <string name="pdf_report_generated">สร้างแล้ว: %1$s</string>
+    <string name="pdf_report_period">%1$s – %2$s</string>
+    <string name="pdf_report_count">การวัด: %1$s</string>
+    <string name="pdf_report_average_pressure">ความดันโลหิตเฉลี่ย: %1$s / %2$s มิลลิเมตรปรอท</string>
+    <string name="pdf_report_pressure_range">ซิสโตลิก: %1$s–%2$s · ไดแอสโตลิก: %3$s–%4$s มิลลิเมตรปรอท</string>
+    <string name="pdf_report_average_pulse">ชีพจรเฉลี่ย: %1$s bpm</string>
+    <string name="pdf_report_pulse_range">ช่วงพัลส์: %1$s–%2$s bpm</string>
+    <string name="pdf_report_time_note">เวลาของการตรวจวัดความดันโลหิตไม่มีเขตเวลา เวลาการวัดที่ขาดหายไปจะใช้วันที่ที่ได้รับและทำเครื่องหมายไว้ในบันทึก</string>
+    <string name="pdf_report_flags_note">ตัวชี้วัดจะถูกรายงานโดยเครื่องวัดความดันโลหิต ตัวบ่งชี้ชีพจรที่ผิดปกติจะแยกจากภาวะหัวใจห้องบน (AFib)</string>
+    <string name="pdf_report_chart_note">แต่ละแผนภูมิประกอบด้วยการวัดความดันโลหิตสูงสุด 48 รายการสำหรับโปรไฟล์ผู้ใช้หนึ่งราย ความดันโลหิตแสดงเป็น mmHg; ตารางข้อมูลจะคงหน่วยการวัดเดิมไว้</string>
+    <string name="pdf_report_more_profiles">โปรไฟล์ผู้ใช้เพิ่มเติมจะแสดงอยู่ในหน้าแผนภูมิและหน้าบันทึกการวัด</string>
+    <string name="pdf_report_page">หน้า %1$s</string>
+    <string name="pdf_report_date">วันที่และเวลา</string>
+    <string name="pdf_report_profile">ประวัติโดยย่อ</string>
+    <string name="pdf_report_pressure">ความดันโลหิต</string>
+    <string name="pdf_report_pulse">ชีพจร</string>
+    <string name="pdf_report_map">ความดันโลหิตเฉลี่ย</string>
+    <string name="pdf_report_flags">ตัวบ่งชี้เครื่องวัดความดันโลหิต</string>
+    <string name="pdf_report_device">เครื่องวัดความดันโลหิตและแหล่งข้อมูล</string>
+    <string name="pdf_report_no_flags">ไม่มีตัวบ่งชี้อุปกรณ์</string>
+    <string name="pdf_report_no_pulse">ไม่มีค่าพัลส์ที่ใช้ได้</string>
+    <string name="pdf_report_no_pressure">ไม่มีค่าความดันโลหิต</string>
+    <string name="pdf_report_notes">หมายเหตุ</string>
+    <string name="pdf_report_number">#</string>
+</resources>

@@ -1,0 +1,10 @@
+plugins { id 'java-library' }
+java { sourceCompatibility = JavaVersion.VERSION_17; targetCompatibility = JavaVersion.VERSION_17 }
+tasks.register('protocolTest', JavaExec) {
+    dependsOn testClasses
+    classpath = sourceSets.test.runtimeClasspath
+    mainClass = 'org.openpressure.protocol.ProtocolTest'
+    enableAssertions = true
+}
+tasks.named('check') { dependsOn protocolTest }
+tasks.named('test') { dependsOn protocolTest }

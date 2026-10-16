@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="pdf_export">Експорт PDF</string>
+    <string name="pdf_dialog_title">Експортувати вимірювання у PDF</string>
+    <string name="pdf_range_all">Усі дати</string>
+    <string name="pdf_range_custom">Діапазон дат</string>
+    <string name="pdf_from">Від: %1$s</string>
+    <string name="pdf_to">До: %1$s</string>
+    <string name="pdf_range_invalid">Дата початку має відповідати даті завершення або передувати їй.</string>
+    <string name="pdf_no_readings">Немає вимірювань у цьому діапазоні дат для вибраного профілю.</string>
+    <string name="pdf_preparing">Підготовка PDF…</string>
+    <string name="pdf_exported">PDF експортовано.</string>
+    <string name="pdf_failed">Не вдалося експортувати PDF. Спробуйте ще раз.</string>
+    <string name="pdf_range_help">Експортуйте всі вимірювання для цього профілю або виберіть діапазон дат. Включено обидві дати.</string>
+    <string name="pdf_report_title">Звіт про артеріальний тиск</string>
+    <string name="pdf_report_overview">Огляд</string>
+    <string name="pdf_report_charts">Діаграми</string>
+    <string name="pdf_report_records">Докладні записи вимірювань</string>
+    <string name="pdf_report_generated">Створено: %1$s</string>
+    <string name="pdf_report_period">%1$s – %2$s</string>
+    <string name="pdf_report_count">Вимірювання: %1$s</string>
+    <string name="pdf_report_average_pressure">Середній артеріальний тиск: %1$s / %2$s мм рт.ст</string>
+    <string name="pdf_report_pressure_range">Систолічний: %1$s–%2$s · Діастолічний: %3$s–%4$s мм рт.ст.</string>
+    <string name="pdf_report_average_pulse">Середній пульс: %1$s уд/хв</string>
+    <string name="pdf_report_pulse_range">Діапазон пульсу: %1$s–%2$s уд/хв</string>
+    <string name="pdf_report_time_note">Час вимірювання артеріального тиску не має часового поясу. Пропущений час вимірювання використовує дату отримання та позначається в записах.</string>
+    <string name="pdf_report_flags_note">Показники повідомляє тонометр. Індикатор нерегулярного пульсу відрізняється від фібриляції передсердь (FIB).</string>
+    <string name="pdf_report_chart_note">Кожна діаграма містить до 48 вимірювань артеріального тиску для одного профілю користувача. Артеріальний тиск показується в мм рт.ст.; таблиця даних зберігає вихідні одиниці вимірювання.</string>
+    <string name="pdf_report_more_profiles">Додаткові профілі користувачів перераховані на сторінках діаграм і на сторінках записів вимірювань.</string>
+    <string name="pdf_report_page">Сторінка %1$s</string>
+    <string name="pdf_report_date">Дата і час</string>
+    <string name="pdf_report_profile">Профіль</string>
+    <string name="pdf_report_pressure">Кров’яний тиск</string>
+    <string name="pdf_report_pulse">Пульс</string>
+    <string name="pdf_report_map">Середній артеріальний тиск</string>
+    <string name="pdf_report_flags">Індикатори тонометра</string>
+    <string name="pdf_report_device">Тонометр і джерело</string>
+    <string name="pdf_report_no_flags">Немає індикаторів пристрою</string>
+    <string name="pdf_report_no_pulse">Значення пульсу відсутні</string>
+    <string name="pdf_report_no_pressure">Значення артеріального тиску відсутні</string>
+    <string name="pdf_report_notes">Примітки</string>
+    <string name="pdf_report_number">№</string>
+</resources>

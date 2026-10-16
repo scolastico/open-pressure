@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="pdf_export">PDFని ఎగుమతి చేయండి</string>
+    <string name="pdf_dialog_title">రక్తపోటు కొలతలను PDF ఫైల్‌గా ఎగుమతి చేయండి</string>
+    <string name="pdf_range_all">అన్ని తేదీలు</string>
+    <string name="pdf_range_custom">తేదీ పరిధి</string>
+    <string name="pdf_from">ప్రారంభ తేదీ: %1$s</string>
+    <string name="pdf_to">ముగింపు తేదీ: %1$s</string>
+    <string name="pdf_range_invalid">ప్రారంభ తేదీ తప్పనిసరిగా ముగింపు తేదీలో లేదా అంతకంటే ముందు ఉండాలి.</string>
+    <string name="pdf_no_readings">ఎంచుకున్న ప్రొఫైల్ కోసం ఈ తేదీ పరిధిలో కొలతలు లేవు.</string>
+    <string name="pdf_preparing">PDFని సిద్ధం చేస్తోంది...</string>
+    <string name="pdf_exported">PDF ఎగుమతి చేయబడింది.</string>
+    <string name="pdf_failed">PDFని ఎగుమతి చేయడం సాధ్యపడలేదు. దయచేసి మళ్లీ ప్రయత్నించండి.</string>
+    <string name="pdf_range_help">ఈ ప్రొఫైల్ కోసం అన్ని కొలతలను ఎగుమతి చేయండి లేదా తేదీ పరిధిని ఎంచుకోండి. రెండు తేదీలు చేర్చబడ్డాయి.</string>
+    <string name="pdf_report_title">రక్తపోటు నివేదిక</string>
+    <string name="pdf_report_overview">అవలోకనం</string>
+    <string name="pdf_report_charts">చార్ట్‌లు</string>
+    <string name="pdf_report_records">వివరణాత్మక రికార్డులు</string>
+    <string name="pdf_report_generated">రూపొందించబడింది: %1$s</string>
+    <string name="pdf_report_period">%1$s – %2$s</string>
+    <string name="pdf_report_count">కొలతలు: %1$s</string>
+    <string name="pdf_report_average_pressure">సగటు రక్తపోటు: %1$s / %2$s mmHg</string>
+    <string name="pdf_report_pressure_range">సిస్టోలిక్: %1$s–%2$s · డయాస్టొలిక్: %3$s–%4$s mmHg</string>
+    <string name="pdf_report_average_pulse">సగటు పల్స్: %1$s bpm</string>
+    <string name="pdf_report_pulse_range">పల్స్ పరిధి: %1$s–%2$s bpm</string>
+    <string name="pdf_report_time_note">రక్తపోటు మానిటర్ సమయాలకు టైమ్ జోన్ లేదు. తప్పిపోయిన కొలత సమయాలు అందుకున్న తేదీని ఉపయోగిస్తాయి మరియు రికార్డ్‌లలో గుర్తించబడతాయి.</string>
+    <string name="pdf_report_flags_note">రక్తపోటు మానిటర్ ద్వారా సూచికలు నివేదించబడతాయి. క్రమరహిత పల్స్ సూచిక కర్ణిక దడ (AFib) నుండి వేరుగా ఉంటుంది.</string>
+    <string name="pdf_report_chart_note">ప్రతి చార్ట్ ఒక వినియోగదారు ప్రొఫైల్ కోసం గరిష్టంగా 48 రక్తపోటు కొలతలను కలిగి ఉంటుంది. రక్తపోటు mmHgలో చూపబడుతుంది; డేటా టేబుల్ అసలు కొలత యూనిట్లను కలిగి ఉంటుంది.</string>
+    <string name="pdf_report_more_profiles">అదనపు వినియోగదారు ప్రొఫైల్‌లు చార్ట్ పేజీలలో మరియు కొలత రికార్డు పేజీలలో జాబితా చేయబడ్డాయి.</string>
+    <string name="pdf_report_page">పేజీ %1$s</string>
+    <string name="pdf_report_date">తేదీ మరియు సమయం</string>
+    <string name="pdf_report_profile">ప్రొఫైల్</string>
+    <string name="pdf_report_pressure">రక్తపోటు</string>
+    <string name="pdf_report_pulse">పల్స్</string>
+    <string name="pdf_report_map">సగటు ధమనుల రక్తపోటు</string>
+    <string name="pdf_report_flags">రక్తపోటు మానిటర్ సూచికలు</string>
+    <string name="pdf_report_device">రక్తపోటు మానిటర్ మరియు డేటా మూలం</string>
+    <string name="pdf_report_no_flags">పరికర సూచికలు లేవు</string>
+    <string name="pdf_report_no_pulse">పల్స్ విలువలు అందుబాటులో లేవు</string>
+    <string name="pdf_report_no_pressure">రక్తపోటు విలువలు అందుబాటులో లేవు</string>
+    <string name="pdf_report_notes">గమనికలు</string>
+    <string name="pdf_report_number">#</string>
+</resources>

@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="pdf_export">Експортиране на PDF</string>
+    <string name="pdf_dialog_title">Експортирайте измерванията на кръвното налягане като PDF файл</string>
+    <string name="pdf_range_all">Всички дати</string>
+    <string name="pdf_range_custom">Период от време</string>
+    <string name="pdf_from">Начална дата: %1$s</string>
+    <string name="pdf_to">Крайна дата: %1$s</string>
+    <string name="pdf_range_invalid">Началната дата трябва да е на или преди крайната дата.</string>
+    <string name="pdf_no_readings">Няма измервания в този период от време за избрания профил.</string>
+    <string name="pdf_preparing">Подготвя се PDF...</string>
+    <string name="pdf_exported">PDF експортиран.</string>
+    <string name="pdf_failed">PDF файлът не можа да се експортира. Моля, опитайте отново.</string>
+    <string name="pdf_range_help">Експортирайте всички измервания за този профил или изберете период от време. И двете дати са включени.</string>
+    <string name="pdf_report_title">Доклад за кръвно налягане</string>
+    <string name="pdf_report_overview">Преглед</string>
+    <string name="pdf_report_charts">Графики</string>
+    <string name="pdf_report_records">Подробни записи</string>
+    <string name="pdf_report_generated">Генерирано: %1$s</string>
+    <string name="pdf_report_period">%1$s – %2$s</string>
+    <string name="pdf_report_count">Измервания: %1$s</string>
+    <string name="pdf_report_average_pressure">Средно кръвно налягане: %1$s / %2$s mmHg</string>
+    <string name="pdf_report_pressure_range">Систолно: %1$s–%2$s · Диастолно: %3$s–%4$s mmHg</string>
+    <string name="pdf_report_average_pulse">Среден пулс: %1$s bpm</string>
+    <string name="pdf_report_pulse_range">Диапазон на пулса: %1$s–%2$s bpm</string>
+    <string name="pdf_report_time_note">Часовете за измерване на кръвното нямат часова зона. Липсващите времена на измерване използват получената дата и се отбелязват в записите.</string>
+    <string name="pdf_report_flags_note">Показателите се отчитат от апарата за кръвно налягане. Индикаторът за неправилен пулс е отделен от предсърдното мъждене (AFib).</string>
+    <string name="pdf_report_chart_note">Всяка диаграма съдържа до 48 измервания на кръвното налягане за един потребителски профил. Кръвното налягане се показва в mmHg; таблицата с данни запазва оригиналните мерни единици.</string>
+    <string name="pdf_report_more_profiles">Допълнителните потребителски профили са изброени на страниците с диаграми и на страниците със записи на измервания.</string>
+    <string name="pdf_report_page">Страница %1$s</string>
+    <string name="pdf_report_date">Дата и час</string>
+    <string name="pdf_report_profile">Профил</string>
+    <string name="pdf_report_pressure">Кръвно налягане</string>
+    <string name="pdf_report_pulse">Пулс</string>
+    <string name="pdf_report_map">Средно артериално кръвно налягане</string>
+    <string name="pdf_report_flags">Индикатори за кръвно налягане</string>
+    <string name="pdf_report_device">Монитор за кръвно налягане и източник на данни</string>
+    <string name="pdf_report_no_flags">Няма индикатори на устройството</string>
+    <string name="pdf_report_no_pulse">Няма налични стойности на пулса</string>
+    <string name="pdf_report_no_pressure">Няма налични стойности на кръвното налягане</string>
+    <string name="pdf_report_notes">Бележки</string>
+    <string name="pdf_report_number">#</string>
+</resources>

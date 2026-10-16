@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pdf_report_title">Blood pressure report</string>
+    <string name="pdf_report_overview">Overview</string>
+    <string name="pdf_report_charts">Charts</string>
+    <string name="pdf_report_records">Detailed records</string>
+    <string name="pdf_report_generated">Generated: %1$s</string>
+    <string name="pdf_report_period">%1$s – %2$s</string>
+    <string name="pdf_report_count">Measurements: %1$s</string>
+    <string name="pdf_report_average_pressure">Average blood pressure: %1$s / %2$s mmHg</string>
+    <string name="pdf_report_pressure_range">Systolic: %1$s–%2$s · Diastolic: %3$s–%4$s mmHg</string>
+    <string name="pdf_report_average_pulse">Average pulse: %1$s bpm</string>
+    <string name="pdf_report_pulse_range">Pulse range: %1$s–%2$s bpm</string>
+    <string name="pdf_report_time_note">Monitor times have no time zone. Missing measurement times use the date received and are marked in the records.</string>
+    <string name="pdf_report_flags_note">Flags are reported by the monitor. An irregular pulse flag is separate from AFib.</string>
+    <string name="pdf_report_chart_note">Each chart contains up to 48 measurements for one profile. Blood pressure is shown in mmHg; the table retains original units.</string>
+    <string name="pdf_report_more_profiles">Further profiles are listed on the chart and record pages.</string>
+    <string name="pdf_report_page">Page %1$s</string>
+    <string name="pdf_report_date">Date and time</string>
+    <string name="pdf_report_profile">Profile</string>
+    <string name="pdf_report_pressure">Blood pressure</string>
+    <string name="pdf_report_pulse">Pulse</string>
+    <string name="pdf_report_map">Mean pressure</string>
+    <string name="pdf_report_flags">Monitor flags</string>
+    <string name="pdf_report_device">Monitor and source</string>
+    <string name="pdf_report_no_flags">No device flags</string>
+    <string name="pdf_report_no_pulse">No pulse values available</string>
+    <string name="pdf_report_no_pressure">No pressure values available</string>
+    <string name="pdf_report_notes">Notes</string>
+    <string name="pdf_report_number">No.</string>
+</resources>

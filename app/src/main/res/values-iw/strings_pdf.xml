@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="pdf_export">ייצוא PDF</string>
+    <string name="pdf_dialog_title">ייצוא מדידות לחץ דם לקובץ PDF</string>
+    <string name="pdf_range_all">כל התאריכים</string>
+    <string name="pdf_range_custom">טווח תאריכים</string>
+    <string name="pdf_from">תאריך התחלה: %1$s</string>
+    <string name="pdf_to">תאריך סיום: %1$s</string>
+    <string name="pdf_range_invalid">תאריך ההתחלה חייב להיות בתאריך הסיום או לפניו.</string>
+    <string name="pdf_no_readings">אין מדידות בטווח התאריכים הזה עבור הפרופיל שנבחר.</string>
+    <string name="pdf_preparing">מכין PDF...</string>
+    <string name="pdf_exported">PDF מיוצא.</string>
+    <string name="pdf_failed">לא ניתן לייצא את ה-PDF. אנא נסה שוב.</string>
+    <string name="pdf_range_help">ייצא את כל המדידות עבור פרופיל זה, או בחר טווח תאריכים. שני התאריכים כלולים.</string>
+    <string name="pdf_report_title">דוח לחץ דם</string>
+    <string name="pdf_report_overview">סקירה כללית</string>
+    <string name="pdf_report_charts">תרשימים</string>
+    <string name="pdf_report_records">רישומים מפורטים</string>
+    <string name="pdf_report_generated">נוצר: %1$s</string>
+    <string name="pdf_report_period">%1$s – %2$s</string>
+    <string name="pdf_report_count">מידות: %1$s</string>
+    <string name="pdf_report_average_pressure">לחץ דם ממוצע: %1$s / %2$s mmHg</string>
+    <string name="pdf_report_pressure_range">סיסטולי: %1$s–%2$s · דיאסטולי: %3$s–%4$s ממ\"כ</string>
+    <string name="pdf_report_average_pulse">דופק ממוצע: %1$s פעימות לדקה</string>
+    <string name="pdf_report_pulse_range">טווח דופק: %1$s–%2$s פעימות לדקה</string>
+    <string name="pdf_report_time_note">לזמני מוניטור לחץ דם אין אזור זמן. זמני מדידה חסרים משתמשים בתאריך שהתקבל ומסומנים ברשומות.</string>
+    <string name="pdf_report_flags_note">אינדיקטורים מדווחים על ידי מד לחץ הדם. מחוון דופק לא סדיר נפרד מפרפור פרוזדורים (AFib).</string>
+    <string name="pdf_report_chart_note">כל טבלה מכילה עד 48 מדידות לחץ דם עבור פרופיל משתמש אחד. לחץ הדם מוצג בממ\"כ; טבלת הנתונים שומרת על יחידות המדידה המקוריות.</string>
+    <string name="pdf_report_more_profiles">פרופילי משתמש נוספים מפורטים בדפי התרשים ובדפי רשומות המדידה.</string>
+    <string name="pdf_report_page">עמוד %1$s</string>
+    <string name="pdf_report_date">תאריך ושעה</string>
+    <string name="pdf_report_profile">פּרוֹפִיל</string>
+    <string name="pdf_report_pressure">לחץ דם</string>
+    <string name="pdf_report_pulse">דוֹפֶק</string>
+    <string name="pdf_report_map">לחץ דם עורקי ממוצע</string>
+    <string name="pdf_report_flags">מחוונים למוניטור לחץ דם</string>
+    <string name="pdf_report_device">מד לחץ דם ומקור נתונים</string>
+    <string name="pdf_report_no_flags">אין מחווני מכשיר</string>
+    <string name="pdf_report_no_pulse">אין ערכי דופק זמינים</string>
+    <string name="pdf_report_no_pressure">אין ערכי לחץ דם זמינים</string>
+    <string name="pdf_report_notes">הערות</string>
+    <string name="pdf_report_number">#</string>
+</resources>

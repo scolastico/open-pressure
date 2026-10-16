@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="pdf_export">Exportar PDF</string>
+    <string name="pdf_dialog_title">Exportar mediciones como PDF</string>
+    <string name="pdf_range_all">Todas las fechas</string>
+    <string name="pdf_range_custom">Rango de fechas</string>
+    <string name="pdf_from">Desde: %1$s</string>
+    <string name="pdf_to">Hasta: %1$s</string>
+    <string name="pdf_range_invalid">La fecha de inicio debe ser igual o anterior a la fecha de finalización.</string>
+    <string name="pdf_no_readings">No hay mediciones en este rango de fechas para el perfil seleccionado.</string>
+    <string name="pdf_preparing">Preparando PDF…</string>
+    <string name="pdf_exported">PDF exportado.</string>
+    <string name="pdf_failed">No se pudo exportar el PDF. Por favor inténtalo de nuevo.</string>
+    <string name="pdf_range_help">Exporte todas las mediciones para este perfil o elija un rango de fechas. Ambas fechas están incluidas.</string>
+    <string name="pdf_report_title">Informe de presión arterial</string>
+    <string name="pdf_report_overview">Descripción general</string>
+    <string name="pdf_report_charts">Gráficos</string>
+    <string name="pdf_report_records">Registro detallado de mediciones</string>
+    <string name="pdf_report_generated">Generado: %1$s</string>
+    <string name="pdf_report_period">%1$s – %2$s</string>
+    <string name="pdf_report_count">Medidas: %1$s</string>
+    <string name="pdf_report_average_pressure">Presión arterial promedio: %1$s / %2$s mmHg</string>
+    <string name="pdf_report_pressure_range">Sistólica: %1$s–%2$s · Diastólica: %3$s–%4$s mmHg</string>
+    <string name="pdf_report_average_pulse">Pulso promedio: %1$s bpm</string>
+    <string name="pdf_report_pulse_range">Rango de pulso: %1$s–%2$s bpm</string>
+    <string name="pdf_report_time_note">Los horarios del monitor de presión arterial no tienen zona horaria. Los tiempos de medición faltantes utilizan la fecha de recepción y están marcados en los registros.</string>
+    <string name="pdf_report_flags_note">Los indicadores son informados por el monitor de presión arterial. Un indicador de pulso irregular es independiente de la fibrilación auricular (AFib).</string>
+    <string name="pdf_report_chart_note">Cada gráfico contiene hasta 48 mediciones de un perfil. La presión arterial se muestra en mmHg; la tabla conserva las unidades originales.</string>
+    <string name="pdf_report_more_profiles">Se enumeran perfiles de usuario adicionales en las páginas del gráfico y en las páginas de registro de mediciones.</string>
+    <string name="pdf_report_page">Página %1$s</string>
+    <string name="pdf_report_date">Fecha y hora</string>
+    <string name="pdf_report_profile">Perfil</string>
+    <string name="pdf_report_pressure">Presión arterial</string>
+    <string name="pdf_report_pulse">Legumbres</string>
+    <string name="pdf_report_map">Presión arterial media</string>
+    <string name="pdf_report_flags">Indicadores del tensiómetro</string>
+    <string name="pdf_report_device">Tensiómetro y fuente</string>
+    <string name="pdf_report_no_flags">Sin indicadores del dispositivo</string>
+    <string name="pdf_report_no_pulse">No hay valores de pulso disponibles</string>
+    <string name="pdf_report_no_pressure">No hay valores de presión arterial disponibles</string>
+    <string name="pdf_report_notes">Notas</string>
+    <string name="pdf_report_number">N.º</string>
+</resources>

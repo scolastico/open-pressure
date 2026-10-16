@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="pdf_export">पीडीएफ निर्यात करा</string>
+    <string name="pdf_dialog_title">पीडीएफ फाइल म्हणून रक्तदाब मोजमाप निर्यात करा</string>
+    <string name="pdf_range_all">सर्व तारखा</string>
+    <string name="pdf_range_custom">तारीख श्रेणी</string>
+    <string name="pdf_from">प्रारंभ तारीख: %1$s</string>
+    <string name="pdf_to">समाप्ती तारीख: %1$s</string>
+    <string name="pdf_range_invalid">प्रारंभ तारीख समाप्ती तारखेची किंवा त्यापूर्वीची असणे आवश्यक आहे.</string>
+    <string name="pdf_no_readings">निवडलेल्या प्रोफाइलसाठी या तारीख श्रेणीमध्ये कोणतेही मोजमाप नाही.</string>
+    <string name="pdf_preparing">PDF तयार करत आहे...</string>
+    <string name="pdf_exported">PDF निर्यात केली.</string>
+    <string name="pdf_failed">PDF निर्यात करू शकलो नाही. कृपया पुन्हा प्रयत्न करा.</string>
+    <string name="pdf_range_help">या प्रोफाइलसाठी सर्व मोजमाप निर्यात करा किंवा तारीख श्रेणी निवडा. दोन्ही तारखा समाविष्ट आहेत.</string>
+    <string name="pdf_report_title">रक्तदाब अहवाल</string>
+    <string name="pdf_report_overview">विहंगावलोकन</string>
+    <string name="pdf_report_charts">तक्ते</string>
+    <string name="pdf_report_records">तपशीलवार नोंदी</string>
+    <string name="pdf_report_generated">व्युत्पन्न: %1$s</string>
+    <string name="pdf_report_period">%1$s – %2$s</string>
+    <string name="pdf_report_count">मोजमाप: %1$s</string>
+    <string name="pdf_report_average_pressure">सरासरी रक्तदाब: %1$s / %2$s mmHg</string>
+    <string name="pdf_report_pressure_range">सिस्टोलिक: %1$s–%2$s · डायस्टोलिक: %3$s–%4$s mmHg</string>
+    <string name="pdf_report_average_pulse">सरासरी नाडी: %1$s bpm</string>
+    <string name="pdf_report_pulse_range">पल्स श्रेणी: %1$s–%2$s bpm</string>
+    <string name="pdf_report_time_note">ब्लड प्रेशर मॉनिटरच्या वेळेस टाइम झोन नसतो. गहाळ मापन वेळा प्राप्त तारखेचा वापर करतात आणि रेकॉर्डमध्ये चिन्हांकित केले जातात.</string>
+    <string name="pdf_report_flags_note">रक्तदाब मॉनिटरद्वारे निर्देशक नोंदवले जातात. एक अनियमित पल्स इंडिकेटर ॲट्रियल फायब्रिलेशन (AFib) पासून वेगळे आहे.</string>
+    <string name="pdf_report_chart_note">प्रत्येक चार्टमध्ये एका वापरकर्ता प्रोफाइलसाठी 48 पर्यंत रक्तदाब मोजणे समाविष्ट आहे. रक्तदाब mmHg मध्ये दर्शविला जातो; डेटा टेबल मूळ मोजमाप एकके राखून ठेवते.</string>
+    <string name="pdf_report_more_profiles">अतिरिक्त वापरकर्ता प्रोफाइल चार्ट पृष्ठांवर आणि मापन रेकॉर्ड पृष्ठांवर सूचीबद्ध आहेत.</string>
+    <string name="pdf_report_page">पृष्ठ %1$s</string>
+    <string name="pdf_report_date">तारीख आणि वेळ</string>
+    <string name="pdf_report_profile">प्रोफाइल</string>
+    <string name="pdf_report_pressure">रक्तदाब</string>
+    <string name="pdf_report_pulse">नाडी</string>
+    <string name="pdf_report_map">सरासरी धमनी रक्तदाब</string>
+    <string name="pdf_report_flags">रक्तदाब मॉनिटर निर्देशक</string>
+    <string name="pdf_report_device">रक्तदाब मॉनिटर आणि डेटा स्रोत</string>
+    <string name="pdf_report_no_flags">कोणतेही उपकरण सूचक नाहीत</string>
+    <string name="pdf_report_no_pulse">कोणतीही नाडी मूल्ये उपलब्ध नाहीत</string>
+    <string name="pdf_report_no_pressure">रक्तदाब मूल्ये उपलब्ध नाहीत</string>
+    <string name="pdf_report_notes">नोट्स</string>
+    <string name="pdf_report_number">#</string>
+</resources>

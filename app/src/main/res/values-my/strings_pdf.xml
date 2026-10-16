@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="pdf_export">PDF ကို ထုတ်ယူပါ။</string>
+    <string name="pdf_dialog_title">သွေးပေါင်ချိန်တိုင်းတာချက်များကို PDF ဖိုင်အဖြစ် ထုတ်ယူပါ။</string>
+    <string name="pdf_range_all">ရက်စွဲအားလုံး</string>
+    <string name="pdf_range_custom">ရက်စွဲအပိုင်းအခြား</string>
+    <string name="pdf_from">စတင်သည့်ရက်စွဲ- %1$s</string>
+    <string name="pdf_to">ကုန်ဆုံးရက်- %1$s</string>
+    <string name="pdf_range_invalid">စတင်သည့်ရက်စွဲသည် ပြီးဆုံးသည့်ရက်စွဲတွင် သို့မဟုတ် မတိုင်မီဖြစ်ရမည်။</string>
+    <string name="pdf_no_readings">ရွေးချယ်ထားသော ပရိုဖိုင်အတွက် ဤရက်စွဲအပိုင်းအခြားအတွင်း တိုင်းတာမှုမရှိပါ။</string>
+    <string name="pdf_preparing">PDF ပြင်ဆင်နေသည်...</string>
+    <string name="pdf_exported">PDF ထုတ်ယူပြီးပါပြီ။</string>
+    <string name="pdf_failed">PDF ကို ထုတ်ယူ၍မရပါ။ ထပ်စမ်းကြည့်ပါ။</string>
+    <string name="pdf_range_help">ဤပရိုဖိုင်အတွက် တိုင်းတာမှုအားလုံးကို ထုတ်ယူပါ၊ သို့မဟုတ် ရက်စွဲအပိုင်းအခြားကို ရွေးချယ်ပါ။ ရက်စွဲနှစ်ခုလုံးပါဝင်ပါသည်။</string>
+    <string name="pdf_report_title">သွေးပေါင်ချိန် အစီရင်ခံစာ</string>
+    <string name="pdf_report_overview">ခြုံငုံသုံးသပ်ချက်</string>
+    <string name="pdf_report_charts">ဇယားများ</string>
+    <string name="pdf_report_records">အသေးစိတ်မှတ်တမ်းများ</string>
+    <string name="pdf_report_generated">ထုတ်လုပ်ခဲ့သည်- %1$s</string>
+    <string name="pdf_report_period">%1$s – %2$s</string>
+    <string name="pdf_report_count">တိုင်းတာချက်များ- %1$s</string>
+    <string name="pdf_report_average_pressure">ပျမ်းမျှသွေးပေါင်ချိန်- %1$s / %2$s mmHg</string>
+    <string name="pdf_report_pressure_range">Systolic- %1$s–%2$s · Diastolic: %3$s–%4$s mmHg</string>
+    <string name="pdf_report_average_pulse">ပျမ်းမျှသွေးခုန်နှုန်း- %1$s bpm</string>
+    <string name="pdf_report_pulse_range">သွေးခုန်နှုန်း အပိုင်းအခြား- %1$s–%2$s bpm</string>
+    <string name="pdf_report_time_note">သွေးပေါင်ချိန်တိုင်းသည် အချိန်ဇုန်မရှိပါ။ ပျောက်ဆုံးနေသော တိုင်းတာမှုအကြိမ်များကို လက်ခံရရှိသည့်ရက်စွဲကို အသုံးပြုပြီး မှတ်တမ်းများတွင် အမှတ်အသားပြုထားသည်။</string>
+    <string name="pdf_report_flags_note">ညွှန်ကိန်းများကို သွေးပေါင်ချိန်မော်နီတာဖြင့် အစီရင်ခံသည်။ ပုံမှန်မဟုတ်သော သွေးခုန်နှုန်းညွှန်ကိန်းသည် atrial fibrillation (AFib) နှင့် သီးခြားဖြစ်သည်။</string>
+    <string name="pdf_report_chart_note">ဇယားတစ်ခုစီတွင် အသုံးပြုသူပရိုဖိုင်တစ်ခုအတွက် သွေးပေါင်ချိန်တိုင်းတာမှု ၄၈ ခုအထိပါရှိသည်။ သွေးပေါင်ချိန်ကို mmHg ဖြင့်ပြသသည်။ ဒေတာဇယားသည် မူလတိုင်းတာမှုယူနစ်များကို ထိန်းသိမ်းထားသည်။</string>
+    <string name="pdf_report_more_profiles">နောက်ထပ်အသုံးပြုသူပရိုဖိုင်များကို ဇယားစာမျက်နှာများနှင့် တိုင်းတာမှုမှတ်တမ်းစာမျက်နှာများတွင် ဖော်ပြထားပါသည်။</string>
+    <string name="pdf_report_page">စာမျက်နှာ %1$s</string>
+    <string name="pdf_report_date">ရက်စွဲနှင့်အချိန်</string>
+    <string name="pdf_report_profile">ကိုယ်ရေးအကျဉ်း</string>
+    <string name="pdf_report_pressure">သွေးပေါင်ချိန်</string>
+    <string name="pdf_report_pulse">သွေးခုန်နှုန်း</string>
+    <string name="pdf_report_map">ပျမ်းမျှသွေးလွှတ်ကြောသွေးဖိအား</string>
+    <string name="pdf_report_flags">သွေးပေါင်ချိန်ကို စောင့်ကြည့် ညွှန်ကိန်းများ</string>
+    <string name="pdf_report_device">သွေးပေါင်ချိန်စောင့်ကြည့်ခြင်းနှင့် အချက်အလက်အရင်းအမြစ်</string>
+    <string name="pdf_report_no_flags">စက်အညွှန်းများမရှိပါ။</string>
+    <string name="pdf_report_no_pulse">သွေးခုန်နှုန်းတန်ဖိုးများ မရရှိနိုင်ပါ။</string>
+    <string name="pdf_report_no_pressure">သွေးပေါင်ချိန်တန်ဖိုး မရှိပါ။</string>
+    <string name="pdf_report_notes">မှတ်စုများ</string>
+    <string name="pdf_report_number">#</string>
+</resources>

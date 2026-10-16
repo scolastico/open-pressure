@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="pdf_export">PDF exportálása</string>
+    <string name="pdf_dialog_title">Exportálja a vérnyomásméréseket PDF-fájlként</string>
+    <string name="pdf_range_all">Minden dátum</string>
+    <string name="pdf_range_custom">Dátumtartomány</string>
+    <string name="pdf_from">Kezdés dátuma: %1$s</string>
+    <string name="pdf_to">Befejezés dátuma: %1$s</string>
+    <string name="pdf_range_invalid">A kezdő dátumnak a befejező dátumnál vagy az előttinek kell lennie.</string>
+    <string name="pdf_no_readings">Nincs mérés ebben a dátumtartományban a kiválasztott profilhoz.</string>
+    <string name="pdf_preparing">PDF előkészítése…</string>
+    <string name="pdf_exported">PDF exportálva.</string>
+    <string name="pdf_failed">Nem sikerült exportálni a PDF-fájlt. Kérjük, próbálja újra.</string>
+    <string name="pdf_range_help">Exportálja az összes mérést ehhez a profilhoz, vagy válasszon dátumtartományt. Mindkét dátum benne van.</string>
+    <string name="pdf_report_title">Vérnyomás jelentés</string>
+    <string name="pdf_report_overview">Áttekintés</string>
+    <string name="pdf_report_charts">Diagramok</string>
+    <string name="pdf_report_records">Részletes feljegyzések</string>
+    <string name="pdf_report_generated">Létrehozva: %1$s</string>
+    <string name="pdf_report_period">%1$s – %2$s</string>
+    <string name="pdf_report_count">Méretek: %1$s</string>
+    <string name="pdf_report_average_pressure">Átlagos vérnyomás: %1$s / %2$s Hgmm</string>
+    <string name="pdf_report_pressure_range">Szisztolés: %1$s–%2$s · Diasztolés: %3$s–%4$s Hgmm</string>
+    <string name="pdf_report_average_pulse">Átlagos impulzus: %1$s bpm</string>
+    <string name="pdf_report_pulse_range">Impulzustartomány: %1$s–%2$s bpm</string>
+    <string name="pdf_report_time_note">A vérnyomásmérési időknek nincs időzónája. A hiányzó mérési időpontok a beérkezés dátumát veszik figyelembe, és a nyilvántartásban meg vannak jelölve.</string>
+    <string name="pdf_report_flags_note">A mutatókat a vérnyomásmérő jelenti. A szabálytalan pulzusjelző elkülönül a pitvarfibrillációtól (AFib).</string>
+    <string name="pdf_report_chart_note">Minden diagram legfeljebb 48 vérnyomásmérést tartalmaz egy felhasználói profilhoz. A vérnyomást Hgmm-ben mutatják ki; az adattáblázat megtartja az eredeti mértékegységeket.</string>
+    <string name="pdf_report_more_profiles">A további felhasználói profilok a diagramoldalakon és a mérési rekordoldalakon találhatók.</string>
+    <string name="pdf_report_page">%1$s oldal</string>
+    <string name="pdf_report_date">Dátum és idő</string>
+    <string name="pdf_report_profile">Profil</string>
+    <string name="pdf_report_pressure">Vérnyomás</string>
+    <string name="pdf_report_pulse">Impulzus</string>
+    <string name="pdf_report_map">Átlagos artériás vérnyomás</string>
+    <string name="pdf_report_flags">Vérnyomásmérő indikátorok</string>
+    <string name="pdf_report_device">Vérnyomásmérő és adatforrás</string>
+    <string name="pdf_report_no_flags">Nincsenek eszközjelzők</string>
+    <string name="pdf_report_no_pulse">Nem állnak rendelkezésre impulzusértékek</string>
+    <string name="pdf_report_no_pressure">Nem állnak rendelkezésre vérnyomásértékek</string>
+    <string name="pdf_report_notes">Megjegyzések</string>
+    <string name="pdf_report_number">#</string>
+</resources>

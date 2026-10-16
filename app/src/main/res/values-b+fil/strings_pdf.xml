@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="pdf_export">I-export ang PDF</string>
+    <string name="pdf_dialog_title">I-export ang mga pagsukat ng presyon ng dugo bilang isang PDF file</string>
+    <string name="pdf_range_all">Lahat ng mga petsa</string>
+    <string name="pdf_range_custom">Saklaw ng petsa</string>
+    <string name="pdf_from">Petsa ng pagsisimula: %1$s</string>
+    <string name="pdf_to">Petsa ng pagtatapos: %1$s</string>
+    <string name="pdf_range_invalid">Ang petsa ng pagsisimula ay dapat sa o bago ang petsa ng pagtatapos.</string>
+    <string name="pdf_no_readings">Walang mga sukat sa hanay ng petsa na ito para sa napiling profile.</string>
+    <string name="pdf_preparing">Inihahanda ang PDF…</string>
+    <string name="pdf_exported">Na-export ang PDF.</string>
+    <string name="pdf_failed">Hindi ma-export ang PDF. Pakisubukang muli.</string>
+    <string name="pdf_range_help">I-export ang lahat ng sukat para sa profile na ito, o pumili ng hanay ng petsa. Ang parehong mga petsa ay kasama.</string>
+    <string name="pdf_report_title">Ulat sa presyon ng dugo</string>
+    <string name="pdf_report_overview">Pangkalahatang-ideya</string>
+    <string name="pdf_report_charts">Mga tsart</string>
+    <string name="pdf_report_records">Mga detalyadong tala</string>
+    <string name="pdf_report_generated">Binuo: %1$s</string>
+    <string name="pdf_report_period">%1$s – %2$s</string>
+    <string name="pdf_report_count">Mga Pagsukat: %1$s</string>
+    <string name="pdf_report_average_pressure">Average na presyon ng dugo: %1$s / %2$s mmHg</string>
+    <string name="pdf_report_pressure_range">Systolic: %1$s–%2$s · Diastolic: %3$s–%4$s mmHg</string>
+    <string name="pdf_report_average_pulse">Average na pulso: %1$s bpm</string>
+    <string name="pdf_report_pulse_range">Saklaw ng pulso: %1$s–%2$s bpm</string>
+    <string name="pdf_report_time_note">Ang mga oras ng pagsubaybay sa presyon ng dugo ay walang time zone. Ang mga nawawalang oras ng pagsukat ay ginagamit ang petsa na natanggap at minarkahan sa mga talaan.</string>
+    <string name="pdf_report_flags_note">Ang mga tagapagpahiwatig ay iniulat ng monitor ng presyon ng dugo. Ang isang irregular pulse indicator ay hiwalay sa atrial fibrillation (AFib).</string>
+    <string name="pdf_report_chart_note">Ang bawat tsart ay naglalaman ng hanggang 48 na pagsukat ng presyon ng dugo para sa isang profile ng user. Ang presyon ng dugo ay ipinapakita sa mmHg; pinapanatili ng talahanayan ng data ang orihinal na mga yunit ng pagsukat.</string>
+    <string name="pdf_report_more_profiles">Ang mga karagdagang profile ng user ay nakalista sa mga pahina ng chart at sa mga pahina ng talaan ng pagsukat.</string>
+    <string name="pdf_report_page">Pahina %1$s</string>
+    <string name="pdf_report_date">Petsa at oras</string>
+    <string name="pdf_report_profile">Profile</string>
+    <string name="pdf_report_pressure">Presyon ng dugo</string>
+    <string name="pdf_report_pulse">Pulse</string>
+    <string name="pdf_report_map">Average na arterial na presyon ng dugo</string>
+    <string name="pdf_report_flags">Mga tagapagpahiwatig ng monitor ng presyon ng dugo</string>
+    <string name="pdf_report_device">Monitor ng presyon ng dugo at pinagmumulan ng data</string>
+    <string name="pdf_report_no_flags">Walang indicator ng device</string>
+    <string name="pdf_report_no_pulse">Walang available na mga halaga ng pulso</string>
+    <string name="pdf_report_no_pressure">Walang magagamit na mga halaga ng presyon ng dugo</string>
+    <string name="pdf_report_notes">Mga Tala</string>
+    <string name="pdf_report_number">#</string>
+</resources>

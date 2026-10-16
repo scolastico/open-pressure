@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="pdf_export">Hamisha PDF</string>
+    <string name="pdf_dialog_title">Hamisha vipimo vya shinikizo la damu kama faili ya PDF</string>
+    <string name="pdf_range_all">Tarehe zote</string>
+    <string name="pdf_range_custom">Muda wa tarehe</string>
+    <string name="pdf_from">Tarehe ya kuanza: %1$s</string>
+    <string name="pdf_to">Tarehe ya mwisho: %1$s</string>
+    <string name="pdf_range_invalid">Tarehe ya kuanza lazima iwe tarehe au kabla ya tarehe ya mwisho.</string>
+    <string name="pdf_no_readings">Hakuna vipimo katika kipindi hiki cha wasifu uliochaguliwa.</string>
+    <string name="pdf_preparing">Inatayarisha PDF...</string>
+    <string name="pdf_exported">PDF imehamishwa.</string>
+    <string name="pdf_failed">Haikuweza kuhamisha PDF. Tafadhali jaribu tena.</string>
+    <string name="pdf_range_help">Hamisha vipimo vyote vya wasifu huu, au chagua kipindi. Tarehe zote mbili zimejumuishwa.</string>
+    <string name="pdf_report_title">Ripoti ya shinikizo la damu</string>
+    <string name="pdf_report_overview">Muhtasari</string>
+    <string name="pdf_report_charts">Chati</string>
+    <string name="pdf_report_records">Rekodi za kina</string>
+    <string name="pdf_report_generated">Imetolewa: %1$s</string>
+    <string name="pdf_report_period">%1$s – %2$s</string>
+    <string name="pdf_report_count">Vipimo: %1$s</string>
+    <string name="pdf_report_average_pressure">Wastani wa shinikizo la damu: %1$s / %2$s mmHg</string>
+    <string name="pdf_report_pressure_range">Sistoli: %1$s–%2$s · Diastoli: %3$s–%4$s mmHg</string>
+    <string name="pdf_report_average_pulse">Wastani wa mpigo: %1$s bpm</string>
+    <string name="pdf_report_pulse_range">Masafa ya mpigo: %1$s–%2$s bpm</string>
+    <string name="pdf_report_time_note">Nyakati za kufuatilia shinikizo la damu hazina eneo la wakati. Nyakati za kipimo zinazokosekana hutumia tarehe iliyopokelewa na huwekwa alama kwenye rekodi.</string>
+    <string name="pdf_report_flags_note">Viashiria vinaripotiwa na mfuatiliaji wa shinikizo la damu. Kiashiria kisicho cha kawaida cha mapigo ni tofauti na fibrillation ya atrial (AFib).</string>
+    <string name="pdf_report_chart_note">Kila chati ina hadi vipimo 48 vya shinikizo la damu kwa wasifu mmoja wa mtumiaji. Shinikizo la damu linaonyeshwa kwa mmHg; jedwali la data huhifadhi vitengo vya kipimo asili.</string>
+    <string name="pdf_report_more_profiles">Wasifu wa ziada wa mtumiaji umeorodheshwa kwenye kurasa za chati na kwenye kurasa za rekodi za kipimo.</string>
+    <string name="pdf_report_page">Ukurasa wa %1$s</string>
+    <string name="pdf_report_date">Tarehe na wakati</string>
+    <string name="pdf_report_profile">Wasifu</string>
+    <string name="pdf_report_pressure">Shinikizo la damu</string>
+    <string name="pdf_report_pulse">Mapigo ya moyo</string>
+    <string name="pdf_report_map">Shinikizo la damu la wastani</string>
+    <string name="pdf_report_flags">Viashiria vya shinikizo la damu</string>
+    <string name="pdf_report_device">Mfuatiliaji wa shinikizo la damu na chanzo cha data</string>
+    <string name="pdf_report_no_flags">Hakuna viashiria vya kifaa</string>
+    <string name="pdf_report_no_pulse">Hakuna viwango vya mapigo vinavyopatikana</string>
+    <string name="pdf_report_no_pressure">Hakuna viwango vya shinikizo la damu vinavyopatikana</string>
+    <string name="pdf_report_notes">Vidokezo</string>
+    <string name="pdf_report_number">#</string>
+</resources>

@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="pdf_export">Vie PDF</string>
+    <string name="pdf_dialog_title">Vie verenpainemittaukset PDF-tiedostona</string>
+    <string name="pdf_range_all">Kaikki päivämäärät</string>
+    <string name="pdf_range_custom">Ajanjakso</string>
+    <string name="pdf_from">Aloituspäivä: %1$s</string>
+    <string name="pdf_to">Päättymispäivä: %1$s</string>
+    <string name="pdf_range_invalid">Aloituspäivän on oltava päättymispäivää tai sitä ennen.</string>
+    <string name="pdf_no_readings">Valitulla profiililla ei ole mittauksia tällä ajanjaksolla.</string>
+    <string name="pdf_preparing">Valmistellaan PDF-tiedostoa…</string>
+    <string name="pdf_exported">PDF viety.</string>
+    <string name="pdf_failed">PDF-tiedostoa ei voitu viedä. Yritä uudelleen.</string>
+    <string name="pdf_range_help">Vie kaikki tämän profiilin mitat tai valitse ajanjakso. Molemmat päivämäärät ovat mukana.</string>
+    <string name="pdf_report_title">Verenpaineraportti</string>
+    <string name="pdf_report_overview">Yleiskatsaus</string>
+    <string name="pdf_report_charts">Kaaviot</string>
+    <string name="pdf_report_records">Yksityiskohtaiset tiedot</string>
+    <string name="pdf_report_generated">Luotu: %1$s</string>
+    <string name="pdf_report_period">%1$s – %2$s</string>
+    <string name="pdf_report_count">Mitat: %1$s</string>
+    <string name="pdf_report_average_pressure">Keskimääräinen verenpaine: %1$s / %2$s mmHg</string>
+    <string name="pdf_report_pressure_range">Systolinen: %1$s–%2$s · Diastolinen: %3$s–%4$s mmHg</string>
+    <string name="pdf_report_average_pulse">Keskimääräinen pulssi: %1$s bpm</string>
+    <string name="pdf_report_pulse_range">Pulssialue: %1$s–%2$s bpm</string>
+    <string name="pdf_report_time_note">Verenpainemittausajoilla ei ole aikavyöhykettä. Puuttuvat mittausajat käyttävät vastaanottopäivää ja on merkitty tietueisiin.</string>
+    <string name="pdf_report_flags_note">Verenpainemittari ilmoittaa indikaattorit. Epäsäännöllisen pulssin ilmaisin on erillään eteisvärinästä (AFib).</string>
+    <string name="pdf_report_chart_note">Jokainen kaavio sisältää jopa 48 verenpainemittausta yhdelle käyttäjäprofiilille. Verenpaine näytetään mmHg:nä; tietotaulukko säilyttää alkuperäiset mittayksiköt.</string>
+    <string name="pdf_report_more_profiles">Muita käyttäjäprofiileja on listattu kaaviosivuilla ja mittaustietuesivuilla.</string>
+    <string name="pdf_report_page">Sivu %1$s</string>
+    <string name="pdf_report_date">Päivämäärä ja aika</string>
+    <string name="pdf_report_profile">Profiili</string>
+    <string name="pdf_report_pressure">Verenpaine</string>
+    <string name="pdf_report_pulse">Pulssi</string>
+    <string name="pdf_report_map">Keskimääräinen valtimoverenpaine</string>
+    <string name="pdf_report_flags">Verenpainemittarin indikaattorit</string>
+    <string name="pdf_report_device">Verenpainemittari ja tietolähde</string>
+    <string name="pdf_report_no_flags">Ei laitteen ilmaisimia</string>
+    <string name="pdf_report_no_pulse">Pulssiarvoja ei ole saatavilla</string>
+    <string name="pdf_report_no_pressure">Verenpainearvoja ei ole saatavilla</string>
+    <string name="pdf_report_notes">Huomautuksia</string>
+    <string name="pdf_report_number">#</string>
+</resources>

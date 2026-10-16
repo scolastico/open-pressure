@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="pdf_export">Eksport PDF</string>
+    <string name="pdf_dialog_title">Eksport ukuran tekanan darah sebagai fail PDF</string>
+    <string name="pdf_range_all">Semua tarikh</string>
+    <string name="pdf_range_custom">Julat tarikh</string>
+    <string name="pdf_from">Tarikh mula: %1$s</string>
+    <string name="pdf_to">Tarikh tamat: %1$s</string>
+    <string name="pdf_range_invalid">Tarikh mula mestilah pada atau sebelum tarikh tamat.</string>
+    <string name="pdf_no_readings">Tiada ukuran dalam julat tarikh ini untuk profil yang dipilih.</string>
+    <string name="pdf_preparing">Menyediakan PDF…</string>
+    <string name="pdf_exported">PDF dieksport.</string>
+    <string name="pdf_failed">Tidak dapat mengeksport PDF. Sila cuba lagi.</string>
+    <string name="pdf_range_help">Eksport semua ukuran untuk profil ini atau pilih julat tarikh. Kedua-dua tarikh disertakan.</string>
+    <string name="pdf_report_title">Laporan tekanan darah</string>
+    <string name="pdf_report_overview">Gambaran keseluruhan</string>
+    <string name="pdf_report_charts">Carta</string>
+    <string name="pdf_report_records">Rekod terperinci</string>
+    <string name="pdf_report_generated">Dijana: %1$s</string>
+    <string name="pdf_report_period">%1$s – %2$s</string>
+    <string name="pdf_report_count">Ukuran: %1$s</string>
+    <string name="pdf_report_average_pressure">Purata tekanan darah: %1$s / %2$s mmHg</string>
+    <string name="pdf_report_pressure_range">Sistolik: %1$s–%2$s · Diastolik: %3$s–%4$s mmHg</string>
+    <string name="pdf_report_average_pulse">Purata nadi: %1$s bpm</string>
+    <string name="pdf_report_pulse_range">Julat nadi: %1$s–%2$s bpm</string>
+    <string name="pdf_report_time_note">Waktu monitor tekanan darah tidak mempunyai zon waktu. Masa pengukuran yang hilang menggunakan tarikh diterima dan ditandakan dalam rekod.</string>
+    <string name="pdf_report_flags_note">Penunjuk dilaporkan oleh pemantau tekanan darah. Penunjuk nadi yang tidak teratur adalah berasingan daripada fibrilasi atrium (AFib).</string>
+    <string name="pdf_report_chart_note">Setiap carta mengandungi sehingga 48 ukuran tekanan darah untuk satu profil pengguna. Tekanan darah ditunjukkan dalam mmHg; jadual data mengekalkan unit ukuran asal.</string>
+    <string name="pdf_report_more_profiles">Profil pengguna tambahan disenaraikan pada halaman carta dan pada halaman rekod ukuran.</string>
+    <string name="pdf_report_page">Halaman %1$s</string>
+    <string name="pdf_report_date">Tarikh dan masa</string>
+    <string name="pdf_report_profile">Profil</string>
+    <string name="pdf_report_pressure">Tekanan darah</string>
+    <string name="pdf_report_pulse">nadi</string>
+    <string name="pdf_report_map">Purata tekanan darah arteri</string>
+    <string name="pdf_report_flags">Penunjuk monitor tekanan darah</string>
+    <string name="pdf_report_device">Pemantau tekanan darah dan sumber data</string>
+    <string name="pdf_report_no_flags">Tiada penunjuk peranti</string>
+    <string name="pdf_report_no_pulse">Tiada nilai nadi tersedia</string>
+    <string name="pdf_report_no_pressure">Tiada nilai tekanan darah tersedia</string>
+    <string name="pdf_report_notes">Nota</string>
+    <string name="pdf_report_number">#</string>
+</resources>

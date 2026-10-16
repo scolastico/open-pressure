@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="pdf_export">PDF ରପ୍ତାନି କରନ୍ତୁ।</string>
+    <string name="pdf_dialog_title">ରକ୍ତଚାପ ମାପକୁ ଏକ PDF ଫାଇଲ୍ ଭାବରେ ରପ୍ତାନି କରନ୍ତୁ।</string>
+    <string name="pdf_range_all">ସମସ୍ତ ତାରିଖ।</string>
+    <string name="pdf_range_custom">ତାରିଖ ପରିସର</string>
+    <string name="pdf_from">ଆରମ୍ଭ ତାରିଖ: %1$s</string>
+    <string name="pdf_to">ଶେଷ ତାରିଖ: %1$s</string>
+    <string name="pdf_range_invalid">ଆରମ୍ଭ ତାରିଖ ଶେଷ ତାରିଖ ସହ ସମାନ କିମ୍ବା ତାହା ପୂର୍ବରୁ ହେବା ଜରୁରୀ।</string>
+    <string name="pdf_no_readings">ମନୋନୀତ ପ୍ରୋଫାଇଲ୍ ପାଇଁ ଏହି ତାରିଖ ପରିସରରେ କୌଣସି ମାପ ନାହିଁ।</string>
+    <string name="pdf_preparing">PDF ପ୍ରସ୍ତୁତ କରୁଛି…</string>
+    <string name="pdf_exported">PDF ରପ୍ତାନି ହୋଇଛି।</string>
+    <string name="pdf_failed">PDF ରପ୍ତାନି କରିପାରିଲା ନାହିଁ। ଦୟାକରି ପୁନର୍ବାର ଚେଷ୍ଟା କରନ୍ତୁ।</string>
+    <string name="pdf_range_help">ଏହି ପ୍ରୋଫାଇଲ୍ ପାଇଁ ସମସ୍ତ ମାପ ରପ୍ତାନି କରନ୍ତୁ, କିମ୍ବା ଏକ ତାରିଖ ସୀମା ବାଛନ୍ତୁ। ଉଭୟ ତାରିଖ ଅନ୍ତର୍ଭୂକ୍ତ କରାଯାଇଛି।</string>
+    <string name="pdf_report_title">ରକ୍ତଚାପ ରିପୋର୍ଟ</string>
+    <string name="pdf_report_overview">ସମୀକ୍ଷା</string>
+    <string name="pdf_report_charts">ଚାର୍ଟ</string>
+    <string name="pdf_report_records">ବିସ୍ତୃତ ରେକର୍ଡଗୁଡିକ।</string>
+    <string name="pdf_report_generated">ଉତ୍ପାଦିତ: %1$s</string>
+    <string name="pdf_report_period">%1$s -%2$s।</string>
+    <string name="pdf_report_count">ମାପ: %1$s</string>
+    <string name="pdf_report_average_pressure">ହାରାହାରି ରକ୍ତଚାପ: %1$s /%2$s mmHg।</string>
+    <string name="pdf_report_pressure_range">ସିଷ୍ଟୋଲିକ୍: %1$s–%2$s · ଡାଇଷ୍ଟୋଲିକ୍: %3$s–%4$s mmHg</string>
+    <string name="pdf_report_average_pulse">ହାରାହାରି ନାଡ: %1$s bpm।</string>
+    <string name="pdf_report_pulse_range">ପଲ୍ସ ପରିସର: %1$s–%2$s bpm।</string>
+    <string name="pdf_report_time_note">ରକ୍ତଚାପ ମନିଟର ସମୟର କୌଣସି ସମୟ ମଣ୍ଡଳ ନାହିଁ। ନିଖୋଜ ମାପ ସମୟ ଗ୍ରହଣ କରାଯାଇଥିବା ତାରିଖ ବ୍ୟବହାର କରେ ଏବଂ ରେକର୍ଡରେ ଚିହ୍ନିତ ହୁଏ।</string>
+    <string name="pdf_report_flags_note">ରକ୍ତଚାପ ମନିଟର ଦ୍ୱାରା ସୂଚକାଙ୍କ ରିପୋର୍ଟ କରାଯାଇଛି। ଏକ ଅନିୟମିତ ପଲ୍ସ ସୂଚକ ଆଟ୍ରିଆଲ୍ ଫାଇବ୍ରିଲେସନ୍ (AFib) ଠାରୁ ଅଲଗା।</string>
+    <string name="pdf_report_chart_note">ପ୍ରତ୍ୟେକ ଚାର୍ଟରେ ଗୋଟିଏ ୟୁଜର୍ ପ୍ରୋଫାଇଲ୍ ପାଇଁ 48 ରକ୍ତଚାପ ମାପ ଥାଏ। mmHg ରେ ରକ୍ତଚାପ ଦେଖାଯାଏ; ଡାଟା ଟେବୁଲ୍ ମୂଳ ମାପ ଏକକଗୁଡ଼ିକୁ ରଖେ।</string>
+    <string name="pdf_report_more_profiles">ଅତିରିକ୍ତ ଉପଭୋକ୍ତା ପ୍ରୋଫାଇଲ୍ ଚାର୍ଟ ପୃଷ୍ଠାଗୁଡ଼ିକରେ ଏବଂ ମାପ ରେକର୍ଡ ପୃଷ୍ଠାଗୁଡ଼ିକରେ ତାଲିକାଭୁକ୍ତ।</string>
+    <string name="pdf_report_page">ପୃଷ୍ଠା%1$s</string>
+    <string name="pdf_report_date">ତାରିଖ ଏବଂ ସମୟ</string>
+    <string name="pdf_report_profile">ପ୍ରୋଫାଇଲ୍</string>
+    <string name="pdf_report_pressure">ରକ୍ତଚାପ</string>
+    <string name="pdf_report_pulse">ନାଡ</string>
+    <string name="pdf_report_map">ହାରାହାରି ଧମନୀ ରକ୍ତଚାପ।</string>
+    <string name="pdf_report_flags">ରକ୍ତଚାପ ମନିଟର ସୂଚକ।</string>
+    <string name="pdf_report_device">ରକ୍ତଚାପ ମନିଟର ଏବଂ ତଥ୍ୟ ଉତ୍ସ।</string>
+    <string name="pdf_report_no_flags">କୌଣସି ଉପକରଣ ସୂଚକ ନାହିଁ।</string>
+    <string name="pdf_report_no_pulse">କୌଣସି ନାଡିର ମୂଲ୍ୟ ଉପଲବ୍ଧ ନାହିଁ।</string>
+    <string name="pdf_report_no_pressure">କୌଣସି ରକ୍ତଚାପର ମୂଲ୍ୟ ଉପଲବ୍ଧ ନାହିଁ।</string>
+    <string name="pdf_report_notes">ଟିପ୍ପଣୀ।</string>
+    <string name="pdf_report_number">#</string>
+</resources>

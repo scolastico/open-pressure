@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="pdf_export">Exportovať PDF</string>
+    <string name="pdf_dialog_title">Exportujte merania krvného tlaku ako súbor PDF</string>
+    <string name="pdf_range_all">Všetky dátumy</string>
+    <string name="pdf_range_custom">Rozsah dátumov</string>
+    <string name="pdf_from">Dátum začiatku: %1$s</string>
+    <string name="pdf_to">Dátum ukončenia: %1$s</string>
+    <string name="pdf_range_invalid">Dátum začatia musí byť rovnaký ako dátum ukončenia alebo pred ním.</string>
+    <string name="pdf_no_readings">V tomto rozsahu dátumov nie sú pre vybratý profil žiadne merania.</string>
+    <string name="pdf_preparing">Pripravuje sa PDF…</string>
+    <string name="pdf_exported">PDF exportované.</string>
+    <string name="pdf_failed">Súbor PDF sa nepodarilo exportovať. Skúste to znova.</string>
+    <string name="pdf_range_help">Exportujte všetky merania pre tento profil alebo vyberte rozsah dátumov. Oba dátumy sú zahrnuté.</string>
+    <string name="pdf_report_title">Správa o krvnom tlaku</string>
+    <string name="pdf_report_overview">Prehľad</string>
+    <string name="pdf_report_charts">Grafy</string>
+    <string name="pdf_report_records">Podrobné záznamy</string>
+    <string name="pdf_report_generated">Vygenerované: %1$s</string>
+    <string name="pdf_report_period">%1$s – %2$s</string>
+    <string name="pdf_report_count">Miery: %1$s</string>
+    <string name="pdf_report_average_pressure">Priemerný krvný tlak: %1$s / %2$s mmHg</string>
+    <string name="pdf_report_pressure_range">Systolický: %1$s–%2$s · Diastolický: %3$s–%4$s mmHg</string>
+    <string name="pdf_report_average_pulse">Priemerný pulz: %1$s úderov/min</string>
+    <string name="pdf_report_pulse_range">Rozsah pulzu: %1$s–%2$s úderov/min</string>
+    <string name="pdf_report_time_note">Časy monitora krvného tlaku nemajú časové pásmo. Chýbajúce časy merania používajú prijatý dátum a sú označené v záznamoch.</string>
+    <string name="pdf_report_flags_note">Indikátory hlási tlakomer. Indikátor nepravidelného pulzu je oddelený od fibrilácie predsiení (AFib).</string>
+    <string name="pdf_report_chart_note">Každá tabuľka obsahuje až 48 meraní krvného tlaku pre jeden užívateľský profil. Krvný tlak sa uvádza v mmHg; tabuľka údajov zachováva pôvodné merné jednotky.</string>
+    <string name="pdf_report_more_profiles">Ďalšie užívateľské profily sú uvedené na stránkach s grafmi a na stránkach záznamu meraní.</string>
+    <string name="pdf_report_page">Stránka %1$s</string>
+    <string name="pdf_report_date">Dátum a čas</string>
+    <string name="pdf_report_profile">Profil</string>
+    <string name="pdf_report_pressure">Krvný tlak</string>
+    <string name="pdf_report_pulse">Pulz</string>
+    <string name="pdf_report_map">Priemerný arteriálny krvný tlak</string>
+    <string name="pdf_report_flags">Indikátory monitora krvného tlaku</string>
+    <string name="pdf_report_device">Monitor krvného tlaku a zdroj údajov</string>
+    <string name="pdf_report_no_flags">Žiadne indikátory zariadenia</string>
+    <string name="pdf_report_no_pulse">Nie sú k dispozícii žiadne hodnoty pulzu</string>
+    <string name="pdf_report_no_pressure">Nie sú k dispozícii žiadne hodnoty krvného tlaku</string>
+    <string name="pdf_report_notes">Poznámky</string>
+    <string name="pdf_report_number">#</string>
+</resources>

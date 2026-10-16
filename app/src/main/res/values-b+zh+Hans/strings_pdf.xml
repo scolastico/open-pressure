@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="pdf_export">导出PDF</string>
+    <string name="pdf_dialog_title">将测量记录导出为 PDF</string>
+    <string name="pdf_range_all">全部日期</string>
+    <string name="pdf_range_custom">日期范围</string>
+    <string name="pdf_from">从：%1$s</string>
+    <string name="pdf_to">至：%1$s</string>
+    <string name="pdf_range_invalid">开始日期必须等于或早于结束日期。</string>
+    <string name="pdf_no_readings">所选用户档案在此日期范围内没有测量记录。</string>
+    <string name="pdf_preparing">正在准备 PDF...</string>
+    <string name="pdf_exported">导出 PDF。</string>
+    <string name="pdf_failed">无法导出 PDF。请再试一次。</string>
+    <string name="pdf_range_help">导出此用户档案的全部测量记录，或选择日期范围。开始和结束日期均包含在内。</string>
+    <string name="pdf_report_title">血压报告</string>
+    <string name="pdf_report_overview">概述</string>
+    <string name="pdf_report_charts">图表</string>
+    <string name="pdf_report_records">详细测量记录</string>
+    <string name="pdf_report_generated">已生成：%1$s</string>
+    <string name="pdf_report_period">%1$s – %2$s</string>
+    <string name="pdf_report_count">测量值：%1$s</string>
+    <string name="pdf_report_average_pressure">平均血压：%1$s / %2$s mmHg</string>
+    <string name="pdf_report_pressure_range">收缩压：%1$s–%2$s · 舒张压：%3$s–%4$s mmHg</string>
+    <string name="pdf_report_average_pulse">平均脉搏：%1$s bpm</string>
+    <string name="pdf_report_pulse_range">脉冲范围：%1$s–%2$s bpm</string>
+    <string name="pdf_report_time_note">血压监测时间没有时区。缺失的测量时间使用收到的日期并在记录中标记。</string>
+    <string name="pdf_report_flags_note">指标由血压监测仪报告。不规则脉搏指标与心房颤动 (AFib) 不同。</string>
+    <string name="pdf_report_chart_note">每个图表最多包含一个用户档案的 48 次测量。血压以 mmHg 显示；数据表保留原始单位。</string>
+    <string name="pdf_report_more_profiles">其他用户档案列于图表和测量记录页面。</string>
+    <string name="pdf_report_page">页 %1$s</string>
+    <string name="pdf_report_date">日期和时间</string>
+    <string name="pdf_report_profile">用户档案</string>
+    <string name="pdf_report_pressure">血压</string>
+    <string name="pdf_report_pulse">脉冲</string>
+    <string name="pdf_report_map">平均动脉压</string>
+    <string name="pdf_report_flags">血压计提示</string>
+    <string name="pdf_report_device">血压计及来源</string>
+    <string name="pdf_report_no_flags">无设备提示</string>
+    <string name="pdf_report_no_pulse">无可用脉冲值</string>
+    <string name="pdf_report_no_pressure">没有可用的血压值</string>
+    <string name="pdf_report_notes">笔记</string>
+    <string name="pdf_report_number">序号</string>
+</resources>

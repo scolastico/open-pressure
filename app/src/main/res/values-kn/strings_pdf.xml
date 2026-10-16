@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="pdf_export">PDF ಅನ್ನು ರಫ್ತು ಮಾಡಿ</string>
+    <string name="pdf_dialog_title">ರಕ್ತದೊತ್ತಡ ಮಾಪನಗಳನ್ನು PDF ಫೈಲ್ ಆಗಿ ರಫ್ತು ಮಾಡಿ</string>
+    <string name="pdf_range_all">ಎಲ್ಲಾ ದಿನಾಂಕಗಳು</string>
+    <string name="pdf_range_custom">ದಿನಾಂಕ ವ್ಯಾಪ್ತಿ</string>
+    <string name="pdf_from">ಪ್ರಾರಂಭ ದಿನಾಂಕ: %1$s</string>
+    <string name="pdf_to">ಅಂತಿಮ ದಿನಾಂಕ: %1$s</string>
+    <string name="pdf_range_invalid">ಪ್ರಾರಂಭ ದಿನಾಂಕವು ಅಂತಿಮ ದಿನಾಂಕದಂದು ಅಥವಾ ಮೊದಲು ಇರಬೇಕು.</string>
+    <string name="pdf_no_readings">ಆಯ್ಕೆಮಾಡಿದ ಪ್ರೊಫೈಲ್‌ಗಾಗಿ ಈ ದಿನಾಂಕದ ವ್ಯಾಪ್ತಿಯಲ್ಲಿ ಯಾವುದೇ ಅಳತೆಗಳಿಲ್ಲ.</string>
+    <string name="pdf_preparing">PDF ಅನ್ನು ಸಿದ್ಧಪಡಿಸಲಾಗುತ್ತಿದೆ...</string>
+    <string name="pdf_exported">PDF ರಫ್ತು ಮಾಡಲಾಗಿದೆ.</string>
+    <string name="pdf_failed">PDF ಅನ್ನು ರಫ್ತು ಮಾಡಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ. ದಯವಿಟ್ಟು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.</string>
+    <string name="pdf_range_help">ಈ ಪ್ರೊಫೈಲ್‌ಗಾಗಿ ಎಲ್ಲಾ ಅಳತೆಗಳನ್ನು ರಫ್ತು ಮಾಡಿ ಅಥವಾ ದಿನಾಂಕ ಶ್ರೇಣಿಯನ್ನು ಆಯ್ಕೆಮಾಡಿ. ಎರಡೂ ದಿನಾಂಕಗಳನ್ನು ಸೇರಿಸಲಾಗಿದೆ.</string>
+    <string name="pdf_report_title">ರಕ್ತದೊತ್ತಡ ವರದಿ</string>
+    <string name="pdf_report_overview">ಅವಲೋಕನ</string>
+    <string name="pdf_report_charts">ಚಾರ್ಟ್‌ಗಳು</string>
+    <string name="pdf_report_records">ವಿವರವಾದ ದಾಖಲೆಗಳು</string>
+    <string name="pdf_report_generated">ರಚಿಸಲಾಗಿದೆ: %1$s</string>
+    <string name="pdf_report_period">%1$s – %2$s</string>
+    <string name="pdf_report_count">ಅಳತೆಗಳು: %1$s</string>
+    <string name="pdf_report_average_pressure">ಸರಾಸರಿ ರಕ್ತದೊತ್ತಡ: %1$s / %2$s mmHg</string>
+    <string name="pdf_report_pressure_range">ಸಂಕೋಚನ: %1$s–%2$s · ಡಯಾಸ್ಟೊಲಿಕ್: %3$s–%4$s mmHg</string>
+    <string name="pdf_report_average_pulse">ಸರಾಸರಿ ನಾಡಿ: %1$s bpm</string>
+    <string name="pdf_report_pulse_range">ನಾಡಿ ಶ್ರೇಣಿ: %1$s–%2$s bpm</string>
+    <string name="pdf_report_time_note">ರಕ್ತದೊತ್ತಡ ಮಾನಿಟರ್ ಸಮಯವು ಯಾವುದೇ ಸಮಯ ವಲಯವನ್ನು ಹೊಂದಿಲ್ಲ. ಕಾಣೆಯಾದ ಮಾಪನ ಸಮಯಗಳು ಸ್ವೀಕರಿಸಿದ ದಿನಾಂಕವನ್ನು ಬಳಸುತ್ತವೆ ಮತ್ತು ದಾಖಲೆಗಳಲ್ಲಿ ಗುರುತಿಸಲಾಗಿದೆ.</string>
+    <string name="pdf_report_flags_note">ರಕ್ತದೊತ್ತಡ ಮಾನಿಟರ್ ಮೂಲಕ ಸೂಚಕಗಳನ್ನು ವರದಿ ಮಾಡಲಾಗುತ್ತದೆ. ಅನಿಯಮಿತ ನಾಡಿ ಸೂಚಕವು ಹೃತ್ಕರ್ಣದ ಕಂಪನದಿಂದ (AFib) ಪ್ರತ್ಯೇಕವಾಗಿದೆ.</string>
+    <string name="pdf_report_chart_note">ಪ್ರತಿ ಚಾರ್ಟ್ ಒಂದು ಬಳಕೆದಾರರ ಪ್ರೊಫೈಲ್‌ಗೆ 48 ರಕ್ತದೊತ್ತಡ ಮಾಪನಗಳನ್ನು ಹೊಂದಿರುತ್ತದೆ. ರಕ್ತದೊತ್ತಡವನ್ನು mmHg ನಲ್ಲಿ ತೋರಿಸಲಾಗಿದೆ; ಡೇಟಾ ಟೇಬಲ್ ಮೂಲ ಮಾಪನ ಘಟಕಗಳನ್ನು ಉಳಿಸಿಕೊಂಡಿದೆ.</string>
+    <string name="pdf_report_more_profiles">ಹೆಚ್ಚುವರಿ ಬಳಕೆದಾರರ ಪ್ರೊಫೈಲ್‌ಗಳನ್ನು ಚಾರ್ಟ್ ಪುಟಗಳಲ್ಲಿ ಮತ್ತು ಮಾಪನ ದಾಖಲೆ ಪುಟಗಳಲ್ಲಿ ಪಟ್ಟಿಮಾಡಲಾಗಿದೆ.</string>
+    <string name="pdf_report_page">ಪುಟ %1$s</string>
+    <string name="pdf_report_date">ದಿನಾಂಕ ಮತ್ತು ಸಮಯ</string>
+    <string name="pdf_report_profile">ಪ್ರೊಫೈಲ್</string>
+    <string name="pdf_report_pressure">ರಕ್ತದೊತ್ತಡ</string>
+    <string name="pdf_report_pulse">ನಾಡಿ</string>
+    <string name="pdf_report_map">ಸರಾಸರಿ ಅಪಧಮನಿಯ ರಕ್ತದೊತ್ತಡ</string>
+    <string name="pdf_report_flags">ರಕ್ತದೊತ್ತಡ ಮಾನಿಟರ್ ಸೂಚಕಗಳು</string>
+    <string name="pdf_report_device">ರಕ್ತದೊತ್ತಡ ಮಾನಿಟರ್ ಮತ್ತು ಡೇಟಾ ಮೂಲ</string>
+    <string name="pdf_report_no_flags">ಸಾಧನ ಸೂಚಕಗಳಿಲ್ಲ</string>
+    <string name="pdf_report_no_pulse">ಯಾವುದೇ ಪಲ್ಸ್ ಮೌಲ್ಯಗಳು ಲಭ್ಯವಿಲ್ಲ</string>
+    <string name="pdf_report_no_pressure">ಯಾವುದೇ ರಕ್ತದೊತ್ತಡದ ಮೌಲ್ಯಗಳು ಲಭ್ಯವಿಲ್ಲ</string>
+    <string name="pdf_report_notes">ಟಿಪ್ಪಣಿಗಳು</string>
+    <string name="pdf_report_number">#</string>
+</resources>

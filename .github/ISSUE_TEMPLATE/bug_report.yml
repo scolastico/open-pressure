@@ -1,0 +1,42 @@
+name: Bug report
+description: Report an app or monitor connection problem.
+body:
+  - type: markdown
+    attributes:
+      value: Do not attach raw health exports, diagnostics, EEPROM snapshots, Bluetooth addresses or pairing material. Start with a minimal redacted description.
+  - type: input
+    id: versions
+    attributes:
+      label: App and Android versions
+      placeholder: App version; Android version; phone model
+    validations:
+      required: true
+  - type: input
+    id: monitor
+    attributes:
+      label: Exact monitor model and firmware
+      description: Copy the model printed on the label; omit serial numbers and Bluetooth addresses. Use “no monitor” if unrelated.
+    validations:
+      required: true
+  - type: dropdown
+    id: operation
+    attributes:
+      label: Operation
+      options:
+        - Pair / setup
+        - Connect
+        - Manual history
+        - Automatic import / companion approval
+        - Local history / export
+        - Health Connect
+        - Display / translation
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps, expected result and actual result
+      description: Include minimal non-sensitive error text and whether this worked in an earlier version.
+    validations:
+      required: true

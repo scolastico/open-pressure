@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="pdf_export">पीडीएफ निर्यात करें</string>
+    <string name="pdf_dialog_title">मापों को PDF के रूप में निर्यात करें</string>
+    <string name="pdf_range_all">सभी तिथियाँ</string>
+    <string name="pdf_range_custom">तिथि सीमा</string>
+    <string name="pdf_from">से: %1$s</string>
+    <string name="pdf_to">तक: %1$s</string>
+    <string name="pdf_range_invalid">आरंभ तिथि अंतिम तिथि को या उससे पहले की होनी चाहिए.</string>
+    <string name="pdf_no_readings">चयनित प्रोफ़ाइल के लिए इस दिनांक सीमा में कोई माप नहीं है।</string>
+    <string name="pdf_preparing">पीडीएफ तैयार किया जा रहा है...</string>
+    <string name="pdf_exported">पीडीएफ निर्यात किया गया.</string>
+    <string name="pdf_failed">पीडीएफ निर्यात नहीं किया जा सका. कृपया पुन: प्रयास करें।</string>
+    <string name="pdf_range_help">इस प्रोफ़ाइल के लिए सभी माप निर्यात करें, या दिनांक सीमा चुनें। दोनों तारीखें शामिल हैं.</string>
+    <string name="pdf_report_title">रक्तचाप रिपोर्ट</string>
+    <string name="pdf_report_overview">सिंहावलोकन</string>
+    <string name="pdf_report_charts">चार्ट</string>
+    <string name="pdf_report_records">विस्तृत रिकार्ड</string>
+    <string name="pdf_report_generated">उत्पन्न: %1$s</string>
+    <string name="pdf_report_period">%1$s – %2$s</string>
+    <string name="pdf_report_count">माप: %1$s</string>
+    <string name="pdf_report_average_pressure">औसत रक्तचाप: %1$s / %2$s mmHg</string>
+    <string name="pdf_report_pressure_range">सिस्टोलिक: %1$s–%2$s · डायस्टोलिक: %3$s–%4$s mmHg</string>
+    <string name="pdf_report_average_pulse">औसत पल्स: %1$s बीपीएम</string>
+    <string name="pdf_report_pulse_range">पल्स रेंज: %1$s–%2$s बीपीएम</string>
+    <string name="pdf_report_time_note">ब्लड प्रेशर मॉनिटर समय का कोई समय क्षेत्र नहीं होता है। गुम माप समय प्राप्त तिथि का उपयोग करते हैं और रिकॉर्ड में अंकित होते हैं।</string>
+    <string name="pdf_report_flags_note">रक्तचाप मॉनिटर द्वारा संकेतकों की सूचना दी जाती है। एक अनियमित पल्स संकेतक एट्रियल फाइब्रिलेशन (एएफआईबी) से अलग है।</string>
+    <string name="pdf_report_chart_note">प्रत्येक चार्ट में एक उपयोगकर्ता प्रोफ़ाइल के लिए 48 रक्तचाप माप शामिल हैं। रक्तचाप mmHg में दिखाया गया है; डेटा तालिका मूल माप इकाइयों को बरकरार रखती है।</string>
+    <string name="pdf_report_more_profiles">अतिरिक्त उपयोगकर्ता प्रोफ़ाइल चार्ट पृष्ठों और माप रिकॉर्ड पृष्ठों पर सूचीबद्ध हैं।</string>
+    <string name="pdf_report_page">पेज %1$s</string>
+    <string name="pdf_report_date">तिथि और समय</string>
+    <string name="pdf_report_profile">प्रोफ़ाइल</string>
+    <string name="pdf_report_pressure">रक्तचाप</string>
+    <string name="pdf_report_pulse">नाड़ी</string>
+    <string name="pdf_report_map">माध्य धमनी दाब</string>
+    <string name="pdf_report_flags">रक्तचाप मॉनिटर के संकेत</string>
+    <string name="pdf_report_device">रक्तचाप मॉनिटर और स्रोत</string>
+    <string name="pdf_report_no_flags">डिवाइस से कोई संकेत नहीं</string>
+    <string name="pdf_report_no_pulse">कोई पल्स मान उपलब्ध नहीं है</string>
+    <string name="pdf_report_no_pressure">कोई रक्तचाप मान उपलब्ध नहीं है</string>
+    <string name="pdf_report_notes">टिप्पणियाँ</string>
+    <string name="pdf_report_number">क्र.</string>
+</resources>

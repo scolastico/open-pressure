@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="pdf_export">PDF අපනයනය කරන්න</string>
+    <string name="pdf_dialog_title">PDF ගොනුවක් ලෙස රුධිර පීඩන මිනුම් අපනයනය කරන්න</string>
+    <string name="pdf_range_all">සියලුම දිනයන්</string>
+    <string name="pdf_range_custom">දින පරාසය</string>
+    <string name="pdf_from">ආරම්භක දිනය: %1$s</string>
+    <string name="pdf_to">අවසන් දිනය: %1$s</string>
+    <string name="pdf_range_invalid">ආරම්භක දිනය අවසන් දිනට හෝ ඊට පෙර විය යුතුය.</string>
+    <string name="pdf_no_readings">තෝරාගත් පැතිකඩ සඳහා මෙම දින පරාසය තුළ මිනුම් නොමැත.</string>
+    <string name="pdf_preparing">PDF සූදානම් කරමින්...</string>
+    <string name="pdf_exported">PDF අපනයනය කරන ලදී.</string>
+    <string name="pdf_failed">PDF අපනයනය කළ නොහැකි විය. කරුණාකර නැවත උත්සාහ කරන්න.</string>
+    <string name="pdf_range_help">මෙම පැතිකඩ සඳහා සියලුම මිනුම් නිර්යාත කරන්න, නැතහොත් දින පරාසයක් තෝරන්න. දින දෙකම ඇතුළත් වේ.</string>
+    <string name="pdf_report_title">රුධිර පීඩන වාර්තාව</string>
+    <string name="pdf_report_overview">දළ විශ්ලේෂණය</string>
+    <string name="pdf_report_charts">ප්‍රස්ථාර</string>
+    <string name="pdf_report_records">සවිස්තර වාර්තා</string>
+    <string name="pdf_report_generated">උත්පාදනය කළේ: %1$s</string>
+    <string name="pdf_report_period">%1$s - %2$s</string>
+    <string name="pdf_report_count">මිනුම්: %1$s</string>
+    <string name="pdf_report_average_pressure">සාමාන්‍ය රුධිර පීඩනය: %1$s / %2$s mmHg</string>
+    <string name="pdf_report_pressure_range">සිස්ටලික්: %1$s–%2$s · ඩයස්ටොලික්: %3$s–%4$s mmHg</string>
+    <string name="pdf_report_average_pulse">සාමාන්‍ය ස්පන්දනය: %1$s bpm</string>
+    <string name="pdf_report_pulse_range">ස්පන්දන පරාසය: %1$s–%2$s bpm</string>
+    <string name="pdf_report_time_note">රුධිර පීඩන නිරීක්ෂණ වේලාවන්හි කාල කලාපයක් නොමැත. අස්ථානගත වූ මිනුම් වේලාවන් ලැබුණු දිනය භාවිතා කරන අතර වාර්තා වල සලකුණු කර ඇත.</string>
+    <string name="pdf_report_flags_note">රුධිර පීඩන මොනිටරය මගින් දර්ශක වාර්තා කරනු ලැබේ. අක්‍රමවත් ස්පන්දන දර්ශකයක් atrial fibrillation (AFIb) වලින් වෙන්ව පවතී.</string>
+    <string name="pdf_report_chart_note">සෑම ප්‍රස්ථාරයකම එක් පරිශීලක පැතිකඩක් සඳහා රුධිර පීඩන මිනුම් 48ක් දක්වා අඩංගු වේ. රුධිර පීඩනය mmHg වලින් දැක්වේ; දත්ත වගුව මුල් මිනුම් ඒකක රඳවා තබා ගනී.</string>
+    <string name="pdf_report_more_profiles">අමතර පරිශීලක පැතිකඩ ප්‍රස්ථාර පිටුවල සහ මිනුම් වාර්තා පිටුවල ලැයිස්තුගත කර ඇත.</string>
+    <string name="pdf_report_page">පිටුව %1$s</string>
+    <string name="pdf_report_date">දිනය සහ වේලාව</string>
+    <string name="pdf_report_profile">පැතිකඩ</string>
+    <string name="pdf_report_pressure">රුධිර පීඩනය</string>
+    <string name="pdf_report_pulse">ස්පන්දනය</string>
+    <string name="pdf_report_map">සාමාන්ය ධමනි රුධිර පීඩනය</string>
+    <string name="pdf_report_flags">රුධිර පීඩන නිරීක්ෂණ දර්ශක</string>
+    <string name="pdf_report_device">රුධිර පීඩන මොනිටරය සහ දත්ත මූලාශ්රය</string>
+    <string name="pdf_report_no_flags">උපාංග දර්ශක නොමැත</string>
+    <string name="pdf_report_no_pulse">ස්පන්දන අගයන් නොමැත</string>
+    <string name="pdf_report_no_pressure">රුධිර පීඩන අගයන් නොමැත</string>
+    <string name="pdf_report_notes">සටහන්</string>
+    <string name="pdf_report_number">#</string>
+</resources>

@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="pdf_export">પીડીએફ નિકાસ કરો</string>
+    <string name="pdf_dialog_title">પીડીએફ ફાઇલ તરીકે બ્લડ પ્રેશર માપન નિકાસ કરો</string>
+    <string name="pdf_range_all">બધી તારીખો</string>
+    <string name="pdf_range_custom">તારીખ શ્રેણી</string>
+    <string name="pdf_from">પ્રારંભ તારીખ: %1$s</string>
+    <string name="pdf_to">સમાપ્તિ તારીખ: %1$s</string>
+    <string name="pdf_range_invalid">પ્રારંભ તારીખ સમાપ્તિ તારીખ પર અથવા તે પહેલાંની હોવી આવશ્યક છે.</string>
+    <string name="pdf_no_readings">પસંદ કરેલ પ્રોફાઇલ માટે આ તારીખ શ્રેણીમાં કોઈ માપન નથી.</string>
+    <string name="pdf_preparing">PDF તૈયાર કરી રહ્યાં છીએ...</string>
+    <string name="pdf_exported">PDF નિકાસ કરી.</string>
+    <string name="pdf_failed">PDF નિકાસ કરી શકાયું નથી. કૃપા કરીને ફરી પ્રયાસ કરો.</string>
+    <string name="pdf_range_help">આ પ્રોફાઇલ માટે તમામ માપ નિકાસ કરો અથવા તારીખ શ્રેણી પસંદ કરો. બંને તારીખો શામેલ છે.</string>
+    <string name="pdf_report_title">બ્લડ પ્રેશર રિપોર્ટ</string>
+    <string name="pdf_report_overview">વિહંગાવલોકન</string>
+    <string name="pdf_report_charts">ચાર્ટ્સ</string>
+    <string name="pdf_report_records">વિગતવાર રેકોર્ડ</string>
+    <string name="pdf_report_generated">જનરેટ: %1$s</string>
+    <string name="pdf_report_period">%1$s – %2$s</string>
+    <string name="pdf_report_count">માપન: %1$s</string>
+    <string name="pdf_report_average_pressure">સરેરાશ બ્લડ પ્રેશર: %1$s / %2$s mmHg</string>
+    <string name="pdf_report_pressure_range">સિસ્ટોલિક: %1$s–%2$s · ડાયસ્ટોલિક: %3$s–%4$s mmHg</string>
+    <string name="pdf_report_average_pulse">સરેરાશ પલ્સ: %1$s bpm</string>
+    <string name="pdf_report_pulse_range">પલ્સ શ્રેણી: %1$s–%2$s bpm</string>
+    <string name="pdf_report_time_note">બ્લડ પ્રેશર મોનિટરના સમયનો કોઈ સમય ઝોન નથી. ગુમ થયેલ માપન સમય પ્રાપ્ત તારીખનો ઉપયોગ કરે છે અને રેકોર્ડ્સમાં ચિહ્નિત થયેલ છે.</string>
+    <string name="pdf_report_flags_note">બ્લડ પ્રેશર મોનિટર દ્વારા સૂચકાંકોની જાણ કરવામાં આવે છે. અનિયમિત પલ્સ સૂચક એટ્રીયલ ફાઇબરિલેશન (AFib) થી અલગ છે.</string>
+    <string name="pdf_report_chart_note">દરેક ચાર્ટમાં એક વપરાશકર્તા પ્રોફાઇલ માટે 48 બ્લડ પ્રેશર માપન હોય છે. બ્લડ પ્રેશર mmHg માં દર્શાવવામાં આવે છે; ડેટા ટેબલ મૂળ માપન એકમોને જાળવી રાખે છે.</string>
+    <string name="pdf_report_more_profiles">વધારાના વપરાશકર્તા પ્રોફાઇલ્સ ચાર્ટ પૃષ્ઠો અને માપન રેકોર્ડ પૃષ્ઠો પર સૂચિબદ્ધ છે.</string>
+    <string name="pdf_report_page">પૃષ્ઠ %1$s</string>
+    <string name="pdf_report_date">તારીખ અને સમય</string>
+    <string name="pdf_report_profile">પ્રોફાઇલ</string>
+    <string name="pdf_report_pressure">બ્લડ પ્રેશર</string>
+    <string name="pdf_report_pulse">પલ્સ</string>
+    <string name="pdf_report_map">સરેરાશ ધમની બ્લડ પ્રેશર</string>
+    <string name="pdf_report_flags">બ્લડ પ્રેશર મોનિટર સૂચકાંકો</string>
+    <string name="pdf_report_device">બ્લડ પ્રેશર મોનિટર અને ડેટા સ્ત્રોત</string>
+    <string name="pdf_report_no_flags">કોઈ ઉપકરણ સૂચક નથી</string>
+    <string name="pdf_report_no_pulse">કોઈ પલ્સ મૂલ્યો ઉપલબ્ધ નથી</string>
+    <string name="pdf_report_no_pressure">બ્લડ પ્રેશરના કોઈ મૂલ્યો ઉપલબ્ધ નથી</string>
+    <string name="pdf_report_notes">નોંધો</string>
+    <string name="pdf_report_number">#</string>
+</resources>

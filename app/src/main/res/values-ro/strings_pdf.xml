@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="pdf_export">Exportați PDF</string>
+    <string name="pdf_dialog_title">Exportați măsurătorile tensiunii arteriale ca fișier PDF</string>
+    <string name="pdf_range_all">Toate datele</string>
+    <string name="pdf_range_custom">Interval de date</string>
+    <string name="pdf_from">Data începerii: %1$s</string>
+    <string name="pdf_to">Data de încheiere: %1$s</string>
+    <string name="pdf_range_invalid">Data de început trebuie să fie la sau înainte de data de încheiere.</string>
+    <string name="pdf_no_readings">Nu există măsurători în acest interval de date pentru profilul selectat.</string>
+    <string name="pdf_preparing">Se pregătește PDF...</string>
+    <string name="pdf_exported">PDF exportat.</string>
+    <string name="pdf_failed">PDF-ul nu a putut fi exportat. Vă rugăm să încercați din nou.</string>
+    <string name="pdf_range_help">Exportați toate măsurătorile pentru acest profil sau alegeți un interval de date. Ambele date sunt incluse.</string>
+    <string name="pdf_report_title">Raportul tensiunii arteriale</string>
+    <string name="pdf_report_overview">Prezentare generală</string>
+    <string name="pdf_report_charts">Diagrame</string>
+    <string name="pdf_report_records">Înregistrări detaliate</string>
+    <string name="pdf_report_generated">Generat: %1$s</string>
+    <string name="pdf_report_period">%1$s – %2$s</string>
+    <string name="pdf_report_count">Măsurători: %1$s</string>
+    <string name="pdf_report_average_pressure">Tensiune arterială medie: %1$s / %2$s mmHg</string>
+    <string name="pdf_report_pressure_range">Sistolic: %1$s–%2$s · Diastolic: %3$s–%4$s mmHg</string>
+    <string name="pdf_report_average_pulse">Puls mediu: %1$s bpm</string>
+    <string name="pdf_report_pulse_range">Interval puls: %1$s–%2$s bpm</string>
+    <string name="pdf_report_time_note">Orele de monitorizare a tensiunii arteriale nu au fus orar. Orele de măsurare lipsă folosesc data primită și sunt marcate în înregistrări.</string>
+    <string name="pdf_report_flags_note">Indicatorii sunt raportați de monitorul tensiunii arteriale. Un indicator de puls neregulat este separat de fibrilația atrială (AFib).</string>
+    <string name="pdf_report_chart_note">Fiecare diagramă conține până la 48 de măsurători ale tensiunii arteriale pentru un profil de utilizator. Tensiunea arterială este exprimată în mmHg; tabelul de date păstrează unitățile de măsură inițiale.</string>
+    <string name="pdf_report_more_profiles">Profiluri suplimentare de utilizator sunt listate pe paginile cu diagrame și pe paginile cu înregistrarea măsurătorilor.</string>
+    <string name="pdf_report_page">Pagina %1$s</string>
+    <string name="pdf_report_date">Data și ora</string>
+    <string name="pdf_report_profile">Profil</string>
+    <string name="pdf_report_pressure">Tensiunea arterială</string>
+    <string name="pdf_report_pulse">Puls</string>
+    <string name="pdf_report_map">Tensiunea arterială medie</string>
+    <string name="pdf_report_flags">Indicatori de monitorizare a tensiunii arteriale</string>
+    <string name="pdf_report_device">Monitor de tensiune arterială și sursă de date</string>
+    <string name="pdf_report_no_flags">Fără indicatori de dispozitiv</string>
+    <string name="pdf_report_no_pulse">Nu sunt disponibile valori ale pulsului</string>
+    <string name="pdf_report_no_pressure">Nu sunt disponibile valori ale tensiunii arteriale</string>
+    <string name="pdf_report_notes">Note</string>
+    <string name="pdf_report_number">#</string>
+</resources>

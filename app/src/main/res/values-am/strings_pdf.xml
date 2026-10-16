@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="pdf_export">ፒዲኤፍ ወደ ውጪ ላክ</string>
+    <string name="pdf_dialog_title">የደም ግፊት መለኪያዎችን እንደ ፒዲኤፍ ፋይል ይላኩ።</string>
+    <string name="pdf_range_all">ሁሉም ቀኖች</string>
+    <string name="pdf_range_custom">የቀን ክልል</string>
+    <string name="pdf_from">የመጀመሪያ ቀን፡ %1$s</string>
+    <string name="pdf_to">የሚያበቃበት ቀን፡ %1$s</string>
+    <string name="pdf_range_invalid">የመጀመርያው ቀን ከማብቂያው ቀን በፊት ወይም በፊት መሆን አለበት።</string>
+    <string name="pdf_no_readings">ለተመረጠው መገለጫ በዚህ የቀን ክልል ውስጥ ምንም ልኬቶች የሉም።</string>
+    <string name="pdf_preparing">ፒዲኤፍ በማዘጋጀት ላይ…</string>
+    <string name="pdf_exported">ፒዲኤፍ ወደ ውጭ ተልኳል።</string>
+    <string name="pdf_failed">ፒዲኤፍን ወደ ውጭ መላክ አልተቻለም። እባክህ እንደገና ሞክር።</string>
+    <string name="pdf_range_help">ለዚህ መገለጫ ሁሉንም መለኪያዎች ወደ ውጭ ይላኩ ወይም የቀን ክልል ይምረጡ። ሁለቱም ቀኖች ተካትተዋል።</string>
+    <string name="pdf_report_title">የደም ግፊት ሪፖርት</string>
+    <string name="pdf_report_overview">አጠቃላይ እይታ</string>
+    <string name="pdf_report_charts">ገበታዎች</string>
+    <string name="pdf_report_records">ዝርዝር መዝገቦች</string>
+    <string name="pdf_report_generated">የተፈጠረ፡ %1$s</string>
+    <string name="pdf_report_period">%1$s – %2$s</string>
+    <string name="pdf_report_count">መለኪያዎች፡ %1$s</string>
+    <string name="pdf_report_average_pressure">አማካይ የደም ግፊት፡ %1$s / %2$s mmHg</string>
+    <string name="pdf_report_pressure_range">ሲስቶሊክ፡ %1$s–%2$s · ዳያስቶሊክ፡ %3$s–%4$s mmHg</string>
+    <string name="pdf_report_average_pulse">አማካይ የልብ ምት፡ %1$s በደቂቃ</string>
+    <string name="pdf_report_pulse_range">የልብ ምት ክልል፡ %1$s–%2$s በደቂቃ</string>
+    <string name="pdf_report_time_note">የደም ግፊት መቆጣጠሪያ ጊዜዎች የጊዜ ሰቅ የላቸውም. የጠፉ የመለኪያ ጊዜዎች የተቀበሉትን ቀን ይጠቀማሉ እና በመዝገቦች ውስጥ ምልክት ይደረግባቸዋል.</string>
+    <string name="pdf_report_flags_note">ጠቋሚዎች በደም ግፊት መቆጣጠሪያው ሪፖርት ይደረጋሉ. መደበኛ ያልሆነ የልብ ምት አመልካች ከአትሪያል ፋይብሪሌሽን (AFib) ይለያል።</string>
+    <string name="pdf_report_chart_note">እያንዳንዱ ገበታ ለአንድ ተጠቃሚ መገለጫ እስከ 48 የሚደርሱ የደም ግፊት መለኪያዎችን ይይዛል። የደም ግፊት በ mmHg ውስጥ ይታያል; የመረጃው ሰንጠረዥ የመጀመሪያውን የመለኪያ አሃዶችን ይይዛል.</string>
+    <string name="pdf_report_more_profiles">ተጨማሪ የተጠቃሚ መገለጫዎች በገበታ ገፆች እና በመለኪያ መዝገብ ገፆች ላይ ተዘርዝረዋል።</string>
+    <string name="pdf_report_page">ገጽ %1$s</string>
+    <string name="pdf_report_date">ቀን እና ሰዓት</string>
+    <string name="pdf_report_profile">መገለጫ</string>
+    <string name="pdf_report_pressure">የደም ግፊት</string>
+    <string name="pdf_report_pulse">የልብ ምት</string>
+    <string name="pdf_report_map">አማካይ የደም ግፊት</string>
+    <string name="pdf_report_flags">የደም ግፊት መቆጣጠሪያ አመልካቾች</string>
+    <string name="pdf_report_device">የደም ግፊት መቆጣጠሪያ እና የውሂብ ምንጭ</string>
+    <string name="pdf_report_no_flags">ምንም የመሣሪያ አመልካቾች የሉም</string>
+    <string name="pdf_report_no_pulse">ምንም የ pulse ዋጋዎች የሉም</string>
+    <string name="pdf_report_no_pressure">ምንም የደም ግፊት እሴቶች የሉም</string>
+    <string name="pdf_report_notes">ማስታወሻዎች</string>
+    <string name="pdf_report_number">#</string>
+</resources>

@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="pdf_export">PDF കയറ്റുമതി ചെയ്യുക</string>
+    <string name="pdf_dialog_title">ഒരു PDF ഫയലായി രക്തസമ്മർദ്ദം അളക്കുക</string>
+    <string name="pdf_range_all">എല്ലാ തീയതികളും</string>
+    <string name="pdf_range_custom">തീയതി ശ്രേണി</string>
+    <string name="pdf_from">ആരംഭ തീയതി: %1$s</string>
+    <string name="pdf_to">അവസാന തീയതി: %1$s</string>
+    <string name="pdf_range_invalid">ആരംഭ തീയതി അവസാന തീയതിയിലോ അതിന് മുമ്പോ ആയിരിക്കണം.</string>
+    <string name="pdf_no_readings">തിരഞ്ഞെടുത്ത പ്രൊഫൈലിനായി ഈ തീയതി ശ്രേണിയിൽ അളവുകളൊന്നുമില്ല.</string>
+    <string name="pdf_preparing">PDF തയ്യാറാക്കുന്നു...</string>
+    <string name="pdf_exported">PDF കയറ്റുമതി ചെയ്തു.</string>
+    <string name="pdf_failed">PDF കയറ്റുമതി ചെയ്യാനായില്ല. ദയവായി വീണ്ടും ശ്രമിക്കുക.</string>
+    <string name="pdf_range_help">ഈ പ്രൊഫൈലിനായി എല്ലാ അളവുകളും എക്‌സ്‌പോർട്ടുചെയ്യുക അല്ലെങ്കിൽ ഒരു തീയതി ശ്രേണി തിരഞ്ഞെടുക്കുക. രണ്ട് തീയതികളും ഉൾപ്പെടുത്തിയിട്ടുണ്ട്.</string>
+    <string name="pdf_report_title">രക്തസമ്മർദ്ദ റിപ്പോർട്ട്</string>
+    <string name="pdf_report_overview">അവലോകനം</string>
+    <string name="pdf_report_charts">ചാർട്ടുകൾ</string>
+    <string name="pdf_report_records">വിശദമായ രേഖകൾ</string>
+    <string name="pdf_report_generated">സൃഷ്ടിച്ചത്: %1$s</string>
+    <string name="pdf_report_period">%1$s - %2$s</string>
+    <string name="pdf_report_count">അളവുകൾ: %1$s</string>
+    <string name="pdf_report_average_pressure">ശരാശരി രക്തസമ്മർദ്ദം: %1$s / %2$s mmHg</string>
+    <string name="pdf_report_pressure_range">സിസ്റ്റോളിക്: %1$s–%2$s · ഡയസ്റ്റോളിക്: %3$s–%4$s mmHg</string>
+    <string name="pdf_report_average_pulse">ശരാശരി പൾസ്: %1$s bpm</string>
+    <string name="pdf_report_pulse_range">പൾസ് ശ്രേണി: %1$s–%2$s bpm</string>
+    <string name="pdf_report_time_note">രക്തസമ്മർദ്ദം നിരീക്ഷിക്കുന്ന സമയത്തിന് സമയ മേഖലയില്ല. നഷ്‌ടമായ അളവെടുപ്പ് സമയങ്ങൾ ലഭിച്ച തീയതി ഉപയോഗിക്കുകയും രേഖകളിൽ അടയാളപ്പെടുത്തുകയും ചെയ്യുന്നു.</string>
+    <string name="pdf_report_flags_note">രക്തസമ്മർദ്ദ മോണിറ്ററാണ് സൂചകങ്ങൾ റിപ്പോർട്ട് ചെയ്യുന്നത്. ക്രമരഹിതമായ പൾസ് സൂചകം ഏട്രിയൽ ഫൈബ്രിലേഷനിൽ നിന്ന് (AFib) വേറിട്ടുനിൽക്കുന്നു.</string>
+    <string name="pdf_report_chart_note">ഓരോ ചാർട്ടിലും ഒരു ഉപയോക്തൃ പ്രൊഫൈലിനായി 48 രക്തസമ്മർദ്ദ അളവുകൾ വരെ അടങ്ങിയിരിക്കുന്നു. രക്തസമ്മർദ്ദം mmHg ൽ കാണിക്കുന്നു; ഡാറ്റ ടേബിൾ യഥാർത്ഥ അളവ് യൂണിറ്റുകൾ നിലനിർത്തുന്നു.</string>
+    <string name="pdf_report_more_profiles">അധിക ഉപയോക്തൃ പ്രൊഫൈലുകൾ ചാർട്ട് പേജുകളിലും മെഷർമെൻ്റ് റെക്കോർഡ് പേജുകളിലും ലിസ്റ്റ് ചെയ്തിട്ടുണ്ട്.</string>
+    <string name="pdf_report_page">പേജ് %1$s</string>
+    <string name="pdf_report_date">തീയതിയും സമയവും</string>
+    <string name="pdf_report_profile">പ്രൊഫൈൽ</string>
+    <string name="pdf_report_pressure">രക്തസമ്മർദ്ദം</string>
+    <string name="pdf_report_pulse">പൾസ്</string>
+    <string name="pdf_report_map">ശരാശരി ധമനികളിലെ രക്തസമ്മർദ്ദം</string>
+    <string name="pdf_report_flags">രക്തസമ്മർദ്ദ മോണിറ്റർ സൂചകങ്ങൾ</string>
+    <string name="pdf_report_device">രക്തസമ്മർദ്ദ മോണിറ്ററും ഡാറ്റ ഉറവിടവും</string>
+    <string name="pdf_report_no_flags">ഉപകരണ സൂചകങ്ങളൊന്നുമില്ല</string>
+    <string name="pdf_report_no_pulse">പൾസ് മൂല്യങ്ങളൊന്നും ലഭ്യമല്ല</string>
+    <string name="pdf_report_no_pressure">രക്തസമ്മർദ്ദ മൂല്യങ്ങളൊന്നും ലഭ്യമല്ല</string>
+    <string name="pdf_report_notes">കുറിപ്പുകൾ</string>
+    <string name="pdf_report_number">#</string>
+</resources>

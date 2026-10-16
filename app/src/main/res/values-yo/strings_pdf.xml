@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="pdf_export">Jade PDF</string>
+    <string name="pdf_dialog_title">Ṣe okeere awọn wiwọn titẹ ẹjẹ bi faili PDF kan</string>
+    <string name="pdf_range_all">Gbogbo awọn ọjọ</string>
+    <string name="pdf_range_custom">Iwọn ọjọ</string>
+    <string name="pdf_from">Ọjọ ibẹrẹ: %1$s</string>
+    <string name="pdf_to">Ọjọ ipari: %1$s</string>
+    <string name="pdf_range_invalid">Ọjọ ibẹrẹ gbọdọ jẹ lori tabi ṣaaju ọjọ ipari.</string>
+    <string name="pdf_no_readings">Ko si awọn wiwọn ni sakani ọjọ yii fun profaili ti o yan.</string>
+    <string name="pdf_preparing">Ngbaradi PDF…</string>
+    <string name="pdf_exported">PDF okeere.</string>
+    <string name="pdf_failed">Ko le ṣe okeere PDF. Jọwọ gbiyanju lẹẹkansi.</string>
+    <string name="pdf_range_help">Ṣe okeere gbogbo awọn wiwọn fun profaili yii, tabi yan sakani ọjọ kan. Mejeeji ọjọ wa ninu.</string>
+    <string name="pdf_report_title">Iroyin titẹ ẹjẹ</string>
+    <string name="pdf_report_overview">Akopọ</string>
+    <string name="pdf_report_charts">Awọn aworan atọka</string>
+    <string name="pdf_report_records">Awọn igbasilẹ alaye</string>
+    <string name="pdf_report_generated">Ti ipilẹṣẹ: %1$s</string>
+    <string name="pdf_report_period">%1$s – %2$s</string>
+    <string name="pdf_report_count">Awọn iwọn: %1$s</string>
+    <string name="pdf_report_average_pressure">Apapọ titẹ ẹjẹ: %1$s / %2$s mmHg</string>
+    <string name="pdf_report_pressure_range">Systolic: %1$s–%2$s · Diastolic: %3$s–%4$s mmHg</string>
+    <string name="pdf_report_average_pulse">Apapọ pulse: %1$s bpm</string>
+    <string name="pdf_report_pulse_range">Ibiti-ọkọ: %1$s–%2$s bpm</string>
+    <string name="pdf_report_time_note">Awọn akoko atẹle titẹ ẹjẹ ko ni agbegbe aago. Awọn akoko wiwọn ti o padanu lo ọjọ ti o gba ati ti samisi ninu awọn igbasilẹ.</string>
+    <string name="pdf_report_flags_note">Awọn itọkasi jẹ ijabọ nipasẹ atẹle titẹ ẹjẹ. Atọka pulse alaibamu jẹ iyatọ si atrial fibrillation (AFib).</string>
+    <string name="pdf_report_chart_note">Aworan kọọkan ni to awọn wiwọn titẹ ẹjẹ 48 fun profaili olumulo kan. Iwọn titẹ ẹjẹ han ni mmHg; tabili data da duro awọn atilẹba wiwọn sipo.</string>
+    <string name="pdf_report_more_profiles">Awọn profaili olumulo afikun ti wa ni atokọ lori awọn oju-iwe chart ati lori awọn oju-iwe igbasilẹ wiwọn.</string>
+    <string name="pdf_report_page">Oju-iwe %1$s</string>
+    <string name="pdf_report_date">Ọjọ ati akoko</string>
+    <string name="pdf_report_profile">Profaili</string>
+    <string name="pdf_report_pressure">Ẹjẹ titẹ</string>
+    <string name="pdf_report_pulse">Pulse</string>
+    <string name="pdf_report_map">Apapọ titẹ ẹjẹ iṣọn</string>
+    <string name="pdf_report_flags">Awọn afihan titẹ ẹjẹ titẹ</string>
+    <string name="pdf_report_device">Atẹle titẹ ẹjẹ ati orisun data</string>
+    <string name="pdf_report_no_flags">Ko si awọn itọkasi ẹrọ</string>
+    <string name="pdf_report_no_pulse">Ko si awọn iye pulse to wa</string>
+    <string name="pdf_report_no_pressure">Ko si awọn iye titẹ ẹjẹ ti o wa</string>
+    <string name="pdf_report_notes">Awọn akọsilẹ</string>
+    <string name="pdf_report_number">#</string>
+</resources>

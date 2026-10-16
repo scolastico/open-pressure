@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="pdf_export">Xuất PDF</string>
+    <string name="pdf_dialog_title">Xuất số đo huyết áp dưới dạng tệp PDF</string>
+    <string name="pdf_range_all">Tất cả các ngày</string>
+    <string name="pdf_range_custom">Phạm vi ngày</string>
+    <string name="pdf_from">Ngày bắt đầu: %1$s</string>
+    <string name="pdf_to">Ngày kết thúc: %1$s</string>
+    <string name="pdf_range_invalid">Ngày bắt đầu phải trùng hoặc trước ngày kết thúc.</string>
+    <string name="pdf_no_readings">Không có phép đo nào trong phạm vi ngày này cho cấu hình đã chọn.</string>
+    <string name="pdf_preparing">Đang chuẩn bị PDF…</string>
+    <string name="pdf_exported">Đã xuất PDF.</string>
+    <string name="pdf_failed">Không thể xuất PDF. Vui lòng thử lại.</string>
+    <string name="pdf_range_help">Xuất tất cả số đo cho cấu hình này hoặc chọn phạm vi ngày. Cả hai ngày đều được bao gồm.</string>
+    <string name="pdf_report_title">Báo cáo huyết áp</string>
+    <string name="pdf_report_overview">Tổng quan</string>
+    <string name="pdf_report_charts">Biểu đồ</string>
+    <string name="pdf_report_records">Hồ sơ chi tiết</string>
+    <string name="pdf_report_generated">Đã tạo: %1$s</string>
+    <string name="pdf_report_period">%1$s – %2$s</string>
+    <string name="pdf_report_count">Số đo: %1$s</string>
+    <string name="pdf_report_average_pressure">Huyết áp trung bình: %1$s / %2$s mmHg</string>
+    <string name="pdf_report_pressure_range">Tâm thu: %1$s–%2$s · Tâm trương: %3$s–%4$s mmHg</string>
+    <string name="pdf_report_average_pulse">Nhịp tim trung bình: %1$s bpm</string>
+    <string name="pdf_report_pulse_range">Phạm vi xung: %1$s–%2$s bpm</string>
+    <string name="pdf_report_time_note">Thời gian theo dõi huyết áp không có múi giờ. Thời gian đo còn thiếu sử dụng ngày nhận được và được đánh dấu trong hồ sơ.</string>
+    <string name="pdf_report_flags_note">Các chỉ số được báo cáo bởi máy đo huyết áp. Chỉ báo mạch không đều tách biệt với rung tâm nhĩ (AFib).</string>
+    <string name="pdf_report_chart_note">Mỗi biểu đồ chứa tới 48 phép đo huyết áp cho một hồ sơ người dùng. Huyết áp được thể hiện bằng mmHg; bảng dữ liệu giữ nguyên đơn vị đo ban đầu.</string>
+    <string name="pdf_report_more_profiles">Hồ sơ người dùng bổ sung được liệt kê trên các trang biểu đồ và trên các trang hồ sơ đo lường.</string>
+    <string name="pdf_report_page">Trang %1$s</string>
+    <string name="pdf_report_date">Ngày và giờ</string>
+    <string name="pdf_report_profile">Hồ sơ</string>
+    <string name="pdf_report_pressure">Huyết áp</string>
+    <string name="pdf_report_pulse">Xung</string>
+    <string name="pdf_report_map">Huyết áp động mạch trung bình</string>
+    <string name="pdf_report_flags">Các chỉ số theo dõi huyết áp</string>
+    <string name="pdf_report_device">Máy đo huyết áp và nguồn dữ liệu</string>
+    <string name="pdf_report_no_flags">Không có chỉ báo thiết bị</string>
+    <string name="pdf_report_no_pulse">Không có sẵn giá trị xung</string>
+    <string name="pdf_report_no_pressure">Không có giá trị huyết áp</string>
+    <string name="pdf_report_notes">Ghi chú</string>
+    <string name="pdf_report_number">#</string>
+</resources>

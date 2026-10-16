@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="pdf_export">Fitar da PDF</string>
+    <string name="pdf_dialog_title">Fitar da ma\'aunin jini azaman fayil ɗin PDF</string>
+    <string name="pdf_range_all">Duk kwanakin</string>
+    <string name="pdf_range_custom">Kwanan kwanan wata</string>
+    <string name="pdf_from">Ranar farawa: %1$s</string>
+    <string name="pdf_to">Ƙarshen kwanan wata: %1$s</string>
+    <string name="pdf_range_invalid">Dole ne ranar farawa ta kasance a kan ko kafin ranar ƙarshe.</string>
+    <string name="pdf_no_readings">Babu ma\'auni a cikin wannan kewayon kwanan wata don bayanin martaba da aka zaɓa.</string>
+    <string name="pdf_preparing">Ana shirya PDF…</string>
+    <string name="pdf_exported">An fitar da PDF.</string>
+    <string name="pdf_failed">An kasa fitarwa PDF ɗin. Da fatan za a sake gwadawa.</string>
+    <string name="pdf_range_help">Fitar da duk ma\'auni na wannan bayanin martaba, ko zaɓi kewayon kwanan wata. Dukkanin kwanakin sun haɗa.</string>
+    <string name="pdf_report_title">Rahoton hawan jini</string>
+    <string name="pdf_report_overview">Dubawa</string>
+    <string name="pdf_report_charts">Charts</string>
+    <string name="pdf_report_records">Cikakkun bayanai</string>
+    <string name="pdf_report_generated">An ƙirƙira: %1$s</string>
+    <string name="pdf_report_period">%1$s - %2$s</string>
+    <string name="pdf_report_count">Ma\'auni: %1$s</string>
+    <string name="pdf_report_average_pressure">Matsakaicin hawan jini: %1$s / %2$s mmHg</string>
+    <string name="pdf_report_pressure_range">Systolic: %1$s–%2$s · Diastolic: %3$s–%4$s mmHg</string>
+    <string name="pdf_report_average_pulse">Matsakaicin bugun jini: %1$s bpm</string>
+    <string name="pdf_report_pulse_range">Kewayon bugun jini: %1$s–%2$s bpm</string>
+    <string name="pdf_report_time_note">Lokutan duban hawan jini ba su da yankin lokaci. Lokutan awo da suka ɓace suna amfani da kwanan watan da aka karɓa kuma ana yiwa alama a cikin bayanan.</string>
+    <string name="pdf_report_flags_note">Ana ba da rahoton masu nuni ta hanyar duban hawan jini. Alamar bugun jini mara daidaituwa ta bambanta da fibrillation na atrial (AFib).</string>
+    <string name="pdf_report_chart_note">Kowane ginshiƙi ya ƙunshi har zuwa ma\'aunin hawan jini 48 don bayanin martabar mai amfani ɗaya. Ana nuna hawan jini a cikin mmHg; Teburin bayanan yana riƙe ainihin raka\'o\'in aunawa.</string>
+    <string name="pdf_report_more_profiles">An jera ƙarin bayanan martaba na mai amfani akan shafukan ginshiƙi da kan shafukan rikodin ma\'auni.</string>
+    <string name="pdf_report_page">Shafi %1$s</string>
+    <string name="pdf_report_date">Kwanan wata da lokaci</string>
+    <string name="pdf_report_profile">Bayanan martaba</string>
+    <string name="pdf_report_pressure">Hawan jini</string>
+    <string name="pdf_report_pulse">Pulse</string>
+    <string name="pdf_report_map">Matsakaicin hawan jini na jijiya</string>
+    <string name="pdf_report_flags">Alamun duban hawan jini</string>
+    <string name="pdf_report_device">Kula da hawan jini da tushen bayanai</string>
+    <string name="pdf_report_no_flags">Babu alamun na\'ura</string>
+    <string name="pdf_report_no_pulse">Babu ƙimar bugun jini da ake samu</string>
+    <string name="pdf_report_no_pressure">Babu ƙimar hawan jini da ake samu</string>
+    <string name="pdf_report_notes">Bayanan kula</string>
+    <string name="pdf_report_number">#</string>
+</resources>

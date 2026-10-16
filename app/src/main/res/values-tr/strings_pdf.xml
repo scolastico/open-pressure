@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="pdf_export">PDF\'yi dışa aktar</string>
+    <string name="pdf_dialog_title">Ölçümleri PDF olarak dışa aktar</string>
+    <string name="pdf_range_all">Tüm tarihler</string>
+    <string name="pdf_range_custom">Tarih aralığı</string>
+    <string name="pdf_from">Başlangıç: %1$s</string>
+    <string name="pdf_to">Bitiş: %1$s</string>
+    <string name="pdf_range_invalid">Başlangıç ​​tarihi, bitiş tarihiyle aynı veya ondan önce olmalıdır.</string>
+    <string name="pdf_no_readings">Seçilen profil için bu tarih aralığında ölçüm yok.</string>
+    <string name="pdf_preparing">PDF hazırlanıyor…</string>
+    <string name="pdf_exported">PDF dışa aktarıldı.</string>
+    <string name="pdf_failed">PDF dışa aktarılamadı. Lütfen tekrar deneyin.</string>
+    <string name="pdf_range_help">Bu profilin tüm ölçümlerini dışa aktarın veya bir tarih aralığı seçin. Her iki tarih de dahildir.</string>
+    <string name="pdf_report_title">Kan basıncı raporu</string>
+    <string name="pdf_report_overview">Genel Bakış</string>
+    <string name="pdf_report_charts">Grafikler</string>
+    <string name="pdf_report_records">Ayrıntılı kayıtlar</string>
+    <string name="pdf_report_generated">Oluşturuldu: %1$s</string>
+    <string name="pdf_report_period">%1$s – %2$s</string>
+    <string name="pdf_report_count">Ölçümler: %1$s</string>
+    <string name="pdf_report_average_pressure">Ortalama kan basıncı: %1$s / %2$s mmHg</string>
+    <string name="pdf_report_pressure_range">Sistolik: %1$s–%2$s · Diyastolik: %3$s–%4$s mmHg</string>
+    <string name="pdf_report_average_pulse">Ortalama nabız: %1$s bpm</string>
+    <string name="pdf_report_pulse_range">Darbe aralığı: %1$s–%2$s bpm</string>
+    <string name="pdf_report_time_note">Kan basıncı ölçüm zamanlarının zaman dilimi yoktur. Eksik ölçüm zamanları alınan tarihi kullanır ve kayıtlara işaretlenir.</string>
+    <string name="pdf_report_flags_note">Göstergeler kan basıncı monitörü tarafından raporlanır. Düzensiz nabız göstergesi atriyal fibrilasyondan (AFib) farklıdır.</string>
+    <string name="pdf_report_chart_note">Her grafik, bir kullanıcı profili için 48\'e kadar kan basıncı ölçümü içerir. Kan basıncı mmHg cinsinden gösterilir; veri tablosu orijinal ölçüm birimlerini korur.</string>
+    <string name="pdf_report_more_profiles">Ek kullanıcı profilleri grafik sayfalarında ve ölçüm kaydı sayfalarında listelenir.</string>
+    <string name="pdf_report_page">Sayfa %1$s</string>
+    <string name="pdf_report_date">Tarih ve saat</string>
+    <string name="pdf_report_profile">Profil</string>
+    <string name="pdf_report_pressure">Tansiyon</string>
+    <string name="pdf_report_pulse">Nabız</string>
+    <string name="pdf_report_map">Ortalama arter basıncı</string>
+    <string name="pdf_report_flags">Tansiyon aleti göstergeleri</string>
+    <string name="pdf_report_device">Tansiyon aleti ve kaynak</string>
+    <string name="pdf_report_no_flags">Cihaz göstergesi yok</string>
+    <string name="pdf_report_no_pulse">Nabız değeri mevcut değil</string>
+    <string name="pdf_report_no_pressure">Kan basıncı değeri mevcut değil</string>
+    <string name="pdf_report_notes">Notlar</string>
+    <string name="pdf_report_number">No.</string>
+</resources>

@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="pdf_export">Εξαγωγή PDF</string>
+    <string name="pdf_dialog_title">Εξαγωγή μετρήσεων αρτηριακής πίεσης ως αρχείο PDF</string>
+    <string name="pdf_range_all">Όλες οι ημερομηνίες</string>
+    <string name="pdf_range_custom">Εύρος ημερομηνιών</string>
+    <string name="pdf_from">Ημερομηνία έναρξης: %1$s</string>
+    <string name="pdf_to">Ημερομηνία λήξης: %1$s</string>
+    <string name="pdf_range_invalid">Η ημερομηνία έναρξης πρέπει να είναι κατά ή πριν από την ημερομηνία λήξης.</string>
+    <string name="pdf_no_readings">Δεν υπάρχουν μετρήσεις σε αυτό το εύρος ημερομηνιών για το επιλεγμένο προφίλ.</string>
+    <string name="pdf_preparing">Προετοιμασία PDF…</string>
+    <string name="pdf_exported">Εξαγωγή PDF.</string>
+    <string name="pdf_failed">Δεν ήταν δυνατή η εξαγωγή του PDF. Δοκιμάστε ξανά.</string>
+    <string name="pdf_range_help">Εξαγάγετε όλες τις μετρήσεις για αυτό το προφίλ ή επιλέξτε ένα εύρος ημερομηνιών. Συμπεριλαμβάνονται και οι δύο ημερομηνίες.</string>
+    <string name="pdf_report_title">Αναφορά αρτηριακής πίεσης</string>
+    <string name="pdf_report_overview">Επισκόπηση</string>
+    <string name="pdf_report_charts">Διαγράμματα</string>
+    <string name="pdf_report_records">Αναλυτικά αρχεία</string>
+    <string name="pdf_report_generated">Δημιουργήθηκε: %1$s</string>
+    <string name="pdf_report_period">%1$s – %2$s</string>
+    <string name="pdf_report_count">Μετρήσεις: %1$s</string>
+    <string name="pdf_report_average_pressure">Μέση αρτηριακή πίεση: %1$s / %2$s mmHg</string>
+    <string name="pdf_report_pressure_range">Συστολική: %1$s–%2$s · Διαστολική: %3$s–%4$s mmHg</string>
+    <string name="pdf_report_average_pulse">Μέσος παλμός: %1$s bpm</string>
+    <string name="pdf_report_pulse_range">Εύρος παλμών: %1$s–%2$s bpm</string>
+    <string name="pdf_report_time_note">Οι χρόνοι του πιεσόμετρου δεν έχουν ζώνη ώρας. Οι χρόνοι μέτρησης που λείπουν χρησιμοποιούν την ημερομηνία λήψης και σημειώνονται στα αρχεία.</string>
+    <string name="pdf_report_flags_note">Οι δείκτες αναφέρονται από το πιεσόμετρο. Ένας δείκτης ακανόνιστου παλμού είναι ξεχωριστός από την κολπική μαρμαρυγή (AFib).</string>
+    <string name="pdf_report_chart_note">Κάθε γράφημα περιέχει έως και 48 μετρήσεις αρτηριακής πίεσης για ένα προφίλ χρήστη. Η αρτηριακή πίεση εμφανίζεται σε mmHg. ο πίνακας δεδομένων διατηρεί τις αρχικές μονάδες μέτρησης.</string>
+    <string name="pdf_report_more_profiles">Πρόσθετα προφίλ χρηστών παρατίθενται στις σελίδες γραφήματος και στις σελίδες εγγραφής μετρήσεων.</string>
+    <string name="pdf_report_page">Σελίδα %1$s</string>
+    <string name="pdf_report_date">Ημερομηνία και ώρα</string>
+    <string name="pdf_report_profile">Προφίλ</string>
+    <string name="pdf_report_pressure">Αρτηριακή πίεση</string>
+    <string name="pdf_report_pulse">Σφυγμός</string>
+    <string name="pdf_report_map">Μέση αρτηριακή πίεση</string>
+    <string name="pdf_report_flags">Ενδείξεις παρακολούθησης αρτηριακής πίεσης</string>
+    <string name="pdf_report_device">Πιεσόμετρο και πηγή δεδομένων</string>
+    <string name="pdf_report_no_flags">Δεν υπάρχουν ενδείξεις συσκευής</string>
+    <string name="pdf_report_no_pulse">Δεν υπάρχουν διαθέσιμες τιμές παλμού</string>
+    <string name="pdf_report_no_pressure">Δεν υπάρχουν διαθέσιμες τιμές αρτηριακής πίεσης</string>
+    <string name="pdf_report_notes">Σημειώσεις</string>
+    <string name="pdf_report_number">#</string>
+</resources>

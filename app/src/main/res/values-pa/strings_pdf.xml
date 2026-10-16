@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="pdf_export">PDF ਨਿਰਯਾਤ ਕਰੋ</string>
+    <string name="pdf_dialog_title">ਇੱਕ PDF ਫਾਈਲ ਦੇ ਰੂਪ ਵਿੱਚ ਬਲੱਡ ਪ੍ਰੈਸ਼ਰ ਮਾਪਾਂ ਨੂੰ ਨਿਰਯਾਤ ਕਰੋ</string>
+    <string name="pdf_range_all">ਸਾਰੀਆਂ ਤਾਰੀਖਾਂ</string>
+    <string name="pdf_range_custom">ਮਿਤੀ ਰੇਂਜ</string>
+    <string name="pdf_from">ਸ਼ੁਰੂਆਤੀ ਤਾਰੀਖ: %1$s</string>
+    <string name="pdf_to">ਸਮਾਪਤੀ ਮਿਤੀ: %1$s</string>
+    <string name="pdf_range_invalid">ਸ਼ੁਰੂਆਤੀ ਮਿਤੀ ਸਮਾਪਤੀ ਮਿਤੀ \'ਤੇ ਜਾਂ ਇਸ ਤੋਂ ਪਹਿਲਾਂ ਹੋਣੀ ਚਾਹੀਦੀ ਹੈ।</string>
+    <string name="pdf_no_readings">ਚੁਣੇ ਗਏ ਪ੍ਰੋਫਾਈਲ ਲਈ ਇਸ ਮਿਤੀ ਸੀਮਾ ਵਿੱਚ ਕੋਈ ਮਾਪ ਨਹੀਂ ਹੈ।</string>
+    <string name="pdf_preparing">PDF ਤਿਆਰ ਕੀਤੀ ਜਾ ਰਹੀ ਹੈ...</string>
+    <string name="pdf_exported">PDF ਨਿਰਯਾਤ.</string>
+    <string name="pdf_failed">PDF ਨੂੰ ਨਿਰਯਾਤ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਿਆ। ਕਿਰਪਾ ਕਰਕੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।</string>
+    <string name="pdf_range_help">ਇਸ ਪ੍ਰੋਫਾਈਲ ਲਈ ਸਾਰੇ ਮਾਪ ਨਿਰਯਾਤ ਕਰੋ, ਜਾਂ ਇੱਕ ਮਿਤੀ ਸੀਮਾ ਚੁਣੋ। ਦੋਵੇਂ ਤਾਰੀਖਾਂ ਸ਼ਾਮਲ ਹਨ।</string>
+    <string name="pdf_report_title">ਬਲੱਡ ਪ੍ਰੈਸ਼ਰ ਦੀ ਰਿਪੋਰਟ</string>
+    <string name="pdf_report_overview">ਸੰਖੇਪ ਜਾਣਕਾਰੀ</string>
+    <string name="pdf_report_charts">ਚਾਰਟ</string>
+    <string name="pdf_report_records">ਵਿਸਤ੍ਰਿਤ ਰਿਕਾਰਡ</string>
+    <string name="pdf_report_generated">ਤਿਆਰ ਕੀਤਾ ਗਿਆ: %1$s</string>
+    <string name="pdf_report_period">%1$s – %2$s</string>
+    <string name="pdf_report_count">ਮਾਪ: %1$s</string>
+    <string name="pdf_report_average_pressure">ਔਸਤ ਬਲੱਡ ਪ੍ਰੈਸ਼ਰ: %1$s / %2$s mmHg</string>
+    <string name="pdf_report_pressure_range">ਸਿਸਟੋਲਿਕ: %1$s–%2$s · ਡਾਇਸਟੋਲਿਕ: %3$s–%4$s mmHg</string>
+    <string name="pdf_report_average_pulse">ਔਸਤ ਪਲਸ: %1$s bpm</string>
+    <string name="pdf_report_pulse_range">ਪਲਸ ਰੇਂਜ: %1$s–%2$s bpm</string>
+    <string name="pdf_report_time_note">ਬਲੱਡ ਪ੍ਰੈਸ਼ਰ ਮਾਨੀਟਰ ਦੇ ਸਮੇਂ ਦਾ ਕੋਈ ਸਮਾਂ ਖੇਤਰ ਨਹੀਂ ਹੁੰਦਾ ਹੈ। ਗੁੰਮ ਹੋਏ ਮਾਪ ਦੇ ਸਮੇਂ ਪ੍ਰਾਪਤ ਕੀਤੀ ਮਿਤੀ ਦੀ ਵਰਤੋਂ ਕਰਦੇ ਹਨ ਅਤੇ ਰਿਕਾਰਡਾਂ ਵਿੱਚ ਚਿੰਨ੍ਹਿਤ ਹੁੰਦੇ ਹਨ।</string>
+    <string name="pdf_report_flags_note">ਸੂਚਕਾਂ ਨੂੰ ਬਲੱਡ ਪ੍ਰੈਸ਼ਰ ਮਾਨੀਟਰ ਦੁਆਰਾ ਰਿਪੋਰਟ ਕੀਤਾ ਜਾਂਦਾ ਹੈ. ਇੱਕ ਅਨਿਯਮਿਤ ਨਬਜ਼ ਸੂਚਕ ਐਟਰੀਅਲ ਫਾਈਬਰਿਲੇਸ਼ਨ (AFib) ਤੋਂ ਵੱਖਰਾ ਹੁੰਦਾ ਹੈ।</string>
+    <string name="pdf_report_chart_note">ਹਰੇਕ ਚਾਰਟ ਵਿੱਚ ਇੱਕ ਉਪਭੋਗਤਾ ਪ੍ਰੋਫਾਈਲ ਲਈ 48 ਤੱਕ ਬਲੱਡ ਪ੍ਰੈਸ਼ਰ ਮਾਪ ਹੁੰਦੇ ਹਨ। ਬਲੱਡ ਪ੍ਰੈਸ਼ਰ mmHg ਵਿੱਚ ਦਿਖਾਇਆ ਗਿਆ ਹੈ; ਡਾਟਾ ਸਾਰਣੀ ਮੂਲ ਮਾਪ ਇਕਾਈਆਂ ਨੂੰ ਬਰਕਰਾਰ ਰੱਖਦੀ ਹੈ।</string>
+    <string name="pdf_report_more_profiles">ਵਾਧੂ ਉਪਭੋਗਤਾ ਪ੍ਰੋਫਾਈਲਾਂ ਨੂੰ ਚਾਰਟ ਪੰਨਿਆਂ ਅਤੇ ਮਾਪ ਰਿਕਾਰਡ ਪੰਨਿਆਂ \'ਤੇ ਸੂਚੀਬੱਧ ਕੀਤਾ ਗਿਆ ਹੈ।</string>
+    <string name="pdf_report_page">ਪੰਨਾ %1$s</string>
+    <string name="pdf_report_date">ਮਿਤੀ ਅਤੇ ਸਮਾਂ</string>
+    <string name="pdf_report_profile">ਪ੍ਰੋਫਾਈਲ</string>
+    <string name="pdf_report_pressure">ਬਲੱਡ ਪ੍ਰੈਸ਼ਰ</string>
+    <string name="pdf_report_pulse">ਨਬਜ਼</string>
+    <string name="pdf_report_map">ਔਸਤ ਧਮਣੀਦਾਰ ਬਲੱਡ ਪ੍ਰੈਸ਼ਰ</string>
+    <string name="pdf_report_flags">ਬਲੱਡ ਪ੍ਰੈਸ਼ਰ ਮਾਨੀਟਰ ਸੂਚਕ</string>
+    <string name="pdf_report_device">ਬਲੱਡ ਪ੍ਰੈਸ਼ਰ ਮਾਨੀਟਰ ਅਤੇ ਡਾਟਾ ਸਰੋਤ</string>
+    <string name="pdf_report_no_flags">ਕੋਈ ਡਿਵਾਈਸ ਸੂਚਕ ਨਹੀਂ</string>
+    <string name="pdf_report_no_pulse">ਕੋਈ ਪਲਸ ਮੁੱਲ ਉਪਲਬਧ ਨਹੀਂ ਹਨ</string>
+    <string name="pdf_report_no_pressure">ਕੋਈ ਬਲੱਡ ਪ੍ਰੈਸ਼ਰ ਮੁੱਲ ਉਪਲਬਧ ਨਹੀਂ ਹੈ</string>
+    <string name="pdf_report_notes">ਨੋਟਸ</string>
+    <string name="pdf_report_number">#</string>
+</resources>

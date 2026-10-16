@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pdf_export">Export PDF</string>
+    <string name="pdf_dialog_title">Export readings as PDF</string>
+    <string name="pdf_range_all">All time</string>
+    <string name="pdf_range_custom">Date range</string>
+    <string name="pdf_from">From: %1$s</string>
+    <string name="pdf_to">To: %1$s</string>
+    <string name="pdf_range_invalid">The start date must be on or before the end date.</string>
+    <string name="pdf_no_readings">No readings in this date range for the selected profile.</string>
+    <string name="pdf_preparing">Preparing PDF…</string>
+    <string name="pdf_exported">PDF exported.</string>
+    <string name="pdf_failed">Could not export the PDF. Please try again.</string>
+    <string name="pdf_range_help">Export all readings for this profile, or choose a date range. Both dates are included.</string>
+</resources>
