@@ -11,7 +11,7 @@ android {
         minSdk 26
         targetSdk 35
         testInstrumentationRunner 'org.openpressure.app.pdf.PdfReportInstrumentation'
-        versionCode 2
+        versionCode 4
         versionName '1.0.0'
     }
     compileOptions { sourceCompatibility JavaVersion.VERSION_17; targetCompatibility JavaVersion.VERSION_17 }
