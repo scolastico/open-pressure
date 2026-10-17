@@ -1,1 +1,4 @@
 # One fixture name per line, relative to this directory without the .fixture suffix.
+hem-7156t/connect-read-history
+hem-7156t/pair
+hem-7156t-aap/connect-read-history

@@ -35,6 +35,8 @@ public final class Fixture {
     public LocalDateTime time;
     public ZoneId zone=ZoneId.of("UTC");
     public byte[] key;
+    /** "connect" reconnects with a saved key; "pair" registers the key first. */
+    public String flow="connect";
     public byte[] random=new byte[0];
     public final Map<String,List<UUID>> aliases=new LinkedHashMap<>();
     private final List<Step> steps=new ArrayList<>();
@@ -119,6 +121,9 @@ public final class Fixture {
                 }
                 break;
             }
+            case "flow":
+                if(!rest.equals("connect") && !rest.equals("pair")) throw new IllegalArgumentException("flow must be connect or pair");
+                flow=rest; break;
             case "key": key=hex(rest); if(key.length!=16) throw new IllegalArgumentException("key must be 16 bytes"); break;
             case "random": random=hex(rest); break;
             case "alias": {

@@ -25,8 +25,13 @@ public final class FixtureCursor {
     private int position;
     private Outcome failure;
 
-    public FixtureCursor(Fixture fixture,Fixture.Client client) {
-        this.fixture=fixture; steps=fixture.steps(client);
+    public FixtureCursor(Fixture fixture,Fixture.Client client) { this(fixture,client,java.util.Set.of()); }
+    /** Steps on ignored aliases are outside this client's reach (e.g. the app's clock for a protocol-only replay). */
+    public FixtureCursor(Fixture fixture,Fixture.Client client,java.util.Set<String> ignoredAliases) {
+        this.fixture=fixture;
+        List<Fixture.Step> kept=new ArrayList<>();
+        for(Fixture.Step step:fixture.steps(client)) if(!ignoredAliases.contains(step.alias)) kept.add(step);
+        steps=Collections.unmodifiableList(kept);
     }
 
     /** Null while channel parts are pending or the frame matched; otherwise the terminal divergence. */
