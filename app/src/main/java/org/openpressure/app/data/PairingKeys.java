@@ -33,6 +33,7 @@ public final class PairingKeys implements VendorPairingKeys.Backend {
         byte[] packed=new byte[iv.length+encrypted.length]; System.arraycopy(iv,0,packed,0,iv.length); System.arraycopy(encrypted,0,packed,iv.length,encrypted.length);
         if(!prefs.edit().putString(address,Base64.encodeToString(packed,Base64.NO_WRAP)).commit()) throw new GeneralSecurityException("Could not persist pairing key");
     }
+    @Override public boolean contains(String address) { return prefs.contains(address); }
     public void forget(String address) {
         SharedPreferences.Editor edit=prefs.edit().remove(address);
         // A saved monitor owns all of its model-scoped vendor keys and provisioning candidates.

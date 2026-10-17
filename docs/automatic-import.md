@@ -1,6 +1,6 @@
 # Automatic imports
 
-OpenPressure listens for changed X7 record sequence/count metadata in Bluetooth advertisements, then opens a bounded history transfer. The advertisements contain metadata, not pressure/pulse values. It does not continuously poll GATT for measurements or implement live WLP streaming. The original-app class/method evidence is in the [protocol reference](protocol.md#automatic-transfer-source-evidence).
+OpenPressure listens for changed record sequence/count metadata in Omron Bluetooth advertisements, then opens a bounded history transfer. The advertisements contain metadata, not pressure/pulse values. It does not continuously poll GATT for measurements or implement live WLP streaming. The original-app class/method evidence is in the [protocol reference](protocol.md#automatic-transfer-source-evidence).
 
 ## Choose a mode
 
@@ -13,9 +13,13 @@ Open **Automatic import settings** from Overview or Devices.
 | In the background with a notification | Foreground service listens after leaving the app; persistent notification offers Stop automatic imports |
 | Android companion | Android-approved presence observation for each saved cuff; no persistent foreground-service notification |
 
-Notification mode is available on Android 8–9 and 12+. Android 10–11 background scans need separate background location permission, which OpenPressure does not request. Companion mode requires Android 12+ and companion-device support. Other monitor families retain manual operation pending model-specific implementation/validation.
+Notification mode is available on Android 8–9 and 12+. Android 10–11 background scans need separate background location permission, which OpenPressure does not request. Companion mode requires Android 12+ and companion-device support.
 
-Only saved X7 identities with known plain manufacturer data and an existing Android bond can start an automatic connection. The service rechecks the actual DIS model and WLP layout. Pairing/streaming advertisements are ignored. Encrypted pairing, key exchange and profile registration cannot start automatically.
+## Eligible monitors
+
+Automatic imports cover saved monitors with a read-only history path: the X7 identities and the verified [vendor-memory models](compatibility.md). A saved monitor must have an existing Android bond and advertise a plain type 1, 2 or 6 record summary. Models that use an application key also need the key saved by an earlier **Pair**. The service rechecks the actual DIS model and channel layout on every connection. Pairing and streaming advertisements are ignored.
+
+Standard Bluetooth Blood Pressure monitors and encrypted X7 sessions stay manual. An encrypted X7 needs its application handshake and on-cuff authorization, which are never started in the background. Pairing, key programming and profile registration cannot start automatically. The original app expects record summaries from its other monitors too, but only the tested X7's advertisement has been captured; see the [source evidence](protocol.md#automatic-transfer-source-evidence).
 
 ## Android companion approval
 
@@ -31,9 +35,9 @@ Android behavior references: [background BLE guidance](https://developer.android
 
 ## Transfers and retries
 
-Changed per-bank sequence/count metadata triggers one transfer: read the fresh 68-byte settings/index image, populated history slots in both banks, then END. No registration, clock write, key programming, unread-counter reset, deletion or firmware command is sent. Unknown and unused memory regions are not probed. Clock-unset/forced-transfer flags alone do not cause settings writes or repeated imports.
+Changed per-bank sequence/count metadata triggers one transfer. An X7 reads its fresh 68-byte settings/index image and the populated history slots in both banks. A vendor-memory model unlocks with its saved application key where it uses one, as **Connect** does, and reads its full mapped banks. Both then send END. No registration, clock write, key programming, unread-counter reset, deletion or firmware command is sent. Unknown and unused memory regions are not probed. Clock-unset/forced-transfer flags alone do not cause settings writes or repeated imports.
 
-Only a full expected record count and validated END checkpoint the advertised revision. Completed revisions persist across restart; duplicate advertisements and transient flags do not retrigger them. Failed imports have a one-minute device cooldown; scan failures re-arm listening after one minute. Partial validated readings remain saved and deduplicate on retry. Manual Scan or Connect takes priority over automatic work. Expected cuff shutdown after a validated END preserves the completed result.
+Only a validated END after every expected record checkpoints the advertised revision. For an X7 that means the indexed record count; for a vendor-memory model, every mapped slot read without a rejected record. Completed revisions persist across restart; duplicate advertisements and transient flags do not retrigger them. Failed imports have a one-minute device cooldown; scan failures re-arm listening after one minute. Partial validated readings remain saved and deduplicate on retry. Manual Scan or Connect takes priority over automatic work. Expected cuff shutdown after a validated END preserves the completed result.
 
 ## New-reading alerts
 
@@ -49,4 +53,4 @@ SQLite deletion receipts retain SHA-256 fingerprints for locally removed reading
 
 ## Validation scope
 
-The user reports version 0.1.13 working and Android companion approval is confirmed. Detailed captured evidence establishes manual history/registration, rather than every automatic/background lifecycle path. Software checks cover advertisement parsing, revision policy, presence tracking, notifications and deletion receipts. Follow the [hardware checklist](hardware-validation.md#automatic-imports-and-phone-controls) to check measurement arrival, restart, power-management and permission behavior on a real phone/cuff.
+The user reports version 0.1.13 working and Android companion approval is confirmed. Detailed captured evidence establishes manual X7 history/registration, rather than every automatic/background lifecycle path. Automatic imports for vendor-memory models are implemented from source evidence and tested in software only; whether each model advertises the expected record summary needs a physical monitor. Software checks cover advertisement parsing, revision policy, the vendor saved-key transfer and checkpoint, presence tracking, notifications and deletion receipts. Follow the [hardware checklist](hardware-validation.md#automatic-imports-and-phone-controls) to check measurement arrival, restart, power-management and permission behavior on a real phone/cuff.

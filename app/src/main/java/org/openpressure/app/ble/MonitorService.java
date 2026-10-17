@@ -196,7 +196,7 @@ public final class MonitorService extends Service {
         if(destroying) return;
         int mode=AutoImportSettings.getMode(this);
         Map<String,String[]> saved=new LinkedHashMap<>();
-        for(String[] device:store.devices()) if(X7Record.supportsModel(device[2])) saved.put(device[0],device);
+        for(String[] device:store.devices()) if(AutoImportTracker.supportsModel(device[2])) saved.put(device[0],device);
         for(String removed:new HashSet<>(automaticDevices.keySet())) if(!saved.containsKey(removed)) {
             automaticTracker.restore(removed,null); companionPresent.remove(removed);
             getSharedPreferences("automatic-checkpoints",MODE_PRIVATE).edit().remove(removed).apply();
@@ -209,7 +209,7 @@ public final class MonitorService extends Service {
             stopAutomaticScan(); automaticStatus("Automatic imports are off.");
             if(automaticConnection) disconnect(); stopIdleService(); return;
         }
-        if(saved.isEmpty()) { stopAutomaticScan(); automaticStatus("Pair or connect a supported X7 first."); stopIdleService(); return; }
+        if(saved.isEmpty()) { stopAutomaticScan(); automaticStatus("Pair or connect a supported monitor first."); stopIdleService(); return; }
         if(!automaticPermissions()) { stopAutomaticScan(); automaticStatus("Open the app and grant Bluetooth access to enable automatic imports."); stopIdleService(); return; }
         if(!adapter.isEnabled()) { stopAutomaticScan(); automaticStatus("Waiting for Bluetooth to be enabled."); return; }
         if(notificationAllowed && (visible || foregroundActive)) {
@@ -221,7 +221,7 @@ public final class MonitorService extends Service {
         else if(gatt==null && foregroundActive && !scanning) { stopForeground(STOP_FOREGROUND_REMOVE); foregroundActive=false; stopSelf(); }
         if(!watch) { stopAutomaticScan(); automaticStatus(mode==AutoImportSettings.COMPANION?"Waiting for an Android companion-device presence notification.":"Automatic imports resume when the app is visible."); stopIdleService(); return; }
         if(gatt!=null || scanning || x7Bonding!=null || pendingConnection!=null || dumpSaving) {
-            stopAutomaticScan(); automaticStatus(automaticConnection?"Importing X7 history automatically…":"Automatic imports wait for the current operation to finish."); return;
+            stopAutomaticScan(); automaticStatus(automaticConnection?"Importing history automatically…":"Automatic imports wait for the current operation to finish."); return;
         }
         if(SystemClock.elapsedRealtime()<automaticRetryAt) {
             automaticStatus("Bluetooth scan failed; automatic listening will retry shortly.");
@@ -233,7 +233,7 @@ public final class MonitorService extends Service {
             filters.add(new ScanFilter.Builder().setDeviceAddress(target).build()); addresses.add(target);
             if(automaticTracker.completedRevision(target)==null) automaticTracker.restore(target,getSharedPreferences("automatic-checkpoints",MODE_PRIVATE).getString(target,null));
         }
-        if(filters.isEmpty()) { stopAutomaticScan(); automaticStatus("Associate a saved X7 in Automatic imports settings for background access."); return; }
+        if(filters.isEmpty()) { stopAutomaticScan(); automaticStatus("Associate a saved monitor in Automatic imports settings for background access."); return; }
         Collections.sort(addresses); String filterKey=mode+":"+visible+":"+addresses;
         if(autoWatching && filterKey.equals(automaticFilterKey)) return;
         stopAutomaticScan();
@@ -252,7 +252,7 @@ public final class MonitorService extends Service {
         try {
             automaticScan=callback; automaticFilterKey=filterKey; autoWatching=true;
             scanner.startScan(filters,new ScanSettings.Builder().setScanMode(visible?ScanSettings.SCAN_MODE_BALANCED:ScanSettings.SCAN_MODE_LOW_POWER).build(),callback);
-            automaticStatus("Listening for new X7 measurement advertisements."); changed();
+            automaticStatus("Listening for new measurement advertisements."); changed();
         } catch(RuntimeException ex) {
             stopAutomaticScan(); automaticRetryAt=SystemClock.elapsedRealtime()+60000;
             automaticStatus("Could not start automatic Bluetooth listening. Check Bluetooth permissions.");
@@ -275,6 +275,9 @@ public final class MonitorService extends Service {
         ScanRecord record=result.getScanRecord(); if(record==null) return;
         byte[] manufacturer=record.getManufacturerSpecificData(0x020e);
         if(X7Security.fromManufacturerPayload(manufacturer)!=X7Security.Mode.PLAIN || result.getDevice().getBondState()!=BluetoothDevice.BOND_BONDED) return;
+        // Automatic Connect may only unlock with a key saved by an explicit Pair.
+        VendorMemoryModel vendor=VendorMemoryModel.identify(saved[2]);
+        if(vendor!=null && vendor.legacyUnlock && !savedVendorKey(target,vendor)) return;
         OmronAdvertisement advertisement;
         try { advertisement=OmronAdvertisement.parseManufacturerPayload(manufacturer); } catch(IllegalArgumentException ignored) { return; }
         AutoImportTracker.Attempt attempt=automaticTracker.offer(target,advertisement,SystemClock.elapsedRealtime());
@@ -287,6 +290,10 @@ public final class MonitorService extends Service {
             else automaticTracker.cancel(SystemClock.elapsedRealtime());
             automaticStatus("Automatic import could not start. Check Bluetooth access and reconnect manually if needed.");
         }
+    }
+    private boolean savedVendorKey(String target,VendorMemoryModel vendor) {
+        try { return new VendorPairingKeys(keys,target,vendor.id).hasCandidate(); }
+        catch(Exception ex) { return false; }
     }
     private final BroadcastReceiver adapterReceiver=new BroadcastReceiver() {
         @Override public void onReceive(Context context,Intent intent) { refreshAutomaticImports(); }
@@ -332,7 +339,8 @@ public final class MonitorService extends Service {
         if(manufacturer!=null) try {
             OmronAdvertisement a=OmronAdvertisement.parseManufacturerPayload(manufacturer);
             int count=0; for(OmronAdvertisement.User u:a.users) count+=u.recordCount;
-            d.metadata=a.users.size()+" users · "+count+" advertised records"+(a.pairingMode?" · Pairing mode":"")+(a.clockUnset?" · Clock unset":"");
+            d.metadata=a.hasRecordCounts()?a.users.size()+" users · "+count+" advertised records":a.users.isEmpty()?"Omron device · No record summary":a.users.size()+" users";
+            d.metadata+=(a.pairingMode?" · Pairing mode":"")+(a.clockUnset?" · Clock unset":"");
         } catch(IllegalArgumentException ignored) { d.metadata="Omron device · Advertisement variant"; }
         X7Security.Mode advertised=X7Security.fromManufacturerPayload(manufacturer);
         if(advertised!=X7Security.Mode.UNKNOWN) {
@@ -457,7 +465,7 @@ public final class MonitorService extends Service {
         profile=ProtocolProfile.select(bp,gatt.getService(Uuids.OPTIONAL)!=null,vendor!=null,handshakeCapable,wlpChannels);
         store.packet(address,"services",new byte[0],services.toString());
         if(profile==ProtocolProfile.LEGACY_WLP) { identifyWlp(); return; }
-        if(automaticConnection) { fail("Automatic imports currently require the verified X7 WLP profile. Connect manually to use this monitor."); return; }
+        if(automaticConnection) { fail("Automatic imports require a verified Omron WLP monitor. Connect manually to use this monitor."); return; }
         if(profile==ProtocolProfile.UNSUPPORTED) { fail("The device exposes no supported blood pressure profile. Export diagnostics to inspect its services."); return; }
         if(profile==ProtocolProfile.STP) {
             state("Establishing secure session…","Pairing protocol implemented independently in Java.");
@@ -516,7 +524,6 @@ public final class MonitorService extends Service {
             if(X7Record.supportsModel(verifiedModel)) { identifyX7(); return; }
             vendorModel=VendorMemoryModel.identify(verifiedModel);
             if(vendorModel==null) { fail("WLP model is not enabled: "+verifiedModel+". No memory commands were sent."); return; }
-            if(automaticConnection) { fail("Automatic imports are currently enabled only for the tested X7. Connect this monitor manually."); return; }
             configureVendorMemory();
         });
     }
@@ -597,6 +604,9 @@ public final class MonitorService extends Service {
         subscribe(vendorRx.get(index),() -> {
             if(index==0) {
                 int bond=gatt.getDevice().getBondState();
+                if(bond!=BluetoothDevice.BOND_BONDED && automaticConnection) {
+                    fail("Automatic import requires the existing Android bond. Pair manually first; no key or memory commands were sent."); return;
+                }
                 if(bond!=BluetoothDevice.BOND_BONDED) {
                     vendorWaitingBond=true;
                     state("Pair on your phone","Confirm Android's Bluetooth request. Monitor history and settings have not been changed.");
@@ -645,7 +655,7 @@ public final class MonitorService extends Service {
         ready=true; canHistory=true; canTime=timeCharacteristic!=null && writable(timeCharacteristic); canDump=false; hasUserControl=false;
         store.remember(address,connectedName,verifiedModel,user);
         // Do not finish a pairing-only transmission: some cuffs power down on the first END.
-        if(pairingRequested) { beginVendorHistory(); return; }
+        if(pairingRequested || automaticConnection) { beginVendorHistory(); return; }
         state("Vendor history available","Ready to import history. A supported clock update will be attempted before the session ends; unread counters and calibration data are retained.");
         readInformation();
     }
@@ -697,7 +707,7 @@ public final class MonitorService extends Service {
                         BloodPressure reading=vendorModel.parse(raw,range.user);
                         if(reading!=null) {
                             receivedInTransfer++;
-                            if(acceptReading(reading,raw,"vendor-history",range.user,false)) addedInTransfer++;
+                            if(acceptReading(reading,raw,"vendor-history",range.user,automaticConnection)) { addedInTransfer++; readingNotifications.readingInserted(); }
                         }
                     } catch(IllegalArgumentException ex) {
                         wlpRejected++; store.packet(address,"vendor-record",raw,"Rejected "+vendorModel.id+" bank "+range.user+": "+ex.getMessage());
@@ -717,6 +727,8 @@ public final class MonitorService extends Service {
     }
     private void syncVendorClock() {
         vendorClockAttempted=true;
+        // Automatic imports are read-only, so the optional clock write belongs to explicit sessions.
+        if(automaticConnection) { sendVendorRead(); return; }
         if(!canTime) {
             clockUpdate=ClockUpdate.SKIPPED;
             vendorClockResult="Clock sync skipped: no supported time characteristic.";
@@ -738,9 +750,24 @@ public final class MonitorService extends Service {
         sessionEndUnconfirmed=!ended;
         vendorSessionEnded=ended; sessionFinished=true; ready=false; canHistory=false; canTime=false; historyRunning=false;
         storedCount=receivedInTransfer;
+        finishAutomaticAttempt(ended && wlpRejected==0);
         state(wlpRejected==0?"History transfer complete":"History transfer incomplete",
             addedInTransfer+" new readings accepted · "+receivedInTransfer+" decoded · "+wlpRejected+" rejected slots. Erased slots were skipped. "+vendorClockResult+
             (ended?" The monitor acknowledged END.":" Session END was not acknowledged.")+" Reconnect for another transfer.");
+        if(automaticConnection && ended) {
+            // Close an automatic link if the monitor keeps it open, so listening can resume.
+            long session=generation;
+            handler.postDelayed(() -> { if(session==generation && automaticConnection && vendorSessionEnded) closeFinishedWlp(); },4000);
+        }
+    }
+    /** Only a complete validated transfer checkpoints its advertised revision; the alert is posted once. */
+    private void finishAutomaticAttempt(boolean completed) {
+        if(automaticConnection && automaticAttempt!=null) {
+            if(automaticTracker.finish(automaticAttempt,completed,SystemClock.elapsedRealtime()) && completed)
+                getSharedPreferences("automatic-checkpoints",MODE_PRIVATE).edit().putString(automaticAttempt.address,automaticAttempt.revision).apply();
+            automaticAttempt=null;
+        }
+        notifyAutomaticReadings();
     }
 
     private static X7Bonding.Bond bondState(int state) {
@@ -923,14 +950,8 @@ public final class MonitorService extends Service {
                     dumpRunning=false; saveDump(bytes,true,"");
                     state("EEPROM read complete",bytes.length+" verified bytes received and the cuff acknowledged END. Saving the local JSON export… Wake and reconnect the cuff for another transfer.");
                 } else {
-                    boolean completed=wlpRejected==0 && receivedInTransfer==storedCount;
-                    if(automaticConnection && automaticAttempt!=null) {
-                        if(automaticTracker.finish(automaticAttempt,completed,SystemClock.elapsedRealtime()) && completed)
-                            getSharedPreferences("automatic-checkpoints",MODE_PRIVATE).edit().putString(automaticAttempt.address,automaticAttempt.revision).apply();
-                        automaticAttempt=null;
-                    }
                     historyRunning=false;
-                    notifyAutomaticReadings();
+                    finishAutomaticAttempt(wlpRejected==0 && receivedInTransfer==storedCount);
                     state(wlpRejected==0 && receivedInTransfer==storedCount?"History transfer complete":"History transfer incomplete",addedInTransfer+" new readings accepted · "+receivedInTransfer+" / "+storedCount+" decoded · "+wlpRejected+" rejected slots. Device counters were retained. The cuff acknowledged END; wake and reconnect it for another transfer.");
                 }
                 if(automaticConnection) {

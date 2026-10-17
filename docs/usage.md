@@ -30,7 +30,7 @@ The base HEM-7156T shares the HEM-7155T history layout. Scanning recognizes mixe
 
 Before ending the history session, the app attempts phone-local clock sync if the monitor exposes a supported dedicated time characteristic. Missing support or a failed clock update does not stop the import; the result appears in the summary. If the connection closes or session finalization fails after all history arrives, the readings remain imported and the summary explicitly says END was not acknowledged. A disconnect earlier in the transfer remains an interrupted import.
 
-Background automatic imports, raw EEPROM dumps and EEPROM-based clock/counter changes are not enabled for these vendor paths. A monitor without a supported time characteristic skips clock sync rather than writing its EEPROM. Dedicated standard-profile time/history controls remain available when that standard profile is selected.
+After a successful Pair, these models can also use [automatic imports](automatic-import.md), which skip the clock update. Raw EEPROM dumps and EEPROM-based clock/counter changes are not enabled for these vendor paths. A monitor without a supported time characteristic skips clock sync rather than writing its EEPROM. Dedicated standard-profile time/history controls remain available when that standard profile is selected.
 
 ## History and local data
 

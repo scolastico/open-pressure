@@ -7,7 +7,7 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import org.openpressure.app.PressureApp;
-import org.openpressure.protocol.X7Record;
+import org.openpressure.protocol.AutoImportTracker;
 import java.util.*;
 
 /** Android association grants presence callbacks; it never registers a user on the cuff. */
@@ -76,7 +76,7 @@ public final class CompanionLinks {
     }
     public List<String[]> knownMonitors() {
         List<String[]> result=new ArrayList<>();
-        for(String[] row:((PressureApp)context).store().devices()) if(X7Record.supportsModel(row[2])) result.add(row);
+        for(String[] row:((PressureApp)context).store().devices()) if(AutoImportTracker.supportsModel(row[2])) result.add(row);
         return result;
     }
     public String knownAddress(String address) {
@@ -97,7 +97,7 @@ public final class CompanionLinks {
     }
     public AssociationRequest request(String address) {
         String saved=knownAddress(address);
-        if(!available() || saved==null) throw new IllegalArgumentException("Select a saved, verified X7 monitor");
+        if(!available() || saved==null) throw new IllegalArgumentException("Select a saved, verified monitor");
         // CDM checks existing bonds only for an address-based BluetoothDeviceFilter,
         // even for LE-only peripherals. A BLE-only request always needs a fresh scan.
         BluetoothDeviceFilter bonded=new BluetoothDeviceFilter.Builder().setAddress(saved).build();

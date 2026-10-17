@@ -35,7 +35,7 @@ No account to create, no subscription, and no cloud service required. Your readi
 | **Share a report** | Export a PDF with charts, summaries and detailed readings, or a CSV file for a spreadsheet. Choose the person and date range you need. |
 | **Keep people separate** | Use the monitor's User 1 / User 2 choices, or create [named profiles](docs/virtual-users.md) and choose who each new reading belongs to. |
 | **Set measurement reminders** | Choose times and weekdays for [phone notifications](docs/reminders.md), with an option to skip a reminder if you measured recently. |
-| **Import automatically** | The tested X7 has [automatic import options](docs/automatic-import.md), including background modes. Availability and timing depend on Android settings and the monitor. |
+| **Import automatically** | Supported Omron monitors have [automatic import options](docs/automatic-import.md), including background modes; only the X7 has been tested. Availability and timing depend on Android settings and the monitor. |
 | **Connect to other health apps** | Optionally send blood pressure readings for your selected person to [Health Connect](docs/health-connect.md). Off by default; pulse, notes and AFib flags are excluded. |
 | **Use your own server** | Advanced users can enable [HTTP forwarding](docs/http-forwarding.md) to a server they choose, with an option to keep new readings out of local history. Off by default. |
 | **Choose your language** | The interface includes [52 language and region options](docs/localization.md). Translation improvements are welcome. |
@@ -47,6 +47,7 @@ No account to create, no subscription, and no cloud service required. Your readi
 | Monitor / model number | Status in OpenPressure |
 | --- | --- |
 | **Omron X7 Smart AFib — HEM-7380T1-EOSL** | **Tested:** initial pairing, clock setup and manual history import confirmed on this exact model. |
+| Omron X7 Smart AFib — HEM-7380T1-EBK | Same history import as EOSL; **not yet tested on a physical monitor in OpenPressure**. Profile registration is limited to EOSL. |
 | Omron HEM-7150T, HEM-7155T, HEM-7156T | History import implemented; **not yet tested on physical monitors in OpenPressure**. |
 | Omron HEM-7322T, HEM-7342T, HEM-7361T | History import implemented; **not yet tested on physical monitors in OpenPressure**. |
 | Omron HEM-7530T, HEM-7600T, HEM-6232T | History import implemented; **not yet tested on physical monitors in OpenPressure**. |
@@ -54,7 +55,7 @@ No account to create, no subscription, and no cloud service required. Your readi
 | Other monitors using the standard Bluetooth Blood Pressure Service | Support implemented and tested in software; **physical compatibility unconfirmed**. |
 | Other models or regional variants | Compatibility is not established. Unknown monitor memory layouts are blocked. |
 
-The additional ten Omron models above support manual history import paths; background automatic imports are not enabled for those paths. Accepted regional model numbers and details about each connection method are in the [full compatibility guide](docs/compatibility.md) and [model reference](docs/omblepy-comparison.md#accepted-identities-and-record-handling).
+The additional Omron models above support manual history import and, once paired, automatic imports; neither has been confirmed on those monitors. Accepted regional model numbers and details about each connection method are in the [full compatibility guide](docs/compatibility.md) and [model reference](docs/omblepy-comparison.md#accepted-identities-and-record-handling).
 
 > **OpenPressure is experimental.** Incorrect operation or device damage is possible; the app asks you to accept this before first use. Confirmed results apply to the exact model and operations listed above. See the [safety guide](docs/safety.md) for details. OpenPressure is independent and is not affiliated with Omron.
 

@@ -12,6 +12,8 @@ public final class AutoImportTest {
         failuresAndCancellationRetryAfterCooldown();
         staleAttemptsCannotCompleteNewImports();
         invalidAdvertisementsNeverClaimAnImport();
+        typesWithoutRecordCountsNeverClaimAnImport();
+        automaticImportsRequireAVerifiedReadMap();
         return checks;
     }
     private static void capturedAdvertisement() {
@@ -108,6 +110,36 @@ public final class AutoImportTest {
         check(tracker.offer("A",advertisement("0601000001630000"),0)==null,"sequence and count must describe the same nonempty bank");
         check(!tracker.busy(),"ineligible advertisements leave tracker idle");
         check(tracker.offer("A",advertisement("0601000000010001"),0)!=null,"one nonempty bank is sufficient");
+    }
+    private static void typesWithoutRecordCountsNeverClaimAnImport() {
+        OmronAdvertisement type8=advertisement("08410007340278010100000000");
+        check(type8.type==8 && type8.category==7 && type8.modelId==0x0234,"type8 category and little-endian model");
+        check(type8.users.size()==2 && type8.users.get(0).lastSequence==376 && type8.users.get(1).lastSequence==1,"type8 sequences start after model");
+        check(type8.users.get(0).recordCount==-1 && type8.forcedTransfer && !type8.hasRecordCounts(),"type8 reports no record count");
+        check(type8.revision()==null,"type8 cannot form a checkpoint revision");
+        OmronAdvertisement oneUser=advertisement("08000000341278010000");
+        check(oneUser.users.size()==1 && oneUser.modelId==0x1234,"type8 single-user exact length");
+        OmronAdvertisement type9=advertisement("09020000003412780109000b00");
+        check(type9.users.size()==3 && type9.users.get(2).lastSequence==11,"type9 has one extra byte before category");
+        check(type9.category==0 && type9.modelId==0x1234,"type9 category and model");
+        rejects(() -> advertisement("0800000000341278"));
+        rejects(() -> advertisement("080000000034127801000000"));
+        rejects(() -> advertisement("0802000000341278010900"));
+        rejects(() -> advertisement("0900000000341278"));
+        rejects(() -> advertisement("0900000000341278010000"));
+        OmronAdvertisement type3=advertisement("033c07");
+        check(type3.users.isEmpty() && type3.pairingMode && type3.clockUnset,"type3 exposes only common flags");
+        check(!type3.streamingMode && !type3.standardMode,"type3 guidance bits are not streaming or standard mode");
+        rejects(() -> advertisement("0300"));
+        AutoImportTracker tracker=new AutoImportTracker();
+        check(tracker.offer("A",type8,0)==null && tracker.offer("A",type9,0)==null,"encrypted advertisements cannot claim a counted import");
+        check(tracker.offer("A",type3,0)==null && !tracker.busy(),"type3 cannot claim an import");
+    }
+    private static void automaticImportsRequireAVerifiedReadMap() {
+        check(AutoImportTracker.supportsModel("HEM-7380T1-EOSL") && AutoImportTracker.supportsModel("HEM-7380T1-EBK"),"X7 identities are eligible");
+        check(AutoImportTracker.supportsModel("HEM-7155T-EBK") && AutoImportTracker.supportsModel("HEM-7377T1-ZAZ"),"verified vendor maps are eligible");
+        check(!AutoImportTracker.supportsModel("HEM-7155T_K4-EBK") && !AutoImportTracker.supportsModel("HEM-7376T1-Z"),"unmapped variants are not eligible");
+        check(!AutoImportTracker.supportsModel(null) && !AutoImportTracker.supportsModel("BLEsmart_00000000"),"names and missing identities are not eligible");
     }
     private static OmronAdvertisement advertisement(String payload) { return OmronAdvertisement.parseManufacturerPayload(hex(payload)); }
     private static byte[] hex(String payload) { return java.util.HexFormat.of().parseHex(payload); }

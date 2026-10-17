@@ -41,7 +41,7 @@ public class MonitorServiceImportTest {
     private BluetoothGattCharacteristic clock,unlock;
     private final List<Write> writes=new ArrayList<>();
     private final List<BluetoothGattCharacteristic> rx=new ArrayList<>();
-    private boolean rejectEnd,rejectHistory;
+    private boolean rejectEnd,rejectHistory,invalidSecondBank;
     private static final class Write {
         final BluetoothGattCharacteristic characteristic;
         final byte[] bytes;
@@ -254,15 +254,58 @@ public class MonitorServiceImportTest {
         assertTrue(detail.contains(monitor.getString(R.string.monitor_clock_failed)));
         assertTrue(detail.contains(monitor.getString(R.string.monitor_reconnect_next_time)));
     }
-    private void pair() throws Exception {
-        set("pairingRequested",true);
+    @Test public void automaticImportUnlocksWithTheSavedKeySkipsTheClockAndCheckpointsAfterEnd() throws Exception {
+        AutoImportTracker.Attempt attempt=automaticAttempt();
+        connectWithSavedKey(); readAllHistory();
+        assertEquals(15,last().bytes[1]);
+        assertTrue(writes.stream().noneMatch(write -> write.characteristic==clock));
+        dataReply(last(),hex("088f000000000087"),false);
+        assertImported(); assertNull(get("automaticAttempt"));
+        assertEquals(attempt.revision,((AutoImportTracker)get("automaticTracker")).completedRevision(monitor.address));
+        assertEquals(attempt.revision,checkpoint());
+        // A monitor that keeps the link open is released so listening can resume.
+        shadowOf(Looper.getMainLooper()).idleFor(Duration.ofSeconds(5));
+        assertNull(get("gatt")); assertImported();
+    }
+    @Test public void automaticImportWithARejectedSlotKeepsReadingsWithoutCheckpoint() throws Exception {
+        invalidSecondBank=true;
+        automaticAttempt(); connectWithSavedKey(); readAllHistory(1);
+        dataReply(last(),hex("088f000000000087"),false);
+        assertEquals("History transfer incomplete",monitor.status); assertEquals(1,store.historyCount(0));
+        assertNull(((AutoImportTracker)get("automaticTracker")).completedRevision(monitor.address));
+        assertNull(checkpoint()); assertNull(get("automaticAttempt"));
+    }
+    private AutoImportTracker.Attempt automaticAttempt() throws Exception {
+        AutoImportSettings.setMode(monitor,AutoImportSettings.VISIBLE);
+        OmronAdvertisement advertisement=OmronAdvertisement.parseManufacturerPayload(hex("0601010001010001"));
+        AutoImportTracker.Attempt attempt=((AutoImportTracker)get("automaticTracker")).offer(monitor.address,advertisement,0);
+        assertNotNull(attempt);
+        set("automaticConnection",true); set("automaticAttempt",attempt);
+        return attempt;
+    }
+    private void connectWithSavedKey() throws Exception {
+        byte[] saved=new byte[16]; Arrays.fill(saved,(byte)5);
+        VendorPairingKeys keys=vendorKeys(); keys.stage(saved); keys.confirm(saved);
+        set("vendorKeys",keys); set("vendorKeyCandidates",keys.candidates());
+        set("vendorUnlock",LegacyUnlock.connect(saved)); call("sendLegacyUnlock");
+        assertSame(unlock,last().characteristic); assertEquals(1,last().bytes[0]);
+        writeDone(last(),0); callback.onCharacteristicChanged(gatt,unlock,hex("8100")); idle();
+        assertTrue(monitor.historyRunning); assertEquals(0,last().bytes[1]);
+        assertEquals("Connect never sends key programming",1,writes.stream().filter(write -> write.characteristic==unlock).count());
+    }
+    private String checkpoint() { return monitor.getSharedPreferences("automatic-checkpoints",Context.MODE_PRIVATE).getString(monitor.address,null); }
+    private VendorPairingKeys vendorKeys() {
         Map<String,byte[]> keys=new HashMap<>();
         VendorPairingKeys.Backend backend=new VendorPairingKeys.Backend() {
             public byte[] get(String name) { byte[] value=keys.get(name); return value==null?null:value.clone(); }
             public void put(String name,byte[] value) { keys.put(name,value.clone()); }
             public void forget(String name) { keys.remove(name); }
         };
-        set("vendorKeys",new VendorPairingKeys(backend,monitor.address,"HEM-7156T"));
+        return new VendorPairingKeys(backend,monitor.address,"HEM-7156T");
+    }
+    private void pair() throws Exception {
+        set("pairingRequested",true);
+        set("vendorKeys",vendorKeys());
         set("vendorUnlock",LegacyUnlock.pair(new byte[16])); call("sendLegacyUnlock");
         for(byte[] reply:new byte[][]{hex("8200"),hex("8000"),hex("8100")}) {
             assertSame(unlock,last().characteristic); writeDone(last(),0);
@@ -270,13 +313,14 @@ public class MonitorServiceImportTest {
         }
         assertTrue(monitor.historyRunning); assertEquals(0,last().bytes[1]);
     }
-    private void readAllHistory() {
+    private void readAllHistory() { readAllHistory(2); }
+    private void readAllHistory(int decoded) {
         dataReply(last(),startReply(),true);
         int reads=0;
         while(last().characteristic.getService()==vendor && last().bytes.length==8 && last().bytes[1]==1) {
             Write request=last(); dataReply(request,historyReply(request.bytes),reads++%2==0);
         }
-        assertEquals(120,reads); assertEquals(2,monitor.receivedInTransfer);
+        assertEquals(120,reads); assertEquals(decoded,monitor.receivedInTransfer);
     }
     private void dataReply(Write write,byte[] reply,boolean notificationFirst) {
         if(!notificationFirst) writeDone(write,0);
@@ -288,12 +332,14 @@ public class MonitorServiceImportTest {
     private static byte[] startReply() {
         return hex("188000000010000102030405060708090a0b0c0d0e0f0088");
     }
-    private static byte[] historyReply(byte[] request) {
+    private byte[] historyReply(byte[] request) {
         int address=((request[3]&255)<<8)|(request[4]&255),length=request[5]&255;
         byte[] reply=new byte[length+8]; reply[0]=(byte)reply.length; reply[1]=(byte)0x81;
         System.arraycopy(request,2,reply,2,4); Arrays.fill(reply,6,6+length,(byte)255);
         // One synthetic 130/78, pulse 67, 2025-07-09 06:14:38 record per user bank.
         if(address==0x98 || address==0x458) System.arraycopy(hex("694e4319261da6030000000000000000"),0,reply,6,16);
+        // Diastolic zero cannot be a measurement; the slot is rejected rather than skipped.
+        if(address==0x458 && invalidSecondBank) reply[7]=0;
         for(int i=0;i<reply.length-1;i++) reply[reply.length-1]^=reply[i];
         return reply;
     }

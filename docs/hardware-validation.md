@@ -32,7 +32,7 @@ For registration implementation changes, verify exact write bounds and failure h
 
 ## Added vendor-memory paths
 
-For each exact model, compare DIS identity, service UUID and all RX/TX properties against [the map](omblepy-comparison.md). Verify first-RX subscription and Android bonding, explicit Pair key provisioning only on legacy models, and saved-key-only Connect. HEM-7377T1 must use the single-channel OS-bond path, without legacy key commands. A device exposing both a complete standard profile and vendor channels should retain the standard path.
+For each exact model, compare DIS identity, service UUID and all RX/TX properties against [the map](omblepy-comparison.md). Verify first-RX subscription and Android bonding, explicit Pair key provisioning only on legacy models, and saved-key-only Connect. If a key acknowledgment carries more than the two bytes `8x 00`, record it in diagnostics: OpenPressure rejects padded acknowledgments that the original app would accept. HEM-7377T1 must use the single-channel OS-bond path, without legacy key commands. A device exposing both a complete standard profile and vendor channels should retain the standard path.
 
 Compare every decoded pressure, pulse, date and user with the monitor. Exercise 14-byte bank boundaries, erased slots, an unset clock, repeat imports and a naturally interrupted transfer. On BP5360 verify both user profiles from the mixed second bank, and inspect rejected summaries. Confirm no `01 C0` addressed writes or EEPROM clock/unread resets occur. Do not intentionally interrupt key programming on hardware solely for release testing; synthetic tests cover lost ACK and retry recovery.
 
@@ -41,6 +41,7 @@ For HEM-7156T, verify discovery when only a mixed-case `BLESmart_…` name is ad
 ## Automatic imports and phone controls
 
 1. With visible-app listening enabled, take a measurement and allow the cuff's normal transfer advertisement. A read-only history import should save the new reading without pressing Import. Repeated identical advertisements must remain idle after success.
+   On a vendor-memory model, first record the manufacturer data shown during Scan: an automatic import requires type 1, 2 or 6. Verify that the import uses only the saved-key unlock, sends no clock write, and that the link closes after END.
 2. Delete a reading locally, take another measurement and import automatically. The deleted reading must stay deleted. A deliberate manual import may restore it.
 3. Test notification mode after leaving the app. On Android 13+, exercise allow/deny/re-enable notification permission and blocked New readings channel settings. One saved batch should produce one count-only alert opening History; duplicate/zero-insert attempts must not alert.
 4. Test companion approval with Bluetooth off: decline the enable prompt, retry and allow it; rotate while the prompt is open. Approval must resume only for the still-saved target and selected mode. Then check background measurement arrival and expected cuff shutdown without a persistent companion-mode notification.

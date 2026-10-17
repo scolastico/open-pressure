@@ -11,6 +11,11 @@ public final class AutoImportTracker {
     private long nextToken;
     private Attempt active;
 
+    /** Saved identities with a verified read-only history path; encrypted transport is checked separately. */
+    public static boolean supportsModel(String disModel) {
+        return X7Record.supportsModel(disModel) || VendorMemoryModel.identify(disModel)!=null;
+    }
+
     public synchronized void restore(String address,String revision) {
         if(revision==null) completed.remove(address);
         else completed.put(address,revision);
@@ -19,7 +24,8 @@ public final class AutoImportTracker {
     public synchronized String completedRevision(String address) { return completed.get(address); }
 
     public synchronized Attempt offer(String address,OmronAdvertisement advertisement,long nowMillis) {
-        if(active!=null || address==null || address.isEmpty() || advertisement==null || advertisement.pairingMode || advertisement.streamingMode) return null;
+        if(active!=null || address==null || address.isEmpty() || advertisement==null || advertisement.pairingMode || advertisement.streamingMode
+                || !advertisement.hasRecordCounts()) return null;
         boolean hasRecords=false;
         for(OmronAdvertisement.User user:advertisement.users) {
             if(user.lastSequence>0 && user.recordCount>0) { hasRecords=true; break; }

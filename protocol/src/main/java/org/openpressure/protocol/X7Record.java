@@ -3,7 +3,7 @@ package org.openpressure.protocol;
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
 
-/** HEM-7380T1-EOSL BP layout independently recovered from its original APK model configuration. */
+/** HEM-7380T1 BP layout independently recovered from its original APK model configurations. */
 public final class X7Record {
     public static final int START=0x01c4, RECORD_BYTES=16, RECORDS_PER_USER=100, HISTORY_BYTES=3200;
     public final BloodPressure measurement;
@@ -12,7 +12,8 @@ public final class X7Record {
     public static boolean supportsModel(String model) {
         if(model==null) return false;
         model=model.replace("\u0000","").trim();
-        return model.equals("HEM-7380T1-EOSL") || model.equals("HEM-7380T1") || model.equalsIgnoreCase("X7 Smart Afib");
+        // The original EBK and EOSL configurations are identical except for their model_id line.
+        return model.equals("HEM-7380T1-EOSL") || model.equals("HEM-7380T1-EBK") || model.equals("HEM-7380T1") || model.equalsIgnoreCase("X7 Smart Afib");
     }
     /** Erased slots return null. Unknown timestamp bits never become invented dates. */
     public static X7Record parse(byte[] raw,int user) {

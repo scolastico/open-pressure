@@ -47,5 +47,12 @@ public class VendorPairingKeysTest {
         assertArrayEquals(first,restarted.candidates().get(0));
         assertArrayEquals(first,restarted.provisioningKey());
     }
-
+    @Test public void candidatePresenceIsScopedAndCoversPendingKeys() throws Exception {
+        Memory memory=new Memory(); VendorPairingKeys keys=new VendorPairingKeys(memory,"AA:BB","HEM-7155T");
+        assertFalse(keys.hasCandidate());
+        keys.stage(new byte[16]); assertTrue(keys.hasCandidate());
+        keys.confirm(new byte[16]); assertTrue(keys.hasCandidate());
+        assertFalse(new VendorPairingKeys(memory,"CC:DD","HEM-7155T").hasCandidate());
+        assertFalse(new VendorPairingKeys(memory,"AA:BB","HEM-7361T").hasCandidate());
+    }
 }

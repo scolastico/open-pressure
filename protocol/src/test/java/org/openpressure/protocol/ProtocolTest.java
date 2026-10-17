@@ -593,6 +593,8 @@ public final class ProtocolTest {
     private static void testX7Records() {
         check(X7Record.supportsModel("HEM-7380T1-EOSL\u0000"),"exact X7 model identified");
         check(X7Record.supportsModel("HEM-7380T1"),"base model identity accepted");
+        check(X7Record.supportsModel("HEM-7380T1-EBK"),"EBK uses the identical original X7 configuration");
+        check(!X7Record.supportsModel("HEM-7381T1-AZ") && !X7Record.supportsModel("HEM-7377T1-ZAZ"),"same-generation models need their own map evidence");
         check(X7Record.supportsModel("X7 Smart Afib"),"actual EOSL firmware marketing-name identity accepted");
         check(!X7Record.supportsModel("X7 Smart") && !X7Record.supportsModel("X7 Smart Afib Unknown"),"only the confirmed marketing alias selects X7 map");
         check(!X7Record.supportsModel("HEM-7361T") && !X7Record.supportsModel("Other HEM-7380T1"),"hints cannot select a model-specific memory map");

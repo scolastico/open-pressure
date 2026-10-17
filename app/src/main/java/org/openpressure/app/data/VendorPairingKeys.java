@@ -11,6 +11,12 @@ public final class VendorPairingKeys {
         byte[] get(String name) throws GeneralSecurityException;
         void put(String name,byte[] value) throws GeneralSecurityException;
         void forget(String name);
+        /** Existence only; implementations may avoid decrypting the stored value. */
+        default boolean contains(String name) throws GeneralSecurityException {
+            byte[] value=get(name);
+            if(value==null) return false;
+            Arrays.fill(value,(byte)0); return true;
+        }
     }
     private final Backend backend;
     private final String current,pending;
@@ -41,6 +47,10 @@ public final class VendorPairingKeys {
     }
     public void confirm(byte[] key) throws GeneralSecurityException {
         check(key); backend.put(current,key); backend.forget(pending);
+    }
+    /** Whether Connect has any saved or pending candidate, without exposing key material. */
+    public boolean hasCandidate() throws GeneralSecurityException {
+        return backend.contains(pending) || backend.contains(current);
     }
     /** Pending first handles a disconnect after programming but before its acknowledgment. */
     public List<byte[]> candidates() throws GeneralSecurityException {
