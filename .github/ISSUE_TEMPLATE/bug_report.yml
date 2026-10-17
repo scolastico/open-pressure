@@ -3,7 +3,7 @@ description: Report an app or monitor connection problem.
 body:
   - type: markdown
     attributes:
-      value: Do not attach raw health exports, diagnostics, EEPROM snapshots, Bluetooth addresses or pairing material. Start with a minimal redacted description.
+      value: Do not attach raw health exports, diagnostics, EEPROM snapshots, Bluetooth addresses or pairing material. Start with a minimal redacted description. For a monitor that OpenPressure has not tested yet, the app's device report is safe to share; you can paste it below or use the Device report form.
   - type: input
     id: versions
     attributes:

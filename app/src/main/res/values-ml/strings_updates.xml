@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="update_title">അപ്ഡേറ്റ് ലഭ്യമാണ്</string>
+    <string name="update_message">OpenPressure %1$s ലഭ്യമാണ്. നിങ്ങൾ %2$s ഉപയോഗിക്കുന്നു.\n\nഡൗൺലോഡ് പേജ് നിങ്ങളുടെ ബ്രൗസറിൽ തുറക്കും. ഒരേ ഡെവലപ്പറിൽ നിന്നുള്ളതാണെങ്കിൽ മാത്രമേ Android അപ്ഡേറ്റ് ഇൻസ്റ്റാൾ ചെയ്യൂ.</string>
+    <string name="update_download">ഡൗൺലോഡ് പേജ് തുറക്കുക</string>
+    <string name="update_later">പിന്നീട് ഓർമ്മിപ്പിക്കുക</string>
+    <string name="update_skip">ഈ പതിപ്പ് ഒഴിവാക്കുക</string>
+    <string name="update_browser_missing">ഡൗൺലോഡ് പേജ് തുറക്കാൻ ബ്രൗസറൊന്നും കണ്ടെത്തിയില്ല.</string>
+    <string name="update_setting_title">അപ്ഡേറ്റ് പരിശോധന</string>
+    <string name="update_setting_description">ഏകദേശം ദിവസത്തിൽ ഒരിക്കൽ, പുതിയ പതിപ്പ് ഉണ്ടോ എന്ന് OpenPressure GitHub-നോട് ചോദിക്കുന്നു. അഭ്യർത്ഥനയിൽ ആപ്പ് പതിപ്പ് മാത്രമേ ഉണ്ടാകൂ; റീഡിംഗുകളോ മോണിറ്റർ വിവരങ്ങളോ അയയ്ക്കില്ല.</string>
+    <string name="update_turn_off">അപ്ഡേറ്റ് പരിശോധന ഓഫാക്കുക</string>
+    <string name="update_turn_on">അപ്ഡേറ്റ് പരിശോധന ഓണാക്കുക</string>
+    <string name="update_about">പുതിയ പതിപ്പ് തിരയാൻ അപ്ഡേറ്റ് പരിശോധന ഏകദേശം ദിവസത്തിൽ ഒരിക്കൽ GitHub-നെ ബന്ധപ്പെടുന്നു. %1$s → %2$s എന്നതിൽ നിങ്ങൾക്ക് ഇത് ഓഫാക്കാം.</string>
+</resources>

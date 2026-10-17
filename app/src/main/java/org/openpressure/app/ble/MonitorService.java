@@ -107,6 +107,9 @@ public final class MonitorService extends Service {
     private final AutoImportTracker automaticTracker=new AutoImportTracker();
     private final AutomaticReadingNotificationPolicy readingNotifications=new AutomaticReadingNotificationPolicy();
     private AutoImportTracker.Attempt automaticAttempt;
+    private DeviceReport report;
+    private String reportAddress;
+    private boolean reportPrompted;
     private ScanCallback automaticScan;
     private String automaticFilterKey="";
     private boolean automaticConnection,foregroundActive,destroying;
@@ -147,6 +150,7 @@ public final class MonitorService extends Service {
     private void changed() { for(Runnable l:new ArrayList<>(listeners)) l.run(); }
     private void state(String title,String message) {
         status=title; detail=message;
+        if(report!=null && !automaticConnection && !title.equals("Disconnected")) report.outcome(title,title.equals("Action failed")?message:null);
         if(store!=null && !address.isEmpty() && !scanning) store.packet(address,"event",new byte[0],title+": "+message);
         changed();
     }
@@ -378,6 +382,12 @@ public final class MonitorService extends Service {
         connectionManufacturer=manufacturer!=null?manufacturer.clone():selected==null || selected.manufacturerData==null?null:selected.manufacturerData.clone();
         if(pair) discovered.clear();
         if(connectionManufacturer!=null) store.packet(address,"manufacturer-020e",connectionManufacturer,"Omron manufacturer data · company prefix removed");
+        // Automatic sessions keep the last user-started report; a fresh X7 bond continues the same Pair.
+        if(attempt==null) {
+            report=new DeviceReport(pair?"Pair":"Connect",BuildConfig.VERSION_NAME,Build.VERSION.SDK_INT,Build.MANUFACTURER+" "+Build.MODEL);
+            report.advertisement(selected==null?name:selected.name,connectionManufacturer);
+            reportAddress=target; reportPrompted=false;
+        }
         canHistory=false; canTime=false; hasUserControl=false; canDump=false; verifiedModel=""; negotiatedMtu=23; battery=-1; profile=ProtocolProfile.UNSUPPORTED;
         try { foreground(); state("Connecting…",name+" · Keep the monitor in transfer mode."); gatt=adapter.getRemoteDevice(target).connectGatt(this,false,callback,BluetoothDevice.TRANSPORT_LE); armPhase(30000,"Connection timed out"); }
         catch(RuntimeException ex) { fail("Connection failed: "+ex.getMessage()); }
@@ -410,6 +420,20 @@ public final class MonitorService extends Service {
         if(interruptedRegistration) state("Action failed","Registration was interrupted before its acknowledged END. The cuff's settings state is unverified; the pre-registration backup is retained. No further settings write or automatic retry was sent.");
         else state("Disconnected","Your saved readings remain on this phone.");
         scheduleAutomaticRefresh();
+    }
+    private void reportProtocol(String memoryMap) {
+        if(report!=null && !automaticConnection) report.protocol(profile.name(),memoryMap);
+    }
+    /** A shareable report for the last user-started session with an untested monitor, or null. */
+    public DeviceReport deviceReport() { return report!=null && report.useful()?report:null; }
+    /** Ask once per monitor, after a Pair attempt has ended rather than between its reconnects. */
+    public boolean deviceReportPromptDue() {
+        return deviceReport()!=null && "Pair".equals(report.operation) && !reportPrompted && gatt==null && x7Bonding==null && pendingConnection==null && !scanning
+                && !getSharedPreferences("device-report",MODE_PRIVATE).getBoolean("prompted:"+reportAddress,false);
+    }
+    public void deviceReportPrompted() {
+        reportPrompted=true;
+        if(reportAddress!=null) getSharedPreferences("device-report",MODE_PRIVATE).edit().putBoolean("prompted:"+reportAddress,true).apply();
     }
     private void notifyAutomaticReadings() {
         if(readingNotifications.finish(visibleOwners.isEmpty())>0)
@@ -457,12 +481,16 @@ public final class MonitorService extends Service {
         StringBuilder services=new StringBuilder();
         for(BluetoothGattService s:gatt.getServices()) {
             services.append(s.getUuid()).append('\n');
+            List<String> layout=new ArrayList<>();
+            for(BluetoothGattCharacteristic c:s.getCharacteristics()) layout.add(c.getUuid()+" properties=0x"+Integer.toHexString(c.getProperties()));
+            if(report!=null && !automaticConnection) report.service(s.getUuid().toString(),layout);
             for(BluetoothGattCharacteristic c:s.getCharacteristics()) {
                 services.append("  ").append(c.getUuid()).append(" properties=0x").append(Integer.toHexString(c.getProperties())).append('\n');
                 if((s.getUuid().equals(Uuids.VENDOR)||s.getUuid().equals(Uuids.VENDOR_ALIAS)) && DeviceWritePolicy.isWlpDataCharacteristic(c.getUuid())) wlpChannels=true;
             }
         }
         profile=ProtocolProfile.select(bp,gatt.getService(Uuids.OPTIONAL)!=null,vendor!=null,handshakeCapable,wlpChannels);
+        reportProtocol(null);
         store.packet(address,"services",new byte[0],services.toString());
         if(profile==ProtocolProfile.LEGACY_WLP) { identifyWlp(); return; }
         if(automaticConnection) { fail("Automatic imports require a verified Omron WLP monitor. Connect manually to use this monitor."); return; }
@@ -521,6 +549,7 @@ public final class MonitorService extends Service {
         enqueue("read:"+key(model),() -> gatt.readCharacteristic(model),() -> {
             verifiedModel=new String(readResult,StandardCharsets.UTF_8).replace("\u0000","").trim();
             store.packet(address,"model",readResult,"DIS model identity");
+            if(report!=null && !automaticConnection) report.model(verifiedModel);
             if(X7Record.supportsModel(verifiedModel)) { identifyX7(); return; }
             vendorModel=VendorMemoryModel.identify(verifiedModel);
             if(vendorModel==null) { fail("WLP model is not enabled: "+verifiedModel+". No memory commands were sent."); return; }
@@ -551,6 +580,7 @@ public final class MonitorService extends Service {
             fail("Automatic X7 import requires the existing plain-WLP Android bond. Pair manually first; no registration or key exchange was started."); return;
         }
         profile=advertised==X7Security.Mode.ENCRYPTED || savedKey?ProtocolProfile.X7_SECURE_WLP:ProtocolProfile.X7_WLP;
+        reportProtocol("HEM-7380T1");
         store.packet(address,"protocol",new byte[0],"Verified model "+verifiedModel+" · "+profile+" · advertisement="+advertised+" · saved application key="+savedKey);
         if(profile==ProtocolProfile.X7_SECURE_WLP) {
             if((handshake.getProperties()&BluetoothGattCharacteristic.PROPERTY_WRITE)==0 || negotiatedMtu<92) {
@@ -568,6 +598,7 @@ public final class MonitorService extends Service {
     }
     private void configureVendorMemory() {
         profile=ProtocolProfile.VENDOR_MEMORY;
+        reportProtocol(vendorModel.id);
         UUID service=VendorWlpSession.service(vendorModel);
         for(UUID id:VendorWlpSession.txChannels(vendorModel)) {
             BluetoothGattCharacteristic c=characteristic(service,id);
@@ -681,6 +712,7 @@ public final class MonitorService extends Service {
         try {
             if(c.equals(handshake) && vendorUnlock!=null) {
                 cancelPhase();
+                if(report!=null && !automaticConnection) report.keyAcknowledgment(bytes);
                 // Only a matching negative unlock response may try the other durable candidate.
                 // Connect never changes to key programming, even when both candidates fail.
                 if(!pairingRequested && bytes.length==2 && (bytes[0]&255)==0x81 && bytes[1]!=0 && vendorKeyCandidate+1<vendorKeyCandidates.size()) {
@@ -750,6 +782,7 @@ public final class MonitorService extends Service {
         sessionEndUnconfirmed=!ended;
         vendorSessionEnded=ended; sessionFinished=true; ready=false; canHistory=false; canTime=false; historyRunning=false;
         storedCount=receivedInTransfer;
+        if(report!=null && !automaticConnection) report.transfer(receivedInTransfer,wlpRejected,ended);
         finishAutomaticAttempt(ended && wlpRejected==0);
         state(wlpRejected==0?"History transfer complete":"History transfer incomplete",
             addedInTransfer+" new readings accepted · "+receivedInTransfer+" decoded · "+wlpRejected+" rejected slots. Erased slots were skipped. "+vendorClockResult+
@@ -951,6 +984,7 @@ public final class MonitorService extends Service {
                     state("EEPROM read complete",bytes.length+" verified bytes received and the cuff acknowledged END. Saving the local JSON export… Wake and reconnect the cuff for another transfer.");
                 } else {
                     historyRunning=false;
+                    if(report!=null && !automaticConnection) report.transfer(receivedInTransfer,wlpRejected,true);
                     finishAutomaticAttempt(wlpRejected==0 && receivedInTransfer==storedCount);
                     state(wlpRejected==0 && receivedInTransfer==storedCount?"History transfer complete":"History transfer incomplete",addedInTransfer+" new readings accepted · "+receivedInTransfer+" / "+storedCount+" decoded · "+wlpRejected+" rejected slots. Device counters were retained. The cuff acknowledged END; wake and reconnect it for another transfer.");
                 }
@@ -1087,7 +1121,14 @@ public final class MonitorService extends Service {
     private void readInformation() {
         for(int uuid:new int[]{0x2a24,0x2a25,0x2a26,0x2a29}) {
             BluetoothGattCharacteristic c=characteristic(Uuids.sig(0x180a),Uuids.sig(uuid));
-            if(c!=null && (c.getProperties()&BluetoothGattCharacteristic.PROPERTY_READ)!=0) read(c,bytes -> { information+=new String(bytes,java.nio.charset.StandardCharsets.UTF_8).replace("\u0000","")+"\n"; changed(); });
+            if(c!=null && (c.getProperties()&BluetoothGattCharacteristic.PROPERTY_READ)!=0) read(c,bytes -> {
+                String value=new String(bytes,java.nio.charset.StandardCharsets.UTF_8).replace("\u0000","");
+                information+=value+"\n";
+                // The serial number (2A25) is shown locally but never added to the shareable report.
+                if(report!=null && !automaticConnection && uuid==0x2a26) report.firmware(value);
+                if(report!=null && !automaticConnection && uuid==0x2a29) report.manufacturer(value);
+                changed();
+            });
         }
         BluetoothGattCharacteristic b=characteristic(Uuids.sig(0x180f),Uuids.sig(0x2a19));
         if(b!=null && (b.getProperties()&BluetoothGattCharacteristic.PROPERTY_READ)!=0) read(b,bytes -> { if(bytes.length==1 && (bytes[0]&255)<=100) battery=bytes[0]&255; changed(); });
@@ -1347,7 +1388,7 @@ public final class MonitorService extends Service {
             if(state==BluetoothProfile.STATE_CONNECTED) { MonitorService.this.state("Discovering monitor…","Negotiating Bluetooth MTU."); if(!source.requestMtu(243)) discover(source); }
             else if(state==BluetoothProfile.STATE_DISCONNECTED) { boolean partial=historyRunning; disconnect(); if(partial) MonitorService.this.state("Transfer interrupted","Partial readings were saved. Reconnect to retry history."); }
         }); }
-        @Override public void onMtuChanged(BluetoothGatt source,int mtu,int result) { current(source,() -> { if(result==0) negotiatedMtu=mtu; store.packet(address,"mtu",new byte[0],"ATT MTU="+negotiatedMtu+" · callback status="+result); discover(source); }); }
+        @Override public void onMtuChanged(BluetoothGatt source,int mtu,int result) { current(source,() -> { if(result==0) negotiatedMtu=mtu; if(report!=null && !automaticConnection) report.mtu(negotiatedMtu); store.packet(address,"mtu",new byte[0],"ATT MTU="+negotiatedMtu+" · callback status="+result); discover(source); }); }
         private void discover(BluetoothGatt source) { if(!source.discoverServices()) fail("Android rejected service discovery"); else armPhase(20000,"Service discovery timed out"); }
         @Override public void onServicesDiscovered(BluetoothGatt source,int result) { current(source,() -> { if(result==0) discoverProfile(); else fail("Service discovery failed ("+result+")"); }); }
         @Override public void onDescriptorWrite(BluetoothGatt source,BluetoothGattDescriptor d,int result) { current(source,() -> operations.complete("descriptor:"+key(d.getCharacteristic()),result)); }

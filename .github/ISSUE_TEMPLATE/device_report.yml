@@ -1,0 +1,65 @@
+name: Device report
+description: Share the app's device report for a monitor that OpenPressure has not tested yet.
+title: "Device report: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for helping. A device report shows how your monitor communicates, so support for it can be checked and improved without guessing.
+
+        **How to get it:** Pair or Connect your monitor, then choose **Review device report** on the Devices screen. **Copy and open GitHub** copies the report and opens this form. Paste it below.
+
+        The report contains only technical details. It never includes readings, measurement times, names, the Bluetooth address or the serial number. Please do not add any of those yourself, and do not attach other diagnostics or memory exports here.
+  - type: input
+    id: model
+    attributes:
+      label: Model number on the monitor's label
+      description: For example HEM-7155T-EBK. The app fills this in when it can read the model.
+    validations:
+      required: true
+  - type: input
+    id: product
+    attributes:
+      label: Product name and region
+      description: Optional. For example "M4 Intelli IT, bought in Germany".
+  - type: dropdown
+    id: operation
+    attributes:
+      label: What did you try?
+      options:
+        - Pair
+        - Connect
+        - Pair and later Connect
+    validations:
+      required: true
+  - type: checkboxes
+    id: results
+    attributes:
+      label: What worked?
+      description: Tick what you could confirm on your monitor and phone. Leave the rest empty.
+      options:
+        - label: Pairing finished without an error
+        - label: Imported readings matched the monitor's display
+        - label: Dates and times matched the monitor
+        - label: Both monitor users were imported separately
+        - label: Readings arrived automatically after a measurement
+  - type: textarea
+    id: report
+    attributes:
+      label: Device report
+      description: Paste the copied report here.
+      render: json
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: Anything else?
+      description: Optional. Error messages or what looked wrong, without health values.
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Privacy check
+      options:
+        - label: I checked the report and my notes; they contain no readings, names, Bluetooth address or serial number.
+          required: true

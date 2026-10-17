@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="update_title">અપડેટ ઉપલબ્ધ છે</string>
+    <string name="update_message">OpenPressure %1$s ઉપલબ્ધ છે. તમે %2$s વાપરી રહ્યા છો.\n\nડાઉનલોડ પેજ તમારા બ્રાઉઝરમાં ખુલશે. Android અપડેટ ત્યારે જ ઇન્સ્ટૉલ કરે છે જ્યારે તે એ જ ડેવલપર તરફથી હોય.</string>
+    <string name="update_download">ડાઉનલોડ પેજ ખોલો</string>
+    <string name="update_later">પછી યાદ કરાવો</string>
+    <string name="update_skip">આ વર્ઝન છોડો</string>
+    <string name="update_browser_missing">ડાઉનલોડ પેજ ખોલવા માટે કોઈ બ્રાઉઝર મળ્યું નથી.</string>
+    <string name="update_setting_title">અપડેટ તપાસ</string>
+    <string name="update_setting_description">લગભગ દિવસમાં એક વાર, OpenPressure GitHub ને પૂછે છે કે કોઈ નવું વર્ઝન છે કે નહીં. વિનંતીમાં ફક્ત ઍપનું વર્ઝન હોય છે; કોઈ રીડિંગ કે મોનિટરની વિગતો મોકલવામાં આવતી નથી.</string>
+    <string name="update_turn_off">અપડેટ તપાસ બંધ કરો</string>
+    <string name="update_turn_on">અપડેટ તપાસ ચાલુ કરો</string>
+    <string name="update_about">અપડેટ તપાસ નવું વર્ઝન શોધવા માટે લગભગ દિવસમાં એક વાર GitHub નો સંપર્ક કરે છે. તમે તેને %1$s → %2$s માં બંધ કરી શકો છો.</string>
+</resources>

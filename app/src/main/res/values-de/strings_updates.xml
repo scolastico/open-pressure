@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="update_title">Update verfügbar</string>
+    <string name="update_message">OpenPressure %1$s ist verfügbar. Du verwendest %2$s.\n\nDie Download-Seite wird in deinem Browser geöffnet. Android installiert das Update nur, wenn es vom selben Entwickler stammt.</string>
+    <string name="update_download">Download-Seite öffnen</string>
+    <string name="update_later">Später erinnern</string>
+    <string name="update_skip">Diese Version überspringen</string>
+    <string name="update_browser_missing">Kein Browser gefunden, um die Download-Seite zu öffnen.</string>
+    <string name="update_setting_title">Update-Prüfungen</string>
+    <string name="update_setting_description">Etwa einmal am Tag fragt OpenPressure bei GitHub nach, ob es eine neuere Version gibt. Die Anfrage enthält nur die App-Version; es werden keine Messwerte oder Angaben zum Messgerät gesendet.</string>
+    <string name="update_turn_off">Update-Prüfungen ausschalten</string>
+    <string name="update_turn_on">Update-Prüfungen einschalten</string>
+    <string name="update_about">Update-Prüfungen kontaktieren GitHub etwa einmal am Tag, um nach einer neueren Version zu suchen. Du kannst sie unter %1$s → %2$s ausschalten.</string>
+</resources>

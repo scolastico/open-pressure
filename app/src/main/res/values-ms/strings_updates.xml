@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="update_title">Kemas kini tersedia</string>
+    <string name="update_message">OpenPressure %1$s kini tersedia. Anda sedang menggunakan %2$s.\n\nHalaman muat turun akan dibuka dalam pelayar anda. Android hanya memasang kemas kini jika ia daripada pembangun yang sama.</string>
+    <string name="update_download">Buka halaman muat turun</string>
+    <string name="update_later">Ingatkan saya kemudian</string>
+    <string name="update_skip">Langkau versi ini</string>
+    <string name="update_browser_missing">Tiada pelayar ditemui untuk membuka halaman muat turun.</string>
+    <string name="update_setting_title">Semakan kemas kini</string>
+    <string name="update_setting_description">Lebih kurang sekali sehari, OpenPressure bertanya kepada GitHub sama ada versi yang lebih baharu wujud. Permintaan hanya mengandungi versi apl; tiada bacaan atau butiran monitor dihantar.</string>
+    <string name="update_turn_off">Matikan semakan kemas kini</string>
+    <string name="update_turn_on">Hidupkan semakan kemas kini</string>
+    <string name="update_about">Semakan kemas kini menghubungi GitHub lebih kurang sekali sehari untuk mencari versi yang lebih baharu. Anda boleh mematikannya di %1$s → %2$s.</string>
+</resources>

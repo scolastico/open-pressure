@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="device_report_title">Помогнете за поддръжката на този апарат</string>
+    <string name="device_report_card">OpenPressure все още не е тестван с този апарат за кръвно налягане. Отчетът за устройството показва как то комуникира и може да помогне да се отключат повече функции за него в приложението.</string>
+    <string name="device_report_review">Преглед на отчета за устройството</string>
+    <string name="device_report_prompt">OpenPressure все още не е тестван с този апарат за кръвно налягане. Ще помогнете много, ако споделите отчет за устройството в issue в GitHub. Вашият отчет и вашата помощ могат да отключат повече функции за вашия апарат в приложението.\n\nОтчетът съдържа само технически данни. Той никога не включва измервания, часове на измерване, имена, Bluetooth адреса или серийния номер. Можете да го прегледате, преди да споделите каквото и да е.</string>
+    <string name="device_report_not_now">Не сега</string>
+    <string name="device_report_review_title">Отчет за устройството</string>
+    <string name="device_report_review_explanation">Проверете отчета по-долу. „%1$s“ го копира и отваря подготвена форма за issue; поставете отчета там. Нищо не се изпраща автоматично.</string>
+    <string name="device_report_copy_open">Копиране и отваряне на GitHub</string>
+    <string name="device_report_save">Запазване на файла</string>
+    <string name="device_report_copied">Отчетът е копиран. Поставете го в issue в GitHub.</string>
+    <string name="device_report_browser_missing">Не е намерен браузър. Запазете отчета и отворете %1$s.</string>
+    <string name="device_report_saved">Отчетът за устройството е запазен.</string>
+    <string name="device_report_save_failed">Отчетът за устройството не можа да бъде запазен.</string>
+</resources>

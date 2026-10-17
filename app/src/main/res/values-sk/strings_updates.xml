@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="update_title">K dispozícii je aktualizácia</string>
+    <string name="update_message">K dispozícii je OpenPressure %1$s. Používate verziu %2$s.\n\nStránka na stiahnutie sa otvorí v prehliadači. Android aktualizáciu nainštaluje, len ak pochádza od toho istého vývojára.</string>
+    <string name="update_download">Otvoriť stránku na stiahnutie</string>
+    <string name="update_later">Pripomenúť neskôr</string>
+    <string name="update_skip">Preskočiť túto verziu</string>
+    <string name="update_browser_missing">Nenašiel sa žiadny prehliadač na otvorenie stránky na stiahnutie.</string>
+    <string name="update_setting_title">Kontrola aktualizácií</string>
+    <string name="update_setting_description">Približne raz denne sa OpenPressure opýta GitHubu, či existuje novšia verzia. Požiadavka obsahuje iba verziu aplikácie; žiadne namerané hodnoty ani údaje o tlakomere sa neodosielajú.</string>
+    <string name="update_turn_off">Vypnúť kontrolu aktualizácií</string>
+    <string name="update_turn_on">Zapnúť kontrolu aktualizácií</string>
+    <string name="update_about">Kontrola aktualizácií kontaktuje GitHub približne raz denne a hľadá novšiu verziu. Môžete ju vypnúť v časti %1$s → %2$s.</string>
+</resources>

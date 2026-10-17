@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="update_title">Aggiornamento disponibile</string>
+    <string name="update_message">OpenPressure %1$s è disponibile. Stai usando la versione %2$s.\n\nLa pagina di download si apre nel browser. Android installa l’aggiornamento solo se proviene dallo stesso sviluppatore.</string>
+    <string name="update_download">Apri pagina di download</string>
+    <string name="update_later">Ricordamelo più tardi</string>
+    <string name="update_skip">Salta questa versione</string>
+    <string name="update_browser_missing">Nessun browser trovato per aprire la pagina di download.</string>
+    <string name="update_setting_title">Controllo aggiornamenti</string>
+    <string name="update_setting_description">Circa una volta al giorno, OpenPressure chiede a GitHub se esiste una versione più recente. La richiesta contiene solo la versione dell’app; non vengono inviati misurazioni né dettagli del misuratore.</string>
+    <string name="update_turn_off">Disattiva il controllo aggiornamenti</string>
+    <string name="update_turn_on">Attiva il controllo aggiornamenti</string>
+    <string name="update_about">Il controllo aggiornamenti contatta GitHub circa una volta al giorno per cercare una versione più recente. Puoi disattivarlo in %1$s → %2$s.</string>
+</resources>

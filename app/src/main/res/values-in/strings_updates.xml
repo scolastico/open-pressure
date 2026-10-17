@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="update_title">Pembaruan tersedia</string>
+    <string name="update_message">OpenPressure %1$s tersedia. Anda menggunakan %2$s.\n\nHalaman unduhan akan terbuka di browser Anda. Android hanya memasang pembaruan jika berasal dari pengembang yang sama.</string>
+    <string name="update_download">Buka halaman unduhan</string>
+    <string name="update_later">Ingatkan nanti</string>
+    <string name="update_skip">Lewati versi ini</string>
+    <string name="update_browser_missing">Browser untuk membuka halaman unduhan tidak ditemukan.</string>
+    <string name="update_setting_title">Pemeriksaan pembaruan</string>
+    <string name="update_setting_description">Sekitar sekali sehari, OpenPressure menanyakan ke GitHub apakah ada versi yang lebih baru. Permintaan hanya berisi versi aplikasi; tidak ada hasil pengukuran atau detail monitor yang dikirim.</string>
+    <string name="update_turn_off">Matikan pemeriksaan pembaruan</string>
+    <string name="update_turn_on">Aktifkan pemeriksaan pembaruan</string>
+    <string name="update_about">Pemeriksaan pembaruan menghubungi GitHub sekitar sekali sehari untuk mencari versi yang lebih baru. Anda dapat mematikannya di %1$s → %2$s.</string>
+</resources>

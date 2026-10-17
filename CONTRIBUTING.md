@@ -2,7 +2,7 @@
 
 Start with [development](docs/development.md) for setup and checks. The app is experimental and handles health data and device configuration. Keep changes focused, preserve local data across upgrades and describe behavior in plain language.
 
-For a bug report, include the app version, Android version, exact monitor label/firmware, operation and expected/actual result. State whether the problem involves Pair, Connect, manual history, automatic import or Health Connect. Do not post raw diagnostics, EEPROM JSON, health exports, Bluetooth addresses, account details or pairing material in a public issue. A minimal redacted error and reproduction are usually enough to begin.
+For a bug report, include the app version, Android version, exact monitor label/firmware, operation and expected/actual result. State whether the problem involves Pair, Connect, manual history, automatic import or Health Connect. Do not post raw diagnostics, EEPROM JSON, health exports, Bluetooth addresses, account details or pairing material in a public issue. A minimal redacted error and reproduction are usually enough to begin. For an untested monitor, use the **Device report** issue form with the app's [device report](docs/device-reports.md); it is designed for public sharing.
 
 For another monitor, inspect [compatibility](docs/compatibility.md), the [protocol reference](docs/protocol.md) and [safety boundaries](docs/safety.md). Similar names and shared vendor services do not establish a compatible memory map. Do not relax model checks, invent register meanings or enable undocumented writes to work around rejection. Record source evidence and exact hardware results separately; synthetic tests do not make a model hardware-tested.
 

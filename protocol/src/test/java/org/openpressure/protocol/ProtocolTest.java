@@ -81,6 +81,7 @@ public final class ProtocolTest {
         checks+=VendorMemoryModelTest.run();
         checks+=VendorWlpSessionTest.run();
         checks+=LegacyUnlockTest.run();
+        checks+=DeviceReportTest.run();
         checks+=VendorWritePolicyTest.run();
         testWlpAppendedRanges();
         testWlpConnectionLifecycle();

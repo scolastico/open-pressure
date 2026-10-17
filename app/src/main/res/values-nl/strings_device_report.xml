@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="device_report_title">Help deze meter te ondersteunen</string>
+    <string name="device_report_card">OpenPressure is nog niet getest met deze meter. Een apparaatrapport laat zien hoe de meter communiceert en kan helpen om meer functies ervoor in de app vrij te geven.</string>
+    <string name="device_report_review">Apparaatrapport bekijken</string>
+    <string name="device_report_prompt">OpenPressure is nog niet getest met deze meter. Het zou enorm helpen als je een apparaatrapport deelt in een GitHub-issue. Jouw rapport en jouw hulp kunnen meer functies voor je meter in de app vrijgeven.\n\nHet rapport bevat alleen technische details. Het bevat nooit metingen, meettijden, namen, het Bluetooth-adres of het serienummer. Je kunt het bekijken voordat je iets deelt.</string>
+    <string name="device_report_not_now">Niet nu</string>
+    <string name="device_report_review_title">Apparaatrapport</string>
+    <string name="device_report_review_explanation">Controleer het rapport hieronder. ‘%1$s’ kopieert het en opent een voorbereid issueformulier; plak het rapport daar. Er wordt niets automatisch verzonden.</string>
+    <string name="device_report_copy_open">Kopiëren en GitHub openen</string>
+    <string name="device_report_save">Bestand opslaan</string>
+    <string name="device_report_copied">Rapport gekopieerd. Plak het in het GitHub-issue.</string>
+    <string name="device_report_browser_missing">Geen browser gevonden. Sla het rapport op en open %1$s.</string>
+    <string name="device_report_saved">Apparaatrapport opgeslagen.</string>
+    <string name="device_report_save_failed">Kan het apparaatrapport niet opslaan.</string>
+</resources>

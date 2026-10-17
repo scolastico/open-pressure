@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="device_report_title">この血圧計の対応にご協力ください</string>
+    <string name="device_report_card">OpenPressure はこの血圧計でまだテストされていません。デバイスレポートは血圧計の通信方法を示し、アプリでこの血圧計に使える機能を増やす手がかりになります。</string>
+    <string name="device_report_review">デバイスレポートを確認</string>
+    <string name="device_report_prompt">OpenPressure はこの血圧計でまだテストされていません。GitHub の issue でデバイスレポートを共有していただけると、とても助かります。あなたのレポートとご協力により、アプリでお使いの血圧計に使える機能が増える可能性があります。\n\nレポートには技術的な情報のみが含まれます。測定値、測定日時、名前、Bluetooth アドレス、シリアル番号が含まれることはありません。何かを共有する前に内容を確認できます。</string>
+    <string name="device_report_not_now">今はしない</string>
+    <string name="device_report_review_title">デバイスレポート</string>
+    <string name="device_report_review_explanation">下のレポートを確認してください。「%1$s」を押すとレポートがコピーされ、準備済みの issue フォームが開きます。そこにレポートを貼り付けてください。自動的に送信されるものはありません。</string>
+    <string name="device_report_copy_open">コピーして GitHub を開く</string>
+    <string name="device_report_save">ファイルを保存</string>
+    <string name="device_report_copied">レポートをコピーしました。GitHub の issue に貼り付けてください。</string>
+    <string name="device_report_browser_missing">ブラウザが見つかりません。レポートを保存して %1$s を開いてください。</string>
+    <string name="device_report_saved">デバイスレポートを保存しました。</string>
+    <string name="device_report_save_failed">デバイスレポートを保存できませんでした。</string>
+</resources>

@@ -27,4 +27,6 @@ HTTP forwarding settings/status text lives in `strings_http_forwarding.xml`. The
 
 Measurement reminder settings and notifications live in `strings_reminders.xml` for all 52 locale options. Times and weekday names follow Android's locale and time-format settings. These additions received automated/contextual translation; native-speaker and physical layout review remain unperformed.
 
+Device-report and update-check text lives in `strings_device_report.xml` and `strings_updates.xml` for all 52 locale options. Button names and menu paths inside sentences are format arguments, so they always match the localized labels. These additions received automated translation without native-speaker review.
+
 Virtual user settings, ownership prompts, pending-count notifications and named-profile Health Connect text live in `strings_virtual_users.xml`. All 52 options have complete resource coverage and preserved placeholders. Translations received automated/contextual review, including German and Arabic corrections; native-speaker and visual layout review remain unperformed. Keep person names separate from the monitor's physical memory-bank labels.

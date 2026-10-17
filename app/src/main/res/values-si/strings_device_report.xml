@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="device_report_title">මෙම මොනිටරයට සහාය දැක්වීමට උදව් කරන්න</string>
+    <string name="device_report_card">OpenPressure තවමත් මෙම මොනිටරය සමඟ පරීක්ෂා කර නැත. උපාංග වාර්තාවකින් එය සන්නිවේදනය කරන ආකාරය පෙන්වන අතර, යෙදුමේ එය සඳහා තවත් විශේෂාංග විවෘත කිරීමට උදව් විය හැක.</string>
+    <string name="device_report_review">උපාංග වාර්තාව බලන්න</string>
+    <string name="device_report_prompt">OpenPressure තවමත් මෙම මොනිටරය සමඟ පරීක්ෂා කර නැත. ඔබ GitHub issue එකක උපාංග වාර්තාවක් බෙදා ගන්නේ නම් එය විශාල උදව්වක් වේ. ඔබගේ වාර්තාව සහ උදව්ව යෙදුමේ ඔබගේ මොනිටරය සඳහා තවත් විශේෂාංග විවෘත කළ හැක.\n\nවාර්තාවේ ඇත්තේ තාක්ෂණික විස්තර පමණි. එහි කිසි විටෙක කියවීම්, මැනුම් වේලාවන්, නම්, Bluetooth ලිපිනය හෝ අනුක්‍රමික අංකය ඇතුළත් නොවේ. කිසිවක් බෙදා ගැනීමට පෙර ඔබට එය බැලිය හැක.</string>
+    <string name="device_report_not_now">දැන් නොවේ</string>
+    <string name="device_report_review_title">උපාංග වාර්තාව</string>
+    <string name="device_report_review_explanation">පහත වාර්තාව පරීක්ෂා කරන්න. “%1$s” එය පිටපත් කර සූදානම් කළ issue පෝරමයක් විවෘත කරයි; වාර්තාව එහි අලවන්න. කිසිවක් ස්වයංක්‍රීයව යවනු නොලැබේ.</string>
+    <string name="device_report_copy_open">පිටපත් කර GitHub විවෘත කරන්න</string>
+    <string name="device_report_save">ගොනුව සුරකින්න</string>
+    <string name="device_report_copied">වාර්තාව පිටපත් කළා. එය GitHub issue එකට අලවන්න.</string>
+    <string name="device_report_browser_missing">බ්‍රව්සරයක් හමු නොවීය. වාර්තාව සුරකින්න සහ %1$s විවෘත කරන්න.</string>
+    <string name="device_report_saved">උපාංග වාර්තාව සුරැකිණි.</string>
+    <string name="device_report_save_failed">උපාංග වාර්තාව සුරැකීමට නොහැකි විය.</string>
+</resources>

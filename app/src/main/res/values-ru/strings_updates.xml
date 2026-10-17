@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="update_title">Доступно обновление</string>
+    <string name="update_message">Доступна версия OpenPressure %1$s. Вы используете %2$s.\n\nСтраница загрузки откроется в браузере. Android установит обновление, только если оно от того же разработчика.</string>
+    <string name="update_download">Открыть страницу загрузки</string>
+    <string name="update_later">Напомнить позже</string>
+    <string name="update_skip">Пропустить эту версию</string>
+    <string name="update_browser_missing">Не найден браузер, чтобы открыть страницу загрузки.</string>
+    <string name="update_setting_title">Проверка обновлений</string>
+    <string name="update_setting_description">Примерно раз в день OpenPressure спрашивает у GitHub, есть ли более новая версия. Запрос содержит только версию приложения; измерения и сведения о тонометре не отправляются.</string>
+    <string name="update_turn_off">Отключить проверку обновлений</string>
+    <string name="update_turn_on">Включить проверку обновлений</string>
+    <string name="update_about">Проверка обновлений обращается к GitHub примерно раз в день, чтобы найти более новую версию. Её можно отключить в разделе %1$s → %2$s.</string>
+</resources>

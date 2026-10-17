@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="update_title">Päivitys saatavilla</string>
+    <string name="update_message">OpenPressure %1$s on saatavilla. Käytät versiota %2$s.\n\nLataussivu avautuu selaimessasi. Android asentaa päivityksen vain, jos se on samalta kehittäjältä.</string>
+    <string name="update_download">Avaa lataussivu</string>
+    <string name="update_later">Muistuta myöhemmin</string>
+    <string name="update_skip">Ohita tämä versio</string>
+    <string name="update_browser_missing">Lataussivun avaamiseen ei löytynyt selainta.</string>
+    <string name="update_setting_title">Päivitysten tarkistus</string>
+    <string name="update_setting_description">Noin kerran päivässä OpenPressure kysyy GitHubilta, onko uudempaa versiota saatavilla. Pyyntö sisältää vain sovelluksen version; mittaustuloksia tai mittarin tietoja ei lähetetä.</string>
+    <string name="update_turn_off">Poista päivitysten tarkistus käytöstä</string>
+    <string name="update_turn_on">Ota päivitysten tarkistus käyttöön</string>
+    <string name="update_about">Päivitysten tarkistus ottaa yhteyttä GitHubiin noin kerran päivässä uudemman version löytämiseksi. Voit poistaa sen käytöstä kohdassa %1$s → %2$s.</string>
+</resources>

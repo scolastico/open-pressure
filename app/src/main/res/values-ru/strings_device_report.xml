@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="device_report_title">Помогите добавить поддержку этого тонометра</string>
+    <string name="device_report_card">OpenPressure ещё не тестировался с этим тонометром. Отчёт об устройстве показывает, как оно обменивается данными, и может помочь открыть для него больше функций в приложении.</string>
+    <string name="device_report_review">Просмотреть отчёт об устройстве</string>
+    <string name="device_report_prompt">OpenPressure ещё не тестировался с этим тонометром. Вы очень поможете, если поделитесь отчётом об устройстве в issue на GitHub. Ваш отчёт и ваша помощь могут открыть больше функций для вашего тонометра в приложении.\n\nОтчёт содержит только технические сведения. В нём никогда нет измерений, времени измерений, имён, Bluetooth-адреса или серийного номера. Вы можете просмотреть его, прежде чем чем-либо делиться.</string>
+    <string name="device_report_not_now">Не сейчас</string>
+    <string name="device_report_review_title">Отчёт об устройстве</string>
+    <string name="device_report_review_explanation">Проверьте отчёт ниже. «%1$s» копирует его и открывает подготовленную форму issue; вставьте туда отчёт. Ничего не отправляется автоматически.</string>
+    <string name="device_report_copy_open">Копировать и открыть GitHub</string>
+    <string name="device_report_save">Сохранить файл</string>
+    <string name="device_report_copied">Отчёт скопирован. Вставьте его в issue на GitHub.</string>
+    <string name="device_report_browser_missing">Браузер не найден. Сохраните отчёт и откройте %1$s.</string>
+    <string name="device_report_saved">Отчёт об устройстве сохранён.</string>
+    <string name="device_report_save_failed">Не удалось сохранить отчёт об устройстве.</string>
+</resources>

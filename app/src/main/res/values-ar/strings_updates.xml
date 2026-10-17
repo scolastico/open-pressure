@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="update_title">يتوفر تحديث</string>
+    <string name="update_message">يتوفر OpenPressure %1$s. أنت تستخدم %2$s.\n\nستُفتح صفحة التنزيل في متصفحك. لا يثبّت Android التحديث إلا إذا كان من المطوّر نفسه.</string>
+    <string name="update_download">فتح صفحة التنزيل</string>
+    <string name="update_later">ذكّرني لاحقًا</string>
+    <string name="update_skip">تخطي هذا الإصدار</string>
+    <string name="update_browser_missing">لم يُعثر على متصفح لفتح صفحة التنزيل.</string>
+    <string name="update_setting_title">التحقق من التحديثات</string>
+    <string name="update_setting_description">مرة واحدة يوميًا تقريبًا، يسأل OpenPressure موقع GitHub عمّا إذا كان هناك إصدار أحدث. لا يحتوي الطلب إلا على إصدار التطبيق؛ ولا تُرسل أي قراءات أو تفاصيل عن الجهاز.</string>
+    <string name="update_turn_off">إيقاف التحقق من التحديثات</string>
+    <string name="update_turn_on">تشغيل التحقق من التحديثات</string>
+    <string name="update_about">يتصل التحقق من التحديثات بـ GitHub مرة واحدة يوميًا تقريبًا للبحث عن إصدار أحدث. يمكنك إيقافه من %1$s ← %2$s.</string>
+</resources>

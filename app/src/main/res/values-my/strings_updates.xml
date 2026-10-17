@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="update_title">အပ်ဒိတ် ရနိုင်ပါသည်</string>
+    <string name="update_message">OpenPressure %1$s ရနိုင်ပါပြီ။ သင်သည် %2$s ကို အသုံးပြုနေပါသည်။\n\nဒေါင်းလုဒ်စာမျက်နှာကို သင့်ဘရောက်ဇာတွင် ဖွင့်ပါမည်။ Android သည် တူညီသော ဆော့ဖ်ဝဲရေးသူထံမှ လာသော အပ်ဒိတ်ကိုသာ ထည့်သွင်းပါသည်။</string>
+    <string name="update_download">ဒေါင်းလုဒ်စာမျက်နှာ ဖွင့်ရန်</string>
+    <string name="update_later">နောက်မှ သတိပေးပါ</string>
+    <string name="update_skip">ဤဗားရှင်းကို ကျော်ရန်</string>
+    <string name="update_browser_missing">ဒေါင်းလုဒ်စာမျက်နှာကို ဖွင့်ရန် ဘရောက်ဇာ မတွေ့ပါ။</string>
+    <string name="update_setting_title">အပ်ဒိတ် စစ်ဆေးခြင်း</string>
+    <string name="update_setting_description">တစ်ရက်လျှင် တစ်ကြိမ်ခန့် OpenPressure သည် ဗားရှင်းအသစ် ရှိမရှိ GitHub ကို မေးမြန်းပါသည်။ တောင်းဆိုချက်တွင် အက်ပ်ဗားရှင်းသာ ပါဝင်ပြီး တိုင်းတာချက်များ သို့မဟုတ် ကိရိယာအသေးစိတ်များကို မပို့ပါ။</string>
+    <string name="update_turn_off">အပ်ဒိတ် စစ်ဆေးခြင်းကို ပိတ်ရန်</string>
+    <string name="update_turn_on">အပ်ဒိတ် စစ်ဆေးခြင်းကို ဖွင့်ရန်</string>
+    <string name="update_about">အပ်ဒိတ် စစ်ဆေးခြင်းသည် ဗားရှင်းအသစ်ရှာရန် တစ်ရက်လျှင် တစ်ကြိမ်ခန့် GitHub ကို ဆက်သွယ်ပါသည်။ %1$s → %2$s တွင် ပိတ်နိုင်ပါသည်။</string>
+</resources>

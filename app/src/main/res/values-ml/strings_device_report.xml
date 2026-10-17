@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="device_report_title">ഈ മോണിറ്ററിനെ പിന്തുണയ്ക്കാൻ സഹായിക്കൂ</string>
+    <string name="device_report_card">OpenPressure ഇതുവരെ ഈ മോണിറ്ററിനൊപ്പം പരീക്ഷിച്ചിട്ടില്ല. ഉപകരണ റിപ്പോർട്ട് അത് എങ്ങനെ ആശയവിനിമയം നടത്തുന്നുവെന്ന് കാണിക്കുന്നു, ആപ്പിൽ അതിനായി കൂടുതൽ ഫീച്ചറുകൾ ലഭ്യമാക്കാൻ സഹായിക്കുകയും ചെയ്യും.</string>
+    <string name="device_report_review">ഉപകരണ റിപ്പോർട്ട് കാണുക</string>
+    <string name="device_report_prompt">OpenPressure ഇതുവരെ ഈ മോണിറ്ററിനൊപ്പം പരീക്ഷിച്ചിട്ടില്ല. ഒരു GitHub issue-ൽ ഉപകരണ റിപ്പോർട്ട് പങ്കിട്ടാൽ അത് വലിയ സഹായമാകും. നിങ്ങളുടെ റിപ്പോർട്ടും സഹായവും ആപ്പിൽ നിങ്ങളുടെ മോണിറ്ററിനായി കൂടുതൽ ഫീച്ചറുകൾ ലഭ്യമാക്കാം.\n\nറിപ്പോർട്ടിൽ സാങ്കേതിക വിവരങ്ങൾ മാത്രമേ ഉണ്ടാകൂ. റീഡിംഗുകൾ, അളവെടുത്ത സമയങ്ങൾ, പേരുകൾ, Bluetooth വിലാസം, സീരിയൽ നമ്പർ എന്നിവ ഒരിക്കലും അതിൽ ഉൾപ്പെടില്ല. എന്തെങ്കിലും പങ്കിടുന്നതിന് മുമ്പ് നിങ്ങൾക്ക് അത് പരിശോധിക്കാം.</string>
+    <string name="device_report_not_now">ഇപ്പോൾ വേണ്ട</string>
+    <string name="device_report_review_title">ഉപകരണ റിപ്പോർട്ട്</string>
+    <string name="device_report_review_explanation">താഴെയുള്ള റിപ്പോർട്ട് പരിശോധിക്കുക. “%1$s” അത് പകർത്തി, തയ്യാറാക്കിയ ഒരു issue ഫോം തുറക്കുന്നു; റിപ്പോർട്ട് അവിടെ ഒട്ടിക്കുക. ഒന്നും സ്വയമേവ അയയ്ക്കില്ല.</string>
+    <string name="device_report_copy_open">പകർത്തി GitHub തുറക്കുക</string>
+    <string name="device_report_save">ഫയൽ സേവ് ചെയ്യുക</string>
+    <string name="device_report_copied">റിപ്പോർട്ട് പകർത്തി. അത് GitHub issue-ൽ ഒട്ടിക്കുക.</string>
+    <string name="device_report_browser_missing">ബ്രൗസറൊന്നും കണ്ടെത്തിയില്ല. റിപ്പോർട്ട് സേവ് ചെയ്ത് %1$s തുറക്കുക.</string>
+    <string name="device_report_saved">ഉപകരണ റിപ്പോർട്ട് സേവ് ചെയ്തു.</string>
+    <string name="device_report_save_failed">ഉപകരണ റിപ്പോർട്ട് സേവ് ചെയ്യാനായില്ല.</string>
+</resources>

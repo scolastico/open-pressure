@@ -32,6 +32,8 @@ import org.openpressure.app.profiles.VirtualUsersActivity;
 import org.openpressure.app.profiles.AssignmentActivity;
 import org.openpressure.app.pdf.PdfReportData;
 import org.openpressure.app.pdf.PdfReportWriter;
+import org.openpressure.protocol.DeviceReport;
+import org.openpressure.app.updates.UpdateCheck;
 
 public final class MainActivity extends Activity {
     private static final int BG=0xfff5f7f4, INK=0xff182d2a, MUTED=0xff61726b, TEAL=0xff176e65, BORDER=0xffdce5de;
@@ -54,7 +56,9 @@ public final class MainActivity extends Activity {
     private ScrollView scroll;
     private int tab,filterUser,days,historyLimit=100;
     private boolean bound,uiVisible,advancedExpanded,virtualMode;
-    private AlertDialog consentDialog;
+    private AlertDialog consentDialog,deviceReportDialog,updateDialog;
+    private String pendingReportJson;
+    private static final String ISSUES="https://github.com/scolastico/open-pressure/issues";
     private int pendingExportKind, pendingExportUser, pendingExportDays;
     private final Handler handler=new Handler(Looper.getMainLooper());
     private boolean refreshScheduled;
@@ -73,7 +77,7 @@ public final class MainActivity extends Activity {
         if(state!=null) {
             tab=state.getInt("tab"); if(state.getBoolean("virtualMode",false)==virtualMode) filterUser=state.getInt("user"); days=state.getInt("days");
             pendingExportKind=state.getInt("exportKind"); pendingExportUser=state.getInt("exportUser"); pendingExportDays=state.getInt("exportDays"); pendingDumpExportPath=state.getString("dumpExportPath");
-            pendingPdfExportPath=state.getString("pdfExportPath");
+            pendingPdfExportPath=state.getString("pdfExportPath"); pendingReportJson=state.getString("reportJson");
         }
         if(getIntent().getBooleanExtra("open_history",false)) { tab=1; days=0; getIntent().removeExtra("open_history"); }
         if(getIntent().getBooleanExtra("open_reminders_overview",false)) { tab=0; getIntent().removeExtra("open_reminders_overview"); }
@@ -99,7 +103,7 @@ public final class MainActivity extends Activity {
     @Override public void onSaveInstanceState(Bundle out) {
         super.onSaveInstanceState(out); out.putInt("tab",tab); out.putInt("user",filterUser); out.putInt("days",days); out.putBoolean("virtualMode",virtualMode);
         out.putInt("exportKind",pendingExportKind); out.putInt("exportUser",pendingExportUser); out.putInt("exportDays",pendingExportDays); out.putString("dumpExportPath",pendingDumpExportPath);
-        out.putString("pdfExportPath",pendingPdfExportPath);
+        out.putString("pdfExportPath",pendingPdfExportPath); out.putString("reportJson",pendingReportJson);
     }
     @Override public void onDestroy() {
         pdfPreparationToken++;
@@ -107,6 +111,8 @@ public final class MainActivity extends Activity {
         if(pdfDialog!=null) { pdfDialog.dismiss(); pdfDialog=null; }
         if(isFinishing()) { deleteExportSnapshot(pendingPdfExportPath); pendingPdfExportPath=null; }
         if(consentDialog!=null) { consentDialog.dismiss(); consentDialog=null; }
+        if(deviceReportDialog!=null) { deviceReportDialog.dismiss(); deviceReportDialog=null; }
+        if(updateDialog!=null) { updateDialog.dismiss(); updateDialog=null; }
         handler.removeCallbacks(refresh); if(monitor!=null) { monitor.unlisten(listener); monitor.setUiVisible(this,false); } if(bound) unbindService(connection); super.onDestroy();
     }
     private void ensureExperimentalConsent() {
@@ -115,6 +121,7 @@ public final class MainActivity extends Activity {
             if(!bound) bound=bindService(new Intent(this,MonitorService.class),connection,BIND_AUTO_CREATE);
             int mode=AutoImportSettings.getMode(this);
             if(mode==AutoImportSettings.NOTIFICATION || mode==AutoImportSettings.COMPANION) NewReadingNotifications.requestPermissionIfNeeded(this);
+            offerUpdate(); UpdateCheck.checkIfDue(this,this::offerUpdate);
             return;
         }
         if(consentDialog!=null && consentDialog.isShowing()) return;
@@ -161,6 +168,7 @@ public final class MainActivity extends Activity {
         renderedReadingsRevision=monitor==null?0:monitor.readingsRevision; renderedDay=LocalDate.now();
         renderedDeviceState=deviceState();
         scroll.post(() -> scroll.scrollTo(0,position));
+        offerDeviceReport();
     }
     // Advertisement updates must not replace buttons beneath a finger or rerun reading queries.
     private void refreshMonitor() {
@@ -174,13 +182,14 @@ public final class MainActivity extends Activity {
             render(); return;
         }
         updateStatus();
+        offerDeviceReport();
     }
     private String deviceState() {
         if(monitor==null) return "starting";
         return Arrays.asList(monitor.ready,monitor.sessionFinished,monitor.registrationReading,monitor.registrationPending,monitor.registrationWriting,monitor.registrationDone,monitor.registrationBackupFile()!=null,monitor.address,monitor.connectedName,monitor.profile,monitor.user,
                 monitor.battery,monitor.information,monitor.hasUserControl,monitor.authenticatedUser,monitor.canHistory,
                 monitor.historyRunning,monitor.canTime,monitor.deviceTime,monitor.modelHint,monitor.canDump,
-                monitor.dumpRunning,monitor.dumpSaving,monitor.dumpRevision,monitor.eepromDumpFile()!=null,monitor.dumpComplete,monitor.dumpStart,monitor.dumpLength,
+                monitor.dumpRunning,monitor.dumpSaving,monitor.dumpRevision,monitor.eepromDumpFile()!=null,monitor.dumpComplete,monitor.dumpStart,monitor.dumpLength,monitor.deviceReport()!=null,
                 !monitor.address.isEmpty()&&!monitor.status.equals("Disconnected")&&!monitor.status.equals("Action failed")).toString();
     }
     private void updateStatus() {
@@ -342,6 +351,11 @@ public final class MainActivity extends Activity {
         automaticCard();
         if(monitor==null) { add(content,text(ExperimentalConsent.accepted(this)?getString(R.string.main_bluetooth_starting):getString(R.string.main_consent_needed),16,MUTED,false),16); return; }
         statusCard();
+        if(monitor.deviceReport()!=null) {
+            LinearLayout help=card(); label(help,getString(R.string.device_report_title));
+            add(help,text(getString(R.string.device_report_card),15,MUTED,false),10);
+            add(help,button(getString(R.string.device_report_review),this::reviewDeviceReport,true),8); content.addView(help);
+        }
         if(monitor.registrationPending) {
             LinearLayout registration=card(); label(registration,getString(R.string.main_choose_user));
             add(registration,text(getString(R.string.main_registration_user_explanation),15,MUTED,false),12);
@@ -382,6 +396,7 @@ public final class MainActivity extends Activity {
     }
     private void advancedDeviceControls() {
         add(content,button(getString(R.string.http_title),() -> startActivity(new Intent(this,HttpForwardingSettingsActivity.class)),false),8);
+        updateCard();
         LinearLayout information=card(); label(information,getString(R.string.main_monitor_information));
         add(information,button(getString(R.string.main_model_hint,monitor.modelHint),this::modelDialog,false),8);
         if(!monitor.information.isEmpty()) add(information,text(monitor.information.trim(),14,MUTED,false),8);
@@ -411,6 +426,66 @@ public final class MainActivity extends Activity {
             Button export=button(getString(R.string.main_export_settings_backup),() -> exportJsonSnapshot(monitor.registrationBackupFile(),"open-pressure-settings-backup.json"),false);
             export.setEnabled(!dumpExportPreparing); add(savedBackup,export,8); content.addView(savedBackup);
         }
+    }
+    /** After a Pair attempt with an untested monitor, ask once whether the user wants to help. */
+    private void offerDeviceReport() {
+        if(monitor==null || !uiVisible || isFinishing() || consentDialog!=null && consentDialog.isShowing()) return;
+        if(deviceReportDialog!=null && deviceReportDialog.isShowing() || updateDialog!=null && updateDialog.isShowing() || !monitor.deviceReportPromptDue()) return;
+        monitor.deviceReportPrompted();
+        deviceReportDialog=new AlertDialog.Builder(this).setTitle(getString(R.string.device_report_title)).setMessage(getString(R.string.device_report_prompt))
+                .setNegativeButton(getString(R.string.device_report_not_now),null)
+                .setPositiveButton(getString(R.string.device_report_review),(d,w) -> reviewDeviceReport()).show();
+    }
+    private void reviewDeviceReport() {
+        DeviceReport report=monitor==null?null:monitor.deviceReport();
+        if(report==null) return;
+        String json=report.toJson();
+        LinearLayout form=form();
+        add(form,text(getString(R.string.device_report_review_explanation,getString(R.string.device_report_copy_open)),15,MUTED,false),0);
+        TextView body=text(json,12,INK,false); body.setTypeface(Typeface.MONOSPACE); body.setTextIsSelectable(true);
+        // Report keys and values are technical; keep them left-to-right in RTL locales.
+        body.setTextDirection(View.TEXT_DIRECTION_LTR); add(form,body,12);
+        if(deviceReportDialog!=null) deviceReportDialog.dismiss();
+        deviceReportDialog=new AlertDialog.Builder(this).setTitle(getString(R.string.device_report_review_title)).setView(wrap(form))
+                .setNegativeButton(getString(R.string.main_close),null)
+                .setNeutralButton(getString(R.string.device_report_save),(d,w) -> saveDeviceReport(json))
+                .setPositiveButton(getString(R.string.device_report_copy_open),(d,w) -> shareDeviceReport(report.model(),json)).show();
+    }
+    private void shareDeviceReport(String model,String json) {
+        ClipboardManager clipboard=getSystemService(ClipboardManager.class);
+        if(clipboard!=null) clipboard.setPrimaryClip(ClipData.newPlainText(getString(R.string.device_report_review_title),json));
+        String label=model==null||model.isEmpty()?"unknown model":model;
+        String url=ISSUES+"/new?template=device_report.yml&title="+android.net.Uri.encode("Device report: "+label)+"&model="+android.net.Uri.encode(label);
+        try { startActivity(new Intent(Intent.ACTION_VIEW,android.net.Uri.parse(url))); toast(getString(R.string.device_report_copied)); }
+        catch(ActivityNotFoundException ex) { toast(getString(R.string.device_report_browser_missing,ISSUES)); }
+    }
+    private void saveDeviceReport(String json) {
+        if(exportBusy()) return;
+        pendingExportKind=5; pendingReportJson=json; refreshPdfExportButton();
+        Intent intent=new Intent(Intent.ACTION_CREATE_DOCUMENT).addCategory(Intent.CATEGORY_OPENABLE).setType("application/json").putExtra(Intent.EXTRA_TITLE,"open-pressure-device-report.json");
+        try { startActivityForResult(intent,20); } catch(ActivityNotFoundException ex) { pendingExportKind=0; pendingReportJson=null; refreshPdfExportButton(); toast(getString(R.string.main_document_provider_missing)); }
+    }
+    private void offerUpdate() {
+        if(isFinishing() || isDestroyed() || consentDialog!=null && consentDialog.isShowing() || deviceReportDialog!=null && deviceReportDialog.isShowing() || updateDialog!=null && updateDialog.isShowing()) return;
+        UpdateCheck.Release release=UpdateCheck.available(this,BuildConfig.VERSION_NAME,System.currentTimeMillis());
+        if(release==null) return;
+        updateDialog=new AlertDialog.Builder(this).setTitle(getString(R.string.update_title)).setMessage(getString(R.string.update_message,release.version,BuildConfig.VERSION_NAME))
+                .setPositiveButton(getString(R.string.update_download),(d,w) -> {
+                    // Ask again later if the download page is left without installing.
+                    UpdateCheck.remindLater(this,System.currentTimeMillis());
+                    try { startActivity(new Intent(Intent.ACTION_VIEW,android.net.Uri.parse(release.url))); }
+                    catch(ActivityNotFoundException ex) { toast(getString(R.string.update_browser_missing)); }
+                })
+                .setNeutralButton(getString(R.string.update_later),(d,w) -> UpdateCheck.remindLater(this,System.currentTimeMillis()))
+                .setNegativeButton(getString(R.string.update_skip),(d,w) -> UpdateCheck.skip(this,release.version))
+                .setOnCancelListener(d -> UpdateCheck.remindLater(this,System.currentTimeMillis())).show();
+    }
+    private void updateCard() {
+        LinearLayout updates=card(); label(updates,getString(R.string.update_setting_title));
+        add(updates,text(getString(R.string.update_setting_description),14,MUTED,false),10);
+        boolean enabled=UpdateCheck.enabled(this);
+        add(updates,button(getString(enabled?R.string.update_turn_off:R.string.update_turn_on),() -> { UpdateCheck.setEnabled(this,!enabled); if(!enabled) UpdateCheck.checkIfDue(this,this::offerUpdate); render(); },false),8);
+        content.addView(updates);
     }
     private void automaticCard() {
         LinearLayout card=card(); label(card,getString(R.string.main_automatic_imports));
@@ -746,6 +821,7 @@ public final class MainActivity extends Activity {
         int kind=pendingExportKind,exportUser=pendingExportUser,exportDays=pendingExportDays; pendingExportKind=0;
         String dumpPath=pendingDumpExportPath; pendingDumpExportPath=null;
         String pdfPath=pendingPdfExportPath; pendingPdfExportPath=null;
+        String reportJson=pendingReportJson; pendingReportJson=null;
         if(result!=RESULT_OK || data==null || data.getData()==null) { deleteExportSnapshot(dumpPath); deleteExportSnapshot(pdfPath); refreshPdfExportButton(); return; }
         if(kind==0) { deleteExportSnapshot(dumpPath); deleteExportSnapshot(pdfPath); refreshPdfExportButton(); toast(getString(R.string.main_export_interrupted)); return; }
         exportWriting=true; refreshPdfExportButton();
@@ -761,19 +837,22 @@ public final class MainActivity extends Activity {
                         byte[] buffer=new byte[8192]; int count;
                         while((count=input.read(buffer))!=-1) out.write(buffer,0,count);
                     }
+                } else if(kind==5) {
+                    if(reportJson==null) throw new IOException("Missing device report");
+                    out.write(reportJson.getBytes(StandardCharsets.UTF_8));
                 } else {
                     String payload=kind==2?store.diagnostics():store.export(exportUser,exportDays);
                     out.write(payload.getBytes(StandardCharsets.UTF_8));
                 }
-                message=getString(kind==4?R.string.pdf_exported:kind==3?R.string.main_memory_exported:R.string.main_csv_exported);
-            } catch(Exception ex) { message=getString(kind==4?R.string.pdf_failed:kind==3?R.string.main_memory_write_failed:R.string.main_csv_write_failed); }
+                message=getString(kind==5?R.string.device_report_saved:kind==4?R.string.pdf_exported:kind==3?R.string.main_memory_exported:R.string.main_csv_exported);
+            } catch(Exception ex) { message=getString(kind==5?R.string.device_report_save_failed:kind==4?R.string.pdf_failed:kind==3?R.string.main_memory_write_failed:R.string.main_csv_write_failed); }
             finally { if(dumpPath!=null) new File(dumpPath).delete(); if(pdfPath!=null) new File(pdfPath).delete(); }
             String resultMessage=message; handler.post(() -> { exportWriting=false; if(!isDestroyed()) { refreshPdfExportButton(); toast(resultMessage); } });
         },"document-export").start();
     }
     private void about() {
         new AlertDialog.Builder(this).setTitle(getString(R.string.main_about_title,BuildConfig.VERSION_NAME))
-                .setMessage(getString(R.string.main_about_message))
+                .setMessage(getString(R.string.main_about_message)+"\n\n"+getString(R.string.update_about,getString(R.string.main_devices),getString(R.string.main_advanced)))
                 .setNeutralButton(getString(Build.VERSION.SDK_INT>=33?R.string.monitor_app_language:R.string.monitor_phone_language),(dialog,which) -> {
                     Intent intent=Build.VERSION.SDK_INT>=33
                             ?new Intent(android.provider.Settings.ACTION_APP_LOCALE_SETTINGS).setData(android.net.Uri.parse("package:"+getPackageName()))

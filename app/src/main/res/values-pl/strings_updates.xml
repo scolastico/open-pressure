@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="update_title">Dostępna aktualizacja</string>
+    <string name="update_message">Dostępna jest wersja OpenPressure %1$s. Używasz wersji %2$s.\n\nStrona pobierania otworzy się w przeglądarce. Android zainstaluje aktualizację tylko wtedy, gdy pochodzi od tego samego dewelopera.</string>
+    <string name="update_download">Otwórz stronę pobierania</string>
+    <string name="update_later">Przypomnij później</string>
+    <string name="update_skip">Pomiń tę wersję</string>
+    <string name="update_browser_missing">Nie znaleziono przeglądarki, aby otworzyć stronę pobierania.</string>
+    <string name="update_setting_title">Sprawdzanie aktualizacji</string>
+    <string name="update_setting_description">Mniej więcej raz dziennie OpenPressure pyta GitHub, czy istnieje nowsza wersja. Zapytanie zawiera tylko wersję aplikacji; żadne pomiary ani dane ciśnieniomierza nie są wysyłane.</string>
+    <string name="update_turn_off">Wyłącz sprawdzanie aktualizacji</string>
+    <string name="update_turn_on">Włącz sprawdzanie aktualizacji</string>
+    <string name="update_about">Sprawdzanie aktualizacji łączy się z GitHubem mniej więcej raz dziennie, aby poszukać nowszej wersji. Możesz je wyłączyć w %1$s → %2$s.</string>
+</resources>

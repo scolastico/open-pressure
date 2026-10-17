@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="device_report_title">Tumulong na suportahan ang monitor na ito</string>
+    <string name="device_report_card">Hindi pa nasusubukan ang OpenPressure sa monitor na ito. Ipinapakita ng device report kung paano ito nakikipag-ugnayan at makakatulong ito na mabuksan ang mas maraming feature para dito sa app.</string>
+    <string name="device_report_review">Suriin ang device report</string>
+    <string name="device_report_prompt">Hindi pa nasusubukan ang OpenPressure sa monitor na ito. Malaking tulong kung magbabahagi ka ng device report sa isang GitHub issue. Ang iyong report at tulong ay makakapagbukas ng mas maraming feature para sa iyong monitor sa app.\n\nTeknikal na detalye lang ang laman ng report. Hindi nito kailanman isinasama ang mga reading, oras ng pagsukat, pangalan, Bluetooth address o serial number. Masusuri mo ito bago ka magbahagi ng anuman.</string>
+    <string name="device_report_not_now">Hindi ngayon</string>
+    <string name="device_report_review_title">Device report</string>
+    <string name="device_report_review_explanation">Tingnan ang report sa ibaba. Kinokopya ito ng “%1$s” at nagbubukas ng nakahandang issue form; i-paste doon ang report. Walang awtomatikong ipinapadala.</string>
+    <string name="device_report_copy_open">Kopyahin at buksan ang GitHub</string>
+    <string name="device_report_save">I-save ang file</string>
+    <string name="device_report_copied">Nakopya ang report. I-paste ito sa GitHub issue.</string>
+    <string name="device_report_browser_missing">Walang nakitang browser. I-save ang report at buksan ang %1$s.</string>
+    <string name="device_report_saved">Na-save ang device report.</string>
+    <string name="device_report_save_failed">Hindi ma-save ang device report.</string>
+</resources>

@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="update_title">Atualização disponível</string>
+    <string name="update_message">O OpenPressure %1$s está disponível. Você está usando a %2$s.\n\nA página de download abre no seu navegador. O Android só instala a atualização se ela vier do mesmo desenvolvedor.</string>
+    <string name="update_download">Abrir página de download</string>
+    <string name="update_later">Lembrar mais tarde</string>
+    <string name="update_skip">Pular esta versão</string>
+    <string name="update_browser_missing">Nenhum navegador encontrado para abrir a página de download.</string>
+    <string name="update_setting_title">Verificação de atualizações</string>
+    <string name="update_setting_description">Cerca de uma vez por dia, o OpenPressure pergunta ao GitHub se existe uma versão mais recente. A solicitação contém apenas a versão do app; nenhuma medição ou informação do medidor é enviada.</string>
+    <string name="update_turn_off">Desativar verificação de atualizações</string>
+    <string name="update_turn_on">Ativar verificação de atualizações</string>
+    <string name="update_about">A verificação de atualizações contata o GitHub cerca de uma vez por dia para procurar uma versão mais recente. Você pode desativá-la em %1$s → %2$s.</string>
+</resources>

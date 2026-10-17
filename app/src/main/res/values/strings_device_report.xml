@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="device_report_title">Help support this monitor</string>
+    <string name="device_report_card">OpenPressure has not been tested with this monitor yet. A device report shows how it communicates and can help unlock more features for it in the app.</string>
+    <string name="device_report_review">Review device report</string>
+    <string name="device_report_prompt">OpenPressure has not been tested with this monitor yet. It would help a lot if you shared a device report in a GitHub issue. Your report and your help can unlock more features for your monitor in the app.\n\nThe report contains only technical details. It never includes readings, measurement times, names, the Bluetooth address or the serial number. You can review it before you share anything.</string>
+    <string name="device_report_not_now">Not now</string>
+    <string name="device_report_review_title">Device report</string>
+    <string name="device_report_review_explanation">Check the report below. “%1$s” copies it and opens a prepared issue form; paste the report there. Nothing is sent automatically.</string>
+    <string name="device_report_copy_open">Copy and open GitHub</string>
+    <string name="device_report_save">Save file</string>
+    <string name="device_report_copied">Report copied. Paste it into the GitHub issue.</string>
+    <string name="device_report_browser_missing">No browser found. Save the report and open %1$s.</string>
+    <string name="device_report_saved">Device report saved.</string>
+    <string name="device_report_save_failed">Could not save the device report.</string>
+</resources>

@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="device_report_title">עזרו לתמוך במכשיר הזה</string>
+    <string name="device_report_card">OpenPressure עדיין לא נבדקה עם מד לחץ הדם הזה. דוח מכשיר מראה איך הוא מתקשר ויכול לעזור לפתוח עבורו תכונות נוספות באפליקציה.</string>
+    <string name="device_report_review">עיון בדוח המכשיר</string>
+    <string name="device_report_prompt">OpenPressure עדיין לא נבדקה עם מד לחץ הדם הזה. זה יעזור מאוד אם תשתפו דוח מכשיר ב-issue ב-GitHub. הדוח והעזרה שלכם יכולים לפתוח תכונות נוספות למד שלכם באפליקציה.\n\nהדוח מכיל פרטים טכניים בלבד. הוא אף פעם לא כולל מדידות, זמני מדידה, שמות, את כתובת ה-Bluetooth או את המספר הסידורי. אפשר לעיין בו לפני שמשתפים משהו.</string>
+    <string name="device_report_not_now">לא עכשיו</string>
+    <string name="device_report_review_title">דוח מכשיר</string>
+    <string name="device_report_review_explanation">בדקו את הדוח שלמטה. ״%1$s״ מעתיק אותו ופותח טופס issue מוכן; הדביקו שם את הדוח. שום דבר לא נשלח אוטומטית.</string>
+    <string name="device_report_copy_open">העתקה ופתיחת GitHub</string>
+    <string name="device_report_save">שמירת קובץ</string>
+    <string name="device_report_copied">הדוח הועתק. הדביקו אותו ב-issue ב-GitHub.</string>
+    <string name="device_report_browser_missing">לא נמצא דפדפן. שמרו את הדוח ופתחו את %1$s.</string>
+    <string name="device_report_saved">דוח המכשיר נשמר.</string>
+    <string name="device_report_save_failed">לא ניתן לשמור את דוח המכשיר.</string>
+</resources>

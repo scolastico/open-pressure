@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="update_title">Có bản cập nhật</string>
+    <string name="update_message">Đã có OpenPressure %1$s. Bạn đang dùng %2$s.\n\nTrang tải xuống sẽ mở trong trình duyệt. Android chỉ cài đặt bản cập nhật nếu nó đến từ cùng một nhà phát triển.</string>
+    <string name="update_download">Mở trang tải xuống</string>
+    <string name="update_later">Nhắc tôi sau</string>
+    <string name="update_skip">Bỏ qua phiên bản này</string>
+    <string name="update_browser_missing">Không tìm thấy trình duyệt để mở trang tải xuống.</string>
+    <string name="update_setting_title">Kiểm tra cập nhật</string>
+    <string name="update_setting_description">Khoảng mỗi ngày một lần, OpenPressure hỏi GitHub xem có phiên bản mới hơn không. Yêu cầu chỉ chứa phiên bản ứng dụng; không gửi kết quả đo hay thông tin về máy đo.</string>
+    <string name="update_turn_off">Tắt kiểm tra cập nhật</string>
+    <string name="update_turn_on">Bật kiểm tra cập nhật</string>
+    <string name="update_about">Tính năng kiểm tra cập nhật liên hệ với GitHub khoảng mỗi ngày một lần để tìm phiên bản mới hơn. Bạn có thể tắt trong %1$s → %2$s.</string>
+</resources>

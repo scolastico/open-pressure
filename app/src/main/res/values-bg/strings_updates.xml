@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="update_title">Налична е актуализация</string>
+    <string name="update_message">Налична е версия OpenPressure %1$s. Използвате %2$s.\n\nСтраницата за изтегляне се отваря в браузъра ви. Android инсталира актуализацията само ако е от същия разработчик.</string>
+    <string name="update_download">Отваряне на страницата за изтегляне</string>
+    <string name="update_later">Напомни ми по-късно</string>
+    <string name="update_skip">Пропускане на тази версия</string>
+    <string name="update_browser_missing">Не е намерен браузър за отваряне на страницата за изтегляне.</string>
+    <string name="update_setting_title">Проверка за актуализации</string>
+    <string name="update_setting_description">Около веднъж дневно OpenPressure пита GitHub дали има по-нова версия. Заявката съдържа само версията на приложението; не се изпращат измервания или данни за апарата.</string>
+    <string name="update_turn_off">Изключване на проверката за актуализации</string>
+    <string name="update_turn_on">Включване на проверката за актуализации</string>
+    <string name="update_about">Проверката за актуализации се свързва с GitHub около веднъж дневно, за да търси по-нова версия. Можете да я изключите от %1$s → %2$s.</string>
+</resources>

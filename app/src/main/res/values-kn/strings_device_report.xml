@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="device_report_title">ಈ ಮಾನಿಟರ್ ಅನ್ನು ಬೆಂಬಲಿಸಲು ಸಹಾಯ ಮಾಡಿ</string>
+    <string name="device_report_card">OpenPressure ಅನ್ನು ಇನ್ನೂ ಈ ಮಾನಿಟರ್‌ನೊಂದಿಗೆ ಪರೀಕ್ಷಿಸಲಾಗಿಲ್ಲ. ಸಾಧನ ವರದಿಯು ಅದು ಹೇಗೆ ಸಂವಹನ ನಡೆಸುತ್ತದೆ ಎಂಬುದನ್ನು ತೋರಿಸುತ್ತದೆ ಮತ್ತು ಆ್ಯಪ್‌ನಲ್ಲಿ ಅದಕ್ಕಾಗಿ ಹೆಚ್ಚಿನ ವೈಶಿಷ್ಟ್ಯಗಳನ್ನು ತೆರೆಯಲು ಸಹಾಯ ಮಾಡಬಹುದು.</string>
+    <string name="device_report_review">ಸಾಧನ ವರದಿಯನ್ನು ನೋಡಿ</string>
+    <string name="device_report_prompt">OpenPressure ಅನ್ನು ಇನ್ನೂ ಈ ಮಾನಿಟರ್‌ನೊಂದಿಗೆ ಪರೀಕ್ಷಿಸಲಾಗಿಲ್ಲ. ನೀವು GitHub issue ನಲ್ಲಿ ಸಾಧನ ವರದಿಯನ್ನು ಹಂಚಿಕೊಂಡರೆ ತುಂಬಾ ಸಹಾಯವಾಗುತ್ತದೆ. ನಿಮ್ಮ ವರದಿ ಮತ್ತು ನಿಮ್ಮ ಸಹಾಯವು ಆ್ಯಪ್‌ನಲ್ಲಿ ನಿಮ್ಮ ಮಾನಿಟರ್‌ಗೆ ಹೆಚ್ಚಿನ ವೈಶಿಷ್ಟ್ಯಗಳನ್ನು ತೆರೆಯಬಹುದು.\n\nವರದಿಯಲ್ಲಿ ತಾಂತ್ರಿಕ ವಿವರಗಳು ಮಾತ್ರ ಇರುತ್ತವೆ. ಅದರಲ್ಲಿ ಎಂದಿಗೂ ರೀಡಿಂಗ್‌ಗಳು, ಅಳತೆಯ ಸಮಯಗಳು, ಹೆಸರುಗಳು, Bluetooth ವಿಳಾಸ ಅಥವಾ ಸೀರಿಯಲ್ ಸಂಖ್ಯೆ ಇರುವುದಿಲ್ಲ. ಏನನ್ನಾದರೂ ಹಂಚಿಕೊಳ್ಳುವ ಮೊದಲು ನೀವು ಅದನ್ನು ನೋಡಬಹುದು.</string>
+    <string name="device_report_not_now">ಈಗ ಬೇಡ</string>
+    <string name="device_report_review_title">ಸಾಧನ ವರದಿ</string>
+    <string name="device_report_review_explanation">ಕೆಳಗಿನ ವರದಿಯನ್ನು ಪರಿಶೀಲಿಸಿ. “%1$s” ಅದನ್ನು ನಕಲಿಸಿ, ಸಿದ್ಧಪಡಿಸಿದ issue ಫಾರ್ಮ್ ಅನ್ನು ತೆರೆಯುತ್ತದೆ; ವರದಿಯನ್ನು ಅಲ್ಲಿ ಅಂಟಿಸಿ. ಯಾವುದನ್ನೂ ಸ್ವಯಂಚಾಲಿತವಾಗಿ ಕಳುಹಿಸಲಾಗುವುದಿಲ್ಲ.</string>
+    <string name="device_report_copy_open">ನಕಲಿಸಿ ಮತ್ತು GitHub ತೆರೆಯಿರಿ</string>
+    <string name="device_report_save">ಫೈಲ್ ಉಳಿಸಿ</string>
+    <string name="device_report_copied">ವರದಿಯನ್ನು ನಕಲಿಸಲಾಗಿದೆ. ಅದನ್ನು GitHub issue ನಲ್ಲಿ ಅಂಟಿಸಿ.</string>
+    <string name="device_report_browser_missing">ಯಾವುದೇ ಬ್ರೌಸರ್ ಕಂಡುಬಂದಿಲ್ಲ. ವರದಿಯನ್ನು ಉಳಿಸಿ ಮತ್ತು %1$s ತೆರೆಯಿರಿ.</string>
+    <string name="device_report_saved">ಸಾಧನ ವರದಿಯನ್ನು ಉಳಿಸಲಾಗಿದೆ.</string>
+    <string name="device_report_save_failed">ಸಾಧನ ವರದಿಯನ್ನು ಉಳಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ.</string>
+</resources>

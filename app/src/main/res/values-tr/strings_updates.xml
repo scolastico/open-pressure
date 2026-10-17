@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="update_title">Güncelleme mevcut</string>
+    <string name="update_message">OpenPressure %1$s kullanıma sunuldu. Şu anda %2$s sürümünü kullanıyorsunuz.\n\nİndirme sayfası tarayıcınızda açılır. Android, güncellemeyi yalnızca aynı geliştiriciden geliyorsa yükler.</string>
+    <string name="update_download">İndirme sayfasını aç</string>
+    <string name="update_later">Daha sonra hatırlat</string>
+    <string name="update_skip">Bu sürümü atla</string>
+    <string name="update_browser_missing">İndirme sayfasını açacak tarayıcı bulunamadı.</string>
+    <string name="update_setting_title">Güncelleme denetimi</string>
+    <string name="update_setting_description">OpenPressure yaklaşık günde bir kez GitHub’a daha yeni bir sürüm olup olmadığını sorar. İstek yalnızca uygulama sürümünü içerir; hiçbir ölçüm veya tansiyon aleti bilgisi gönderilmez.</string>
+    <string name="update_turn_off">Güncelleme denetimini kapat</string>
+    <string name="update_turn_on">Güncelleme denetimini aç</string>
+    <string name="update_about">Güncelleme denetimi, daha yeni bir sürüm aramak için yaklaşık günde bir kez GitHub ile iletişim kurar. Bunu %1$s → %2$s bölümünden kapatabilirsiniz.</string>
+</resources>

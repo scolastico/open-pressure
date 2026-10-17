@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="device_report_title">اس آلے کی سپورٹ میں مدد کریں</string>
+    <string name="device_report_card">OpenPressure کو ابھی اس بلڈ پریشر مانیٹر کے ساتھ ٹیسٹ نہیں کیا گیا۔ ڈیوائس رپورٹ دکھاتی ہے کہ یہ کیسے رابطہ کرتا ہے اور ایپ میں اس کے لیے مزید فیچرز کھولنے میں مدد کر سکتی ہے۔</string>
+    <string name="device_report_review">ڈیوائس رپورٹ دیکھیں</string>
+    <string name="device_report_prompt">OpenPressure کو ابھی اس بلڈ پریشر مانیٹر کے ساتھ ٹیسٹ نہیں کیا گیا۔ اگر آپ GitHub کے کسی issue میں ڈیوائس رپورٹ شیئر کریں تو بہت مدد ملے گی۔ آپ کی رپورٹ اور مدد سے ایپ میں آپ کے مانیٹر کے لیے مزید فیچرز کھل سکتے ہیں۔\n\nرپورٹ میں صرف تکنیکی تفصیلات ہوتی ہیں۔ اس میں کبھی بھی ریڈنگز، پیمائش کے اوقات، نام، Bluetooth پتہ یا سیریل نمبر شامل نہیں ہوتے۔ کچھ بھی شیئر کرنے سے پہلے آپ اسے دیکھ سکتے ہیں۔</string>
+    <string name="device_report_not_now">ابھی نہیں</string>
+    <string name="device_report_review_title">ڈیوائس رپورٹ</string>
+    <string name="device_report_review_explanation">نیچے دی گئی رپورٹ چیک کریں۔ ”%1$s“ اسے کاپی کر کے ایک تیار شدہ issue فارم کھولتا ہے؛ رپورٹ وہاں پیسٹ کریں۔ کچھ بھی خود بخود نہیں بھیجا جاتا۔</string>
+    <string name="device_report_copy_open">کاپی کریں اور GitHub کھولیں</string>
+    <string name="device_report_save">فائل محفوظ کریں</string>
+    <string name="device_report_copied">رپورٹ کاپی ہو گئی۔ اسے GitHub کے issue میں پیسٹ کریں۔</string>
+    <string name="device_report_browser_missing">کوئی براؤزر نہیں ملا۔ رپورٹ محفوظ کریں اور %1$s کھولیں۔</string>
+    <string name="device_report_saved">ڈیوائس رپورٹ محفوظ ہو گئی۔</string>
+    <string name="device_report_save_failed">ڈیوائس رپورٹ محفوظ نہیں ہو سکی۔</string>
+</resources>

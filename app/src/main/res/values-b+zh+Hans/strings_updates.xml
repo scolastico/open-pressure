@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="update_title">有可用更新</string>
+    <string name="update_message">OpenPressure %1$s 现已推出。你正在使用 %2$s。\n\n下载页面将在浏览器中打开。只有当更新来自同一开发者时，Android 才会安装它。</string>
+    <string name="update_download">打开下载页面</string>
+    <string name="update_later">稍后提醒我</string>
+    <string name="update_skip">跳过此版本</string>
+    <string name="update_browser_missing">未找到可打开下载页面的浏览器。</string>
+    <string name="update_setting_title">检查更新</string>
+    <string name="update_setting_description">OpenPressure 大约每天会询问 GitHub 一次是否有新版本。请求只包含应用版本，不会发送任何测量数据或血压计信息。</string>
+    <string name="update_turn_off">关闭检查更新</string>
+    <string name="update_turn_on">开启检查更新</string>
+    <string name="update_about">检查更新功能大约每天联系 GitHub 一次以查找新版本。你可以在 %1$s → %2$s 中关闭它。</string>
+</resources>

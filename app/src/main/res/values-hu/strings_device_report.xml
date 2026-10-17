@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="device_report_title">Segíts támogatni ezt a vérnyomásmérőt</string>
+    <string name="device_report_card">Az OpenPressure-t még nem tesztelték ezzel a vérnyomásmérővel. Egy eszközjelentés megmutatja, hogyan kommunikál, és segíthet további funkciókat elérhetővé tenni számára az alkalmazásban.</string>
+    <string name="device_report_review">Eszközjelentés megtekintése</string>
+    <string name="device_report_prompt">Az OpenPressure-t még nem tesztelték ezzel a vérnyomásmérővel. Nagy segítség lenne, ha megosztanál egy eszközjelentést egy GitHub-issue-ban. A jelentésed és a segítséged további funkciókat tehet elérhetővé a vérnyomásmérőd számára az alkalmazásban.\n\nA jelentés csak műszaki adatokat tartalmaz. Soha nem tartalmaz méréseket, mérési időpontokat, neveket, a Bluetooth-címet vagy a sorozatszámot. Mielőtt bármit megosztanál, megtekintheted.</string>
+    <string name="device_report_not_now">Most nem</string>
+    <string name="device_report_review_title">Eszközjelentés</string>
+    <string name="device_report_review_explanation">Ellenőrizd az alábbi jelentést. A(z) „%1$s” kimásolja, és megnyit egy előkészített issue-űrlapot; ott illeszd be a jelentést. Semmi sem kerül automatikusan elküldésre.</string>
+    <string name="device_report_copy_open">Másolás és GitHub megnyitása</string>
+    <string name="device_report_save">Fájl mentése</string>
+    <string name="device_report_copied">Jelentés kimásolva. Illeszd be a GitHub-issue-ba.</string>
+    <string name="device_report_browser_missing">Nem található böngésző. Mentsd el a jelentést, és nyisd meg ezt: %1$s.</string>
+    <string name="device_report_saved">Eszközjelentés mentve.</string>
+    <string name="device_report_save_failed">Nem sikerült menteni az eszközjelentést.</string>
+</resources>

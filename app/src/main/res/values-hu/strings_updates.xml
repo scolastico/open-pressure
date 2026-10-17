@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="update_title">Frissítés érhető el</string>
+    <string name="update_message">Elérhető az OpenPressure %1$s. Jelenleg ezt használod: %2$s.\n\nA letöltési oldal a böngésződben nyílik meg. Az Android csak akkor telepíti a frissítést, ha ugyanattól a fejlesztőtől származik.</string>
+    <string name="update_download">Letöltési oldal megnyitása</string>
+    <string name="update_later">Emlékeztess később</string>
+    <string name="update_skip">Verzió kihagyása</string>
+    <string name="update_browser_missing">Nem található böngésző a letöltési oldal megnyitásához.</string>
+    <string name="update_setting_title">Frissítések keresése</string>
+    <string name="update_setting_description">Az OpenPressure nagyjából naponta egyszer megkérdezi a GitHubot, hogy van-e újabb verzió. A kérés csak az alkalmazás verzióját tartalmazza; méréseket vagy a vérnyomásmérő adatait nem küldi el.</string>
+    <string name="update_turn_off">Frissítések keresésének kikapcsolása</string>
+    <string name="update_turn_on">Frissítések keresésének bekapcsolása</string>
+    <string name="update_about">A frissítések keresése nagyjából naponta egyszer kapcsolatba lép a GitHubbal, hogy újabb verziót keressen. Kikapcsolhatod itt: %1$s → %2$s.</string>
+</resources>

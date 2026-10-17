@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="update_title">יש עדכון זמין</string>
+    <string name="update_message">OpenPressure %1$s זמינה. הגרסה שלכם היא %2$s.\n\nדף ההורדה ייפתח בדפדפן. Android מתקינה את העדכון רק אם הוא מגיע מאותו מפתח.</string>
+    <string name="update_download">פתיחת דף ההורדה</string>
+    <string name="update_later">להזכיר לי מאוחר יותר</string>
+    <string name="update_skip">דילוג על הגרסה הזו</string>
+    <string name="update_browser_missing">לא נמצא דפדפן לפתיחת דף ההורדה.</string>
+    <string name="update_setting_title">בדיקת עדכונים</string>
+    <string name="update_setting_description">בערך פעם ביום, OpenPressure שואלת את GitHub אם קיימת גרסה חדשה יותר. הבקשה מכילה רק את גרסת האפליקציה; לא נשלחות מדידות או פרטים על המכשיר.</string>
+    <string name="update_turn_off">כיבוי בדיקת עדכונים</string>
+    <string name="update_turn_on">הפעלת בדיקת עדכונים</string>
+    <string name="update_about">בדיקת העדכונים פונה ל-GitHub בערך פעם ביום כדי לחפש גרסה חדשה יותר. אפשר לכבות אותה ב-%1$s ← %2$s.</string>
+</resources>

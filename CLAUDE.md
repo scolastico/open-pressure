@@ -62,6 +62,10 @@ tests does not prove that a command is safe for physical hardware.
   log/export Authorization values or include them in measurement payloads. In
   passthrough mode, do not retain new readings in history, Health Connect or raw
   packet diagnostics; existing history and explicit safety backups remain intact.
+- Device reports stay free of readings, timestamps, names, addresses, serial
+  numbers/system IDs, memory contents and keys; collecting them must never send
+  extra commands to a monitor. Update checks contact only GitHub's releases API
+  for this repository, stay user-disableable and never download or install.
 - Measurement reminders are phone-only notifications. Preserve weekday/local-time
   scheduling, permission fallbacks, stale-alarm rejection and occurrence-only
   suppression. Old history receipt time must not count as a recent measurement;

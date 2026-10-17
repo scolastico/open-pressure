@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="device_report_title">இந்த மானிட்டரை ஆதரிக்க உதவுங்கள்</string>
+    <string name="device_report_card">OpenPressure இந்த மானிட்டருடன் இன்னும் சோதிக்கப்படவில்லை. சாதன அறிக்கை அது எவ்வாறு தொடர்புகொள்கிறது என்பதைக் காட்டுகிறது, மேலும் ஆப்ஸில் அதற்கான கூடுதல் அம்சங்களைத் திறக்க உதவலாம்.</string>
+    <string name="device_report_review">சாதன அறிக்கையைப் பார்</string>
+    <string name="device_report_prompt">OpenPressure இந்த மானிட்டருடன் இன்னும் சோதிக்கப்படவில்லை. GitHub issue ஒன்றில் சாதன அறிக்கையைப் பகிர்ந்தால் மிகவும் உதவியாக இருக்கும். உங்கள் அறிக்கையும் உதவியும் ஆப்ஸில் உங்கள் மானிட்டருக்கான கூடுதல் அம்சங்களைத் திறக்கலாம்.\n\nஅறிக்கையில் தொழில்நுட்ப விவரங்கள் மட்டுமே இருக்கும். அளவீடுகள், அளவீட்டு நேரங்கள், பெயர்கள், Bluetooth முகவரி அல்லது வரிசை எண் ஒருபோதும் அதில் இருக்காது. எதையும் பகிரும் முன் அதைப் பார்க்கலாம்.</string>
+    <string name="device_report_not_now">இப்போது வேண்டாம்</string>
+    <string name="device_report_review_title">சாதன அறிக்கை</string>
+    <string name="device_report_review_explanation">கீழே உள்ள அறிக்கையைச் சரிபார்க்கவும். “%1$s” அதை நகலெடுத்து, தயாரான issue படிவத்தைத் திறக்கும்; அறிக்கையை அங்கே ஒட்டவும். எதுவும் தானாக அனுப்பப்படாது.</string>
+    <string name="device_report_copy_open">நகலெடுத்து GitHub-ஐத் திற</string>
+    <string name="device_report_save">கோப்பைச் சேமி</string>
+    <string name="device_report_copied">அறிக்கை நகலெடுக்கப்பட்டது. அதை GitHub issue-இல் ஒட்டவும்.</string>
+    <string name="device_report_browser_missing">உலாவி எதுவும் கிடைக்கவில்லை. அறிக்கையைச் சேமித்து %1$s-ஐத் திறக்கவும்.</string>
+    <string name="device_report_saved">சாதன அறிக்கை சேமிக்கப்பட்டது.</string>
+    <string name="device_report_save_failed">சாதன அறிக்கையைச் சேமிக்க முடியவில்லை.</string>
+</resources>

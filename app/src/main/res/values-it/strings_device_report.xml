@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="device_report_title">Aiuta a supportare questo misuratore</string>
+    <string name="device_report_card">OpenPressure non è ancora stato testato con questo misuratore. Un report del dispositivo mostra come comunica e può aiutare a sbloccare altre funzioni per questo dispositivo nell’app.</string>
+    <string name="device_report_review">Esamina il report del dispositivo</string>
+    <string name="device_report_prompt">OpenPressure non è ancora stato testato con questo misuratore. Sarebbe di grande aiuto se condividessi un report del dispositivo in una issue su GitHub. Il tuo report e il tuo aiuto possono sbloccare altre funzioni per il tuo misuratore nell’app.\n\nIl report contiene solo dettagli tecnici. Non include mai misurazioni, orari delle misurazioni, nomi, l’indirizzo Bluetooth o il numero di serie. Puoi esaminarlo prima di condividere qualsiasi cosa.</string>
+    <string name="device_report_not_now">Non ora</string>
+    <string name="device_report_review_title">Report del dispositivo</string>
+    <string name="device_report_review_explanation">Controlla il report qui sotto. «%1$s» lo copia e apre un modulo di issue già preparato; incolla lì il report. Non viene inviato nulla automaticamente.</string>
+    <string name="device_report_copy_open">Copia e apri GitHub</string>
+    <string name="device_report_save">Salva file</string>
+    <string name="device_report_copied">Report copiato. Incollalo nella issue su GitHub.</string>
+    <string name="device_report_browser_missing">Nessun browser trovato. Salva il report e apri %1$s.</string>
+    <string name="device_report_saved">Report del dispositivo salvato.</string>
+    <string name="device_report_save_failed">Impossibile salvare il report del dispositivo.</string>
+</resources>

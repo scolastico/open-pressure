@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="update_title">Uppdatering tillgänglig</string>
+    <string name="update_message">OpenPressure %1$s är tillgänglig. Du använder %2$s.\n\nNedladdningssidan öppnas i din webbläsare. Android installerar bara uppdateringen om den kommer från samma utvecklare.</string>
+    <string name="update_download">Öppna nedladdningssidan</string>
+    <string name="update_later">Påminn mig senare</string>
+    <string name="update_skip">Hoppa över den här versionen</string>
+    <string name="update_browser_missing">Ingen webbläsare hittades för att öppna nedladdningssidan.</string>
+    <string name="update_setting_title">Uppdateringskontroller</string>
+    <string name="update_setting_description">Ungefär en gång om dagen frågar OpenPressure GitHub om det finns en nyare version. Förfrågan innehåller bara appversionen; inga mätvärden eller uppgifter om mätaren skickas.</string>
+    <string name="update_turn_off">Stäng av uppdateringskontroller</string>
+    <string name="update_turn_on">Slå på uppdateringskontroller</string>
+    <string name="update_about">Uppdateringskontrollerna kontaktar GitHub ungefär en gång om dagen för att leta efter en nyare version. Du kan stänga av dem under %1$s → %2$s.</string>
+</resources>

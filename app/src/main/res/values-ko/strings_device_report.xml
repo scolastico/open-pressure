@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="device_report_title">이 혈압계 지원에 도움을 주세요</string>
+    <string name="device_report_card">OpenPressure는 아직 이 혈압계로 테스트되지 않았습니다. 기기 보고서는 혈압계가 통신하는 방식을 보여 주며, 앱에서 이 기기에 더 많은 기능을 제공하는 데 도움이 될 수 있습니다.</string>
+    <string name="device_report_review">기기 보고서 검토</string>
+    <string name="device_report_prompt">OpenPressure는 아직 이 혈압계로 테스트되지 않았습니다. GitHub 이슈에 기기 보고서를 공유해 주시면 큰 도움이 됩니다. 보고서와 도움 덕분에 앱에서 내 혈압계에 더 많은 기능을 제공할 수 있습니다.\n\n보고서에는 기술 정보만 포함됩니다. 측정값, 측정 시간, 이름, 블루투스 주소, 일련번호는 절대 포함되지 않습니다. 공유하기 전에 내용을 검토할 수 있습니다.</string>
+    <string name="device_report_not_now">나중에</string>
+    <string name="device_report_review_title">기기 보고서</string>
+    <string name="device_report_review_explanation">아래 보고서를 확인하세요. ‘%1$s’을(를) 누르면 보고서가 복사되고 미리 준비된 이슈 양식이 열립니다. 그곳에 보고서를 붙여 넣으세요. 자동으로 전송되는 것은 없습니다.</string>
+    <string name="device_report_copy_open">복사하고 GitHub 열기</string>
+    <string name="device_report_save">파일 저장</string>
+    <string name="device_report_copied">보고서를 복사했습니다. GitHub 이슈에 붙여 넣으세요.</string>
+    <string name="device_report_browser_missing">브라우저를 찾을 수 없습니다. 보고서를 저장하고 %1$s을(를) 여세요.</string>
+    <string name="device_report_saved">기기 보고서를 저장했습니다.</string>
+    <string name="device_report_save_failed">기기 보고서를 저장할 수 없습니다.</string>
+</resources>

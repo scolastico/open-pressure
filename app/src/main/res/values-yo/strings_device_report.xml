@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="device_report_title">Ṣe ìrànlọ́wọ́ láti ṣàtìlẹ́yìn fún ẹ̀rọ yìí</string>
+    <string name="device_report_card">A kò tíì dán OpenPressure wò pẹ̀lú ẹ̀rọ ìwọn ẹ̀jẹ̀ yìí. Ìjábọ̀ ẹ̀rọ ń fi bí ó ṣe ń bára sọ̀rọ̀ hàn, ó sì lè ṣèrànwọ́ láti ṣí àwọn ẹ̀yà míì sílẹ̀ fún un nínú áàpù.</string>
+    <string name="device_report_review">Ṣàyẹ̀wò ìjábọ̀ ẹ̀rọ</string>
+    <string name="device_report_prompt">A kò tíì dán OpenPressure wò pẹ̀lú ẹ̀rọ ìwọn ẹ̀jẹ̀ yìí. Yóò ṣèrànwọ́ púpọ̀ tí o bá pín ìjábọ̀ ẹ̀rọ nínú issue kan lórí GitHub. Ìjábọ̀ rẹ àti ìrànlọ́wọ́ rẹ lè ṣí àwọn ẹ̀yà míì sílẹ̀ fún ẹ̀rọ rẹ nínú áàpù.\n\nÌjábọ̀ náà ní àwọn àlàyé ìmọ̀-ẹ̀rọ nìkan. Kò ní àwọn ìwọ̀n, àkókò ìwọ̀n, orúkọ, àdírẹ́sì Bluetooth tàbí nọ́ńbà ìdánimọ̀ rárá. O lè ṣàyẹ̀wò rẹ̀ kí o tó pín ohunkóhun.</string>
+    <string name="device_report_not_now">Kì í ṣe báyìí</string>
+    <string name="device_report_review_title">Ìjábọ̀ ẹ̀rọ</string>
+    <string name="device_report_review_explanation">Ṣàyẹ̀wò ìjábọ̀ tó wà nísàlẹ̀. “%1$s” yóò ṣe àdàkọ rẹ̀, yóò sì ṣí fọ́ọ̀mù issue tí a ti pèsè sílẹ̀; lẹ ìjábọ̀ náà síbẹ̀. Kò sí ohun tí a ń fi ránṣẹ́ láìfọwọ́yí.</string>
+    <string name="device_report_copy_open">Ṣe àdàkọ kí o ṣí GitHub</string>
+    <string name="device_report_save">Fi fáìlì pamọ́</string>
+    <string name="device_report_copied">A ti ṣe àdàkọ ìjábọ̀ náà. Lẹ̀ ẹ́ sínú issue GitHub.</string>
+    <string name="device_report_browser_missing">A kò rí aṣàwákiri kankan. Fi ìjábọ̀ náà pamọ́ kí o sì ṣí %1$s.</string>
+    <string name="device_report_saved">A ti fi ìjábọ̀ ẹ̀rọ pamọ́.</string>
+    <string name="device_report_save_failed">A kò lè fi ìjábọ̀ ẹ̀rọ pamọ́.</string>
+</resources>

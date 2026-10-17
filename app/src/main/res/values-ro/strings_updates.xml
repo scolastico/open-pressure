@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="update_title">Actualizare disponibilă</string>
+    <string name="update_message">OpenPressure %1$s este disponibil. Folosești %2$s.\n\nPagina de descărcare se deschide în browser. Android instalează actualizarea doar dacă provine de la același dezvoltator.</string>
+    <string name="update_download">Deschide pagina de descărcare</string>
+    <string name="update_later">Amintește-mi mai târziu</string>
+    <string name="update_skip">Omite această versiune</string>
+    <string name="update_browser_missing">Nu s-a găsit niciun browser pentru a deschide pagina de descărcare.</string>
+    <string name="update_setting_title">Verificarea actualizărilor</string>
+    <string name="update_setting_description">Aproximativ o dată pe zi, OpenPressure întreabă GitHub dacă există o versiune mai nouă. Solicitarea conține doar versiunea aplicației; nu se trimit măsurători sau detalii despre tensiometru.</string>
+    <string name="update_turn_off">Dezactivează verificarea actualizărilor</string>
+    <string name="update_turn_on">Activează verificarea actualizărilor</string>
+    <string name="update_about">Verificarea actualizărilor contactează GitHub aproximativ o dată pe zi pentru a căuta o versiune mai nouă. O poți dezactiva din %1$s → %2$s.</string>
+</resources>

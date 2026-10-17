@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="update_title">Update available</string>
+    <string name="update_message">OpenPressure %1$s is available. You are using %2$s.\n\nThe download page opens in your browser. Android only installs the update if it comes from the same developer.</string>
+    <string name="update_download">Open download page</string>
+    <string name="update_later">Remind me later</string>
+    <string name="update_skip">Skip this version</string>
+    <string name="update_browser_missing">No browser found to open the download page.</string>
+    <string name="update_setting_title">Update checks</string>
+    <string name="update_setting_description">About once a day, OpenPressure asks GitHub whether a newer version exists. The request contains only the app version; no readings or monitor details are sent.</string>
+    <string name="update_turn_off">Turn off update checks</string>
+    <string name="update_turn_on">Turn on update checks</string>
+    <string name="update_about">Update checks contact GitHub about once a day to look for a newer version. You can turn them off under %1$s → %2$s.</string>
+</resources>

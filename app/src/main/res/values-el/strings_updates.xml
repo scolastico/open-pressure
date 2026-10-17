@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="update_title">Διαθέσιμη ενημέρωση</string>
+    <string name="update_message">Το OpenPressure %1$s είναι διαθέσιμο. Χρησιμοποιείτε την έκδοση %2$s.\n\nΗ σελίδα λήψης ανοίγει στο πρόγραμμα περιήγησής σας. Το Android εγκαθιστά την ενημέρωση μόνο αν προέρχεται από τον ίδιο προγραμματιστή.</string>
+    <string name="update_download">Άνοιγμα σελίδας λήψης</string>
+    <string name="update_later">Υπενθύμιση αργότερα</string>
+    <string name="update_skip">Παράλειψη αυτής της έκδοσης</string>
+    <string name="update_browser_missing">Δεν βρέθηκε πρόγραμμα περιήγησης για το άνοιγμα της σελίδας λήψης.</string>
+    <string name="update_setting_title">Έλεγχος ενημερώσεων</string>
+    <string name="update_setting_description">Περίπου μία φορά την ημέρα, το OpenPressure ρωτά το GitHub αν υπάρχει νεότερη έκδοση. Το αίτημα περιέχει μόνο την έκδοση της εφαρμογής· δεν αποστέλλονται μετρήσεις ή στοιχεία του πιεσόμετρου.</string>
+    <string name="update_turn_off">Απενεργοποίηση ελέγχου ενημερώσεων</string>
+    <string name="update_turn_on">Ενεργοποίηση ελέγχου ενημερώσεων</string>
+    <string name="update_about">Ο έλεγχος ενημερώσεων επικοινωνεί με το GitHub περίπου μία φορά την ημέρα για να βρει νεότερη έκδοση. Μπορείτε να τον απενεργοποιήσετε στο %1$s → %2$s.</string>
+</resources>

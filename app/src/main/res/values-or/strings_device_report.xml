@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="device_report_title">ଏହି ମନିଟରକୁ ସମର୍ଥନ କରିବାରେ ସାହାଯ୍ୟ କରନ୍ତୁ</string>
+    <string name="device_report_card">OpenPressure ଏପର୍ଯ୍ୟନ୍ତ ଏହି ମନିଟର ସହିତ ପରୀକ୍ଷା କରାଯାଇନାହିଁ। ଏକ ଡିଭାଇସ ରିପୋର୍ଟ ଦେଖାଏ ଯେ ଏହା କିପରି ଯୋଗାଯୋଗ କରେ, ଏବଂ ଆପରେ ଏହା ପାଇଁ ଅଧିକ ସୁବିଧା ଖୋଲିବାରେ ସାହାଯ୍ୟ କରିପାରେ।</string>
+    <string name="device_report_review">ଡିଭାଇସ ରିପୋର୍ଟ ଦେଖନ୍ତୁ</string>
+    <string name="device_report_prompt">OpenPressure ଏପର୍ଯ୍ୟନ୍ତ ଏହି ମନିଟର ସହିତ ପରୀକ୍ଷା କରାଯାଇନାହିଁ। ଯଦି ଆପଣ ଏକ GitHub issue ରେ ଡିଭାଇସ ରିପୋର୍ଟ ସେୟାର କରନ୍ତି, ତେବେ ବହୁତ ସାହାଯ୍ୟ ହେବ। ଆପଣଙ୍କ ରିପୋର୍ଟ ଓ ସାହାଯ୍ୟ ଆପରେ ଆପଣଙ୍କ ମନିଟର ପାଇଁ ଅଧିକ ସୁବିଧା ଖୋଲିପାରେ।\n\nରିପୋର୍ଟରେ କେବଳ ବୈଷୟିକ ବିବରଣୀ ଥାଏ। ଏଥିରେ କେବେବି ରିଡିଂ, ମାପ ସମୟ, ନାମ, Bluetooth ଠିକଣା କିମ୍ବା ସିରିଆଲ ନମ୍ବର ରହେ ନାହିଁ। କିଛି ସେୟାର କରିବା ପୂର୍ବରୁ ଆପଣ ଏହାକୁ ଦେଖିପାରିବେ।</string>
+    <string name="device_report_not_now">ବର୍ତ୍ତମାନ ନୁହେଁ</string>
+    <string name="device_report_review_title">ଡିଭାଇସ ରିପୋର୍ଟ</string>
+    <string name="device_report_review_explanation">ତଳେ ଥିବା ରିପୋର୍ଟ ଯାଞ୍ଚ କରନ୍ତୁ। “%1$s” ଏହାକୁ କପି କରେ ଏବଂ ଏକ ପ୍ରସ୍ତୁତ issue ଫର୍ମ ଖୋଲେ; ରିପୋର୍ଟଟି ସେଠାରେ ପେଷ୍ଟ କରନ୍ତୁ। କିଛି ବି ସ୍ୱୟଂଚାଳିତ ଭାବେ ପଠାଯାଏ ନାହିଁ।</string>
+    <string name="device_report_copy_open">କପି କରି GitHub ଖୋଲନ୍ତୁ</string>
+    <string name="device_report_save">ଫାଇଲ ସେଭ କରନ୍ତୁ</string>
+    <string name="device_report_copied">ରିପୋର୍ଟ କପି ହେଲା। ଏହାକୁ GitHub issue ରେ ପେଷ୍ଟ କରନ୍ତୁ।</string>
+    <string name="device_report_browser_missing">କୌଣସି ବ୍ରାଉଜର ମିଳିଲା ନାହିଁ। ରିପୋର୍ଟ ସେଭ କରି %1$s ଖୋଲନ୍ତୁ।</string>
+    <string name="device_report_saved">ଡିଭାଇସ ରିପୋର୍ଟ ସେଭ ହେଲା।</string>
+    <string name="device_report_save_failed">ଡିଭାଇସ ରିପୋର୍ଟ ସେଭ କରାଯାଇପାରିଲା ନାହିଁ।</string>
+</resources>

@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="device_report_title">Saidia kuwezesha kifaa hiki</string>
+    <string name="device_report_card">OpenPressure bado haijajaribiwa na kipima shinikizo hiki. Ripoti ya kifaa inaonyesha jinsi kinavyowasiliana na inaweza kusaidia kufungua vipengele zaidi kwa ajili yake kwenye programu.</string>
+    <string name="device_report_review">Kagua ripoti ya kifaa</string>
+    <string name="device_report_prompt">OpenPressure bado haijajaribiwa na kipima shinikizo hiki. Itasaidia sana ukishiriki ripoti ya kifaa kwenye issue ya GitHub. Ripoti yako na msaada wako vinaweza kufungua vipengele zaidi kwa kipima shinikizo chako kwenye programu.\n\nRipoti ina maelezo ya kiufundi pekee. Haijumuishi kamwe vipimo, nyakati za vipimo, majina, anwani ya Bluetooth wala nambari ya ufuatiliaji. Unaweza kuikagua kabla ya kushiriki chochote.</string>
+    <string name="device_report_not_now">Si sasa</string>
+    <string name="device_report_review_title">Ripoti ya kifaa</string>
+    <string name="device_report_review_explanation">Angalia ripoti iliyo hapa chini. “%1$s” inainakili na kufungua fomu ya issue iliyoandaliwa; bandika ripoti hapo. Hakuna kinachotumwa kiotomatiki.</string>
+    <string name="device_report_copy_open">Nakili na ufungue GitHub</string>
+    <string name="device_report_save">Hifadhi faili</string>
+    <string name="device_report_copied">Ripoti imenakiliwa. Ibandike kwenye issue ya GitHub.</string>
+    <string name="device_report_browser_missing">Hakuna kivinjari kilichopatikana. Hifadhi ripoti na ufungue %1$s.</string>
+    <string name="device_report_saved">Ripoti ya kifaa imehifadhiwa.</string>
+    <string name="device_report_save_failed">Imeshindwa kuhifadhi ripoti ya kifaa.</string>
+</resources>

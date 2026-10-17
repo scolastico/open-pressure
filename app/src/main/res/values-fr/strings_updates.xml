@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="update_title">Mise à jour disponible</string>
+    <string name="update_message">OpenPressure %1$s est disponible. Vous utilisez la version %2$s.\n\nLa page de téléchargement s’ouvre dans votre navigateur. Android n’installe la mise à jour que si elle provient du même développeur.</string>
+    <string name="update_download">Ouvrir la page de téléchargement</string>
+    <string name="update_later">Me le rappeler plus tard</string>
+    <string name="update_skip">Ignorer cette version</string>
+    <string name="update_browser_missing">Aucun navigateur trouvé pour ouvrir la page de téléchargement.</string>
+    <string name="update_setting_title">Recherche de mises à jour</string>
+    <string name="update_setting_description">Environ une fois par jour, OpenPressure demande à GitHub si une version plus récente existe. La requête ne contient que la version de l’app ; aucune mesure ni aucune information sur le tensiomètre n’est envoyée.</string>
+    <string name="update_turn_off">Désactiver la recherche de mises à jour</string>
+    <string name="update_turn_on">Activer la recherche de mises à jour</string>
+    <string name="update_about">La recherche de mises à jour contacte GitHub environ une fois par jour pour trouver une version plus récente. Vous pouvez la désactiver dans %1$s → %2$s.</string>
+</resources>

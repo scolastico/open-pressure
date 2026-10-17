@@ -275,6 +275,29 @@ public class MonitorServiceImportTest {
         assertNull(((AutoImportTracker)get("automaticTracker")).completedRevision(monitor.address));
         assertNull(checkpoint()); assertNull(get("automaticAttempt"));
     }
+    @Test public void pairSessionFillsAShareableReportAndPromptsOnceAfterItEnds() throws Exception {
+        DeviceReport report=new DeviceReport("Pair","test",35,"Synthetic phone");
+        report.service(vendor.getUuid().toString(),Collections.emptyList()); report.model("HEM-7156T");
+        set("report",report); set("reportAddress",monitor.address);
+        pair(); readAllHistory(); writeDone(last(),0); dataReply(last(),hex("088f000000000087"),false);
+        String json=monitor.deviceReport().toJson();
+        assertTrue(json.contains("82 00 (2 bytes)") && json.contains("80 00 (2 bytes)") && json.contains("81 00 (2 bytes)"));
+        assertTrue(json.contains("\"decoded_records\": 2") && json.contains("\"end_acknowledged\": true"));
+        assertTrue(json.contains("\"status\": \"History transfer complete\""));
+        assertFalse(json.contains(monitor.address)); assertFalse(json.contains("130"));
+        assertFalse("no prompt while the monitor is still connected",monitor.deviceReportPromptDue());
+        monitor.disconnect();
+        assertTrue(monitor.deviceReportPromptDue());
+        assertTrue("the last result survives the disconnect",monitor.deviceReport().toJson().contains("History transfer complete"));
+        monitor.deviceReportPrompted();
+        assertFalse(monitor.deviceReportPromptDue());
+        DeviceReport repeat=new DeviceReport("Pair","test",35,"Synthetic phone");
+        repeat.service(vendor.getUuid().toString(),Collections.emptyList());
+        set("report",repeat); set("reportPrompted",false);
+        assertFalse("each monitor is asked only once",monitor.deviceReportPromptDue());
+        repeat.model("HEM-7380T1-EOSL");
+        assertNull("the tested monitor is never asked for a report",monitor.deviceReport());
+    }
     private AutoImportTracker.Attempt automaticAttempt() throws Exception {
         AutoImportSettings.setMode(monitor,AutoImportSettings.VISIBLE);
         OmronAdvertisement advertisement=OmronAdvertisement.parseManufacturerPayload(hex("0601010001010001"));

@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="device_report_title">Hjälp till att stödja den här mätaren</string>
+    <string name="device_report_card">OpenPressure har inte testats med den här mätaren ännu. En enhetsrapport visar hur den kommunicerar och kan hjälpa till att låsa upp fler funktioner för den i appen.</string>
+    <string name="device_report_review">Granska enhetsrapport</string>
+    <string name="device_report_prompt">OpenPressure har inte testats med den här mätaren ännu. Det skulle hjälpa mycket om du delade en enhetsrapport i ett GitHub-ärende. Din rapport och din hjälp kan låsa upp fler funktioner för din mätare i appen.\n\nRapporten innehåller bara tekniska detaljer. Den innehåller aldrig mätvärden, mättider, namn, Bluetooth-adressen eller serienumret. Du kan granska den innan du delar något.</string>
+    <string name="device_report_not_now">Inte nu</string>
+    <string name="device_report_review_title">Enhetsrapport</string>
+    <string name="device_report_review_explanation">Kontrollera rapporten nedan. ”%1$s” kopierar den och öppnar ett förberett ärendeformulär; klistra in rapporten där. Inget skickas automatiskt.</string>
+    <string name="device_report_copy_open">Kopiera och öppna GitHub</string>
+    <string name="device_report_save">Spara fil</string>
+    <string name="device_report_copied">Rapporten har kopierats. Klistra in den i GitHub-ärendet.</string>
+    <string name="device_report_browser_missing">Ingen webbläsare hittades. Spara rapporten och öppna %1$s.</string>
+    <string name="device_report_saved">Enhetsrapporten har sparats.</string>
+    <string name="device_report_save_failed">Det gick inte att spara enhetsrapporten.</string>
+</resources>

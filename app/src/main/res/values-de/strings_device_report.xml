@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="device_report_title">Hilf mit, dieses Messgerät zu unterstützen</string>
+    <string name="device_report_card">OpenPressure wurde mit diesem Messgerät noch nicht getestet. Ein Gerätebericht zeigt, wie es kommuniziert, und kann helfen, weitere Funktionen dafür in der App freizuschalten.</string>
+    <string name="device_report_review">Gerätebericht ansehen</string>
+    <string name="device_report_prompt">OpenPressure wurde mit diesem Messgerät noch nicht getestet. Es wäre eine große Hilfe, wenn du einen Gerätebericht in einem GitHub-Issue teilst. Dein Bericht und deine Hilfe können weitere Funktionen für dein Messgerät in der App freischalten.\n\nDer Bericht enthält nur technische Details. Er enthält niemals Messwerte, Messzeiten, Namen, die Bluetooth-Adresse oder die Seriennummer. Du kannst ihn ansehen, bevor du etwas teilst.</string>
+    <string name="device_report_not_now">Nicht jetzt</string>
+    <string name="device_report_review_title">Gerätebericht</string>
+    <string name="device_report_review_explanation">Prüfe den Bericht unten. „%1$s“ kopiert ihn und öffnet ein vorbereitetes Issue-Formular; füge den Bericht dort ein. Es wird nichts automatisch gesendet.</string>
+    <string name="device_report_copy_open">Kopieren und GitHub öffnen</string>
+    <string name="device_report_save">Datei speichern</string>
+    <string name="device_report_copied">Bericht kopiert. Füge ihn in das GitHub-Issue ein.</string>
+    <string name="device_report_browser_missing">Kein Browser gefunden. Speichere den Bericht und öffne %1$s.</string>
+    <string name="device_report_saved">Gerätebericht gespeichert.</string>
+    <string name="device_report_save_failed">Der Gerätebericht konnte nicht gespeichert werden.</string>
+</resources>

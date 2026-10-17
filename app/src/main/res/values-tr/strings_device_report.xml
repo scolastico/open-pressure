@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="device_report_title">Bu tansiyon aletinin desteklenmesine yardım edin</string>
+    <string name="device_report_card">OpenPressure bu tansiyon aletiyle henüz test edilmedi. Cihaz raporu, aletin nasıl iletişim kurduğunu gösterir ve uygulamada onun için daha fazla özelliğin açılmasına yardımcı olabilir.</string>
+    <string name="device_report_review">Cihaz raporunu incele</string>
+    <string name="device_report_prompt">OpenPressure bu tansiyon aletiyle henüz test edilmedi. Bir GitHub issue’sunda cihaz raporu paylaşırsanız çok yardımcı olur. Raporunuz ve yardımınız, uygulamada tansiyon aletiniz için daha fazla özelliğin açılmasını sağlayabilir.\n\nRapor yalnızca teknik ayrıntılar içerir. Hiçbir zaman ölçümleri, ölçüm zamanlarını, adları, Bluetooth adresini veya seri numarasını içermez. Herhangi bir şey paylaşmadan önce raporu inceleyebilirsiniz.</string>
+    <string name="device_report_not_now">Şimdi değil</string>
+    <string name="device_report_review_title">Cihaz raporu</string>
+    <string name="device_report_review_explanation">Aşağıdaki raporu kontrol edin. “%1$s” raporu kopyalar ve hazır bir issue formu açar; raporu oraya yapıştırın. Hiçbir şey otomatik olarak gönderilmez.</string>
+    <string name="device_report_copy_open">Kopyala ve GitHub’ı aç</string>
+    <string name="device_report_save">Dosyayı kaydet</string>
+    <string name="device_report_copied">Rapor kopyalandı. GitHub issue’suna yapıştırın.</string>
+    <string name="device_report_browser_missing">Tarayıcı bulunamadı. Raporu kaydedin ve %1$s adresini açın.</string>
+    <string name="device_report_saved">Cihaz raporu kaydedildi.</string>
+    <string name="device_report_save_failed">Cihaz raporu kaydedilemedi.</string>
+</resources>

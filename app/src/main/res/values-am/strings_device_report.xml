@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="device_report_title">ይህን መሣሪያ ለመደገፍ ያግዙ</string>
+    <string name="device_report_card">OpenPressure ገና በዚህ የደም ግፊት መለኪያ አልተሞከረም። የመሣሪያ ሪፖርት መሣሪያው እንዴት እንደሚገናኝ ያሳያል፤ በመተግበሪያው ውስጥ ለእሱ ተጨማሪ ባህሪያትን ለመክፈት ሊረዳ ይችላል።</string>
+    <string name="device_report_review">የመሣሪያ ሪፖርትን ይገምግሙ</string>
+    <string name="device_report_prompt">OpenPressure ገና በዚህ የደም ግፊት መለኪያ አልተሞከረም። የመሣሪያ ሪፖርትን በGitHub issue ላይ ቢያጋሩ በጣም ይረዳል። የእርስዎ ሪፖርትና እገዛ በመተግበሪያው ውስጥ ለመለኪያዎ ተጨማሪ ባህሪያትን ሊከፍት ይችላል።\n\nሪፖርቱ ቴክኒካዊ ዝርዝሮችን ብቻ ይይዛል። ልኬቶችን፣ የልኬት ሰዓቶችን፣ ስሞችን፣ የBluetooth አድራሻውን ወይም የመለያ ቁጥሩን በጭራሽ አያካትትም። ማንኛውንም ነገር ከማጋራትዎ በፊት ሊገመግሙት ይችላሉ።</string>
+    <string name="device_report_not_now">አሁን አይደለም</string>
+    <string name="device_report_review_title">የመሣሪያ ሪፖርት</string>
+    <string name="device_report_review_explanation">ከታች ያለውን ሪፖርት ያረጋግጡ። «%1$s» ሪፖርቱን ይቀዳና የተዘጋጀ የissue ቅጽ ይከፍታል፤ ሪፖርቱን እዚያ ይለጥፉ። ምንም ነገር በራስ-ሰር አይላክም።</string>
+    <string name="device_report_copy_open">ቅዳ እና GitHubን ክፈት</string>
+    <string name="device_report_save">ፋይል አስቀምጥ</string>
+    <string name="device_report_copied">ሪፖርቱ ተቀድቷል። በGitHub issue ውስጥ ይለጥፉት።</string>
+    <string name="device_report_browser_missing">ምንም አሳሽ አልተገኘም። ሪፖርቱን ያስቀምጡና %1$s ይክፈቱ።</string>
+    <string name="device_report_saved">የመሣሪያ ሪፖርቱ ተቀምጧል።</string>
+    <string name="device_report_save_failed">የመሣሪያ ሪፖርቱን ማስቀመጥ አልተቻለም።</string>
+</resources>

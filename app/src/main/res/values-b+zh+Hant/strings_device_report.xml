@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="device_report_title">協助支援這台血壓計</string>
+    <string name="device_report_card">OpenPressure 尚未在這台血壓計上測試過。裝置報告會顯示它的通訊方式，有助於在 App 中為它解鎖更多功能。</string>
+    <string name="device_report_review">查看裝置報告</string>
+    <string name="device_report_prompt">OpenPressure 尚未在這台血壓計上測試過。如果你能在 GitHub issue 中分享一份裝置報告，將會很有幫助。你的報告和協助可以在 App 中為你的血壓計解鎖更多功能。\n\n報告只包含技術細節，絕不包含測量數據、測量時間、姓名、藍牙位址或序號。在分享任何內容之前，你都可以先查看報告。</string>
+    <string name="device_report_not_now">以後再說</string>
+    <string name="device_report_review_title">裝置報告</string>
+    <string name="device_report_review_explanation">請檢查下方的報告。「%1$s」會複製報告並開啟一個預先準備好的 issue 表單；請將報告貼上到那裡。不會自動傳送任何內容。</string>
+    <string name="device_report_copy_open">複製並開啟 GitHub</string>
+    <string name="device_report_save">儲存檔案</string>
+    <string name="device_report_copied">報告已複製。請將它貼到 GitHub issue 中。</string>
+    <string name="device_report_browser_missing">找不到瀏覽器。請儲存報告並開啟 %1$s。</string>
+    <string name="device_report_saved">裝置報告已儲存。</string>
+    <string name="device_report_save_failed">無法儲存裝置報告。</string>
+</resources>

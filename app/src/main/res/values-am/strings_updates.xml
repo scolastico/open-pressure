@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="update_title">ዝማኔ ይገኛል</string>
+    <string name="update_message">OpenPressure %1$s ይገኛል። እርስዎ %2$s እየተጠቀሙ ነው።\n\nየማውረጃ ገጹ በአሳሽዎ ውስጥ ይከፈታል። Android ዝማኔውን የሚጭነው ከተመሳሳይ ገንቢ ከመጣ ብቻ ነው።</string>
+    <string name="update_download">የማውረጃ ገጹን ክፈት</string>
+    <string name="update_later">በኋላ አስታውሰኝ</string>
+    <string name="update_skip">ይህን ስሪት ዝለል</string>
+    <string name="update_browser_missing">የማውረጃ ገጹን የሚከፍት አሳሽ አልተገኘም።</string>
+    <string name="update_setting_title">የዝማኔ ፍተሻዎች</string>
+    <string name="update_setting_description">በቀን አንድ ጊዜ ገደማ OpenPressure አዲስ ስሪት መኖሩን GitHubን ይጠይቃል። ጥያቄው የመተግበሪያውን ስሪት ብቻ ይይዛል፤ ምንም ልኬቶች ወይም የመለኪያው ዝርዝሮች አይላኩም።</string>
+    <string name="update_turn_off">የዝማኔ ፍተሻዎችን አጥፋ</string>
+    <string name="update_turn_on">የዝማኔ ፍተሻዎችን አብራ</string>
+    <string name="update_about">የዝማኔ ፍተሻዎች አዲስ ስሪት ለመፈለግ በቀን አንድ ጊዜ ገደማ GitHubን ያገኛሉ። በ%1$s → %2$s ስር ሊያጠፏቸው ይችላሉ።</string>
+</resources>

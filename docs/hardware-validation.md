@@ -32,7 +32,7 @@ For registration implementation changes, verify exact write bounds and failure h
 
 ## Added vendor-memory paths
 
-For each exact model, compare DIS identity, service UUID and all RX/TX properties against [the map](omblepy-comparison.md). Verify first-RX subscription and Android bonding, explicit Pair key provisioning only on legacy models, and saved-key-only Connect. If a key acknowledgment carries more than the two bytes `8x 00`, record it in diagnostics: OpenPressure rejects padded acknowledgments that the original app would accept. HEM-7377T1 must use the single-channel OS-bond path, without legacy key commands. A device exposing both a complete standard profile and vendor channels should retain the standard path.
+For each exact model, compare DIS identity, service UUID and all RX/TX properties against [the map](omblepy-comparison.md). A [device report](device-reports.md) from the session records these, the key-acknowledgment shapes and the record counts without health values. Verify first-RX subscription and Android bonding, explicit Pair key provisioning only on legacy models, and saved-key-only Connect. If a key acknowledgment carries more than the two bytes `8x 00`, record it in diagnostics: OpenPressure rejects padded acknowledgments that the original app would accept. HEM-7377T1 must use the single-channel OS-bond path, without legacy key commands. A device exposing both a complete standard profile and vendor channels should retain the standard path.
 
 Compare every decoded pressure, pulse, date and user with the monitor. Exercise 14-byte bank boundaries, erased slots, an unset clock, repeat imports and a naturally interrupted transfer. On BP5360 verify both user profiles from the mixed second bank, and inspect rejected summaries. Confirm no `01 C0` addressed writes or EEPROM clock/unread resets occur. Do not intentionally interrupt key programming on hardware solely for release testing; synthetic tests cover lost ACK and retry recovery.
 
@@ -80,6 +80,12 @@ Take/import new measurements with the app foregrounded on different screens, the
 Check named-person filters, trends, CSV/PDF and counted deletion independently of physical banks. Registration controls must still use valid monitor memory banks, never virtual IDs. Existing history must stay accessible as Unassigned. Test switching the mode off with pending work, then back on. In HTTP passthrough, no history or Health Connect row should appear; assignment must precede an upload and its original destination must remain bound after settings changes.
 
 With disposable Health Connect data, confirm mode changes invalidate old export consent, only the explicitly selected named person exports, pending measurements never export and deleting/replacing a profile cannot authorize a different person through an old selection. Server/provider copies remain after local renames/removal. Record physical-phone lifecycle, notification, translation and provider observations separately from simulated tests.
+
+## Device reports and update checks
+
+Pair an untested monitor and let the session end. The report question must appear once, after the monitor disconnects, and never for the EOSL cuff or during automatic imports. Review the report text in a long-text and an RTL language: it must stay left-to-right and contain no address, serial number, reading or timestamp. **Copy and open GitHub** must open the Device report form with the model filled in, and the clipboard must hold the report. **Save file** must write the same JSON.
+
+With update checks on and an older installed version, the update dialog must appear when the app opens once the newer release is known. **Remind me later** and dismissing must suppress it for three days; **Skip this version** only for that version. Turning checks off under Devices → Advanced must stop all requests; verify with a network log if available.
 
 ## Other device families
 

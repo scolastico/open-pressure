@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="device_report_title">Ayuda a dar soporte a este tensiómetro</string>
+    <string name="device_report_card">OpenPressure aún no se ha probado con este tensiómetro. Un informe del dispositivo muestra cómo se comunica y puede ayudar a habilitar más funciones para él en la app.</string>
+    <string name="device_report_review">Revisar informe del dispositivo</string>
+    <string name="device_report_prompt">OpenPressure aún no se ha probado con este tensiómetro. Sería de gran ayuda que compartieras un informe del dispositivo en un issue de GitHub. Tu informe y tu ayuda pueden habilitar más funciones para tu tensiómetro en la app.\n\nEl informe solo contiene detalles técnicos. Nunca incluye mediciones, horas de medición, nombres, la dirección Bluetooth ni el número de serie. Puedes revisarlo antes de compartir nada.</string>
+    <string name="device_report_not_now">Ahora no</string>
+    <string name="device_report_review_title">Informe del dispositivo</string>
+    <string name="device_report_review_explanation">Revisa el informe de abajo. «%1$s» lo copia y abre un formulario de issue preparado; pega allí el informe. No se envía nada automáticamente.</string>
+    <string name="device_report_copy_open">Copiar y abrir GitHub</string>
+    <string name="device_report_save">Guardar archivo</string>
+    <string name="device_report_copied">Informe copiado. Pégalo en el issue de GitHub.</string>
+    <string name="device_report_browser_missing">No se encontró ningún navegador. Guarda el informe y abre %1$s.</string>
+    <string name="device_report_saved">Informe del dispositivo guardado.</string>
+    <string name="device_report_save_failed">No se pudo guardar el informe del dispositivo.</string>
+</resources>

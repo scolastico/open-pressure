@@ -74,12 +74,12 @@ Devices → **Advanced** offers **Read monitor memory** and **Export memory JSON
 
 An interrupted read retains actual validated partial bytes with incomplete/error status. JSON includes the device/model, requested address/length, received count, scope, raw hex and SHA-256. A new ordinary dump replaces the previous local dump; export it first. Pre-registration settings backups are separate retained files. Neither type enables an automatic memory restore.
 
-Exports contain health data and identifiers. Review and redact diagnostics before sharing them. Pairing bodies, keys and user consent exchanges are omitted from diagnostic export. Do not publish private traces or raw snapshots in the repository.
+Exports contain health data and identifiers. Review and redact diagnostics before sharing them. The separate [device report](device-reports.md) excludes readings and identifiers and is meant for public issues. Pairing bodies, keys and user consent exchanges are omitted from diagnostic export. Do not publish private traces or raw snapshots in the repository.
 
 ## Troubleshooting
 
 - **Android companion approval keeps searching:** enable Bluetooth first. Confirm the cuff is already bonded, cancel the old dialog and retry approval. Android discovery may also need Location Services. The reported Pixel approval problem was resolved by enabling Bluetooth.
 - **Cuff powers off after transfer:** after a validated END this is expected on the tested X7. The completed result remains saved. Wake and reconnect for another transfer.
 - **Transfer stops or cuff shows Err:** retain diagnostics and the partial result, reconnect and retry a supported history/default-range read. Do not infer authentication failure from an undocumented device status or retry with guessed writes.
-- **Another monitor is rejected:** check [compatibility](compatibility.md). Other WLP maps are deliberately unavailable.
+- **Another monitor is rejected or untested:** check [compatibility](compatibility.md). Other WLP maps are deliberately unavailable. Share the [device report](device-reports.md) offered on the Devices screen to help add support.
 - **No background alert:** review notification permission and the New readings channel. Android restrictions and advertising timing can delay or prevent imports. See [automatic imports](automatic-import.md).

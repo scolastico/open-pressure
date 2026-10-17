@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="update_title">Ìmúdójúìwọ̀n wà</string>
+    <string name="update_message">OpenPressure %1$s ti wà. O ń lo %2$s.\n\nOjú-ìwé ìgbàsílẹ̀ yóò ṣí nínú aṣàwákiri rẹ. Android máa ń fi ìmúdójúìwọ̀n sí orí ẹ̀rọ nìkan tí ó bá wá láti ọ̀dọ̀ olùgbéjáde kan náà.</string>
+    <string name="update_download">Ṣí ojú-ìwé ìgbàsílẹ̀</string>
+    <string name="update_later">Rán mi létí lẹ́yìn náà</string>
+    <string name="update_skip">Fo ẹ̀dà yìí</string>
+    <string name="update_browser_missing">A kò rí aṣàwákiri láti ṣí ojú-ìwé ìgbàsílẹ̀.</string>
+    <string name="update_setting_title">Àyẹ̀wò ìmúdójúìwọ̀n</string>
+    <string name="update_setting_description">Ní nǹkan bí ẹ̀ẹ̀kan lójúmọ́, OpenPressure máa ń béèrè lọ́wọ́ GitHub bóyá ẹ̀dà tuntun wà. Ìbéèrè náà ní ẹ̀dà áàpù nìkan; a kì í fi àwọn ìwọ̀n tàbí àlàyé ẹ̀rọ ránṣẹ́.</string>
+    <string name="update_turn_off">Pa àyẹ̀wò ìmúdójúìwọ̀n</string>
+    <string name="update_turn_on">Tan àyẹ̀wò ìmúdójúìwọ̀n</string>
+    <string name="update_about">Àyẹ̀wò ìmúdójúìwọ̀n máa ń kàn sí GitHub ní nǹkan bí ẹ̀ẹ̀kan lójúmọ́ láti wá ẹ̀dà tuntun. O lè pa á ní %1$s → %2$s.</string>
+</resources>

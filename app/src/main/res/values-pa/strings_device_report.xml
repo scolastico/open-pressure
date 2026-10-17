@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="device_report_title">ਇਸ ਮਾਨੀਟਰ ਦੀ ਸਹਾਇਤਾ ਵਿੱਚ ਮਦਦ ਕਰੋ</string>
+    <string name="device_report_card">OpenPressure ਨੂੰ ਅਜੇ ਤੱਕ ਇਸ ਮਾਨੀਟਰ ਨਾਲ ਟੈਸਟ ਨਹੀਂ ਕੀਤਾ ਗਿਆ। ਡਿਵਾਈਸ ਰਿਪੋਰਟ ਦਿਖਾਉਂਦੀ ਹੈ ਕਿ ਇਹ ਕਿਵੇਂ ਸੰਚਾਰ ਕਰਦਾ ਹੈ, ਅਤੇ ਐਪ ਵਿੱਚ ਇਸ ਲਈ ਹੋਰ ਫ਼ੀਚਰ ਖੋਲ੍ਹਣ ਵਿੱਚ ਮਦਦ ਕਰ ਸਕਦੀ ਹੈ।</string>
+    <string name="device_report_review">ਡਿਵਾਈਸ ਰਿਪੋਰਟ ਦੇਖੋ</string>
+    <string name="device_report_prompt">OpenPressure ਨੂੰ ਅਜੇ ਤੱਕ ਇਸ ਮਾਨੀਟਰ ਨਾਲ ਟੈਸਟ ਨਹੀਂ ਕੀਤਾ ਗਿਆ। ਜੇ ਤੁਸੀਂ GitHub issue ਵਿੱਚ ਡਿਵਾਈਸ ਰਿਪੋਰਟ ਸਾਂਝੀ ਕਰੋ, ਤਾਂ ਬਹੁਤ ਮਦਦ ਹੋਵੇਗੀ। ਤੁਹਾਡੀ ਰਿਪੋਰਟ ਅਤੇ ਮਦਦ ਨਾਲ ਐਪ ਵਿੱਚ ਤੁਹਾਡੇ ਮਾਨੀਟਰ ਲਈ ਹੋਰ ਫ਼ੀਚਰ ਖੁੱਲ੍ਹ ਸਕਦੇ ਹਨ।\n\nਰਿਪੋਰਟ ਵਿੱਚ ਸਿਰਫ਼ ਤਕਨੀਕੀ ਵੇਰਵੇ ਹੁੰਦੇ ਹਨ। ਇਸ ਵਿੱਚ ਕਦੇ ਵੀ ਰੀਡਿੰਗਾਂ, ਮਾਪ ਦੇ ਸਮੇਂ, ਨਾਮ, Bluetooth ਪਤਾ ਜਾਂ ਸੀਰੀਅਲ ਨੰਬਰ ਸ਼ਾਮਲ ਨਹੀਂ ਹੁੰਦੇ। ਕੁਝ ਵੀ ਸਾਂਝਾ ਕਰਨ ਤੋਂ ਪਹਿਲਾਂ ਤੁਸੀਂ ਇਸਨੂੰ ਦੇਖ ਸਕਦੇ ਹੋ।</string>
+    <string name="device_report_not_now">ਹੁਣ ਨਹੀਂ</string>
+    <string name="device_report_review_title">ਡਿਵਾਈਸ ਰਿਪੋਰਟ</string>
+    <string name="device_report_review_explanation">ਹੇਠਾਂ ਦਿੱਤੀ ਰਿਪੋਰਟ ਜਾਂਚੋ। “%1$s” ਇਸਨੂੰ ਕਾਪੀ ਕਰਦਾ ਹੈ ਅਤੇ ਇੱਕ ਤਿਆਰ issue ਫ਼ਾਰਮ ਖੋਲ੍ਹਦਾ ਹੈ; ਰਿਪੋਰਟ ਉੱਥੇ ਪੇਸਟ ਕਰੋ। ਕੁਝ ਵੀ ਆਪਣੇ-ਆਪ ਨਹੀਂ ਭੇਜਿਆ ਜਾਂਦਾ।</string>
+    <string name="device_report_copy_open">ਕਾਪੀ ਕਰੋ ਅਤੇ GitHub ਖੋਲ੍ਹੋ</string>
+    <string name="device_report_save">ਫ਼ਾਈਲ ਸੇਵ ਕਰੋ</string>
+    <string name="device_report_copied">ਰਿਪੋਰਟ ਕਾਪੀ ਹੋ ਗਈ। ਇਸਨੂੰ GitHub issue ਵਿੱਚ ਪੇਸਟ ਕਰੋ।</string>
+    <string name="device_report_browser_missing">ਕੋਈ ਬ੍ਰਾਊਜ਼ਰ ਨਹੀਂ ਮਿਲਿਆ। ਰਿਪੋਰਟ ਸੇਵ ਕਰੋ ਅਤੇ %1$s ਖੋਲ੍ਹੋ।</string>
+    <string name="device_report_saved">ਡਿਵਾਈਸ ਰਿਪੋਰਟ ਸੇਵ ਹੋ ਗਈ।</string>
+    <string name="device_report_save_failed">ਡਿਵਾਈਸ ਰਿਪੋਰਟ ਸੇਵ ਨਹੀਂ ਹੋ ਸਕੀ।</string>
+</resources>

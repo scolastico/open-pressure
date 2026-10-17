@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="update_title">به‌روزرسانی در دسترس است</string>
+    <string name="update_message">OpenPressure %1$s در دسترس است. شما از %2$s استفاده می‌کنید.\n\nصفحه بارگیری در مرورگر شما باز می‌شود. Android فقط در صورتی به‌روزرسانی را نصب می‌کند که از همان توسعه‌دهنده باشد.</string>
+    <string name="update_download">باز کردن صفحه بارگیری</string>
+    <string name="update_later">بعداً یادآوری کن</string>
+    <string name="update_skip">رد کردن این نسخه</string>
+    <string name="update_browser_missing">مرورگری برای باز کردن صفحه بارگیری پیدا نشد.</string>
+    <string name="update_setting_title">بررسی به‌روزرسانی</string>
+    <string name="update_setting_description">تقریباً روزی یک بار، OpenPressure از GitHub می‌پرسد که آیا نسخه جدیدتری وجود دارد. این درخواست فقط شامل نسخه برنامه است؛ هیچ اندازه‌گیری یا اطلاعاتی از فشارسنج ارسال نمی‌شود.</string>
+    <string name="update_turn_off">خاموش کردن بررسی به‌روزرسانی</string>
+    <string name="update_turn_on">روشن کردن بررسی به‌روزرسانی</string>
+    <string name="update_about">بررسی به‌روزرسانی تقریباً روزی یک بار برای یافتن نسخه جدیدتر با GitHub تماس می‌گیرد. می‌توانید آن را از %1$s ← %2$s خاموش کنید.</string>
+</resources>

@@ -7,6 +7,8 @@ Current guides describe the implementation and its evidence. Hardware results ap
 | [Compatibility](compatibility.md) | Tested monitor, implemented but untested protocols, unsupported devices |
 | [Using a monitor](usage.md) | Pairing, user banks, history, exports and troubleshooting |
 | [Automatic imports](automatic-import.md) | Eligible monitors, visible/background modes, companion approval, notifications and local deletions |
+| [Device reports](device-reports.md) | Shareable technical report for untested monitors, its contents and how to submit it |
+| [Update checks](updates.md) | Daily GitHub release check, update dialog choices and how to turn it off |
 | [Health Connect](health-connect.md) | Optional one-bank export, privacy, timestamps and retry behavior |
 | [HTTP forwarding](http-forwarding.md) | Optional measurement POSTs, Authorization, passthrough and durable retry queue |
 | [Measurement reminders](reminders.md) | Phone schedules, weekday repetition, recent-measurement skipping and Android permissions |

@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="update_title">May available na update</string>
+    <string name="update_message">Available na ang OpenPressure %1$s. Ginagamit mo ang %2$s.\n\nBubuksan ang download page sa iyong browser. Ini-install lang ng Android ang update kung galing ito sa parehong developer.</string>
+    <string name="update_download">Buksan ang download page</string>
+    <string name="update_later">Paalalahanan mamaya</string>
+    <string name="update_skip">Laktawan ang bersyong ito</string>
+    <string name="update_browser_missing">Walang nakitang browser para buksan ang download page.</string>
+    <string name="update_setting_title">Pag-check ng update</string>
+    <string name="update_setting_description">Mga isang beses bawat araw, tinatanong ng OpenPressure ang GitHub kung may mas bagong bersyon. Ang bersyon lang ng app ang laman ng request; walang ipinapadalang reading o detalye ng monitor.</string>
+    <string name="update_turn_off">I-off ang pag-check ng update</string>
+    <string name="update_turn_on">I-on ang pag-check ng update</string>
+    <string name="update_about">Kinokontak ng pag-check ng update ang GitHub mga isang beses bawat araw para maghanap ng mas bagong bersyon. Maaari mo itong i-off sa %1$s → %2$s.</string>
+</resources>

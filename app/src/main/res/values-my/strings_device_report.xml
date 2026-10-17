@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="device_report_title">ဤသွေးပေါင်တိုင်းကိရိယာကို ပံ့ပိုးရန် ကူညီပါ</string>
+    <string name="device_report_card">OpenPressure ကို ဤကိရိယာနှင့် မစမ်းသပ်ရသေးပါ။ စက်ပစ္စည်းအစီရင်ခံစာက ၎င်းဆက်သွယ်ပုံကို ပြသပြီး အက်ပ်တွင် ၎င်းအတွက် နောက်ထပ်လုပ်ဆောင်ချက်များ ဖွင့်ပေးရန် ကူညီနိုင်ပါသည်။</string>
+    <string name="device_report_review">စက်ပစ္စည်းအစီရင်ခံစာကို ကြည့်ရန်</string>
+    <string name="device_report_prompt">OpenPressure ကို ဤကိရိယာနှင့် မစမ်းသပ်ရသေးပါ။ GitHub issue တစ်ခုတွင် စက်ပစ္စည်းအစီရင်ခံစာကို မျှဝေပေးပါက အလွန်အထောက်အကူဖြစ်ပါမည်။ သင့်အစီရင်ခံစာနှင့် အကူအညီက အက်ပ်တွင် သင့်ကိရိယာအတွက် နောက်ထပ်လုပ်ဆောင်ချက်များ ဖွင့်ပေးနိုင်ပါသည်။\n\nအစီရင်ခံစာတွင် နည်းပညာဆိုင်ရာ အသေးစိတ်များသာ ပါဝင်ပါသည်။ တိုင်းတာချက်များ၊ တိုင်းတာချိန်များ၊ အမည်များ၊ Bluetooth လိပ်စာ သို့မဟုတ် အမှတ်စဉ်နံပါတ် ဘယ်တော့မှ မပါဝင်ပါ။ တစ်စုံတစ်ရာ မမျှဝေမီ ၎င်းကို ကြည့်ရှုနိုင်ပါသည်။</string>
+    <string name="device_report_not_now">ယခု မလုပ်ပါ</string>
+    <string name="device_report_review_title">စက်ပစ္စည်းအစီရင်ခံစာ</string>
+    <string name="device_report_review_explanation">အောက်ပါအစီရင်ခံစာကို စစ်ဆေးပါ။ “%1$s” က ၎င်းကို ကူးယူပြီး ပြင်ဆင်ထားသော issue ဖောင်ကို ဖွင့်ပေးပါသည်။ အစီရင်ခံစာကို ထိုနေရာတွင် ကူးထည့်ပါ။ မည်သည့်အရာကိုမျှ အလိုအလျောက် မပို့ပါ။</string>
+    <string name="device_report_copy_open">ကူးယူပြီး GitHub ဖွင့်ရန်</string>
+    <string name="device_report_save">ဖိုင် သိမ်းရန်</string>
+    <string name="device_report_copied">အစီရင်ခံစာကို ကူးယူပြီးပါပြီ။ GitHub issue တွင် ကူးထည့်ပါ။</string>
+    <string name="device_report_browser_missing">ဘရောက်ဇာ မတွေ့ပါ။ အစီရင်ခံစာကို သိမ်းပြီး %1$s ကို ဖွင့်ပါ။</string>
+    <string name="device_report_saved">စက်ပစ္စည်းအစီရင်ခံစာကို သိမ်းပြီးပါပြီ။</string>
+    <string name="device_report_save_failed">စက်ပစ္စည်းအစီရင်ခံစာကို သိမ်း၍မရပါ။</string>
+</resources>

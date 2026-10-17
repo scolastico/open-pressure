@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="update_title">Isibuyekezo siyatholakala</string>
+    <string name="update_message">I-OpenPressure %1$s iyatholakala. Usebenzisa i-%2$s.\n\nIkhasi lokulanda lizovuleka esipheqululini sakho. I-Android ifaka isibuyekezo kuphela uma sivela kunjiniyela ofanayo.</string>
+    <string name="update_download">Vula ikhasi lokulanda</string>
+    <string name="update_later">Ngikhumbuze kamuva</string>
+    <string name="update_skip">Yeqa lolu hlobo</string>
+    <string name="update_browser_missing">Asikho isiphequluli esitholakele sokuvula ikhasi lokulanda.</string>
+    <string name="update_setting_title">Ukuhlola izibuyekezo</string>
+    <string name="update_setting_description">Cishe kanye ngosuku, i-OpenPressure ibuza i-GitHub ukuthi ikhona yini inguqulo entsha. Isicelo siqukethe inguqulo ye-app kuphela; azikho izilinganiso noma imininingwane yedivayisi ethunyelwayo.</string>
+    <string name="update_turn_off">Vala ukuhlola izibuyekezo</string>
+    <string name="update_turn_on">Vula ukuhlola izibuyekezo</string>
+    <string name="update_about">Ukuhlola izibuyekezo kuxhumana ne-GitHub cishe kanye ngosuku ukuze kufunwe inguqulo entsha. Ungakuvala ku-%1$s → %2$s.</string>
+</resources>

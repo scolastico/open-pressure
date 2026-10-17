@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="device_report_title">Ajută la susținerea acestui tensiometru</string>
+    <string name="device_report_card">OpenPressure nu a fost încă testat cu acest tensiometru. Un raport al dispozitivului arată cum comunică acesta și poate ajuta la deblocarea mai multor funcții pentru el în aplicație.</string>
+    <string name="device_report_review">Examinează raportul dispozitivului</string>
+    <string name="device_report_prompt">OpenPressure nu a fost încă testat cu acest tensiometru. Ne-ar ajuta mult dacă ai distribui un raport al dispozitivului într-un issue pe GitHub. Raportul și ajutorul tău pot debloca mai multe funcții pentru tensiometrul tău în aplicație.\n\nRaportul conține doar detalii tehnice. Nu include niciodată măsurători, orele măsurătorilor, nume, adresa Bluetooth sau numărul de serie. Îl poți examina înainte de a distribui ceva.</string>
+    <string name="device_report_not_now">Nu acum</string>
+    <string name="device_report_review_title">Raportul dispozitivului</string>
+    <string name="device_report_review_explanation">Verifică raportul de mai jos. „%1$s” îl copiază și deschide un formular de issue pregătit; lipește raportul acolo. Nimic nu este trimis automat.</string>
+    <string name="device_report_copy_open">Copiază și deschide GitHub</string>
+    <string name="device_report_save">Salvează fișierul</string>
+    <string name="device_report_copied">Raport copiat. Lipește-l în issue-ul de pe GitHub.</string>
+    <string name="device_report_browser_missing">Nu s-a găsit niciun browser. Salvează raportul și deschide %1$s.</string>
+    <string name="device_report_saved">Raportul dispozitivului a fost salvat.</string>
+    <string name="device_report_save_failed">Raportul dispozitivului nu a putut fi salvat.</string>
+</resources>

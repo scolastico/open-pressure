@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="device_report_title">Aidez à prendre en charge ce tensiomètre</string>
+    <string name="device_report_card">OpenPressure n’a pas encore été testé avec ce tensiomètre. Un rapport d’appareil montre comment il communique et peut aider à débloquer davantage de fonctions pour lui dans l’app.</string>
+    <string name="device_report_review">Examiner le rapport d’appareil</string>
+    <string name="device_report_prompt">OpenPressure n’a pas encore été testé avec ce tensiomètre. Ce serait d’une grande aide si vous partagiez un rapport d’appareil dans un ticket GitHub. Votre rapport et votre aide peuvent débloquer davantage de fonctions pour votre tensiomètre dans l’app.\n\nLe rapport ne contient que des détails techniques. Il n’inclut jamais de mesures, d’heures de mesure, de noms, l’adresse Bluetooth ni le numéro de série. Vous pouvez le consulter avant de partager quoi que ce soit.</string>
+    <string name="device_report_not_now">Pas maintenant</string>
+    <string name="device_report_review_title">Rapport d’appareil</string>
+    <string name="device_report_review_explanation">Vérifiez le rapport ci-dessous. « %1$s » le copie et ouvre un formulaire de ticket préparé ; collez-y le rapport. Rien n’est envoyé automatiquement.</string>
+    <string name="device_report_copy_open">Copier et ouvrir GitHub</string>
+    <string name="device_report_save">Enregistrer le fichier</string>
+    <string name="device_report_copied">Rapport copié. Collez-le dans le ticket GitHub.</string>
+    <string name="device_report_browser_missing">Aucun navigateur trouvé. Enregistrez le rapport et ouvrez %1$s.</string>
+    <string name="device_report_saved">Rapport d’appareil enregistré.</string>
+    <string name="device_report_save_failed">Impossible d’enregistrer le rapport d’appareil.</string>
+</resources>

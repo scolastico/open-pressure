@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="update_title">Akwai sabuntawa</string>
+    <string name="update_message">OpenPressure %1$s yana nan. Kana amfani da %2$s.\n\nShafin saukewa zai buɗe a burauzarka. Android tana shigar da sabuntawar ne kawai idan daga mai haɓakawa ɗaya ta fito.</string>
+    <string name="update_download">Buɗe shafin saukewa</string>
+    <string name="update_later">Tunatar da ni daga baya</string>
+    <string name="update_skip">Tsallake wannan sigar</string>
+    <string name="update_browser_missing">Ba a sami burauza don buɗe shafin saukewa ba.</string>
+    <string name="update_setting_title">Duba sabuntawa</string>
+    <string name="update_setting_description">Kusan sau ɗaya a rana, OpenPressure tana tambayar GitHub ko akwai sabuwar siga. Buƙatar tana ƙunshe da sigar manhajar kawai; ba a aika sakamakon awo ko bayanan na’ura.</string>
+    <string name="update_turn_off">Kashe duba sabuntawa</string>
+    <string name="update_turn_on">Kunna duba sabuntawa</string>
+    <string name="update_about">Duba sabuntawa yana tuntuɓar GitHub kusan sau ɗaya a rana don neman sabuwar siga. Za ka iya kashe shi a %1$s → %2$s.</string>
+</resources>

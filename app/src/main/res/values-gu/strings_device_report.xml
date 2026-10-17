@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="device_report_title">આ મોનિટરને સપોર્ટ કરવામાં મદદ કરો</string>
+    <string name="device_report_card">OpenPressure હજી સુધી આ મોનિટર સાથે ટેસ્ટ કરવામાં આવ્યું નથી. ડિવાઇસ રિપોર્ટ બતાવે છે કે તે કેવી રીતે સંચાર કરે છે, અને ઍપમાં તેના માટે વધુ સુવિધાઓ શરૂ કરવામાં મદદ કરી શકે છે.</string>
+    <string name="device_report_review">ડિવાઇસ રિપોર્ટ જુઓ</string>
+    <string name="device_report_prompt">OpenPressure હજી સુધી આ મોનિટર સાથે ટેસ્ટ કરવામાં આવ્યું નથી. જો તમે GitHub issue માં ડિવાઇસ રિપોર્ટ શેર કરો, તો ઘણી મદદ થશે. તમારો રિપોર્ટ અને તમારી મદદ ઍપમાં તમારા મોનિટર માટે વધુ સુવિધાઓ શરૂ કરી શકે છે.\n\nરિપોર્ટમાં ફક્ત ટેકનિકલ વિગતો હોય છે. તેમાં ક્યારેય રીડિંગ, માપનો સમય, નામ, Bluetooth સરનામું કે સીરિયલ નંબર શામેલ હોતા નથી. કંઈપણ શેર કરતાં પહેલાં તમે તેને જોઈ શકો છો.</string>
+    <string name="device_report_not_now">હમણાં નહીં</string>
+    <string name="device_report_review_title">ડિવાઇસ રિપોર્ટ</string>
+    <string name="device_report_review_explanation">નીચેનો રિપોર્ટ તપાસો. “%1$s” તેને કૉપિ કરે છે અને તૈયાર issue ફોર્મ ખોલે છે; રિપોર્ટ ત્યાં પેસ્ટ કરો. કંઈપણ આપમેળે મોકલવામાં આવતું નથી.</string>
+    <string name="device_report_copy_open">કૉપિ કરો અને GitHub ખોલો</string>
+    <string name="device_report_save">ફાઇલ સેવ કરો</string>
+    <string name="device_report_copied">રિપોર્ટ કૉપિ થયો. તેને GitHub issue માં પેસ્ટ કરો.</string>
+    <string name="device_report_browser_missing">કોઈ બ્રાઉઝર મળ્યું નથી. રિપોર્ટ સેવ કરો અને %1$s ખોલો.</string>
+    <string name="device_report_saved">ડિવાઇસ રિપોર્ટ સેવ થયો.</string>
+    <string name="device_report_save_failed">ડિવાઇસ રિપોર્ટ સેવ કરી શકાયો નથી.</string>
+</resources>

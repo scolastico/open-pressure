@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="device_report_title">यो मनिटरलाई समर्थन गर्न मद्दत गर्नुहोस्</string>
+    <string name="device_report_card">OpenPressure अहिलेसम्म यो मनिटरसँग परीक्षण गरिएको छैन। डिभाइस रिपोर्टले यसले कसरी सञ्चार गर्छ भनेर देखाउँछ, र एपमा यसका लागि थप सुविधाहरू खोल्न मद्दत गर्न सक्छ।</string>
+    <string name="device_report_review">डिभाइस रिपोर्ट हेर्नुहोस्</string>
+    <string name="device_report_prompt">OpenPressure अहिलेसम्म यो मनिटरसँग परीक्षण गरिएको छैन। तपाईंले GitHub issue मा डिभाइस रिपोर्ट सेयर गर्नुभयो भने धेरै मद्दत हुनेछ। तपाईंको रिपोर्ट र सहयोगले एपमा तपाईंको मनिटरका लागि थप सुविधाहरू खोल्न सक्छ।\n\nरिपोर्टमा प्राविधिक विवरण मात्र हुन्छ। यसमा कहिल्यै रिडिङ, मापनको समय, नाम, Bluetooth ठेगाना वा सिरियल नम्बर समावेश हुँदैन। केही सेयर गर्नुअघि तपाईं यसलाई हेर्न सक्नुहुन्छ।</string>
+    <string name="device_report_not_now">अहिले होइन</string>
+    <string name="device_report_review_title">डिभाइस रिपोर्ट</string>
+    <string name="device_report_review_explanation">तलको रिपोर्ट जाँच गर्नुहोस्। “%1$s” ले यसलाई कपी गर्छ र तयार issue फारम खोल्छ; रिपोर्ट त्यहाँ पेस्ट गर्नुहोस्। केही पनि स्वचालित रूपमा पठाइँदैन।</string>
+    <string name="device_report_copy_open">कपी गर्नुहोस् र GitHub खोल्नुहोस्</string>
+    <string name="device_report_save">फाइल सेभ गर्नुहोस्</string>
+    <string name="device_report_copied">रिपोर्ट कपी भयो। यसलाई GitHub issue मा पेस्ट गर्नुहोस्।</string>
+    <string name="device_report_browser_missing">कुनै ब्राउजर भेटिएन। रिपोर्ट सेभ गर्नुहोस् र %1$s खोल्नुहोस्।</string>
+    <string name="device_report_saved">डिभाइस रिपोर्ट सेभ भयो।</string>
+    <string name="device_report_save_failed">डिभाइस रिपोर्ट सेभ गर्न सकिएन।</string>
+</resources>

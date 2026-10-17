@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="update_title">புதுப்பிப்பு கிடைக்கிறது</string>
+    <string name="update_message">OpenPressure %1$s கிடைக்கிறது. நீங்கள் %2$s பயன்படுத்துகிறீர்கள்.\n\nபதிவிறக்கப் பக்கம் உங்கள் உலாவியில் திறக்கும். புதுப்பிப்பு அதே டெவலப்பரிடமிருந்து வந்தால் மட்டுமே Android அதை நிறுவும்.</string>
+    <string name="update_download">பதிவிறக்கப் பக்கத்தைத் திற</string>
+    <string name="update_later">பிறகு நினைவூட்டு</string>
+    <string name="update_skip">இந்தப் பதிப்பைத் தவிர்</string>
+    <string name="update_browser_missing">பதிவிறக்கப் பக்கத்தைத் திறக்க உலாவி எதுவும் கிடைக்கவில்லை.</string>
+    <string name="update_setting_title">புதுப்பிப்புச் சரிபார்ப்பு</string>
+    <string name="update_setting_description">ஏறக்குறைய நாளுக்கு ஒருமுறை, புதிய பதிப்பு உள்ளதா என்று OpenPressure GitHub-இடம் கேட்கும். கோரிக்கையில் ஆப்ஸ் பதிப்பு மட்டுமே இருக்கும்; அளவீடுகளோ மானிட்டர் விவரங்களோ அனுப்பப்படாது.</string>
+    <string name="update_turn_off">புதுப்பிப்புச் சரிபார்ப்பை முடக்கு</string>
+    <string name="update_turn_on">புதுப்பிப்புச் சரிபார்ப்பை இயக்கு</string>
+    <string name="update_about">புதிய பதிப்பைத் தேட, புதுப்பிப்புச் சரிபார்ப்பு ஏறக்குறைய நாளுக்கு ஒருமுறை GitHub-ஐத் தொடர்புகொள்ளும். இதை %1$s → %2$s என்பதில் முடக்கலாம்.</string>
+</resources>

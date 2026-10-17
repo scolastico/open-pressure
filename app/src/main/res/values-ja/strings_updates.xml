@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="update_title">アップデートがあります</string>
+    <string name="update_message">OpenPressure %1$s が利用可能です。現在のバージョンは %2$s です。\n\nダウンロードページがブラウザで開きます。Android は同じ開発者からのアップデートのみインストールします。</string>
+    <string name="update_download">ダウンロードページを開く</string>
+    <string name="update_later">後で通知</string>
+    <string name="update_skip">このバージョンをスキップ</string>
+    <string name="update_browser_missing">ダウンロードページを開くブラウザが見つかりません。</string>
+    <string name="update_setting_title">アップデートの確認</string>
+    <string name="update_setting_description">OpenPressure は 1 日に 1 回程度、新しいバージョンがあるかを GitHub に問い合わせます。リクエストに含まれるのはアプリのバージョンのみで、測定値や血圧計の情報は送信されません。</string>
+    <string name="update_turn_off">アップデートの確認をオフにする</string>
+    <string name="update_turn_on">アップデートの確認をオンにする</string>
+    <string name="update_about">アップデートの確認では、新しいバージョンを探すために 1 日に 1 回程度 GitHub に接続します。%1$s → %2$s でオフにできます。</string>
+</resources>

@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="device_report_title">به پشتیبانی از این دستگاه کمک کنید</string>
+    <string name="device_report_card">OpenPressure هنوز با این فشارسنج آزمایش نشده است. گزارش دستگاه نشان می‌دهد که این دستگاه چگونه ارتباط برقرار می‌کند و می‌تواند به فعال شدن قابلیت‌های بیشتری برای آن در برنامه کمک کند.</string>
+    <string name="device_report_review">بررسی گزارش دستگاه</string>
+    <string name="device_report_prompt">OpenPressure هنوز با این فشارسنج آزمایش نشده است. اگر گزارش دستگاه را در یک issue در GitHub به اشتراک بگذارید، کمک بزرگی می‌کنید. گزارش و کمک شما می‌تواند قابلیت‌های بیشتری را برای فشارسنج شما در برنامه فعال کند.\n\nاین گزارش فقط شامل جزئیات فنی است. هرگز شامل اندازه‌گیری‌ها، زمان اندازه‌گیری‌ها، نام‌ها، نشانی Bluetooth یا شماره سریال نیست. می‌توانید پیش از اشتراک‌گذاری هر چیزی آن را بررسی کنید.</string>
+    <string name="device_report_not_now">اکنون نه</string>
+    <string name="device_report_review_title">گزارش دستگاه</string>
+    <string name="device_report_review_explanation">گزارش زیر را بررسی کنید. «%1$s» آن را کپی می‌کند و یک فرم issue آماده را باز می‌کند؛ گزارش را آنجا جای‌گذاری کنید. هیچ چیزی به‌طور خودکار ارسال نمی‌شود.</string>
+    <string name="device_report_copy_open">کپی و باز کردن GitHub</string>
+    <string name="device_report_save">ذخیره فایل</string>
+    <string name="device_report_copied">گزارش کپی شد. آن را در issue در GitHub جای‌گذاری کنید.</string>
+    <string name="device_report_browser_missing">هیچ مرورگری پیدا نشد. گزارش را ذخیره کنید و %1$s را باز کنید.</string>
+    <string name="device_report_saved">گزارش دستگاه ذخیره شد.</string>
+    <string name="device_report_save_failed">ذخیره گزارش دستگاه ممکن نشد.</string>
+</resources>

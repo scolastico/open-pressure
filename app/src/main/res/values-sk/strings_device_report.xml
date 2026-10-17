@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="device_report_title">Pomôžte s podporou tohto tlakomera</string>
+    <string name="device_report_card">OpenPressure ešte nebol s týmto tlakomerom testovaný. Správa o zariadení ukazuje, ako komunikuje, a môže pomôcť sprístupniť preň v aplikácii ďalšie funkcie.</string>
+    <string name="device_report_review">Skontrolovať správu o zariadení</string>
+    <string name="device_report_prompt">OpenPressure ešte nebol s týmto tlakomerom testovaný. Veľmi by pomohlo, keby ste zdieľali správu o zariadení v issue na GitHube. Vaša správa a vaša pomoc môžu pre váš tlakomer v aplikácii sprístupniť ďalšie funkcie.\n\nSpráva obsahuje iba technické údaje. Nikdy neobsahuje namerané hodnoty, časy meraní, mená, adresu Bluetooth ani sériové číslo. Pred zdieľaním si ju môžete pozrieť.</string>
+    <string name="device_report_not_now">Teraz nie</string>
+    <string name="device_report_review_title">Správa o zariadení</string>
+    <string name="device_report_review_explanation">Skontrolujte správu nižšie. „%1$s“ ju skopíruje a otvorí pripravený formulár issue; vložte doň správu. Nič sa neodosiela automaticky.</string>
+    <string name="device_report_copy_open">Kopírovať a otvoriť GitHub</string>
+    <string name="device_report_save">Uložiť súbor</string>
+    <string name="device_report_copied">Správa skopírovaná. Vložte ju do issue na GitHube.</string>
+    <string name="device_report_browser_missing">Nenašiel sa žiadny prehliadač. Uložte správu a otvorte %1$s.</string>
+    <string name="device_report_saved">Správa o zariadení uložená.</string>
+    <string name="device_report_save_failed">Správu o zariadení sa nepodarilo uložiť.</string>
+</resources>

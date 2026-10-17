@@ -38,6 +38,7 @@ No account to create, no subscription, and no cloud service required. Your readi
 | **Import automatically** | Supported Omron monitors have [automatic import options](docs/automatic-import.md), including background modes; only the X7 has been tested. Availability and timing depend on Android settings and the monitor. |
 | **Connect to other health apps** | Optionally send blood pressure readings for your selected person to [Health Connect](docs/health-connect.md). Off by default; pulse, notes and AFib flags are excluded. |
 | **Use your own server** | Advanced users can enable [HTTP forwarding](docs/http-forwarding.md) to a server they choose, with an option to keep new readings out of local history. Off by default. |
+| **Stay up to date** | The app checks GitHub for new versions about once a day and offers **Open download page**, **Remind me later** or **Skip this version**. [Update checks](docs/updates.md) can be turned off. |
 | **Choose your language** | The interface includes [52 language and region options](docs/localization.md). Translation improvements are welcome. |
 
 ## Supported monitors
@@ -55,7 +56,9 @@ No account to create, no subscription, and no cloud service required. Your readi
 | Other monitors using the standard Bluetooth Blood Pressure Service | Support implemented and tested in software; **physical compatibility unconfirmed**. |
 | Other models or regional variants | Compatibility is not established. Unknown monitor memory layouts are blocked. |
 
-The additional Omron models above support manual history import and, once paired, automatic imports; neither has been confirmed on those monitors. Accepted regional model numbers and details about each connection method are in the [full compatibility guide](docs/compatibility.md) and [model reference](docs/omblepy-comparison.md#accepted-identities-and-record-handling).
+The additional Omron models above support manual history import and, once paired, automatic imports; neither has been confirmed on those monitors.
+
+**Own an untested monitor?** After you pair or connect it, the Devices screen offers a **device report**. Sharing it in a [device report issue](https://github.com/scolastico/open-pressure/issues/new?template=device_report.yml) helps a lot: your report and help can unlock more features for your monitor in the app. The report contains only technical details, never readings, names, the Bluetooth address or the serial number, and you review it before sharing. See [device reports](docs/device-reports.md). Accepted regional model numbers and details about each connection method are in the [full compatibility guide](docs/compatibility.md) and [model reference](docs/omblepy-comparison.md#accepted-identities-and-record-handling).
 
 > **OpenPressure is experimental.** Incorrect operation or device damage is possible; the app asks you to accept this before first use. Confirmed results apply to the exact model and operations listed above. See the [safety guide](docs/safety.md) for details. OpenPressure is independent and is not affiliated with Omron.
 
@@ -72,7 +75,7 @@ Android 8–11 also require location permission and Location Services to scan fo
 
 ## Your data stays in your hands
 
-- **Private by default.** Readings stay in private app storage. There is no account, analytics or OpenPressure-hosted backend. Network access is used only for optional forwarding to the server you configure.
+- **Private by default.** Readings stay in private app storage. There is no account, analytics or OpenPressure-hosted backend. Network access is used for optional forwarding to the server you configure and for a daily [update check](docs/updates.md) against GitHub, which sends no readings or monitor details and can be turned off.
 - **Sharing is your choice.** PDF and CSV exports are created on your phone. Health Connect and HTTP forwarding are optional and off by default. Forwarding without local history still uses a temporary queue until your server accepts the readings.
 - **Local deletion stays local.** Deleting readings in OpenPressure leaves the monitor's memory and copies already shared with Health Connect or a server intact.
 - **Export before uninstalling.** Android app backup and device transfer are disabled. Save any readings you want to keep before removing the app. Exports can contain health data and device identifiers; review them before sharing.
@@ -81,7 +84,7 @@ Android 8–11 also require location permission and Location Services to scan fo
 
 The [documentation index](docs/README.md) is the starting point for detailed guides. For everyday use, start with [using a monitor](docs/usage.md), [automatic imports](docs/automatic-import.md), [reminders](docs/reminders.md) or [named profiles](docs/virtual-users.md).
 
-Bug reports, translation fixes and contributions are welcome. Read [CONTRIBUTING.md](CONTRIBUTING.md) for what to include and how to keep health data, device identifiers and pairing details private when reporting an issue.
+Bug reports, [device reports](docs/device-reports.md), translation fixes and contributions are welcome. Read [CONTRIBUTING.md](CONTRIBUTING.md) for what to include and how to keep health data, device identifiers and pairing details private when reporting an issue.
 
 **For developers:** [Development](docs/development.md) covers build requirements, source layout and validation commands. The [protocol reference](docs/protocol.md), [safety boundaries](docs/safety.md) and [hardware validation guide](docs/hardware-validation.md) explain device integration. Maintainers can find signing and publishing instructions in [GitHub releases](docs/releasing.md).
 

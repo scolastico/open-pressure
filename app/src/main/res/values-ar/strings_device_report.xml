@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="device_report_title">ساعد في دعم هذا الجهاز</string>
+    <string name="device_report_card">لم يُختبر OpenPressure مع جهاز قياس الضغط هذا بعد. يوضّح تقرير الجهاز طريقة تواصله، ويمكن أن يساعد في إتاحة ميزات أكثر له في التطبيق.</string>
+    <string name="device_report_review">مراجعة تقرير الجهاز</string>
+    <string name="device_report_prompt">لم يُختبر OpenPressure مع جهاز قياس الضغط هذا بعد. سيكون من المفيد جدًا أن تشارك تقرير الجهاز في issue على GitHub. يمكن لتقريرك ومساعدتك إتاحة ميزات أكثر لجهازك في التطبيق.\n\nيحتوي التقرير على تفاصيل تقنية فقط. ولا يتضمن أبدًا القراءات أو أوقات القياس أو الأسماء أو عنوان Bluetooth أو الرقم التسلسلي. يمكنك مراجعته قبل مشاركة أي شيء.</string>
+    <string name="device_report_not_now">ليس الآن</string>
+    <string name="device_report_review_title">تقرير الجهاز</string>
+    <string name="device_report_review_explanation">تحقّق من التقرير أدناه. يقوم «%1$s» بنسخه وفتح نموذج issue مُعدّ مسبقًا؛ الصق التقرير هناك. لا يُرسل أي شيء تلقائيًا.</string>
+    <string name="device_report_copy_open">نسخ وفتح GitHub</string>
+    <string name="device_report_save">حفظ الملف</string>
+    <string name="device_report_copied">تم نسخ التقرير. الصقه في issue على GitHub.</string>
+    <string name="device_report_browser_missing">لم يُعثر على متصفح. احفظ التقرير وافتح %1$s.</string>
+    <string name="device_report_saved">تم حفظ تقرير الجهاز.</string>
+    <string name="device_report_save_failed">تعذّر حفظ تقرير الجهاز.</string>
+</resources>

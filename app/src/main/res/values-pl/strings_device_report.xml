@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="device_report_title">Pomóż w obsłudze tego ciśnieniomierza</string>
+    <string name="device_report_card">OpenPressure nie był jeszcze testowany z tym ciśnieniomierzem. Raport urządzenia pokazuje, jak się ono komunikuje, i może pomóc odblokować dla niego więcej funkcji w aplikacji.</string>
+    <string name="device_report_review">Przejrzyj raport urządzenia</string>
+    <string name="device_report_prompt">OpenPressure nie był jeszcze testowany z tym ciśnieniomierzem. Bardzo pomoże, jeśli udostępnisz raport urządzenia w zgłoszeniu na GitHubie. Twój raport i Twoja pomoc mogą odblokować więcej funkcji dla Twojego ciśnieniomierza w aplikacji.\n\nRaport zawiera wyłącznie dane techniczne. Nigdy nie zawiera pomiarów, godzin pomiarów, imion, adresu Bluetooth ani numeru seryjnego. Możesz go przejrzeć, zanim cokolwiek udostępnisz.</string>
+    <string name="device_report_not_now">Nie teraz</string>
+    <string name="device_report_review_title">Raport urządzenia</string>
+    <string name="device_report_review_explanation">Sprawdź raport poniżej. „%1$s” kopiuje go i otwiera przygotowany formularz zgłoszenia; wklej tam raport. Nic nie jest wysyłane automatycznie.</string>
+    <string name="device_report_copy_open">Kopiuj i otwórz GitHub</string>
+    <string name="device_report_save">Zapisz plik</string>
+    <string name="device_report_copied">Raport skopiowany. Wklej go do zgłoszenia na GitHubie.</string>
+    <string name="device_report_browser_missing">Nie znaleziono przeglądarki. Zapisz raport i otwórz %1$s.</string>
+    <string name="device_report_saved">Raport urządzenia zapisany.</string>
+    <string name="device_report_save_failed">Nie udało się zapisać raportu urządzenia.</string>
+</resources>

@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="update_title">มีอัปเดตใหม่</string>
+    <string name="update_message">OpenPressure %1$s พร้อมให้ใช้งานแล้ว คุณกำลังใช้ %2$s\n\nหน้าดาวน์โหลดจะเปิดในเบราว์เซอร์ของคุณ Android จะติดตั้งอัปเดตเฉพาะเมื่อมาจากนักพัฒนารายเดียวกันเท่านั้น</string>
+    <string name="update_download">เปิดหน้าดาวน์โหลด</string>
+    <string name="update_later">เตือนภายหลัง</string>
+    <string name="update_skip">ข้ามเวอร์ชันนี้</string>
+    <string name="update_browser_missing">ไม่พบเบราว์เซอร์สำหรับเปิดหน้าดาวน์โหลด</string>
+    <string name="update_setting_title">การตรวจหาอัปเดต</string>
+    <string name="update_setting_description">ประมาณวันละครั้ง OpenPressure จะถาม GitHub ว่ามีเวอร์ชันใหม่กว่าหรือไม่ คำขอมีเพียงเวอร์ชันของแอปเท่านั้น ไม่มีการส่งค่าที่วัดได้หรือรายละเอียดของเครื่องวัด</string>
+    <string name="update_turn_off">ปิดการตรวจหาอัปเดต</string>
+    <string name="update_turn_on">เปิดการตรวจหาอัปเดต</string>
+    <string name="update_about">การตรวจหาอัปเดตจะติดต่อ GitHub ประมาณวันละครั้งเพื่อหาเวอร์ชันใหม่กว่า คุณปิดได้ที่ %1$s → %2$s</string>
+</resources>

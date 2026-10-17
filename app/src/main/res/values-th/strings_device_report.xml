@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="device_report_title">ช่วยให้รองรับเครื่องวัดนี้</string>
+    <string name="device_report_card">OpenPressure ยังไม่เคยทดสอบกับเครื่องวัดความดันนี้ รายงานอุปกรณ์จะแสดงวิธีที่เครื่องสื่อสาร และช่วยเปิดใช้ฟีเจอร์เพิ่มเติมสำหรับเครื่องนี้ในแอปได้</string>
+    <string name="device_report_review">ตรวจดูรายงานอุปกรณ์</string>
+    <string name="device_report_prompt">OpenPressure ยังไม่เคยทดสอบกับเครื่องวัดความดันนี้ จะช่วยได้มากหากคุณแชร์รายงานอุปกรณ์ใน issue บน GitHub รายงานและความช่วยเหลือของคุณช่วยเปิดใช้ฟีเจอร์เพิ่มเติมสำหรับเครื่องวัดของคุณในแอปได้\n\nรายงานมีเฉพาะรายละเอียดทางเทคนิคเท่านั้น จะไม่มีค่าที่วัดได้ เวลาที่วัด ชื่อ ที่อยู่ Bluetooth หรือหมายเลขซีเรียลเลย คุณตรวจดูได้ก่อนที่จะแชร์สิ่งใด</string>
+    <string name="device_report_not_now">ไม่ใช่ตอนนี้</string>
+    <string name="device_report_review_title">รายงานอุปกรณ์</string>
+    <string name="device_report_review_explanation">ตรวจสอบรายงานด้านล่าง “%1$s” จะคัดลอกรายงานและเปิดแบบฟอร์ม issue ที่เตรียมไว้ จากนั้นวางรายงานที่นั่น ไม่มีการส่งสิ่งใดโดยอัตโนมัติ</string>
+    <string name="device_report_copy_open">คัดลอกและเปิด GitHub</string>
+    <string name="device_report_save">บันทึกไฟล์</string>
+    <string name="device_report_copied">คัดลอกรายงานแล้ว วางลงใน issue บน GitHub</string>
+    <string name="device_report_browser_missing">ไม่พบเบราว์เซอร์ บันทึกรายงานแล้วเปิด %1$s</string>
+    <string name="device_report_saved">บันทึกรายงานอุปกรณ์แล้ว</string>
+    <string name="device_report_save_failed">บันทึกรายงานอุปกรณ์ไม่ได้</string>
+</resources>

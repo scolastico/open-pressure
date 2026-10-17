@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="device_report_title">ఈ మానిటర్‌కు సపోర్ట్ అందించడంలో సహాయం చేయండి</string>
+    <string name="device_report_card">OpenPressure ఇంకా ఈ మానిటర్‌తో పరీక్షించబడలేదు. పరికర నివేదిక అది ఎలా కమ్యూనికేట్ చేస్తుందో చూపిస్తుంది, మరియు యాప్‌లో దాని కోసం మరిన్ని ఫీచర్‌లను అందుబాటులోకి తేవడంలో సహాయపడుతుంది.</string>
+    <string name="device_report_review">పరికర నివేదికను చూడండి</string>
+    <string name="device_report_prompt">OpenPressure ఇంకా ఈ మానిటర్‌తో పరీక్షించబడలేదు. మీరు GitHub issue‌లో పరికర నివేదికను షేర్ చేస్తే చాలా సహాయంగా ఉంటుంది. మీ నివేదిక మరియు మీ సహాయం యాప్‌లో మీ మానిటర్ కోసం మరిన్ని ఫీచర్‌లను అందుబాటులోకి తేగలవు.\n\nనివేదికలో సాంకేతిక వివరాలు మాత్రమే ఉంటాయి. అందులో రీడింగ్‌లు, కొలత సమయాలు, పేర్లు, Bluetooth చిరునామా లేదా సీరియల్ నంబర్ ఎప్పుడూ ఉండవు. ఏదైనా షేర్ చేసే ముందు మీరు దాన్ని చూడవచ్చు.</string>
+    <string name="device_report_not_now">ఇప్పుడు కాదు</string>
+    <string name="device_report_review_title">పరికర నివేదిక</string>
+    <string name="device_report_review_explanation">కింది నివేదికను తనిఖీ చేయండి. “%1$s” దాన్ని కాపీ చేసి, సిద్ధం చేసిన issue ఫారమ్‌ను తెరుస్తుంది; నివేదికను అక్కడ పేస్ట్ చేయండి. ఏదీ ఆటోమేటిక్‌గా పంపబడదు.</string>
+    <string name="device_report_copy_open">కాపీ చేసి GitHub తెరవండి</string>
+    <string name="device_report_save">ఫైల్‌ను సేవ్ చేయండి</string>
+    <string name="device_report_copied">నివేదిక కాపీ అయింది. దాన్ని GitHub issue‌లో పేస్ట్ చేయండి.</string>
+    <string name="device_report_browser_missing">బ్రౌజర్ ఏదీ కనుగొనబడలేదు. నివేదికను సేవ్ చేసి %1$s తెరవండి.</string>
+    <string name="device_report_saved">పరికర నివేదిక సేవ్ అయింది.</string>
+    <string name="device_report_save_failed">పరికర నివేదికను సేవ్ చేయడం సాధ్యం కాలేదు.</string>
+</resources>

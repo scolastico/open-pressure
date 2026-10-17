@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="device_report_title">Βοηθήστε στην υποστήριξη αυτού του πιεσόμετρου</string>
+    <string name="device_report_card">Το OpenPressure δεν έχει δοκιμαστεί ακόμη με αυτό το πιεσόμετρο. Μια αναφορά συσκευής δείχνει πώς επικοινωνεί και μπορεί να βοηθήσει να ξεκλειδωθούν περισσότερες λειτουργίες για αυτό στην εφαρμογή.</string>
+    <string name="device_report_review">Έλεγχος αναφοράς συσκευής</string>
+    <string name="device_report_prompt">Το OpenPressure δεν έχει δοκιμαστεί ακόμη με αυτό το πιεσόμετρο. Θα βοηθούσε πολύ αν μοιραζόσασταν μια αναφορά συσκευής σε ένα issue στο GitHub. Η αναφορά και η βοήθειά σας μπορούν να ξεκλειδώσουν περισσότερες λειτουργίες για το πιεσόμετρό σας στην εφαρμογή.\n\nΗ αναφορά περιέχει μόνο τεχνικές λεπτομέρειες. Δεν περιλαμβάνει ποτέ μετρήσεις, ώρες μετρήσεων, ονόματα, τη διεύθυνση Bluetooth ή τον σειριακό αριθμό. Μπορείτε να την ελέγξετε πριν μοιραστείτε οτιδήποτε.</string>
+    <string name="device_report_not_now">Όχι τώρα</string>
+    <string name="device_report_review_title">Αναφορά συσκευής</string>
+    <string name="device_report_review_explanation">Ελέγξτε την παρακάτω αναφορά. Το «%1$s» την αντιγράφει και ανοίγει μια έτοιμη φόρμα issue· επικολλήστε εκεί την αναφορά. Τίποτα δεν αποστέλλεται αυτόματα.</string>
+    <string name="device_report_copy_open">Αντιγραφή και άνοιγμα GitHub</string>
+    <string name="device_report_save">Αποθήκευση αρχείου</string>
+    <string name="device_report_copied">Η αναφορά αντιγράφηκε. Επικολλήστε την στο issue του GitHub.</string>
+    <string name="device_report_browser_missing">Δεν βρέθηκε πρόγραμμα περιήγησης. Αποθηκεύστε την αναφορά και ανοίξτε το %1$s.</string>
+    <string name="device_report_saved">Η αναφορά συσκευής αποθηκεύτηκε.</string>
+    <string name="device_report_save_failed">Δεν ήταν δυνατή η αποθήκευση της αναφοράς συσκευής.</string>
+</resources>

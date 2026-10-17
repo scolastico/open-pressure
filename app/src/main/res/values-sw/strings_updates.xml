@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="update_title">Sasisho linapatikana</string>
+    <string name="update_message">OpenPressure %1$s inapatikana. Unatumia %2$s.\n\nUkurasa wa kupakua utafunguka kwenye kivinjari chako. Android husakinisha sasisho tu likitoka kwa msanidi yule yule.</string>
+    <string name="update_download">Fungua ukurasa wa kupakua</string>
+    <string name="update_later">Nikumbushe baadaye</string>
+    <string name="update_skip">Ruka toleo hili</string>
+    <string name="update_browser_missing">Hakuna kivinjari kilichopatikana cha kufungua ukurasa wa kupakua.</string>
+    <string name="update_setting_title">Ukaguzi wa masasisho</string>
+    <string name="update_setting_description">Takriban mara moja kwa siku, OpenPressure huuliza GitHub kama kuna toleo jipya zaidi. Ombi lina toleo la programu pekee; hakuna vipimo wala maelezo ya kipima shinikizo yanayotumwa.</string>
+    <string name="update_turn_off">Zima ukaguzi wa masasisho</string>
+    <string name="update_turn_on">Washa ukaguzi wa masasisho</string>
+    <string name="update_about">Ukaguzi wa masasisho huwasiliana na GitHub takriban mara moja kwa siku kutafuta toleo jipya zaidi. Unaweza kuuzima katika %1$s → %2$s.</string>
+</resources>

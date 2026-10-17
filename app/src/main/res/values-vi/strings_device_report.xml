@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="device_report_title">Giúp hỗ trợ máy đo này</string>
+    <string name="device_report_card">OpenPressure chưa được thử nghiệm với máy đo huyết áp này. Báo cáo thiết bị cho thấy cách máy giao tiếp và có thể giúp mở thêm tính năng cho máy trong ứng dụng.</string>
+    <string name="device_report_review">Xem báo cáo thiết bị</string>
+    <string name="device_report_prompt">OpenPressure chưa được thử nghiệm với máy đo huyết áp này. Sẽ rất hữu ích nếu bạn chia sẻ báo cáo thiết bị trong một issue trên GitHub. Báo cáo và sự giúp đỡ của bạn có thể mở thêm tính năng cho máy đo của bạn trong ứng dụng.\n\nBáo cáo chỉ chứa thông tin kỹ thuật. Báo cáo không bao giờ chứa kết quả đo, thời gian đo, tên, địa chỉ Bluetooth hay số sê-ri. Bạn có thể xem lại trước khi chia sẻ bất cứ điều gì.</string>
+    <string name="device_report_not_now">Để sau</string>
+    <string name="device_report_review_title">Báo cáo thiết bị</string>
+    <string name="device_report_review_explanation">Hãy kiểm tra báo cáo bên dưới. “%1$s” sẽ sao chép báo cáo và mở biểu mẫu issue đã chuẩn bị sẵn; hãy dán báo cáo vào đó. Không có gì được gửi tự động.</string>
+    <string name="device_report_copy_open">Sao chép và mở GitHub</string>
+    <string name="device_report_save">Lưu tệp</string>
+    <string name="device_report_copied">Đã sao chép báo cáo. Hãy dán vào issue trên GitHub.</string>
+    <string name="device_report_browser_missing">Không tìm thấy trình duyệt. Hãy lưu báo cáo và mở %1$s.</string>
+    <string name="device_report_saved">Đã lưu báo cáo thiết bị.</string>
+    <string name="device_report_save_failed">Không thể lưu báo cáo thiết bị.</string>
+</resources>

@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="update_title">යාවත්කාලීනයක් ලබා ගත හැක</string>
+    <string name="update_message">OpenPressure %1$s ලබා ගත හැක. ඔබ භාවිත කරන්නේ %2$s ය.\n\nබාගැනීම් පිටුව ඔබගේ බ්‍රව්සරයේ විවෘත වේ. යාවත්කාලීනය එම සංවර්ධකයාගෙන්ම පැමිණියේ නම් පමණක් Android එය ස්ථාපනය කරයි.</string>
+    <string name="update_download">බාගැනීම් පිටුව විවෘත කරන්න</string>
+    <string name="update_later">පසුව මතක් කරන්න</string>
+    <string name="update_skip">මෙම අනුවාදය මඟ හරින්න</string>
+    <string name="update_browser_missing">බාගැනීම් පිටුව විවෘත කිරීමට බ්‍රව්සරයක් හමු නොවීය.</string>
+    <string name="update_setting_title">යාවත්කාලීන පරීක්ෂාව</string>
+    <string name="update_setting_description">දිනකට වරක් පමණ, නව අනුවාදයක් තිබේදැයි OpenPressure GitHub වෙතින් විමසයි. ඉල්ලීමේ ඇත්තේ යෙදුමේ අනුවාදය පමණි; කියවීම් හෝ මොනිටර විස්තර කිසිවක් යවනු නොලැබේ.</string>
+    <string name="update_turn_off">යාවත්කාලීන පරීක්ෂාව අක්‍රිය කරන්න</string>
+    <string name="update_turn_on">යාවත්කාලීන පරීක්ෂාව සක්‍රිය කරන්න</string>
+    <string name="update_about">නව අනුවාදයක් සෙවීමට යාවත්කාලීන පරීක්ෂාව දිනකට වරක් පමණ GitHub සම්බන්ධ කර ගනී. ඔබට එය %1$s → %2$s තුළ අක්‍රිය කළ හැක.</string>
+</resources>
