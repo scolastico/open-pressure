@@ -1,4 +1,4 @@
-plugins { id 'java-library' }
+plugins { id 'java-library'; id 'java-test-fixtures' }
 java { sourceCompatibility = JavaVersion.VERSION_17; targetCompatibility = JavaVersion.VERSION_17 }
 tasks.register('protocolTest', JavaExec) {
     dependsOn testClasses
