@@ -1,0 +1,44 @@
+plugins { id 'com.android.library' }
+
+// Replays shared device fixtures against Omron Connect's own BLE code in Robolectric.
+// The Omron package is supplied by each developer (see docs/omron-sandbox.md) and never committed.
+def omronDir=layout.buildDirectory.dir('omron').get().asFile
+def apkDir=file('apk')
+
+android {
+    namespace 'org.openpressure.omronsandbox'
+    compileSdk 36
+    defaultConfig { minSdk 26 }
+    compileOptions { sourceCompatibility JavaVersion.VERSION_17; targetCompatibility JavaVersion.VERSION_17 }
+    testOptions {
+        unitTests.includeAndroidResources = true
+        unitTests.all {
+            systemProperty 'omron.dir', omronDir.absolutePath
+            systemProperty 'fixture', System.getProperty('fixture','')
+            maxHeapSize = '3g'
+        }
+    }
+}
+configurations { dexConverter }
+dependencies {
+    testImplementation project(':protocol')
+    testImplementation testFixtures(project(':protocol'))
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.robolectric:robolectric:4.17'
+    testImplementation 'org.mockito:mockito-core:5.20.0'
+    // Present only after omronExtract ran on a locally supplied package.
+    testRuntimeOnly files(provider { def jar=new File(omronDir,'omron-classes.jar'); jar.exists()?[jar]:[] })
+    dexConverter 'de.femtopedia.dex2jar:dex-tools:2.4.38'
+}
+
+def hasApk={ apkDir.listFiles()?.any { it.name.endsWith('.apk') || it.name.endsWith('.xapk') } ?: false }
+tasks.register('omronExtract',Exec) {
+    description='Extracts the local Omron Connect package from omron-sandbox/apk into build/omron.'
+    inputs.dir(apkDir); outputs.dir(omronDir)
+    onlyIf { hasApk() }
+    doFirst {
+        commandLine "${System.getProperty('java.home')}/bin/java",'-Xmx3g','-cp',configurations.dexConverter.asPath,
+            file('src/test/java/org/openpressure/omronsandbox/ExtractOmron.java').absolutePath,apkDir.absolutePath,omronDir.absolutePath
+    }
+}
+tasks.matching { it.name=='testDebugUnitTest' || it.name=='testReleaseUnitTest' }.configureEach { dependsOn 'omronExtract' }

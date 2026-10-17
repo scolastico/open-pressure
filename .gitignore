@@ -26,3 +26,7 @@ open-pressure-eeprom*.json
 
 .kotlin/
 **/__pycache__/
+
+# Omron reference sandbox: the user's own Omron Connect download and everything derived from it.
+omron-sandbox/apk/*
+!omron-sandbox/apk/.gitkeep
