@@ -4,4 +4,17 @@
     <string name="monitor_clock_skipped">Wannan na\'urar auna hawan jini ba ta goyan bayan sabunta lokaci ta atomatik. Saita lokacinta da hannu.</string>
     <string name="monitor_clock_failed">Ba a iya sabunta lokacin na\'urar auna hawan jini ba. Duba ko saita lokacin a kan na\'urarka.</string>
     <string name="monitor_session_unconfirmed">An adana ma\'aunai, amma na\'urar auna hawan jini ba ta tabbatar da cewa an gama canja bayanai ba. Sake haɗawa kafin sake shigo da ma\'aunai.</string>
+    <string name="main_import_users">Awon da za a shigo da su</string>
+    <string name="main_import_users_both">Duk masu amfani biyu</string>
+    <string name="main_read_all">Karanta duka</string>
+    <string name="main_read_all_explanation">Yana duba kowane wuri a ƙwaƙwalwar na’urar, ba waɗanda take cewa an yi amfani da su kawai ba. Yi amfani da wannan idan kamar awo sun ɓace. Yana ɗaukar lokaci mai tsawo, don haka ajiye na’urar kusa har ya ƙare.</string>
+    <string name="main_reading_all">Ana karanta duka…</string>
+    <plurals name="monitor_import_mode_index">
+        <item quantity="one">Awo %1$d da aka ajiye bisa ga na’urar</item>
+        <item quantity="other">Awo %1$d da aka ajiye bisa ga na’urar</item>
+    </plurals>
+    <string name="monitor_import_mode_fallback">Ba a iya amfani da jerin na’urar ba; an karanta kowane wuri.</string>
+    <string name="monitor_import_mode_sweep">An karanta kowane wuri a ƙwaƙwalwa.</string>
+    <string name="monitor_import_mode_empty">Na’urar ba ta ba da rahoton awon da aka ajiye ba. Yi amfani da Karanta duka idan kana tsammanin akwai.</string>
+    <string name="monitor_unconfirmed_bank_skipped">An tsallake wani yanki na biyu na ƙwaƙwalwa wanda wataƙila wannan samfurin ba shi da shi.</string>
 </resources>

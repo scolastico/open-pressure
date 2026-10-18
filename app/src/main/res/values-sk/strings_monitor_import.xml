@@ -4,4 +4,19 @@
     <string name="monitor_clock_skipped">Tento tlakomer nepodporuje automatickú aktualizáciu času. Nastavte čas ručne.</string>
     <string name="monitor_clock_failed">Čas tlakomera sa nepodarilo aktualizovať. Skontrolujte alebo nastavte čas priamo na tlakomere.</string>
     <string name="monitor_session_unconfirmed">Merania sú uložené, ale tlakomer nepotvrdil dokončenie prenosu. Pred ďalším importom sa znova pripojte.</string>
+    <string name="main_import_users">Merania na import</string>
+    <string name="main_import_users_both">Obaja používatelia</string>
+    <string name="main_read_all">Prečítať všetko</string>
+    <string name="main_read_all_explanation">Skontroluje každé miesto v pamäti tlakomera, nielen tie, ktoré označuje ako použité. Použite, ak sa zdá, že merania chýbajú. Trvá to dlhšie, preto majte tlakomer nablízku až do konca.</string>
+    <string name="main_reading_all">Čítanie všetkého…</string>
+    <plurals name="monitor_import_mode_index">
+        <item quantity="few">%1$d uložené merania podľa tlakomera</item>
+        <item quantity="many">%1$d uloženého merania podľa tlakomera</item>
+        <item quantity="one">%1$d uložené meranie podľa tlakomera</item>
+        <item quantity="other">%1$d uložených meraní podľa tlakomera</item>
+    </plurals>
+    <string name="monitor_import_mode_fallback">Index tlakomera nebolo možné použiť; prečítalo sa každé miesto.</string>
+    <string name="monitor_import_mode_sweep">Prečítalo sa každé miesto v pamäti.</string>
+    <string name="monitor_import_mode_empty">Tlakomer nehlási žiadne uložené merania. Ak nejaké očakávate, použite Prečítať všetko.</string>
+    <string name="monitor_unconfirmed_bank_skipped">Druhá oblasť pamäte, ktorú tento model možno nemá, bola preskočená.</string>
 </resources>

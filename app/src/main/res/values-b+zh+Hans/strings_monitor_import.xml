@@ -4,4 +4,16 @@
     <string name="monitor_clock_skipped">此血压计不支持自动更新时间。请手动设置时间。</string>
     <string name="monitor_clock_failed">无法更新血压计的时间。请在血压计上检查或设置时间。</string>
     <string name="monitor_session_unconfirmed">测量结果已保存，但血压计未确认传输已完成。请重新连接后再导入。</string>
+    <string name="main_import_users">要导入的测量值</string>
+    <string name="main_import_users_both">两个用户</string>
+    <string name="main_read_all">全部读取</string>
+    <string name="main_read_all_explanation">检查血压计的每个存储位置，而不仅是它报告为已使用的位置。如果似乎缺少测量值，请使用此功能。所需时间更长，请在完成前将血压计放在附近。</string>
+    <string name="main_reading_all">正在全部读取…</string>
+    <plurals name="monitor_import_mode_index">
+        <item quantity="other">血压计报告已存储 %1$d 个测量值</item>
+    </plurals>
+    <string name="monitor_import_mode_fallback">无法使用血压计的索引；已读取每个位置。</string>
+    <string name="monitor_import_mode_sweep">已读取每个存储位置。</string>
+    <string name="monitor_import_mode_empty">血压计报告没有已存储的测量值。如果您认为应该有，请使用全部读取。</string>
+    <string name="monitor_unconfirmed_bank_skipped">已跳过此型号可能没有的第二个存储区域。</string>
 </resources>

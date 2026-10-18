@@ -4,4 +4,19 @@
     <string name="monitor_clock_skipped">Tento tlakoměr nepodporuje automatickou aktualizaci času. Nastavte čas ručně.</string>
     <string name="monitor_clock_failed">Čas tlakoměru se nepodařilo aktualizovat. Zkontrolujte nebo nastavte čas přímo na tlakoměru.</string>
     <string name="monitor_session_unconfirmed">Měření jsou uložena, ale tlakoměr nepotvrdil dokončení přenosu. Před dalším importem se znovu připojte.</string>
+    <string name="main_import_users">Měření k importu</string>
+    <string name="main_import_users_both">Oba uživatelé</string>
+    <string name="main_read_all">Přečíst vše</string>
+    <string name="main_read_all_explanation">Zkontroluje každé místo v paměti tlakoměru, nejen ta, která označuje jako použitá. Použijte, pokud se zdá, že měření chybí. Trvá to déle, proto mějte tlakoměr poblíž až do konce.</string>
+    <string name="main_reading_all">Čtení všeho…</string>
+    <plurals name="monitor_import_mode_index">
+        <item quantity="few">%1$d uložená měření podle tlakoměru</item>
+        <item quantity="many">%1$d uloženého měření podle tlakoměru</item>
+        <item quantity="one">%1$d uložené měření podle tlakoměru</item>
+        <item quantity="other">%1$d uložených měření podle tlakoměru</item>
+    </plurals>
+    <string name="monitor_import_mode_fallback">Index tlakoměru nebylo možné použít; přečetlo se každé místo.</string>
+    <string name="monitor_import_mode_sweep">Přečetlo se každé místo v paměti.</string>
+    <string name="monitor_import_mode_empty">Tlakoměr nehlásí žádná uložená měření. Pokud nějaká očekáváte, použijte Přečíst vše.</string>
+    <string name="monitor_unconfirmed_bank_skipped">Druhá oblast paměti, kterou tento model možná nemá, byla přeskočena.</string>
 </resources>

@@ -4,4 +4,17 @@
     <string name="monitor_clock_skipped">இந்த இரத்த அழுத்த மானிட்டரில் நேரத்தைத் தானாகப் புதுப்பிக்க முடியாது. நேரத்தை நீங்களே அமைக்கவும்.</string>
     <string name="monitor_clock_failed">இரத்த அழுத்த மானிட்டரின் நேரத்தைப் புதுப்பிக்க முடியவில்லை. மானிட்டரில் நேரத்தைச் சரிபார்க்கவும் அல்லது அமைக்கவும்.</string>
     <string name="monitor_session_unconfirmed">அளவீடுகள் சேமிக்கப்பட்டுள்ளன, ஆனால் தரவுப் பரிமாற்றம் முடிந்ததை இரத்த அழுத்த மானிட்டர் உறுதிப்படுத்தவில்லை. மீண்டும் இறக்குமதி செய்வதற்கு முன் மீண்டும் இணைக்கவும்.</string>
+    <string name="main_import_users">இறக்குமதி செய்ய வேண்டிய அளவீடுகள்</string>
+    <string name="main_import_users_both">இரு பயனர்களும்</string>
+    <string name="main_read_all">அனைத்தையும் படி</string>
+    <string name="main_read_all_explanation">மானிட்டர் பயன்படுத்தப்பட்டதாகக் கூறும் இடங்களை மட்டுமல்ல, அதன் நினைவகத்தின் ஒவ்வொரு இடத்தையும் சரிபார்க்கிறது. அளவீடுகள் விடுபட்டதாகத் தோன்றினால் இதைப் பயன்படுத்தவும். இதற்கு அதிக நேரம் ஆகும், எனவே முடியும் வரை மானிட்டரை அருகில் வைத்திருக்கவும்.</string>
+    <string name="main_reading_all">அனைத்தும் படிக்கப்படுகிறது…</string>
+    <plurals name="monitor_import_mode_index">
+        <item quantity="one">மானிட்டரின்படி %1$d சேமிக்கப்பட்ட அளவீடு</item>
+        <item quantity="other">மானிட்டரின்படி %1$d சேமிக்கப்பட்ட அளவீடுகள்</item>
+    </plurals>
+    <string name="monitor_import_mode_fallback">மானிட்டரின் பட்டியலைப் பயன்படுத்த முடியவில்லை; ஒவ்வொரு இடமும் படிக்கப்பட்டது.</string>
+    <string name="monitor_import_mode_sweep">நினைவகத்தின் ஒவ்வொரு இடமும் படிக்கப்பட்டது.</string>
+    <string name="monitor_import_mode_empty">மானிட்டர் சேமிக்கப்பட்ட அளவீடுகள் எதையும் தெரிவிக்கவில்லை. சில இருக்கும் என எதிர்பார்த்தால் அனைத்தையும் படி என்பதைப் பயன்படுத்தவும்.</string>
+    <string name="monitor_unconfirmed_bank_skipped">இந்த மாடலில் இல்லாமல் இருக்கக்கூடிய இரண்டாவது நினைவகப் பகுதி தவிர்க்கப்பட்டது.</string>
 </resources>

@@ -4,4 +4,17 @@
     <string name="monitor_clock_skipped">یہ بلڈ پریشر مانیٹر وقت کو خودکار طور پر اپ ڈیٹ کرنے کی سہولت نہیں دیتا۔ اس کا وقت خود سیٹ کریں۔</string>
     <string name="monitor_clock_failed">بلڈ پریشر مانیٹر کا وقت اپ ڈیٹ نہیں ہو سکا۔ مانیٹر پر وقت چیک کریں یا سیٹ کریں۔</string>
     <string name="monitor_session_unconfirmed">پیمائشیں محفوظ ہیں، لیکن بلڈ پریشر مانیٹر نے منتقلی مکمل ہونے کی تصدیق نہیں کی۔ دوبارہ درآمد کرنے سے پہلے پھر سے جڑیں۔</string>
+    <string name="main_import_users">درآمد کرنے کے لیے پیمائشیں</string>
+    <string name="main_import_users_both">دونوں صارفین</string>
+    <string name="main_read_all">سب پڑھیں</string>
+    <string name="main_read_all_explanation">مانیٹر کی میموری کی ہر جگہ کو چیک کرتا ہے، نہ صرف ان جگہوں کو جنہیں وہ استعمال شدہ بتاتا ہے۔ اگر پیمائشیں غائب لگیں تو اسے استعمال کریں۔ اس میں زیادہ وقت لگتا ہے، اس لیے ختم ہونے تک مانیٹر قریب رکھیں۔</string>
+    <string name="main_reading_all">سب پڑھا جا رہا ہے…</string>
+    <plurals name="monitor_import_mode_index">
+        <item quantity="one">مانیٹر کے مطابق %1$d محفوظ پیمائش</item>
+        <item quantity="other">مانیٹر کے مطابق %1$d محفوظ پیمائشیں</item>
+    </plurals>
+    <string name="monitor_import_mode_fallback">مانیٹر کا انڈیکس استعمال نہیں ہو سکا؛ ہر جگہ پڑھی گئی۔</string>
+    <string name="monitor_import_mode_sweep">میموری کی ہر جگہ پڑھی گئی۔</string>
+    <string name="monitor_import_mode_empty">مانیٹر نے کوئی محفوظ پیمائش نہیں بتائی۔ اگر آپ کو کچھ کی توقع ہے تو سب پڑھیں استعمال کریں۔</string>
+    <string name="monitor_unconfirmed_bank_skipped">ایک دوسرا میموری حصہ جو شاید اس ماڈل میں نہ ہو، چھوڑ دیا گیا۔</string>
 </resources>

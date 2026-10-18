@@ -4,4 +4,19 @@
     <string name="monitor_clock_skipped">Ten ciśnieniomierz nie obsługuje automatycznej aktualizacji czasu. Ustaw czas ręcznie.</string>
     <string name="monitor_clock_failed">Nie udało się zaktualizować czasu ciśnieniomierza. Sprawdź lub ustaw czas na urządzeniu.</string>
     <string name="monitor_session_unconfirmed">Pomiary są zapisane, ale ciśnieniomierz nie potwierdził zakończenia przesyłania. Połącz się ponownie przed kolejnym importem.</string>
+    <string name="main_import_users">Pomiary do importu</string>
+    <string name="main_import_users_both">Obaj użytkownicy</string>
+    <string name="main_read_all">Odczytaj wszystko</string>
+    <string name="main_read_all_explanation">Sprawdza każde miejsce w pamięci ciśnieniomierza, nie tylko te, które oznacza jako zajęte. Użyj, jeśli wydaje się, że brakuje pomiarów. Trwa to dłużej, więc trzymaj ciśnieniomierz w pobliżu do końca.</string>
+    <string name="main_reading_all">Odczytywanie wszystkiego…</string>
+    <plurals name="monitor_import_mode_index">
+        <item quantity="few">%1$d zapisane pomiary według ciśnieniomierza</item>
+        <item quantity="many">%1$d zapisanych pomiarów według ciśnieniomierza</item>
+        <item quantity="one">%1$d zapisany pomiar według ciśnieniomierza</item>
+        <item quantity="other">%1$d zapisanego pomiaru według ciśnieniomierza</item>
+    </plurals>
+    <string name="monitor_import_mode_fallback">Nie udało się użyć indeksu ciśnieniomierza; odczytano każde miejsce.</string>
+    <string name="monitor_import_mode_sweep">Odczytano każde miejsce w pamięci.</string>
+    <string name="monitor_import_mode_empty">Ciśnieniomierz nie zgłosił zapisanych pomiarów. Użyj Odczytaj wszystko, jeśli się ich spodziewasz.</string>
+    <string name="monitor_unconfirmed_bank_skipped">Pominięto drugi obszar pamięci, którego ten model może nie mieć.</string>
 </resources>

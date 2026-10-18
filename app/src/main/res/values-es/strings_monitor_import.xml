@@ -4,4 +4,18 @@
     <string name="monitor_clock_skipped">Este tensiómetro no admite la actualización automática de la hora. Ajusta la hora manualmente.</string>
     <string name="monitor_clock_failed">No se pudo actualizar la hora del tensiómetro. Compruébala o ajústala en el dispositivo.</string>
     <string name="monitor_session_unconfirmed">Las mediciones están guardadas, pero el tensiómetro no confirmó que la transferencia hubiera terminado. Vuelve a conectarlo antes de importar de nuevo.</string>
+    <string name="main_import_users">Mediciones que importar</string>
+    <string name="main_import_users_both">Ambos usuarios</string>
+    <string name="main_read_all">Leer todo</string>
+    <string name="main_read_all_explanation">Revisa cada espacio de memoria del tensiómetro, no solo los que indica como usados. Úsalo si parece que faltan mediciones. Tarda más, así que mantén el tensiómetro cerca hasta que termine.</string>
+    <string name="main_reading_all">Leyendo todo…</string>
+    <plurals name="monitor_import_mode_index">
+        <item quantity="many">%1$d mediciones guardadas según el tensiómetro</item>
+        <item quantity="one">%1$d medición guardada según el tensiómetro</item>
+        <item quantity="other">%1$d mediciones guardadas según el tensiómetro</item>
+    </plurals>
+    <string name="monitor_import_mode_fallback">No se pudo usar el índice del tensiómetro; se leyó cada espacio.</string>
+    <string name="monitor_import_mode_sweep">Se leyó cada espacio de memoria.</string>
+    <string name="monitor_import_mode_empty">El tensiómetro no indicó mediciones guardadas. Usa Leer todo si esperas alguna.</string>
+    <string name="monitor_unconfirmed_bank_skipped">Se omitió una segunda área de memoria que este modelo quizá no tenga.</string>
 </resources>

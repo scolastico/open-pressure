@@ -4,4 +4,17 @@
     <string name="monitor_clock_skipped">این دستگاه فشار خون از به‌روزرسانی خودکار زمان پشتیبانی نمی‌کند. زمان آن را به‌صورت دستی تنظیم کنید.</string>
     <string name="monitor_clock_failed">زمان دستگاه فشار خون به‌روزرسانی نشد. زمان را روی دستگاه بررسی یا تنظیم کنید.</string>
     <string name="monitor_session_unconfirmed">اندازه‌گیری‌ها ذخیره شده‌اند، اما دستگاه فشار خون پایان انتقال را تأیید نکرد. پیش از وارد کردن دوباره، مجدداً متصل شوید.</string>
+    <string name="main_import_users">اندازه‌گیری‌هایی که وارد شوند</string>
+    <string name="main_import_users_both">هر دو کاربر</string>
+    <string name="main_read_all">خواندن همه</string>
+    <string name="main_read_all_explanation">همهٔ خانه‌های حافظهٔ دستگاه فشارسنج را بررسی می‌کند، نه فقط آن‌هایی که دستگاه پر اعلام می‌کند. اگر به نظر می‌رسد اندازه‌گیری‌هایی جا افتاده‌اند از آن استفاده کنید. بیشتر طول می‌کشد، پس تا پایان دستگاه را نزدیک نگه دارید.</string>
+    <string name="main_reading_all">در حال خواندن همه…</string>
+    <plurals name="monitor_import_mode_index">
+        <item quantity="one">%1$d اندازه‌گیری ذخیره‌شده به گزارش دستگاه</item>
+        <item quantity="other">%1$d اندازه‌گیری ذخیره‌شده به گزارش دستگاه</item>
+    </plurals>
+    <string name="monitor_import_mode_fallback">فهرست دستگاه قابل استفاده نبود؛ همهٔ خانه‌ها خوانده شد.</string>
+    <string name="monitor_import_mode_sweep">همهٔ خانه‌های حافظه خوانده شد.</string>
+    <string name="monitor_import_mode_empty">دستگاه هیچ اندازه‌گیری ذخیره‌شده‌ای گزارش نکرد. اگر انتظار دارید چیزی باشد، از خواندن همه استفاده کنید.</string>
+    <string name="monitor_unconfirmed_bank_skipped">یک بخش دوم حافظه که ممکن است این مدل نداشته باشد، رد شد.</string>
 </resources>

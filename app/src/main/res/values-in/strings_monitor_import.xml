@@ -4,4 +4,16 @@
     <string name="monitor_clock_skipped">Alat pengukur tekanan darah ini tidak mendukung pembaruan waktu otomatis. Atur waktunya secara manual.</string>
     <string name="monitor_clock_failed">Waktu alat pengukur tekanan darah tidak dapat diperbarui. Periksa atau atur waktu pada alat.</string>
     <string name="monitor_session_unconfirmed">Hasil pengukuran telah disimpan, tetapi alat pengukur tekanan darah tidak mengonfirmasi bahwa transfer telah selesai. Hubungkan kembali sebelum mengimpor lagi.</string>
+    <string name="main_import_users">Pengukuran yang diimpor</string>
+    <string name="main_import_users_both">Kedua pengguna</string>
+    <string name="main_read_all">Baca semua</string>
+    <string name="main_read_all_explanation">Memeriksa setiap slot memori monitor, bukan hanya slot yang dilaporkan terpakai. Gunakan jika ada pengukuran yang tampaknya hilang. Prosesnya lebih lama, jadi biarkan monitor tetap dekat sampai selesai.</string>
+    <string name="main_reading_all">Membaca semua…</string>
+    <plurals name="monitor_import_mode_index">
+        <item quantity="other">%1$d pengukuran tersimpan menurut monitor</item>
+    </plurals>
+    <string name="monitor_import_mode_fallback">Indeks monitor tidak dapat digunakan; setiap slot telah dibaca.</string>
+    <string name="monitor_import_mode_sweep">Setiap slot memori telah dibaca.</string>
+    <string name="monitor_import_mode_empty">Monitor tidak melaporkan pengukuran tersimpan. Gunakan Baca semua jika Anda mengira ada.</string>
+    <string name="monitor_unconfirmed_bank_skipped">Area memori kedua yang mungkin tidak dimiliki model ini dilewati.</string>
 </resources>

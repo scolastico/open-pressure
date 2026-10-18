@@ -4,4 +4,17 @@
     <string name="monitor_clock_skipped">Bu tansiyon aleti saatin otomatik olarak güncellenmesini desteklemiyor. Saati elle ayarlayın.</string>
     <string name="monitor_clock_failed">Tansiyon aletinin saati güncellenemedi. Saati cihazınızda kontrol edin veya ayarlayın.</string>
     <string name="monitor_session_unconfirmed">Ölçümler kaydedildi, ancak tansiyon aleti aktarımın tamamlandığını onaylamadı. Yeniden içe aktarmadan önce tekrar bağlanın.</string>
+    <string name="main_import_users">İçe aktarılacak ölçümler</string>
+    <string name="main_import_users_both">Her iki kullanıcı</string>
+    <string name="main_read_all">Tümünü oku</string>
+    <string name="main_read_all_explanation">Cihazın yalnızca dolu olarak bildirdiği yerleri değil, her bellek yerini kontrol eder. Ölçümler eksik görünüyorsa kullanın. Daha uzun sürer, bu yüzden bitene kadar cihazı yakında tutun.</string>
+    <string name="main_reading_all">Tümü okunuyor…</string>
+    <plurals name="monitor_import_mode_index">
+        <item quantity="one">Cihaza göre %1$d kayıtlı ölçüm</item>
+        <item quantity="other">Cihaza göre %1$d kayıtlı ölçüm</item>
+    </plurals>
+    <string name="monitor_import_mode_fallback">Cihazın dizini kullanılamadı; her yer okundu.</string>
+    <string name="monitor_import_mode_sweep">Her bellek yeri okundu.</string>
+    <string name="monitor_import_mode_empty">Cihaz kayıtlı ölçüm bildirmedi. Ölçüm bekliyorsanız Tümünü oku seçeneğini kullanın.</string>
+    <string name="monitor_unconfirmed_bank_skipped">Bu modelde bulunmayabilecek ikinci bir bellek alanı atlandı.</string>
 </resources>

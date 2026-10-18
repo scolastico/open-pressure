@@ -4,4 +4,17 @@
     <string name="monitor_clock_skipped">Kifaa hiki cha kupima shinikizo la damu hakitumii usasishaji wa muda kiotomatiki. Weka muda mwenyewe.</string>
     <string name="monitor_clock_failed">Muda wa kifaa cha kupima shinikizo la damu haukuweza kusasishwa. Angalia au weka muda kwenye kifaa chako.</string>
     <string name="monitor_session_unconfirmed">Vipimo vimehifadhiwa, lakini kifaa cha kupima shinikizo la damu hakikuthibitisha kuwa uhamishaji umekamilika. Unganisha tena kabla ya kuleta vipimo tena.</string>
+    <string name="main_import_users">Vipimo vya kuingiza</string>
+    <string name="main_import_users_both">Watumiaji wote wawili</string>
+    <string name="main_read_all">Soma vyote</string>
+    <string name="main_read_all_explanation">Hukagua kila nafasi ya kumbukumbu ya kifaa, si zile tu kinazoripoti kuwa zimetumika. Tumia hii ikiwa vipimo vinaonekana kukosekana. Huchukua muda mrefu zaidi, kwa hivyo weka kifaa karibu hadi kimalize.</string>
+    <string name="main_reading_all">Inasoma vyote…</string>
+    <plurals name="monitor_import_mode_index">
+        <item quantity="one">Kipimo %1$d kilichohifadhiwa kulingana na kifaa</item>
+        <item quantity="other">Vipimo %1$d vilivyohifadhiwa kulingana na kifaa</item>
+    </plurals>
+    <string name="monitor_import_mode_fallback">Faharasa ya kifaa haikuweza kutumika; kila nafasi imesomwa.</string>
+    <string name="monitor_import_mode_sweep">Kila nafasi ya kumbukumbu imesomwa.</string>
+    <string name="monitor_import_mode_empty">Kifaa hakikuripoti vipimo vilivyohifadhiwa. Tumia Soma vyote ikiwa unatarajia baadhi.</string>
+    <string name="monitor_unconfirmed_bank_skipped">Eneo la pili la kumbukumbu ambalo huenda modeli hii haina limerukwa.</string>
 </resources>

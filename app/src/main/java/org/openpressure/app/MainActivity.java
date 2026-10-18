@@ -188,7 +188,7 @@ public final class MainActivity extends Activity {
         if(monitor==null) return "starting";
         return Arrays.asList(monitor.ready,monitor.sessionFinished,monitor.registrationReading,monitor.registrationPending,monitor.registrationWriting,monitor.registrationDone,monitor.registrationBackupFile()!=null,monitor.address,monitor.connectedName,monitor.profile,monitor.user,
                 monitor.battery,monitor.information,monitor.hasUserControl,monitor.authenticatedUser,monitor.canHistory,
-                monitor.historyRunning,monitor.canTime,monitor.deviceTime,monitor.modelHint,monitor.canDump,
+                monitor.historyRunning,monitor.importMode,monitor.importUsers,monitor.canTime,monitor.deviceTime,monitor.modelHint,monitor.canDump,
                 monitor.dumpRunning,monitor.dumpSaving,monitor.dumpRevision,monitor.eepromDumpFile()!=null,monitor.dumpComplete,monitor.dumpStart,monitor.dumpLength,monitor.deviceReport()!=null,
                 !monitor.address.isEmpty()&&!monitor.status.equals("Disconnected")&&!monitor.status.equals("Action failed")).toString();
     }
@@ -373,7 +373,16 @@ public final class MainActivity extends Activity {
             if(monitor.hasUserControl) {
                 add(active,button(monitor.authenticatedUser>0?getString(R.string.main_change_user,profileLabel(monitor.authenticatedUser)):getString(R.string.main_choose_monitor_user),this::userDialog,true),12);
             }
+            if(monitor.offersImportUsers()) {
+                String address=monitor.address;
+                importUsersChoice(active,"import_users_",monitor.importUsers,!monitor.historyRunning&&!monitor.dumpRunning,users -> { store.setImportUsers(address,users); if(monitor.address.equals(address)) monitor.importUsers=users; render(); });
+            }
             Button history=button(monitor.historyRunning?getString(R.string.main_importing):getString(R.string.main_import_history),this::historyDialog,true); history.setEnabled(monitor.canHistory&&!monitor.historyRunning&&!monitor.dumpRunning); add(active,history,8);
+            if(monitor.profile==org.openpressure.protocol.ProtocolProfile.VENDOR_MEMORY) {
+                boolean readingAll=monitor.historyRunning&&monitor.importMode==MonitorService.ImportMode.FULL_SWEEP;
+                Button readAll=button(readingAll?getString(R.string.main_reading_all):getString(R.string.main_read_all),this::readAllDialog,false);
+                readAll.setEnabled(monitor.canReadAll()&&!monitor.historyRunning&&!monitor.dumpRunning); add(active,readAll,8);
+            }
             if(!monitor.canHistory) add(active,text(getString(R.string.main_history_unavailable),14,MUTED,false),6);
             Button clock=button(getString(R.string.main_set_monitor_time),this::clockDialog,false); clock.setEnabled(monitor.canTime&&!monitor.historyRunning&&!monitor.dumpRunning); add(active,clock,8);
             add(active,button(getString(R.string.main_disconnect),monitor::disconnect,false),8); content.addView(active);
@@ -388,11 +397,36 @@ public final class MainActivity extends Activity {
         if(!saved.isEmpty()) add(content,text(getString(R.string.main_saved_monitors),13,TEAL,true),20);
         for(String[] d:saved) {
             LinearLayout item=card(); add(item,text(d[1],20,INK,true),0); add(item,text(getString(R.string.main_saved_monitor_detail,d[0],profileLabel(Integer.parseInt(d[3]))),13,MUTED,false),6);
+            // The connected monitor's card above already carries the choice; one control per monitor.
+            boolean activeChoice=monitor.offersImportUsers() && monitor.address.equals(d[0]);
+            if(!activeChoice && MonitorService.offersImportUsers(d[2])) importUsersChoice(item,"import_users_"+d[0]+"_",parseUsers(d[4]),true,users -> { store.setImportUsers(d[0],users); render(); });
             add(item,button(getString(R.string.main_reconnect),() -> { monitor.user=Integer.parseInt(d[3]); monitor.modelHint=d[2]; connect(d[0],d[1],false); },true),10);
             add(item,button(getString(R.string.main_forget_monitor),() -> new AlertDialog.Builder(this).setTitle(getString(R.string.main_forget_title,d[1])).setMessage(getString(R.string.main_forget_explanation)).setNegativeButton(getString(R.string.main_cancel),null).setPositiveButton(getString(R.string.main_forget),(dialog,which) -> { if(monitor.address.equals(d[0])) monitor.disconnect(); new PairingKeys(this).forget(d[0]); new CompanionLinks(this).forget(d[0]); store.forget(d[0]); monitor.refreshAutomaticImports(); render(); }).show(),false),6); content.addView(item);
         }
         add(content,button(advancedExpanded?getString(R.string.main_hide_advanced):getString(R.string.main_advanced),() -> { advancedExpanded=!advancedExpanded; render(); },false),16);
         if(advancedExpanded) advancedDeviceControls();
+    }
+    /** Readings to import: User 1, User 2 or both, as toggle buttons with the current choice highlighted. */
+    private void importUsersChoice(LinearLayout parent,String tag,int current,boolean enabled,java.util.function.IntConsumer choose) {
+        add(parent,text(getString(R.string.main_import_users),14,MUTED,false),12);
+        LinearLayout choices=row();
+        for(int users=1;users<=3;users++) {
+            final int value=users;
+            Button choice=button(users==3?getString(R.string.main_import_users_both):profileLabel(users),() -> { if(value!=current) choose.accept(value); },users==current);
+            choice.setTag(tag+users); choice.setSelected(users==current); choice.setEnabled(enabled);
+            LinearLayout.LayoutParams lp=new LinearLayout.LayoutParams(0,-2,1); if(users>1) lp.setMarginStart(dp(6));
+            choices.addView(choice,lp);
+        }
+        add(parent,choices,6);
+    }
+    private static int parseUsers(String value) {
+        try { int users=Integer.parseInt(value); return users>=1 && users<=3?users:3; } catch(RuntimeException ex) { return 3; }
+    }
+    private void readAllDialog() {
+        if(monitor==null || !monitor.canReadAll() || monitor.historyRunning || monitor.dumpRunning) return;
+        new AlertDialog.Builder(this).setTitle(getString(R.string.main_read_all)).setMessage(getString(R.string.main_read_all_explanation))
+                .setNegativeButton(getString(R.string.main_cancel),null)
+                .setPositiveButton(getString(R.string.main_read_all),(dialog,which) -> { if(monitor!=null) monitor.readAllHistory(); }).show();
     }
     private void advancedDeviceControls() {
         add(content,button(getString(R.string.http_title),() -> startActivity(new Intent(this,HttpForwardingSettingsActivity.class)),false),8);

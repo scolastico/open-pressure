@@ -4,4 +4,17 @@
     <string name="monitor_clock_skipped">Αυτό το πιεσόμετρο δεν υποστηρίζει αυτόματη ενημέρωση της ώρας. Ρυθμίστε την ώρα χειροκίνητα.</string>
     <string name="monitor_clock_failed">Δεν ήταν δυνατή η ενημέρωση της ώρας του πιεσόμετρου. Ελέγξτε ή ρυθμίστε την ώρα στο πιεσόμετρό σας.</string>
     <string name="monitor_session_unconfirmed">Οι μετρήσεις έχουν αποθηκευτεί, αλλά το πιεσόμετρο δεν επιβεβαίωσε ότι η μεταφορά ολοκληρώθηκε. Συνδεθείτε ξανά πριν από την επόμενη εισαγωγή.</string>
+    <string name="main_import_users">Μετρήσεις για εισαγωγή</string>
+    <string name="main_import_users_both">Και οι δύο χρήστες</string>
+    <string name="main_read_all">Ανάγνωση όλων</string>
+    <string name="main_read_all_explanation">Ελέγχει κάθε θέση μνήμης του πιεσόμετρου, όχι μόνο όσες αναφέρει ως χρησιμοποιημένες. Χρησιμοποιήστε το αν φαίνεται να λείπουν μετρήσεις. Διαρκεί περισσότερο, οπότε κρατήστε το πιεσόμετρο κοντά μέχρι να ολοκληρωθεί.</string>
+    <string name="main_reading_all">Ανάγνωση όλων…</string>
+    <plurals name="monitor_import_mode_index">
+        <item quantity="one">%1$d αποθηκευμένη μέτρηση σύμφωνα με το πιεσόμετρο</item>
+        <item quantity="other">%1$d αποθηκευμένες μετρήσεις σύμφωνα με το πιεσόμετρο</item>
+    </plurals>
+    <string name="monitor_import_mode_fallback">Το ευρετήριο του πιεσόμετρου δεν μπόρεσε να χρησιμοποιηθεί· διαβάστηκε κάθε θέση.</string>
+    <string name="monitor_import_mode_sweep">Διαβάστηκε κάθε θέση μνήμης.</string>
+    <string name="monitor_import_mode_empty">Το πιεσόμετρο δεν ανέφερε αποθηκευμένες μετρήσεις. Χρησιμοποιήστε την Ανάγνωση όλων αν περιμένετε κάποιες.</string>
+    <string name="monitor_unconfirmed_bank_skipped">Παραλείφθηκε μια δεύτερη περιοχή μνήμης που αυτό το μοντέλο ίσως δεν έχει.</string>
 </resources>

@@ -4,4 +4,18 @@
     <string name="monitor_clock_skipped">Ce tensiomètre ne permet pas la mise à jour automatique de l\'heure. Réglez son heure manuellement.</string>
     <string name="monitor_clock_failed">L\'heure du tensiomètre n\'a pas pu être mise à jour. Vérifiez-la ou réglez-la sur votre tensiomètre.</string>
     <string name="monitor_session_unconfirmed">Les mesures sont enregistrées, mais le tensiomètre n\'a pas confirmé la fin du transfert. Reconnectez-le avant de lancer une nouvelle importation.</string>
+    <string name="main_import_users">Mesures à importer</string>
+    <string name="main_import_users_both">Les deux utilisateurs</string>
+    <string name="main_read_all">Tout lire</string>
+    <string name="main_read_all_explanation">Vérifie chaque emplacement de mémoire du tensiomètre, pas seulement ceux qu’il signale comme utilisés. Utilisez-le si des mesures semblent manquer. Cela prend plus de temps : gardez le tensiomètre à proximité jusqu’à la fin.</string>
+    <string name="main_reading_all">Lecture complète…</string>
+    <plurals name="monitor_import_mode_index">
+        <item quantity="many">%1$d mesures enregistrées selon le tensiomètre</item>
+        <item quantity="one">%1$d mesure enregistrée selon le tensiomètre</item>
+        <item quantity="other">%1$d mesures enregistrées selon le tensiomètre</item>
+    </plurals>
+    <string name="monitor_import_mode_fallback">L’index du tensiomètre n’a pas pu être utilisé ; chaque emplacement a été lu.</string>
+    <string name="monitor_import_mode_sweep">Chaque emplacement de mémoire a été lu.</string>
+    <string name="monitor_import_mode_empty">Le tensiomètre n’a signalé aucune mesure enregistrée. Utilisez Tout lire si vous en attendez.</string>
+    <string name="monitor_unconfirmed_bank_skipped">Une deuxième zone de mémoire que ce modèle n’a peut-être pas a été ignorée.</string>
 </resources>

@@ -4,4 +4,17 @@
     <string name="monitor_clock_skipped">Deze bloeddrukmeter ondersteunt het automatisch bijwerken van de tijd niet. Stel de tijd handmatig in.</string>
     <string name="monitor_clock_failed">De tijd van de bloeddrukmeter kon niet worden bijgewerkt. Controleer de tijd of stel deze in op uw bloeddrukmeter.</string>
     <string name="monitor_session_unconfirmed">De metingen zijn opgeslagen, maar de bloeddrukmeter heeft niet bevestigd dat de overdracht is voltooid. Maak opnieuw verbinding voordat u weer importeert.</string>
+    <string name="main_import_users">Te importeren metingen</string>
+    <string name="main_import_users_both">Beide gebruikers</string>
+    <string name="main_read_all">Alles lezen</string>
+    <string name="main_read_all_explanation">Controleert elke geheugenplaats van de bloeddrukmeter, niet alleen de plaatsen die hij als gebruikt meldt. Gebruik dit als er metingen lijken te ontbreken. Het duurt langer, dus houd de meter in de buurt tot het klaar is.</string>
+    <string name="main_reading_all">Alles wordt gelezen…</string>
+    <plurals name="monitor_import_mode_index">
+        <item quantity="one">%1$d opgeslagen meting volgens de meter</item>
+        <item quantity="other">%1$d opgeslagen metingen volgens de meter</item>
+    </plurals>
+    <string name="monitor_import_mode_fallback">De index van de meter kon niet worden gebruikt; elke plaats is gelezen.</string>
+    <string name="monitor_import_mode_sweep">Elke geheugenplaats is gelezen.</string>
+    <string name="monitor_import_mode_empty">De meter meldt geen opgeslagen metingen. Gebruik Alles lezen als je die wel verwacht.</string>
+    <string name="monitor_unconfirmed_bank_skipped">Een tweede geheugengebied dat dit model mogelijk niet heeft, is overgeslagen.</string>
 </resources>

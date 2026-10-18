@@ -4,4 +4,19 @@
     <string name="monitor_clock_skipped">Цей тонометр не підтримує автоматичне оновлення часу. Установіть час вручну.</string>
     <string name="monitor_clock_failed">Не вдалося оновити час на тонометрі. Перевірте або встановіть час на пристрої.</string>
     <string name="monitor_session_unconfirmed">Вимірювання збережено, але тонометр не підтвердив завершення передавання. Підключіть його повторно перед наступним імпортом.</string>
+    <string name="main_import_users">Які вимірювання імпортувати</string>
+    <string name="main_import_users_both">Обидва користувачі</string>
+    <string name="main_read_all">Прочитати все</string>
+    <string name="main_read_all_explanation">Перевіряє кожну комірку пам’яті тонометра, а не лише ті, що він позначає як зайняті. Використовуйте, якщо здається, що вимірювань бракує. Це триває довше, тож тримайте тонометр поруч до завершення.</string>
+    <string name="main_reading_all">Читання всього…</string>
+    <plurals name="monitor_import_mode_index">
+        <item quantity="few">%1$d збережені вимірювання за даними тонометра</item>
+        <item quantity="many">%1$d збережених вимірювань за даними тонометра</item>
+        <item quantity="one">%1$d збережене вимірювання за даними тонометра</item>
+        <item quantity="other">%1$d збереженого вимірювання за даними тонометра</item>
+    </plurals>
+    <string name="monitor_import_mode_fallback">Не вдалося використати покажчик тонометра; прочитано кожну комірку.</string>
+    <string name="monitor_import_mode_sweep">Прочитано кожну комірку пам’яті.</string>
+    <string name="monitor_import_mode_empty">Тонометр не повідомив про збережені вимірювання. Використайте «Прочитати все», якщо вони мають бути.</string>
+    <string name="monitor_unconfirmed_bank_skipped">Пропущено другу область пам’яті, якої ця модель може не мати.</string>
 </resources>

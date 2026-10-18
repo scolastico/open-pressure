@@ -4,4 +4,16 @@
     <string name="monitor_clock_skipped">Monitor tekanan darah ini tidak menyokong kemas kini masa secara automatik. Tetapkan masanya secara manual.</string>
     <string name="monitor_clock_failed">Masa monitor tekanan darah tidak dapat dikemas kini. Semak atau tetapkan masa pada monitor.</string>
     <string name="monitor_session_unconfirmed">Bacaan telah disimpan, tetapi monitor tekanan darah tidak mengesahkan bahawa pemindahan telah selesai. Sambung semula sebelum mengimport lagi.</string>
+    <string name="main_import_users">Ukuran untuk diimport</string>
+    <string name="main_import_users_both">Kedua-dua pengguna</string>
+    <string name="main_read_all">Baca semua</string>
+    <string name="main_read_all_explanation">Memeriksa setiap slot memori monitor, bukan hanya slot yang dilaporkan digunakan. Gunakan jika ukuran kelihatan hilang. Ia mengambil masa lebih lama, jadi simpan monitor berdekatan sehingga selesai.</string>
+    <string name="main_reading_all">Membaca semua…</string>
+    <plurals name="monitor_import_mode_index">
+        <item quantity="other">%1$d ukuran tersimpan menurut monitor</item>
+    </plurals>
+    <string name="monitor_import_mode_fallback">Indeks monitor tidak dapat digunakan; setiap slot telah dibaca.</string>
+    <string name="monitor_import_mode_sweep">Setiap slot memori telah dibaca.</string>
+    <string name="monitor_import_mode_empty">Monitor tidak melaporkan ukuran tersimpan. Gunakan Baca semua jika anda menjangkakan ada.</string>
+    <string name="monitor_unconfirmed_bank_skipped">Kawasan memori kedua yang mungkin tiada pada model ini telah dilangkau.</string>
 </resources>

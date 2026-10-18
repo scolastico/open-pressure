@@ -4,4 +4,16 @@
     <string name="monitor_clock_skipped">この血圧計は時刻の自動更新に対応していません。手動で時刻を設定してください。</string>
     <string name="monitor_clock_failed">血圧計の時刻を更新できませんでした。血圧計で時刻を確認または設定してください。</string>
     <string name="monitor_session_unconfirmed">測定値は保存されていますが、血圧計から転送完了の確認が得られませんでした。再度インポートする前に接続し直してください。</string>
+    <string name="main_import_users">インポートする測定値</string>
+    <string name="main_import_users_both">両方のユーザー</string>
+    <string name="main_read_all">すべて読み取る</string>
+    <string name="main_read_all_explanation">血圧計が使用中と報告する場所だけでなく、メモリのすべての場所を確認します。測定値が欠けているように見える場合に使用してください。時間がかかるため、完了するまで血圧計を近くに置いてください。</string>
+    <string name="main_reading_all">すべて読み取り中…</string>
+    <plurals name="monitor_import_mode_index">
+        <item quantity="other">血圧計が報告した保存済みの測定値 %1$d 件</item>
+    </plurals>
+    <string name="monitor_import_mode_fallback">血圧計のインデックスを使用できなかったため、すべての場所を読み取りました。</string>
+    <string name="monitor_import_mode_sweep">メモリのすべての場所を読み取りました。</string>
+    <string name="monitor_import_mode_empty">血圧計から保存済みの測定値は報告されませんでした。あるはずの場合は「すべて読み取る」を使用してください。</string>
+    <string name="monitor_unconfirmed_bank_skipped">このモデルにない可能性がある 2 つ目のメモリ領域をスキップしました。</string>
 </resources>

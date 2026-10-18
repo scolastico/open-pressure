@@ -1273,6 +1273,14 @@ public final class MonitorService extends Service {
         if(!canReadAll() || historyRunning || dumpRunning || pendingUserOperation!=0) return;
         beginVendorHistory(true);
     }
+    /** Whether the connected, verified model offers a choice between its two users' readings. */
+    public boolean offersImportUsers() { return ready && (profile.isX7() || offersImportUsers(verifiedModel)); }
+    /** Whether a saved Device Information model offers a choice between two users' readings. */
+    public static boolean offersImportUsers(String model) {
+        if(X7Record.supportsModel(model)) return true;
+        VendorMemoryModel vendor=VendorMemoryModel.identify(model);
+        return vendor!=null && vendor.selectableUsers()==2;
+    }
     public boolean canReadAll() { return ready && canHistory && profile==ProtocolProfile.VENDOR_MEMORY && !automaticConnection; }
     public void readClock() {
         if(!ready || timeCharacteristic==null || (timeCharacteristic.getProperties()&BluetoothGattCharacteristic.PROPERTY_READ)==0) return;

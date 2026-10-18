@@ -69,6 +69,8 @@ public final class MonitorUi {
                 context.getResources().getQuantityString(R.plurals.monitor_readings_saved,m.storedInTransfer,m.storedInTransfer):"";
             if(m.queuedInTransfer>0) summary+=(summary.isEmpty()?"":"\n\n")+context.getString(R.string.http_import_count,m.queuedInTransfer);
             if(m.pendingInTransfer>0) summary+=(summary.isEmpty()?"":"\n\n")+context.getString(R.string.vp_pending_count,m.pendingInTransfer);
+            String mode=importMode(context,m);
+            if(!mode.isEmpty()) summary+=(summary.isEmpty()?"":"\n\n")+mode;
             return importDetail(context,m,summary);
         }
         if(m.registrationDone || m.sessionFinished) return context.getString(R.string.monitor_reconnect_next_time);
@@ -82,6 +84,19 @@ public final class MonitorUi {
         if(title==R.string.monitor_connecting) return context.getString(R.string.monitor_keep_nearby);
         if(title==R.string.monitor_disconnected) return context.getString(R.string.monitor_saved_on_phone);
         return context.getString(R.string.monitor_scan_to_connect);
+    }
+    /** How a vendor-memory import chose its slots, in plain language; empty for other protocols. */
+    private static String importMode(Context context,MonitorService m) {
+        String mode;
+        switch(m.importMode) {
+            case INDEX: mode=m.indexStoredCount>0?context.getResources().getQuantityString(R.plurals.monitor_import_mode_index,m.indexStoredCount,m.indexStoredCount)
+                    :m.indexStoredCount==0?context.getString(R.string.monitor_import_mode_empty):""; break;
+            case INDEX_FALLBACK: mode=context.getString(R.string.monitor_import_mode_fallback); break;
+            case FULL_SWEEP: case FULL_READ: mode=context.getString(R.string.monitor_import_mode_sweep); break;
+            default: mode=""; break;
+        }
+        if(m.unconfirmedBankSkipped) mode+=(mode.isEmpty()?"":"\n\n")+context.getString(R.string.monitor_unconfirmed_bank_skipped);
+        return mode;
     }
     private static String importDetail(Context context,MonitorService m,String summary) {
         int clock=0;

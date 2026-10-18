@@ -4,4 +4,18 @@
     <string name="monitor_clock_skipped">Questo misuratore di pressione non supporta l\'aggiornamento automatico dell\'ora. Imposta l\'ora manualmente.</string>
     <string name="monitor_clock_failed">Non è stato possibile aggiornare l\'ora del misuratore di pressione. Controllala o impostala sul dispositivo.</string>
     <string name="monitor_session_unconfirmed">Le misurazioni sono salvate, ma il misuratore di pressione non ha confermato la fine del trasferimento. Ricollegalo prima di importare di nuovo.</string>
+    <string name="main_import_users">Misurazioni da importare</string>
+    <string name="main_import_users_both">Entrambi gli utenti</string>
+    <string name="main_read_all">Leggi tutto</string>
+    <string name="main_read_all_explanation">Controlla ogni posizione di memoria del misuratore, non solo quelle che segnala come usate. Usalo se sembra che manchino misurazioni. Richiede più tempo, quindi tieni il misuratore vicino finché non termina.</string>
+    <string name="main_reading_all">Lettura completa…</string>
+    <plurals name="monitor_import_mode_index">
+        <item quantity="many">%1$d misurazioni salvate secondo il misuratore</item>
+        <item quantity="one">%1$d misurazione salvata secondo il misuratore</item>
+        <item quantity="other">%1$d misurazioni salvate secondo il misuratore</item>
+    </plurals>
+    <string name="monitor_import_mode_fallback">Non è stato possibile usare l’indice del misuratore; è stata letta ogni posizione.</string>
+    <string name="monitor_import_mode_sweep">È stata letta ogni posizione di memoria.</string>
+    <string name="monitor_import_mode_empty">Il misuratore non ha segnalato misurazioni salvate. Usa Leggi tutto se te ne aspetti.</string>
+    <string name="monitor_unconfirmed_bank_skipped">È stata saltata una seconda area di memoria che questo modello potrebbe non avere.</string>
 </resources>

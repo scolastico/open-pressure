@@ -4,4 +4,17 @@
     <string name="monitor_clock_skipped">Denne blodtrykksmåleren støtter ikke automatisk oppdatering av tiden. Still inn tiden manuelt.</string>
     <string name="monitor_clock_failed">Tiden på blodtrykksmåleren kunne ikke oppdateres. Kontroller eller still inn tiden på måleren.</string>
     <string name="monitor_session_unconfirmed">Målingene er lagret, men blodtrykksmåleren bekreftet ikke at overføringen var ferdig. Koble til på nytt før du importerer igjen.</string>
+    <string name="main_import_users">Målinger som skal importeres</string>
+    <string name="main_import_users_both">Begge brukere</string>
+    <string name="main_read_all">Les alt</string>
+    <string name="main_read_all_explanation">Sjekker hver minneplass i måleren, ikke bare de den oppgir som brukt. Bruk dette hvis målinger ser ut til å mangle. Det tar lengre tid, så hold måleren i nærheten til det er ferdig.</string>
+    <string name="main_reading_all">Leser alt…</string>
+    <plurals name="monitor_import_mode_index">
+        <item quantity="one">%1$d lagret måling ifølge måleren</item>
+        <item quantity="other">%1$d lagrede målinger ifølge måleren</item>
+    </plurals>
+    <string name="monitor_import_mode_fallback">Målerens indeks kunne ikke brukes; hver plass ble lest.</string>
+    <string name="monitor_import_mode_sweep">Hver minneplass ble lest.</string>
+    <string name="monitor_import_mode_empty">Måleren rapporterte ingen lagrede målinger. Bruk Les alt hvis du venter noen.</string>
+    <string name="monitor_unconfirmed_bank_skipped">Et andre minneområde som denne modellen kanskje ikke har, ble hoppet over.</string>
 </resources>

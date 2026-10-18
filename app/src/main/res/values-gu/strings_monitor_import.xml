@@ -4,4 +4,17 @@
     <string name="monitor_clock_skipped">આ બ્લડ પ્રેશર મોનિટરમાં સમય આપમેળે અપડેટ કરી શકાતો નથી. તેનો સમય જાતે સેટ કરો.</string>
     <string name="monitor_clock_failed">બ્લડ પ્રેશર મોનિટરનો સમય અપડેટ થઈ શક્યો નથી. મોનિટર પર સમય તપાસો અથવા સેટ કરો.</string>
     <string name="monitor_session_unconfirmed">માપ સાચવવામાં આવ્યા છે, પરંતુ બ્લડ પ્રેશર મોનિટરે ડેટા મોકલવાનું પૂર્ણ થયાની પુષ્ટિ કરી નથી. ફરીથી આયાત કરતાં પહેલાં ફરી કનેક્ટ કરો.</string>
+    <string name="main_import_users">આયાત કરવાના માપ</string>
+    <string name="main_import_users_both">બંને વપરાશકર્તાઓ</string>
+    <string name="main_read_all">બધું વાંચો</string>
+    <string name="main_read_all_explanation">મોનિટરની મેમરીના દરેક સ્થાનને તપાસે છે, ફક્ત તે જ નહીં જેને તે વપરાયેલા તરીકે જણાવે છે. જો માપ ખૂટતા લાગે તો આનો ઉપયોગ કરો. તેમાં વધુ સમય લાગે છે, તેથી પૂર્ણ થાય ત્યાં સુધી મોનિટર નજીક રાખો.</string>
+    <string name="main_reading_all">બધું વંચાઈ રહ્યું છે…</string>
+    <plurals name="monitor_import_mode_index">
+        <item quantity="one">મોનિટર મુજબ %1$d સાચવેલું માપ</item>
+        <item quantity="other">મોનિટર મુજબ %1$d સાચવેલા માપ</item>
+    </plurals>
+    <string name="monitor_import_mode_fallback">મોનિટરની સૂચિનો ઉપયોગ થઈ શક્યો નહીં; દરેક સ્થાન વાંચવામાં આવ્યું.</string>
+    <string name="monitor_import_mode_sweep">મેમરીનું દરેક સ્થાન વાંચવામાં આવ્યું.</string>
+    <string name="monitor_import_mode_empty">મોનિટરે કોઈ સાચવેલા માપ જણાવ્યા નથી. જો તમે અપેક્ષા રાખો તો બધું વાંચો નો ઉપયોગ કરો.</string>
+    <string name="monitor_unconfirmed_bank_skipped">એક બીજો મેમરી વિસ્તાર, જે કદાચ આ મોડેલમાં નથી, છોડી દેવામાં આવ્યો.</string>
 </resources>

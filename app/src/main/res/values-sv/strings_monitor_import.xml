@@ -4,4 +4,17 @@
     <string name="monitor_clock_skipped">Den här blodtrycksmätaren stöder inte automatisk tidsuppdatering. Ställ in tiden manuellt.</string>
     <string name="monitor_clock_failed">Tiden på blodtrycksmätaren kunde inte uppdateras. Kontrollera eller ställ in tiden på mätaren.</string>
     <string name="monitor_session_unconfirmed">Mätningarna är sparade, men blodtrycksmätaren bekräftade inte att överföringen var klar. Anslut igen innan du importerar på nytt.</string>
+    <string name="main_import_users">Mätningar att importera</string>
+    <string name="main_import_users_both">Båda användarna</string>
+    <string name="main_read_all">Läs allt</string>
+    <string name="main_read_all_explanation">Kontrollerar varje minnesplats i mätaren, inte bara de som den anger som använda. Använd detta om mätningar verkar saknas. Det tar längre tid, så håll mätaren nära tills det är klart.</string>
+    <string name="main_reading_all">Läser allt…</string>
+    <plurals name="monitor_import_mode_index">
+        <item quantity="one">%1$d sparad mätning enligt mätaren</item>
+        <item quantity="other">%1$d sparade mätningar enligt mätaren</item>
+    </plurals>
+    <string name="monitor_import_mode_fallback">Mätarens index kunde inte användas; varje plats lästes.</string>
+    <string name="monitor_import_mode_sweep">Varje minnesplats lästes.</string>
+    <string name="monitor_import_mode_empty">Mätaren rapporterade inga sparade mätningar. Använd Läs allt om du väntar dig några.</string>
+    <string name="monitor_unconfirmed_bank_skipped">Ett andra minnesområde som den här modellen kanske inte har hoppades över.</string>
 </resources>

@@ -4,4 +4,16 @@
     <string name="monitor_clock_skipped">Ẹrọ wiwọn titẹ ẹjẹ yìí kò ṣe àtìlẹ́yìn fún ìmúdójúìwọ̀n àkókò aládàáṣiṣẹ́. Ṣètò àkókò rẹ̀ fúnra rẹ.</string>
     <string name="monitor_clock_failed">A kò lè ṣe ìmúdójúìwọ̀n àkókò ẹrọ wiwọn titẹ ẹjẹ. Ṣàyẹ̀wò tàbí ṣètò àkókò lórí ẹrọ rẹ.</string>
     <string name="monitor_session_unconfirmed">Àwọn ìwọ̀n ti wà ní ìpamọ́, ṣùgbọ́n ẹrọ wiwọn titẹ ẹjẹ kò jẹ́rìí pé gbígbé dátà ti parí. Sopọ̀ lẹ́ẹ̀kan sí i kí o tó tún gbé àwọn ìwọ̀n wọlé.</string>
+    <string name="main_import_users">Àwọn ìwọ̀n láti gbé wọlé</string>
+    <string name="main_import_users_both">Àwọn aṣàmúlò méjèèjì</string>
+    <string name="main_read_all">Ka gbogbo rẹ̀</string>
+    <string name="main_read_all_explanation">Ó ń ṣàyẹ̀wò gbogbo àyè ìrántí ẹ̀rọ náà, kì í ṣe àwọn tí ó sọ pé a ti lò nìkan. Lò ó tí ó bá dàbí pé àwọn ìwọ̀n kan sọnù. Ó máa ń pẹ́ jù, nítorí náà jẹ́ kí ẹ̀rọ náà wà nítòsí títí yóò fi parí.</string>
+    <string name="main_reading_all">Ń ka gbogbo rẹ̀…</string>
+    <plurals name="monitor_import_mode_index">
+        <item quantity="other">Ìwọ̀n %1$d tí a fipamọ́ gẹ́gẹ́ bí ẹ̀rọ náà ṣe sọ</item>
+    </plurals>
+    <string name="monitor_import_mode_fallback">A kò lè lo atọ́ka ẹ̀rọ náà; a ka gbogbo àyè.</string>
+    <string name="monitor_import_mode_sweep">A ka gbogbo àyè ìrántí.</string>
+    <string name="monitor_import_mode_empty">Ẹ̀rọ náà kò ròyìn ìwọ̀n tí a fipamọ́ kankan. Lo Ka gbogbo rẹ̀ tí o bá retí pé ó yẹ kí ó wà.</string>
+    <string name="monitor_unconfirmed_bank_skipped">A fo agbègbè ìrántí kejì kan tí àwòṣe yìí lè má ní.</string>
 </resources>

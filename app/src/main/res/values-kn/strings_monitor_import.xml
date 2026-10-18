@@ -4,4 +4,17 @@
     <string name="monitor_clock_skipped">ಈ ರಕ್ತದೊತ್ತಡ ಮಾನಿಟರ್‌ನಲ್ಲಿ ಸಮಯವನ್ನು ಸ್ವಯಂಚಾಲಿತವಾಗಿ ನವೀಕರಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ. ಸಮಯವನ್ನು ನೀವೇ ಹೊಂದಿಸಿ.</string>
     <string name="monitor_clock_failed">ರಕ್ತದೊತ್ತಡ ಮಾನಿಟರ್‌ನ ಸಮಯವನ್ನು ನವೀಕರಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ. ಮಾನಿಟರ್‌ನಲ್ಲಿ ಸಮಯವನ್ನು ಪರಿಶೀಲಿಸಿ ಅಥವಾ ಹೊಂದಿಸಿ.</string>
     <string name="monitor_session_unconfirmed">ಅಳತೆಗಳನ್ನು ಉಳಿಸಲಾಗಿದೆ, ಆದರೆ ಡೇಟಾ ವರ್ಗಾವಣೆ ಮುಗಿದಿದೆ ಎಂದು ರಕ್ತದೊತ್ತಡ ಮಾನಿಟರ್ ದೃಢಪಡಿಸಿಲ್ಲ. ಮತ್ತೆ ಆಮದು ಮಾಡುವ ಮೊದಲು ಮರುಸಂಪರ್ಕಿಸಿ.</string>
+    <string name="main_import_users">ಆಮದು ಮಾಡಬೇಕಾದ ಅಳತೆಗಳು</string>
+    <string name="main_import_users_both">ಇಬ್ಬರೂ ಬಳಕೆದಾರರು</string>
+    <string name="main_read_all">ಎಲ್ಲವನ್ನೂ ಓದಿ</string>
+    <string name="main_read_all_explanation">ಮಾನಿಟರ್ ಬಳಸಲಾಗಿದೆ ಎಂದು ತಿಳಿಸುವ ಸ್ಥಳಗಳನ್ನು ಮಾತ್ರವಲ್ಲ, ಅದರ ಮೆಮೊರಿಯ ಪ್ರತಿಯೊಂದು ಸ್ಥಳವನ್ನೂ ಪರಿಶೀಲಿಸುತ್ತದೆ. ಅಳತೆಗಳು ಕಾಣೆಯಾಗಿವೆ ಎನಿಸಿದರೆ ಇದನ್ನು ಬಳಸಿ. ಇದಕ್ಕೆ ಹೆಚ್ಚು ಸಮಯ ಬೇಕು, ಆದ್ದರಿಂದ ಮುಗಿಯುವವರೆಗೆ ಮಾನಿಟರ್ ಅನ್ನು ಹತ್ತಿರ ಇರಿಸಿ.</string>
+    <string name="main_reading_all">ಎಲ್ಲವನ್ನೂ ಓದಲಾಗುತ್ತಿದೆ…</string>
+    <plurals name="monitor_import_mode_index">
+        <item quantity="one">ಮಾನಿಟರ್ ಪ್ರಕಾರ %1$d ಉಳಿಸಿದ ಅಳತೆ</item>
+        <item quantity="other">ಮಾನಿಟರ್ ಪ್ರಕಾರ %1$d ಉಳಿಸಿದ ಅಳತೆಗಳು</item>
+    </plurals>
+    <string name="monitor_import_mode_fallback">ಮಾನಿಟರ್‌ನ ಸೂಚಿಯನ್ನು ಬಳಸಲಾಗಲಿಲ್ಲ; ಪ್ರತಿಯೊಂದು ಸ್ಥಳವನ್ನೂ ಓದಲಾಗಿದೆ.</string>
+    <string name="monitor_import_mode_sweep">ಮೆಮೊರಿಯ ಪ್ರತಿಯೊಂದು ಸ್ಥಳವನ್ನೂ ಓದಲಾಗಿದೆ.</string>
+    <string name="monitor_import_mode_empty">ಮಾನಿಟರ್ ಯಾವುದೇ ಉಳಿಸಿದ ಅಳತೆಗಳನ್ನು ತಿಳಿಸಿಲ್ಲ. ಕೆಲವು ಇರಬೇಕೆಂದು ನಿರೀಕ್ಷಿಸಿದರೆ ಎಲ್ಲವನ್ನೂ ಓದಿ ಬಳಸಿ.</string>
+    <string name="monitor_unconfirmed_bank_skipped">ಈ ಮಾದರಿಯಲ್ಲಿ ಇಲ್ಲದಿರಬಹುದಾದ ಎರಡನೇ ಮೆಮೊರಿ ಪ್ರದೇಶವನ್ನು ಬಿಟ್ಟುಬಿಡಲಾಗಿದೆ.</string>
 </resources>

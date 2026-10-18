@@ -4,4 +4,17 @@
     <string name="monitor_clock_skipped">Tämä verenpainemittari ei tue ajan automaattista päivitystä. Aseta aika käsin.</string>
     <string name="monitor_clock_failed">Verenpainemittarin aikaa ei voitu päivittää. Tarkista aika mittarista ja aseta se tarvittaessa.</string>
     <string name="monitor_session_unconfirmed">Mittaukset on tallennettu, mutta verenpainemittari ei vahvistanut siirron päättymistä. Yhdistä uudelleen ennen seuraavaa tuontia.</string>
+    <string name="main_import_users">Tuotavat mittaukset</string>
+    <string name="main_import_users_both">Molemmat käyttäjät</string>
+    <string name="main_read_all">Lue kaikki</string>
+    <string name="main_read_all_explanation">Tarkistaa mittarin jokaisen muistipaikan, ei vain niitä, jotka se ilmoittaa käytetyiksi. Käytä tätä, jos mittauksia näyttää puuttuvan. Se kestää pidempään, joten pidä mittari lähellä, kunnes se on valmis.</string>
+    <string name="main_reading_all">Luetaan kaikkea…</string>
+    <plurals name="monitor_import_mode_index">
+        <item quantity="one">%1$d tallennettu mittaus mittarin mukaan</item>
+        <item quantity="other">%1$d tallennettua mittausta mittarin mukaan</item>
+    </plurals>
+    <string name="monitor_import_mode_fallback">Mittarin hakemistoa ei voitu käyttää; jokainen paikka luettiin.</string>
+    <string name="monitor_import_mode_sweep">Jokainen muistipaikka luettiin.</string>
+    <string name="monitor_import_mode_empty">Mittari ei ilmoittanut tallennettuja mittauksia. Käytä Lue kaikki -toimintoa, jos odotat niitä.</string>
+    <string name="monitor_unconfirmed_bank_skipped">Toinen muistialue, jota tällä mallilla ei ehkä ole, ohitettiin.</string>
 </resources>
