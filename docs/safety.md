@@ -73,6 +73,9 @@ Detailed captured evidence confirms both staged write echoes and END, followed b
 
 ## Write-aspect index
 
+> [!WARNING]
+> **Writes marked untested here are not confirmed for the model. Such a write can permanently corrupt the monitor's settings or make it unusable. Overriding them is meant only for people validating a model with a monitor they are prepared to lose.**
+
 `WriteAspectIndex` records, per exact verified model identity, whether a memory-write aspect is **confirmed** on hardware, **untested** or **blocked**. It is data only: it builds no frame and authorizes no byte. A permitted aspect still has to pass every model-bound check in `DeviceWritePolicy` at the GATT boundary, and no write uses the index yet. No clock-block sync, unsent-counter reset or other new memory write exists yet.
 
 | Aspect | Status | Identities |
@@ -82,7 +85,7 @@ Detailed captured evidence confirms both staged write echoes and END, followed b
 | `UNSENT_COUNTERS` | Blocked: not implemented | Every identity |
 | Any aspect | Blocked: no evidence | Every unlisted identity |
 
-No aspect is confirmed. "Untested" means only that a source-derived layout exists; it has not been exercised on that model. Lookups use the exact identity: a vendor-memory model's table id or the reported X7 identity. The app first resolves a saved model string with `VendorMemoryModel.identify`, so only the documented exact regional variants that it maps to a table id (for example HEM-7155T-EBK, -D, -ESL and -AP to HEM-7155T, or HEM-7377T1-ZAZ to HEM-7377T1) share that entry. Any other similar name, alias or shared UUID does not map to a listed entry and is blocked. The `HEM-7380T1-EOSL` entry concerns a standalone clock-block write; it does not change or extend the [X7 profile registration](#x7-profile-registration) exception, whose clock bytes remain part of that exact Pair plan.
+No aspect is confirmed. "Untested" means only that a source-derived layout exists; it has not been exercised on that model. Lookups use the exact identity: a vendor-memory model's table id or an X7 identity (`HEM-7380T1-EOSL`, `HEM-7380T1-EBK`). Callers resolve a verified model string with `WriteAspectIndex.resolve` first: it removes NULs and surrounding whitespace, maps only the documented exact regional variants that `VendorMemoryModel.identify` knows to their table id (for example HEM-7155T-EBK, -D, -ESL and -AP to HEM-7155T, or HEM-7377T1-ZAZ to HEM-7377T1), and maps the firmware name `X7 Smart AFib` (any letter case) to `HEM-7380T1-EOSL`, matching the device report's verified-model rule. Anything else, including a bare `HEM-7380T1`, is left unchanged and is blocked; no other similar name, alias or shared UUID maps to a listed entry. The `HEM-7380T1-EOSL` entry concerns a standalone clock-block write; it does not change or extend the [X7 profile registration](#x7-profile-registration) exception, whose clock bytes remain part of that exact Pair plan.
 
 ### Override rule
 

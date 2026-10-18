@@ -25,7 +25,7 @@ No report is offered for the tested monitor, for automatic imports, or when the 
 
 The report never contains readings, measurement times, profile or monitor-user names, the Bluetooth address, the serial number or system ID, memory contents, pairing keys or key bodies. Record sequence numbers and counts from the advertisement are masked. The [diagnostics export](usage.md) is different: it can contain health data and identifiers and should not be posted publicly.
 
-Collecting a report sends nothing extra to the monitor. It records only what the normal Pair or Connect session already read, so it follows the same read-only [safety boundaries](safety.md): no EEPROM writes, no probing of unknown memory and no guessed commands.
+Collecting a report sends nothing extra to the monitor. It records only what the normal Pair or Connect session already read, so it follows the same read-only [safety boundaries](safety.md): no EEPROM writes today (no write records entries in the `writes` section yet), no probing of unknown memory and no guessed commands.
 
 ## Sharing it
 
