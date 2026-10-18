@@ -14,7 +14,7 @@ First use requires explicit experimental-use acceptance before Bluetooth actions
 | Omron `5045 / 2A08` | Exact valid seven-byte Date Time |
 | STP handshake | Only exact `70 01` (89 bytes), `70 05` / `70 06` (46 bytes), on a selected STP path without known WLP data banks |
 | X7 read-only WLP | Exact START/READ/END; 1–16-byte reads in bounded 16-bit ranges; fresh SYS nonce transaction |
-| Verified vendor memory | START/END and exact 1–16-byte reads within that model’s known history/settings windows; no addressed writes |
+| Verified vendor memory | START/END and exact reads (1–56 bytes on four-channel legacy models, 1–16 on single-channel HEM-7377T1), each wholly inside that model’s settings window or one history bank; no addressed writes |
 | Verified vendor clock characteristic | Optional valid SIG Current Time or Omron Date Time write after history, before END, in explicit sessions only; skipped if unsupported and during automatic imports; no EEPROM write |
 | Legacy application key | Only current issued control frame of an active Pair/Connect permit; model and control UUID verified; Connect never permits programming |
 | Encrypted X7 | Exact handshake and authorization poll, followed by allowlisted read/session commands checked before encryption |

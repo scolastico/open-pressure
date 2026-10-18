@@ -18,6 +18,13 @@ public final class VendorWritePolicyTest {
             reject(legacy,Wlp.read(range.start-1,2)); reject(legacy,Wlp.read(range.start+range.length-1,2));
         }
         allow(legacy,Wlp.read(legacy.settingsStart,16));
+        VendorMemoryModel two=VendorMemoryModel.identify("HEM-7155T");
+        for(VendorMemoryModel.Range range:two.historyRanges()) {
+            allow(two,Wlp.read(range.start,56)); allow(two,Wlp.read(range.start+range.length-56,56));
+            reject(two,Wlp.read(range.start,57)); reject(two,Wlp.read(range.start+range.length-55,56));
+        }
+        allow(two,Wlp.read(two.settingsStart,56)); reject(two,Wlp.read(two.settingsStart+13,56));
+        reject(modern,Wlp.read(modern.historyRanges().get(1).start,56)); allow(modern,Wlp.read(modern.historyRanges().get(1).start,16));
         allow(legacy,Wlp.read(legacy.settingsStart+legacy.settingsLength-1,1));
         reject(legacy,Wlp.read(legacy.settingsStart-1,2));
         reject(legacy,Wlp.read(legacy.settingsStart+legacy.settingsLength-1,2));
@@ -25,7 +32,7 @@ public final class VendorWritePolicyTest {
         rejects(() -> DeviceWritePolicy.validateCharacteristic(ProtocolProfile.VENDOR_MEMORY,service,tx,hex("0800000000100018")));
         rejects(() -> DeviceWritePolicy.validateCharacteristic(ProtocolProfile.LEGACY_WLP,service,tx,hex("0800000000100018")));
         rejects(() -> DeviceWritePolicy.validateDescriptor(ProtocolProfile.VENDOR_MEMORY,service,VendorWlpSession.rxChannels(legacy).get(0),CCCD,new byte[]{1,0}));
-        for(byte[] forbidden:new byte[][]{null,new byte[0],hex("0801000098110080"),hex("0801000000100019"),hex("080100ffff100018"),hex("0801c00098100041"),hex("0800000000100019"),new byte[24]}) reject(legacy,forbidden);
+        for(byte[] forbidden:new byte[][]{null,new byte[0],hex("08010000983900a8"),hex("0801000000100019"),hex("080100ffff100018"),hex("0801c00098100041"),hex("0800000000100019"),new byte[24]}) reject(legacy,forbidden);
         byte[] key=new byte[17];
         for(int op:new int[]{0,1,2}) {
             key[0]=(byte)op;

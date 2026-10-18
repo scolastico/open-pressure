@@ -49,7 +49,7 @@ public final class DeviceWritePolicy {
         if(Arrays.equals(payload,new byte[]{8,0,0,0,0,16,0,24}) || Arrays.equals(payload,new byte[]{8,15,0,0,0,0,0,7})) return;
         if(payload[1]!=1 || payload[2]!=0) reject();
         int address=((payload[3]&255)<<8)|(payload[4]&255),length=payload[5]&255;
-        if(length<1 || length>16) reject();
+        if(length<1 || length>VendorWlpSession.maxBlock(model)) reject();
         if(containsRange(model.settingsStart,model.settingsLength,address,length)) return;
         for(VendorMemoryModel.Range range:model.historyRanges()) if(containsRange(range.start,range.length,address,length)) return;
         reject();
