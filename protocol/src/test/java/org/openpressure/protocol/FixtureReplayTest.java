@@ -12,6 +12,7 @@ public final class FixtureReplayTest {
         checks=0;
         ownFixturesMatchAtProtocolLevel();
         stalledClientIsRejectedNotHung();
+        readAllSweepsTheSelectedUsers();
         return checks;
     }
     private static void ownFixturesMatchAtProtocolLevel() {
@@ -29,6 +30,23 @@ public final class FixtureReplayTest {
         String text=new String(readResource("hem-7156t/connect-read-history"))+"write tx 08 0f 00 00 00 00 00 07\n";
         Outcome outcome=ProtocolReplay.run(Fixture.parse("hem-7156t/connect-read-history",text));
         check(outcome.kind==Outcome.Kind.REJECTED && outcome.detail.contains("ended at step"),"extra scripted write after END: "+outcome.report());
+    }
+    private static void readAllSweepsTheSelectedUsers() {
+        // Both users: where every bank belongs to a selectable user, the read-all sweep issues the same full-bank
+        // reads as a connect history read; otherwise (HEM-7156T's unselectable second bank) it reads fewer banks.
+        for(String name:Fixture.all()) {
+            if(!name.endsWith("/connect-read-history")) continue;
+            Fixture f=Fixture.load(name);
+            if(f.expectRejected(Fixture.Client.OURS_PROTOCOL)) continue;
+            VendorMemoryModel model=VendorMemoryModel.identify(f.dis.get("model"));
+            boolean everyBank=model.historyRanges(3).equals(model.historyRanges());
+            Outcome outcome=ProtocolReplay.run(Fixture.parse(name,new String(readResource(name))+"flow read-all\nimport users=both\n"));
+            check((outcome.kind==Outcome.Kind.MATCHES)==everyBank,name+" read-all both users: "+outcome.report());
+        }
+        // One user on a two-bank model: the sweep must skip user 1's bank, so the scripted user-1 reads diverge.
+        String name="hem-7155t/connect-read-history";
+        Outcome only2=ProtocolReplay.run(Fixture.parse(name,new String(readResource(name))+"flow read-all\nimport users=2\n"));
+        check(only2.kind!=Outcome.Kind.MATCHES,"read-all users=2 still read user 1: "+only2.report());
     }
     private static byte[] readResource(String name) {
         try(java.io.InputStream in=FixtureReplayTest.class.getResourceAsStream("/org/openpressure/protocol/fixtures/"+name+".fixture")) { return in.readAllBytes(); }

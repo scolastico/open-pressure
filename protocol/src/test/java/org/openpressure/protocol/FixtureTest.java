@@ -58,6 +58,17 @@ public final class FixtureTest {
         check(Fixture.parse("test/sample",HEAD+"flow pair\nregister user=2\n").registerUser==2,"register user directive");
         try { Fixture.parse("test/sample",HEAD+"register user=3\n"); throw new AssertionError("user 3 accepted"); }
         catch(IllegalArgumentException expected) { check(expected.getMessage().contains("1 or 2"),"register user range"); }
+        check(Fixture.parse("test/sample",HEAD+"flow read-all\n").flow.equals("read-all"),"read-all flow");
+        try { Fixture.parse("test/sample",HEAD+"flow sweep\n"); throw new AssertionError("unknown flow accepted"); }
+        catch(IllegalArgumentException expected) { check(expected.getMessage().contains("read-all"),"unknown flow rejected"); }
+        check(f.importUsers==3,"imports both users unless told otherwise");
+        check(Fixture.parse("test/sample",HEAD+"import users=1\n").importUsers==1,"import users=1");
+        check(Fixture.parse("test/sample",HEAD+"import users=2\n").importUsers==2,"import users=2");
+        check(Fixture.parse("test/sample",HEAD+"import users=both\n").importUsers==3,"import users=both");
+        for(String bad:new String[]{"import users=3","import users=0","import user=1","import users=1 extra=2","import"}) {
+            try { Fixture.parse("test/sample",HEAD+bad+"\n"); throw new AssertionError("accepted: "+bad); }
+            catch(IllegalArgumentException expected) { check(expected.getMessage().contains("line 11"),"rejects "+bad); }
+        }
     }
     private static void filtersOnlyStepsPerClient() {
         Fixture f=Fixture.parse("test/sample",HEAD+"[omron-only: Omron confirms encryption] write unlock 02 00000000000000000000000000000000\nwrite unlock 01 05050505050505050505050505050505\n");

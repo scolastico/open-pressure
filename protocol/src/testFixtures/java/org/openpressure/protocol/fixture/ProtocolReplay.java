@@ -48,7 +48,8 @@ public final class ProtocolReplay {
                     unlock.accept(reply.value);
                 }
             }
-            VendorWlpSession session=new VendorWlpSession(model);
+            // A read-all flow connects like "connect", then sweeps only the selected users' banks.
+            VendorWlpSession session=f.flow.equals("read-all")?new VendorWlpSession(model,model.historyRanges(f.importUsers),16):new VendorWlpSession(model);
             while(!session.complete()) {
                 List<byte[]> parts=VendorWlpSession.chunks(session.command(),tx.size());
                 for(int i=0;i<parts.size();i++) {
@@ -64,16 +65,16 @@ public final class ProtocolReplay {
                     session.accept(channel,reply.value);
                 }
             }
-            return cursor.finish(decode(model,session.data()));
+            return cursor.finish(decode(model,session.ranges(),session.data()));
         } catch(IllegalArgumentException refused) {
             return Outcome.rejected(cursor.position(),"OpenPressure refused: "+refused.getMessage());
         }
     }
 
-    private static List<Fixture.Reading> decode(VendorMemoryModel model,byte[] data) {
+    private static List<Fixture.Reading> decode(VendorMemoryModel model,List<VendorMemoryModel.Range> ranges,byte[] data) {
         List<Fixture.Reading> readings=new ArrayList<>();
         int offset=0;
-        for(VendorMemoryModel.Range range:model.historyRanges()) {
+        for(VendorMemoryModel.Range range:ranges) {
             for(int i=0;i<range.length;i+=model.recordBytes) {
                 BloodPressure bp=model.parse(java.util.Arrays.copyOfRange(data,offset+i,offset+i+model.recordBytes),range.user);
                 if(bp!=null) readings.add(new Fixture.Reading(range.user,(int)bp.systolic,(int)bp.diastolic,bp.pulse.intValue(),bp.time));

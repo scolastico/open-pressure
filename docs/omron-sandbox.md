@@ -71,12 +71,13 @@ One directive per line; `#` starts a comment; hex may contain spaces.
 | Directive | Meaning |
 | --- | --- |
 | `name <group>/<flow>` | Must match the file path; list the name in the `index` file |
-| `flow connect` / `flow pair` | Reconnect with the saved key, or register the key first |
+| `flow connect` / `flow pair` / `flow read-all` | Reconnect with the saved key, register the key first, or reconnect and read every selected user's full bank; Omron has no read-all operation, so its runner reports `unsupported` |
 | `advertise name=… services=<uuid>,… [msd=<hex>]` | Advertisement; drives Omron's model choice |
 | `dis model=… firmware=… software=… systemid=<hex>` | Device Information; `model` drives OpenPressure's model choice |
 | `time <local date-time> zone=<id>` | Pinned clock for clock writes |
 | `key <16 bytes hex>` | Pinned application key (pairing stages it instead of generating one) |
 | `register user=<1\|2>` | User a `pair` flow registers on Omron's side (default 1); OpenPressure's legacy key is not per user |
+| `import users=<1\|2\|both>` | Users OpenPressure imports (default both); a `read-all` flow reads only their banks, shared-bank models still read every bank |
 | `random <hex>` | Native Omsec entropy stream, consumed in order by its random-number callback; exhaustion fails the run |
 | `alias <name> <uuid>[,<uuid>…]` | Characteristic name; several UUIDs form 16-byte legacy channels |
 | `memory fill=<byte>` / `memory <address> <hex>` | Synthetic memory used by `reads` |

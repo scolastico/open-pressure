@@ -35,11 +35,13 @@ public final class Fixture {
     public LocalDateTime time;
     public ZoneId zone=ZoneId.of("UTC");
     public byte[] key;
-    /** "connect" reconnects with a saved key; "pair" registers the key first. */
+    /** "connect" reconnects with a saved key; "pair" registers the key first; "read-all" connects and reads every selected bank. */
     public String flow="connect";
     public byte[] random=new byte[0];
     /** User a pairing session registers (Omron registers exactly one; the legacy key is not per user). */
     public int registerUser=1;
+    /** Users an import covers as a bitmask (1 = user 1, 2 = user 2, 3 = both). */
+    public int importUsers=3;
     public final Map<String,List<UUID>> aliases=new LinkedHashMap<>();
     private final List<Step> steps=new ArrayList<>();
     private final List<Reading> readings=new ArrayList<>();
@@ -131,7 +133,7 @@ public final class Fixture {
                 break;
             }
             case "flow":
-                if(!rest.equals("connect") && !rest.equals("pair")) throw new IllegalArgumentException("flow must be connect or pair");
+                if(!Set.of("connect","pair","read-all").contains(rest)) throw new IllegalArgumentException("flow must be connect, pair or read-all");
                 flow=rest; break;
             case "key": key=hex(rest); if(key.length!=16) throw new IllegalArgumentException("key must be 16 bytes"); break;
             case "register": {
@@ -139,6 +141,17 @@ public final class Fixture {
                 if(v.size()!=1 || !v.containsKey("user")) throw new IllegalArgumentException("register needs: register user=<n>");
                 registerUser=Integer.parseInt(v.get("user"));
                 if(registerUser<1 || registerUser>2) throw new IllegalArgumentException("register user must be 1 or 2");
+                break;
+            }
+            case "import": {
+                Map<String,String> v=pairs(rest);
+                if(v.size()!=1 || !v.containsKey("users")) throw new IllegalArgumentException("import needs: import users=<1|2|both>");
+                switch(v.get("users")) {
+                    case "1": importUsers=1; break;
+                    case "2": importUsers=2; break;
+                    case "both": importUsers=3; break;
+                    default: throw new IllegalArgumentException("import users must be 1, 2 or both");
+                }
                 break;
             }
             case "random": random=hex(rest); break;

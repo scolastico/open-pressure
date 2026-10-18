@@ -64,8 +64,9 @@ public final class OmronRunner {
 
     private OmronRunner(Fixture fixture,OmronApk apk) { this.fixture=fixture; this.apk=apk; }
 
-    /** Null when Omron's catalog knows the advertised model, otherwise the UNSUPPORTED outcome. */
+    /** Null when Omron's catalog knows the advertised model and Omron offers the flow, otherwise the UNSUPPORTED outcome. */
     static Outcome select(Fixture f,OmronCatalog catalog) {
+        if(f.flow.equals("read-all")) return Outcome.unsupported("Omron has no read-all operation");
         int[] ids=OmronCatalog.ids(f.advertisedName);
         if(ids==null) return Outcome.unsupported("advertised name "+f.advertisedName+" carries no Omron model ID");
         if(catalog.folderFor(f.advertisedName)==null)
