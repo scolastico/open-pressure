@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="registration_untested_warning">Rejestracja profilu nie była jeszcze testowana z tym ciśnieniomierzem. Jest dostępna tylko dlatego, że włączono opcję programisty. Kontynuuj tylko, jeśli akceptujesz to ryzyko.</string>
+    <string name="registration_report_prompt">Zarejestrowano profil w ciśnieniomierzu, z którym ta funkcja nie była jeszcze testowana. Raport urządzenia w zgłoszeniu na GitHubie pokazuje, czy to zadziałało, i pomaga udostępnić rejestrację innym.\n\nRaport zawiera wyłącznie dane techniczne. Nigdy nie zawiera pomiarów, godzin pomiarów, imion, adresu Bluetooth ani numeru seryjnego. Możesz go przejrzeć, zanim cokolwiek udostępnisz.</string>
+</resources>

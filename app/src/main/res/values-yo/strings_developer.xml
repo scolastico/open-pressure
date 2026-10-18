@@ -22,4 +22,8 @@
     <string name="dev_hide">Fi àwọn àṣàyàn olùgbéejáde pamọ́</string>
     <string name="dev_hidden">A ti fi àwọn àṣàyàn olùgbéejáde pamọ́; gbogbo ọ̀pá olùgbéejáde ti wà ní pípa</string>
     <string name="dev_save_failed">Kò ṣeé ṣe láti fi àwọn àṣàyàn olùgbéejáde pamọ́</string>
+    <string name="dev_allow_registration_untested">Gba ìforúkọsílẹ̀ profaili láàyè lórí àwọn ẹ̀rọ tí a kò tíì dán an wò</string>
+    <string name="dev_allow_registration_confirm_title">Gba ìforúkọsílẹ̀ profaili tí a kò dán wò láàyè?</string>
+    <string name="dev_allow_registration_confirm_message">Ìforúkọsílẹ̀ profaili ń kọ olùmúlò tí a yàn àti aago sínú àwọn ètò ẹ̀rọ náà. A kò tíì fìdí rẹ̀ múlẹ̀ lórí àwọn àwòṣe ẹ̀rọ wọ̀nyí. Ṣíṣe é bí ó ti wù kí ó rí lè ba àwọn ètò ẹ̀rọ náà jẹ́ títí láé tàbí sọ ọ́ di àìwúlò.\n\nỌ̀pá yìí kò fi nǹkan kan ránṣẹ́ fúnra rẹ̀. Ìforúkọsílẹ̀ ṣì ń ṣẹlẹ̀ kìkì nígbà tí o bá yan “So pọ̀ méjì” tí o sì fìdí rẹ̀ múlẹ̀, ìròyìn ẹ̀rọ yóò sì kọ ọ́ sílẹ̀ pé a gbìyànjú kíkọ tí a kò dán wò.\n\nÌwọ ni o ní ojúṣe fún ìbàjẹ́ èyíkéyìí sí ẹ̀rọ rẹ.</string>
+    <string name="dev_index_aspect_registration">Ìforúkọsílẹ̀ profaili</string>
 </resources>

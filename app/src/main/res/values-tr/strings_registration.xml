@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="registration_untested_warning">Profil kaydı bu cihazla henüz test edilmedi. Yalnızca bir geliştirici seçeneğini açtığınız için kullanılabilir. Yalnızca bu riski kabul ediyorsanız devam edin.</string>
+    <string name="registration_report_prompt">Bunun henüz test edilmediği bir ölçüm cihazına profil kaydettiniz. GitHub\'daki bir issue\'da paylaşılan cihaz raporu, işe yarayıp yaramadığını gösterir ve profil kaydının başkaları için de kullanıma açılmasına yardımcı olur.\n\nRapor yalnızca teknik ayrıntılar içerir. Hiçbir zaman ölçümleri, ölçüm zamanlarını, adları, Bluetooth adresini veya seri numarasını içermez. Herhangi bir şey paylaşmadan önce raporu inceleyebilirsiniz.</string>
+</resources>

@@ -24,4 +24,8 @@
     <string name="dev_hide">Ocultar opções de programador</string>
     <string name="dev_hidden">Opções de programador ocultas; todos os interruptores de programador estão desligados</string>
     <string name="dev_save_failed">Não foi possível guardar as opções de programador</string>
+    <string name="dev_allow_registration_untested">Permitir o registo de perfil em medidores onde não foi testado</string>
+    <string name="dev_allow_registration_confirm_title">Permitir o registo de perfil não testado?</string>
+    <string name="dev_allow_registration_confirm_message">O registo de perfil escreve o utilizador selecionado e o relógio nas definições do medidor. Não foi confirmado nestes modelos de medidor. Fazê-lo mesmo assim pode danificar permanentemente as definições do medidor ou torná-lo inutilizável.\n\nEste interruptor não envia nada por si só. O registo só é feito quando escolhe Emparelhar e confirma, e o relatório do dispositivo regista que foi tentada uma escrita não testada.\n\nÉ responsável por qualquer dano no seu medidor.</string>
+    <string name="dev_index_aspect_registration">Registo de perfil</string>
 </resources>

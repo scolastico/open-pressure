@@ -22,4 +22,8 @@
     <string name="dev_hide">Sembunyikan pilihan pembangun</string>
     <string name="dev_hidden">Pilihan pembangun disembunyikan; semua suis pembangun dimatikan</string>
     <string name="dev_save_failed">Tidak dapat menyimpan pilihan pembangun</string>
+    <string name="dev_allow_registration_untested">Benarkan pendaftaran profil pada monitor yang belum diuji</string>
+    <string name="dev_allow_registration_confirm_title">Benarkan pendaftaran profil yang belum diuji?</string>
+    <string name="dev_allow_registration_confirm_message">Pendaftaran profil menulis pengguna yang dipilih dan jam ke dalam tetapan monitor. Ia belum disahkan pada model monitor ini. Jika tetap dilakukan, tetapan monitor boleh rosak secara kekal atau monitor tidak boleh digunakan lagi.\n\nSuis ini tidak menghantar apa-apa dengan sendirinya. Pendaftaran masih hanya berjalan apabila anda memilih Pasangkan dan mengesahkannya, dan laporan peranti merekodkan bahawa penulisan yang belum diuji telah dicuba.\n\nAnda bertanggungjawab atas sebarang kerosakan pada monitor anda.</string>
+    <string name="dev_index_aspect_registration">Pendaftaran profil</string>
 </resources>

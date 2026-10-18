@@ -23,4 +23,8 @@
     <string name="dev_hide">የገንቢ አማራጮችን ደብቅ</string>
     <string name="dev_hidden">የገንቢ አማራጮች ተደብቀዋል፤ ሁሉም የገንቢ ማብሪያዎች ጠፍተዋል</string>
     <string name="dev_save_failed">የገንቢ አማራጮችን ማስቀመጥ አልተቻለም</string>
+    <string name="dev_allow_registration_untested">ባልተፈተኑ መለኪያዎች ላይ የመገለጫ ምዝገባን ፍቀድ</string>
+    <string name="dev_allow_registration_confirm_title">ያልተፈተነ የመገለጫ ምዝገባ ይፈቀድ?</string>
+    <string name="dev_allow_registration_confirm_message">የመገለጫ ምዝገባ የተመረጠውን ተጠቃሚ እና ሰዓቱን በመለኪያው ቅንብሮች ውስጥ ይጽፋል። በእነዚህ የመለኪያ ሞዴሎች ላይ አልተረጋገጠም። ቢሆንም ማድረግ የመለኪያውን ቅንብሮች በቋሚነት ሊያበላሽ ወይም ጥቅም የሌለው ሊያደርገው ይችላል።\n\nይህ ማብሪያ በራሱ ምንም አይልክም። ምዝገባው አሁንም የሚካሄደው «አጣምር»ን መርጠው ሲያረጋግጡ ብቻ ነው፣ እና የመሣሪያ ሪፖርቱ ያልተፈተነ ጽሑፍ እንደተሞከረ ይመዘግባል።\n\nበመለኪያዎ ላይ ለሚደርስ ማንኛውም ጉዳት እርስዎ ኃላፊነት አለብዎት።</string>
+    <string name="dev_index_aspect_registration">የመገለጫ ምዝገባ</string>
 </resources>

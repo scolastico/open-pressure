@@ -25,4 +25,8 @@
     <string name="dev_hide">Ukryj opcje programisty</string>
     <string name="dev_hidden">Opcje programisty ukryte; wszystkie przełączniki programisty są wyłączone</string>
     <string name="dev_save_failed">Nie udało się zapisać opcji programisty</string>
+    <string name="dev_allow_registration_untested">Zezwalaj na rejestrację profilu w ciśnieniomierzach, w których jej nie przetestowano</string>
+    <string name="dev_allow_registration_confirm_title">Zezwolić na nieprzetestowaną rejestrację profilu?</string>
+    <string name="dev_allow_registration_confirm_message">Rejestracja profilu zapisuje wybranego użytkownika i zegar w ustawieniach ciśnieniomierza. Nie została potwierdzona dla tych modeli ciśnieniomierzy. Zrobienie tego mimo to może trwale uszkodzić ustawienia ciśnieniomierza lub uczynić go bezużytecznym.\n\nTen przełącznik sam niczego nie wysyła. Rejestracja nadal odbywa się tylko wtedy, gdy wybierzesz Sparuj i ją potwierdzisz, a raport urządzenia odnotuje, że podjęto próbę nieprzetestowanego zapisu.\n\nPonosisz odpowiedzialność za wszelkie uszkodzenia ciśnieniomierza.</string>
+    <string name="dev_index_aspect_registration">Rejestracja profilu</string>
 </resources>

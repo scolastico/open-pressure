@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="registration_untested_warning">የመገለጫ ምዝገባ ከዚህ መቆጣጠሪያ ጋር ገና አልተሞከረም። የሚገኘው የገንቢ አማራጭ ስላበሩ ብቻ ነው። ይህን አደጋ ከተቀበሉ ብቻ ይቀጥሉ።</string>
+    <string name="registration_report_prompt">ይህ ገና ባልተሞከረበት መቆጣጠሪያ ላይ መገለጫ አስመዝግበዋል። በGitHub issue ውስጥ የመሣሪያ ሪፖርት መጋራት መስራቱን ያሳያል እና ምዝገባን ለሌሎችም እንዲገኝ ያግዛል።\n\nሪፖርቱ ቴክኒካዊ ዝርዝሮችን ብቻ ይይዛል። ልኬቶችን፣ የልኬት ሰዓቶችን፣ ስሞችን፣ የBluetooth አድራሻውን ወይም የመለያ ቁጥሩን በጭራሽ አያካትትም። ማንኛውንም ነገር ከማጋራትዎ በፊት ሊገመግሙት ይችላሉ።</string>
+</resources>

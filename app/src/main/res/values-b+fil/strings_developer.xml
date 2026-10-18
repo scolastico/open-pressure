@@ -22,4 +22,8 @@
     <string name="dev_hide">Itago ang mga opsyon ng developer</string>
     <string name="dev_hidden">Nakatago na ang mga opsyon ng developer; naka-off ang lahat ng switch ng developer</string>
     <string name="dev_save_failed">Hindi ma-save ang mga opsyon ng developer</string>
+    <string name="dev_allow_registration_untested">Payagan ang pagrehistro ng profile sa mga monitor na hindi pa ito nasusubukan</string>
+    <string name="dev_allow_registration_confirm_title">Payagan ang hindi pa nasusubukang pagrehistro ng profile?</string>
+    <string name="dev_allow_registration_confirm_message">Isinusulat ng pagrehistro ng profile ang napiling user at ang orasan sa mga setting ng monitor. Hindi pa ito kumpirmado sa mga modelong ito ng monitor. Kung gagawin pa rin, maaaring permanenteng masira ang mga setting ng monitor o hindi na ito magamit.\n\nWalang ipinapadala ang switch na ito nang mag-isa. Tumatakbo pa rin ang pagrehistro kapag pinili mo lang ang Ipares at kinumpirma ito, at itatala ng device report na may sinubukang pagsusulat na hindi pa nasusubukan.\n\nIkaw ang mananagot sa anumang pinsala sa iyong monitor.</string>
+    <string name="dev_index_aspect_registration">Pagrehistro ng profile</string>
 </resources>

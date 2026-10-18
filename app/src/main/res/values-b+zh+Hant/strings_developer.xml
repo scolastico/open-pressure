@@ -22,4 +22,8 @@
     <string name="dev_hide">隱藏開發人員選項</string>
     <string name="dev_hidden">已隱藏開發人員選項；所有開發人員開關均已關閉</string>
     <string name="dev_save_failed">無法儲存開發人員選項</string>
+    <string name="dev_allow_registration_untested">允許在未經測試的血壓計上註冊個人資料</string>
+    <string name="dev_allow_registration_confirm_title">允許未經測試的個人資料註冊？</string>
+    <string name="dev_allow_registration_confirm_message">個人資料註冊會將所選使用者和時鐘寫入血壓計的設定。在這些血壓計型號上，此操作尚未獲得確認。仍然這樣做可能會永久損壞血壓計的設定，或使其無法使用。\n\n此開關本身不會傳送任何內容。只有當你選擇「配對」並確認後才會進行註冊，裝置報告會記錄曾嘗試過未經測試的寫入。\n\n你需要對血壓計的任何損壞負責。</string>
+    <string name="dev_index_aspect_registration">個人資料註冊</string>
 </resources>

@@ -23,4 +23,8 @@
     <string name="dev_hide">Geliştirici seçeneklerini gizle</string>
     <string name="dev_hidden">Geliştirici seçenekleri gizlendi; tüm geliştirici anahtarları kapalı</string>
     <string name="dev_save_failed">Geliştirici seçenekleri kaydedilemedi</string>
+    <string name="dev_allow_registration_untested">Test edilmemiş aletlerde profil kaydına izin ver</string>
+    <string name="dev_allow_registration_confirm_title">Test edilmemiş profil kaydına izin verilsin mi?</string>
+    <string name="dev_allow_registration_confirm_message">Profil kaydı, seçilen kullanıcıyı ve saati aletin ayarlarına yazar. Bu, bu alet modellerinde doğrulanmadı. Yine de yapmak aletin ayarlarını kalıcı olarak bozabilir veya aleti kullanılamaz hâle getirebilir.\n\nBu anahtar kendi başına hiçbir şey göndermez. Kayıt yine yalnızca Eşleştir\'i seçip onayladığınızda çalışır ve cihaz raporu, test edilmemiş bir yazma girişiminde bulunulduğunu kaydeder.\n\nAletinize gelebilecek her türlü hasardan siz sorumlusunuz.</string>
+    <string name="dev_index_aspect_registration">Profil kaydı</string>
 </resources>

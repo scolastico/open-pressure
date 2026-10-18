@@ -23,4 +23,8 @@
     <string name="dev_hide">Fejlesztői beállítások elrejtése</string>
     <string name="dev_hidden">Fejlesztői beállítások elrejtve; minden fejlesztői kapcsoló ki van kapcsolva</string>
     <string name="dev_save_failed">Nem sikerült menteni a fejlesztői beállításokat</string>
+    <string name="dev_allow_registration_untested">Profilregisztráció engedélyezése olyan mérőkön, ahol nincs tesztelve</string>
+    <string name="dev_allow_registration_confirm_title">Engedélyezi a nem tesztelt profilregisztrációt?</string>
+    <string name="dev_allow_registration_confirm_message">A profilregisztráció beírja a kiválasztott felhasználót és az órát a mérő beállításaiba. Ez nincs megerősítve ezeken a mérőmodelleken. Ha mégis megteszi, a mérő beállításai véglegesen sérülhetnek, vagy a mérő használhatatlanná válhat.\n\nEz a kapcsoló magától nem küld semmit. A regisztráció továbbra is csak akkor fut le, ha a Párosítás lehetőséget választja és megerősíti, és az eszközjelentés rögzíti, hogy nem tesztelt írást kíséreltek meg.\n\nA mérőt ért bármilyen kárért Ön felel.</string>
+    <string name="dev_index_aspect_registration">Profilregisztráció</string>
 </resources>

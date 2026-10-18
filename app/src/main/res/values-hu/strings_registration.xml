@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="registration_untested_warning">A profilregisztrációt még nem tesztelték ezzel a vérnyomásmérővel. Csak azért érhető el, mert bekapcsolt egy fejlesztői beállítást. Csak akkor folytassa, ha elfogadja ezt a kockázatot.</string>
+    <string name="registration_report_prompt">Olyan vérnyomásmérőn regisztrált profilt, amellyel ezt még nem tesztelték. Egy GitHub-issue-ban megosztott eszközjelentés megmutatja, sikerült-e, és segít másoknak is elérhetővé tenni a regisztrációt.\n\nA jelentés csak műszaki adatokat tartalmaz. Soha nem tartalmaz méréseket, mérési időpontokat, neveket, a Bluetooth-címet vagy a sorozatszámot. Mielőtt bármit megosztanál, megtekintheted.</string>
+</resources>

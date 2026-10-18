@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="registration_untested_warning">Profielregistratie is nog niet getest met deze meter. Ze is alleen beschikbaar omdat je een ontwikkelaarsoptie hebt ingeschakeld. Ga alleen verder als je dat risico accepteert.</string>
+    <string name="registration_report_prompt">Je hebt een profiel geregistreerd op een meter waarmee dit nog niet is getest. Een apparaatrapport in een GitHub-issue laat zien of het gelukt is en helpt registratie ook voor anderen beschikbaar te maken.\n\nHet rapport bevat alleen technische details. Het bevat nooit metingen, meettijden, namen, het Bluetooth-adres of het serienummer. Je kunt het bekijken voordat je iets deelt.</string>
+</resources>

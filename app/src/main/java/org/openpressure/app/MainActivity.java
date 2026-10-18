@@ -200,7 +200,7 @@ public final class MainActivity extends Activity {
     }
     private String deviceState() {
         if(monitor==null) return "starting";
-        return Arrays.asList(monitor.ready,monitor.sessionFinished,monitor.registrationReading,monitor.registrationPending,monitor.registrationWriting,monitor.registrationDone,monitor.registrationBackupFile()!=null,monitor.clockSyncBackupFile(),monitor.address,monitor.connectedName,monitor.profile,monitor.user,
+        return Arrays.asList(monitor.ready,monitor.sessionFinished,monitor.registrationReading,monitor.registrationPending,monitor.registrationWriting,monitor.registrationDone,monitor.registrationIdentity,monitor.registrationOverride,monitor.registrationBackupFile()!=null,monitor.clockSyncBackupFile(),monitor.address,monitor.connectedName,monitor.profile,monitor.user,
                 monitor.battery,monitor.information,monitor.hasUserControl,monitor.authenticatedUser,monitor.canHistory,
                 monitor.historyRunning,monitor.clockSyncRunning,monitor.clockSyncPending,monitor.importMode,monitor.importUsers,monitor.canTime,monitor.deviceTime,monitor.modelHint,monitor.canDump,
                 monitor.dumpRunning,monitor.dumpSaving,monitor.dumpRevision,monitor.eepromDumpFile()!=null,monitor.dumpComplete,monitor.dumpStart,monitor.dumpLength,monitor.deviceReport()!=null,
@@ -387,6 +387,8 @@ public final class MainActivity extends Activity {
         if(monitor.registrationPending) {
             LinearLayout registration=card(); label(registration,getString(R.string.main_choose_user));
             add(registration,text(getString(R.string.main_registration_user_explanation),15,MUTED,false),12);
+            // The service read the developer override for this identity and reads it again on confirmation.
+            if(monitor.registrationOverride) add(registration,text(getString(R.string.registration_untested_warning),14,INK,true),12);
             LinearLayout users=row();
             for(int bank=1;bank<=2;bank++) {
                 final int selected=bank;
@@ -535,6 +537,17 @@ public final class MainActivity extends Activity {
     private void offerDeviceReport() {
         if(monitor==null || !uiVisible || isFinishing() || consentDialog!=null && consentDialog.isShowing()) return;
         if(deviceReportDialog!=null && deviceReportDialog.isShowing() || updateDialog!=null && updateDialog.isShowing()) return;
+        if(monitor.offerReportAfterRegistration && !monitor.registrationWriting) {
+            // A registration relying on the untested-identity developer option sent a write: ask once, instead of the Pair question.
+            monitor.offerReportAfterRegistration=false;
+            DeviceReport report=monitor.deviceReport();
+            if(report==null) return;
+            if("Pair".equals(report.operation)) monitor.deviceReportPrompted();
+            deviceReportDialog=new AlertDialog.Builder(this).setTitle(getString(R.string.device_report_title)).setMessage(getString(R.string.registration_report_prompt))
+                    .setNegativeButton(getString(R.string.device_report_not_now),null)
+                    .setPositiveButton(getString(R.string.device_report_review),(d,w) -> reviewDeviceReport()).show();
+            return;
+        }
         if(monitor.offerReportAfterWrite && !monitor.clockSyncRunning) {
             // A clock write relying on the untested-model developer option reached an outcome: ask once.
             monitor.offerReportAfterWrite=false;
@@ -780,7 +793,8 @@ public final class MainActivity extends Activity {
     }
     private void registerX7Dialog(int bank) {
         new AlertDialog.Builder(this).setTitle(getString(R.string.main_register_title,profileLabel(bank)))
-                .setMessage(getString(R.string.main_x7_register_explanation))
+                .setMessage(getString(R.string.main_x7_register_explanation,monitor.registrationIdentity)
+                        +(monitor.registrationOverride?"\n\n"+getString(R.string.registration_untested_warning):""))
                 .setNegativeButton(getString(R.string.main_cancel),null).setPositiveButton(getString(R.string.main_register_user,profileLabel(bank)),(dialog,which) -> {
                     if(monitor!=null) { monitor.registerX7User(bank); render(); }
                 }).show();

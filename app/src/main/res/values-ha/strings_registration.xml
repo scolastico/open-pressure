@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="registration_untested_warning">Ba a gwada rajistar bayanin martaba da wannan na’urar ba tukuna. Tana samuwa ne kawai saboda ka kunna zaɓin masu haɓakawa. Ci gaba kawai idan ka yarda da wannan haɗarin.</string>
+    <string name="registration_report_prompt">Ka yi rajistar bayanin martaba a na’urar da ba a gwada wannan da ita ba tukuna. Rahoton na’ura a cikin issue na GitHub yana nuna ko ya yi aiki kuma yana taimakawa a samar da rajista ga wasu.\n\nRahoton yana ƙunshe da bayanan fasaha kawai. Ba ya taɓa haɗa da sakamakon awo, lokutan awo, sunaye, adireshin Bluetooth ko lambar serial. Za ka iya duba shi kafin ka raba komai.</string>
+</resources>

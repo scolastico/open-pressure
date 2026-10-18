@@ -23,4 +23,8 @@
     <string name="dev_hide">Skjul udviklerindstillinger</string>
     <string name="dev_hidden">Udviklerindstillinger skjult; alle udviklerkontakter er slået fra</string>
     <string name="dev_save_failed">Udviklerindstillinger kunne ikke gemmes</string>
+    <string name="dev_allow_registration_untested">Tillad profilregistrering på målere, hvor den ikke er testet</string>
+    <string name="dev_allow_registration_confirm_title">Tillad utestet profilregistrering?</string>
+    <string name="dev_allow_registration_confirm_message">Profilregistrering skriver den valgte bruger og uret til målerens indstillinger. Den er ikke bekræftet på disse målermodeller. At gøre det alligevel kan permanent ødelægge målerens indstillinger eller gøre den ubrugelig.\n\nDenne kontakt sender ikke noget af sig selv. Registreringen kører stadig kun, når du vælger Par og bekræfter, og enhedsrapporten registrerer, at en utestet skrivning blev forsøgt.\n\nDu er ansvarlig for enhver skade på din måler.</string>
+    <string name="dev_index_aspect_registration">Profilregistrering</string>
 </resources>

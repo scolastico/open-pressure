@@ -24,4 +24,8 @@
     <string name="dev_hide">Nascondi opzioni sviluppatore</string>
     <string name="dev_hidden">Opzioni sviluppatore nascoste; tutti gli interruttori sviluppatore sono disattivati</string>
     <string name="dev_save_failed">Impossibile salvare le opzioni sviluppatore</string>
+    <string name="dev_allow_registration_untested">Consenti la registrazione del profilo sui misuratori dove non è testata</string>
+    <string name="dev_allow_registration_confirm_title">Consentire la registrazione del profilo non testata?</string>
+    <string name="dev_allow_registration_confirm_message">La registrazione del profilo scrive l\'utente selezionato e l\'orologio nelle impostazioni del misuratore. Non è stata confermata su questi modelli di misuratore. Farlo comunque può danneggiare in modo permanente le impostazioni del misuratore o renderlo inutilizzabile.\n\nQuesto interruttore non invia nulla da solo. La registrazione avviene comunque solo quando scegli Associa e confermi, e il report del dispositivo registra che è stata tentata una scrittura non testata.\n\nSei responsabile di qualsiasi danno al tuo misuratore.</string>
+    <string name="dev_index_aspect_registration">Registrazione del profilo</string>
 </resources>

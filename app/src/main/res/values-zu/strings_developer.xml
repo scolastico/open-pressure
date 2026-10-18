@@ -23,4 +23,8 @@
     <string name="dev_hide">Fihla izinketho zonjiniyela</string>
     <string name="dev_hidden">Izinketho zonjiniyela zifihliwe; zonke izishintshi zonjiniyela zivaliwe</string>
     <string name="dev_save_failed">Ayikwazanga ukulondoloza izinketho zonjiniyela</string>
+    <string name="dev_allow_registration_untested">Vumela ukubhalisa iphrofayela kuzilinganisi lapho kungakahlolwa khona</string>
+    <string name="dev_allow_registration_confirm_title">Vumela ukubhalisa iphrofayela okungakahlolwa?</string>
+    <string name="dev_allow_registration_confirm_message">Ukubhalisa iphrofayela kubhala umsebenzisi okhethiwe newashi ezilungiselelweni zesilinganisi. Akukaqinisekiswa kulawa mamodeli ezilinganisi. Ukukwenza noma kunjalo kungonakalisa unomphela izilungiselelo zesilinganisi noma kusenze singasebenziseki.\n\nLesi sishintshi asithumeli lutho ngokwaso. Ukubhalisa kusenzeka kuphela uma ukhetha u-“Bhangqa” bese uqinisekisa, futhi umbiko wedivayisi uqopha ukuthi kuzanywe ukubhala okungakahlolwa.\n\nUnesibopho sanoma yimuphi umonakalo esilinganisini sakho.</string>
+    <string name="dev_index_aspect_registration">Ukubhalisa iphrofayela</string>
 </resources>

@@ -22,4 +22,8 @@
     <string name="dev_hide">Sembunyikan opsi developer</string>
     <string name="dev_hidden">Opsi developer disembunyikan; semua sakelar developer nonaktif</string>
     <string name="dev_save_failed">Tidak dapat menyimpan opsi developer</string>
+    <string name="dev_allow_registration_untested">Izinkan pendaftaran profil pada tensimeter yang belum diuji</string>
+    <string name="dev_allow_registration_confirm_title">Izinkan pendaftaran profil yang belum diuji?</string>
+    <string name="dev_allow_registration_confirm_message">Pendaftaran profil menulis pengguna yang dipilih dan jam ke pengaturan tensimeter. Ini belum dikonfirmasi pada model tensimeter ini. Jika tetap dilakukan, pengaturan tensimeter dapat rusak permanen atau tensimeter tidak dapat digunakan lagi.\n\nSakelar ini tidak mengirim apa pun dengan sendirinya. Pendaftaran tetap hanya berjalan saat Anda memilih Sandingkan dan mengonfirmasinya, dan laporan perangkat mencatat bahwa penulisan yang belum diuji telah dicoba.\n\nAnda bertanggung jawab atas kerusakan apa pun pada tensimeter Anda.</string>
+    <string name="dev_index_aspect_registration">Pendaftaran profil</string>
 </resources>

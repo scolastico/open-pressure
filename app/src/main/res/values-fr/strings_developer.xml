@@ -24,4 +24,8 @@
     <string name="dev_hide">Masquer les options pour les développeurs</string>
     <string name="dev_hidden">Options pour les développeurs masquées ; tous les interrupteurs pour les développeurs sont désactivés</string>
     <string name="dev_save_failed">Impossible d\'enregistrer les options pour les développeurs</string>
+    <string name="dev_allow_registration_untested">Autoriser l\'enregistrement de profil sur les tensiomètres où il n\'est pas testé</string>
+    <string name="dev_allow_registration_confirm_title">Autoriser l\'enregistrement de profil non testé ?</string>
+    <string name="dev_allow_registration_confirm_message">L\'enregistrement de profil écrit l\'utilisateur sélectionné et l\'horloge dans les réglages du tensiomètre. Il n\'a pas été confirmé sur ces modèles de tensiomètre. Le faire malgré tout peut endommager définitivement les réglages du tensiomètre ou le rendre inutilisable.\n\nCet interrupteur n\'envoie rien par lui-même. L\'enregistrement n\'a lieu que si vous choisissez Associer et confirmez, et le rapport d\'appareil indique qu\'une écriture non testée a été tentée.\n\nVous êtes responsable de tout dommage causé à votre tensiomètre.</string>
+    <string name="dev_index_aspect_registration">Enregistrement de profil</string>
 </resources>

@@ -53,6 +53,13 @@ public final class MonitorService extends Service {
     public DeviceReport.WriteOutcome clockSyncOutcome=DeviceReport.WriteOutcome.NOT_ATTEMPTED;
     /** A forced (override) clock write was sent and reached an outcome; the UI may offer the device report. */
     public boolean offerReportAfterWrite;
+    /** The exact write-aspect identity a pending or running Pair registration is bound to; empty otherwise. */
+    public String registrationIdentity="";
+    /** The registration relies on the developer override for an untested identity; never set for a confirmed one. */
+    public boolean registrationOverride;
+    public DeviceReport.WriteOutcome registrationOutcome=DeviceReport.WriteOutcome.NOT_ATTEMPTED;
+    /** A forced (override) registration sent a write and reached an outcome; the UI may offer the device report. */
+    public boolean offerReportAfterRegistration;
     public boolean sessionEndUnconfirmed;
     /** How the last vendor-memory history read chose its slots: the monitor's index, its fallback or a sweep. */
     public enum ImportMode { NONE, INDEX, INDEX_FALLBACK, FULL_SWEEP, FULL_READ }
@@ -106,6 +113,8 @@ public final class MonitorService extends Service {
     private byte[] clockSyncImage;
     private File clockSyncBackup;
     private boolean clockSyncUnreadable,clockSyncOutOfRange,clockSyncRecorded;
+    /** The user confirmed a registration in this session; its outcome is recorded once. */
+    private boolean registrationAttempted,registrationRecorded;
     private X7Bonding x7Bonding;
     private boolean x7FreshBondEstablished;
     private X7Transaction x7Transaction;
@@ -126,6 +135,8 @@ public final class MonitorService extends Service {
     java.time.Clock clock;
     /** Directory flush after a clock-sync backup; tests replace the Android fsync, which Robolectric lacks. */
     SettingsBackupStore.DirectorySync clockBackupSync=MonitorService::syncBackupDirectory;
+    /** Directory flush after a pre-registration backup; tests replace the Android fsync, which Robolectric lacks. */
+    SettingsBackupStore.DirectorySync registrationBackupSync=MonitorService::syncBackupDirectory;
     private long lastWlpUpdate;
     private final ExecutorService dumpIo=Executors.newSingleThreadExecutor();
     private volatile File dumpFile;
@@ -597,6 +608,8 @@ public final class MonitorService extends Service {
         address=target; connectedName=name; pairingRequested=pair; authenticatedUser=0; storedCount=-1; deviceTime="Not read"; information="";
         clockUpdate=ClockUpdate.NONE; sessionEndUnconfirmed=false;
         clockSyncOutcome=DeviceReport.WriteOutcome.NOT_ATTEMPTED; offerReportAfterWrite=false;
+        registrationIdentity=""; registrationOverride=false; registrationOutcome=DeviceReport.WriteOutcome.NOT_ATTEMPTED; offerReportAfterRegistration=false;
+        registrationAttempted=false; registrationRecorded=false;
         importMode=ImportMode.NONE; indexStoredCount=-1; unconfirmedBankSkipped=false;
         store.packet(address,"session",new byte[0],"OpenPressure "+BuildConfig.VERSION_NAME+" · Android API "+Build.VERSION.SDK_INT+" · "+(pair?"Pair":"Connect"));
         Discovered selected=discovered.get(target);
@@ -623,6 +636,8 @@ public final class MonitorService extends Service {
         if(automaticAttempt!=null) automaticTracker.finish(automaticAttempt,false,SystemClock.elapsedRealtime());
         automaticAttempt=null; automaticConnection=false;
         stopAutomaticScan();
+        // A disconnect, timeout or failure after the first registration write leaves the cuff unverified.
+        if(interruptedRegistration) recordRegistrationOutcome(DeviceReport.WriteOutcome.CANCELLED);
         if(x7Registration!=null) x7Registration.cancel();
         x7Registration=null; registrationReading=false; registrationPending=false; registrationWriting=false; registrationDone=false; registrationBackupGeneration=-1;
         if(registrationSettings!=null) Arrays.fill(registrationSettings,(byte)0);
@@ -671,9 +686,12 @@ public final class MonitorService extends Service {
     }
     /** A shareable report for the last user-started session with an untested monitor, or null. */
     public DeviceReport deviceReport() { return report!=null && report.useful()?report:null; }
-    /** Ask once per monitor, after a Pair attempt has ended rather than between its reconnects. */
+    /**
+     * Ask once per monitor, after a Pair attempt has ended rather than between its reconnects. The tested identity is
+     * never asked, although a recorded registration write makes its report available on the card.
+     */
     public boolean deviceReportPromptDue() {
-        return deviceReport()!=null && "Pair".equals(report.operation) && !reportPrompted && gatt==null && x7Bonding==null && pendingConnection==null && !scanning
+        return deviceReport()!=null && "Pair".equals(report.operation) && !report.verified() && !reportPrompted && gatt==null && x7Bonding==null && pendingConnection==null && !scanning
                 && !getSharedPreferences("device-report",MODE_PRIVATE).getBoolean("prompted:"+reportAddress,false);
     }
     public void deviceReportPrompted() {
@@ -1207,15 +1225,25 @@ public final class MonitorService extends Service {
     private void x7Ready() {
         wlpConnection=new WlpConnection();
         ready=true; canHistory=true; canDump=true; canTime=false; hasUserControl=false;
-        if(pairingRequested && profile==ProtocolProfile.X7_WLP && (verifiedModel.equals("X7 Smart AFib") || verifiedModel.equals("HEM-7380T1-EOSL"))) {
-            ready=false; canHistory=false; canDump=false; registrationReading=true;
-            if(negotiatedMtu<35) { fail("X7 registration requires an ATT MTU of at least 35. No EEPROM commands were sent. Connect remains available for read-only access."); return; }
-            beginWlpRead(X7MemoryIndex.SETTINGS_START,X7MemoryIndex.SETTINGS_BYTES);
-            return;
+        String refusedRegistration=null;
+        if(pairingRequested && profile==ProtocolProfile.X7_WLP) {
+            // The write-aspect index decides: confirmed, or untested with the developer override read now.
+            String identity=WriteAspectIndex.resolve(verifiedModel);
+            boolean override=registrationOverride(identity);
+            if(registrationPermitted(identity,override)) {
+                registrationIdentity=identity; registrationOverride=override;
+                ready=false; canHistory=false; canDump=false; registrationReading=true;
+                if(negotiatedMtu<35) { fail("X7 registration requires an ATT MTU of at least 35. No EEPROM commands were sent. Connect remains available for read-only access."); return; }
+                beginWlpRead(X7MemoryIndex.SETTINGS_START,X7MemoryIndex.SETTINGS_BYTES);
+                return;
+            }
+            refusedRegistration=identity;
+            store.packet(address,"registration",new byte[0],"Profile registration not enabled for "+identity+" · read-only session");
         }
         rememberMonitor(verifiedModel);
         if(!automaticConnection) importUsers=store.importUsers(address);
-        state(profile==ProtocolProfile.X7_SECURE_WLP?"X7 authenticated for reads":"X7 read mode available",
+        if(refusedRegistration!=null) state("X7 read mode available","Profile registration is not enabled for "+refusedRegistration+". Connect remains available for read-only access.");
+        else state(profile==ProtocolProfile.X7_SECURE_WLP?"X7 authenticated for reads":"X7 read mode available",
                 (profile==ProtocolProfile.X7_SECURE_WLP?"The cuff confirmed application authentication. ":"Bluetooth transport is ready. ")+"On-device profile pairing has not been completed by this app. History and settings backup can be read without registering a profile. The cuff may show OK and switch off after the transfer ends; settings writes remain disabled.");
         if(automaticConnection) { syncHistory(-1); return; }
         readInformation();
@@ -1249,7 +1277,10 @@ public final class MonitorService extends Service {
         if(clockSyncRunning) { x7ClockSyncNotification(fragment); return; }
         try {
             if(registrationWriting && x7Registration!=null && !x7Registration.complete()) {
-                if(!x7Registration.accept(fragment)) return;
+                boolean accepted;
+                try { accepted=x7Registration.accept(fragment); }
+                catch(IllegalArgumentException rejected) { recordRegistrationOutcome(DeviceReport.WriteOutcome.REJECTED); throw rejected; }
+                if(!accepted) return;
                 cancelPhase();
                 if(x7Registration.complete()) sendWlpCommand(); else sendRegistrationCommand();
                 return;
@@ -1300,6 +1331,7 @@ public final class MonitorService extends Service {
                 wlpConnection.finishTransfer(); sessionFinished=true; ready=false; canHistory=false; canDump=false;
                 wlpRead=null;
                 if(registrationWriting) {
+                    recordRegistrationOutcome(DeviceReport.WriteOutcome.ACKNOWLEDGED);
                     registrationWriting=false; registrationDone=true;
                     if(x7Registration!=null) x7Registration.cancel(); x7Registration=null;
                     if(registrationSettings!=null) Arrays.fill(registrationSettings,(byte)0); registrationSettings=null;
@@ -1356,14 +1388,15 @@ public final class MonitorService extends Service {
                 json.put("read_complete",true); json.put("settings_checksum_valid",true); json.put("session_ended",false);
                 json.put("saved_at_utc",java.time.Instant.now().toString()); json.put("encoding","hex"); json.put("data",ReadingStore.hex(bytes));
                 json.put("sha256",ReadingStore.hex(java.security.MessageDigest.getInstance("SHA-256").digest(bytes)));
-                File file=SettingsBackupStore.save(new File(getFilesDir(),"settings-backups"),json.toString(2).getBytes(StandardCharsets.UTF_8),MonitorService::syncBackupDirectory);
+                File file=SettingsBackupStore.save(new File(getFilesDir(),"settings-backups"),json.toString(2).getBytes(StandardCharsets.UTF_8),registrationBackupSync);
                 handler.post(() -> {
                     // Always retain a completed local snapshot, even if the user cancelled the link.
                     registrationBackup=file;
                     if(session!=generation || !registrationReading || gatt==null || wlpRead!=paused || !paused.rangeComplete() || paused.complete()) { changed(); return; }
                     cancelPhase(); registrationReading=false; registrationPending=true; registrationBackupGeneration=session;
                     armPhase(90000,"X7 user selection timed out. No settings writes were sent. Wake the cuff in pairing mode and retry.");
-                    state("Choose your X7 user","Settings backup saved. Select user 1 or 2 in this app to finish profile registration. Only continue if the cuff label is HEM-7380T1-EOSL. Connect is available for read-only access instead.");
+                    state("Choose your X7 user","Settings backup saved. Select user 1 or 2 in this app to finish profile registration. Only continue if the cuff label is "+registrationIdentity+"."
+                            +(registrationOverride?" Registration is untested on this identity and allowed only by a developer option.":"")+" Connect is available for read-only access instead.");
                 });
             } catch(Exception ex) {
                 handler.post(() -> { if(session==generation && registrationReading) fail("Could not save the pre-registration settings backup. No settings writes were sent: "+ex.getMessage()); });
@@ -1373,13 +1406,45 @@ public final class MonitorService extends Service {
     public void registerX7User(int bank) {
         if(!registrationPending || registrationBackupGeneration!=generation || registrationBackup==null || !registrationBackup.isFile() ||
                 registrationSettings==null || profile!=ProtocolProfile.X7_WLP || !x7ReadReady()) return;
+        registrationAttempted=true; registrationRecorded=false;
+        // The override read now is what the plan and report carry, including a withdrawn one; a confirmed identity needs none.
+        String identity=WriteAspectIndex.resolve(verifiedModel);
+        boolean override=registrationOverride(identity);
+        registrationOverride=override;
+        if(!registrationPermitted(identity,override)) {
+            recordRegistrationOutcome(DeviceReport.WriteOutcome.NOT_ATTEMPTED);
+            fail("Profile registration on "+identity+" is no longer allowed because the developer option was turned off. No settings writes were sent. Connect remains available for read-only access.");
+            return;
+        }
         try {
-            X7Registration registration=new X7Registration(verifiedModel,registrationSettings,bank,clockNow());
+            X7Registration registration=new X7Registration(verifiedModel,registrationSettings,bank,clockNow(),override);
             cancelPhase(); user=bank; x7Registration=registration; registrationPending=false; registrationWriting=true;
             registration.authorize();
             state("Registering X7 user "+bank+"…","Applying the selected-user setting and phone clock to the model's settings staging area. Birthdays, revision values, history pointers and all other settings bytes are preserved. Pre-registration backup retained.");
             sendRegistrationCommand();
-        } catch(IllegalArgumentException ex) { fail("Registration rejected before sending settings: "+ex.getMessage()); }
+        } catch(IllegalArgumentException ex) {
+            registrationWriting=false; if(x7Registration!=null) x7Registration.cancel(); x7Registration=null;
+            recordRegistrationOutcome(DeviceReport.WriteOutcome.NOT_ATTEMPTED);
+            fail("Registration rejected before sending settings: "+ex.getMessage());
+        }
+    }
+    /** Whether the write-aspect index permits registration on this identity with this request's override. */
+    private static boolean registrationPermitted(String identity,boolean override) {
+        return WriteAspectIndex.permits(WriteAspectIndex.lookup(identity,WriteAspectIndex.Aspect.REGISTRATION).status,override);
+    }
+    /** The override as recorded for this identity: only an untested registration relies on it. */
+    private boolean registrationOverride(String identity) {
+        return developerOverride(WriteAspectIndex.Aspect.REGISTRATION)
+                && WriteAspectIndex.lookup(identity,WriteAspectIndex.Aspect.REGISTRATION).status==WriteAspectIndex.Status.UNTESTED;
+    }
+    /** Once per confirmed registration: the report entry and whether a forced write may offer the device report. */
+    private void recordRegistrationOutcome(DeviceReport.WriteOutcome outcome) {
+        if(!registrationAttempted || registrationRecorded) return;
+        registrationRecorded=true; registrationOutcome=outcome;
+        // Only a write that was actually sent: a refused or withdrawn confirmation has nothing to report.
+        offerReportAfterRegistration=registrationOverride && (outcome==DeviceReport.WriteOutcome.ACKNOWLEDGED
+                || outcome==DeviceReport.WriteOutcome.REJECTED || outcome==DeviceReport.WriteOutcome.CANCELLED);
+        if(report!=null && !automaticConnection) report.writeAspect(WriteAspectIndex.Aspect.REGISTRATION,outcome,registrationOverride);
     }
     private static void syncBackupDirectory(File directory) throws java.io.IOException {
         try {
@@ -1418,15 +1483,18 @@ public final class MonitorService extends Service {
     }
     private boolean clockSyncPermitted(String identity) {
         return ClockBlock.forIdentity(identity)!=null
-                && WriteAspectIndex.permits(WriteAspectIndex.lookup(identity,WriteAspectIndex.Aspect.CLOCK_BLOCK).status,developerOverride());
+                && WriteAspectIndex.permits(WriteAspectIndex.lookup(identity,WriteAspectIndex.Aspect.CLOCK_BLOCK).status,developerOverride(WriteAspectIndex.Aspect.CLOCK_BLOCK));
     }
     /** The override as recorded for this identity: only an untested clock block relies on it. */
     private boolean clockOverride(String identity) {
-        return developerOverride() && WriteAspectIndex.lookup(identity,WriteAspectIndex.Aspect.CLOCK_BLOCK).status==WriteAspectIndex.Status.UNTESTED;
+        return developerOverride(WriteAspectIndex.Aspect.CLOCK_BLOCK) && WriteAspectIndex.lookup(identity,WriteAspectIndex.Aspect.CLOCK_BLOCK).status==WriteAspectIndex.Status.UNTESTED;
     }
-    /** The only reading of the untested-write override; a locked or unreadable developer state counts as off. */
-    private boolean developerOverride() {
-        try { return DeveloperOptions.allowsUntested(this,WriteAspectIndex.Aspect.CLOCK_BLOCK); }
+    /**
+     * The only reading of an untested-write override (Sync clock and Pair registration); a locked or unreadable
+     * developer state counts as off. Read at request time, never cached.
+     */
+    private boolean developerOverride(WriteAspectIndex.Aspect aspect) {
+        try { return DeveloperOptions.allowsUntested(this,aspect); }
         catch(RuntimeException unavailable) { return false; }
     }
     /**

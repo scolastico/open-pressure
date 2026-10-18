@@ -23,4 +23,8 @@
     <string name="dev_hide">Ɓoye zaɓuɓɓukan masu haɓakawa</string>
     <string name="dev_hidden">An ɓoye zaɓuɓɓukan masu haɓakawa; duk maɓallan masu haɓakawa a kashe suke</string>
     <string name="dev_save_failed">Ba a iya ajiye zaɓuɓɓukan masu haɓakawa ba</string>
+    <string name="dev_allow_registration_untested">Ba da damar rajistar bayanin martaba a na’urorin da ba a gwada ta ba</string>
+    <string name="dev_allow_registration_confirm_title">A ba da damar rajistar bayanin martaba da ba a gwada ba?</string>
+    <string name="dev_allow_registration_confirm_message">Rajistar bayanin martaba tana rubuta mai amfani da aka zaɓa da agogo cikin saitunan na’urar. Ba a tabbatar da ita a waɗannan samfuran na’ura ba. Yin hakan duk da haka na iya lalata saitunan na’urar har abada ko sa ta zama marar amfani.\n\nWannan maɓalli ba ya aika komai da kansa. Rajista tana gudana ne kawai idan ka zaɓi “Haɗa biyu” ka tabbatar, kuma rahoton na’ura zai rubuta cewa an yi ƙoƙarin rubutu da ba a gwada ba.\n\nKai ne ke da alhakin duk wata lalacewa ga na’urarka.</string>
+    <string name="dev_index_aspect_registration">Rajistar bayanin martaba</string>
 </resources>

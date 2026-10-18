@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="registration_untested_warning">Profile registration has not been tested with this monitor yet. It is available only because you turned on a developer option. Continue only if you accept that risk.</string>
+    <string name="registration_report_prompt">You registered a profile on a monitor on which this has not been tested yet. Sharing a device report in a GitHub issue shows whether it worked and helps make registration available to others.\n\nThe report contains only technical details. It never includes readings, measurement times, names, the Bluetooth address or the serial number. You can review it before you share anything.</string>
+</resources>

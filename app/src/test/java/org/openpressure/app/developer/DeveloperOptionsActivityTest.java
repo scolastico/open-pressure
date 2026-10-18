@@ -62,6 +62,7 @@ public class DeveloperOptionsActivityTest {
         return false;
     }
     private static Switch clockSwitch(Activity a) { return (Switch)root(a).findViewWithTag("dev_allow_clock_untested"); }
+    private static Switch registrationSwitch(Activity a) { return (Switch)root(a).findViewWithTag("dev_allow_registration_untested"); }
     private static String status(Activity a,String address,Aspect aspect) {
         TextView view=(TextView)root(a).findViewWithTag("dev_index_"+address+"_"+aspect.name()); assertNotNull(view); return view.getText().toString();
     }
@@ -90,6 +91,54 @@ public class DeveloperOptionsActivityTest {
             clockSwitch(a).performClick(); idle();
             assertFalse("Turning it off is immediate",DeveloperOptions.allowsUntested(app,Aspect.CLOCK_BLOCK));
             assertFalse(clockSwitch(a).isChecked());
+        }
+    }
+    @Test public void registrationSwitchHasItsOwnConfirmation() {
+        try(ActivityController<DeveloperOptionsActivity> controller=Robolectric.buildActivity(DeveloperOptionsActivity.class).setup()) {
+            Activity a=controller.get();
+            Switch registration=registrationSwitch(a);
+            assertNotNull(registration);
+            assertEquals(a.getString(R.string.dev_allow_registration_untested),registration.getText().toString());
+            assertFalse(registration.isChecked());
+            registration.performClick(); idle();
+            AlertDialog dialog=ShadowAlertDialog.getLatestAlertDialog();
+            assertTrue("Turning the switch on asks first",dialog.isShowing());
+            assertFalse(DeveloperOptions.allowsUntested(app,Aspect.REGISTRATION));
+            assertEquals(a.getString(R.string.dev_allow_registration_confirm_message),((TextView)dialog.findViewById(android.R.id.message)).getText().toString());
+            dialog.getButton(AlertDialog.BUTTON_NEGATIVE).performClick(); idle();
+            assertFalse("Cancel leaves it off",registration.isChecked());
+            assertFalse(DeveloperOptions.allowsUntested(app,Aspect.REGISTRATION));
+            registration.performClick(); idle();
+            ShadowAlertDialog.getLatestAlertDialog().getButton(AlertDialog.BUTTON_POSITIVE).performClick(); idle();
+            assertTrue(DeveloperOptions.allowsUntested(app,Aspect.REGISTRATION));
+            assertTrue(registration.isChecked());
+            assertFalse("The clock switch is independent",DeveloperOptions.allowsUntested(app,Aspect.CLOCK_BLOCK));
+            assertFalse(clockSwitch(a).isChecked());
+            registration.performClick(); idle();
+            assertFalse("Turning it off is immediate",DeveloperOptions.allowsUntested(app,Aspect.REGISTRATION));
+        }
+    }
+    @Test public void hideTurnsTheRegistrationSwitchOffToo() {
+        DeveloperOptions.setAllowUntested(app,Aspect.REGISTRATION,true);
+        try(ActivityController<DeveloperOptionsActivity> controller=Robolectric.buildActivity(DeveloperOptionsActivity.class).setup()) {
+            Activity a=controller.get();
+            assertTrue(registrationSwitch(a).isChecked());
+            button(root(a),a.getString(R.string.dev_hide)).performClick(); idle();
+            ShadowAlertDialog.getLatestAlertDialog().getButton(AlertDialog.BUTTON_POSITIVE).performClick(); idle();
+            assertFalse(DeveloperOptions.allowsUntested(app,Aspect.REGISTRATION));
+        }
+    }
+    @Test public void indexViewerShowsTheRegistrationRow() {
+        app.store().remember("00:00:00:00:00:01","Afib","X7 Smart AFib",1);
+        app.store().remember("00:00:00:00:00:02","Ebk","HEM-7380T1-EBK",1);
+        app.store().remember("00:00:00:00:00:03","Kitchen","HEM-7155T",1);
+        try(ActivityController<DeveloperOptionsActivity> controller=Robolectric.buildActivity(DeveloperOptionsActivity.class).setup()) {
+            Activity a=controller.get();
+            assertTrue(hasText(root(a),a.getString(R.string.dev_index_aspect_registration)));
+            assertEquals(a.getString(R.string.dev_index_status_confirmed),status(a,"00:00:00:00:00:01",Aspect.REGISTRATION));
+            assertEquals(a.getString(R.string.dev_index_status_untested),status(a,"00:00:00:00:00:02",Aspect.REGISTRATION));
+            assertEquals(a.getString(R.string.dev_index_status_blocked),status(a,"00:00:00:00:00:03",Aspect.REGISTRATION));
+            assertTrue(hasText(root(a),"no registration workflow for this identity"));
         }
     }
     @Test public void cancelLeavesTheSwitchOff() {

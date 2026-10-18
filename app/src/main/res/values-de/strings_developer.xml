@@ -23,4 +23,8 @@
     <string name="dev_hide">Entwickleroptionen ausblenden</string>
     <string name="dev_hidden">Entwickleroptionen ausgeblendet; alle Entwicklerschalter sind aus</string>
     <string name="dev_save_failed">Entwickleroptionen konnten nicht gespeichert werden</string>
+    <string name="dev_allow_registration_untested">Profilregistrierung auf Messgeräten erlauben, auf denen sie ungetestet ist</string>
+    <string name="dev_allow_registration_confirm_title">Ungetestete Profilregistrierung erlauben?</string>
+    <string name="dev_allow_registration_confirm_message">Die Profilregistrierung schreibt den ausgewählten Benutzer und die Uhrzeit in die Einstellungen des Messgeräts. Sie ist für diese Messgerätemodelle nicht bestätigt. Es trotzdem zu tun, kann die Einstellungen des Messgeräts dauerhaft beschädigen oder es unbrauchbar machen.\n\nDieser Schalter sendet selbst nichts. Die Registrierung läuft weiterhin nur, wenn du „Koppeln“ wählst und bestätigst, und der Gerätebericht vermerkt, dass ein ungetesteter Schreibvorgang versucht wurde.\n\nDu bist für jeden Schaden an deinem Messgerät verantwortlich.</string>
+    <string name="dev_index_aspect_registration">Profilregistrierung</string>
 </resources>

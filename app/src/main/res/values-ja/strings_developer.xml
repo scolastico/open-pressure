@@ -22,4 +22,8 @@
     <string name="dev_hide">開発者向けオプションを非表示</string>
     <string name="dev_hidden">開発者向けオプションを非表示にしました。開発者向けスイッチはすべてオフです</string>
     <string name="dev_save_failed">開発者向けオプションを保存できませんでした</string>
+    <string name="dev_allow_registration_untested">未テストの血圧計でプロフィール登録を許可する</string>
+    <string name="dev_allow_registration_confirm_title">未テストのプロフィール登録を許可しますか？</string>
+    <string name="dev_allow_registration_confirm_message">プロフィール登録は、選択したユーザーと時計を血圧計の設定に書き込みます。これらの血圧計の機種では、この操作は確認されていません。それでも実行すると、血圧計の設定が恒久的に破損したり、使用できなくなったりするおそれがあります。\n\nこのスイッチ自体は何も送信しません。登録が実行されるのは、引き続き「ペア設定」を選んで確認したときだけです。また、未テストの書き込みが試みられたことがデバイスレポートに記録されます。\n\n血圧計に生じたいかなる損害も、ご自身の責任となります。</string>
+    <string name="dev_index_aspect_registration">プロフィール登録</string>
 </resources>

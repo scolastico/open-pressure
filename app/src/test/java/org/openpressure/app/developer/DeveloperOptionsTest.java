@@ -36,6 +36,19 @@ public class DeveloperOptionsTest {
         DeveloperOptions.setAllowUntested(context,Aspect.CLOCK_BLOCK,false);
         assertFalse(DeveloperOptions.allowsUntested(context,Aspect.CLOCK_BLOCK));
     }
+    @Test public void registrationOverrideHasItsOwnKeyAndIsClearedOnLockAndUnlock() {
+        DeveloperOptions.setUnlocked(context,true);
+        DeveloperOptions.setAllowUntested(context,Aspect.REGISTRATION,true);
+        assertTrue(DeveloperOptions.allowsUntested(context,Aspect.REGISTRATION));
+        assertFalse("independent of the clock switch",DeveloperOptions.allowsUntested(context,Aspect.CLOCK_BLOCK));
+        assertTrue(context.getSharedPreferences(DeveloperOptions.PREFERENCES,Context.MODE_PRIVATE).getBoolean("allow_untested_registration",false));
+        DeveloperOptions.setUnlocked(context,false);
+        assertFalse(context.getSharedPreferences(DeveloperOptions.PREFERENCES,Context.MODE_PRIVATE).contains("allow_untested_registration"));
+        assertTrue(context.getSharedPreferences(DeveloperOptions.PREFERENCES,Context.MODE_PRIVATE).edit().putBoolean("allow_untested_registration",true).commit());
+        assertFalse("a stale switch never counts while locked",DeveloperOptions.allowsUntested(context,Aspect.REGISTRATION));
+        DeveloperOptions.setUnlocked(context,true);
+        assertFalse("every unlock starts with the switch off",DeveloperOptions.allowsUntested(context,Aspect.REGISTRATION));
+    }
     @Test public void lockingClearsEveryAspectToggle() {
         DeveloperOptions.setUnlocked(context,true);
         for(Aspect aspect:Aspect.values()) DeveloperOptions.setAllowUntested(context,aspect,true);

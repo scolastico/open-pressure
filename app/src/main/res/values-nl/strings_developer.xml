@@ -23,4 +23,8 @@
     <string name="dev_hide">Ontwikkelaarsopties verbergen</string>
     <string name="dev_hidden">Ontwikkelaarsopties verborgen; alle ontwikkelaarsschakelaars staan uit</string>
     <string name="dev_save_failed">Ontwikkelaarsopties konden niet worden opgeslagen</string>
+    <string name="dev_allow_registration_untested">Profielregistratie toestaan op meters waar die niet getest is</string>
+    <string name="dev_allow_registration_confirm_title">Niet-geteste profielregistratie toestaan?</string>
+    <string name="dev_allow_registration_confirm_message">Profielregistratie schrijft de geselecteerde gebruiker en de klok naar de instellingen van de meter. Dit is niet bevestigd voor deze metermodellen. Het toch doen kan de instellingen van de meter blijvend beschadigen of de meter onbruikbaar maken.\n\nDeze schakelaar verstuurt zelf niets. Registratie gebeurt nog steeds alleen als je Koppelen kiest en bevestigt, en het apparaatrapport vermeldt dat een niet-geteste schrijfactie is geprobeerd.\n\nJe bent zelf verantwoordelijk voor eventuele schade aan je meter.</string>
+    <string name="dev_index_aspect_registration">Profielregistratie</string>
 </resources>

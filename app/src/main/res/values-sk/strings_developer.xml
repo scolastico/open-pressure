@@ -25,4 +25,8 @@
     <string name="dev_hide">Skryť možnosti pre vývojárov</string>
     <string name="dev_hidden">Možnosti pre vývojárov skryté; všetky vývojárske prepínače sú vypnuté</string>
     <string name="dev_save_failed">Možnosti pre vývojárov sa nepodarilo uložiť</string>
+    <string name="dev_allow_registration_untested">Povoliť registráciu profilu na tlakomeroch, kde nie je otestovaná</string>
+    <string name="dev_allow_registration_confirm_title">Povoliť neotestovanú registráciu profilu?</string>
+    <string name="dev_allow_registration_confirm_message">Registrácia profilu zapíše vybraného používateľa a hodiny do nastavení tlakomera. Pri týchto modeloch tlakomerov nebola potvrdená. Ak to napriek tomu urobíte, nastavenia tlakomera sa môžu natrvalo poškodiť alebo môže byť tlakomer nepoužiteľný.\n\nTento prepínač sám nič neodosiela. Registrácia sa aj naďalej vykoná, len keď zvolíte Spárovať a potvrdíte ju, a správa o zariadení zaznamená, že sa vykonal pokus o neotestovaný zápis.\n\nZa akúkoľvek škodu na tlakomeri zodpovedáte vy.</string>
+    <string name="dev_index_aspect_registration">Registrácia profilu</string>
 </resources>

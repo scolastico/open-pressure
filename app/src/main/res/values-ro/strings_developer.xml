@@ -24,4 +24,8 @@
     <string name="dev_hide">Ascunde opțiunile pentru dezvoltatori</string>
     <string name="dev_hidden">Opțiunile pentru dezvoltatori sunt ascunse; toate comutatoarele pentru dezvoltatori sunt dezactivate</string>
     <string name="dev_save_failed">Opțiunile pentru dezvoltatori nu au putut fi salvate</string>
+    <string name="dev_allow_registration_untested">Permite înregistrarea profilului pe tensiometrele unde nu este testată</string>
+    <string name="dev_allow_registration_confirm_title">Permiți înregistrarea netestată a profilului?</string>
+    <string name="dev_allow_registration_confirm_message">Înregistrarea profilului scrie utilizatorul selectat și ceasul în setările tensiometrului. Nu a fost confirmată pe aceste modele de tensiometru. Dacă o faci totuși, setările tensiometrului se pot deteriora definitiv sau acesta poate deveni inutilizabil.\n\nAcest comutator nu trimite nimic de la sine. Înregistrarea are loc în continuare doar când alegi Asociază și confirmi, iar raportul dispozitivului înregistrează că s-a încercat o scriere netestată.\n\nEști responsabil pentru orice daună adusă tensiometrului.</string>
+    <string name="dev_index_aspect_registration">Înregistrarea profilului</string>
 </resources>

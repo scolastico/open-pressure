@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="registration_untested_warning">A kò tíì dán ìforúkọsílẹ̀ profaili wò pẹ̀lú ẹ̀rọ yìí. Ó wà nìkan nítorí pé o tan àṣàyàn olùgbéejáde kan. Tẹ̀síwájú nìkan tí o bá gba ewu yẹn.</string>
+    <string name="registration_report_prompt">O ti forúkọ profaili kan sílẹ̀ lórí ẹ̀rọ kan tí a kò tíì dán èyí wò pẹ̀lú rẹ̀. Ìròyìn ẹ̀rọ nínú issue GitHub kan fi hàn bóyá ó ṣiṣẹ́, ó sì ń ṣèrànwọ́ láti jẹ́ kí ìforúkọsílẹ̀ wà fún àwọn ẹlòmíràn.\n\nÌjábọ̀ náà ní àwọn àlàyé ìmọ̀-ẹ̀rọ nìkan. Kò ní àwọn ìwọ̀n, àkókò ìwọ̀n, orúkọ, àdírẹ́sì Bluetooth tàbí nọ́ńbà ìdánimọ̀ rárá. O lè ṣàyẹ̀wò rẹ̀ kí o tó pín ohunkóhun.</string>
+</resources>

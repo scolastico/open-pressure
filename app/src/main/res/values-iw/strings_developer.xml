@@ -25,4 +25,8 @@
     <string name="dev_hide">הסתרת אפשרויות המפתחים</string>
     <string name="dev_hidden">אפשרויות המפתחים הוסתרו; כל מתגי המפתחים כבויים</string>
     <string name="dev_save_failed">לא ניתן היה לשמור את אפשרויות המפתחים</string>
+    <string name="dev_allow_registration_untested">לאפשר רישום פרופיל במכשירים שבהם הוא לא נבדק</string>
+    <string name="dev_allow_registration_confirm_title">לאפשר רישום פרופיל שלא נבדק?</string>
+    <string name="dev_allow_registration_confirm_message">רישום פרופיל כותב את המשתמש שנבחר ואת השעון להגדרות המכשיר. הוא לא אושר בדגמי המכשירים האלה. ביצוע הפעולה בכל זאת עלול להשחית לצמיתות את הגדרות המכשיר או להפוך אותו לבלתי שמיש.\n\nהמתג הזה לא שולח שום דבר בעצמו. הרישום עדיין מתבצע רק כשתבחר „שיוך” ותאשר, ודוח המכשיר יתעד שבוצע ניסיון כתיבה שלא נבדק.\n\nהאחריות לכל נזק למכשיר שלך היא עליך.</string>
+    <string name="dev_index_aspect_registration">רישום פרופיל</string>
 </resources>

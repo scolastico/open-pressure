@@ -13,12 +13,16 @@
     <string name="dev_allow_confirm_title">Allow untested clock sync?</string>
     <string name="dev_allow_confirm_message">Setting the clock has not been confirmed on these monitor models. Doing it anyway can permanently corrupt the monitor\'s settings or make it unusable.\n\nThis switch does not send anything by itself. If you later set the clock on such a monitor, the device report records that an untested write was attempted.\n\nYou are responsible for any damage to your monitor.</string>
     <string name="dev_allow_confirm_accept">I understand, enable</string>
+    <string name="dev_allow_registration_untested">Allow profile registration on monitors where it is untested</string>
+    <string name="dev_allow_registration_confirm_title">Allow untested profile registration?</string>
+    <string name="dev_allow_registration_confirm_message">Profile registration writes the selected user and the clock into the monitor\'s settings. It has not been confirmed on these monitor models. Doing it anyway can permanently corrupt the monitor\'s settings or make it unusable.\n\nThis switch does not send anything by itself. Registration still runs only when you choose Pair and confirm it, and the device report records that an untested write was attempted.\n\nYou are responsible for any damage to your monitor.</string>
     <string name="dev_index_title">Write support by monitor</string>
     <string name="dev_index_status_confirmed">Confirmed</string>
     <string name="dev_index_status_untested">Untested</string>
     <string name="dev_index_status_blocked">Blocked</string>
     <string name="dev_index_aspect_clock">Clock sync</string>
     <string name="dev_index_aspect_unsent">Unsent readings counter</string>
+    <string name="dev_index_aspect_registration">Profile registration</string>
     <string name="dev_index_no_monitors">No saved monitors yet.</string>
     <string name="dev_hide">Hide developer options</string>
     <string name="dev_hidden">Developer options hidden; all developer switches are off</string>

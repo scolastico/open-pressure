@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="registration_untested_warning">Registrace profilu zatím nebyla s tímto tlakoměrem otestována. Je dostupná jen proto, že jste zapnuli možnost pro vývojáře. Pokračujte, jen pokud toto riziko přijímáte.</string>
+    <string name="registration_report_prompt">Zaregistrovali jste profil na tlakoměru, se kterým to zatím nebylo otestováno. Hlášení o zařízení v issue na GitHubu ukáže, zda to fungovalo, a pomůže zpřístupnit registraci i ostatním.\n\nZpráva obsahuje pouze technické údaje. Nikdy neobsahuje naměřené hodnoty, časy měření, jména, adresu Bluetooth ani sériové číslo. Než cokoli sdílíte, můžete si ji prohlédnout.</string>
+</resources>
