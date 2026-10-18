@@ -47,6 +47,9 @@ public class OmronAnchorsTest {
         OmronApk.assumePresent();
         OmronAnchors anchors=OmronAnchors.resolve(OmronAnchorsTest.class.getClassLoader());
         System.out.println(anchors.report());
+        Path out=java.nio.file.Paths.get("build","omron-sandbox","resolve.txt");
+        Files.createDirectories(out.getParent());
+        Files.write(out,("Omron "+OmronApk.locate().version+" anchors\n"+anchors.report()).getBytes(StandardCharsets.UTF_8));
         assertTrue(anchors.report(),anchors.complete());
         assertEquals(1,anchors.constant("connectionMode.registration"));
         assertEquals(0,anchors.constant("connectionMode.authentication"));

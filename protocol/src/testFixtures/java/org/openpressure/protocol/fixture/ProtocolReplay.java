@@ -18,8 +18,13 @@ import org.openpressure.protocol.VendorWlpSession;
 public final class ProtocolReplay {
     private ProtocolReplay() {}
 
+    /** Prints each fixture's protocol-level outcome and its annotated differences (open findings). */
     public static void main(String[] args) {
-        for(String name:args.length==0?Fixture.all():List.of(args)) System.out.println(name+": "+run(Fixture.load(name)).report());
+        for(String name:args.length==0?Fixture.all():List.of(args)) {
+            Fixture f=Fixture.load(name);
+            System.out.println("ours (protocol): "+run(f).report().replace("\n","\n  "));
+            for(Fixture.Step step:f.annotated()) System.out.println("open finding (line "+step.line+", "+step.only+"-only): "+step.reason);
+        }
     }
 
     public static Outcome run(Fixture f) {

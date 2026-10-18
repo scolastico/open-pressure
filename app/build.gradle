@@ -17,7 +17,11 @@ android {
     compileOptions { sourceCompatibility JavaVersion.VERSION_17; targetCompatibility JavaVersion.VERSION_17 }
     buildTypes { release { minifyEnabled false } }
     lint { abortOnError true }
-    testOptions { unitTests.includeAndroidResources = true }
+    testOptions {
+        unitTests.includeAndroidResources = true
+        // tools/omron-sandbox.sh narrows the shared fixture replay with -Dfixture=<name>.
+        unitTests.all { systemProperty 'fixture', System.getProperty('fixture','') }
+    }
 }
 kotlin { compilerOptions { jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17 } }
 dependencies {

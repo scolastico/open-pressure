@@ -96,7 +96,11 @@ public final class OmronRunner {
         });
         try { outcome=runner.execute(); }
         catch(Throwable unexpected) { outcome=Outcome.rejected(runner.cursor==null?0:runner.cursor.position(),"sandbox error: "+unexpected); runner.log("sandbox error: "+stack(unexpected)); }
-        finally { Thread.setDefaultUncaughtExceptionHandler(previous); }
+        finally {
+            Thread.setDefaultUncaughtExceptionHandler(previous);
+            // Omron's HandlerThreads would otherwise outlive the run and keep its class loader alive.
+            for(Looper looper:ShadowLooper.getAllLoopers()) if(background(looper)) looper.quit();
+        }
         runner.write(transcript,outcome);
         SandboxBluetoothDevice.peer=null;
         return outcome;
