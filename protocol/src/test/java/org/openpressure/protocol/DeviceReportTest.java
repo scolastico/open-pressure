@@ -62,7 +62,14 @@ public final class DeviceReportTest {
         check(!report.useful(),"a connection that never discovered services has nothing to share");
         report.service("0000180a-0000-1000-8000-00805f9b34fb",Arrays.asList());
         report.model("HEM-7380T1-EOSL");
-        check(!report.useful(),"the tested monitor is never asked for a report");
+        check(!report.useful(),"the tested monitor is not asked for a report without a write");
+        report.writeAspect(WriteAspectIndex.Aspect.CLOCK_BLOCK,DeviceReport.WriteOutcome.ACKNOWLEDGED,true);
+        check(report.useful() && report.verified(),"a recorded write makes the tested monitor's report worth sharing");
+        DeviceReport aliased=new DeviceReport("Connect","1.2.0",35,"Synthetic Phone");
+        aliased.service("0000180a-0000-1000-8000-00805f9b34fb",Arrays.asList());
+        aliased.model("X7 Smart AFib");
+        aliased.writeAspect(WriteAspectIndex.Aspect.CLOCK_BLOCK,DeviceReport.WriteOutcome.REJECTED,true);
+        check(aliased.useful(),"the tested identity's marketing name is offered after a write too");
         check(report.toJson().contains("\"present\": false"),"missing advertisement is explicit");
     }
     private static byte[] hex(String value) { return HexFormat.of().parseHex(value); }

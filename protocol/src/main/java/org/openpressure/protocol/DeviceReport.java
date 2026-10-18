@@ -41,8 +41,11 @@ public final class DeviceReport {
         return model.equals("HEM-7380T1-EOSL") || model.equalsIgnoreCase("X7 Smart AFib");
     }
     public boolean verified() { return verifiedModel(model); }
-    /** Worth sharing once the monitor's GATT layout is known and the identity is not the tested one. */
-    public boolean useful() { return !services.isEmpty() && !verified(); }
+    /**
+     * Worth sharing once the monitor's GATT layout is known and the identity is not the tested one, or whenever a
+     * write aspect was recorded: write support is validated per identity, including the tested one.
+     */
+    public boolean useful() { return hasWrites() || !services.isEmpty() && !verified(); }
     public String model() { return model; }
 
     public void advertisement(String name,byte[] manufacturerData) {

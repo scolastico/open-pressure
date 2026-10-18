@@ -283,6 +283,30 @@ public class MainClockSyncTest {
             assertEquals(shown,ShadowDialog.getShownDialogs().size());
         }
     }
+    @Test public void forcedWriteOnTheVerifiedX7OffersTheDeviceReportOnce() throws Exception {
+        connected(ProtocolProfile.X7_WLP);
+        monitor.connectedName="X7 Smart AFib";
+        monitor.ready=false; monitor.sessionFinished=true; monitor.status="Clock sync complete";
+        // A real report of the tested identity: only the recorded clock-block write makes it worth sharing.
+        DeviceReport report=new DeviceReport("Connect","1.0",35,"Synthetic Phone");
+        report.service("0000fe4a-0000-1000-8000-00805f9b34fb",java.util.Collections.emptyList());
+        report.model("HEM-7380T1-EOSL");
+        java.lang.reflect.Field field=MonitorService.class.getDeclaredField("report"); field.setAccessible(true); field.set(monitor,report);
+        assertNull("No report without a write on the tested identity",monitor.deviceReport());
+        report.writeAspect(org.openpressure.protocol.WriteAspectIndex.Aspect.CLOCK_BLOCK,DeviceReport.WriteOutcome.ACKNOWLEDGED,true);
+        monitor.offerReportAfterWrite=true;
+        try(ActivityController<MainActivity> controller=Robolectric.buildActivity(MainActivity.class)) {
+            Activity a=open(controller);
+            AlertDialog offer=ShadowAlertDialog.getLatestAlertDialog();
+            assertNotNull(offer); assertTrue(offer.isShowing());
+            assertEquals(a.getString(R.string.clock_sync_report_prompt),((TextView)offer.findViewById(android.R.id.message)).getText().toString());
+            assertFalse("Offered once",monitor.offerReportAfterWrite);
+            int shown=ShadowDialog.getShownDialogs().size();
+            offer.getButton(AlertDialog.BUTTON_NEGATIVE).performClick(); idle();
+            button(root(a),a.getString(R.string.main_overview)).performClick(); idle();
+            assertEquals(shown,ShadowDialog.getShownDialogs().size());
+        }
+    }
     @Test public void noReportOfferWithoutAForcedWrite() {
         connected(ProtocolProfile.VENDOR_MEMORY);
         monitor.ready=false; monitor.sessionFinished=true; monitor.status="Clock sync complete";
