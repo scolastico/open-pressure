@@ -79,6 +79,7 @@ public final class ProtocolTest {
         testX7MemoryIndex();
         checks+=X7RegistrationTest.run();
         checks+=VendorMemoryModelTest.run();
+        checks+=VendorMemoryIndexTest.run();
         checks+=VendorWlpSessionTest.run();
         checks+=LegacyUnlockTest.run();
         checks+=DeviceReportTest.run();

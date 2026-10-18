@@ -13,28 +13,33 @@ import java.util.List;
  * these source-based maps do not establish hardware validation in OpenPressure.
  */
 public final class VendorMemoryModel {
+    // Columns: id, record bytes, settings/index start and length, legacy unlock, record checksum,
+    // index image supported (prefix layout evidenced), user banks offered for selection, capacity, banks.
     private static final VendorMemoryModel[] MODELS={
-        new VendorMemoryModel("HEM-7150T",16,0x10,68,true,true,60,0x98),
-        new VendorMemoryModel("HEM-7155T",16,0x10,68,true,true,60,0x98,0x458),
-        new VendorMemoryModel("HEM-7156T",16,0x10,68,true,true,60,0x98,0x458),
-        new VendorMemoryModel("HEM-7322T",14,0x260,38,true,false,100,0x2ac,0x824),
-        new VendorMemoryModel("HEM-7342T",16,0x10,68,true,true,100,0x98,0x6d8),
-        new VendorMemoryModel("HEM-7361T",16,0x10,68,true,true,100,0x98,0x6d8),
+        new VendorMemoryModel("HEM-7150T",16,0x10,68,true,true,true,1,60,0x98),
+        new VendorMemoryModel("HEM-7155T",16,0x10,68,true,true,true,2,60,0x98,0x458),
+        new VendorMemoryModel("HEM-7156T",16,0x10,68,true,true,true,1,60,0x98,0x458),
+        new VendorMemoryModel("HEM-7322T",14,0x260,38,true,false,false,2,100,0x2ac,0x824),
+        new VendorMemoryModel("HEM-7342T",16,0x10,68,true,true,true,2,100,0x98,0x6d8),
+        new VendorMemoryModel("HEM-7361T",16,0x10,68,true,true,true,2,100,0x98,0x6d8),
         // Pinned upstream BP5360 variant: the original APK has a different split map.
         // Keep this read map tied to its separately guarded single-channel, bonded transport.
-        new VendorMemoryModel("HEM-7377T1",16,0x40,24,false,false,100,0x1cc,0x80c),
-        new VendorMemoryModel("HEM-7530T",14,0x260,68,true,true,90,0x2e8),
-        new VendorMemoryModel("HEM-7600T",14,0x260,38,true,true,100,0x2ac),
-        new VendorMemoryModel("HEM-6232T",14,0x260,68,true,true,100,0x2e8,0x860)
+        new VendorMemoryModel("HEM-7377T1",16,0x40,24,false,false,false,2,100,0x1cc,0x80c),
+        new VendorMemoryModel("HEM-7530T",14,0x260,68,true,true,true,1,90,0x2e8),
+        new VendorMemoryModel("HEM-7600T",14,0x260,38,true,true,false,1,100,0x2ac),
+        new VendorMemoryModel("HEM-6232T",14,0x260,68,true,true,true,2,100,0x2e8,0x860)
     };
     public final String id;
     public final boolean legacyUnlock,recordChecksum;
     public final int settingsStart,settingsLength,recordBytes,userCount;
+    private final boolean indexSupported;
+    private final int selectableUsers,capacity;
     private final List<Range> ranges;
 
-    private VendorMemoryModel(String id,int recordBytes,int settingsStart,int settingsLength,boolean legacyUnlock,boolean recordChecksum,int capacity,int... starts) {
+    private VendorMemoryModel(String id,int recordBytes,int settingsStart,int settingsLength,boolean legacyUnlock,boolean recordChecksum,boolean indexSupported,int selectableUsers,int capacity,int... starts) {
         this.id=id; this.recordBytes=recordBytes; this.settingsStart=settingsStart;
         this.settingsLength=settingsLength; this.legacyUnlock=legacyUnlock; this.recordChecksum=recordChecksum; this.userCount=starts.length;
+        this.indexSupported=indexSupported; this.selectableUsers=selectableUsers; this.capacity=capacity;
         List<Range> ranges=new ArrayList<>();
         for(int i=0;i<starts.length;i++) ranges.add(new Range(starts[i],capacity*recordBytes,i+1));
         this.ranges=Collections.unmodifiableList(ranges);
@@ -69,6 +74,42 @@ public final class VendorMemoryModel {
 
     /** Full banks, including erased slots. This never relies on, or resets, an unread counter. */
     public List<Range> historyRanges() { return ranges; }
+
+    /**
+     * Full banks of the selected users (bitmask: 1 = user 1, 2 = user 2). Bits for users the
+     * model does not offer are ignored and an empty selection falls back to user 1's bank.
+     * Shared-bank models return every bank because the bank does not identify the user.
+     */
+    public List<Range> historyRanges(int users) {
+        if(sharedBank()) return ranges;
+        List<Range> selected=new ArrayList<>();
+        for(Range r:ranges) if(selectable(r.user,users)) selected.add(r);
+        if(selected.isEmpty()) selected.add(ranges.get(0));
+        return Collections.unmodifiableList(selected);
+    }
+
+    /** True when {@code user} is in the bitmask and is a bank this model offers for selection. */
+    boolean selectable(int user,int users) { return user>=1 && user<=selectableUsers && (users&(1<<(user-1)))!=0; }
+
+    /** The settings/index image as a read range; user 0 marks it as not a history bank. */
+    public Range settingsRange() { return new Range(settingsStart,settingsLength,0); }
+
+    public static Range range(int start,int length,int user) { return new Range(start,length,user); }
+
+    /** Record slots per user bank. */
+    public int capacity() { return capacity; }
+
+    /** Whether the index-image prefix (positions, unsent counts, sequences) is evidenced for this map. */
+    public boolean indexSupported() { return indexSupported; }
+
+    /** User banks offered as an import choice; 1 means no choice is shown. */
+    public int selectableUsers() { return selectableUsers; }
+
+    /** Both users' readings share the banks; the user comes from each record's marker. */
+    public boolean sharedBank() { return id.equals("HEM-7377T1"); }
+
+    /** A bank present in the pinned map but absent from Omron's configuration for this model. */
+    public boolean unconfirmedBank(int user) { return id.equals("HEM-7156T") && user==2; }
 
     /** Erased slots return null; malformed records throw; unavailable device timestamps remain null. */
     public BloodPressure parse(byte[] raw,int user) {
