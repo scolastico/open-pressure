@@ -71,6 +71,31 @@ The source is the original APK identified by SHA-256 in the [protocol reference]
 
 Detailed captured evidence confirms both staged write echoes and END, followed by a separate complete 111/111-record history transfer on the tested EOSL cuff. The user confirmed pairing and correct time. This result does not establish general compatibility with other X7 variants.
 
+## Write-aspect index
+
+`WriteAspectIndex` records, per exact verified model identity, whether a memory-write aspect is **confirmed** on hardware, **untested** or **blocked**. It is data only: it builds no frame and authorizes no byte. A permitted aspect still has to pass every model-bound check in `DeviceWritePolicy` at the GATT boundary, and no write uses the index yet. No clock-block sync, unsent-counter reset or other new memory write exists yet.
+
+| Aspect | Status | Identities |
+| --- | --- | --- |
+| `CLOCK_BLOCK` (clock fields in the settings block) | Untested | HEM-7150T, HEM-7155T, HEM-7156T, HEM-7342T, HEM-7361T, HEM-7530T, HEM-7600T, HEM-6232T, HEM-7380T1-EOSL, HEM-7380T1-EBK |
+| `CLOCK_BLOCK` | Blocked: no documented clock-block layout | HEM-7322T, HEM-7377T1 |
+| `UNSENT_COUNTERS` | Blocked: not implemented | Every identity |
+| Any aspect | Blocked: no evidence | Every unlisted identity |
+
+No aspect is confirmed. "Untested" means only that a source-derived layout exists; it has not been exercised on that model. Lookups use the exact identity (a vendor-memory model's table id or the reported X7 identity); a similar name, regional alias or shared UUID never maps to a listed entry. The `HEM-7380T1-EOSL` entry concerns a standalone clock-block write; it does not change or extend the [X7 profile registration](#x7-profile-registration) exception, whose clock bytes remain part of that exact Pair plan.
+
+### Override rule
+
+`DeviceWritePolicy.requireWriteAspect(identity, aspect, override)` rejects unless the status permits it: **confirmed** passes; **untested** passes only when that single request carries an explicit override; **blocked** never passes, override or not. The override is an argument of each request, never a stored global in the protocol layer. In the app it can come only from the matching hidden [developer option](development.md#developer-options), which counts only while those options are unlocked, starts off after every unlock and is never read by Pair, Connect, Import, Read all or automatic imports. Promotion from untested to confirmed is a maintainer code change described in [hardware validation](hardware-validation.md#promoting-a-write-aspect).
+
+### Device report writes section
+
+A [device report](device-reports.md) lists at most eight attempted write aspects under `writes`. Each entry has only `aspect` (`clock_block` or `unsent_counters`), `outcome` (`acknowledged`, `rejected`, `skipped_within_threshold`, `cancelled` or `not_attempted`) and `override` (whether an untested aspect was allowed by explicit override). It never contains the written values, the phone or monitor time, addresses or memory contents. Recording it sends nothing to the monitor.
+
+### What is never written
+
+The index does not open any of the following, on any model and with any developer option: calibration or unknown settings addresses, firmware or update commands, record or user deletion, generic or unrestricted addressed writes, guessed registers, or a write to a model whose identity was not verified. Unsent-counter resets stay unavailable. Software and synthetic tests (`WriteAspectIndexTest`, `VendorWritePolicyTest`, `DeviceReportTest`) establish only the gate's behavior, not that any write is safe on a physical monitor.
+
 ## Memory and firmware limits
 
 The X7 logical read map is settings/index `[0x0010,0x0054)` and populated 16-byte BP slots in the two 100-slot banks at `0x01C4` and `0x0804`. Each X7 import reads a fresh index and never intentionally probes empty slots, gaps or calibration locations. The separate PPW region at `0x010000` lies outside exposed 16-bit reads.

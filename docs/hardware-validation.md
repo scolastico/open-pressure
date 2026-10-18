@@ -89,6 +89,16 @@ Pair an untested monitor and let the session end. The report question must appea
 
 With update checks on and an older installed version, the update dialog must appear when the app opens once the newer release is known. **Remind me later** and dismissing must suppress it for three days; **Skip this version** only for that version. Turning checks off under Devices → Advanced must stop all requests; verify with a network log if available.
 
+## Promoting a write aspect
+
+The [write-aspect index](safety.md#write-aspect-index) marks every clock-block entry untested and unsent counters blocked; nothing is confirmed. Testers enable an untested aspect only through the hidden [developer options](development.md#developer-options), with a monitor they are prepared to lose. Moving an aspect from untested to confirmed is a maintainer code change, never a setting:
+
+1. A tester reports a run with the exact cuff label, firmware string, Android and app versions, the device report and the result checked on the cuff (for the clock: the displayed time, including around midnight, and that settings, users and history are unchanged afterwards).
+2. The maintainer checks that the report's `writes` entry names the aspect with `acknowledged` and `override: true`, that the identity matches the index entry exactly, and confirms the result with the tester.
+3. The maintainer changes that one identity and aspect to confirmed in `WriteAspectIndex`, with an evidence note naming the run, updates `WriteAspectIndexTest` and records the model and operation here and in [compatibility](compatibility.md).
+
+A confirmation covers only that identity and aspect; it never carries over to a similar model, a regional variant or another aspect. A blocked entry cannot be promoted this way; it first needs documented source evidence and review. No aspect has been promoted so far, and no write that uses the index exists yet.
+
 ## Other device families
 
 Repeat relevant steps per exact service layout, model and firmware. Standard BP, Optional Service RACP, UDS and time-characteristic behavior need actual captures before being marked tested. Verify explicit time writes by read-back or cuff inspection, including around midnight. STP and encrypted X7 require separate first-pair/saved-key/authentication tests. Other WLP maps remain blocked until independently implemented and reviewed; do not bypass model checks for a test.

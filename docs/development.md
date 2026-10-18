@@ -91,6 +91,7 @@ Replace the emulator serial with your dedicated test device. The host check requ
 | `app/src/main/java/org/openpressure/app/forwarding/` | Optional HTTP destination/settings, measurement payloads, upload outbox and retry worker |
 | `app/src/main/java/org/openpressure/app/reminders/` | Phone reminder configuration, local-time scheduling, minimal measurement timing and notifications |
 | `app/src/main/java/org/openpressure/app/profiles/` | Named-user settings, foreground ownership picker, lifecycle coordination and count-only assignment alerts |
+| `app/src/main/java/org/openpressure/app/developer/` | Hidden developer options: stored per-aspect write switches and the write-support viewer |
 | `app/src/main/java/org/openpressure/app/updates/` | Daily GitHub release check, version comparison and remind/skip state |
 | `app/src/main/java/org/openpressure/app/pdf/` | Immutable report selection, statistics and native PDF rendering |
 | `app/src/main/` | Native Android UI, manifest and localized resources |
@@ -106,6 +107,29 @@ Start with the [protocol reference](protocol.md), [safety policy](safety.md) and
 Keep outgoing command gates at the real GATT boundary, validate plaintext before encryption, and require matching acknowledged state before enabling subsequent operations. Preserve strict model identity, bounded fragment/range lengths, explicit cancellation and connection-generation guards. New model maps need their own source evidence and negative-path tests. Do not weaken rejection to make an unknown cuff proceed.
 
 Use synthetic/redacted fixtures with clear provenance. Do not commit APKs/XAPKs, proprietary `.so` libraries, extracted executable code, real pairing material, raw health/device traces or private machine paths. The hashes and class/method observations in the reference are sufficient to identify inspected artifacts without distributing them.
+
+## Developer options
+
+> [!WARNING]
+> **These switches allow writes to a monitor's memory that are not confirmed for its model. Such a write can permanently corrupt the monitor's settings or make it unusable. They are meant only for people validating a model with a monitor they are prepared to lose.** Read the [safety policy](safety.md#write-aspect-index) first. Nothing here is a user feature; it is intentionally absent from the user guide.
+
+No clock sync or other memory write uses these switches yet. Today the clock switch only records a choice and changes nothing the app sends; a future, explicitly started write action will consult it. Everything described here is source-derived and covered by synthetic tests only; no switch has been exercised against a physical monitor.
+
+**Unlock.** Open **Devices → Advanced** and tap the version label at the bottom (`Version <name> (<code>)`) five times, with no more than three seconds between taps; a longer pause restarts the count. After the third and fourth tap a short hint shows how many taps remain. The fifth tap unlocks the options and adds a **Developer options** button above the version label. Tapping the label sends nothing to a monitor. The state is stored locally in the app's private `developer` shared preferences (`DeveloperOptions`), not in the measurement database, and is not part of any export.
+
+**Switches.** There is one switch per write aspect that can be overridden at all:
+
+| Switch | Aspect | Effect |
+| --- | --- | --- |
+| **Allow clock sync on monitors where it is untested** | `CLOCK_BLOCK` | Turning it on asks for confirmation (**I understand, enable**); cancel, back or tapping outside leaves it off. Turning it off needs no confirmation. The switch itself sends nothing. |
+
+`UNSENT_COUNTERS` has no switch: it is blocked on every model because it is not implemented, and no developer option can unblock a blocked aspect. Every unlock starts with all switches off, and a switch only counts while the options remain unlocked. Pair, Connect, Import, Read all and automatic imports never read these switches; the documented [X7 profile registration](safety.md#x7-profile-registration) exception is unaffected by them.
+
+**Write support viewer.** **Write support by monitor** lists each saved monitor with its name, reported model and, for every aspect, the `WriteAspectIndex` status (**Confirmed**, **Untested** or **Blocked**) and its evidence note. Vendor-memory models are looked up by their verified table identity; other identities by the exact reported model, so an unlisted or merely similar name shows **Blocked**. Evidence notes are technical text, shown left-to-right and untranslated. The viewer reads only local data.
+
+**Hide.** **Hide developer options** asks for confirmation, then locks the options, turns every switch off and removes the button. Unlocking again starts from all switches off.
+
+Tests: `DeveloperOptionsTest` (storage, tap counting, clearing on lock and unlock), `DeveloperOptionsActivityTest` (confirmation, viewer, hide) and `MainDeveloperUnlockTest` (version-label unlock through the real Devices screen) run with `:app:testDebugUnitTest`.
 
 ## Release review
 
