@@ -151,7 +151,8 @@ public final class DeviceWritePolicy {
      * UNTESTED aspects pass only with this request's explicit override; BLOCKED never.
      */
     public static void requireWriteAspect(String modelIdentity,WriteAspectIndex.Aspect aspect,boolean override) {
-        if(aspect==null || !WriteAspectIndex.permits(WriteAspectIndex.lookup(modelIdentity,aspect).status,override)) reject();
+        if(aspect==null || !WriteAspectIndex.permits(WriteAspectIndex.lookup(modelIdentity,aspect).status,override))
+            throw new IllegalArgumentException("Blocked device write: aspect not permitted for this model");
     }
     private static void reject() { throw new IllegalArgumentException("Blocked device write: target or payload is outside the BP control allowlist"); }
 }

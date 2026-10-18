@@ -87,6 +87,8 @@ public final class VendorWritePolicyTest {
         rejects(() -> DeviceWritePolicy.requireWriteAspect("HEM-7322T",WriteAspectIndex.Aspect.CLOCK_BLOCK,true));
         rejects(() -> DeviceWritePolicy.requireWriteAspect("HEM-7155T",WriteAspectIndex.Aspect.UNSENT_COUNTERS,true));
         rejects(() -> DeviceWritePolicy.requireWriteAspect(null,WriteAspectIndex.Aspect.CLOCK_BLOCK,true));
+        try { DeviceWritePolicy.requireWriteAspect("HEM-7322T",WriteAspectIndex.Aspect.CLOCK_BLOCK,true); throw new AssertionError("blocked aspect accepted"); }
+        catch(IllegalArgumentException expected) { if(!"Blocked device write: aspect not permitted for this model".equals(expected.getMessage())) throw new AssertionError("aspect rejection message"); checks++; }
         // A passed aspect gate authorizes nothing by itself: addressed writes on the legacy TX stay blocked.
         VendorMemoryModel model=VendorMemoryModel.identify("HEM-7155T");
         DeviceWritePolicy.requireWriteAspect("HEM-7155T",WriteAspectIndex.Aspect.CLOCK_BLOCK,true); checks++;

@@ -53,7 +53,23 @@ public final class WriteAspectIndex {
         table.put(id,Collections.unmodifiableMap(aspects));
     }
 
-    /** Never null. Exact identity match only; regional aliases must be resolved by the caller first. */
+    /**
+     * Maps a verified model string to its index identity. NULs and surrounding whitespace are
+     * removed; Device Information names resolve through {@link VendorMemoryModel#identify} to
+     * the table id; "X7 Smart AFib" (any case) is the firmware name of HEM-7380T1-EOSL, matching
+     * {@link DeviceReport#verifiedModel}. Anything else, including a bare "HEM-7380T1", is
+     * returned unchanged (null stays null) so {@link #lookup} blocks it.
+     */
+    public static String resolve(String verifiedModel) {
+        if(verifiedModel==null) return null;
+        String model=verifiedModel.replace("\u0000","").trim();
+        if(model.equalsIgnoreCase("X7 Smart AFib")) return "HEM-7380T1-EOSL";
+        if(model.equals("HEM-7380T1-EOSL") || model.equals("HEM-7380T1-EBK")) return model;
+        VendorMemoryModel known=VendorMemoryModel.identify(model);
+        return known!=null?known.id:verifiedModel;
+    }
+
+    /** Never null. Exact identity match only; regional aliases must be resolved first (see {@link #resolve}). */
     public static Entry lookup(String modelIdentity,Aspect aspect) {
         if(aspect==null) throw new IllegalArgumentException("write aspect required");
         Map<Aspect,Entry> aspects=modelIdentity==null?null:TABLE.get(modelIdentity);

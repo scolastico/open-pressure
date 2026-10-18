@@ -14,6 +14,7 @@ public final class WriteAspectIndexTest {
         statuses();
         gate();
         identities();
+        resolution();
         return checks;
     }
 
@@ -58,6 +59,20 @@ public final class WriteAspectIndexTest {
         }
         check(legacy==10 && ids.contains("HEM-7380T1-EOSL") && ids.contains("HEM-7380T1-EBK"),"identity set");
         rejects(() -> ids.add("HEM-0000T"));
+    }
+
+    private static void resolution() {
+        check(WriteAspectIndex.lookup(WriteAspectIndex.resolve("HEM-7155T-EBK"),Aspect.CLOCK_BLOCK).status==Status.UNTESTED,"regional legacy name resolves");
+        check(WriteAspectIndex.lookup(WriteAspectIndex.resolve("x7 smart afib"),Aspect.CLOCK_BLOCK).status==Status.UNTESTED,"X7 firmware name resolves");
+        check(WriteAspectIndex.lookup(WriteAspectIndex.resolve("HEM-7380T1"),Aspect.CLOCK_BLOCK).status==Status.BLOCKED,"bare X7 hint stays blocked");
+        check(WriteAspectIndex.lookup(WriteAspectIndex.resolve("HEM-7156T-AAP"),Aspect.CLOCK_BLOCK).status==Status.BLOCKED,"unmapped regional name stays blocked");
+        check(WriteAspectIndex.lookup(WriteAspectIndex.resolve(null),Aspect.CLOCK_BLOCK).status==Status.BLOCKED,"null stays blocked");
+        check(WriteAspectIndex.resolve(null)==null,"null stays null");
+        check("HEM-7380T1-EOSL".equals(WriteAspectIndex.resolve(" X7 Smart AFib\u0000")),"NULs and whitespace trimmed");
+        check("HEM-7380T1-EBK".equals(WriteAspectIndex.resolve("HEM-7380T1-EBK\u0000")) && "HEM-7380T1-EOSL".equals(WriteAspectIndex.resolve("HEM-7380T1-EOSL")),"X7 identities pass through");
+        check("HEM-7155T".equals(WriteAspectIndex.resolve("HEM-7155T\u0000 ")),"legacy table id");
+        check("HEM-7380T1".equals(WriteAspectIndex.resolve("HEM-7380T1")) && "BP5360".equals(WriteAspectIndex.resolve("BP5360")),"unknown input unchanged");
+        for(String id:WriteAspectIndex.knownIdentities()) check(id.equals(WriteAspectIndex.resolve(id)),"listed identity resolves to itself: "+id);
     }
 
     private static void check(boolean ok,String message) { checks++; if(!ok) throw new AssertionError(message); }
