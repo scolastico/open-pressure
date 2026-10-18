@@ -28,8 +28,6 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.robolectric:robolectric:4.17'
     testImplementation 'org.mockito:mockito-core:5.20.0'
-    // Omron's Kotlin classes need the standard library that the extraction strips from their jar.
-    testImplementation 'org.jetbrains.kotlin:kotlin-stdlib:2.3.0'
     // Present only after omronExtract ran on a locally supplied package.
     testRuntimeOnly files(provider { def jar=new File(omronDir,'omron-classes.jar'); jar.exists()?[jar]:[] })
     dexConverter 'de.femtopedia.dex2jar:dex-tools:2.4.38'

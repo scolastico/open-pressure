@@ -26,9 +26,17 @@ import java.util.zip.ZipOutputStream;
  */
 public final class ExtractOmron {
     static final String HELP="Omron APK not found, see docs/omron-sandbox.md";
-    /** Packages the sandbox already provides; Omron's bundled copies would shadow them. */
-    private static final String[] EXCLUDED={"kotlin/","kotlinx/","androidx/","android/","org/junit/","org/hamcrest/",
-        "com/google/android/material/","org/intellij/","org/jetbrains/","META-INF/"};
+    /** Roots of the kept class set: Omron's communication and connectivity libraries. */
+    private static final String[] ROOTS={"jp/co/omron/","com/omronhealthcare/connectivitylibrary/"};
+    /**
+     * Packages the Android runtime or the test tooling provides. Everything else Omron references is kept from
+     * Omron's own package: R8 renamed members inside its bundled libraries (androidx, Kotlin), so Maven copies do
+     * not link. Guava stays excluded because Robolectric itself depends on it.
+     */
+    private static final String[] PROVIDED={"java/","javax/","android/","dalvik/","org/json/","org/xmlpull/","org/w3c/","org/xml/",
+        "androidx/test/","com/google/common/","com/google/thirdparty/","org/objectweb/","org/bouncycastle/","org/junit/","org/hamcrest/",
+        "org/mockito/","net/bytebuddy/","org/objenesis/","com/ibm/icu/","org/robolectric/"};
+    private static final Pattern DESCRIPTOR=Pattern.compile("L([\\w/$]+);");
 
     private ExtractOmron() {}
 
@@ -89,32 +97,62 @@ public final class ExtractOmron {
 
     private static void convert(List<byte[]> dexFiles,Path jar) throws Exception {
         Class<?> dex2jar=Class.forName("com.googlecode.d2j.dex.Dex2jar");
-        Set<String> seen=new HashSet<>();
-        int skipped=0;
+        java.util.Map<String,byte[]> classes=new java.util.HashMap<>();
+        for(int i=0;i<dexFiles.size();i++) {
+            Path part=Files.createTempFile("omron-dex-"+i,".jar");
+            try {
+                Object converter=dex2jar.getMethod("from",byte[].class).invoke(null,(Object)dexFiles.get(i));
+                converter=dex2jar.getMethod("skipDebug",boolean.class).invoke(converter,false);
+                dex2jar.getMethod("to",Path.class).invoke(converter,part);
+                try(ZipInputStream zip=new ZipInputStream(Files.newInputStream(part))) {
+                    for(ZipEntry e;(e=zip.getNextEntry())!=null;)
+                        if(e.getName().endsWith(".class")) classes.putIfAbsent(e.getName().substring(0,e.getName().length()-6),zip.readAllBytes());
+                }
+            } finally { Files.deleteIfExists(part); }
+        }
+        // Keep Omron's classes and everything they reference that the sandbox does not provide itself.
+        java.util.ArrayDeque<String> queue=new java.util.ArrayDeque<>();
+        Set<String> kept=new java.util.TreeSet<>();
+        for(String name:classes.keySet()) for(String root:ROOTS) if(name.startsWith(root)) queue.add(name);
+        while(!queue.isEmpty()) {
+            String name=queue.poll();
+            if(!kept.add(name)) continue;
+            for(String ref:references(classes.get(name))) if(classes.containsKey(ref) && !kept.contains(ref) && !provided(ref)) queue.add(ref);
+        }
         try(ZipOutputStream merged=new ZipOutputStream(Files.newOutputStream(jar))) {
-            for(int i=0;i<dexFiles.size();i++) {
-                Path part=Files.createTempFile("omron-dex-"+i,".jar");
-                try {
-                    Object converter=dex2jar.getMethod("from",byte[].class).invoke(null,(Object)dexFiles.get(i));
-                    converter=dex2jar.getMethod("skipDebug",boolean.class).invoke(converter,false);
-                    dex2jar.getMethod("to",Path.class).invoke(converter,part);
-                    try(ZipInputStream zip=new ZipInputStream(Files.newInputStream(part))) {
-                        for(ZipEntry e;(e=zip.getNextEntry())!=null;) {
-                            String name=e.getName();
-                            if(e.isDirectory() || excluded(name)) { if(!e.isDirectory()) skipped++; continue; }
-                            if(!seen.add(name)) continue;
-                            merged.putNextEntry(new ZipEntry(name));
-                            merged.write(zip.readAllBytes());
-                            merged.closeEntry();
-                        }
-                    }
-                } finally { Files.deleteIfExists(part); }
+            for(String name:kept) { merged.putNextEntry(new ZipEntry(name+".class")); merged.write(classes.get(name)); merged.closeEntry(); }
+        }
+        System.out.println("Converted "+dexFiles.size()+" dex files: kept "+kept.size()+" of "+classes.size()+" classes reachable from Omron's libraries");
+    }
+    private static boolean provided(String name) {
+        for(String prefix:PROVIDED) if(name.startsWith(prefix)) return true;
+        return false;
+    }
+    /** Class names in the constant pool, including those only named in descriptors. */
+    static Set<String> references(byte[] bytes) {
+        Set<String> result=new HashSet<>();
+        java.nio.ByteBuffer in=java.nio.ByteBuffer.wrap(bytes);
+        in.position(8);
+        int count=in.getShort()&0xffff;
+        for(int i=1;i<count;i++) {
+            int tag=in.get()&0xff;
+            switch(tag) {
+                case 1: {
+                    byte[] utf=new byte[in.getShort()&0xffff]; in.get(utf);
+                    String text=new String(utf,StandardCharsets.UTF_8);
+                    Matcher m=DESCRIPTOR.matcher(text);
+                    while(m.find()) result.add(m.group(1));
+                    if(text.indexOf('/')>0 && text.indexOf(';')<0 && text.indexOf('(')<0) result.add(text.startsWith("[")?text.replaceAll("^\\[+L?",""):text);
+                    break;
+                }
+                case 3: case 4: in.getInt(); break;
+                case 5: case 6: in.getLong(); i++; break;
+                case 7: case 8: case 16: case 19: case 20: in.getShort(); break;
+                case 9: case 10: case 11: case 12: case 17: case 18: in.getInt(); break;
+                case 15: in.get(); in.getShort(); break;
+                default: throw new IllegalStateException("unknown constant tag "+tag);
             }
         }
-        System.out.println("Converted "+dexFiles.size()+" dex files: "+seen.size()+" classes kept, "+skipped+" provided by the sandbox");
-    }
-    private static boolean excluded(String name) {
-        for(String prefix:EXCLUDED) if(name.startsWith(prefix)) return true;
-        return false;
+        return result;
     }
 }

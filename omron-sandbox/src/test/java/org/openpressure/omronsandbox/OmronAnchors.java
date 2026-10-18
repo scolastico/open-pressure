@@ -78,7 +78,16 @@ public final class OmronAnchors {
     /** Implements a named Omron callback interface (simple name under {@code ogsc.interfaces}). */
     public Object proxy(String callbackInterface,InvocationHandler handler) {
         Class<?> type=load(CALLBACK+callbackInterface);
-        return Proxy.newProxyInstance(loader,new Class<?>[]{type},handler);
+        return Proxy.newProxyInstance(loader,new Class<?>[]{type},(proxy,method,args) -> {
+            if(method.getDeclaringClass()==Object.class) {
+                switch(method.getName()) {
+                    case "toString": return "sandbox "+callbackInterface;
+                    case "hashCode": return System.identityHashCode(proxy);
+                    default: return proxy==args[0];
+                }
+            }
+            return handler.invoke(proxy,method,args);
+        });
     }
     public Class<?> load(String name) {
         try { return Class.forName(name,false,loader); }
@@ -105,6 +114,8 @@ public final class OmronAnchors {
             Class<?> type=type(owner);
             List<Method> matches=new ArrayList<>();
             for(Method m:type.getDeclaredMethods()) {
+                // Robolectric instrumentation adds renamed copies of each original method.
+                if(m.isSynthetic() || m.getName().contains("$")) continue;
                 if(Modifier.isStatic(m.getModifiers())!=isStatic || !m.getReturnType().getName().equals(returns)) continue;
                 String[] actual=Arrays.stream(m.getParameterTypes()).map(Class::getName).toArray(String[]::new);
                 if(Arrays.equals(actual,params)) matches.add(m);

@@ -4,7 +4,8 @@
 name hem-7156t/connect-read-history
 flow connect
 advertise name=BLEsmart_0000057A0011223344 services=ecbe3980-c9a2-11e1-b1bd-0002a5d5c51b
-dis model=HEM-7156T
+# Synthetic Device Information; Omron reads the revisions and the System ID during connection setup.
+dis model=HEM-7156T firmware=0001 software=0001 systemid=0011223344556677
 time 2026-01-02T03:04:05 zone=UTC
 key 05050505050505050505050505050505
 
