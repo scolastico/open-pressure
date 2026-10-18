@@ -136,12 +136,15 @@ public class MonitorServiceClockSyncTest {
         assertEquals("Clock sync complete",monitor.status);
     }
     @Test public void x7SyncUsesSingleWriteAndEnds() throws Exception {
-        allowUntested();
+        // The confirmed EOSL needs no developer option: locked options, no override, no chosen-time field.
         attachX7("HEM-7380T1-EOSL"); x7Settings(clockBlock(NOW.minusDays(3),true));
-        assertTrue(monitor.canClockSync());
+        assertFalse(DeveloperOptions.isUnlocked(monitor));
+        assertTrue(monitor.clockSyncOffered()); assertTrue(monitor.canClockSync());
         monitor.beginClockSync(); readX7Settings();
         assertTrue(monitor.clockSyncPending);
-        byte[] frame=new VendorClockWrite("HEM-7380T1-EOSL",x7Image(),NOW,true,1).frame();
+        assertFalse("a confirmed model never relies on the override",monitor.clockSyncOverride);
+        assertFalse("locked options offer no chosen time",monitor.clockSyncChosenTimeAllowed);
+        byte[] frame=new VendorClockWrite("HEM-7380T1-EOSL",x7Image(),NOW,false,1).frame();
         monitor.confirmClockSync(null); flushIo();
         assertSame(wlpTx,last().characteristic); assertEquals(24,last().bytes.length); assertArrayEquals(frame,last().bytes);
         writeDone(last(),0);
@@ -151,6 +154,55 @@ public class MonitorServiceClockSyncTest {
         assertEquals("Clock sync complete",monitor.status);
         assertEquals(WriteOutcome.ACKNOWLEDGED,monitor.clockSyncOutcome);
         assertEquals(1,clockWrites());
+        String json=report.toJson().replace(" ","");
+        assertTrue(json,json.contains("\"aspect\":\"clock_block\",\"outcome\":\"acknowledged\",\"override\":false"));
+        assertFalse("a confirmed write does not offer the report",monitor.offerReportAfterWrite);
+    }
+    @Test public void x7ChosenTimeOnTheConfirmedModelNeedsOnlyUnlockedOptions() throws Exception {
+        DeveloperOptions.setUnlocked(monitor,true);
+        assertFalse(DeveloperOptions.allowsUntested(monitor,Aspect.CLOCK_BLOCK));
+        attachX7("HEM-7380T1-EOSL"); x7Settings(clockBlock(NOW.minusDays(3),true));
+        monitor.beginClockSync(); readX7Settings();
+        assertTrue(monitor.clockSyncPending);
+        assertTrue(monitor.clockSyncChosenTimeAllowed); assertFalse(monitor.clockSyncOverride);
+        LocalDateTime chosen=LocalDateTime.of(2027,8,9,10,11,12);
+        byte[] frame=new VendorClockWrite("HEM-7380T1-EOSL",x7Image(),chosen,false,1).frame();
+        monitor.confirmClockSync(chosen); flushIo();
+        assertSame(wlpTx,last().characteristic); assertArrayEquals(frame,last().bytes);
+        assertArrayEquals("the chosen time plus one second",new byte[]{27,8,9,10,11,13},Arrays.copyOfRange(last().bytes,14,20));
+        writeDone(last(),0); x7Reply(compactAck(frame,0));
+        writeDone(last(),0); x7Reply(END_REPLY);
+        assertEquals("Clock sync complete",monitor.status);
+        assertTrue(report.toJson().replace(" ","").contains("\"outcome\":\"acknowledged\",\"override\":false"));
+        assertFalse(monitor.offerReportAfterWrite);
+    }
+    @Test public void x7ChosenTimeIsRefusedOnceOptionsAreLocked() throws Exception {
+        DeveloperOptions.setUnlocked(monitor,true);
+        attachX7("HEM-7380T1-EOSL"); x7Settings(clockBlock(NOW.minusDays(3),true));
+        monitor.beginClockSync(); readX7Settings();
+        assertTrue(monitor.clockSyncChosenTimeAllowed);
+        DeveloperOptions.setUnlocked(monitor,false);
+        int sent=writes.size(); monitor.confirmClockSync(LocalDateTime.of(2027,8,9,10,11,12)); flushIo();
+        assertEquals("a chosen time is refused while locked",sent,writes.size());
+        assertTrue("the confirmation stays open",monitor.clockSyncPending);
+        // The phone time is still allowed on the confirmed model.
+        byte[] frame=new VendorClockWrite("HEM-7380T1-EOSL",x7Image(),NOW,false,1).frame();
+        monitor.confirmClockSync(null); flushIo();
+        assertArrayEquals(frame,last().bytes); assertEquals(1,clockWrites());
+    }
+    @Test public void x7EbkStillNeedsTheDeveloperSwitch() throws Exception {
+        DeveloperOptions.setUnlocked(monitor,true);
+        attachX7("HEM-7380T1-EBK"); x7Settings(clockBlock(NOW.minusDays(3),true));
+        assertFalse("untested EBK without the switch: not offered",monitor.clockSyncOffered());
+        assertFalse(monitor.canClockSync());
+        int sent=writes.size(); monitor.beginClockSync(); idle();
+        assertEquals(sent,writes.size()); assertFalse(monitor.clockSyncRunning);
+        allowUntested();
+        assertTrue(monitor.clockSyncOffered()); assertTrue(monitor.canClockSync());
+        monitor.beginClockSync(); readX7Settings();
+        assertTrue(monitor.clockSyncPending); assertTrue(monitor.clockSyncOverride); assertTrue(monitor.clockSyncChosenTimeAllowed);
+        monitor.cancelClockSync(); idle();
+        assertEquals(0,clockWrites());
     }
     @Test public void withinThresholdWritesNothing() throws Exception {
         allowUntested();
@@ -215,6 +267,7 @@ public class MonitorServiceClockSyncTest {
         allowUntested();
         attach("HEM-7155T"); settings(erasedBlock());
         connectManually(); monitor.beginClockSync(); readSettings();
+        assertTrue(monitor.clockSyncChosenTimeAllowed); assertTrue(monitor.clockSyncOverride);
         LocalDateTime chosen=LocalDateTime.of(2027,8,9,10,11,12);
         DeveloperOptions.setUnlocked(monitor,false);
         int sent=writes.size(); monitor.confirmClockSync(chosen); flushIo();
@@ -226,6 +279,7 @@ public class MonitorServiceClockSyncTest {
         byte[] frame=new byte[24]; System.arraycopy(first.bytes,0,frame,0,16); System.arraycopy(second.bytes,0,frame,16,8);
         // Frame bytes 14..19 carry the clock (block offset 8): the chosen time plus one second.
         assertArrayEquals(new byte[]{27,8,9,10,11,13},Arrays.copyOfRange(frame,14,20));
+        assertTrue("the untested model still relies on the override",monitor.clockSyncOverride);
     }
     @Test public void untestedWithoutOverrideIsNotOffered() throws Exception {
         DeveloperOptions.setUnlocked(monitor,true);
@@ -279,10 +333,9 @@ public class MonitorServiceClockSyncTest {
         assertEquals(sent,writes.size()); assertFalse(monitor.clockSyncRunning);
     }
     @Test public void endTimeoutAfterAcknowledgmentKeepsTheAcceptedClock() throws Exception {
-        allowUntested();
         attachX7("HEM-7380T1-EOSL"); x7Settings(clockBlock(NOW.minusDays(3),true));
         monitor.beginClockSync(); readX7Settings();
-        byte[] frame=new VendorClockWrite("HEM-7380T1-EOSL",x7Image(),NOW,true,1).frame();
+        byte[] frame=new VendorClockWrite("HEM-7380T1-EOSL",x7Image(),NOW,false,1).frame();
         monitor.confirmClockSync(null); flushIo(); writeDone(last(),0);
         x7Reply(compactAck(frame,0));
         assertEquals(15,last().bytes[1]); writeDone(last(),0);
@@ -391,7 +444,6 @@ public class MonitorServiceClockSyncTest {
         assertEquals(1,clockWrites());
     }
     @Test public void encryptedX7AndSmallMtuAreRefused() throws Exception {
-        allowUntested();
         attachX7("HEM-7380T1-EOSL"); x7Settings(clockBlock(NOW.minusDays(3),true));
         assertTrue(monitor.canClockSync());
         set("negotiatedMtu",26);
@@ -405,7 +457,6 @@ public class MonitorServiceClockSyncTest {
         assertEquals(sent,writes.size()); assertFalse(monitor.clockSyncRunning);
     }
     @Test public void erasedX7BlockIsUnreadable() throws Exception {
-        allowUntested();
         attachX7("HEM-7380T1-EOSL"); x7Settings(erasedBlock());
         monitor.beginClockSync(); readX7Settings();
         assertFalse(monitor.clockSyncPending);

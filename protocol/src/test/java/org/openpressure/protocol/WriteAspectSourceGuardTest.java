@@ -11,18 +11,22 @@ import java.util.List;
 import java.util.stream.Stream;
 
 /**
- * Source guard: only the reviewed call sites may consult the write-aspect gate or a stored
- * untested-write override. A new caller must be reviewed and added to the allow-list.
+ * Source guard: only the reviewed call sites may consult the write-aspect gate, a stored
+ * untested-write override or the developer-chosen clock-time permission. A new caller must be
+ * reviewed and added to the allow-list.
  */
 public final class WriteAspectSourceGuardTest {
-    private static final String[] GUARDED={"requireWriteAspect(","allowsUntested("};
+    private static final String[] GUARDED={"requireWriteAspect(","allowsUntested(","allowsChosenClockTime("};
     /** Repository-relative files or directories (ending in '/') that may contain the guarded calls. */
     private static final String[] ALLOWED={
         "protocol/src/main/java/org/openpressure/protocol/DeviceWritePolicy.java",
         "app/src/main/java/org/openpressure/app/developer/",
         "app/src/main/java/org/openpressure/app/ble/MonitorService.java"
     };
-    /** The explicit Sync clock request reads the stored override through exactly one private helper. */
+    /**
+     * The explicit Sync clock request reads the stored override and the chosen-time permission through exactly one
+     * private helper each; it never calls requireWriteAspect itself.
+     */
     private static final String MONITOR_SERVICE="app/src/main/java/org/openpressure/app/ble/MonitorService.java";
     private static int checks;
     public static void main(String[] args) { System.out.println("Write aspect source guard checks: "+run()); }
@@ -30,7 +34,7 @@ public final class WriteAspectSourceGuardTest {
         checks=0;
         Path root=repositoryRoot();
         List<String> violations=new ArrayList<>();
-        int definitions=0,monitorOverrides=-1;
+        int definitions=0,monitorOverrides=-1,monitorChosenTimes=-1;
         for(String tree:new String[]{"app/src/main","protocol/src/main"}) {
             try(Stream<Path> files=Files.walk(root.resolve(tree))) {
                 for(Path file:(Iterable<Path>)files.filter(Files::isRegularFile)::iterator) {
@@ -38,6 +42,7 @@ public final class WriteAspectSourceGuardTest {
                     String source=read(file);
                     if(relative.equals(MONITOR_SERVICE)) {
                         monitorOverrides=occurrences(source,"allowsUntested(");
+                        monitorChosenTimes=occurrences(source,"allowsChosenClockTime(");
                         if(source.contains("requireWriteAspect(")) violations.add(relative+": requireWriteAspect(");
                     }
                     for(String call:GUARDED) {
@@ -52,6 +57,7 @@ public final class WriteAspectSourceGuardTest {
         if(!violations.isEmpty()) throw new AssertionError("write-aspect gate used outside the reviewed allow-list: "+violations);
         if(definitions==0) throw new AssertionError("source guard did not find the requireWriteAspect definition");
         if(monitorOverrides!=1) throw new AssertionError("MonitorService must read the untested-write override exactly once, found "+monitorOverrides);
+        if(monitorChosenTimes!=1) throw new AssertionError("MonitorService must read the chosen clock-time permission exactly once, found "+monitorChosenTimes);
         if(!allowed("app/src/main/java/org/openpressure/app/developer/DeveloperOptions.java") || allowed("app/src/main/java/org/openpressure/app/MonitorService.java")
                 || allowed("protocol/src/main/java/org/openpressure/protocol/DeviceWritePolicyHelper.java")) throw new AssertionError("allow-list matching");
         return ++checks;

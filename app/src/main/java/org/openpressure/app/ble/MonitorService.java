@@ -48,6 +48,8 @@ public final class MonitorService extends Service {
     public long clockSyncDriftSeconds;
     /** The preview relies on the developer override for an untested model; never set for a confirmed one. */
     public boolean clockSyncOverride;
+    /** The preview may offer a developer-chosen target time: the developer options were unlocked when it was built. */
+    public boolean clockSyncChosenTimeAllowed;
     public DeviceReport.WriteOutcome clockSyncOutcome=DeviceReport.WriteOutcome.NOT_ATTEMPTED;
     /** A forced (override) clock write was sent and reached an outcome; the UI may offer the device report. */
     public boolean offerReportAfterWrite;
@@ -1251,12 +1253,20 @@ public final class MonitorService extends Service {
         try { return DeveloperOptions.allowsUntested(this,WriteAspectIndex.Aspect.CLOCK_BLOCK); }
         catch(RuntimeException unavailable) { return false; }
     }
+    /**
+     * The only reading of the chosen-time permission; a locked or unreadable developer state counts as off. It only
+     * lets the user pick the target of a write the index already permits; it never permits a write by itself.
+     */
+    private boolean chosenClockTimeAllowed() {
+        try { return DeveloperOptions.allowsChosenClockTime(this); }
+        catch(RuntimeException unavailable) { return false; }
+    }
     /** Starts the clock-sync session: START and a read of the settings image. Nothing is written before confirmation. */
     public void beginClockSync() {
         if(!canClockSync()) return;
         clockSyncRunning=true; clockSyncPending=false; clockSyncUnreadable=false; clockSyncOutOfRange=false; clockSyncRecorded=false; offerReportAfterWrite=false;
         clockSyncOutcome=DeviceReport.WriteOutcome.NOT_ATTEMPTED; clockUpdate=ClockUpdate.NONE; clockWrite=null;
-        clockSyncMonitorClock=null; clockSyncPhoneClock=null; clockSyncDriftSeconds=0; clockSyncOverride=false;
+        clockSyncMonitorClock=null; clockSyncPhoneClock=null; clockSyncDriftSeconds=0; clockSyncOverride=false; clockSyncChosenTimeAllowed=false;
         try {
             if(profile==ProtocolProfile.VENDOR_MEMORY) {
                 vendorRead=new VendorWlpSession(vendorModel,Collections.singletonList(vendorModel.settingsRange()),Math.min(56,VendorWlpSession.maxBlock(vendorModel)));
@@ -1266,14 +1276,14 @@ public final class MonitorService extends Service {
         } catch(IllegalArgumentException ex) { fail("Could not start the clock sync: "+ex.getMessage()); }
     }
     /**
-     * Confirms the pending preview. {@code chosen==null} writes the phone time read now; a chosen time needs the
-     * developer override at this moment. The plan is rebuilt with the override read now.
+     * Confirms the pending preview. {@code chosen==null} writes the phone time read now; a chosen time needs unlocked
+     * developer options at this moment. The plan is rebuilt with the override read now.
      */
     public void confirmClockSync(LocalDateTime chosen) {
         if(!clockSyncRunning || !clockSyncPending || clockWrite==null || clockSyncImage==null) return;
-        if(chosen!=null && !developerOverride()) {
-            store.packet(address,"clock-sync",new byte[0],"Chosen clock time refused: the developer override is off");
-            detail="A chosen time requires the developer option. Confirm the phone time or cancel."; changed(); return;
+        if(chosen!=null && !chosenClockTimeAllowed()) {
+            store.packet(address,"clock-sync",new byte[0],"Chosen clock time refused: developer options are locked");
+            detail="A chosen time requires unlocked developer options. Confirm the phone time or cancel."; changed(); return;
         }
         String identity=WriteAspectIndex.resolve(verifiedModel);
         // The override read now is what the plan and report carry, including a withdrawn one; a confirmed model needs none.
@@ -1343,6 +1353,7 @@ public final class MonitorService extends Service {
         String identity=WriteAspectIndex.resolve(verifiedModel);
         boolean override=clockOverride(identity);
         clockSyncOverride=override;
+        clockSyncChosenTimeAllowed=chosenClockTimeAllowed();
         try {
             VendorClockWrite plan=new VendorClockWrite(identity,image,clockNow(),override,clockSyncChannels());
             clockWrite=plan; clockSyncImage=image.clone();

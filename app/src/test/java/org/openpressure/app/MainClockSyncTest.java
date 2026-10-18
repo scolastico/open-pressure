@@ -75,10 +75,13 @@ public class MainClockSyncTest {
         monitor.address=ADDRESS; monitor.connectedName="HEM-7155T"; monitor.status="Connected";
         app.store().remember(ADDRESS,"HEM-7155T","HEM-7155T",1);
     }
-    private void pending(LocalDateTime monitorClock,long drift,boolean override) {
+    /** An overridden untested preview implies unlocked developer options, so it also allows a chosen time. */
+    private void pending(LocalDateTime monitorClock,long drift,boolean override) { pending(monitorClock,drift,override,override); }
+    private void pending(LocalDateTime monitorClock,long drift,boolean override,boolean chosenTimeAllowed) {
         connected(ProtocolProfile.VENDOR_MEMORY);
         monitor.clockSyncRunning=true; monitor.clockSyncPending=true; monitor.status="Confirm clock sync";
-        monitor.clockSyncMonitorClock=monitorClock; monitor.clockSyncPhoneClock=PHONE; monitor.clockSyncDriftSeconds=drift; monitor.clockSyncOverride=override;
+        monitor.clockSyncMonitorClock=monitorClock; monitor.clockSyncPhoneClock=PHONE; monitor.clockSyncDriftSeconds=drift;
+        monitor.clockSyncOverride=override; monitor.clockSyncChosenTimeAllowed=chosenTimeAllowed;
     }
     private static void idle() { Shadows.shadowOf(Looper.getMainLooper()).idle(); }
     private Activity open(ActivityController<MainActivity> controller) {
@@ -191,7 +194,8 @@ public class MainClockSyncTest {
             assertTrue("The difference is shown as a positive number of seconds",hasText(view,drift(a,3600)));
             assertFalse(hasText(view,a.getString(R.string.clock_sync_within_threshold)));
             assertFalse(hasText(view,a.getString(R.string.clock_sync_untested_warning)));
-            assertNull("Only the developer option offers a chosen time",field(view));
+            assertNull("Only unlocked developer options offer a chosen time",field(view));
+            assertFalse(hasText(view,a.getString(R.string.clock_sync_choose_time)));
             assertEquals(a.getString(R.string.clock_sync_confirm),dialog.getButton(AlertDialog.BUTTON_POSITIVE).getText().toString());
             dialog.getButton(AlertDialog.BUTTON_POSITIVE).performClick(); idle();
             verify(monitor).confirmClockSync(null);
@@ -240,6 +244,32 @@ public class MainClockSyncTest {
             dialog.getButton(AlertDialog.BUTTON_POSITIVE).performClick(); idle();
             verify(monitor).confirmClockSync(LocalDateTime.of(2026,1,2,3,4,5));
             assertFalse(dialog.isShowing());
+        }
+    }
+    @Test public void confirmedModelWithUnlockedOptionsOffersOnlyTheChosenTime() {
+        pending(MONITOR,-3600,false,true);
+        try(ActivityController<MainActivity> controller=Robolectric.buildActivity(MainActivity.class)) {
+            Activity a=open(controller);
+            AlertDialog dialog=ShadowAlertDialog.getLatestAlertDialog();
+            View view=content(dialog);
+            assertFalse("A confirmed monitor shows no untested warning",hasText(view,a.getString(R.string.clock_sync_untested_warning)));
+            assertTrue(hasText(view,a.getString(R.string.clock_sync_choose_time)));
+            EditText time=field(view); assertNotNull(time);
+            assertEquals(format(a,PHONE),time.getText().toString());
+            time.setText("2026-01-02T03:04:05");
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE).performClick(); idle();
+            verify(monitor).confirmClockSync(LocalDateTime.of(2026,1,2,3,4,5));
+            assertFalse(dialog.isShowing());
+        }
+    }
+    @Test public void warningWithoutChosenTimeShowsNoField() {
+        pending(MONITOR,-3600,true,false);
+        try(ActivityController<MainActivity> controller=Robolectric.buildActivity(MainActivity.class)) {
+            Activity a=open(controller);
+            View view=content(ShadowAlertDialog.getLatestAlertDialog());
+            assertTrue(hasText(view,a.getString(R.string.clock_sync_untested_warning)));
+            assertFalse(hasText(view,a.getString(R.string.clock_sync_choose_time)));
+            assertNull(field(view));
         }
     }
     @Test public void unchangedPrefillConfirmsTheCurrentPhoneTime() {
@@ -332,6 +362,22 @@ public class MainClockSyncTest {
             offer.getButton(AlertDialog.BUTTON_NEGATIVE).performClick(); idle();
             button(root(a),a.getString(R.string.main_overview)).performClick(); idle();
             assertEquals(shown,ShadowDialog.getShownDialogs().size());
+        }
+    }
+    @Test public void confirmedX7WriteOffersNoDeviceReport() throws Exception {
+        connected(ProtocolProfile.X7_WLP);
+        monitor.connectedName="X7 Smart AFib";
+        monitor.ready=false; monitor.sessionFinished=true; monitor.status="Clock sync complete";
+        // The confirmed EOSL write did not rely on the override: the report exists but is not offered.
+        DeviceReport report=new DeviceReport("Connect","1.0",35,"Synthetic Phone");
+        report.service("0000fe4a-0000-1000-8000-00805f9b34fb",java.util.Collections.emptyList());
+        report.model("HEM-7380T1-EOSL");
+        report.writeAspect(org.openpressure.protocol.WriteAspectIndex.Aspect.CLOCK_BLOCK,DeviceReport.WriteOutcome.ACKNOWLEDGED,false);
+        java.lang.reflect.Field field=MonitorService.class.getDeclaredField("report"); field.setAccessible(true); field.set(monitor,report);
+        monitor.offerReportAfterWrite=false;
+        try(ActivityController<MainActivity> controller=Robolectric.buildActivity(MainActivity.class)) {
+            open(controller);
+            assertTrue(ShadowDialog.getShownDialogs().isEmpty());
         }
     }
     @Test public void noReportOfferWithoutAForcedWrite() {

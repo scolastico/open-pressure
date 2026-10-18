@@ -11,6 +11,8 @@ import org.openpressure.protocol.WriteAspectIndex.Aspect;
  * untested write aspects the user explicitly allowed. Storage only; it never talks
  * to a monitor. Only an explicit, aspect-specific request may consult
  * {@link #allowsUntested}; pairing, connecting and imports never do.
+ * {@link #allowsChosenClockTime} permits only choosing the target time of an explicitly
+ * confirmed Sync clock; it never permits a write that the write-aspect index does not permit.
  */
 public final class DeveloperOptions {
     public static final String PREFERENCES="developer";
@@ -34,6 +36,12 @@ public final class DeveloperOptions {
         String key=key(aspect);
         return preferences.getBoolean(UNLOCKED_KEY,false) && preferences.getBoolean(key,false);
     }
+
+    /**
+     * Whether an explicitly confirmed Sync clock may write a developer-chosen time instead of the phone time.
+     * Unlocked developer options suffice; it never permits a write the write-aspect index does not permit.
+     */
+    public static boolean allowsChosenClockTime(Context context) { return isUnlocked(context); }
 
     public static void setAllowUntested(Context context,Aspect aspect,boolean allowed) {
         String key=key(aspect);

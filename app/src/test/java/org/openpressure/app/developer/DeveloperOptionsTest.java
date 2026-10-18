@@ -54,6 +54,19 @@ public class DeveloperOptionsTest {
         assertFalse(DeveloperOptions.allowsUntested(context,Aspect.CLOCK_BLOCK));
         assertFalse(context.getSharedPreferences(DeveloperOptions.PREFERENCES,Context.MODE_PRIVATE).contains("allow_untested_clock_block"));
     }
+    @Test public void chosenClockTimeFollowsTheUnlockedState() {
+        assertFalse("locked by default",DeveloperOptions.allowsChosenClockTime(context));
+        DeveloperOptions.setUnlocked(context,true);
+        assertTrue("unlocked options suffice, without the clock switch",DeveloperOptions.allowsChosenClockTime(context));
+        DeveloperOptions.setAllowUntested(context,Aspect.CLOCK_BLOCK,true);
+        assertTrue(DeveloperOptions.allowsChosenClockTime(context));
+        DeveloperOptions.setAllowUntested(context,Aspect.CLOCK_BLOCK,false);
+        assertTrue("the clock switch does not affect it",DeveloperOptions.allowsChosenClockTime(context));
+        DeveloperOptions.setUnlocked(context,false);
+        assertFalse(DeveloperOptions.allowsChosenClockTime(context));
+        assertTrue(context.getSharedPreferences(DeveloperOptions.PREFERENCES,Context.MODE_PRIVATE).edit().putBoolean("allow_untested_clock_block",true).commit());
+        assertFalse("a stale clock switch never allows it while locked",DeveloperOptions.allowsChosenClockTime(context));
+    }
     @Test public void staleToggleIsIgnoredWhileLocked() {
         assertTrue(context.getSharedPreferences(DeveloperOptions.PREFERENCES,Context.MODE_PRIVATE).edit().putBoolean("allow_untested_clock_block",true).commit());
         assertFalse(DeveloperOptions.allowsUntested(context,Aspect.CLOCK_BLOCK));

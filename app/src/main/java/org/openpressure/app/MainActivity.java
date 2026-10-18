@@ -795,9 +795,9 @@ public final class MainActivity extends Activity {
             if(difference<=60) add(form,text(getString(R.string.clock_sync_within_threshold),14,MUTED,false),10);
         }
         EditText chosen=null;
-        // The service read the untested-write developer option for this preview and checks it again on confirmation.
-        if(monitor.clockSyncOverride) {
-            add(form,text(getString(R.string.clock_sync_untested_warning),14,INK,true),12);
+        // The service read the developer options for this preview and checks them again on confirmation.
+        if(monitor.clockSyncOverride) add(form,text(getString(R.string.clock_sync_untested_warning),14,INK,true),12);
+        if(monitor.clockSyncChosenTimeAllowed) {
             add(form,text(getString(R.string.clock_sync_choose_time),14,MUTED,false),12);
             chosen=input(getString(R.string.main_date_time_hint),prefill,false); add(form,chosen,6);
         }
