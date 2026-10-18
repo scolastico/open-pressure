@@ -468,6 +468,17 @@ public class MonitorServiceImportTest {
         assertEquals("History transfer complete",monitor.status); assertEquals(2,store.historyCount(0));
         assertFalse(monitor.unconfirmedBankSkipped);
     }
+    @Test public void readAllWithACorruptSlotEndsCompleteAndCountsIt() throws Exception {
+        byte[] corrupt=hex(RECORD_B); corrupt[14]^=1; put(0xa8,HexFormat.of().formatHex(corrupt));
+        connectManually(); monitor.readAllHistory();
+        assertEquals(40,sweepHistory().size());
+        finishWithClockAndEnd();
+        assertEquals(MonitorService.ImportMode.FULL_SWEEP,monitor.importMode);
+        assertEquals("every slot was read to END","History transfer complete",monitor.status);
+        assertEquals(1,monitor.rejectedSlots()); assertEquals(1,store.historyCount(0));
+        assertEquals(monitor.getString(R.string.monitor_import_complete),MonitorUi.title(monitor,monitor));
+        assertTrue(MonitorUi.detail(monitor,monitor).contains(monitor.getResources().getQuantityString(R.plurals.monitor_import_slots_unreadable,1,1)));
+    }
     @Test public void readAllRefusedDuringAutomaticImport() throws Exception {
         automaticAttempt(); connectWithSavedKey();
         assertFalse(monitor.canReadAll());

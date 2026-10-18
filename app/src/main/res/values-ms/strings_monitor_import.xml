@@ -7,13 +7,16 @@
     <string name="main_import_users">Ukuran untuk diimport</string>
     <string name="main_import_users_both">Kedua-dua pengguna</string>
     <string name="main_read_all">Baca semua</string>
-    <string name="main_read_all_explanation">Memeriksa setiap slot memori monitor, bukan hanya slot yang dilaporkan digunakan. Gunakan jika ukuran kelihatan hilang. Ia mengambil masa lebih lama, jadi simpan monitor berdekatan sehingga selesai.</string>
+    <string name="main_read_all_explanation">Memeriksa setiap slot memori pengguna yang dipilih untuk diimport, bukan hanya slot yang dilaporkan monitor sebagai digunakan. Gunakan jika ukuran kelihatan hilang. Ia mengambil masa lebih lama, jadi simpan monitor berdekatan sehingga selesai.</string>
     <string name="main_reading_all">Membaca semua…</string>
     <plurals name="monitor_import_mode_index">
-        <item quantity="other">Monitor melaporkan %1$d ukuran tersimpan.</item>
+        <item quantity="other">Monitor melaporkan %1$d ukuran tersimpan untuk pengguna yang dipilih.</item>
     </plurals>
     <string name="monitor_import_mode_fallback">Senarai ukuran tersimpan pada monitor tidak dapat digunakan, jadi setiap slot memori telah dibaca.</string>
     <string name="monitor_import_mode_sweep">Setiap slot memori telah dibaca.</string>
-    <string name="monitor_import_mode_empty">Monitor tidak melaporkan ukuran tersimpan. Gunakan Baca semua jika anda menjangkakan ada.</string>
+    <string name="monitor_import_mode_empty">Monitor tidak melaporkan ukuran tersimpan untuk pengguna yang dipilih. Gunakan Baca semua jika anda menjangkakan ada.</string>
     <string name="monitor_unconfirmed_bank_skipped">Kawasan memori kedua yang mungkin tiada pada model ini telah dilangkau.</string>
+    <plurals name="monitor_import_slots_unreadable">
+        <item quantity="other">%1$d slot memori tidak dapat dibaca.</item>
+    </plurals>
 </resources>

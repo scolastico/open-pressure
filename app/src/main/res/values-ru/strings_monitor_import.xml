@@ -7,16 +7,22 @@
     <string name="main_import_users">Какие измерения импортировать</string>
     <string name="main_import_users_both">Оба пользователя</string>
     <string name="main_read_all">Прочитать всё</string>
-    <string name="main_read_all_explanation">Проверяет каждую ячейку памяти тонометра, а не только те, которые он отмечает как занятые. Используйте, если кажется, что измерений не хватает. Это занимает больше времени, поэтому держите тонометр рядом до завершения.</string>
+    <string name="main_read_all_explanation">Проверяет каждую ячейку памяти выбранных для импорта пользователей, а не только те, которые тонометр отмечает как занятые. Используйте, если кажется, что измерений не хватает. Это занимает больше времени, поэтому держите тонометр рядом до завершения.</string>
     <string name="main_reading_all">Чтение всего…</string>
     <plurals name="monitor_import_mode_index">
-        <item quantity="few">Тонометр сообщил о сохранённых измерениях: %1$d.</item>
-        <item quantity="many">Тонометр сообщил о сохранённых измерениях: %1$d.</item>
-        <item quantity="one">Тонометр сообщил о сохранённых измерениях: %1$d.</item>
-        <item quantity="other">Тонометр сообщил о сохранённых измерениях: %1$d.</item>
+        <item quantity="few">Тонометр сообщил о сохранённых измерениях выбранных пользователей: %1$d.</item>
+        <item quantity="many">Тонометр сообщил о сохранённых измерениях выбранных пользователей: %1$d.</item>
+        <item quantity="one">Тонометр сообщил о сохранённых измерениях выбранных пользователей: %1$d.</item>
+        <item quantity="other">Тонометр сообщил о сохранённых измерениях выбранных пользователей: %1$d.</item>
     </plurals>
     <string name="monitor_import_mode_fallback">Не удалось использовать список сохранённых измерений тонометра, поэтому прочитана каждая ячейка памяти.</string>
     <string name="monitor_import_mode_sweep">Прочитана каждая ячейка памяти.</string>
-    <string name="monitor_import_mode_empty">Тонометр не сообщил о сохранённых измерениях. Используйте «Прочитать всё», если они должны быть.</string>
+    <string name="monitor_import_mode_empty">Тонометр не сообщил о сохранённых измерениях выбранных пользователей. Используйте «Прочитать всё», если они должны быть.</string>
     <string name="monitor_unconfirmed_bank_skipped">Пропущена вторая область памяти, которой у этой модели может не быть.</string>
+    <plurals name="monitor_import_slots_unreadable">
+        <item quantity="few">Не удалось прочитать %1$d ячейки памяти.</item>
+        <item quantity="many">Не удалось прочитать %1$d ячеек памяти.</item>
+        <item quantity="one">Не удалось прочитать %1$d ячейку памяти.</item>
+        <item quantity="other">Не удалось прочитать %1$d ячейки памяти.</item>
+    </plurals>
 </resources>

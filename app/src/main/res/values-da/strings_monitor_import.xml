@@ -7,14 +7,18 @@
     <string name="main_import_users">Målinger, der skal importeres</string>
     <string name="main_import_users_both">Begge brugere</string>
     <string name="main_read_all">Læs alt</string>
-    <string name="main_read_all_explanation">Tjekker hver hukommelsesplads i måleren, ikke kun dem, den angiver som brugt. Brug det, hvis der ser ud til at mangle målinger. Det tager længere tid, så hold måleren i nærheden, indtil det er færdigt.</string>
+    <string name="main_read_all_explanation">Tjekker hver hukommelsesplads for de brugere, der er valgt til import, ikke kun dem, måleren angiver som brugt. Brug det, hvis der ser ud til at mangle målinger. Det tager længere tid, så hold måleren i nærheden, indtil det er færdigt.</string>
     <string name="main_reading_all">Læser alt…</string>
     <plurals name="monitor_import_mode_index">
-        <item quantity="one">Måleren rapporterede %1$d gemt måling.</item>
-        <item quantity="other">Måleren rapporterede %1$d gemte målinger.</item>
+        <item quantity="one">Måleren rapporterede %1$d gemt måling for de valgte brugere.</item>
+        <item quantity="other">Måleren rapporterede %1$d gemte målinger for de valgte brugere.</item>
     </plurals>
     <string name="monitor_import_mode_fallback">Målerens liste over gemte målinger kunne ikke bruges, så hver hukommelsesplads blev læst.</string>
     <string name="monitor_import_mode_sweep">Hver hukommelsesplads blev læst.</string>
-    <string name="monitor_import_mode_empty">Måleren rapporterede ingen gemte målinger. Brug Læs alt, hvis du forventer nogle.</string>
+    <string name="monitor_import_mode_empty">Måleren rapporterede ingen gemte målinger for de valgte brugere. Brug Læs alt, hvis du forventer nogle.</string>
     <string name="monitor_unconfirmed_bank_skipped">Et andet hukommelsesområde, som denne model måske ikke har, blev sprunget over.</string>
+    <plurals name="monitor_import_slots_unreadable">
+        <item quantity="one">%1$d hukommelsesplads kunne ikke læses.</item>
+        <item quantity="other">%1$d hukommelsespladser kunne ikke læses.</item>
+    </plurals>
 </resources>

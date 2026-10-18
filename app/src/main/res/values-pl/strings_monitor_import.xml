@@ -7,16 +7,22 @@
     <string name="main_import_users">Pomiary do importu</string>
     <string name="main_import_users_both">Obaj użytkownicy</string>
     <string name="main_read_all">Odczytaj wszystko</string>
-    <string name="main_read_all_explanation">Sprawdza każde miejsce w pamięci ciśnieniomierza, nie tylko te, które oznacza jako zajęte. Użyj, jeśli wydaje się, że brakuje pomiarów. Trwa to dłużej, więc trzymaj ciśnieniomierz w pobliżu do końca.</string>
+    <string name="main_read_all_explanation">Sprawdza każde miejsce w pamięci użytkowników wybranych do importu, nie tylko te, które ciśnieniomierz oznacza jako zajęte. Użyj, jeśli wydaje się, że brakuje pomiarów. Trwa to dłużej, więc trzymaj ciśnieniomierz w pobliżu do końca.</string>
     <string name="main_reading_all">Odczytywanie wszystkiego…</string>
     <plurals name="monitor_import_mode_index">
-        <item quantity="few">Ciśnieniomierz zgłosił %1$d zapisane pomiary.</item>
-        <item quantity="many">Ciśnieniomierz zgłosił %1$d zapisanych pomiarów.</item>
-        <item quantity="one">Ciśnieniomierz zgłosił %1$d zapisany pomiar.</item>
-        <item quantity="other">Ciśnieniomierz zgłosił %1$d zapisanego pomiaru.</item>
+        <item quantity="few">Ciśnieniomierz zgłosił %1$d zapisane pomiary wybranych użytkowników.</item>
+        <item quantity="many">Ciśnieniomierz zgłosił %1$d zapisanych pomiarów wybranych użytkowników.</item>
+        <item quantity="one">Ciśnieniomierz zgłosił %1$d zapisany pomiar wybranych użytkowników.</item>
+        <item quantity="other">Ciśnieniomierz zgłosił %1$d zapisanego pomiaru wybranych użytkowników.</item>
     </plurals>
     <string name="monitor_import_mode_fallback">Nie udało się użyć listy zapisanych pomiarów ciśnieniomierza, więc odczytano każde miejsce w pamięci.</string>
     <string name="monitor_import_mode_sweep">Odczytano każde miejsce w pamięci.</string>
-    <string name="monitor_import_mode_empty">Ciśnieniomierz nie zgłosił zapisanych pomiarów. Użyj Odczytaj wszystko, jeśli się ich spodziewasz.</string>
+    <string name="monitor_import_mode_empty">Ciśnieniomierz nie zgłosił zapisanych pomiarów wybranych użytkowników. Użyj Odczytaj wszystko, jeśli się ich spodziewasz.</string>
     <string name="monitor_unconfirmed_bank_skipped">Pominięto drugi obszar pamięci, którego ten model może nie mieć.</string>
+    <plurals name="monitor_import_slots_unreadable">
+        <item quantity="few">Nie udało się odczytać %1$d miejsc w pamięci.</item>
+        <item quantity="many">Nie udało się odczytać %1$d miejsc w pamięci.</item>
+        <item quantity="one">Nie udało się odczytać %1$d miejsca w pamięci.</item>
+        <item quantity="other">Nie udało się odczytać %1$d miejsca w pamięci.</item>
+    </plurals>
 </resources>

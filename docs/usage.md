@@ -42,10 +42,11 @@ After an import the summary explains how slots were chosen:
 
 | Summary | Meaning |
 | --- | --- |
-| The monitor reported *N* stored readings. | The monitor's list was used; *N* slots were read for the chosen users. Empty slots among them are skipped. |
-| The monitor reported no stored readings. Use Read all if you expect some. | The list was empty, so nothing was read. |
+| The monitor reported *N* stored readings for the chosen users. | The monitor's list was used; *N* slots were read for the chosen users. Empty slots among them are skipped. |
+| The monitor reported no stored readings for the chosen users. Use Read all if you expect some. | The list was empty, so nothing was read. |
 | The monitor's list of stored readings could not be used, so every memory slot was read. | The list looked inconsistent or could not be read; every slot of the chosen users was read instead. |
 | Every memory slot was read. | Read all, or a model without a usable list. |
+| *N* memory slots could not be read. | Read all, or a model without a usable list, reached the end of the transfer, but *N* slots held damaged data. The import still counts as complete and the other readings are saved. An automatic import with damaged slots is not marked as done, so it is tried again later. When the monitor's list was used, damaged slots make the import incomplete instead. |
 | A second memory area this model may not have was skipped. | HEM-7156T only: Read all found no answer for its second area. It appears together with "Every memory slot was read." |
 
 These import paths are built from source evidence and checked with synthetic tests only; they have not been tried on a physical monitor of these models.

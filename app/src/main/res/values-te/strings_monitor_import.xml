@@ -7,14 +7,18 @@
     <string name="main_import_users">దిగుమతి చేయాల్సిన కొలతలు</string>
     <string name="main_import_users_both">ఇద్దరు వినియోగదారులు</string>
     <string name="main_read_all">అన్నీ చదవండి</string>
-    <string name="main_read_all_explanation">మానిటర్ వాడినట్లు చెప్పే స్థానాలను మాత్రమే కాకుండా, దాని మెమరీలోని ప్రతి స్థానాన్ని తనిఖీ చేస్తుంది. కొలతలు తప్పిపోయినట్లు అనిపిస్తే దీన్ని ఉపయోగించండి. దీనికి ఎక్కువ సమయం పడుతుంది, కాబట్టి పూర్తయ్యే వరకు మానిటర్‌ను దగ్గరగా ఉంచండి.</string>
+    <string name="main_read_all_explanation">దిగుమతి కోసం ఎంచుకున్న వినియోగదారుల మెమరీలోని ప్రతి స్థానాన్ని తనిఖీ చేస్తుంది, మానిటర్ వాడినట్లు చెప్పే స్థానాలను మాత్రమే కాదు. కొలతలు తప్పిపోయినట్లు అనిపిస్తే దీన్ని ఉపయోగించండి. దీనికి ఎక్కువ సమయం పడుతుంది, కాబట్టి పూర్తయ్యే వరకు మానిటర్‌ను దగ్గరగా ఉంచండి.</string>
     <string name="main_reading_all">అన్నీ చదువుతోంది…</string>
     <plurals name="monitor_import_mode_index">
-        <item quantity="one">మానిటర్ %1$d సేవ్ చేసిన కొలతను నివేదించింది.</item>
-        <item quantity="other">మానిటర్ %1$d సేవ్ చేసిన కొలతలను నివేదించింది.</item>
+        <item quantity="one">ఎంచుకున్న వినియోగదారుల కోసం మానిటర్ %1$d సేవ్ చేసిన కొలతను నివేదించింది.</item>
+        <item quantity="other">ఎంచుకున్న వినియోగదారుల కోసం మానిటర్ %1$d సేవ్ చేసిన కొలతలను నివేదించింది.</item>
     </plurals>
     <string name="monitor_import_mode_fallback">మానిటర్‌లో సేవ్ చేసిన కొలతల జాబితాను ఉపయోగించలేకపోయాము, కాబట్టి మెమరీలోని ప్రతి స్థానం చదవబడింది.</string>
     <string name="monitor_import_mode_sweep">మెమరీలోని ప్రతి స్థానం చదవబడింది.</string>
-    <string name="monitor_import_mode_empty">మానిటర్ సేవ్ చేసిన కొలతలేవీ నివేదించలేదు. కొన్ని ఉంటాయని ఆశిస్తే అన్నీ చదవండి ఉపయోగించండి.</string>
+    <string name="monitor_import_mode_empty">ఎంచుకున్న వినియోగదారుల కోసం మానిటర్ సేవ్ చేసిన కొలతలేవీ నివేదించలేదు. కొన్ని ఉంటాయని ఆశిస్తే అన్నీ చదవండి ఉపయోగించండి.</string>
     <string name="monitor_unconfirmed_bank_skipped">ఈ మోడల్‌కు ఉండకపోవచ్చు అయిన రెండవ మెమరీ ప్రాంతం దాటవేయబడింది.</string>
+    <plurals name="monitor_import_slots_unreadable">
+        <item quantity="one">మెమరీలోని %1$d స్థానాన్ని చదవలేకపోయింది.</item>
+        <item quantity="other">మెమరీలోని %1$d స్థానాలను చదవలేకపోయింది.</item>
+    </plurals>
 </resources>

@@ -7,14 +7,18 @@
     <string name="main_import_users">Te importeren metingen</string>
     <string name="main_import_users_both">Beide gebruikers</string>
     <string name="main_read_all">Alles lezen</string>
-    <string name="main_read_all_explanation">Controleert elke geheugenplaats van de bloeddrukmeter, niet alleen de plaatsen die hij als gebruikt meldt. Gebruik dit als er metingen lijken te ontbreken. Het duurt langer, dus houd de meter in de buurt tot het klaar is.</string>
+    <string name="main_read_all_explanation">Controleert elke geheugenplaats van de gebruikers die je wilt importeren, niet alleen de plaatsen die de meter als gebruikt meldt. Gebruik dit als er metingen lijken te ontbreken. Het duurt langer, dus houd de meter in de buurt tot het klaar is.</string>
     <string name="main_reading_all">Alles wordt gelezen…</string>
     <plurals name="monitor_import_mode_index">
-        <item quantity="one">De meter meldt %1$d opgeslagen meting.</item>
-        <item quantity="other">De meter meldt %1$d opgeslagen metingen.</item>
+        <item quantity="one">De meter meldt %1$d opgeslagen meting voor de gekozen gebruikers.</item>
+        <item quantity="other">De meter meldt %1$d opgeslagen metingen voor de gekozen gebruikers.</item>
     </plurals>
     <string name="monitor_import_mode_fallback">De lijst met opgeslagen metingen van de meter kon niet worden gebruikt, dus elke geheugenplaats is gelezen.</string>
     <string name="monitor_import_mode_sweep">Elke geheugenplaats is gelezen.</string>
-    <string name="monitor_import_mode_empty">De meter meldt geen opgeslagen metingen. Gebruik Alles lezen als je die wel verwacht.</string>
+    <string name="monitor_import_mode_empty">De meter meldt geen opgeslagen metingen voor de gekozen gebruikers. Gebruik Alles lezen als je die wel verwacht.</string>
     <string name="monitor_unconfirmed_bank_skipped">Een tweede geheugengebied dat dit model mogelijk niet heeft, is overgeslagen.</string>
+    <plurals name="monitor_import_slots_unreadable">
+        <item quantity="one">%1$d geheugenplaats kon niet worden gelezen.</item>
+        <item quantity="other">%1$d geheugenplaatsen konden niet worden gelezen.</item>
+    </plurals>
 </resources>

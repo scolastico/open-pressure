@@ -7,13 +7,16 @@
     <string name="main_import_users">Àwọn ìwọ̀n láti gbé wọlé</string>
     <string name="main_import_users_both">Àwọn aṣàmúlò méjèèjì</string>
     <string name="main_read_all">Ka gbogbo rẹ̀</string>
-    <string name="main_read_all_explanation">Ó ń ṣàyẹ̀wò gbogbo àyè ìrántí ẹ̀rọ náà, kì í ṣe àwọn tí ó sọ pé a ti lò nìkan. Lò ó tí ó bá dàbí pé àwọn ìwọ̀n kan sọnù. Ó máa ń pẹ́ jù, nítorí náà jẹ́ kí ẹ̀rọ náà wà nítòsí títí yóò fi parí.</string>
+    <string name="main_read_all_explanation">Ó ń ṣàyẹ̀wò gbogbo àyè ìrántí àwọn aṣàmúlò tí a yàn láti gbé wọlé, kì í ṣe àwọn tí ẹ̀rọ náà sọ pé a ti lò nìkan. Lò ó tí ó bá dàbí pé àwọn ìwọ̀n kan sọnù. Ó máa ń pẹ́ jù, nítorí náà jẹ́ kí ẹ̀rọ náà wà nítòsí títí yóò fi parí.</string>
     <string name="main_reading_all">Ń ka gbogbo rẹ̀…</string>
     <plurals name="monitor_import_mode_index">
-        <item quantity="other">Ẹ̀rọ náà ròyìn ìwọ̀n %1$d tí a fipamọ́.</item>
+        <item quantity="other">Ẹ̀rọ náà ròyìn ìwọ̀n %1$d tí a fipamọ́ fún àwọn aṣàmúlò tí a yàn.</item>
     </plurals>
     <string name="monitor_import_mode_fallback">A kò lè lo àkójọ ìwọ̀n tí ẹ̀rọ náà fipamọ́, nítorí náà a ka gbogbo àyè ìrántí.</string>
     <string name="monitor_import_mode_sweep">A ka gbogbo àyè ìrántí.</string>
-    <string name="monitor_import_mode_empty">Ẹ̀rọ náà kò ròyìn ìwọ̀n tí a fipamọ́ kankan. Lo Ka gbogbo rẹ̀ tí o bá retí pé ó yẹ kí ó wà.</string>
+    <string name="monitor_import_mode_empty">Ẹ̀rọ náà kò ròyìn ìwọ̀n tí a fipamọ́ kankan fún àwọn aṣàmúlò tí a yàn. Lo Ka gbogbo rẹ̀ tí o bá retí pé ó yẹ kí ó wà.</string>
     <string name="monitor_unconfirmed_bank_skipped">A fo agbègbè ìrántí kejì kan tí àwòṣe yìí lè má ní.</string>
+    <plurals name="monitor_import_slots_unreadable">
+        <item quantity="other">A kò lè ka àyè ìrántí %1$d.</item>
+    </plurals>
 </resources>

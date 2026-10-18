@@ -44,6 +44,8 @@ public final class MonitorService extends Service {
     public volatile ImportMode importMode=ImportMode.NONE;
     /** Users to import (bitmask: 1 = user 1, 2 = user 2) for the current session. */
     public int importUsers=3;
+    /** Slots of the last transfer whose contents were rejected (unreadable records). */
+    public int rejectedSlots() { return wlpRejected; }
     /** Populated slots the index reported for the selected users when {@link #importMode} is INDEX, else -1. */
     public int indexStoredCount=-1;
     /** Read all skipped a memory bank absent from Omron's configuration after it did not answer. */
@@ -893,7 +895,9 @@ public final class MonitorService extends Service {
         storedCount=receivedInTransfer;
         if(report!=null && !automaticConnection) report.transfer(receivedInTransfer,wlpRejected,ended);
         finishAutomaticAttempt(ended && wlpRejected==0);
-        state(wlpRejected==0?"History transfer complete":"History transfer incomplete",
+        // A sweep that read every slot to END is complete even if some slots were unreadable; the summary counts them.
+        boolean sweep=importMode==ImportMode.FULL_SWEEP || importMode==ImportMode.FULL_READ;
+        state(wlpRejected==0 || ended && sweep?"History transfer complete":"History transfer incomplete",
             addedInTransfer+" new readings accepted · "+receivedInTransfer+" decoded · "+wlpRejected+" rejected slots. Erased slots were skipped. "+vendorClockResult+
             (ended?" The monitor acknowledged END.":" Session END was not acknowledged.")+" Import mode: "+importMode+
             (importMode==ImportMode.INDEX?" ("+indexStoredCount+" populated slots).":".")+(unconfirmedBankSkipped?" Unconfirmed bank skipped.":"")+" Reconnect for another transfer.");

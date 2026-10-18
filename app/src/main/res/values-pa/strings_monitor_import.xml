@@ -7,14 +7,18 @@
     <string name="main_import_users">ਆਯਾਤ ਕਰਨ ਲਈ ਮਾਪ</string>
     <string name="main_import_users_both">ਦੋਵੇਂ ਵਰਤੋਂਕਾਰ</string>
     <string name="main_read_all">ਸਭ ਪੜ੍ਹੋ</string>
-    <string name="main_read_all_explanation">ਮਾਨੀਟਰ ਦੀ ਮੈਮੋਰੀ ਦੀ ਹਰ ਥਾਂ ਨੂੰ ਜਾਂਚਦਾ ਹੈ, ਸਿਰਫ਼ ਉਹਨਾਂ ਨੂੰ ਨਹੀਂ ਜਿਨ੍ਹਾਂ ਨੂੰ ਇਹ ਵਰਤੀਆਂ ਦੱਸਦਾ ਹੈ। ਜੇ ਮਾਪ ਗੁੰਮ ਲੱਗਣ ਤਾਂ ਇਸਨੂੰ ਵਰਤੋ। ਇਸ ਵਿੱਚ ਵੱਧ ਸਮਾਂ ਲੱਗਦਾ ਹੈ, ਇਸ ਲਈ ਪੂਰਾ ਹੋਣ ਤੱਕ ਮਾਨੀਟਰ ਨੇੜੇ ਰੱਖੋ।</string>
+    <string name="main_read_all_explanation">ਆਯਾਤ ਲਈ ਚੁਣੇ ਵਰਤੋਂਕਾਰਾਂ ਦੀ ਮੈਮੋਰੀ ਦੀ ਹਰ ਥਾਂ ਨੂੰ ਜਾਂਚਦਾ ਹੈ, ਸਿਰਫ਼ ਉਹਨਾਂ ਨੂੰ ਨਹੀਂ ਜਿਨ੍ਹਾਂ ਨੂੰ ਮਾਨੀਟਰ ਵਰਤੀਆਂ ਦੱਸਦਾ ਹੈ। ਜੇ ਮਾਪ ਗੁੰਮ ਲੱਗਣ ਤਾਂ ਇਸਨੂੰ ਵਰਤੋ। ਇਸ ਵਿੱਚ ਵੱਧ ਸਮਾਂ ਲੱਗਦਾ ਹੈ, ਇਸ ਲਈ ਪੂਰਾ ਹੋਣ ਤੱਕ ਮਾਨੀਟਰ ਨੇੜੇ ਰੱਖੋ।</string>
     <string name="main_reading_all">ਸਭ ਪੜ੍ਹਿਆ ਜਾ ਰਿਹਾ ਹੈ…</string>
     <plurals name="monitor_import_mode_index">
-        <item quantity="one">ਮਾਨੀਟਰ ਨੇ %1$d ਸੁਰੱਖਿਅਤ ਮਾਪ ਦੱਸਿਆ।</item>
-        <item quantity="other">ਮਾਨੀਟਰ ਨੇ %1$d ਸੁਰੱਖਿਅਤ ਮਾਪ ਦੱਸੇ।</item>
+        <item quantity="one">ਮਾਨੀਟਰ ਨੇ ਚੁਣੇ ਵਰਤੋਂਕਾਰਾਂ ਲਈ %1$d ਸੁਰੱਖਿਅਤ ਮਾਪ ਦੱਸਿਆ।</item>
+        <item quantity="other">ਮਾਨੀਟਰ ਨੇ ਚੁਣੇ ਵਰਤੋਂਕਾਰਾਂ ਲਈ %1$d ਸੁਰੱਖਿਅਤ ਮਾਪ ਦੱਸੇ।</item>
     </plurals>
     <string name="monitor_import_mode_fallback">ਮਾਨੀਟਰ ਦੀ ਸੁਰੱਖਿਅਤ ਮਾਪਾਂ ਦੀ ਸੂਚੀ ਵਰਤੀ ਨਹੀਂ ਜਾ ਸਕੀ, ਇਸ ਲਈ ਮੈਮੋਰੀ ਦੀ ਹਰ ਥਾਂ ਪੜ੍ਹੀ ਗਈ।</string>
     <string name="monitor_import_mode_sweep">ਮੈਮੋਰੀ ਦੀ ਹਰ ਥਾਂ ਪੜ੍ਹੀ ਗਈ।</string>
-    <string name="monitor_import_mode_empty">ਮਾਨੀਟਰ ਨੇ ਕੋਈ ਸੁਰੱਖਿਅਤ ਮਾਪ ਨਹੀਂ ਦੱਸਿਆ। ਜੇ ਤੁਹਾਨੂੰ ਕੁਝ ਦੀ ਉਮੀਦ ਹੈ ਤਾਂ ਸਭ ਪੜ੍ਹੋ ਵਰਤੋ।</string>
+    <string name="monitor_import_mode_empty">ਮਾਨੀਟਰ ਨੇ ਚੁਣੇ ਵਰਤੋਂਕਾਰਾਂ ਲਈ ਕੋਈ ਸੁਰੱਖਿਅਤ ਮਾਪ ਨਹੀਂ ਦੱਸਿਆ। ਜੇ ਤੁਹਾਨੂੰ ਕੁਝ ਦੀ ਉਮੀਦ ਹੈ ਤਾਂ ਸਭ ਪੜ੍ਹੋ ਵਰਤੋ।</string>
     <string name="monitor_unconfirmed_bank_skipped">ਇੱਕ ਦੂਜਾ ਮੈਮੋਰੀ ਖੇਤਰ, ਜੋ ਸ਼ਾਇਦ ਇਸ ਮਾਡਲ ਵਿੱਚ ਨਹੀਂ ਹੈ, ਛੱਡ ਦਿੱਤਾ ਗਿਆ।</string>
+    <plurals name="monitor_import_slots_unreadable">
+        <item quantity="one">ਮੈਮੋਰੀ ਦੀ %1$d ਥਾਂ ਪੜ੍ਹੀ ਨਹੀਂ ਜਾ ਸਕੀ।</item>
+        <item quantity="other">ਮੈਮੋਰੀ ਦੀਆਂ %1$d ਥਾਵਾਂ ਪੜ੍ਹੀਆਂ ਨਹੀਂ ਜਾ ਸਕੀਆਂ।</item>
+    </plurals>
 </resources>

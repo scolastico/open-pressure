@@ -7,14 +7,18 @@
     <string name="main_import_users">Μετρήσεις για εισαγωγή</string>
     <string name="main_import_users_both">Και οι δύο χρήστες</string>
     <string name="main_read_all">Ανάγνωση όλων</string>
-    <string name="main_read_all_explanation">Ελέγχει κάθε θέση μνήμης του πιεσόμετρου, όχι μόνο όσες αναφέρει ως χρησιμοποιημένες. Χρησιμοποιήστε το αν φαίνεται να λείπουν μετρήσεις. Διαρκεί περισσότερο, οπότε κρατήστε το πιεσόμετρο κοντά μέχρι να ολοκληρωθεί.</string>
+    <string name="main_read_all_explanation">Ελέγχει κάθε θέση μνήμης των χρηστών που επιλέχθηκαν για εισαγωγή, όχι μόνο όσες το πιεσόμετρο αναφέρει ως χρησιμοποιημένες. Χρησιμοποιήστε το αν φαίνεται να λείπουν μετρήσεις. Διαρκεί περισσότερο, οπότε κρατήστε το πιεσόμετρο κοντά μέχρι να ολοκληρωθεί.</string>
     <string name="main_reading_all">Ανάγνωση όλων…</string>
     <plurals name="monitor_import_mode_index">
-        <item quantity="one">Το πιεσόμετρο ανέφερε %1$d αποθηκευμένη μέτρηση.</item>
-        <item quantity="other">Το πιεσόμετρο ανέφερε %1$d αποθηκευμένες μετρήσεις.</item>
+        <item quantity="one">Το πιεσόμετρο ανέφερε %1$d αποθηκευμένη μέτρηση για τους επιλεγμένους χρήστες.</item>
+        <item quantity="other">Το πιεσόμετρο ανέφερε %1$d αποθηκευμένες μετρήσεις για τους επιλεγμένους χρήστες.</item>
     </plurals>
     <string name="monitor_import_mode_fallback">Η λίστα αποθηκευμένων μετρήσεων του πιεσόμετρου δεν μπόρεσε να χρησιμοποιηθεί, οπότε διαβάστηκε κάθε θέση μνήμης.</string>
     <string name="monitor_import_mode_sweep">Διαβάστηκε κάθε θέση μνήμης.</string>
-    <string name="monitor_import_mode_empty">Το πιεσόμετρο δεν ανέφερε αποθηκευμένες μετρήσεις. Χρησιμοποιήστε την Ανάγνωση όλων αν περιμένετε κάποιες.</string>
+    <string name="monitor_import_mode_empty">Το πιεσόμετρο δεν ανέφερε αποθηκευμένες μετρήσεις για τους επιλεγμένους χρήστες. Χρησιμοποιήστε την Ανάγνωση όλων αν περιμένετε κάποιες.</string>
     <string name="monitor_unconfirmed_bank_skipped">Παραλείφθηκε μια δεύτερη περιοχή μνήμης που αυτό το μοντέλο ίσως δεν έχει.</string>
+    <plurals name="monitor_import_slots_unreadable">
+        <item quantity="one">Δεν ήταν δυνατή η ανάγνωση %1$d θέσης μνήμης.</item>
+        <item quantity="other">Δεν ήταν δυνατή η ανάγνωση %1$d θέσεων μνήμης.</item>
+    </plurals>
 </resources>

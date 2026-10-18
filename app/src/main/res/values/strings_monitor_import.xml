@@ -7,14 +7,18 @@
     <string name="main_import_users">Readings to import</string>
     <string name="main_import_users_both">Both users</string>
     <string name="main_read_all">Read all</string>
-    <string name="main_read_all_explanation">Checks every memory slot on the monitor, not only the ones it reports as used. Use this if readings seem to be missing. It takes longer, so keep the monitor nearby until it finishes.</string>
+    <string name="main_read_all_explanation">Checks every memory slot of the users chosen to import, not only the ones the monitor reports as used. Use this if readings seem to be missing. It takes longer, so keep the monitor nearby until it finishes.</string>
     <string name="main_reading_all">Reading all…</string>
     <plurals name="monitor_import_mode_index">
-        <item quantity="one">The monitor reported %1$d stored reading.</item>
-        <item quantity="other">The monitor reported %1$d stored readings.</item>
+        <item quantity="one">The monitor reported %1$d stored reading for the chosen users.</item>
+        <item quantity="other">The monitor reported %1$d stored readings for the chosen users.</item>
     </plurals>
     <string name="monitor_import_mode_fallback">The monitor\'s list of stored readings could not be used, so every memory slot was read.</string>
     <string name="monitor_import_mode_sweep">Every memory slot was read.</string>
-    <string name="monitor_import_mode_empty">The monitor reported no stored readings. Use Read all if you expect some.</string>
+    <string name="monitor_import_mode_empty">The monitor reported no stored readings for the chosen users. Use Read all if you expect some.</string>
     <string name="monitor_unconfirmed_bank_skipped">A second memory area this model may not have was skipped.</string>
+    <plurals name="monitor_import_slots_unreadable">
+        <item quantity="one">%1$d memory slot could not be read.</item>
+        <item quantity="other">%1$d memory slots could not be read.</item>
+    </plurals>
 </resources>

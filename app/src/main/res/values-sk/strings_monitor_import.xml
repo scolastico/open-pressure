@@ -7,16 +7,22 @@
     <string name="main_import_users">Merania na import</string>
     <string name="main_import_users_both">Obaja používatelia</string>
     <string name="main_read_all">Prečítať všetko</string>
-    <string name="main_read_all_explanation">Skontroluje každé miesto v pamäti tlakomera, nielen tie, ktoré označuje ako použité. Použite, ak sa zdá, že merania chýbajú. Trvá to dlhšie, preto majte tlakomer nablízku až do konca.</string>
+    <string name="main_read_all_explanation">Skontroluje každé miesto v pamäti používateľov vybraných na import, nielen tie, ktoré tlakomer označuje ako použité. Použite, ak sa zdá, že merania chýbajú. Trvá to dlhšie, preto majte tlakomer nablízku až do konca.</string>
     <string name="main_reading_all">Čítanie všetkého…</string>
     <plurals name="monitor_import_mode_index">
-        <item quantity="few">Tlakomer hlási %1$d uložené merania.</item>
-        <item quantity="many">Tlakomer hlási %1$d uloženého merania.</item>
-        <item quantity="one">Tlakomer hlási %1$d uložené meranie.</item>
-        <item quantity="other">Tlakomer hlási %1$d uložených meraní.</item>
+        <item quantity="few">Tlakomer hlási %1$d uložené merania vybraných používateľov.</item>
+        <item quantity="many">Tlakomer hlási %1$d uloženého merania vybraných používateľov.</item>
+        <item quantity="one">Tlakomer hlási %1$d uložené meranie vybraných používateľov.</item>
+        <item quantity="other">Tlakomer hlási %1$d uložených meraní vybraných používateľov.</item>
     </plurals>
     <string name="monitor_import_mode_fallback">Zoznam uložených meraní v tlakomeri nebolo možné použiť, preto sa prečítalo každé miesto v pamäti.</string>
     <string name="monitor_import_mode_sweep">Prečítalo sa každé miesto v pamäti.</string>
-    <string name="monitor_import_mode_empty">Tlakomer nehlási žiadne uložené merania. Ak nejaké očakávate, použite Prečítať všetko.</string>
+    <string name="monitor_import_mode_empty">Tlakomer nehlási žiadne uložené merania vybraných používateľov. Ak nejaké očakávate, použite Prečítať všetko.</string>
     <string name="monitor_unconfirmed_bank_skipped">Druhá oblasť pamäte, ktorú tento model možno nemá, bola preskočená.</string>
+    <plurals name="monitor_import_slots_unreadable">
+        <item quantity="few">%1$d miesta v pamäti sa nepodarilo prečítať.</item>
+        <item quantity="many">%1$d miesta v pamäti sa nepodarilo prečítať.</item>
+        <item quantity="one">%1$d miesto v pamäti sa nepodarilo prečítať.</item>
+        <item quantity="other">%1$d miest v pamäti sa nepodarilo prečítať.</item>
+    </plurals>
 </resources>

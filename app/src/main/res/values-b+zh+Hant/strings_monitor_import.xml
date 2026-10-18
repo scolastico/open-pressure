@@ -7,13 +7,16 @@
     <string name="main_import_users">要匯入的測量值</string>
     <string name="main_import_users_both">兩位使用者</string>
     <string name="main_read_all">全部讀取</string>
-    <string name="main_read_all_explanation">檢查血壓計的每個儲存位置，而不只是它回報為已使用的位置。如果似乎缺少測量值，請使用此功能。所需時間較長，請在完成前將血壓計放在附近。</string>
+    <string name="main_read_all_explanation">檢查所選匯入使用者的每個儲存位置，而不只是血壓計回報為已使用的位置。如果似乎缺少測量值，請使用此功能。所需時間較長，請在完成前將血壓計放在附近。</string>
     <string name="main_reading_all">正在全部讀取…</string>
     <plurals name="monitor_import_mode_index">
-        <item quantity="other">血壓計回報已儲存 %1$d 個測量值。</item>
+        <item quantity="other">血壓計回報所選使用者已儲存 %1$d 個測量值。</item>
     </plurals>
     <string name="monitor_import_mode_fallback">無法使用血壓計的已儲存測量值清單，因此已讀取每個儲存位置。</string>
     <string name="monitor_import_mode_sweep">已讀取每個儲存位置。</string>
-    <string name="monitor_import_mode_empty">血壓計回報沒有已儲存的測量值。如果您認為應該有，請使用全部讀取。</string>
+    <string name="monitor_import_mode_empty">血壓計回報所選使用者沒有已儲存的測量值。如果您認為應該有，請使用全部讀取。</string>
     <string name="monitor_unconfirmed_bank_skipped">已略過此型號可能沒有的第二個儲存區域。</string>
+    <plurals name="monitor_import_slots_unreadable">
+        <item quantity="other">有 %1$d 個儲存位置無法讀取。</item>
+    </plurals>
 </resources>

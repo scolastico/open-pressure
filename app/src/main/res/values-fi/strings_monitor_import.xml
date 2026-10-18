@@ -7,14 +7,18 @@
     <string name="main_import_users">Tuotavat mittaukset</string>
     <string name="main_import_users_both">Molemmat käyttäjät</string>
     <string name="main_read_all">Lue kaikki</string>
-    <string name="main_read_all_explanation">Tarkistaa mittarin jokaisen muistipaikan, ei vain niitä, jotka se ilmoittaa käytetyiksi. Käytä tätä, jos mittauksia näyttää puuttuvan. Se kestää pidempään, joten pidä mittari lähellä, kunnes se on valmis.</string>
+    <string name="main_read_all_explanation">Tarkistaa tuotaviksi valittujen käyttäjien jokaisen muistipaikan, ei vain niitä, jotka mittari ilmoittaa käytetyiksi. Käytä tätä, jos mittauksia näyttää puuttuvan. Se kestää pidempään, joten pidä mittari lähellä, kunnes se on valmis.</string>
     <string name="main_reading_all">Luetaan kaikkea…</string>
     <plurals name="monitor_import_mode_index">
-        <item quantity="one">Mittari ilmoitti %1$d tallennetun mittauksen.</item>
-        <item quantity="other">Mittari ilmoitti %1$d tallennettua mittausta.</item>
+        <item quantity="one">Mittari ilmoitti valituille käyttäjille %1$d tallennetun mittauksen.</item>
+        <item quantity="other">Mittari ilmoitti valituille käyttäjille %1$d tallennettua mittausta.</item>
     </plurals>
     <string name="monitor_import_mode_fallback">Mittarin tallennettujen mittausten luetteloa ei voitu käyttää, joten jokainen muistipaikka luettiin.</string>
     <string name="monitor_import_mode_sweep">Jokainen muistipaikka luettiin.</string>
-    <string name="monitor_import_mode_empty">Mittari ei ilmoittanut tallennettuja mittauksia. Käytä Lue kaikki -toimintoa, jos odotat niitä.</string>
+    <string name="monitor_import_mode_empty">Mittari ei ilmoittanut valituille käyttäjille tallennettuja mittauksia. Käytä Lue kaikki -toimintoa, jos odotat niitä.</string>
     <string name="monitor_unconfirmed_bank_skipped">Toinen muistialue, jota tällä mallilla ei ehkä ole, ohitettiin.</string>
+    <plurals name="monitor_import_slots_unreadable">
+        <item quantity="one">%1$d muistipaikkaa ei voitu lukea.</item>
+        <item quantity="other">%1$d muistipaikkaa ei voitu lukea.</item>
+    </plurals>
 </resources>

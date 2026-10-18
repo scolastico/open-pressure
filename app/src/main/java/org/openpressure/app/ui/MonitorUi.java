@@ -96,6 +96,8 @@ public final class MonitorUi {
             default: mode=""; break;
         }
         if(m.unconfirmedBankSkipped) mode+=(mode.isEmpty()?"":"\n\n")+context.getString(R.string.monitor_unconfirmed_bank_skipped);
+        int unreadable=m.importMode==MonitorService.ImportMode.NONE?0:m.rejectedSlots();
+        if(unreadable>0) mode+=(mode.isEmpty()?"":"\n\n")+context.getResources().getQuantityString(R.plurals.monitor_import_slots_unreadable,unreadable,unreadable);
         return mode;
     }
     private static String importDetail(Context context,MonitorService m,String summary) {

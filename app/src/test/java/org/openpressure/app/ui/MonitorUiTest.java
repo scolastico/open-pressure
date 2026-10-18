@@ -55,6 +55,18 @@ public class MonitorUiTest {
         monitor.unconfirmedBankSkipped=true;
         assertTrue(detail().contains(monitor.getString(R.string.monitor_unconfirmed_bank_skipped)));
     }
+    @Test public void unreadableSlotsAreCountedAfterAnEverySlotRead() throws Exception {
+        monitor.importMode=MonitorService.ImportMode.FULL_SWEEP;
+        String unreadable=monitor.getResources().getQuantityString(R.plurals.monitor_import_slots_unreadable,2,2);
+        assertEquals("2 memory slots could not be read.",unreadable);
+        assertFalse(detail().contains(unreadable));
+        java.lang.reflect.Field rejected=MonitorService.class.getDeclaredField("wlpRejected"); rejected.setAccessible(true); rejected.set(monitor,2);
+        String detail=detail();
+        assertTrue(detail,detail.contains(monitor.getString(R.string.monitor_import_mode_sweep)+"\n\n"+unreadable));
+        assertEquals("1 memory slot could not be read.",monitor.getResources().getQuantityString(R.plurals.monitor_import_slots_unreadable,1,1));
+        monitor.importMode=MonitorService.ImportMode.NONE;
+        assertFalse("other protocols never mention memory slots",detail().contains(unreadable));
+    }
     @Test public void otherProtocolsAddNoModeText() {
         monitor.importMode=MonitorService.ImportMode.NONE;
         String detail=detail();

@@ -7,13 +7,16 @@
     <string name="main_import_users">가져올 측정값</string>
     <string name="main_import_users_both">두 사용자 모두</string>
     <string name="main_read_all">모두 읽기</string>
-    <string name="main_read_all_explanation">혈압계가 사용 중이라고 알리는 위치뿐만 아니라 메모리의 모든 위치를 확인합니다. 측정값이 누락된 것 같으면 사용하세요. 시간이 더 걸리므로 끝날 때까지 혈압계를 가까이 두세요.</string>
+    <string name="main_read_all_explanation">혈압계가 사용 중이라고 알리는 위치뿐만 아니라 가져오도록 선택한 사용자의 메모리 위치를 모두 확인합니다. 측정값이 누락된 것 같으면 사용하세요. 시간이 더 걸리므로 끝날 때까지 혈압계를 가까이 두세요.</string>
     <string name="main_reading_all">모두 읽는 중…</string>
     <plurals name="monitor_import_mode_index">
-        <item quantity="other">혈압계가 저장된 측정값 %1$d개를 알렸습니다.</item>
+        <item quantity="other">혈압계가 선택한 사용자의 저장된 측정값 %1$d개를 알렸습니다.</item>
     </plurals>
     <string name="monitor_import_mode_fallback">혈압계의 저장된 측정값 목록을 사용할 수 없어 메모리의 모든 위치를 읽었습니다.</string>
     <string name="monitor_import_mode_sweep">메모리의 모든 위치를 읽었습니다.</string>
-    <string name="monitor_import_mode_empty">혈압계가 저장된 측정값이 없다고 알렸습니다. 측정값이 있어야 한다면 모두 읽기를 사용하세요.</string>
+    <string name="monitor_import_mode_empty">혈압계가 선택한 사용자의 저장된 측정값이 없다고 알렸습니다. 측정값이 있어야 한다면 모두 읽기를 사용하세요.</string>
     <string name="monitor_unconfirmed_bank_skipped">이 모델에 없을 수 있는 두 번째 메모리 영역을 건너뛰었습니다.</string>
+    <plurals name="monitor_import_slots_unreadable">
+        <item quantity="other">메모리 위치 %1$d개를 읽을 수 없었습니다.</item>
+    </plurals>
 </resources>

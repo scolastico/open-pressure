@@ -7,14 +7,18 @@
     <string name="main_import_users">درآمد کرنے کے لیے پیمائشیں</string>
     <string name="main_import_users_both">دونوں صارفین</string>
     <string name="main_read_all">سب پڑھیں</string>
-    <string name="main_read_all_explanation">مانیٹر کی میموری کی ہر جگہ کو چیک کرتا ہے، نہ صرف ان جگہوں کو جنہیں وہ استعمال شدہ بتاتا ہے۔ اگر پیمائشیں غائب لگیں تو اسے استعمال کریں۔ اس میں زیادہ وقت لگتا ہے، اس لیے ختم ہونے تک مانیٹر قریب رکھیں۔</string>
+    <string name="main_read_all_explanation">درآمد کے لیے منتخب صارفین کی میموری کی ہر جگہ کو چیک کرتا ہے، نہ صرف ان جگہوں کو جنہیں مانیٹر استعمال شدہ بتاتا ہے۔ اگر پیمائشیں غائب لگیں تو اسے استعمال کریں۔ اس میں زیادہ وقت لگتا ہے، اس لیے ختم ہونے تک مانیٹر قریب رکھیں۔</string>
     <string name="main_reading_all">سب پڑھا جا رہا ہے…</string>
     <plurals name="monitor_import_mode_index">
-        <item quantity="one">مانیٹر نے %1$d محفوظ پیمائش بتائی۔</item>
-        <item quantity="other">مانیٹر نے %1$d محفوظ پیمائشیں بتائیں۔</item>
+        <item quantity="one">مانیٹر نے منتخب صارفین کے لیے %1$d محفوظ پیمائش بتائی۔</item>
+        <item quantity="other">مانیٹر نے منتخب صارفین کے لیے %1$d محفوظ پیمائشیں بتائیں۔</item>
     </plurals>
     <string name="monitor_import_mode_fallback">مانیٹر کی محفوظ پیمائشوں کی فہرست استعمال نہیں ہو سکی، اس لیے میموری کی ہر جگہ پڑھی گئی۔</string>
     <string name="monitor_import_mode_sweep">میموری کی ہر جگہ پڑھی گئی۔</string>
-    <string name="monitor_import_mode_empty">مانیٹر نے کوئی محفوظ پیمائش نہیں بتائی۔ اگر آپ کو کچھ کی توقع ہے تو سب پڑھیں استعمال کریں۔</string>
+    <string name="monitor_import_mode_empty">مانیٹر نے منتخب صارفین کے لیے کوئی محفوظ پیمائش نہیں بتائی۔ اگر آپ کو کچھ کی توقع ہے تو سب پڑھیں استعمال کریں۔</string>
     <string name="monitor_unconfirmed_bank_skipped">ایک دوسرا میموری حصہ جو شاید اس ماڈل میں نہ ہو، چھوڑ دیا گیا۔</string>
+    <plurals name="monitor_import_slots_unreadable">
+        <item quantity="one">میموری کی %1$d جگہ پڑھی نہیں جا سکی۔</item>
+        <item quantity="other">میموری کی %1$d جگہیں پڑھی نہیں جا سکیں۔</item>
+    </plurals>
 </resources>
