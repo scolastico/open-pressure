@@ -10,6 +10,7 @@ public final class VendorWritePolicyTest {
     public static int run() {
         checks=0;
         standardClockOnly();
+        writeAspects();
         VendorMemoryModel legacy=VendorMemoryModel.identify("HEM-7150T"),modern=VendorMemoryModel.identify("HEM-7377T1");
         UUID service=VendorWlpSession.service(legacy),tx=VendorWlpSession.txChannels(legacy).get(0),unlock=VendorWlpSession.unlockCharacteristic();
         allow(legacy,hex("0800000000100018")); allow(legacy,hex("0801000098100081")); allow(legacy,hex("080f000000000007"));
@@ -79,6 +80,18 @@ public final class VendorWritePolicyTest {
         rejects(() -> DeviceWritePolicy.validateVendorClock(model,command,date,hex("ea07021e0e1e2d")));
         rejects(() -> DeviceWritePolicy.validateVendorClock(model,VendorWlpSession.service(model),VendorWlpSession.txChannels(model).get(0),hex("1801c0008010000000000000000000000000000000000000")));
         rejects(() -> DeviceWritePolicy.validateVendorClock(model,UUID.fromString("0000181c-0000-1000-8000-00805f9b34fb"),UUID.fromString("00002a9f-0000-1000-8000-00805f9b34fb"),hex("40010e02")));
+    }
+    private static void writeAspects() {
+        DeviceWritePolicy.requireWriteAspect("HEM-7155T",WriteAspectIndex.Aspect.CLOCK_BLOCK,true); checks++;
+        rejects(() -> DeviceWritePolicy.requireWriteAspect("HEM-7155T",WriteAspectIndex.Aspect.CLOCK_BLOCK,false));
+        rejects(() -> DeviceWritePolicy.requireWriteAspect("HEM-7322T",WriteAspectIndex.Aspect.CLOCK_BLOCK,true));
+        rejects(() -> DeviceWritePolicy.requireWriteAspect("HEM-7155T",WriteAspectIndex.Aspect.UNSENT_COUNTERS,true));
+        rejects(() -> DeviceWritePolicy.requireWriteAspect(null,WriteAspectIndex.Aspect.CLOCK_BLOCK,true));
+        // A passed aspect gate authorizes nothing by itself: addressed writes on the legacy TX stay blocked.
+        VendorMemoryModel model=VendorMemoryModel.identify("HEM-7155T");
+        DeviceWritePolicy.requireWriteAspect("HEM-7155T",WriteAspectIndex.Aspect.CLOCK_BLOCK,true); checks++;
+        reject(model,hex("0801c00098100041"));
+        reject(model,hex("0801c000080200c3"));
     }
     private static void activeUnlockPermits(VendorMemoryModel legacy,VendorMemoryModel modern,UUID service,UUID unlock,UUID tx) {
         byte[] key=hex("00112233445566778899aabbccddeeff");

@@ -145,5 +145,13 @@ public final class DeviceWritePolicy {
         int opcode=payload[1]&255;
         return opcode==1 && payload.length==89 || (opcode==5 || opcode==6) && payload.length==46;
     }
+    /**
+     * Static gate for a memory-write aspect on an exact verified model identity. It never
+     * authorizes bytes: every frame must still pass the model-bound validators above.
+     * UNTESTED aspects pass only with this request's explicit override; BLOCKED never.
+     */
+    public static void requireWriteAspect(String modelIdentity,WriteAspectIndex.Aspect aspect,boolean override) {
+        if(aspect==null || !WriteAspectIndex.permits(WriteAspectIndex.lookup(modelIdentity,aspect).status,override)) reject();
+    }
     private static void reject() { throw new IllegalArgumentException("Blocked device write: target or payload is outside the BP control allowlist"); }
 }
