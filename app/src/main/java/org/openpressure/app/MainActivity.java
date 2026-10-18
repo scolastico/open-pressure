@@ -25,6 +25,8 @@ import org.openpressure.app.data.*;
 import org.openpressure.app.health.HealthConnectSettingsActivity;
 import org.openpressure.app.forwarding.HttpForwardingSettings;
 import org.openpressure.app.forwarding.HttpForwardingSettingsActivity;
+import org.openpressure.app.developer.DeveloperOptions;
+import org.openpressure.app.developer.DeveloperOptionsActivity;
 import org.openpressure.app.automatic.*;
 import org.openpressure.app.notifications.NewReadingNotifications;
 import org.openpressure.app.reminders.RemindersActivity;
@@ -56,6 +58,8 @@ public final class MainActivity extends Activity {
     private ScrollView scroll;
     private int tab,filterUser,days,historyLimit=100;
     private boolean bound,uiVisible,advancedExpanded,virtualMode;
+    private final DeveloperOptions.TapCounter developerTaps=new DeveloperOptions.TapCounter();
+    private Toast developerToast;
     private AlertDialog consentDialog,deviceReportDialog,updateDialog;
     private String pendingReportJson;
     private static final String ISSUES="https://github.com/scolastico/open-pressure/issues";
@@ -460,6 +464,22 @@ public final class MainActivity extends Activity {
             Button export=button(getString(R.string.main_export_settings_backup),() -> exportJsonSnapshot(monitor.registrationBackupFile(),"open-pressure-settings-backup.json"),false);
             export.setEnabled(!dumpExportPreparing); add(savedBackup,export,8); content.addView(savedBackup);
         }
+        if(DeveloperOptions.isUnlocked(this)) add(content,button(getString(R.string.dev_open),() -> startActivity(new Intent(this,DeveloperOptionsActivity.class)),false),16);
+        TextView version=text(getString(R.string.dev_version_label,BuildConfig.VERSION_NAME,BuildConfig.VERSION_CODE),13,MUTED,false);
+        version.setGravity(Gravity.CENTER); version.setPadding(0,dp(8),0,dp(8)); version.setOnClickListener(v -> developerTap());
+        add(content,version,16);
+    }
+    /** Five quick taps on the version label unlock the hidden developer options; it never contacts a monitor. */
+    private void developerTap() {
+        if(DeveloperOptions.isUnlocked(this)) return;
+        int remaining=developerTaps.tap(android.os.SystemClock.uptimeMillis());
+        if(remaining>0) { if(remaining<=2) developerToast(getResources().getQuantityString(R.plurals.dev_taps_remaining,remaining,remaining)); return; }
+        DeveloperOptions.setUnlocked(this,true); developerToast(getString(R.string.dev_unlocked)); render();
+    }
+    /** Replaces the previous hint so quick taps do not queue a backlog of toasts. */
+    private void developerToast(String message) {
+        if(developerToast!=null) developerToast.cancel();
+        developerToast=Toast.makeText(this,message,Toast.LENGTH_SHORT); developerToast.show();
     }
     /** After a Pair attempt with an untested monitor, ask once whether the user wants to help. */
     private void offerDeviceReport() {

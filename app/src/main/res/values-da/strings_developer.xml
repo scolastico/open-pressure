@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="dev_version_label">Version %1$s (%2$d)</string>
+    <plurals name="dev_taps_remaining">
+        <item quantity="one">%d tryk mere for at låse udviklerindstillinger op</item>
+        <item quantity="other">%d tryk mere for at låse udviklerindstillinger op</item>
+    </plurals>
+    <string name="dev_unlocked">Udviklerindstillinger låst op</string>
+    <string name="dev_open">Udviklerindstillinger</string>
+    <string name="dev_title">Udviklerindstillinger</string>
+    <string name="dev_warning">Advarsel: disse indstillinger tillader skrivninger, der ikke er bekræftet for din blodtryksmålermodel. En sådan skrivning kan permanent ødelægge målerens indstillinger. De er kun beregnet til personer, der validerer en model med en måler, de er parate til at miste.</string>
+    <string name="dev_allow_clock_untested">Tillad ursynkronisering på målere, hvor den ikke er testet</string>
+    <string name="dev_allow_confirm_title">Tillad utestet ursynkronisering?</string>
+    <string name="dev_allow_confirm_message">Indstilling af uret er ikke bekræftet på disse målermodeller. At gøre det alligevel kan permanent ødelægge målerens indstillinger eller gøre den ubrugelig.\n\nDenne kontakt sender ikke noget af sig selv. Hvis du senere indstiller uret på sådan en måler, registrerer enhedsrapporten, at en utestet skrivning blev forsøgt.\n\nDu er ansvarlig for enhver skade på din måler.</string>
+    <string name="dev_allow_confirm_accept">Jeg forstår, slå til</string>
+    <string name="dev_index_title">Skriveunderstøttelse pr. måler</string>
+    <string name="dev_index_status_confirmed">Bekræftet</string>
+    <string name="dev_index_status_untested">Utestet</string>
+    <string name="dev_index_status_blocked">Blokeret</string>
+    <string name="dev_index_aspect_clock">Ursynkronisering</string>
+    <string name="dev_index_aspect_unsent">Tæller for ikke-sendte målinger</string>
+    <string name="dev_index_no_monitors">Ingen gemte målere endnu.</string>
+    <string name="dev_hide">Skjul udviklerindstillinger</string>
+    <string name="dev_hidden">Udviklerindstillinger skjult; alle udviklerkontakter er slået fra</string>
+</resources>

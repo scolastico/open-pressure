@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="dev_version_label">版本 %1$s (%2$d)</string>
+    <plurals name="dev_taps_remaining">
+        <item quantity="other">再点按 %d 次即可解锁开发者选项</item>
+    </plurals>
+    <string name="dev_unlocked">已解锁开发者选项</string>
+    <string name="dev_open">开发者选项</string>
+    <string name="dev_title">开发者选项</string>
+    <string name="dev_warning">警告：这些选项允许执行尚未针对你的血压计型号确认的写入。此类写入可能会永久损坏血压计的设置。它们仅供愿意承担失去一台血压计风险、用其验证型号的人使用。</string>
+    <string name="dev_allow_clock_untested">允许在未经测试的血压计上同步时钟</string>
+    <string name="dev_allow_confirm_title">允许未经测试的时钟同步？</string>
+    <string name="dev_allow_confirm_message">在这些血压计型号上设置时钟尚未得到确认。仍然这样做可能会永久损坏血压计的设置，或使其无法使用。\n\n此开关本身不会发送任何内容。如果你之后在此类血压计上设置时钟，设备报告会记录曾尝试过未经测试的写入。\n\n你需要对血压计的任何损坏负责。</string>
+    <string name="dev_allow_confirm_accept">我明白，启用</string>
+    <string name="dev_index_title">各血压计的写入支持</string>
+    <string name="dev_index_status_confirmed">已确认</string>
+    <string name="dev_index_status_untested">未经测试</string>
+    <string name="dev_index_status_blocked">已阻止</string>
+    <string name="dev_index_aspect_clock">时钟同步</string>
+    <string name="dev_index_aspect_unsent">未发送读数计数器</string>
+    <string name="dev_index_no_monitors">还没有已保存的血压计。</string>
+    <string name="dev_hide">隐藏开发者选项</string>
+    <string name="dev_hidden">已隐藏开发者选项；所有开发者开关均已关闭</string>
+</resources>

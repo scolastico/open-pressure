@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="dev_version_label">Version %1$s (%2$d)</string>
+    <plurals name="dev_taps_remaining">
+        <item quantity="one">%d tryck kvar för att låsa upp utvecklaralternativ</item>
+        <item quantity="other">%d tryck kvar för att låsa upp utvecklaralternativ</item>
+    </plurals>
+    <string name="dev_unlocked">Utvecklaralternativ upplåsta</string>
+    <string name="dev_open">Utvecklaralternativ</string>
+    <string name="dev_title">Utvecklaralternativ</string>
+    <string name="dev_warning">Varning: dessa alternativ tillåter skrivningar som inte är bekräftade för din blodtrycksmätarmodell. En sådan skrivning kan permanent förstöra mätarens inställningar. De är endast avsedda för personer som validerar en modell med en mätare de är beredda att förlora.</string>
+    <string name="dev_allow_clock_untested">Tillåt klocksynkning på mätare där den inte är testad</string>
+    <string name="dev_allow_confirm_title">Tillåta otestad klocksynkning?</string>
+    <string name="dev_allow_confirm_message">Att ställa klockan har inte bekräftats på dessa mätarmodeller. Att ändå göra det kan permanent förstöra mätarens inställningar eller göra den oanvändbar.\n\nDen här brytaren skickar ingenting av sig själv. Om du senare ställer klockan på en sådan mätare registrerar enhetsrapporten att en otestad skrivning försöktes.\n\nDu ansvarar för eventuella skador på din mätare.</string>
+    <string name="dev_allow_confirm_accept">Jag förstår, aktivera</string>
+    <string name="dev_index_title">Skrivstöd per mätare</string>
+    <string name="dev_index_status_confirmed">Bekräftad</string>
+    <string name="dev_index_status_untested">Otestad</string>
+    <string name="dev_index_status_blocked">Blockerad</string>
+    <string name="dev_index_aspect_clock">Klocksynkning</string>
+    <string name="dev_index_aspect_unsent">Räknare för ej skickade mätningar</string>
+    <string name="dev_index_no_monitors">Inga sparade mätare ännu.</string>
+    <string name="dev_hide">Dölj utvecklaralternativ</string>
+    <string name="dev_hidden">Utvecklaralternativ dolda; alla utvecklarbrytare är av</string>
+</resources>

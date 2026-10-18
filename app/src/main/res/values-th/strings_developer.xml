@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="dev_version_label">เวอร์ชัน %1$s (%2$d)</string>
+    <plurals name="dev_taps_remaining">
+        <item quantity="other">แตะอีก %d ครั้งเพื่อปลดล็อกตัวเลือกสำหรับนักพัฒนา</item>
+    </plurals>
+    <string name="dev_unlocked">ปลดล็อกตัวเลือกสำหรับนักพัฒนาแล้ว</string>
+    <string name="dev_open">ตัวเลือกสำหรับนักพัฒนา</string>
+    <string name="dev_title">ตัวเลือกสำหรับนักพัฒนา</string>
+    <string name="dev_warning">คำเตือน: ตัวเลือกเหล่านี้อนุญาตการเขียนที่ยังไม่ได้รับการยืนยันสำหรับรุ่นเครื่องวัดความดันของคุณ การเขียนเช่นนี้อาจทำให้การตั้งค่าของเครื่องวัดเสียหายถาวร มีไว้สำหรับผู้ที่ตรวจสอบรุ่นด้วยเครื่องวัดที่พร้อมจะสูญเสียเท่านั้น</string>
+    <string name="dev_allow_clock_untested">อนุญาตการซิงค์นาฬิกาในเครื่องวัดที่ยังไม่ได้ทดสอบ</string>
+    <string name="dev_allow_confirm_title">อนุญาตการซิงค์นาฬิกาที่ยังไม่ได้ทดสอบหรือไม่</string>
+    <string name="dev_allow_confirm_message">การตั้งนาฬิกายังไม่ได้รับการยืนยันในเครื่องวัดรุ่นเหล่านี้ หากยังทำต่อ การตั้งค่าของเครื่องวัดอาจเสียหายถาวรหรือเครื่องอาจใช้งานไม่ได้\n\nสวิตช์นี้ไม่ได้ส่งอะไรด้วยตัวเอง หากภายหลังคุณตั้งนาฬิกาในเครื่องวัดเช่นนี้ รายงานอุปกรณ์จะบันทึกว่ามีการพยายามเขียนที่ยังไม่ได้ทดสอบ\n\nคุณเป็นผู้รับผิดชอบต่อความเสียหายใดๆ ที่เกิดกับเครื่องวัดของคุณ</string>
+    <string name="dev_allow_confirm_accept">เข้าใจแล้ว เปิดใช้</string>
+    <string name="dev_index_title">การรองรับการเขียนตามเครื่องวัด</string>
+    <string name="dev_index_status_confirmed">ยืนยันแล้ว</string>
+    <string name="dev_index_status_untested">ยังไม่ได้ทดสอบ</string>
+    <string name="dev_index_status_blocked">ถูกบล็อก</string>
+    <string name="dev_index_aspect_clock">ซิงค์นาฬิกา</string>
+    <string name="dev_index_aspect_unsent">ตัวนับค่าที่ยังไม่ได้ส่ง</string>
+    <string name="dev_index_no_monitors">ยังไม่มีเครื่องวัดที่บันทึกไว้</string>
+    <string name="dev_hide">ซ่อนตัวเลือกสำหรับนักพัฒนา</string>
+    <string name="dev_hidden">ซ่อนตัวเลือกสำหรับนักพัฒนาแล้ว สวิตช์สำหรับนักพัฒนาทั้งหมดปิดอยู่</string>
+</resources>

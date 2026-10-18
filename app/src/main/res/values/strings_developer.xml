@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="dev_version_label">Version %1$s (%2$d)</string>
+    <plurals name="dev_taps_remaining">
+        <item quantity="one">%d more tap to unlock developer options</item>
+        <item quantity="other">%d more taps to unlock developer options</item>
+    </plurals>
+    <string name="dev_unlocked">Developer options unlocked</string>
+    <string name="dev_open">Developer options</string>
+    <string name="dev_title">Developer options</string>
+    <string name="dev_warning">Warning: these options allow writes that are not confirmed for your monitor model. Such a write can permanently corrupt the monitor\'s settings. They are meant only for people validating a model with a monitor they are prepared to lose.</string>
+    <string name="dev_allow_clock_untested">Allow clock sync on monitors where it is untested</string>
+    <string name="dev_allow_confirm_title">Allow untested clock sync?</string>
+    <string name="dev_allow_confirm_message">Setting the clock has not been confirmed on these monitor models. Doing it anyway can permanently corrupt the monitor\'s settings or make it unusable.\n\nThis switch does not send anything by itself. If you later set the clock on such a monitor, the device report records that an untested write was attempted.\n\nYou are responsible for any damage to your monitor.</string>
+    <string name="dev_allow_confirm_accept">I understand, enable</string>
+    <string name="dev_index_title">Write support by monitor</string>
+    <string name="dev_index_status_confirmed">Confirmed</string>
+    <string name="dev_index_status_untested">Untested</string>
+    <string name="dev_index_status_blocked">Blocked</string>
+    <string name="dev_index_aspect_clock">Clock sync</string>
+    <string name="dev_index_aspect_unsent">Unsent readings counter</string>
+    <string name="dev_index_no_monitors">No saved monitors yet.</string>
+    <string name="dev_hide">Hide developer options</string>
+    <string name="dev_hidden">Developer options hidden; all developer switches are off</string>
+</resources>

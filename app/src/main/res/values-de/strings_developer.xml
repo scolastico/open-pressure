@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="dev_version_label">Version %1$s (%2$d)</string>
+    <plurals name="dev_taps_remaining">
+        <item quantity="one">Noch %d Tipp bis zu den Entwickleroptionen</item>
+        <item quantity="other">Noch %d Tipps bis zu den Entwickleroptionen</item>
+    </plurals>
+    <string name="dev_unlocked">Entwickleroptionen freigeschaltet</string>
+    <string name="dev_open">Entwickleroptionen</string>
+    <string name="dev_title">Entwickleroptionen</string>
+    <string name="dev_warning">Warnung: Diese Optionen erlauben Schreibvorgänge, die für dein Messgerätemodell nicht bestätigt sind. Ein solcher Schreibvorgang kann die Einstellungen des Messgeräts dauerhaft beschädigen. Sie sind nur für Personen gedacht, die ein Modell mit einem Messgerät prüfen, dessen Verlust sie in Kauf nehmen.</string>
+    <string name="dev_allow_clock_untested">Uhrzeitabgleich auf Messgeräten erlauben, auf denen er ungetestet ist</string>
+    <string name="dev_allow_confirm_title">Ungetesteten Uhrzeitabgleich erlauben?</string>
+    <string name="dev_allow_confirm_message">Das Stellen der Uhr ist für diese Messgerätemodelle nicht bestätigt. Es trotzdem zu tun, kann die Einstellungen des Messgeräts dauerhaft beschädigen oder es unbrauchbar machen.\n\nDieser Schalter sendet selbst nichts. Wenn du später die Uhr eines solchen Messgeräts stellst, vermerkt der Gerätebericht, dass ein ungetesteter Schreibvorgang versucht wurde.\n\nDu bist für jeden Schaden an deinem Messgerät verantwortlich.</string>
+    <string name="dev_allow_confirm_accept">Verstanden, aktivieren</string>
+    <string name="dev_index_title">Schreibunterstützung je Messgerät</string>
+    <string name="dev_index_status_confirmed">Bestätigt</string>
+    <string name="dev_index_status_untested">Ungetestet</string>
+    <string name="dev_index_status_blocked">Gesperrt</string>
+    <string name="dev_index_aspect_clock">Uhrzeitabgleich</string>
+    <string name="dev_index_aspect_unsent">Zähler nicht übertragener Messwerte</string>
+    <string name="dev_index_no_monitors">Noch keine gespeicherten Messgeräte.</string>
+    <string name="dev_hide">Entwickleroptionen ausblenden</string>
+    <string name="dev_hidden">Entwickleroptionen ausgeblendet; alle Entwicklerschalter sind aus</string>
+</resources>

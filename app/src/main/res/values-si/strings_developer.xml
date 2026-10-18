@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="dev_version_label">අනුවාදය %1$s (%2$d)</string>
+    <plurals name="dev_taps_remaining">
+        <item quantity="one">සංවර්ධක විකල්ප අගුළු හැරීමට තවත් තට්ටු %d</item>
+        <item quantity="other">සංවර්ධක විකල්ප අගුළු හැරීමට තවත් තට්ටු %d</item>
+    </plurals>
+    <string name="dev_unlocked">සංවර්ධක විකල්ප අගුළු හැරිණි</string>
+    <string name="dev_open">සංවර්ධක විකල්ප</string>
+    <string name="dev_title">සංවර්ධක විකල්ප</string>
+    <string name="dev_warning">අවවාදයයි: මෙම විකල්ප ඔබගේ රුධිර පීඩන මොනිටර මාදිලිය සඳහා තහවුරු නොකළ ලිවීම්වලට ඉඩ දෙයි. එවැනි ලිවීමක් මොනිටරයේ සැකසුම් ස්ථිරවම දූෂණය කළ හැකිය. මේවා අහිමි වීමට සූදානම් මොනිටරයක් සමඟ මාදිලියක් තහවුරු කරන අය සඳහා පමණි.</string>
+    <string name="dev_allow_clock_untested">පරීක්ෂා නොකළ මොනිටරවල ඔරලෝසු සමමුහුර්තයට ඉඩ දෙන්න</string>
+    <string name="dev_allow_confirm_title">පරීක්ෂා නොකළ ඔරලෝසු සමමුහුර්තයට ඉඩ දෙන්නද?</string>
+    <string name="dev_allow_confirm_message">මෙම මොනිටර මාදිලිවල ඔරලෝසුව සැකසීම තහවුරු කර නැත. කෙසේ වෙතත් එය කළහොත් මොනිටරයේ සැකසුම් ස්ථිරවම දූෂණය විය හැකිය, නැතහොත් එය භාවිත කළ නොහැකි විය හැකිය.\n\nමෙම ස්විචය තනිවම කිසිවක් යවන්නේ නැත. පසුව ඔබ එවැනි මොනිටරයක ඔරලෝසුව සකසන්නේ නම්, පරීක්ෂා නොකළ ලිවීමක් උත්සාහ කළ බව උපාංග වාර්තාවේ සටහන් වේ.\n\nඔබගේ මොනිටරයට වන ඕනෑම හානියකට ඔබ වගකිව යුතුය.</string>
+    <string name="dev_allow_confirm_accept">මට තේරුණා, සක්‍රිය කරන්න</string>
+    <string name="dev_index_title">මොනිටරය අනුව ලිවීමේ සහාය</string>
+    <string name="dev_index_status_confirmed">තහවුරුයි</string>
+    <string name="dev_index_status_untested">පරීක්ෂා නොකළ</string>
+    <string name="dev_index_status_blocked">අවහිරයි</string>
+    <string name="dev_index_aspect_clock">ඔරලෝසු සමමුහුර්තය</string>
+    <string name="dev_index_aspect_unsent">නොයවූ කියවීම් ගණකය</string>
+    <string name="dev_index_no_monitors">තවම සුරකින ලද මොනිටර නැත.</string>
+    <string name="dev_hide">සංවර්ධක විකල්ප සඟවන්න</string>
+    <string name="dev_hidden">සංවර්ධක විකල්ප සඟවා ඇත; සියලු සංවර්ධක ස්විච අක්‍රියයි</string>
+</resources>

@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="dev_version_label">Έκδοση %1$s (%2$d)</string>
+    <plurals name="dev_taps_remaining">
+        <item quantity="one">Ακόμη %d πάτημα για ξεκλείδωμα των επιλογών για προγραμματιστές</item>
+        <item quantity="other">Ακόμη %d πατήματα για ξεκλείδωμα των επιλογών για προγραμματιστές</item>
+    </plurals>
+    <string name="dev_unlocked">Οι επιλογές για προγραμματιστές ξεκλειδώθηκαν</string>
+    <string name="dev_open">Επιλογές για προγραμματιστές</string>
+    <string name="dev_title">Επιλογές για προγραμματιστές</string>
+    <string name="dev_warning">Προειδοποίηση: αυτές οι επιλογές επιτρέπουν εγγραφές που δεν έχουν επιβεβαιωθεί για το μοντέλο του πιεσόμετρού σας. Μια τέτοια εγγραφή μπορεί να καταστρέψει μόνιμα τις ρυθμίσεις του πιεσόμετρου. Προορίζονται μόνο για άτομα που επικυρώνουν ένα μοντέλο με πιεσόμετρο που είναι διατεθειμένα να χάσουν.</string>
+    <string name="dev_allow_clock_untested">Να επιτρέπεται συγχρονισμός ρολογιού σε πιεσόμετρα όπου δεν έχει δοκιμαστεί</string>
+    <string name="dev_allow_confirm_title">Να επιτραπεί μη δοκιμασμένος συγχρονισμός ρολογιού;</string>
+    <string name="dev_allow_confirm_message">Η ρύθμιση του ρολογιού δεν έχει επιβεβαιωθεί σε αυτά τα μοντέλα πιεσόμετρων. Αν το κάνετε παρ’ όλα αυτά, οι ρυθμίσεις του πιεσόμετρου μπορεί να καταστραφούν μόνιμα ή να γίνει άχρηστο.\n\nΑυτός ο διακόπτης δεν στέλνει τίποτα από μόνος του. Αν αργότερα ρυθμίσετε το ρολόι σε ένα τέτοιο πιεσόμετρο, η αναφορά συσκευής καταγράφει ότι επιχειρήθηκε μη δοκιμασμένη εγγραφή.\n\nΕίστε υπεύθυνοι για οποιαδήποτε ζημιά στο πιεσόμετρό σας.</string>
+    <string name="dev_allow_confirm_accept">Κατανοώ, ενεργοποίηση</string>
+    <string name="dev_index_title">Υποστήριξη εγγραφής ανά πιεσόμετρο</string>
+    <string name="dev_index_status_confirmed">Επιβεβαιωμένο</string>
+    <string name="dev_index_status_untested">Μη δοκιμασμένο</string>
+    <string name="dev_index_status_blocked">Αποκλεισμένο</string>
+    <string name="dev_index_aspect_clock">Συγχρονισμός ρολογιού</string>
+    <string name="dev_index_aspect_unsent">Μετρητής μη απεσταλμένων μετρήσεων</string>
+    <string name="dev_index_no_monitors">Δεν υπάρχουν ακόμη αποθηκευμένα πιεσόμετρα.</string>
+    <string name="dev_hide">Απόκρυψη επιλογών για προγραμματιστές</string>
+    <string name="dev_hidden">Οι επιλογές για προγραμματιστές αποκρύφθηκαν· όλοι οι διακόπτες προγραμματιστή είναι απενεργοποιημένοι</string>
+</resources>

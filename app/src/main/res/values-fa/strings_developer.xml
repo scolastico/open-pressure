@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="dev_version_label">نسخه %1$s (%2$d)</string>
+    <plurals name="dev_taps_remaining">
+        <item quantity="one">%d ضربه دیگر تا باز شدن گزینه‌های توسعه‌دهنده</item>
+        <item quantity="other">%d ضربه دیگر تا باز شدن گزینه‌های توسعه‌دهنده</item>
+    </plurals>
+    <string name="dev_unlocked">گزینه‌های توسعه‌دهنده باز شد</string>
+    <string name="dev_open">گزینه‌های توسعه‌دهنده</string>
+    <string name="dev_title">گزینه‌های توسعه‌دهنده</string>
+    <string name="dev_warning">هشدار: این گزینه‌ها نوشتن‌هایی را مجاز می‌کنند که برای مدل دستگاه فشارسنج شما تأیید نشده‌اند. چنین نوشتنی می‌تواند تنظیمات دستگاه را برای همیشه خراب کند. این گزینه‌ها فقط برای کسانی است که یک مدل را با دستگاهی که آماده از دست دادنش هستند بررسی می‌کنند.</string>
+    <string name="dev_allow_clock_untested">اجازه همگام‌سازی ساعت در دستگاه‌هایی که آزمایش نشده است</string>
+    <string name="dev_allow_confirm_title">همگام‌سازی آزمایش‌نشده ساعت مجاز شود؟</string>
+    <string name="dev_allow_confirm_message">تنظیم ساعت در این مدل‌های دستگاه تأیید نشده است. انجام آن با این حال می‌تواند تنظیمات دستگاه را برای همیشه خراب کند یا آن را غیرقابل استفاده کند.\n\nاین کلید به‌تنهایی چیزی ارسال نمی‌کند. اگر بعداً ساعت چنین دستگاهی را تنظیم کنید، گزارش دستگاه ثبت می‌کند که تلاشی برای نوشتن آزمایش‌نشده انجام شده است.\n\nمسئولیت هر آسیبی به دستگاه با خود شماست.</string>
+    <string name="dev_allow_confirm_accept">متوجه هستم، فعال شود</string>
+    <string name="dev_index_title">پشتیبانی نوشتن بر اساس دستگاه</string>
+    <string name="dev_index_status_confirmed">تأییدشده</string>
+    <string name="dev_index_status_untested">آزمایش‌نشده</string>
+    <string name="dev_index_status_blocked">مسدود</string>
+    <string name="dev_index_aspect_clock">همگام‌سازی ساعت</string>
+    <string name="dev_index_aspect_unsent">شمارنده اندازه‌گیری‌های ارسال‌نشده</string>
+    <string name="dev_index_no_monitors">هنوز دستگاه ذخیره‌شده‌ای وجود ندارد.</string>
+    <string name="dev_hide">پنهان کردن گزینه‌های توسعه‌دهنده</string>
+    <string name="dev_hidden">گزینه‌های توسعه‌دهنده پنهان شد؛ همه کلیدهای توسعه‌دهنده خاموش هستند</string>
+</resources>

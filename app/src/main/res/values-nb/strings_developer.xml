@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="dev_version_label">Versjon %1$s (%2$d)</string>
+    <plurals name="dev_taps_remaining">
+        <item quantity="one">%d trykk igjen for å låse opp utvikleralternativer</item>
+        <item quantity="other">%d trykk igjen for å låse opp utvikleralternativer</item>
+    </plurals>
+    <string name="dev_unlocked">Utvikleralternativer låst opp</string>
+    <string name="dev_open">Utvikleralternativer</string>
+    <string name="dev_title">Utvikleralternativer</string>
+    <string name="dev_warning">Advarsel: disse alternativene tillater skriving som ikke er bekreftet for din blodtrykksmålermodell. Slik skriving kan permanent ødelegge målerens innstillinger. De er bare ment for personer som validerer en modell med en måler de er forberedt på å miste.</string>
+    <string name="dev_allow_clock_untested">Tillat klokkesynkronisering på målere der den ikke er testet</string>
+    <string name="dev_allow_confirm_title">Tillate utestet klokkesynkronisering?</string>
+    <string name="dev_allow_confirm_message">Innstilling av klokken er ikke bekreftet på disse målermodellene. Å gjøre det likevel kan permanent ødelegge målerens innstillinger eller gjøre den ubrukelig.\n\nDenne bryteren sender ingenting av seg selv. Hvis du senere stiller klokken på en slik måler, registrerer enhetsrapporten at en utestet skriving ble forsøkt.\n\nDu er ansvarlig for eventuell skade på måleren din.</string>
+    <string name="dev_allow_confirm_accept">Jeg forstår, slå på</string>
+    <string name="dev_index_title">Skrivestøtte per måler</string>
+    <string name="dev_index_status_confirmed">Bekreftet</string>
+    <string name="dev_index_status_untested">Utestet</string>
+    <string name="dev_index_status_blocked">Blokkert</string>
+    <string name="dev_index_aspect_clock">Klokkesynkronisering</string>
+    <string name="dev_index_aspect_unsent">Teller for usendte målinger</string>
+    <string name="dev_index_no_monitors">Ingen lagrede målere ennå.</string>
+    <string name="dev_hide">Skjul utvikleralternativer</string>
+    <string name="dev_hidden">Utvikleralternativer skjult; alle utviklerbrytere er av</string>
+</resources>

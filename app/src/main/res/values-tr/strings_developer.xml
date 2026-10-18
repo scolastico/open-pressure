@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="dev_version_label">Sürüm %1$s (%2$d)</string>
+    <plurals name="dev_taps_remaining">
+        <item quantity="one">Geliştirici seçeneklerinin kilidini açmak için %d dokunuş kaldı</item>
+        <item quantity="other">Geliştirici seçeneklerinin kilidini açmak için %d dokunuş kaldı</item>
+    </plurals>
+    <string name="dev_unlocked">Geliştirici seçeneklerinin kilidi açıldı</string>
+    <string name="dev_open">Geliştirici seçenekleri</string>
+    <string name="dev_title">Geliştirici seçenekleri</string>
+    <string name="dev_warning">Uyarı: bu seçenekler, tansiyon aleti modeliniz için doğrulanmamış yazma işlemlerine izin verir. Böyle bir yazma işlemi aletin ayarlarını kalıcı olarak bozabilir. Yalnızca bir modeli, kaybetmeyi göze aldıkları bir aletle doğrulayan kişiler içindir.</string>
+    <string name="dev_allow_clock_untested">Test edilmemiş aletlerde saat eşitlemeye izin ver</string>
+    <string name="dev_allow_confirm_title">Test edilmemiş saat eşitlemeye izin verilsin mi?</string>
+    <string name="dev_allow_confirm_message">Saatin ayarlanması bu alet modellerinde doğrulanmadı. Yine de yapmak aletin ayarlarını kalıcı olarak bozabilir veya aleti kullanılamaz hâle getirebilir.\n\nBu anahtar kendi başına hiçbir şey göndermez. Daha sonra böyle bir aletin saatini ayarlarsanız cihaz raporu, test edilmemiş bir yazma girişiminde bulunulduğunu kaydeder.\n\nAletinize gelebilecek her türlü hasardan siz sorumlusunuz.</string>
+    <string name="dev_allow_confirm_accept">Anladım, etkinleştir</string>
+    <string name="dev_index_title">Alete göre yazma desteği</string>
+    <string name="dev_index_status_confirmed">Doğrulandı</string>
+    <string name="dev_index_status_untested">Test edilmedi</string>
+    <string name="dev_index_status_blocked">Engellendi</string>
+    <string name="dev_index_aspect_clock">Saat eşitleme</string>
+    <string name="dev_index_aspect_unsent">Gönderilmemiş ölçüm sayacı</string>
+    <string name="dev_index_no_monitors">Henüz kayıtlı alet yok.</string>
+    <string name="dev_hide">Geliştirici seçeneklerini gizle</string>
+    <string name="dev_hidden">Geliştirici seçenekleri gizlendi; tüm geliştirici anahtarları kapalı</string>
+</resources>

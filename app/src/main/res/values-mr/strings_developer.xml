@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="dev_version_label">आवृत्ती %1$s (%2$d)</string>
+    <plurals name="dev_taps_remaining">
+        <item quantity="one">डेव्हलपर पर्याय अनलॉक करण्यासाठी आणखी %d टॅप</item>
+        <item quantity="other">डेव्हलपर पर्याय अनलॉक करण्यासाठी आणखी %d टॅप</item>
+    </plurals>
+    <string name="dev_unlocked">डेव्हलपर पर्याय अनलॉक झाले</string>
+    <string name="dev_open">डेव्हलपर पर्याय</string>
+    <string name="dev_title">डेव्हलपर पर्याय</string>
+    <string name="dev_warning">इशारा: हे पर्याय अशा लेखनास परवानगी देतात ज्याची तुमच्या रक्तदाब मॉनिटर मॉडेलसाठी पुष्टी झालेली नाही. असे लेखन मॉनिटरची सेटिंग्ज कायमची बिघडवू शकते. हे फक्त अशा लोकांसाठी आहेत जे गमावण्याची तयारी असलेल्या मॉनिटरवर एखाद्या मॉडेलची पडताळणी करत आहेत.</string>
+    <string name="dev_allow_clock_untested">ज्या मॉनिटरवर चाचणी झालेली नाही तिथे घड्याळ सिंकला परवानगी द्या</string>
+    <string name="dev_allow_confirm_title">चाचणी न झालेल्या घड्याळ सिंकला परवानगी द्यायची?</string>
+    <string name="dev_allow_confirm_message">या मॉनिटर मॉडेलवर घड्याळ सेट करण्याची पुष्टी झालेली नाही. तरीही तसे केल्यास मॉनिटरची सेटिंग्ज कायमची बिघडू शकतात किंवा तो निरुपयोगी होऊ शकतो.\n\nहा स्विच स्वतःहून काहीही पाठवत नाही. तुम्ही नंतर अशा मॉनिटरचे घड्याळ सेट केल्यास, डिव्हाइस अहवालात नोंद होते की चाचणी न झालेल्या लेखनाचा प्रयत्न झाला.\n\nतुमच्या मॉनिटरच्या कोणत्याही नुकसानीसाठी तुम्ही जबाबदार आहात.</string>
+    <string name="dev_allow_confirm_accept">मला समजले, सुरू करा</string>
+    <string name="dev_index_title">मॉनिटरनुसार लेखन समर्थन</string>
+    <string name="dev_index_status_confirmed">पुष्टी झाली</string>
+    <string name="dev_index_status_untested">चाचणी झाली नाही</string>
+    <string name="dev_index_status_blocked">अवरोधित</string>
+    <string name="dev_index_aspect_clock">घड्याळ सिंक</string>
+    <string name="dev_index_aspect_unsent">न पाठवलेल्या रीडिंगचा काउंटर</string>
+    <string name="dev_index_no_monitors">अद्याप कोणतेही सेव्ह केलेले मॉनिटर नाहीत.</string>
+    <string name="dev_hide">डेव्हलपर पर्याय लपवा</string>
+    <string name="dev_hidden">डेव्हलपर पर्याय लपवले; सर्व डेव्हलपर स्विच बंद आहेत</string>
+</resources>

@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="dev_version_label">גרסה %1$s (%2$d)</string>
+    <plurals name="dev_taps_remaining">
+        <item quantity="many">עוד %d הקשות לביטול הנעילה של אפשרויות המפתחים</item>
+        <item quantity="one">עוד הקשה %d לביטול הנעילה של אפשרויות המפתחים</item>
+        <item quantity="other">עוד %d הקשות לביטול הנעילה של אפשרויות המפתחים</item>
+        <item quantity="two">עוד %d הקשות לביטול הנעילה של אפשרויות המפתחים</item>
+    </plurals>
+    <string name="dev_unlocked">אפשרויות המפתחים נפתחו</string>
+    <string name="dev_open">אפשרויות למפתחים</string>
+    <string name="dev_title">אפשרויות למפתחים</string>
+    <string name="dev_warning">אזהרה: אפשרויות אלה מתירות כתיבות שלא אושרו עבור דגם מד לחץ הדם שלך. כתיבה כזו עלולה להשחית לצמיתות את הגדרות המכשיר. הן מיועדות רק לאנשים שמאמתים דגם בעזרת מכשיר שהם מוכנים לאבד.</string>
+    <string name="dev_allow_clock_untested">לאפשר סנכרון שעון במכשירים שבהם הוא לא נבדק</string>
+    <string name="dev_allow_confirm_title">לאפשר סנכרון שעון שלא נבדק?</string>
+    <string name="dev_allow_confirm_message">כיוון השעון לא אושר בדגמי המכשירים האלה. ביצוע הפעולה בכל זאת עלול להשחית לצמיתות את הגדרות המכשיר או להפוך אותו לבלתי שמיש.\n\nהמתג הזה לא שולח שום דבר בעצמו. אם בהמשך תכוון את השעון במכשיר כזה, דוח המכשיר יתעד שבוצע ניסיון כתיבה שלא נבדק.\n\nהאחריות לכל נזק למכשיר שלך היא עליך.</string>
+    <string name="dev_allow_confirm_accept">הבנתי, להפעיל</string>
+    <string name="dev_index_title">תמיכה בכתיבה לפי מכשיר</string>
+    <string name="dev_index_status_confirmed">אושר</string>
+    <string name="dev_index_status_untested">לא נבדק</string>
+    <string name="dev_index_status_blocked">חסום</string>
+    <string name="dev_index_aspect_clock">סנכרון שעון</string>
+    <string name="dev_index_aspect_unsent">מונה מדידות שלא נשלחו</string>
+    <string name="dev_index_no_monitors">עדיין אין מכשירים שמורים.</string>
+    <string name="dev_hide">הסתרת אפשרויות המפתחים</string>
+    <string name="dev_hidden">אפשרויות המפתחים הוסתרו; כל מתגי המפתחים כבויים</string>
+</resources>

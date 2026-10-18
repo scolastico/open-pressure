@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="dev_version_label">Versione %1$s (%2$d)</string>
+    <plurals name="dev_taps_remaining">
+        <item quantity="many">Ancora %d tocchi per sbloccare le opzioni sviluppatore</item>
+        <item quantity="one">Ancora %d tocco per sbloccare le opzioni sviluppatore</item>
+        <item quantity="other">Ancora %d tocchi per sbloccare le opzioni sviluppatore</item>
+    </plurals>
+    <string name="dev_unlocked">Opzioni sviluppatore sbloccate</string>
+    <string name="dev_open">Opzioni sviluppatore</string>
+    <string name="dev_title">Opzioni sviluppatore</string>
+    <string name="dev_warning">Attenzione: queste opzioni consentono scritture non confermate per il tuo modello di misuratore. Una scrittura del genere può danneggiare in modo permanente le impostazioni del misuratore. Sono pensate solo per chi convalida un modello con un misuratore che è disposto a perdere.</string>
+    <string name="dev_allow_clock_untested">Consenti la sincronizzazione dell\'orologio sui misuratori dove non è testata</string>
+    <string name="dev_allow_confirm_title">Consentire la sincronizzazione dell\'orologio non testata?</string>
+    <string name="dev_allow_confirm_message">L\'impostazione dell\'orologio non è stata confermata su questi modelli di misuratore. Farlo comunque può danneggiare in modo permanente le impostazioni del misuratore o renderlo inutilizzabile.\n\nQuesto interruttore non invia nulla da solo. Se in seguito imposti l\'orologio su un misuratore del genere, il report del dispositivo registra che è stata tentata una scrittura non testata.\n\nSei responsabile di qualsiasi danno al tuo misuratore.</string>
+    <string name="dev_allow_confirm_accept">Ho capito, attiva</string>
+    <string name="dev_index_title">Supporto alla scrittura per misuratore</string>
+    <string name="dev_index_status_confirmed">Confermato</string>
+    <string name="dev_index_status_untested">Non testato</string>
+    <string name="dev_index_status_blocked">Bloccato</string>
+    <string name="dev_index_aspect_clock">Sincronizzazione dell\'orologio</string>
+    <string name="dev_index_aspect_unsent">Contatore delle misurazioni non inviate</string>
+    <string name="dev_index_no_monitors">Nessun misuratore salvato.</string>
+    <string name="dev_hide">Nascondi opzioni sviluppatore</string>
+    <string name="dev_hidden">Opzioni sviluppatore nascoste; tutti gli interruttori sviluppatore sono disattivati</string>
+</resources>

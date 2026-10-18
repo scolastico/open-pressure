@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="dev_version_label">Toleo %1$s (%2$d)</string>
+    <plurals name="dev_taps_remaining">
+        <item quantity="one">Mguso %d zaidi kufungua chaguo za wasanidi</item>
+        <item quantity="other">Miguso %d zaidi kufungua chaguo za wasanidi</item>
+    </plurals>
+    <string name="dev_unlocked">Chaguo za wasanidi zimefunguliwa</string>
+    <string name="dev_open">Chaguo za wasanidi</string>
+    <string name="dev_title">Chaguo za wasanidi</string>
+    <string name="dev_warning">Onyo: chaguo hizi zinaruhusu uandishi ambao haujathibitishwa kwa modeli ya kipimo chako cha shinikizo la damu. Uandishi kama huo unaweza kuharibu kabisa mipangilio ya kipimo. Ni kwa ajili ya watu wanaothibitisha modeli kwa kipimo walicho tayari kukipoteza pekee.</string>
+    <string name="dev_allow_clock_untested">Ruhusu kusawazisha saa kwenye vipimo ambavyo havijajaribiwa</string>
+    <string name="dev_allow_confirm_title">Ruhusu kusawazisha saa ambako hakujajaribiwa?</string>
+    <string name="dev_allow_confirm_message">Kuweka saa hakujathibitishwa kwenye modeli hizi za kipimo. Kufanya hivyo hata hivyo kunaweza kuharibu kabisa mipangilio ya kipimo au kukifanya kisitumike.\n\nSwichi hii haitumi chochote yenyewe. Ukiweka saa ya kipimo kama hicho baadaye, ripoti ya kifaa hurekodi kwamba uandishi ambao haujajaribiwa ulijaribiwa.\n\nUnawajibika kwa uharibifu wowote wa kipimo chako.</string>
+    <string name="dev_allow_confirm_accept">Naelewa, washa</string>
+    <string name="dev_index_title">Usaidizi wa uandishi kwa kila kipimo</string>
+    <string name="dev_index_status_confirmed">Imethibitishwa</string>
+    <string name="dev_index_status_untested">Haijajaribiwa</string>
+    <string name="dev_index_status_blocked">Imezuiwa</string>
+    <string name="dev_index_aspect_clock">Kusawazisha saa</string>
+    <string name="dev_index_aspect_unsent">Kihesabu cha vipimo visivyotumwa</string>
+    <string name="dev_index_no_monitors">Bado hakuna vipimo vilivyohifadhiwa.</string>
+    <string name="dev_hide">Ficha chaguo za wasanidi</string>
+    <string name="dev_hidden">Chaguo za wasanidi zimefichwa; swichi zote za wasanidi zimezimwa</string>
+</resources>

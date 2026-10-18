@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="dev_version_label">Bersyon %1$s (%2$d)</string>
+    <plurals name="dev_taps_remaining">
+        <item quantity="other">%d pang tap para ma-unlock ang mga opsyon ng developer</item>
+    </plurals>
+    <string name="dev_unlocked">Na-unlock ang mga opsyon ng developer</string>
+    <string name="dev_open">Mga opsyon ng developer</string>
+    <string name="dev_title">Mga opsyon ng developer</string>
+    <string name="dev_warning">Babala: pinapayagan ng mga opsyong ito ang mga pagsusulat na hindi pa kumpirmado para sa modelo ng iyong blood pressure monitor. Maaaring permanenteng masira ng ganitong pagsusulat ang mga setting ng monitor. Para lamang ang mga ito sa mga taong nagva-validate ng modelo gamit ang monitor na handa nilang mawala.</string>
+    <string name="dev_allow_clock_untested">Payagan ang pag-sync ng orasan sa mga monitor na hindi pa ito nasusubukan</string>
+    <string name="dev_allow_confirm_title">Payagan ang hindi pa nasusubukang pag-sync ng orasan?</string>
+    <string name="dev_allow_confirm_message">Hindi pa kumpirmado ang pagtatakda ng orasan sa mga modelong ito ng monitor. Kung gagawin pa rin, maaaring permanenteng masira ang mga setting ng monitor o hindi na ito magamit.\n\nWalang ipinapadala ang switch na ito nang mag-isa. Kung itatakda mo ang orasan ng ganitong monitor sa ibang pagkakataon, itatala ng device report na may sinubukang pagsusulat na hindi pa nasusubukan.\n\nIkaw ang mananagot sa anumang pinsala sa iyong monitor.</string>
+    <string name="dev_allow_confirm_accept">Naiintindihan ko, i-enable</string>
+    <string name="dev_index_title">Suporta sa pagsusulat ayon sa monitor</string>
+    <string name="dev_index_status_confirmed">Kumpirmado</string>
+    <string name="dev_index_status_untested">Hindi pa nasusubukan</string>
+    <string name="dev_index_status_blocked">Naka-block</string>
+    <string name="dev_index_aspect_clock">Pag-sync ng orasan</string>
+    <string name="dev_index_aspect_unsent">Counter ng mga reading na hindi pa naipapadala</string>
+    <string name="dev_index_no_monitors">Wala pang naka-save na monitor.</string>
+    <string name="dev_hide">Itago ang mga opsyon ng developer</string>
+    <string name="dev_hidden">Nakatago na ang mga opsyon ng developer; naka-off ang lahat ng switch ng developer</string>
+</resources>

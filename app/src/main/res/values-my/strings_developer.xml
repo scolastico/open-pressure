@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="dev_version_label">ဗားရှင်း %1$s (%2$d)</string>
+    <plurals name="dev_taps_remaining">
+        <item quantity="other">developer ရွေးချယ်စရာများ ဖွင့်ရန် နောက်ထပ် %d ကြိမ် တို့ပါ</item>
+    </plurals>
+    <string name="dev_unlocked">developer ရွေးချယ်စရာများ ဖွင့်ပြီးပါပြီ</string>
+    <string name="dev_open">developer ရွေးချယ်စရာများ</string>
+    <string name="dev_title">developer ရွေးချယ်စရာများ</string>
+    <string name="dev_warning">သတိပေးချက်- ဤရွေးချယ်စရာများသည် သင့်သွေးပေါင်တိုင်းကိရိယာ မော်ဒယ်အတွက် အတည်မပြုရသေးသော ရေးသားမှုများကို ခွင့်ပြုသည်။ ထိုသို့ ရေးသားမှုက ကိရိယာ၏ ဆက်တင်များကို အပြီးတိုင် ပျက်စီးစေနိုင်သည်။ ဆုံးရှုံးရန် အသင့်ရှိသော ကိရိယာဖြင့် မော်ဒယ်တစ်ခုကို စစ်ဆေးအတည်ပြုသူများအတွက်သာ ဖြစ်သည်။</string>
+    <string name="dev_allow_clock_untested">မစမ်းသပ်ရသေးသော ကိရိယာများတွင် နာရီ ချိန်ကိုက်ခြင်းကို ခွင့်ပြုရန်</string>
+    <string name="dev_allow_confirm_title">မစမ်းသပ်ရသေးသော နာရီ ချိန်ကိုက်ခြင်းကို ခွင့်ပြုမလား။</string>
+    <string name="dev_allow_confirm_message">ဤကိရိယာ မော်ဒယ်များတွင် နာရီချိန်ခြင်းကို အတည်မပြုရသေးပါ။ မည်သို့ပင်ဖြစ်စေ လုပ်ဆောင်ပါက ကိရိယာ၏ ဆက်တင်များ အပြီးတိုင် ပျက်စီးနိုင်သည် သို့မဟုတ် အသုံးမပြုနိုင်တော့ပါ။\n\nဤခလုတ်သည် ကိုယ်တိုင် ဘာမျှ မပို့ပါ။ နောက်ပိုင်းတွင် ထိုကိရိယာ၏ နာရီကို ချိန်ပါက မစမ်းသပ်ရသေးသော ရေးသားမှုကို ကြိုးစားခဲ့ကြောင်း စက်ပစ္စည်း အစီရင်ခံစာတွင် မှတ်တမ်းတင်မည်။\n\nသင့်ကိရိယာ ပျက်စီးမှုမှန်သမျှအတွက် သင်ကိုယ်တိုင် တာဝန်ရှိသည်။</string>
+    <string name="dev_allow_confirm_accept">နားလည်ပါသည်၊ ဖွင့်ပါ</string>
+    <string name="dev_index_title">ကိရိယာအလိုက် ရေးသားမှု ပံ့ပိုးမှု</string>
+    <string name="dev_index_status_confirmed">အတည်ပြုပြီး</string>
+    <string name="dev_index_status_untested">မစမ်းသပ်ရသေး</string>
+    <string name="dev_index_status_blocked">ပိတ်ထားသည်</string>
+    <string name="dev_index_aspect_clock">နာရီ ချိန်ကိုက်ခြင်း</string>
+    <string name="dev_index_aspect_unsent">မပို့ရသေးသော ဖတ်ချက်များ ရေတွက်စနစ်</string>
+    <string name="dev_index_no_monitors">သိမ်းထားသော ကိရိယာ မရှိသေးပါ။</string>
+    <string name="dev_hide">developer ရွေးချယ်စရာများ ဖျောက်ရန်</string>
+    <string name="dev_hidden">developer ရွေးချယ်စရာများကို ဖျောက်ထားပြီး developer ခလုတ်အားလုံး ပိတ်ထားသည်</string>
+</resources>

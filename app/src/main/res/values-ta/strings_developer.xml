@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="dev_version_label">பதிப்பு %1$s (%2$d)</string>
+    <plurals name="dev_taps_remaining">
+        <item quantity="one">டெவலப்பர் விருப்பங்களைத் திறக்க இன்னும் %d தட்டல்</item>
+        <item quantity="other">டெவலப்பர் விருப்பங்களைத் திறக்க இன்னும் %d தட்டல்கள்</item>
+    </plurals>
+    <string name="dev_unlocked">டெவலப்பர் விருப்பங்கள் திறக்கப்பட்டன</string>
+    <string name="dev_open">டெவலப்பர் விருப்பங்கள்</string>
+    <string name="dev_title">டெவலப்பர் விருப்பங்கள்</string>
+    <string name="dev_warning">எச்சரிக்கை: உங்கள் இரத்த அழுத்தக் கருவி மாடலுக்கு உறுதிப்படுத்தப்படாத எழுதுதல்களை இந்த விருப்பங்கள் அனுமதிக்கின்றன. அத்தகைய எழுதுதல் கருவியின் அமைப்புகளை நிரந்தரமாகச் சிதைக்கக்கூடும். இழக்கத் தயாராக உள்ள கருவியைக் கொண்டு ஒரு மாடலைச் சரிபார்ப்பவர்களுக்கு மட்டுமே இவை.</string>
+    <string name="dev_allow_clock_untested">சோதிக்கப்படாத கருவிகளில் கடிகார ஒத்திசைவை அனுமதி</string>
+    <string name="dev_allow_confirm_title">சோதிக்கப்படாத கடிகார ஒத்திசைவை அனுமதிக்கவா?</string>
+    <string name="dev_allow_confirm_message">இந்தக் கருவி மாடல்களில் கடிகாரத்தை அமைப்பது உறுதிப்படுத்தப்படவில்லை. இருந்தும் அதைச் செய்தால் கருவியின் அமைப்புகள் நிரந்தரமாகச் சிதையலாம் அல்லது அது பயன்படுத்த முடியாததாகலாம்.\n\nஇந்த ஸ்விட்ச் தானாக எதையும் அனுப்பாது. பின்னர் அத்தகைய கருவியின் கடிகாரத்தை அமைத்தால், சோதிக்கப்படாத எழுதுதல் முயற்சிக்கப்பட்டது என்று சாதன அறிக்கை பதிவு செய்யும்.\n\nஉங்கள் கருவிக்கு ஏற்படும் எந்தச் சேதத்திற்கும் நீங்களே பொறுப்பு.</string>
+    <string name="dev_allow_confirm_accept">புரிந்துகொண்டேன், இயக்கு</string>
+    <string name="dev_index_title">கருவி வாரியான எழுதுதல் ஆதரவு</string>
+    <string name="dev_index_status_confirmed">உறுதிப்படுத்தப்பட்டது</string>
+    <string name="dev_index_status_untested">சோதிக்கப்படவில்லை</string>
+    <string name="dev_index_status_blocked">தடுக்கப்பட்டது</string>
+    <string name="dev_index_aspect_clock">கடிகார ஒத்திசைவு</string>
+    <string name="dev_index_aspect_unsent">அனுப்பப்படாத அளவீடுகளின் எண்ணி</string>
+    <string name="dev_index_no_monitors">இன்னும் சேமித்த கருவிகள் இல்லை.</string>
+    <string name="dev_hide">டெவலப்பர் விருப்பங்களை மறை</string>
+    <string name="dev_hidden">டெவலப்பர் விருப்பங்கள் மறைக்கப்பட்டன; அனைத்து டெவலப்பர் ஸ்விட்ச்களும் அணைக்கப்பட்டுள்ளன</string>
+</resources>

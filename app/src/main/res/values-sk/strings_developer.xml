@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="dev_version_label">Verzia %1$s (%2$d)</string>
+    <plurals name="dev_taps_remaining">
+        <item quantity="few">Ešte %d ťuknutia do odomknutia možností pre vývojárov</item>
+        <item quantity="many">Ešte %d ťuknutí do odomknutia možností pre vývojárov</item>
+        <item quantity="one">Ešte %d ťuknutie do odomknutia možností pre vývojárov</item>
+        <item quantity="other">Ešte %d ťuknutí do odomknutia možností pre vývojárov</item>
+    </plurals>
+    <string name="dev_unlocked">Možnosti pre vývojárov odomknuté</string>
+    <string name="dev_open">Možnosti pre vývojárov</string>
+    <string name="dev_title">Možnosti pre vývojárov</string>
+    <string name="dev_warning">Upozornenie: tieto možnosti povoľujú zápisy, ktoré nie sú pre váš model tlakomera potvrdené. Takýto zápis môže natrvalo poškodiť nastavenia tlakomera. Sú určené len ľuďom, ktorí overujú model na tlakomeri, ktorý sú pripravení stratiť.</string>
+    <string name="dev_allow_clock_untested">Povoliť synchronizáciu hodín na tlakomeroch, kde nie je otestovaná</string>
+    <string name="dev_allow_confirm_title">Povoliť neotestovanú synchronizáciu hodín?</string>
+    <string name="dev_allow_confirm_message">Nastavenie hodín nebolo pri týchto modeloch tlakomerov potvrdené. Ak to napriek tomu urobíte, nastavenia tlakomera sa môžu natrvalo poškodiť alebo môže byť tlakomer nepoužiteľný.\n\nTento prepínač sám nič neodosiela. Ak neskôr nastavíte hodiny na takomto tlakomeri, správa o zariadení zaznamená, že sa vykonal pokus o neotestovaný zápis.\n\nZa akúkoľvek škodu na tlakomeri zodpovedáte vy.</string>
+    <string name="dev_allow_confirm_accept">Rozumiem, zapnúť</string>
+    <string name="dev_index_title">Podpora zápisu podľa tlakomera</string>
+    <string name="dev_index_status_confirmed">Potvrdené</string>
+    <string name="dev_index_status_untested">Neotestované</string>
+    <string name="dev_index_status_blocked">Blokované</string>
+    <string name="dev_index_aspect_clock">Synchronizácia hodín</string>
+    <string name="dev_index_aspect_unsent">Počítadlo neodoslaných meraní</string>
+    <string name="dev_index_no_monitors">Zatiaľ žiadne uložené tlakomery.</string>
+    <string name="dev_hide">Skryť možnosti pre vývojárov</string>
+    <string name="dev_hidden">Možnosti pre vývojárov skryté; všetky vývojárske prepínače sú vypnuté</string>
+</resources>

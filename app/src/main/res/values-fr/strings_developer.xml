@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="dev_version_label">Version %1$s (%2$d)</string>
+    <plurals name="dev_taps_remaining">
+        <item quantity="many">Encore %d appuis pour déverrouiller les options pour les développeurs</item>
+        <item quantity="one">Encore %d appui pour déverrouiller les options pour les développeurs</item>
+        <item quantity="other">Encore %d appuis pour déverrouiller les options pour les développeurs</item>
+    </plurals>
+    <string name="dev_unlocked">Options pour les développeurs déverrouillées</string>
+    <string name="dev_open">Options pour les développeurs</string>
+    <string name="dev_title">Options pour les développeurs</string>
+    <string name="dev_warning">Avertissement : ces options autorisent des écritures qui ne sont pas confirmées pour votre modèle de tensiomètre. Une telle écriture peut endommager définitivement les réglages du tensiomètre. Elles sont réservées aux personnes qui valident un modèle avec un tensiomètre qu\'elles sont prêtes à perdre.</string>
+    <string name="dev_allow_clock_untested">Autoriser la synchronisation de l\'horloge sur les tensiomètres où elle n\'est pas testée</string>
+    <string name="dev_allow_confirm_title">Autoriser la synchronisation de l\'horloge non testée ?</string>
+    <string name="dev_allow_confirm_message">Le réglage de l\'horloge n\'a pas été confirmé sur ces modèles de tensiomètre. Le faire malgré tout peut endommager définitivement les réglages du tensiomètre ou le rendre inutilisable.\n\nCet interrupteur n\'envoie rien par lui-même. Si vous réglez plus tard l\'horloge d\'un tel tensiomètre, le rapport d\'appareil indique qu\'une écriture non testée a été tentée.\n\nVous êtes responsable de tout dommage causé à votre tensiomètre.</string>
+    <string name="dev_allow_confirm_accept">J\'ai compris, activer</string>
+    <string name="dev_index_title">Prise en charge des écritures par tensiomètre</string>
+    <string name="dev_index_status_confirmed">Confirmé</string>
+    <string name="dev_index_status_untested">Non testé</string>
+    <string name="dev_index_status_blocked">Bloqué</string>
+    <string name="dev_index_aspect_clock">Synchronisation de l\'horloge</string>
+    <string name="dev_index_aspect_unsent">Compteur des mesures non envoyées</string>
+    <string name="dev_index_no_monitors">Aucun tensiomètre enregistré pour le moment.</string>
+    <string name="dev_hide">Masquer les options pour les développeurs</string>
+    <string name="dev_hidden">Options pour les développeurs masquées ; tous les interrupteurs pour les développeurs sont désactivés</string>
+</resources>

@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="dev_version_label">Versie %1$s (%2$d)</string>
+    <plurals name="dev_taps_remaining">
+        <item quantity="one">Nog %d tik om de ontwikkelaarsopties te ontgrendelen</item>
+        <item quantity="other">Nog %d tikken om de ontwikkelaarsopties te ontgrendelen</item>
+    </plurals>
+    <string name="dev_unlocked">Ontwikkelaarsopties ontgrendeld</string>
+    <string name="dev_open">Ontwikkelaarsopties</string>
+    <string name="dev_title">Ontwikkelaarsopties</string>
+    <string name="dev_warning">Waarschuwing: deze opties staan schrijfacties toe die niet bevestigd zijn voor jouw bloeddrukmetermodel. Zo’n schrijfactie kan de instellingen van de meter blijvend beschadigen. Ze zijn alleen bedoeld voor mensen die een model valideren met een meter die ze bereid zijn te verliezen.</string>
+    <string name="dev_allow_clock_untested">Kloksynchronisatie toestaan op meters waar die niet getest is</string>
+    <string name="dev_allow_confirm_title">Niet-geteste kloksynchronisatie toestaan?</string>
+    <string name="dev_allow_confirm_message">Het instellen van de klok is niet bevestigd voor deze metermodellen. Het toch doen kan de instellingen van de meter blijvend beschadigen of de meter onbruikbaar maken.\n\nDeze schakelaar verstuurt zelf niets. Als je later de klok van zo’n meter instelt, vermeldt het apparaatrapport dat een niet-geteste schrijfactie is geprobeerd.\n\nJe bent zelf verantwoordelijk voor eventuele schade aan je meter.</string>
+    <string name="dev_allow_confirm_accept">Ik begrijp het, inschakelen</string>
+    <string name="dev_index_title">Schrijfondersteuning per meter</string>
+    <string name="dev_index_status_confirmed">Bevestigd</string>
+    <string name="dev_index_status_untested">Niet getest</string>
+    <string name="dev_index_status_blocked">Geblokkeerd</string>
+    <string name="dev_index_aspect_clock">Kloksynchronisatie</string>
+    <string name="dev_index_aspect_unsent">Teller van niet-verzonden metingen</string>
+    <string name="dev_index_no_monitors">Nog geen opgeslagen meters.</string>
+    <string name="dev_hide">Ontwikkelaarsopties verbergen</string>
+    <string name="dev_hidden">Ontwikkelaarsopties verborgen; alle ontwikkelaarsschakelaars staan uit</string>
+</resources>

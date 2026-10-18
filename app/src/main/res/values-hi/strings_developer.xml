@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="dev_version_label">संस्करण %1$s (%2$d)</string>
+    <plurals name="dev_taps_remaining">
+        <item quantity="one">डेवलपर विकल्प अनलॉक करने के लिए %d टैप बाकी</item>
+        <item quantity="other">डेवलपर विकल्प अनलॉक करने के लिए %d टैप बाकी</item>
+    </plurals>
+    <string name="dev_unlocked">डेवलपर विकल्प अनलॉक हो गए</string>
+    <string name="dev_open">डेवलपर विकल्प</string>
+    <string name="dev_title">डेवलपर विकल्प</string>
+    <string name="dev_warning">चेतावनी: ये विकल्प ऐसे लेखन की अनुमति देते हैं जिनकी आपके रक्तचाप मॉनिटर मॉडल के लिए पुष्टि नहीं हुई है। ऐसा लेखन मॉनिटर की सेटिंग्स को स्थायी रूप से खराब कर सकता है। ये केवल उन लोगों के लिए हैं जो किसी मॉडल की जाँच ऐसे मॉनिटर से कर रहे हैं जिसे खोने के लिए वे तैयार हैं।</string>
+    <string name="dev_allow_clock_untested">जिन मॉनिटर पर घड़ी सिंक का परीक्षण नहीं हुआ, उन पर इसकी अनुमति दें</string>
+    <string name="dev_allow_confirm_title">बिना परीक्षण वाला घड़ी सिंक अनुमति दें?</string>
+    <string name="dev_allow_confirm_message">इन मॉनिटर मॉडलों पर घड़ी सेट करने की पुष्टि नहीं हुई है। फिर भी ऐसा करने से मॉनिटर की सेटिंग्स स्थायी रूप से खराब हो सकती हैं या वह अनुपयोगी हो सकता है।\n\nयह स्विच अपने आप कुछ नहीं भेजता। यदि आप बाद में ऐसे मॉनिटर की घड़ी सेट करते हैं, तो डिवाइस रिपोर्ट दर्ज करती है कि बिना परीक्षण वाले लेखन का प्रयास किया गया।\n\nआपके मॉनिटर को होने वाले किसी भी नुकसान के लिए आप ज़िम्मेदार हैं।</string>
+    <string name="dev_allow_confirm_accept">मैं समझता/समझती हूँ, चालू करें</string>
+    <string name="dev_index_title">मॉनिटर के अनुसार लेखन समर्थन</string>
+    <string name="dev_index_status_confirmed">पुष्टि हुई</string>
+    <string name="dev_index_status_untested">परीक्षण नहीं हुआ</string>
+    <string name="dev_index_status_blocked">अवरुद्ध</string>
+    <string name="dev_index_aspect_clock">घड़ी सिंक</string>
+    <string name="dev_index_aspect_unsent">न भेजी गई रीडिंग का काउंटर</string>
+    <string name="dev_index_no_monitors">अभी कोई सहेजा गया मॉनिटर नहीं है।</string>
+    <string name="dev_hide">डेवलपर विकल्प छिपाएँ</string>
+    <string name="dev_hidden">डेवलपर विकल्प छिपा दिए गए; सभी डेवलपर स्विच बंद हैं</string>
+</resources>

@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="dev_version_label">વર્ઝન %1$s (%2$d)</string>
+    <plurals name="dev_taps_remaining">
+        <item quantity="one">ડેવલપર વિકલ્પો અનલૉક કરવા %d ટૅપ બાકી</item>
+        <item quantity="other">ડેવલપર વિકલ્પો અનલૉક કરવા %d ટૅપ બાકી</item>
+    </plurals>
+    <string name="dev_unlocked">ડેવલપર વિકલ્પો અનલૉક થયા</string>
+    <string name="dev_open">ડેવલપર વિકલ્પો</string>
+    <string name="dev_title">ડેવલપર વિકલ્પો</string>
+    <string name="dev_warning">ચેતવણી: આ વિકલ્પો એવા લેખનની મંજૂરી આપે છે જે તમારા બ્લડ પ્રેશર મોનિટર મૉડલ માટે પુષ્ટિ થયેલા નથી. આવું લેખન મોનિટરની સેટિંગ્સને કાયમ માટે બગાડી શકે છે. તે ફક્ત એવા લોકો માટે છે જેઓ ગુમાવવા તૈયાર હોય તેવા મોનિટરથી કોઈ મૉડલની ચકાસણી કરે છે.</string>
+    <string name="dev_allow_clock_untested">જે મોનિટર પર પરીક્ષણ થયું નથી ત્યાં ઘડિયાળ સિંકની મંજૂરી આપો</string>
+    <string name="dev_allow_confirm_title">પરીક્ષણ વિનાના ઘડિયાળ સિંકની મંજૂરી આપવી?</string>
+    <string name="dev_allow_confirm_message">આ મોનિટર મૉડલ પર ઘડિયાળ સેટ કરવાની પુષ્ટિ થઈ નથી. છતાં તેમ કરવાથી મોનિટરની સેટિંગ્સ કાયમ માટે બગડી શકે છે અથવા તે બિનઉપયોગી બની શકે છે.\n\nઆ સ્વિચ જાતે કંઈ મોકલતી નથી. જો તમે પછીથી આવા મોનિટરની ઘડિયાળ સેટ કરો, તો ડિવાઇસ રિપોર્ટ નોંધે છે કે પરીક્ષણ વિનાના લેખનનો પ્રયાસ થયો હતો.\n\nતમારા મોનિટરને થતા કોઈપણ નુકસાન માટે તમે જવાબદાર છો.</string>
+    <string name="dev_allow_confirm_accept">હું સમજું છું, ચાલુ કરો</string>
+    <string name="dev_index_title">મોનિટર મુજબ લેખન સપોર્ટ</string>
+    <string name="dev_index_status_confirmed">પુષ્ટિ થયેલ</string>
+    <string name="dev_index_status_untested">પરીક્ષણ થયું નથી</string>
+    <string name="dev_index_status_blocked">અવરોધિત</string>
+    <string name="dev_index_aspect_clock">ઘડિયાળ સિંક</string>
+    <string name="dev_index_aspect_unsent">ન મોકલાયેલા રીડિંગ્સનું કાઉન્ટર</string>
+    <string name="dev_index_no_monitors">હજી કોઈ સાચવેલ મોનિટર નથી.</string>
+    <string name="dev_hide">ડેવલપર વિકલ્પો છુપાવો</string>
+    <string name="dev_hidden">ડેવલપર વિકલ્પો છુપાવ્યા; બધી ડેવલપર સ્વિચ બંધ છે</string>
+</resources>

@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="dev_version_label">Verzió: %1$s (%2$d)</string>
+    <plurals name="dev_taps_remaining">
+        <item quantity="one">Még %d koppintás a fejlesztői beállítások feloldásáig</item>
+        <item quantity="other">Még %d koppintás a fejlesztői beállítások feloldásáig</item>
+    </plurals>
+    <string name="dev_unlocked">Fejlesztői beállítások feloldva</string>
+    <string name="dev_open">Fejlesztői beállítások</string>
+    <string name="dev_title">Fejlesztői beállítások</string>
+    <string name="dev_warning">Figyelem: ezek a beállítások olyan írásokat engedélyeznek, amelyek nincsenek megerősítve a vérnyomásmérő modelljéhez. Egy ilyen írás véglegesen tönkreteheti a mérő beállításait. Csak azoknak szólnak, akik egy modellt olyan mérővel ellenőriznek, amelynek elvesztését vállalják.</string>
+    <string name="dev_allow_clock_untested">Óraszinkronizálás engedélyezése olyan mérőkön, ahol nincs tesztelve</string>
+    <string name="dev_allow_confirm_title">Engedélyezi a nem tesztelt óraszinkronizálást?</string>
+    <string name="dev_allow_confirm_message">Az óra beállítása nincs megerősítve ezeken a mérőmodelleken. Ha mégis megteszi, a mérő beállításai véglegesen sérülhetnek, vagy a mérő használhatatlanná válhat.\n\nEz a kapcsoló magától nem küld semmit. Ha később beállítja egy ilyen mérő óráját, az eszközjelentés rögzíti, hogy nem tesztelt írást kíséreltek meg.\n\nA mérőt ért bármilyen kárért Ön felel.</string>
+    <string name="dev_allow_confirm_accept">Megértettem, bekapcsolom</string>
+    <string name="dev_index_title">Írástámogatás mérőnként</string>
+    <string name="dev_index_status_confirmed">Megerősítve</string>
+    <string name="dev_index_status_untested">Nem tesztelt</string>
+    <string name="dev_index_status_blocked">Letiltva</string>
+    <string name="dev_index_aspect_clock">Óraszinkronizálás</string>
+    <string name="dev_index_aspect_unsent">El nem küldött mérések számlálója</string>
+    <string name="dev_index_no_monitors">Még nincs mentett mérő.</string>
+    <string name="dev_hide">Fejlesztői beállítások elrejtése</string>
+    <string name="dev_hidden">Fejlesztői beállítások elrejtve; minden fejlesztői kapcsoló ki van kapcsolva</string>
+</resources>

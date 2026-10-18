@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="dev_version_label">Версія %1$s (%2$d)</string>
+    <plurals name="dev_taps_remaining">
+        <item quantity="few">Залишилося %d натискання до відкриття параметрів розробника</item>
+        <item quantity="many">Залишилося %d натискань до відкриття параметрів розробника</item>
+        <item quantity="one">Залишилося %d натискання до відкриття параметрів розробника</item>
+        <item quantity="other">Залишилося %d натискання до відкриття параметрів розробника</item>
+    </plurals>
+    <string name="dev_unlocked">Параметри розробника відкрито</string>
+    <string name="dev_open">Параметри розробника</string>
+    <string name="dev_title">Параметри розробника</string>
+    <string name="dev_warning">Увага: ці параметри дозволяють запис, не підтверджений для вашої моделі тонометра. Такий запис може безповоротно пошкодити налаштування тонометра. Вони призначені лише для тих, хто перевіряє модель на тонометрі, який готовий втратити.</string>
+    <string name="dev_allow_clock_untested">Дозволити синхронізацію годинника на тонометрах, де її не перевірено</string>
+    <string name="dev_allow_confirm_title">Дозволити неперевірену синхронізацію годинника?</string>
+    <string name="dev_allow_confirm_message">Встановлення годинника не підтверджено для цих моделей тонометрів. Якщо все ж зробити це, налаштування тонометра можуть бути безповоротно пошкоджені або він стане непридатним.\n\nЦей перемикач сам нічого не надсилає. Якщо пізніше ви встановите годинник на такому тонометрі, у звіті про пристрій буде зазначено, що була спроба неперевіреного запису.\n\nВи несете відповідальність за будь-яку шкоду вашому тонометру.</string>
+    <string name="dev_allow_confirm_accept">Розумію, увімкнути</string>
+    <string name="dev_index_title">Підтримка запису за тонометрами</string>
+    <string name="dev_index_status_confirmed">Підтверджено</string>
+    <string name="dev_index_status_untested">Не перевірено</string>
+    <string name="dev_index_status_blocked">Заблоковано</string>
+    <string name="dev_index_aspect_clock">Синхронізація годинника</string>
+    <string name="dev_index_aspect_unsent">Лічильник ненадісланих вимірювань</string>
+    <string name="dev_index_no_monitors">Збережених тонометрів поки немає.</string>
+    <string name="dev_hide">Сховати параметри розробника</string>
+    <string name="dev_hidden">Параметри розробника приховано; усі перемикачі розробника вимкнено</string>
+</resources>

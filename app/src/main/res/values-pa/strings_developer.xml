@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="dev_version_label">ਵਰਜਨ %1$s (%2$d)</string>
+    <plurals name="dev_taps_remaining">
+        <item quantity="one">ਡਿਵੈਲਪਰ ਵਿਕਲਪ ਅਨਲੌਕ ਕਰਨ ਲਈ %d ਟੈਪ ਬਾਕੀ</item>
+        <item quantity="other">ਡਿਵੈਲਪਰ ਵਿਕਲਪ ਅਨਲੌਕ ਕਰਨ ਲਈ %d ਟੈਪ ਬਾਕੀ</item>
+    </plurals>
+    <string name="dev_unlocked">ਡਿਵੈਲਪਰ ਵਿਕਲਪ ਅਨਲੌਕ ਹੋ ਗਏ</string>
+    <string name="dev_open">ਡਿਵੈਲਪਰ ਵਿਕਲਪ</string>
+    <string name="dev_title">ਡਿਵੈਲਪਰ ਵਿਕਲਪ</string>
+    <string name="dev_warning">ਚੇਤਾਵਨੀ: ਇਹ ਵਿਕਲਪ ਅਜਿਹੀ ਲਿਖਤ ਦੀ ਇਜਾਜ਼ਤ ਦਿੰਦੇ ਹਨ ਜਿਸ ਦੀ ਤੁਹਾਡੇ ਬਲੱਡ ਪ੍ਰੈਸ਼ਰ ਮਾਨੀਟਰ ਮਾਡਲ ਲਈ ਪੁਸ਼ਟੀ ਨਹੀਂ ਹੋਈ। ਅਜਿਹੀ ਲਿਖਤ ਮਾਨੀਟਰ ਦੀਆਂ ਸੈਟਿੰਗਾਂ ਨੂੰ ਸਥਾਈ ਤੌਰ ’ਤੇ ਖਰਾਬ ਕਰ ਸਕਦੀ ਹੈ। ਇਹ ਸਿਰਫ਼ ਉਹਨਾਂ ਲੋਕਾਂ ਲਈ ਹਨ ਜੋ ਕਿਸੇ ਮਾਡਲ ਦੀ ਜਾਂਚ ਅਜਿਹੇ ਮਾਨੀਟਰ ਨਾਲ ਕਰ ਰਹੇ ਹਨ ਜਿਸ ਨੂੰ ਗੁਆਉਣ ਲਈ ਉਹ ਤਿਆਰ ਹਨ।</string>
+    <string name="dev_allow_clock_untested">ਜਿਨ੍ਹਾਂ ਮਾਨੀਟਰਾਂ ’ਤੇ ਜਾਂਚ ਨਹੀਂ ਹੋਈ ਉਹਨਾਂ ’ਤੇ ਘੜੀ ਸਿੰਕ ਦੀ ਇਜਾਜ਼ਤ ਦਿਓ</string>
+    <string name="dev_allow_confirm_title">ਬਿਨਾਂ ਜਾਂਚੇ ਘੜੀ ਸਿੰਕ ਦੀ ਇਜਾਜ਼ਤ ਦੇਣੀ ਹੈ?</string>
+    <string name="dev_allow_confirm_message">ਇਹਨਾਂ ਮਾਨੀਟਰ ਮਾਡਲਾਂ ’ਤੇ ਘੜੀ ਸੈੱਟ ਕਰਨ ਦੀ ਪੁਸ਼ਟੀ ਨਹੀਂ ਹੋਈ। ਫਿਰ ਵੀ ਅਜਿਹਾ ਕਰਨ ਨਾਲ ਮਾਨੀਟਰ ਦੀਆਂ ਸੈਟਿੰਗਾਂ ਸਥਾਈ ਤੌਰ ’ਤੇ ਖਰਾਬ ਹੋ ਸਕਦੀਆਂ ਹਨ ਜਾਂ ਇਹ ਵਰਤੋਂਯੋਗ ਨਹੀਂ ਰਹਿ ਸਕਦਾ।\n\nਇਹ ਸਵਿੱਚ ਆਪਣੇ ਆਪ ਕੁਝ ਨਹੀਂ ਭੇਜਦਾ। ਜੇ ਤੁਸੀਂ ਬਾਅਦ ਵਿੱਚ ਅਜਿਹੇ ਮਾਨੀਟਰ ਦੀ ਘੜੀ ਸੈੱਟ ਕਰਦੇ ਹੋ, ਤਾਂ ਡਿਵਾਈਸ ਰਿਪੋਰਟ ਦਰਜ ਕਰਦੀ ਹੈ ਕਿ ਬਿਨਾਂ ਜਾਂਚੀ ਲਿਖਤ ਦੀ ਕੋਸ਼ਿਸ਼ ਕੀਤੀ ਗਈ।\n\nਤੁਹਾਡੇ ਮਾਨੀਟਰ ਨੂੰ ਹੋਣ ਵਾਲੇ ਕਿਸੇ ਵੀ ਨੁਕਸਾਨ ਲਈ ਤੁਸੀਂ ਜ਼ਿੰਮੇਵਾਰ ਹੋ।</string>
+    <string name="dev_allow_confirm_accept">ਮੈਂ ਸਮਝਦਾ/ਸਮਝਦੀ ਹਾਂ, ਚਾਲੂ ਕਰੋ</string>
+    <string name="dev_index_title">ਮਾਨੀਟਰ ਅਨੁਸਾਰ ਲਿਖਤ ਸਹਾਇਤਾ</string>
+    <string name="dev_index_status_confirmed">ਪੁਸ਼ਟੀ ਹੋਈ</string>
+    <string name="dev_index_status_untested">ਜਾਂਚ ਨਹੀਂ ਹੋਈ</string>
+    <string name="dev_index_status_blocked">ਬਲੌਕ</string>
+    <string name="dev_index_aspect_clock">ਘੜੀ ਸਿੰਕ</string>
+    <string name="dev_index_aspect_unsent">ਨਾ ਭੇਜੀਆਂ ਰੀਡਿੰਗਾਂ ਦਾ ਕਾਊਂਟਰ</string>
+    <string name="dev_index_no_monitors">ਅਜੇ ਕੋਈ ਸੁਰੱਖਿਅਤ ਮਾਨੀਟਰ ਨਹੀਂ।</string>
+    <string name="dev_hide">ਡਿਵੈਲਪਰ ਵਿਕਲਪ ਲੁਕਾਓ</string>
+    <string name="dev_hidden">ਡਿਵੈਲਪਰ ਵਿਕਲਪ ਲੁਕਾਏ ਗਏ; ਸਾਰੇ ਡਿਵੈਲਪਰ ਸਵਿੱਚ ਬੰਦ ਹਨ</string>
+</resources>

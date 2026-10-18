@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="dev_version_label">Inguqulo %1$s (%2$d)</string>
+    <plurals name="dev_taps_remaining">
+        <item quantity="one">Kusele ukuthepha okungu-%d ukuze uvule izinketho zonjiniyela</item>
+        <item quantity="other">Kusele ukuthepha okungu-%d ukuze uvule izinketho zonjiniyela</item>
+    </plurals>
+    <string name="dev_unlocked">Izinketho zonjiniyela zivuliwe</string>
+    <string name="dev_open">Izinketho zonjiniyela</string>
+    <string name="dev_title">Izinketho zonjiniyela</string>
+    <string name="dev_warning">Isexwayiso: lezi zinketho zivumela ukubhala okungakaqinisekiswa kumodeli yakho yesilinganisi somfutho wegazi. Ukubhala okunjalo kungonakalisa unomphela izilungiselelo zesilinganisi. Zenzelwe kuphela abantu abaqinisekisa imodeli ngesilinganisi abakulungele ukusilahlekelwa.</string>
+    <string name="dev_allow_clock_untested">Vumela ukuvumelanisa iwashi kuzilinganisi lapho kungakahlolwa khona</string>
+    <string name="dev_allow_confirm_title">Vumela ukuvumelanisa iwashi okungakahlolwa?</string>
+    <string name="dev_allow_confirm_message">Ukusetha iwashi akukaqinisekiswa kulawa mamodeli ezilinganisi. Ukukwenza noma kunjalo kungonakalisa unomphela izilungiselelo zesilinganisi noma kusenze singasebenziseki.\n\nLesi sishintshi asithumeli lutho ngokwaso. Uma kamuva usetha iwashi lesilinganisi esinjalo, umbiko wedivayisi uqopha ukuthi kuzanywe ukubhala okungakahlolwa.\n\nUnesibopho sanoma yimuphi umonakalo esilinganisini sakho.</string>
+    <string name="dev_allow_confirm_accept">Ngiyaqonda, vula</string>
+    <string name="dev_index_title">Ukusekelwa kokubhala ngesilinganisi</string>
+    <string name="dev_index_status_confirmed">Kuqinisekisiwe</string>
+    <string name="dev_index_status_untested">Akukahlolwa</string>
+    <string name="dev_index_status_blocked">Kuvinjiwe</string>
+    <string name="dev_index_aspect_clock">Ukuvumelanisa iwashi</string>
+    <string name="dev_index_aspect_unsent">Isibali sezilinganiso ezingathunyelwe</string>
+    <string name="dev_index_no_monitors">Azikho izilinganisi ezilondoloziwe okwamanje.</string>
+    <string name="dev_hide">Fihla izinketho zonjiniyela</string>
+    <string name="dev_hidden">Izinketho zonjiniyela zifihliwe; zonke izishintshi zonjiniyela zivaliwe</string>
+</resources>
