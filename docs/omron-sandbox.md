@@ -37,11 +37,13 @@ tools/omron-sandbox.sh diff <old-version> <new-version>  # transcript changes be
 Both replay tests also accept a comma-separated `-Dfixture` list for a focused batch, for example:
 
 ```sh
-./gradlew -Dfixture=hem-7155t/pair,hem-6232t/pair :omron-sandbox:testDebugUnitTest --tests '*OmronFixtureTest'
+./gradlew -Dfixture=hem-7155t/pair,hem-6232t/pair :omron-sandbox:testDebugUnitTest --tests '*OmronFixtureShard*'
 ./gradlew -Dfixture=hem-7155t/pair,hem-6232t/pair :app:testDebugUnitTest --tests '*FixtureReplayTest'
 ```
 
 Run Gradle commands sequentially: they share build and test-output directories. The shell helper accepts one fixture name or `all`.
+
+Each fixture needs a fresh Robolectric and Omron start of one to two minutes, so the Omron replay runs in parallel test JVMs. Gradle distributes test classes rather than parameters, so the fixtures are dealt round-robin to eight shard classes (`OmronFixtureShard0Test` … `OmronFixtureShard7Test`, by position in the fixture index modulo 8); a shard with no selected fixture runs nothing. The number of parallel JVMs is detected from the machine: half the logical processors, at most (physical RAM − 4 GB) / 3 GB, at most 8, and at least 1. The build prints the chosen value (`Omron sandbox: up to N parallel test forks`); override it with `-Pomron.forks=N` for Gradle or `OMRON_FORKS=N tools/omron-sandbox.sh` for the helper, for example with 2 on a machine that is also busy with other work.
 
 For each fixture the command prints three results, followed by the fixture's open findings:
 
@@ -204,4 +206,5 @@ With the local ARM64 split, these checks exercise fresh pairing and saved-key au
 - **Obfuscated code**: Omron's release build renames most classes and methods. The sandbox hooks only Android Bluetooth classes and fixed native names, and finds Omron's entry points by kept names and exact signatures (`OmronAnchors`). `tools/omron-sandbox.sh resolve` names any entry point a new Omron version breaks.
 - **Timing**: virtual time passes only while Omron waits, so its pacing delays and timeouts behave as on a phone without real waiting. Callbacks from different Omron threads may appear in either order in a transcript.
 - **Isolation**: each fixture runs with fresh copies of Omron's classes, because Omron keeps process-wide state. The sandbox blocks HTTP for the whole test JVM because Omron's analytics library tries to send tracking data.
+- **Memory**: every test JVM gets a 3 GB heap because one fixture holds Robolectric's Android framework and Omron's converted classes in a fresh class loader. With N parallel forks the replay can use about N × 3 GB plus JVM overhead; lower `-Pomron.forks` when memory is short. Static state such as the network block and the native Omsec runtime is per JVM, and every fixture writes only its own result and transcript files, so forks do not share mutable state.
 - **Verification**: dex2jar output has no stack-map frames, so the sandbox's test JVM runs with bytecode verification disabled.

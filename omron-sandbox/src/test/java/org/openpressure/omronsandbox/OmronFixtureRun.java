@@ -15,7 +15,7 @@ import java.nio.file.Paths;
 import static org.junit.Assert.*;
 
 /**
- * Runs one fixture (system property {@value #FIXTURE}) through Omron's code; started by {@link OmronFixtureTest}
+ * Runs one fixture (system property {@value #FIXTURE}) through Omron's code; started by {@link OmronFixtureShard}
  * in a fresh class loader because Omron keeps static singletons that Robolectric does not reset. Omron
  * disagreeing with a fixture is a finding for the report, never a build failure; transcripts are kept per Omron
  * version for later diffs.
@@ -29,7 +29,7 @@ public class OmronFixtureRun {
 
     @Test public void omronRunsFixture() throws Exception {
         String name=System.getProperty(FIXTURE,"");
-        Assume.assumeFalse("started by OmronFixtureTest",name.isEmpty());
+        Assume.assumeFalse("started by OmronFixtureShard",name.isEmpty());
         OmronApk apk=OmronApk.assumePresent();
         Path transcript=Paths.get("build","omron-sandbox","transcripts",apk.version.replaceAll("[^A-Za-z0-9._-]+","_").replaceAll("^_|_$",""),name+".txt");
         Outcome outcome=OmronRunner.run(Fixture.load(name),apk,transcript);

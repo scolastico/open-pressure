@@ -5,6 +5,24 @@ plugins { id 'com.android.library' }
 def omronDir=layout.buildDirectory.dir('omron').get().asFile
 def apkDir=file('apk')
 
+// Fixture replays are dealt to OmronFixtureShard<N>Test classes so Gradle can run them in parallel forks. Each fork
+// needs its 3 GB heap: use half the logical CPUs, at most what physical RAM allows after a 4 GB margin, and no more
+// forks than shards. -Pomron.forks=N overrides the detection.
+def omronShards=8
+def omronForks={
+    if(project.hasProperty('omron.forks')) return Math.max(1,(project.property('omron.forks') as String).toInteger())
+    def os=java.lang.management.ManagementFactory.operatingSystemMXBean
+    long ram=0
+    if(os instanceof com.sun.management.OperatingSystemMXBean) {
+        try { ram=os.getTotalMemorySize() } catch(MissingMethodException ignored) { ram=os.getTotalPhysicalMemorySize() }
+    }
+    long gib=1024L*1024L*1024L
+    int byCpu=Runtime.runtime.availableProcessors().intdiv(2)
+    int byRam=ram>0?(int)Math.floorDiv(ram-4L*gib,3L*gib):1
+    return Math.max(1,[byCpu,byRam,omronShards].min())
+}()
+def omronForksReported=false
+
 android {
     namespace 'org.openpressure.omronsandbox'
     compileSdk 36
@@ -18,6 +36,10 @@ android {
             systemProperty 'fixture', System.getProperty('fixture','')
             systemProperty 'omron.sandbox.explore', System.getProperty('omron.sandbox.explore','false')
             maxHeapSize = '3g'
+            maxParallelForks = omronForks
+            doFirst {
+                if(!omronForksReported) { logger.quiet("Omron sandbox: up to ${omronForks} parallel test forks (3 GB heap each)"); omronForksReported=true }
+            }
             // dex2jar output has no stack map frames; verification would reject Omron's converted classes.
             jvmArgs '-XX:+UnlockDiagnosticVMOptions','-XX:-BytecodeVerificationRemote','-XX:-BytecodeVerificationLocal'
         }

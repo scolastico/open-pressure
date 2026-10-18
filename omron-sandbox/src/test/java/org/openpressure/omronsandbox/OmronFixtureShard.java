@@ -1,30 +1,34 @@
 package org.openpressure.omronsandbox;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
 import org.openpressure.protocol.fixture.Fixture;
 import java.io.File;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import static org.junit.Assert.*;
 
 /**
- * Runs every shared fixture (or {@code -Dfixture=<name>}) through Omron's code, each in a fresh class loader so
- * Omron's static singletons and Robolectric's sandbox start clean, exactly as in a new app process.
+ * Runs shared fixtures (all, or the {@code -Dfixture=<name>[,<name>…]} selection) through Omron's code, each in a
+ * fresh class loader so Omron's static singletons and Robolectric's sandbox start clean, exactly as in a new app
+ * process. Gradle spreads test classes, not parameters, over its forks, so the fixtures are dealt round-robin to
+ * {@value #SHARDS} trivial subclasses ({@code OmronFixtureShard<N>Test}); a shard whose selection is empty has no
+ * parameters and runs nothing.
  */
-@RunWith(Parameterized.class)
-public class OmronFixtureTest {
+public abstract class OmronFixtureShard {
+    static final int SHARDS=8;
     private final String name;
-    public OmronFixtureTest(String name) { this.name=name; }
+    protected OmronFixtureShard(String name) { this.name=name; }
 
-    @Parameterized.Parameters(name="{0}")
-    public static List<Object[]> fixtures() {
+    /** The selected fixtures whose position in {@link Fixture#all()} modulo {@value #SHARDS} is {@code shard}. */
+    static List<Object[]> fixtures(int shard) {
         String only=System.getProperty("fixture","");
+        List<String> selected=only.isEmpty() || only.equals("all")?null:Arrays.asList(only.split(","));
+        List<String> all=Fixture.all();
         List<Object[]> result=new ArrayList<>();
-        for(String name:Fixture.all()) if(only.isEmpty() || only.equals("all") || java.util.Arrays.asList(only.split(",")).contains(name)) result.add(new Object[]{name});
+        for(int i=shard;i<all.size();i+=SHARDS) if(selected==null || selected.contains(all.get(i))) result.add(new Object[]{all.get(i)});
         return result;
     }
 
