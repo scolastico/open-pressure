@@ -15,7 +15,10 @@ public final class DeviceReport {
     public static final String FORMAT="open-pressure-device-report-v1";
     private static final Pattern ADDRESS=Pattern.compile("(?i)\\b[0-9a-f]{2}(?:[:-][0-9a-f]{2}){5}\\b");
     private static final Pattern LONG_HEX=Pattern.compile("(?i)[0-9a-f]{12,}");
-    private static final int TEXT_LIMIT=200, KEY_ACK_LIMIT=8;
+    private static final int TEXT_LIMIT=200, KEY_ACK_LIMIT=8, WRITE_LIMIT=8;
+
+    /** Fixed result of one attempted write aspect; the report never carries the written values or times. */
+    public enum WriteOutcome { ACKNOWLEDGED, REJECTED, SKIPPED_WITHIN_THRESHOLD, CANCELLED, NOT_ATTEMPTED }
 
     public final String operation;
     private final String appVersion, phone;
@@ -25,6 +28,7 @@ public final class DeviceReport {
     private int mtu=-1, decoded=-1, rejected=-1;
     private Boolean endAcknowledged;
     private final List<String> services=new ArrayList<>(), keyAcknowledgments=new ArrayList<>();
+    private final List<Object[]> writes=new ArrayList<>();
 
     public DeviceReport(String operation,String appVersion,int androidApi,String phone) {
         this.operation=operation; this.appVersion=appVersion; this.androidApi=androidApi; this.phone=clean(phone);
@@ -65,6 +69,13 @@ public final class DeviceReport {
     public void transfer(int decodedRecords,int rejectedRecords,boolean ended) {
         decoded=decodedRecords; rejected=rejectedRecords; endAcknowledged=ended;
     }
+    /** Aspect, outcome and whether the index was overridden only; no values, times or addresses. */
+    public void writeAspect(WriteAspectIndex.Aspect aspect,WriteOutcome outcome,boolean override) {
+        if(aspect==null || outcome==null || writes.size()>=WRITE_LIMIT) return;
+        writes.add(new Object[]{"aspect",lower(aspect),"outcome",lower(outcome),"override",override});
+    }
+    public boolean hasWrites() { return !writes.isEmpty(); }
+    private static String lower(Enum<?> value) { return value.name().toLowerCase(Locale.ROOT); }
     /** The latest meaningful result. Failure text is scrubbed of addresses and long identifiers. */
     public void outcome(String title,String failureDetail) { status=clean(title); failure=clean(failureDetail); }
 
@@ -117,6 +128,7 @@ public final class DeviceReport {
         json.open("transfer");
         if(endAcknowledged!=null) json.field("decoded_records",decoded).field("rejected_records",rejected).field("end_acknowledged",endAcknowledged);
         json.close();
+        json.objects("writes",writes);
         json.open("outcome").field("status",status).field("failure",failure).close();
         json.field("excluded","Readings, measurement times, Bluetooth address, serial number, system ID, memory contents, keys and names");
         return json.finish();
@@ -148,6 +160,19 @@ public final class DeviceReport {
             key(name); out.append('[');
             for(int i=0;i<values.size();i++) out.append(i==0?"":",").append('\n').append(indent(depth+1)).append(quote(values.get(i)));
             if(!values.isEmpty()) out.append('\n').append(indent(depth));
+            out.append(']'); return this;
+        }
+        /** Each row is key/value pairs rendered as one compact object per line. */
+        Json objects(String name,List<Object[]> rows) {
+            key(name); out.append('[');
+            for(int i=0;i<rows.size();i++) {
+                Object[] row=rows.get(i);
+                out.append(i==0?"":",").append('\n').append(indent(depth+1)).append('{');
+                for(int j=0;j<row.length;j+=2)
+                    out.append(j==0?"":",").append(quote((String)row[j])).append(':').append(row[j+1] instanceof String?quote((String)row[j+1]):String.valueOf(row[j+1]));
+                out.append('}');
+            }
+            if(!rows.isEmpty()) out.append('\n').append(indent(depth));
             out.append(']'); return this;
         }
         private static String indent(int levels) {

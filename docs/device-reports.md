@@ -20,6 +20,7 @@ No report is offered for the tested monitor, for automatic imports, or when the 
 | Selected protocol path and memory map | See which implementation the app chose |
 | First two bytes and length of each application-key acknowledgment | Check the legacy unlock exchange |
 | Counts of decoded and rejected records, and whether the session end was confirmed | Check the memory map without values |
+| For each attempted write, up to eight, only which part of the monitor was written, the fixed result and whether the safety index was overridden | Track write support without values |
 | Final status and failure message, with addresses and long identifiers removed | Locate where the session stopped |
 
 The report never contains readings, measurement times, profile or monitor-user names, the Bluetooth address, the serial number or system ID, memory contents, pairing keys or key bodies. Record sequence numbers and counts from the advertisement are masked. The [diagnostics export](usage.md) is different: it can contain health data and identifiers and should not be posted publicly.

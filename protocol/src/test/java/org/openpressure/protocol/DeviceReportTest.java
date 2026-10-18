@@ -34,6 +34,11 @@ public final class DeviceReportTest {
         report.protocol("VENDOR_MEMORY","HEM-7155T");
         report.keyAcknowledgment(hex("8200")); report.keyAcknowledgment(hex("810000000000"));
         report.transfer(2,1,true);
+        String withoutWrites=report.toJson();
+        check(!report.hasWrites() && withoutWrites.contains("\"writes\": []"),"a report without writes has an empty writes list");
+        check(withoutWrites.indexOf("\"writes\"")>withoutWrites.indexOf("\"transfer\"") && withoutWrites.indexOf("\"writes\"")<withoutWrites.indexOf("\"outcome\": {"),"writes follow transfer");
+        report.writeAspect(WriteAspectIndex.Aspect.CLOCK_BLOCK,DeviceReport.WriteOutcome.ACKNOWLEDGED,true);
+        for(int i=0;i<12;i++) report.writeAspect(WriteAspectIndex.Aspect.UNSENT_COUNTERS,DeviceReport.WriteOutcome.SKIPPED_WITHIN_THRESHOLD,false);
         report.outcome("Action failed","Timed out talking to AA:BB:CC:DD:EE:FF serial 0123456789abcdef");
         String json=report.toJson();
         check(report.useful() && !report.verified(),"untested monitor with a GATT layout is offered");
@@ -44,6 +49,11 @@ public final class DeviceReportTest {
         check(json.contains("\"decoded_records\": 2") && json.contains("\"end_acknowledged\": true"),"transfer counts recorded");
         for(String secret:new String[]{"AA:BB:CC:DD:EE:FF","AABBCCDDEEFF","0123456789abcdef","7801","0b00"})
             check(!json.contains(secret),"identifier or sequence value leaked: "+secret);
+        check(report.hasWrites(),"recorded write aspects are reported");
+        check(json.contains("\"aspect\":\"clock_block\"") && json.contains("\"outcome\":\"acknowledged\"") && json.contains("\"override\":true"),"write aspect, outcome and override recorded in lower case");
+        check(json.contains("\"outcome\":\"skipped_within_threshold\"") && json.contains("\"override\":false"),"multi-word outcome emitted in lower case");
+        check(json.split("\"aspect\":",-1).length-1==8,"at most eight write entries are kept");
+        check(json.indexOf("\"writes\"")>json.indexOf("\"transfer\"") && json.indexOf("\"writes\"")<json.indexOf("\"outcome\": {"),"writes follow transfer");
         check(json.contains("[address removed]") && json.contains("[identifier removed]"),"failure text scrubbed rather than dropped");
     }
     private static void reportsWithoutGattAreNotOffered() {
