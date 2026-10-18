@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_sync_clock">घड्याळ सिंक करा</string>
+    <string name="main_sync_clock_explanation">मॉनिटरचे घड्याळ या फोनच्या वेळेनुसार सेट करते. काहीही बदलण्यापूर्वी तुम्ही दोन्ही वेळा पाहाल आणि पुष्टी कराल. त्यानंतर कनेक्शन संपते; रीडिंग आयात करण्यासाठी पुन्हा कनेक्ट करा.</string>
+    <string name="main_sync_clock_running">घड्याळ सिंक होत आहे…</string>
+    <string name="clock_sync_title">घड्याळ सिंकची पुष्टी करा</string>
+    <string name="clock_sync_monitor_time">मॉनिटरचे घड्याळ: %1$s</string>
+    <string name="clock_sync_monitor_time_unset">मॉनिटरचे घड्याळ: सेट केलेले नाही</string>
+    <string name="clock_sync_phone_time">फोनची वेळ: %1$s</string>
+    <plurals name="clock_sync_drift">
+        <item quantity="one">फरक: %1$d सेकंद</item>
+        <item quantity="other">फरक: %1$d सेकंद</item>
+    </plurals>
+    <string name="clock_sync_within_threshold">मॉनिटरचे घड्याळ फोनच्या वेळेपासून एका मिनिटाच्या आत आहे, त्यामुळे ते बदलले जात नाही.</string>
+    <string name="clock_sync_untested_warning">या मॉनिटरसोबत घड्याळ सिंकची अजून चाचणी झालेली नाही. तुम्ही डेव्हलपर पर्याय सुरू केल्यामुळेच ते उपलब्ध आहे. हा धोका स्वीकारत असाल तरच पुढे जा.</string>
+    <string name="clock_sync_choose_time">सेट करायची वेळ (डेव्हलपर पर्याय)</string>
+    <string name="clock_sync_confirm">आता सिंक करा</string>
+    <string name="monitor_clock_sync_complete">घड्याळ सिंक झाले</string>
+    <string name="monitor_clock_sync_skipped">घड्याळ आधीच बरोबर आहे</string>
+    <string name="monitor_clock_sync_rejected">घड्याळ सिंक अयशस्वी</string>
+    <string name="monitor_clock_sync_cancelled">घड्याळ सिंक रद्द केले</string>
+    <string name="monitor_clock_sync_unreadable">घड्याळ सिंक शक्य नाही</string>
+    <string name="monitor_clock_sync_reconnect">रीडिंग आयात करण्यासाठी पुन्हा कनेक्ट करा.</string>
+    <string name="clock_sync_report_prompt">तुम्ही अशा मॉनिटरचे घड्याळ सिंक केले आहे ज्याच्यासोबत याची अजून चाचणी झालेली नाही. GitHub issue मधील डिव्हाइस अहवाल ते चालले की नाही हे दाखवतो आणि घड्याळ सिंक इतरांसाठी उपलब्ध करण्यास मदत करतो.\n\nरिपोर्टमध्ये फक्त तांत्रिक तपशील असतात. त्यात कधीही रीडिंग, मोजमापाच्या वेळा, नावे, Bluetooth पत्ता किंवा सिरियल नंबर समाविष्ट नसतात. काहीही शेअर करण्यापूर्वी तुम्ही तो पाहू शकता.</string>
+</resources>

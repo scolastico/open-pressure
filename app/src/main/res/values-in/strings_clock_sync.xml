@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_sync_clock">Sinkronkan jam</string>
+    <string name="main_sync_clock_explanation">Menyetel jam monitor ke waktu ponsel ini. Anda akan melihat kedua waktu dan mengonfirmasi sebelum ada yang berubah. Setelah itu koneksi berakhir; hubungkan lagi untuk mengimpor hasil pengukuran.</string>
+    <string name="main_sync_clock_running">Menyinkronkan jam…</string>
+    <string name="clock_sync_title">Konfirmasi sinkronisasi jam</string>
+    <string name="clock_sync_monitor_time">Jam monitor: %1$s</string>
+    <string name="clock_sync_monitor_time_unset">Jam monitor: belum disetel</string>
+    <string name="clock_sync_phone_time">Waktu ponsel: %1$s</string>
+    <plurals name="clock_sync_drift">
+        <item quantity="other">Selisih: %1$d detik</item>
+    </plurals>
+    <string name="clock_sync_within_threshold">Jam monitor berselisih paling lama satu menit dari waktu ponsel, jadi tidak diubah.</string>
+    <string name="clock_sync_untested_warning">Sinkronisasi jam belum diuji dengan monitor ini. Fitur ini hanya tersedia karena Anda mengaktifkan opsi developer. Lanjutkan hanya jika Anda menerima risiko tersebut.</string>
+    <string name="clock_sync_choose_time">Waktu yang akan disetel (opsi developer)</string>
+    <string name="clock_sync_confirm">Sinkronkan sekarang</string>
+    <string name="monitor_clock_sync_complete">Jam disinkronkan</string>
+    <string name="monitor_clock_sync_skipped">Jam sudah tepat</string>
+    <string name="monitor_clock_sync_rejected">Sinkronisasi jam gagal</string>
+    <string name="monitor_clock_sync_cancelled">Sinkronisasi jam dibatalkan</string>
+    <string name="monitor_clock_sync_unreadable">Sinkronisasi jam tidak dapat dilakukan</string>
+    <string name="monitor_clock_sync_reconnect">Hubungkan lagi untuk mengimpor hasil pengukuran.</string>
+    <string name="clock_sync_report_prompt">Anda telah menyinkronkan jam monitor yang belum pernah diuji untuk fitur ini. Laporan perangkat dalam issue GitHub menunjukkan apakah berhasil dan membantu membuat sinkronisasi jam tersedia bagi orang lain.\n\nLaporan hanya berisi detail teknis. Laporan tidak pernah memuat hasil pengukuran, waktu pengukuran, nama, alamat Bluetooth, atau nomor seri. Anda dapat meninjaunya sebelum membagikan apa pun.</string>
+</resources>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_sync_clock">Synkronoi kello</string>
+    <string name="main_sync_clock_explanation">Asettaa mittarin kellon tämän puhelimen aikaan. Näet molemmat ajat ja vahvistat ennen kuin mitään muutetaan. Sen jälkeen yhteys päättyy; yhdistä uudelleen tuodaksesi mittaukset.</string>
+    <string name="main_sync_clock_running">Synkronoidaan kelloa…</string>
+    <string name="clock_sync_title">Vahvista kellon synkronointi</string>
+    <string name="clock_sync_monitor_time">Mittarin kello: %1$s</string>
+    <string name="clock_sync_monitor_time_unset">Mittarin kello: ei asetettu</string>
+    <string name="clock_sync_phone_time">Puhelimen aika: %1$s</string>
+    <plurals name="clock_sync_drift">
+        <item quantity="one">Ero: %1$d sekunti</item>
+        <item quantity="other">Ero: %1$d sekuntia</item>
+    </plurals>
+    <string name="clock_sync_within_threshold">Mittarin kello poikkeaa puhelimen ajasta enintään minuutin, joten sitä ei muuteta.</string>
+    <string name="clock_sync_untested_warning">Kellon synkronointia ei ole vielä testattu tällä mittarilla. Se on käytettävissä vain, koska otit käyttöön kehittäjäasetuksen. Jatka vain, jos hyväksyt riskin.</string>
+    <string name="clock_sync_choose_time">Asetettava aika (kehittäjäasetus)</string>
+    <string name="clock_sync_confirm">Synkronoi nyt</string>
+    <string name="monitor_clock_sync_complete">Kello synkronoitu</string>
+    <string name="monitor_clock_sync_skipped">Kello on jo oikeassa ajassa</string>
+    <string name="monitor_clock_sync_rejected">Kellon synkronointi epäonnistui</string>
+    <string name="monitor_clock_sync_cancelled">Kellon synkronointi peruttu</string>
+    <string name="monitor_clock_sync_unreadable">Kellon synkronointi ei ole mahdollista</string>
+    <string name="monitor_clock_sync_reconnect">Yhdistä uudelleen tuodaksesi mittaukset.</string>
+    <string name="clock_sync_report_prompt">Synkronoit kellon mittarissa, jolla tätä ei ole vielä testattu. Laiteraportti GitHub-issuessa näyttää, toimiko se, ja auttaa tuomaan kellon synkronoinnin muidenkin käyttöön.\n\nRaportti sisältää vain teknisiä tietoja. Se ei koskaan sisällä mittaustuloksia, mittausaikoja, nimiä, Bluetooth-osoitetta tai sarjanumeroa. Voit tarkistaa sen ennen kuin jaat mitään.</string>
+</resources>

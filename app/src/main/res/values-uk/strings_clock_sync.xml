@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_sync_clock">Синхронізувати годинник</string>
+    <string name="main_sync_clock_explanation">Встановлює на годиннику тонометра час цього телефона. Ви побачите обидва значення часу й підтвердите, перш ніж щось зміниться. Після цього з\'єднання завершиться; підключіться знову, щоб імпортувати вимірювання.</string>
+    <string name="main_sync_clock_running">Синхронізація годинника…</string>
+    <string name="clock_sync_title">Підтвердьте синхронізацію годинника</string>
+    <string name="clock_sync_monitor_time">Годинник тонометра: %1$s</string>
+    <string name="clock_sync_monitor_time_unset">Годинник тонометра: не встановлено</string>
+    <string name="clock_sync_phone_time">Час телефона: %1$s</string>
+    <plurals name="clock_sync_drift">
+        <item quantity="few">Різниця: %1$d секунди</item>
+        <item quantity="many">Різниця: %1$d секунд</item>
+        <item quantity="one">Різниця: %1$d секунда</item>
+        <item quantity="other">Різниця: %1$d секунди</item>
+    </plurals>
+    <string name="clock_sync_within_threshold">Годинник тонометра відрізняється від часу телефона не більше ніж на хвилину, тому лишається без змін.</string>
+    <string name="clock_sync_untested_warning">Синхронізацію годинника ще не перевіряли з цим тонометром. Вона доступна лише тому, що ви ввімкнули параметр розробника. Продовжуйте, лише якщо приймаєте цей ризик.</string>
+    <string name="clock_sync_choose_time">Час для встановлення (параметр розробника)</string>
+    <string name="clock_sync_confirm">Синхронізувати</string>
+    <string name="monitor_clock_sync_complete">Годинник синхронізовано</string>
+    <string name="monitor_clock_sync_skipped">Годинник уже точний</string>
+    <string name="monitor_clock_sync_rejected">Не вдалося синхронізувати годинник</string>
+    <string name="monitor_clock_sync_cancelled">Синхронізацію годинника скасовано</string>
+    <string name="monitor_clock_sync_unreadable">Синхронізація годинника неможлива</string>
+    <string name="monitor_clock_sync_reconnect">Підключіться знову, щоб імпортувати вимірювання.</string>
+    <string name="clock_sync_report_prompt">Ви синхронізували годинник тонометра, з яким це ще не перевіряли. Звіт про пристрій в issue на GitHub покаже, чи це спрацювало, і допоможе зробити синхронізацію годинника доступною для інших.\n\nЗвіт містить лише технічні відомості. Він ніколи не містить вимірювань, часу вимірювань, імен, Bluetooth-адреси чи серійного номера. Ви можете переглянути його, перш ніж чимось ділитися.</string>
+</resources>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_sync_clock">時計を同期</string>
+    <string name="main_sync_clock_explanation">血圧計の時計をこのスマートフォンの時刻に合わせます。何かが変更される前に両方の時刻を確認して承認します。その後、接続は終了します。測定値をインポートするには再度接続してください。</string>
+    <string name="main_sync_clock_running">時計を同期しています…</string>
+    <string name="clock_sync_title">時計の同期を確認</string>
+    <string name="clock_sync_monitor_time">血圧計の時計: %1$s</string>
+    <string name="clock_sync_monitor_time_unset">血圧計の時計: 未設定</string>
+    <string name="clock_sync_phone_time">スマートフォンの時刻: %1$s</string>
+    <plurals name="clock_sync_drift">
+        <item quantity="other">差: %1$d 秒</item>
+    </plurals>
+    <string name="clock_sync_within_threshold">血圧計の時計はスマートフォンの時刻との差が 1 分以内のため、変更されません。</string>
+    <string name="clock_sync_untested_warning">時計の同期はこの血圧計ではまだテストされていません。開発者向けオプションをオンにしているため利用できます。このリスクを受け入れる場合にのみ続行してください。</string>
+    <string name="clock_sync_choose_time">設定する時刻（開発者向けオプション）</string>
+    <string name="clock_sync_confirm">今すぐ同期</string>
+    <string name="monitor_clock_sync_complete">時計を同期しました</string>
+    <string name="monitor_clock_sync_skipped">時計はすでに正確です</string>
+    <string name="monitor_clock_sync_rejected">時計を同期できませんでした</string>
+    <string name="monitor_clock_sync_cancelled">時計の同期をキャンセルしました</string>
+    <string name="monitor_clock_sync_unreadable">時計を同期できません</string>
+    <string name="monitor_clock_sync_reconnect">測定値をインポートするには再度接続してください。</string>
+    <string name="clock_sync_report_prompt">この機能がまだテストされていない血圧計の時計を同期しました。GitHub の issue でデバイスレポートを共有していただくと、成功したかどうかがわかり、ほかの方も時計の同期を使えるようになります。\n\nレポートには技術的な情報のみが含まれます。測定値、測定日時、名前、Bluetooth アドレス、シリアル番号が含まれることはありません。何かを共有する前に内容を確認できます。</string>
+</resources>

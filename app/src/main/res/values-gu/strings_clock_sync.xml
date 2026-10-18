@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_sync_clock">ઘડિયાળ સિંક કરો</string>
+    <string name="main_sync_clock_explanation">મોનિટરની ઘડિયાળને આ ફોનના સમય પર સેટ કરે છે. કંઈપણ બદલાય તે પહેલાં તમે બંને સમય જોશો અને પુષ્ટિ કરશો. ત્યાર બાદ કનેક્શન સમાપ્ત થાય છે; રીડિંગ આયાત કરવા ફરીથી કનેક્ટ કરો.</string>
+    <string name="main_sync_clock_running">ઘડિયાળ સિંક થઈ રહી છે…</string>
+    <string name="clock_sync_title">ઘડિયાળ સિંકની પુષ્ટિ કરો</string>
+    <string name="clock_sync_monitor_time">મોનિટરની ઘડિયાળ: %1$s</string>
+    <string name="clock_sync_monitor_time_unset">મોનિટરની ઘડિયાળ: સેટ નથી</string>
+    <string name="clock_sync_phone_time">ફોનનો સમય: %1$s</string>
+    <plurals name="clock_sync_drift">
+        <item quantity="one">તફાવત: %1$d સેકન્ડ</item>
+        <item quantity="other">તફાવત: %1$d સેકન્ડ</item>
+    </plurals>
+    <string name="clock_sync_within_threshold">મોનિટરની ઘડિયાળ ફોનના સમયથી એક મિનિટની અંદર છે, તેથી તેને બદલવામાં આવતી નથી.</string>
+    <string name="clock_sync_untested_warning">આ મોનિટર સાથે ઘડિયાળ સિંકનું હજુ પરીક્ષણ થયું નથી. તે ફક્ત એટલા માટે ઉપલબ્ધ છે કે તમે ડેવલપર વિકલ્પ ચાલુ કર્યો છે. તમે આ જોખમ સ્વીકારતા હો તો જ આગળ વધો.</string>
+    <string name="clock_sync_choose_time">સેટ કરવાનો સમય (ડેવલપર વિકલ્પ)</string>
+    <string name="clock_sync_confirm">હમણાં સિંક કરો</string>
+    <string name="monitor_clock_sync_complete">ઘડિયાળ સિંક થઈ</string>
+    <string name="monitor_clock_sync_skipped">ઘડિયાળ પહેલેથી સાચી છે</string>
+    <string name="monitor_clock_sync_rejected">ઘડિયાળ સિંક નિષ્ફળ</string>
+    <string name="monitor_clock_sync_cancelled">ઘડિયાળ સિંક રદ થયું</string>
+    <string name="monitor_clock_sync_unreadable">ઘડિયાળ સિંક શક્ય નથી</string>
+    <string name="monitor_clock_sync_reconnect">રીડિંગ આયાત કરવા ફરીથી કનેક્ટ કરો.</string>
+    <string name="clock_sync_report_prompt">તમે એવા મોનિટરની ઘડિયાળ સિંક કરી છે જેની સાથે આનું હજુ પરીક્ષણ થયું નથી. GitHub issue માં ઉપકરણ રિપોર્ટ બતાવે છે કે તે કામ કર્યું કે નહીં, અને ઘડિયાળ સિંકને અન્ય લોકો માટે ઉપલબ્ધ બનાવવામાં મદદ કરે છે.\n\nરિપોર્ટમાં ફક્ત ટેકનિકલ વિગતો હોય છે. તેમાં ક્યારેય રીડિંગ, માપનો સમય, નામ, Bluetooth સરનામું કે સીરિયલ નંબર શામેલ હોતા નથી. કંઈપણ શેર કરતાં પહેલાં તમે તેને જોઈ શકો છો.</string>
+</resources>

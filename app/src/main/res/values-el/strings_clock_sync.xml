@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_sync_clock">Συγχρονισμός ρολογιού</string>
+    <string name="main_sync_clock_explanation">Ρυθμίζει το ρολόι του πιεσόμετρου στην ώρα αυτού του τηλεφώνου. Βλέπετε και τις δύο ώρες και επιβεβαιώνετε πριν αλλάξει οτιδήποτε. Στη συνέχεια η σύνδεση τερματίζεται· συνδεθείτε ξανά για να εισαγάγετε μετρήσεις.</string>
+    <string name="main_sync_clock_running">Συγχρονισμός ρολογιού…</string>
+    <string name="clock_sync_title">Επιβεβαίωση συγχρονισμού ρολογιού</string>
+    <string name="clock_sync_monitor_time">Ρολόι πιεσόμετρου: %1$s</string>
+    <string name="clock_sync_monitor_time_unset">Ρολόι πιεσόμετρου: δεν έχει ρυθμιστεί</string>
+    <string name="clock_sync_phone_time">Ώρα τηλεφώνου: %1$s</string>
+    <plurals name="clock_sync_drift">
+        <item quantity="one">Διαφορά: %1$d δευτερόλεπτο</item>
+        <item quantity="other">Διαφορά: %1$d δευτερόλεπτα</item>
+    </plurals>
+    <string name="clock_sync_within_threshold">Το ρολόι του πιεσόμετρου απέχει το πολύ ένα λεπτό από την ώρα του τηλεφώνου, οπότε παραμένει αμετάβλητο.</string>
+    <string name="clock_sync_untested_warning">Ο συγχρονισμός ρολογιού δεν έχει δοκιμαστεί ακόμη με αυτό το πιεσόμετρο. Είναι διαθέσιμος μόνο επειδή ενεργοποιήσατε μια επιλογή για προγραμματιστές. Συνεχίστε μόνο αν αποδέχεστε αυτόν τον κίνδυνο.</string>
+    <string name="clock_sync_choose_time">Ώρα προς ρύθμιση (επιλογή για προγραμματιστές)</string>
+    <string name="clock_sync_confirm">Συγχρονισμός τώρα</string>
+    <string name="monitor_clock_sync_complete">Το ρολόι συγχρονίστηκε</string>
+    <string name="monitor_clock_sync_skipped">Το ρολόι είναι ήδη σωστό</string>
+    <string name="monitor_clock_sync_rejected">Ο συγχρονισμός ρολογιού απέτυχε</string>
+    <string name="monitor_clock_sync_cancelled">Ο συγχρονισμός ρολογιού ακυρώθηκε</string>
+    <string name="monitor_clock_sync_unreadable">Ο συγχρονισμός ρολογιού δεν είναι δυνατός</string>
+    <string name="monitor_clock_sync_reconnect">Συνδεθείτε ξανά για να εισαγάγετε μετρήσεις.</string>
+    <string name="clock_sync_report_prompt">Συγχρονίσατε το ρολόι ενός πιεσόμετρου με το οποίο αυτό δεν έχει δοκιμαστεί ακόμη. Μια αναφορά συσκευής σε issue στο GitHub δείχνει αν λειτούργησε και βοηθά να γίνει ο συγχρονισμός ρολογιού διαθέσιμος και σε άλλους.\n\nΗ αναφορά περιέχει μόνο τεχνικές λεπτομέρειες. Δεν περιλαμβάνει ποτέ μετρήσεις, ώρες μετρήσεων, ονόματα, τη διεύθυνση Bluetooth ή τον σειριακό αριθμό. Μπορείτε να την ελέγξετε πριν μοιραστείτε οτιδήποτε.</string>
+</resources>

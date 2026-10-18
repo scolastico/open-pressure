@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_sync_clock">Sawazisha saa</string>
+    <string name="main_sync_clock_explanation">Huweka saa ya kipimo kulingana na saa ya simu hii. Utaona nyakati zote mbili na kuthibitisha kabla chochote hakijabadilika. Baada ya hapo muunganisho unaisha; unganisha tena ili kuingiza vipimo.</string>
+    <string name="main_sync_clock_running">Inasawazisha saa…</string>
+    <string name="clock_sync_title">Thibitisha kusawazisha saa</string>
+    <string name="clock_sync_monitor_time">Saa ya kipimo: %1$s</string>
+    <string name="clock_sync_monitor_time_unset">Saa ya kipimo: haijawekwa</string>
+    <string name="clock_sync_phone_time">Saa ya simu: %1$s</string>
+    <plurals name="clock_sync_drift">
+        <item quantity="one">Tofauti: sekunde %1$d</item>
+        <item quantity="other">Tofauti: sekunde %1$d</item>
+    </plurals>
+    <string name="clock_sync_within_threshold">Saa ya kipimo iko ndani ya dakika moja ya saa ya simu, kwa hivyo haibadilishwi.</string>
+    <string name="clock_sync_untested_warning">Kusawazisha saa bado hakujajaribiwa na kipimo hiki. Kunapatikana tu kwa sababu uliwasha chaguo la wasanidi. Endelea tu ikiwa unakubali hatari hiyo.</string>
+    <string name="clock_sync_choose_time">Saa ya kuweka (chaguo la wasanidi)</string>
+    <string name="clock_sync_confirm">Sawazisha sasa</string>
+    <string name="monitor_clock_sync_complete">Saa imesawazishwa</string>
+    <string name="monitor_clock_sync_skipped">Saa tayari iko sahihi</string>
+    <string name="monitor_clock_sync_rejected">Kusawazisha saa kumeshindikana</string>
+    <string name="monitor_clock_sync_cancelled">Kusawazisha saa kumeghairiwa</string>
+    <string name="monitor_clock_sync_unreadable">Haiwezekani kusawazisha saa</string>
+    <string name="monitor_clock_sync_reconnect">Unganisha tena ili kuingiza vipimo.</string>
+    <string name="clock_sync_report_prompt">Umesawazisha saa ya kipimo ambacho hili bado halijajaribiwa nacho. Ripoti ya kifaa katika issue ya GitHub inaonyesha kama ilifanya kazi na husaidia kufanya kusawazisha saa kupatikane kwa wengine.\n\nRipoti ina maelezo ya kiufundi pekee. Haijumuishi kamwe vipimo, nyakati za vipimo, majina, anwani ya Bluetooth wala nambari ya ufuatiliaji. Unaweza kuikagua kabla ya kushiriki chochote.</string>
+</resources>

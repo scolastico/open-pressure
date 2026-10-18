@@ -60,7 +60,9 @@ public final class MainActivity extends Activity {
     private boolean bound,uiVisible,advancedExpanded,virtualMode;
     private final DeveloperOptions.TapCounter developerTaps=new DeveloperOptions.TapCounter();
     private Toast developerToast;
-    private AlertDialog consentDialog,deviceReportDialog,updateDialog;
+    private AlertDialog consentDialog,deviceReportDialog,updateDialog,clockSyncDialog;
+    /** The current clock-sync preview has been shown; reset when the service ends the preview. */
+    private boolean clockSyncPrompted;
     private String pendingReportJson;
     private static final String ISSUES="https://github.com/scolastico/open-pressure/issues";
     private int pendingExportKind, pendingExportUser, pendingExportDays;
@@ -117,6 +119,7 @@ public final class MainActivity extends Activity {
         if(consentDialog!=null) { consentDialog.dismiss(); consentDialog=null; }
         if(deviceReportDialog!=null) { deviceReportDialog.dismiss(); deviceReportDialog=null; }
         if(updateDialog!=null) { updateDialog.dismiss(); updateDialog=null; }
+        if(clockSyncDialog!=null) { clockSyncDialog.dismiss(); clockSyncDialog=null; }
         handler.removeCallbacks(refresh); if(monitor!=null) { monitor.unlisten(listener); monitor.setUiVisible(this,false); } if(bound) unbindService(connection); super.onDestroy();
     }
     private void ensureExperimentalConsent() {
@@ -172,6 +175,7 @@ public final class MainActivity extends Activity {
         renderedReadingsRevision=monitor==null?0:monitor.readingsRevision; renderedDay=LocalDate.now();
         renderedDeviceState=deviceState();
         scroll.post(() -> scroll.scrollTo(0,position));
+        offerClockSync();
         offerDeviceReport();
     }
     // Advertisement updates must not replace buttons beneath a finger or rerun reading queries.
@@ -186,13 +190,14 @@ public final class MainActivity extends Activity {
             render(); return;
         }
         updateStatus();
+        offerClockSync();
         offerDeviceReport();
     }
     private String deviceState() {
         if(monitor==null) return "starting";
         return Arrays.asList(monitor.ready,monitor.sessionFinished,monitor.registrationReading,monitor.registrationPending,monitor.registrationWriting,monitor.registrationDone,monitor.registrationBackupFile()!=null,monitor.address,monitor.connectedName,monitor.profile,monitor.user,
                 monitor.battery,monitor.information,monitor.hasUserControl,monitor.authenticatedUser,monitor.canHistory,
-                monitor.historyRunning,monitor.importMode,monitor.importUsers,monitor.canTime,monitor.deviceTime,monitor.modelHint,monitor.canDump,
+                monitor.historyRunning,monitor.clockSyncRunning,monitor.clockSyncPending,monitor.importMode,monitor.importUsers,monitor.canTime,monitor.deviceTime,monitor.modelHint,monitor.canDump,
                 monitor.dumpRunning,monitor.dumpSaving,monitor.dumpRevision,monitor.eepromDumpFile()!=null,monitor.dumpComplete,monitor.dumpStart,monitor.dumpLength,monitor.deviceReport()!=null,
                 !monitor.address.isEmpty()&&!monitor.status.equals("Disconnected")&&!monitor.status.equals("Action failed")).toString();
     }
@@ -381,14 +386,20 @@ public final class MainActivity extends Activity {
                 String address=monitor.address;
                 importUsersChoice(active,"import_users_",monitor.importUsers,!monitor.historyRunning&&!monitor.dumpRunning,users -> { store.setImportUsers(address,users); if(monitor.address.equals(address)) monitor.importUsers=users; monitor.refreshAutomaticImports(); render(); });
             }
-            Button history=button(monitor.historyRunning?getString(R.string.main_importing):getString(R.string.main_import_history),this::historyDialog,true); history.setEnabled(monitor.canHistory&&!monitor.historyRunning&&!monitor.dumpRunning); add(active,history,8);
+            Button history=button(monitor.historyRunning?getString(R.string.main_importing):getString(R.string.main_import_history),this::historyDialog,true); history.setEnabled(monitor.canHistory&&!monitor.historyRunning&&!monitor.dumpRunning&&!monitor.clockSyncRunning); add(active,history,8);
             if(monitor.profile==org.openpressure.protocol.ProtocolProfile.VENDOR_MEMORY) {
                 boolean readingAll=monitor.historyRunning&&monitor.importMode==MonitorService.ImportMode.FULL_SWEEP;
                 Button readAll=button(readingAll?getString(R.string.main_reading_all):getString(R.string.main_read_all),this::readAllDialog,false);
                 readAll.setEnabled(monitor.canReadAll()&&!monitor.historyRunning&&!monitor.dumpRunning); add(active,readAll,8);
             }
             if(!monitor.canHistory) add(active,text(getString(R.string.main_history_unavailable),14,MUTED,false),6);
-            Button clock=button(getString(R.string.main_set_monitor_time),this::clockDialog,false); clock.setEnabled(monitor.canTime&&!monitor.historyRunning&&!monitor.dumpRunning); add(active,clock,8);
+            if(monitor.profile==org.openpressure.protocol.ProtocolProfile.VENDOR_MEMORY || monitor.profile.isX7()) {
+                Button sync=button(monitor.clockSyncRunning?getString(R.string.main_sync_clock_running):getString(R.string.main_sync_clock),this::startClockSync,false);
+                sync.setEnabled(monitor.canClockSync()); add(active,sync,8);
+                add(active,text(getString(R.string.main_sync_clock_explanation),14,MUTED,false),6);
+            } else {
+                Button clock=button(getString(R.string.main_set_monitor_time),this::clockDialog,false); clock.setEnabled(monitor.canTime&&!monitor.historyRunning&&!monitor.dumpRunning); add(active,clock,8);
+            }
             add(active,button(getString(R.string.main_disconnect),monitor::disconnect,false),8); content.addView(active);
         } else if(!monitor.sessionFinished && !monitor.address.isEmpty() && !monitor.status.equals("Disconnected") && !monitor.status.equals("Action failed")) add(content,button(getString(R.string.main_cancel_connection),monitor::disconnect,false),10);
         LinearLayout setup=card(); label(setup,getString(R.string.main_find_monitor));
@@ -440,7 +451,7 @@ public final class MainActivity extends Activity {
         if(!monitor.information.isEmpty()) add(information,text(monitor.information.trim(),14,MUTED,false),8);
         if(monitor.ready) {
             add(information,text(getString(R.string.main_monitor_clock,monitorClock()),14,MUTED,false),8);
-            Button readClock=button(getString(R.string.main_read_clock),monitor::readClock,false); readClock.setEnabled(monitor.canTime&&!monitor.historyRunning&&!monitor.dumpRunning); add(information,readClock,6);
+            Button readClock=button(getString(R.string.main_read_clock),monitor::readClock,false); readClock.setEnabled(monitor.canTime&&!monitor.historyRunning&&!monitor.dumpRunning&&!monitor.clockSyncRunning); add(information,readClock,6);
             if(monitor.profile.isX7()) {
                 dumpReadButton=button(monitor.dumpRunning?getString(R.string.main_reading_memory):getString(R.string.main_read_memory),this::dumpDialog,false);
                 dumpReadButton.setEnabled(monitor.canDump&&!monitor.historyRunning&&!monitor.dumpRunning&&!monitor.dumpSaving&&!dumpExportPreparing); add(information,dumpReadButton,8);
@@ -486,7 +497,17 @@ public final class MainActivity extends Activity {
     /** After a Pair attempt with an untested monitor, ask once whether the user wants to help. */
     private void offerDeviceReport() {
         if(monitor==null || !uiVisible || isFinishing() || consentDialog!=null && consentDialog.isShowing()) return;
-        if(deviceReportDialog!=null && deviceReportDialog.isShowing() || updateDialog!=null && updateDialog.isShowing() || !monitor.deviceReportPromptDue()) return;
+        if(deviceReportDialog!=null && deviceReportDialog.isShowing() || updateDialog!=null && updateDialog.isShowing()) return;
+        if(monitor.offerReportAfterWrite && !monitor.clockSyncRunning) {
+            // A clock write relying on the untested-model developer option reached an outcome: ask once.
+            monitor.offerReportAfterWrite=false;
+            if(monitor.deviceReport()==null) return;
+            deviceReportDialog=new AlertDialog.Builder(this).setTitle(getString(R.string.device_report_title)).setMessage(getString(R.string.clock_sync_report_prompt))
+                    .setNegativeButton(getString(R.string.device_report_not_now),null)
+                    .setPositiveButton(getString(R.string.device_report_review),(d,w) -> reviewDeviceReport()).show();
+            return;
+        }
+        if(!monitor.deviceReportPromptDue()) return;
         monitor.deviceReportPrompted();
         deviceReportDialog=new AlertDialog.Builder(this).setTitle(getString(R.string.device_report_title)).setMessage(getString(R.string.device_report_prompt))
                 .setNegativeButton(getString(R.string.device_report_not_now),null)
@@ -726,6 +747,62 @@ public final class MainActivity extends Activity {
                 .setNegativeButton(getString(R.string.main_cancel),null).setPositiveButton(getString(R.string.main_register_user,profileLabel(bank)),(dialog,which) -> {
                     if(monitor!=null) { monitor.registerX7User(bank); render(); }
                 }).show();
+    }
+    private void startClockSync() {
+        if(monitor!=null && monitor.canClockSync()) monitor.beginClockSync();
+        render();
+    }
+    /** Shows the clock-sync preview once while it waits; closes it when the service ends the preview. */
+    private void offerClockSync() {
+        if(monitor==null || !monitor.clockSyncPending) {
+            clockSyncPrompted=false;
+            if(clockSyncDialog!=null) { clockSyncDialog.dismiss(); clockSyncDialog=null; }
+            return;
+        }
+        if(clockSyncPrompted || !uiVisible || isFinishing() || isDestroyed() || consentDialog!=null && consentDialog.isShowing()) return;
+        clockSyncPrompted=true;
+        clockSyncConfirmation();
+    }
+    private void clockSyncConfirmation() {
+        LocalDateTime monitorClock=monitor.clockSyncMonitorClock,phone=monitor.clockSyncPhoneClock;
+        String prefill=editableDateTime((phone==null?LocalDateTime.now():phone).withNano(0));
+        LinearLayout form=form(); add(form,text(getString(R.string.main_sync_clock_explanation),15,MUTED,false),0);
+        add(form,text(monitorClock==null?getString(R.string.clock_sync_monitor_time_unset):getString(R.string.clock_sync_monitor_time,editableDateTime(monitorClock)),15,INK,false),12);
+        if(phone!=null) add(form,text(getString(R.string.clock_sync_phone_time,prefill),15,INK,false),6);
+        long drift=monitor.clockSyncDriftSeconds;
+        if(monitorClock!=null && drift!=Long.MAX_VALUE) {
+            long difference=drift==Long.MIN_VALUE?Long.MAX_VALUE:Math.abs(drift);
+            int seconds=(int)Math.min(difference,Integer.MAX_VALUE);
+            add(form,text(getResources().getQuantityString(R.plurals.clock_sync_drift,seconds,seconds),15,INK,false),6);
+            if(difference<=60) add(form,text(getString(R.string.clock_sync_within_threshold),14,MUTED,false),10);
+        }
+        EditText chosen=null;
+        // The service read the untested-write developer option for this preview and checks it again on confirmation.
+        if(monitor.clockSyncOverride) {
+            add(form,text(getString(R.string.clock_sync_untested_warning),14,INK,true),12);
+            add(form,text(getString(R.string.clock_sync_choose_time),14,MUTED,false),12);
+            chosen=input(getString(R.string.main_date_time_hint),prefill,false); add(form,chosen,6);
+        }
+        final EditText time=chosen;
+        AlertDialog dialog=new AlertDialog.Builder(this).setTitle(getString(R.string.clock_sync_title)).setView(wrap(form))
+                .setNegativeButton(getString(R.string.main_cancel),(d,w) -> { if(monitor!=null) monitor.cancelClockSync(); })
+                .setPositiveButton(getString(R.string.clock_sync_confirm),null).create();
+        dialog.setOnCancelListener(d -> { if(monitor!=null) monitor.cancelClockSync(); });
+        dialog.setOnShowListener(x -> dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v -> {
+            LocalDateTime value=null;
+            String entered=time==null?prefill:time.getText().toString().trim();
+            // An untouched field means the phone time at confirmation, not the older preview time.
+            if(!entered.equals(prefill)) {
+                try { value=parseDateTime(entered); }
+                catch(RuntimeException invalid) { toast(getString(R.string.main_date_invalid,prefill)); return; }
+            }
+            if(monitor==null) { dialog.dismiss(); return; }
+            monitor.confirmClockSync(value);
+            if(monitor.clockSyncPending) { toast(getString(R.string.main_date_invalid,prefill)); return; }
+            dialog.dismiss(); if(clockSyncDialog==dialog) clockSyncDialog=null;
+            render();
+        }));
+        clockSyncDialog=dialog; dialog.show();
     }
     private void clockDialog() {
         LinearLayout form=form(); add(form,text(getString(R.string.main_clock_explanation),15,MUTED,false),0);

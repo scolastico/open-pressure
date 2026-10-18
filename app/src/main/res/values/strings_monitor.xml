@@ -79,4 +79,26 @@
     <string name="monitor_diastolic">Diastolic</string>
     <string name="monitor_app_language">App language</string>
     <string name="monitor_phone_language">Phone language</string>
+    <string name="main_sync_clock">Sync clock</string>
+    <string name="main_sync_clock_explanation">Sets the monitor\'s clock to this phone\'s time. You see both times and confirm before anything changes. The connection ends afterwards, so connect again to import readings.</string>
+    <string name="main_sync_clock_running">Syncing clock…</string>
+    <string name="clock_sync_title">Confirm clock sync</string>
+    <string name="clock_sync_monitor_time">Monitor clock: %1$s</string>
+    <string name="clock_sync_monitor_time_unset">Monitor clock: not set</string>
+    <string name="clock_sync_phone_time">Phone time: %1$s</string>
+    <plurals name="clock_sync_drift">
+        <item quantity="one">Difference: %1$d second</item>
+        <item quantity="other">Difference: %1$d seconds</item>
+    </plurals>
+    <string name="clock_sync_within_threshold">The monitor clock is within a minute of the phone time, so it is left unchanged.</string>
+    <string name="clock_sync_untested_warning">Clock sync has not been tested with this monitor yet. It is available only because you turned on a developer option. Continue only if you accept that risk.</string>
+    <string name="clock_sync_choose_time">Time to set (developer option)</string>
+    <string name="clock_sync_confirm">Sync now</string>
+    <string name="monitor_clock_sync_complete">Clock synced</string>
+    <string name="monitor_clock_sync_skipped">Clock already correct</string>
+    <string name="monitor_clock_sync_rejected">Clock sync failed</string>
+    <string name="monitor_clock_sync_cancelled">Clock sync cancelled</string>
+    <string name="monitor_clock_sync_unreadable">Clock sync not possible</string>
+    <string name="monitor_clock_sync_reconnect">Connect again to import readings.</string>
+    <string name="clock_sync_report_prompt">You synced the clock of a monitor on which this has not been tested yet. Sharing a device report in a GitHub issue shows whether it worked and helps make clock sync available to others.\n\nThe report contains only technical details. It never includes readings, measurement times, names, the Bluetooth address or the serial number. You can review it before you share anything.</string>
 </resources>

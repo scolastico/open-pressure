@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_sync_clock">گھڑی ہم آہنگ کریں</string>
+    <string name="main_sync_clock_explanation">مانیٹر کی گھڑی کو اس فون کے وقت پر سیٹ کرتا ہے۔ کچھ بھی بدلنے سے پہلے آپ دونوں اوقات دیکھیں گے اور تصدیق کریں گے۔ اس کے بعد کنکشن ختم ہو جاتا ہے؛ ریڈنگز درآمد کرنے کے لیے دوبارہ جڑیں۔</string>
+    <string name="main_sync_clock_running">گھڑی ہم آہنگ ہو رہی ہے…</string>
+    <string name="clock_sync_title">گھڑی کی ہم آہنگی کی تصدیق کریں</string>
+    <string name="clock_sync_monitor_time">مانیٹر کی گھڑی: %1$s</string>
+    <string name="clock_sync_monitor_time_unset">مانیٹر کی گھڑی: سیٹ نہیں</string>
+    <string name="clock_sync_phone_time">فون کا وقت: %1$s</string>
+    <plurals name="clock_sync_drift">
+        <item quantity="one">فرق: %1$d سیکنڈ</item>
+        <item quantity="other">فرق: %1$d سیکنڈ</item>
+    </plurals>
+    <string name="clock_sync_within_threshold">مانیٹر کی گھڑی فون کے وقت سے ایک منٹ کے اندر ہے، اس لیے اسے تبدیل نہیں کیا جاتا۔</string>
+    <string name="clock_sync_untested_warning">گھڑی کی ہم آہنگی اس مانیٹر کے ساتھ ابھی آزمائی نہیں گئی۔ یہ صرف اس لیے دستیاب ہے کہ آپ نے ایک ڈویلپر آپشن آن کیا ہے۔ صرف اسی صورت میں جاری رکھیں جب آپ یہ خطرہ قبول کرتے ہوں۔</string>
+    <string name="clock_sync_choose_time">سیٹ کرنے کا وقت (ڈویلپر آپشن)</string>
+    <string name="clock_sync_confirm">ابھی ہم آہنگ کریں</string>
+    <string name="monitor_clock_sync_complete">گھڑی ہم آہنگ ہو گئی</string>
+    <string name="monitor_clock_sync_skipped">گھڑی پہلے سے درست ہے</string>
+    <string name="monitor_clock_sync_rejected">گھڑی ہم آہنگ نہیں ہو سکی</string>
+    <string name="monitor_clock_sync_cancelled">گھڑی کی ہم آہنگی منسوخ</string>
+    <string name="monitor_clock_sync_unreadable">گھڑی کی ہم آہنگی ممکن نہیں</string>
+    <string name="monitor_clock_sync_reconnect">ریڈنگز درآمد کرنے کے لیے دوبارہ جڑیں۔</string>
+    <string name="clock_sync_report_prompt">آپ نے ایسے مانیٹر کی گھڑی ہم آہنگ کی ہے جس کے ساتھ یہ ابھی آزمایا نہیں گیا۔ GitHub کے issue میں ڈیوائس رپورٹ دکھاتی ہے کہ یہ کام کیا یا نہیں، اور گھڑی کی ہم آہنگی کو دوسروں کے لیے دستیاب بنانے میں مدد کرتی ہے۔\n\nرپورٹ میں صرف تکنیکی تفصیلات ہوتی ہیں۔ اس میں کبھی بھی ریڈنگز، پیمائش کے اوقات، نام، Bluetooth پتہ یا سیریل نمبر شامل نہیں ہوتے۔ کچھ بھی شیئر کرنے سے پہلے آپ اسے دیکھ سکتے ہیں۔</string>
+</resources>

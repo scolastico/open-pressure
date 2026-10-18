@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_sync_clock">ਘੜੀ ਸਿੰਕ ਕਰੋ</string>
+    <string name="main_sync_clock_explanation">ਮਾਨੀਟਰ ਦੀ ਘੜੀ ਨੂੰ ਇਸ ਫ਼ੋਨ ਦੇ ਸਮੇਂ ਉੱਤੇ ਸੈੱਟ ਕਰਦਾ ਹੈ। ਕੁਝ ਵੀ ਬਦਲਣ ਤੋਂ ਪਹਿਲਾਂ ਤੁਸੀਂ ਦੋਵੇਂ ਸਮੇਂ ਵੇਖੋਗੇ ਅਤੇ ਪੁਸ਼ਟੀ ਕਰੋਗੇ। ਇਸ ਤੋਂ ਬਾਅਦ ਕਨੈਕਸ਼ਨ ਖ਼ਤਮ ਹੋ ਜਾਂਦਾ ਹੈ; ਰੀਡਿੰਗਾਂ ਆਯਾਤ ਕਰਨ ਲਈ ਦੁਬਾਰਾ ਕਨੈਕਟ ਕਰੋ।</string>
+    <string name="main_sync_clock_running">ਘੜੀ ਸਿੰਕ ਹੋ ਰਹੀ ਹੈ…</string>
+    <string name="clock_sync_title">ਘੜੀ ਸਿੰਕ ਦੀ ਪੁਸ਼ਟੀ ਕਰੋ</string>
+    <string name="clock_sync_monitor_time">ਮਾਨੀਟਰ ਦੀ ਘੜੀ: %1$s</string>
+    <string name="clock_sync_monitor_time_unset">ਮਾਨੀਟਰ ਦੀ ਘੜੀ: ਸੈੱਟ ਨਹੀਂ</string>
+    <string name="clock_sync_phone_time">ਫ਼ੋਨ ਦਾ ਸਮਾਂ: %1$s</string>
+    <plurals name="clock_sync_drift">
+        <item quantity="one">ਅੰਤਰ: %1$d ਸਕਿੰਟ</item>
+        <item quantity="other">ਅੰਤਰ: %1$d ਸਕਿੰਟ</item>
+    </plurals>
+    <string name="clock_sync_within_threshold">ਮਾਨੀਟਰ ਦੀ ਘੜੀ ਫ਼ੋਨ ਦੇ ਸਮੇਂ ਤੋਂ ਇੱਕ ਮਿੰਟ ਦੇ ਅੰਦਰ ਹੈ, ਇਸ ਲਈ ਇਸਨੂੰ ਬਦਲਿਆ ਨਹੀਂ ਜਾਂਦਾ।</string>
+    <string name="clock_sync_untested_warning">ਇਸ ਮਾਨੀਟਰ ਨਾਲ ਘੜੀ ਸਿੰਕ ਦੀ ਅਜੇ ਜਾਂਚ ਨਹੀਂ ਹੋਈ। ਇਹ ਸਿਰਫ਼ ਇਸ ਲਈ ਉਪਲਬਧ ਹੈ ਕਿਉਂਕਿ ਤੁਸੀਂ ਇੱਕ ਡਿਵੈਲਪਰ ਵਿਕਲਪ ਚਾਲੂ ਕੀਤਾ ਹੈ। ਸਿਰਫ਼ ਤਾਂ ਹੀ ਜਾਰੀ ਰੱਖੋ ਜੇ ਤੁਸੀਂ ਇਹ ਜੋਖਮ ਸਵੀਕਾਰ ਕਰਦੇ ਹੋ।</string>
+    <string name="clock_sync_choose_time">ਸੈੱਟ ਕਰਨ ਦਾ ਸਮਾਂ (ਡਿਵੈਲਪਰ ਵਿਕਲਪ)</string>
+    <string name="clock_sync_confirm">ਹੁਣੇ ਸਿੰਕ ਕਰੋ</string>
+    <string name="monitor_clock_sync_complete">ਘੜੀ ਸਿੰਕ ਹੋ ਗਈ</string>
+    <string name="monitor_clock_sync_skipped">ਘੜੀ ਪਹਿਲਾਂ ਹੀ ਸਹੀ ਹੈ</string>
+    <string name="monitor_clock_sync_rejected">ਘੜੀ ਸਿੰਕ ਅਸਫਲ ਰਿਹਾ</string>
+    <string name="monitor_clock_sync_cancelled">ਘੜੀ ਸਿੰਕ ਰੱਦ ਕੀਤਾ ਗਿਆ</string>
+    <string name="monitor_clock_sync_unreadable">ਘੜੀ ਸਿੰਕ ਸੰਭਵ ਨਹੀਂ</string>
+    <string name="monitor_clock_sync_reconnect">ਰੀਡਿੰਗਾਂ ਆਯਾਤ ਕਰਨ ਲਈ ਦੁਬਾਰਾ ਕਨੈਕਟ ਕਰੋ।</string>
+    <string name="clock_sync_report_prompt">ਤੁਸੀਂ ਇੱਕ ਅਜਿਹੇ ਮਾਨੀਟਰ ਦੀ ਘੜੀ ਸਿੰਕ ਕੀਤੀ ਹੈ ਜਿਸ ਨਾਲ ਇਸਦੀ ਅਜੇ ਜਾਂਚ ਨਹੀਂ ਹੋਈ। GitHub issue ਵਿੱਚ ਡਿਵਾਈਸ ਰਿਪੋਰਟ ਦਿਖਾਉਂਦੀ ਹੈ ਕਿ ਇਹ ਕੰਮ ਕੀਤਾ ਜਾਂ ਨਹੀਂ, ਅਤੇ ਘੜੀ ਸਿੰਕ ਨੂੰ ਹੋਰਾਂ ਲਈ ਉਪਲਬਧ ਕਰਵਾਉਣ ਵਿੱਚ ਮਦਦ ਕਰਦੀ ਹੈ।\n\nਰਿਪੋਰਟ ਵਿੱਚ ਸਿਰਫ਼ ਤਕਨੀਕੀ ਵੇਰਵੇ ਹੁੰਦੇ ਹਨ। ਇਸ ਵਿੱਚ ਕਦੇ ਵੀ ਰੀਡਿੰਗਾਂ, ਮਾਪ ਦੇ ਸਮੇਂ, ਨਾਮ, Bluetooth ਪਤਾ ਜਾਂ ਸੀਰੀਅਲ ਨੰਬਰ ਸ਼ਾਮਲ ਨਹੀਂ ਹੁੰਦੇ। ਕੁਝ ਵੀ ਸਾਂਝਾ ਕਰਨ ਤੋਂ ਪਹਿਲਾਂ ਤੁਸੀਂ ਇਸਨੂੰ ਦੇਖ ਸਕਦੇ ਹੋ।</string>
+</resources>

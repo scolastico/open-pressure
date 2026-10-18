@@ -25,6 +25,13 @@ public final class MonitorUi {
         if(state.equals("Authenticate first")) return R.string.monitor_profile_access_needed;
         if(state.equals("No monitors found") || state.equals("X7 advertisement not received")) return R.string.monitor_not_found;
         if(state.equals("Invalid EEPROM range") || state.equals("Invalid sequence") || state.equals("Check user settings")) return R.string.monitor_check_input;
+        if(state.equals("Clock sync complete")) return R.string.monitor_clock_sync_complete;
+        if(state.equals("Clock sync skipped")) return R.string.monitor_clock_sync_skipped;
+        if(state.equals("Clock sync rejected")) return R.string.monitor_clock_sync_rejected;
+        if(state.equals("Clock sync cancelled")) return R.string.monitor_clock_sync_cancelled;
+        if(state.equals("Monitor settings unreadable")) return R.string.monitor_clock_sync_unreadable;
+        if(m.clockSyncPending) return R.string.clock_sync_title;
+        if(m.clockSyncRunning) return R.string.main_sync_clock_running;
         if(m.registrationPending) return R.string.monitor_choose_profile;
         if(m.registrationReading) return R.string.monitor_preparing_setup;
         if(m.registrationWriting) return R.string.monitor_finishing_setup;
@@ -60,6 +67,8 @@ public final class MonitorUi {
         if(title==R.string.monitor_profile_access_failed || title==R.string.monitor_profile_access_needed) return context.getString(R.string.monitor_check_profile);
         if(title==R.string.monitor_not_found || title==R.string.monitor_searching) return context.getString(R.string.monitor_wake_nearby);
         if(title==R.string.monitor_check_input) return context.getString(R.string.monitor_check_values);
+        String clockSync=clockSyncDetail(context,m,title);
+        if(clockSync!=null) return clockSync;
         if(m.registrationPending) return context.getString(R.string.monitor_select_profile);
         if(m.registrationWriting || m.registrationReading) return context.getString(R.string.monitor_keep_nearby);
         if(m.dumpRunning) return context.getString(R.string.monitor_memory_progress,m.dumpReceived,m.dumpLength);
@@ -84,6 +93,19 @@ public final class MonitorUi {
         if(title==R.string.monitor_connecting) return context.getString(R.string.monitor_keep_nearby);
         if(title==R.string.monitor_disconnected) return context.getString(R.string.monitor_saved_on_phone);
         return context.getString(R.string.monitor_scan_to_connect);
+    }
+    /** Every clock-sync outcome ends the session, so each one says how to import readings next. */
+    private static String clockSyncDetail(Context context,MonitorService m,int title) {
+        if(title==R.string.clock_sync_title) return context.getString(R.string.main_sync_clock_explanation);
+        if(title==R.string.main_sync_clock_running) return context.getString(R.string.monitor_keep_nearby);
+        int outcome;
+        if(title==R.string.monitor_clock_sync_complete) outcome=R.string.monitor_check_clock;
+        else if(title==R.string.monitor_clock_sync_skipped) outcome=R.string.clock_sync_within_threshold;
+        else if(title==R.string.monitor_clock_sync_rejected || title==R.string.monitor_clock_sync_unreadable) outcome=R.string.monitor_clock_failed;
+        else if(title==R.string.monitor_clock_sync_cancelled) outcome=m.clockUpdate==MonitorService.ClockUpdate.FAILED?R.string.monitor_clock_failed:0;
+        else return null;
+        String reconnect=context.getString(R.string.monitor_clock_sync_reconnect);
+        return outcome==0?reconnect:context.getString(outcome)+"\n\n"+reconnect;
     }
     /** How a vendor-memory import chose its slots, in plain language; empty for other protocols. */
     private static String importMode(Context context,MonitorService m) {

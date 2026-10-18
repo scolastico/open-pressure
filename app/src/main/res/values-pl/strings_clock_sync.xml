@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_sync_clock">Synchronizuj zegar</string>
+    <string name="main_sync_clock_explanation">Ustawia zegar ciśnieniomierza na czas tego telefonu. Zobaczysz oba czasy i potwierdzisz, zanim cokolwiek się zmieni. Potem połączenie się kończy; połącz się ponownie, aby zaimportować pomiary.</string>
+    <string name="main_sync_clock_running">Synchronizowanie zegara…</string>
+    <string name="clock_sync_title">Potwierdź synchronizację zegara</string>
+    <string name="clock_sync_monitor_time">Zegar ciśnieniomierza: %1$s</string>
+    <string name="clock_sync_monitor_time_unset">Zegar ciśnieniomierza: nieustawiony</string>
+    <string name="clock_sync_phone_time">Czas telefonu: %1$s</string>
+    <plurals name="clock_sync_drift">
+        <item quantity="few">Różnica: %1$d sekundy</item>
+        <item quantity="many">Różnica: %1$d sekund</item>
+        <item quantity="one">Różnica: %1$d sekunda</item>
+        <item quantity="other">Różnica: %1$d sekundy</item>
+    </plurals>
+    <string name="clock_sync_within_threshold">Zegar ciśnieniomierza różni się od czasu telefonu najwyżej o minutę, więc pozostaje bez zmian.</string>
+    <string name="clock_sync_untested_warning">Synchronizacja zegara nie była jeszcze testowana z tym ciśnieniomierzem. Jest dostępna tylko dlatego, że włączono opcję programisty. Kontynuuj tylko, jeśli akceptujesz to ryzyko.</string>
+    <string name="clock_sync_choose_time">Czas do ustawienia (opcja programisty)</string>
+    <string name="clock_sync_confirm">Synchronizuj teraz</string>
+    <string name="monitor_clock_sync_complete">Zegar zsynchronizowany</string>
+    <string name="monitor_clock_sync_skipped">Zegar jest już prawidłowy</string>
+    <string name="monitor_clock_sync_rejected">Synchronizacja zegara nie powiodła się</string>
+    <string name="monitor_clock_sync_cancelled">Synchronizacja zegara anulowana</string>
+    <string name="monitor_clock_sync_unreadable">Synchronizacja zegara niemożliwa</string>
+    <string name="monitor_clock_sync_reconnect">Połącz się ponownie, aby zaimportować pomiary.</string>
+    <string name="clock_sync_report_prompt">Zsynchronizowano zegar ciśnieniomierza, z którym ta funkcja nie była jeszcze testowana. Raport urządzenia w zgłoszeniu na GitHubie pokazuje, czy to zadziałało, i pomaga udostępnić synchronizację zegara innym.\n\nRaport zawiera wyłącznie dane techniczne. Nigdy nie zawiera pomiarów, godzin pomiarów, imion, adresu Bluetooth ani numeru seryjnego. Możesz go przejrzeć, zanim cokolwiek udostępnisz.</string>
+</resources>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_sync_clock">ಗಡಿಯಾರ ಸಿಂಕ್ ಮಾಡಿ</string>
+    <string name="main_sync_clock_explanation">ಮಾನಿಟರ್‌ನ ಗಡಿಯಾರವನ್ನು ಈ ಫೋನ್‌ನ ಸಮಯಕ್ಕೆ ಹೊಂದಿಸುತ್ತದೆ. ಏನಾದರೂ ಬದಲಾಗುವ ಮೊದಲು ನೀವು ಎರಡೂ ಸಮಯಗಳನ್ನು ನೋಡಿ ದೃಢೀಕರಿಸುತ್ತೀರಿ. ನಂತರ ಸಂಪರ್ಕ ಕೊನೆಗೊಳ್ಳುತ್ತದೆ; ರೀಡಿಂಗ್‌ಗಳನ್ನು ಆಮದು ಮಾಡಲು ಮತ್ತೆ ಸಂಪರ್ಕಿಸಿ.</string>
+    <string name="main_sync_clock_running">ಗಡಿಯಾರ ಸಿಂಕ್ ಆಗುತ್ತಿದೆ…</string>
+    <string name="clock_sync_title">ಗಡಿಯಾರ ಸಿಂಕ್ ದೃಢೀಕರಿಸಿ</string>
+    <string name="clock_sync_monitor_time">ಮಾನಿಟರ್ ಗಡಿಯಾರ: %1$s</string>
+    <string name="clock_sync_monitor_time_unset">ಮಾನಿಟರ್ ಗಡಿಯಾರ: ಹೊಂದಿಸಿಲ್ಲ</string>
+    <string name="clock_sync_phone_time">ಫೋನ್ ಸಮಯ: %1$s</string>
+    <plurals name="clock_sync_drift">
+        <item quantity="one">ವ್ಯತ್ಯಾಸ: %1$d ಸೆಕೆಂಡ್</item>
+        <item quantity="other">ವ್ಯತ್ಯಾಸ: %1$d ಸೆಕೆಂಡುಗಳು</item>
+    </plurals>
+    <string name="clock_sync_within_threshold">ಮಾನಿಟರ್ ಗಡಿಯಾರವು ಫೋನ್ ಸಮಯದಿಂದ ಒಂದು ನಿಮಿಷದೊಳಗಿದೆ, ಆದ್ದರಿಂದ ಅದನ್ನು ಬದಲಾಯಿಸುವುದಿಲ್ಲ.</string>
+    <string name="clock_sync_untested_warning">ಈ ಮಾನಿಟರ್‌ನೊಂದಿಗೆ ಗಡಿಯಾರ ಸಿಂಕ್ ಇನ್ನೂ ಪರೀಕ್ಷಿಸಲಾಗಿಲ್ಲ. ನೀವು ಡೆವಲಪರ್ ಆಯ್ಕೆಯನ್ನು ಆನ್ ಮಾಡಿರುವುದರಿಂದ ಮಾತ್ರ ಇದು ಲಭ್ಯವಿದೆ. ಈ ಅಪಾಯವನ್ನು ಒಪ್ಪಿಕೊಂಡರೆ ಮಾತ್ರ ಮುಂದುವರಿಯಿರಿ.</string>
+    <string name="clock_sync_choose_time">ಹೊಂದಿಸಬೇಕಾದ ಸಮಯ (ಡೆವಲಪರ್ ಆಯ್ಕೆ)</string>
+    <string name="clock_sync_confirm">ಈಗ ಸಿಂಕ್ ಮಾಡಿ</string>
+    <string name="monitor_clock_sync_complete">ಗಡಿಯಾರ ಸಿಂಕ್ ಆಗಿದೆ</string>
+    <string name="monitor_clock_sync_skipped">ಗಡಿಯಾರ ಈಗಾಗಲೇ ಸರಿಯಾಗಿದೆ</string>
+    <string name="monitor_clock_sync_rejected">ಗಡಿಯಾರ ಸಿಂಕ್ ವಿಫಲವಾಗಿದೆ</string>
+    <string name="monitor_clock_sync_cancelled">ಗಡಿಯಾರ ಸಿಂಕ್ ರದ್ದಾಗಿದೆ</string>
+    <string name="monitor_clock_sync_unreadable">ಗಡಿಯಾರ ಸಿಂಕ್ ಸಾಧ್ಯವಿಲ್ಲ</string>
+    <string name="monitor_clock_sync_reconnect">ರೀಡಿಂಗ್‌ಗಳನ್ನು ಆಮದು ಮಾಡಲು ಮತ್ತೆ ಸಂಪರ್ಕಿಸಿ.</string>
+    <string name="clock_sync_report_prompt">ಇದನ್ನು ಇನ್ನೂ ಪರೀಕ್ಷಿಸದ ಮಾನಿಟರ್‌ನ ಗಡಿಯಾರವನ್ನು ನೀವು ಸಿಂಕ್ ಮಾಡಿದ್ದೀರಿ. GitHub issue ನಲ್ಲಿನ ಸಾಧನ ವರದಿ ಅದು ಕೆಲಸ ಮಾಡಿತೇ ಎಂದು ತೋರಿಸುತ್ತದೆ ಮತ್ತು ಗಡಿಯಾರ ಸಿಂಕ್ ಅನ್ನು ಇತರರಿಗೂ ಲಭ್ಯವಾಗಿಸಲು ಸಹಾಯ ಮಾಡುತ್ತದೆ.\n\nವರದಿಯಲ್ಲಿ ತಾಂತ್ರಿಕ ವಿವರಗಳು ಮಾತ್ರ ಇರುತ್ತವೆ. ಅದರಲ್ಲಿ ಎಂದಿಗೂ ರೀಡಿಂಗ್‌ಗಳು, ಅಳತೆಯ ಸಮಯಗಳು, ಹೆಸರುಗಳು, Bluetooth ವಿಳಾಸ ಅಥವಾ ಸೀರಿಯಲ್ ಸಂಖ್ಯೆ ಇರುವುದಿಲ್ಲ. ಏನನ್ನಾದರೂ ಹಂಚಿಕೊಳ್ಳುವ ಮೊದಲು ನೀವು ಅದನ್ನು ನೋಡಬಹುದು.</string>
+</resources>

@@ -77,4 +77,55 @@ public class MonitorUiTest {
         monitor.historyRunning=true; monitor.importMode=MonitorService.ImportMode.FULL_SWEEP;
         assertFalse(detail().contains(monitor.getString(R.string.monitor_import_mode_sweep)));
     }
+    private String title() { return MonitorUi.title(monitor,monitor); }
+    private String text(int id) { return monitor.getString(id); }
+    private void syncEnded(String status) { monitor.status=status; monitor.ready=false; monitor.sessionFinished=true; }
+    @Test public void clockSyncRunningAndPendingStates() {
+        monitor.ready=true; monitor.clockSyncRunning=true; monitor.status="Reading monitor settings…";
+        assertEquals(text(R.string.main_sync_clock_running),title());
+        assertEquals(text(R.string.monitor_keep_nearby),detail());
+        monitor.clockSyncPending=true; monitor.status="Confirm clock sync";
+        assertEquals(text(R.string.clock_sync_title),title());
+        assertEquals(text(R.string.main_sync_clock_explanation),detail());
+    }
+    @Test public void clockSyncCompleteAsksToCheckTheClockAndReconnect() {
+        syncEnded("Clock sync complete"); monitor.clockUpdate=MonitorService.ClockUpdate.ACCEPTED;
+        assertEquals(text(R.string.monitor_clock_sync_complete),title());
+        assertEquals(text(R.string.monitor_check_clock)+"\n\n"+text(R.string.monitor_clock_sync_reconnect),detail());
+    }
+    @Test public void clockSyncSkippedExplainsTheMinute() {
+        syncEnded("Clock sync skipped"); monitor.clockUpdate=MonitorService.ClockUpdate.SKIPPED;
+        assertEquals(text(R.string.monitor_clock_sync_skipped),title());
+        assertEquals(text(R.string.clock_sync_within_threshold)+"\n\n"+text(R.string.monitor_clock_sync_reconnect),detail());
+    }
+    @Test public void clockSyncRejectedSaysTheTimeWasNotUpdated() {
+        syncEnded("Clock sync rejected"); monitor.clockUpdate=MonitorService.ClockUpdate.FAILED;
+        assertEquals(text(R.string.monitor_clock_sync_rejected),title());
+        assertEquals(text(R.string.monitor_clock_failed)+"\n\n"+text(R.string.monitor_clock_sync_reconnect),detail());
+    }
+    @Test public void clockSyncCancelledBeforeOrAfterTheWrite() {
+        syncEnded("Clock sync cancelled");
+        assertEquals(text(R.string.monitor_clock_sync_cancelled),title());
+        assertEquals(text(R.string.monitor_clock_sync_reconnect),detail());
+        // A disconnect or missing acknowledgment leaves the clock unverified.
+        monitor.sessionFinished=false; monitor.clockUpdate=MonitorService.ClockUpdate.FAILED;
+        assertEquals(text(R.string.monitor_clock_sync_cancelled),title());
+        assertEquals(text(R.string.monitor_clock_failed)+"\n\n"+text(R.string.monitor_clock_sync_reconnect),detail());
+    }
+    @Test public void unreadableSettingsEndTheSync() {
+        monitor.ready=true; monitor.clockSyncRunning=true; monitor.status="Monitor settings unreadable";
+        assertEquals("The outcome is shown while the session ends",text(R.string.monitor_clock_sync_unreadable),title());
+        assertEquals(text(R.string.monitor_clock_failed)+"\n\n"+text(R.string.monitor_clock_sync_reconnect),detail());
+        monitor.clockSyncRunning=false; syncEnded("Monitor settings unreadable");
+        assertEquals(text(R.string.monitor_clock_sync_unreadable),title());
+    }
+    @Test public void clockSyncTextIsLocalized() {
+        android.content.res.Configuration configuration=new android.content.res.Configuration(monitor.getResources().getConfiguration());
+        configuration.setLocale(java.util.Locale.forLanguageTag("ar"));
+        android.content.Context arabic=monitor.createConfigurationContext(configuration);
+        syncEnded("Clock sync complete");
+        assertEquals(arabic.getString(R.string.monitor_clock_sync_complete),MonitorUi.title(arabic,monitor));
+        assertNotEquals(text(R.string.monitor_clock_sync_complete),MonitorUi.title(arabic,monitor));
+        assertFalse(MonitorUi.detail(arabic,monitor).contains("Reconnect"));
+    }
 }

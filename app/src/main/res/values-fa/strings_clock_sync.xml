@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_sync_clock">همگام‌سازی ساعت</string>
+    <string name="main_sync_clock_explanation">ساعت دستگاه فشارسنج را با زمان این تلفن تنظیم می‌کند. پیش از هر تغییری هر دو زمان را می‌بینید و تأیید می‌کنید. پس از آن اتصال پایان می‌یابد؛ برای وارد کردن اندازه‌گیری‌ها دوباره وصل شوید.</string>
+    <string name="main_sync_clock_running">در حال همگام‌سازی ساعت…</string>
+    <string name="clock_sync_title">تأیید همگام‌سازی ساعت</string>
+    <string name="clock_sync_monitor_time">ساعت دستگاه: %1$s</string>
+    <string name="clock_sync_monitor_time_unset">ساعت دستگاه: تنظیم نشده</string>
+    <string name="clock_sync_phone_time">زمان تلفن: %1$s</string>
+    <plurals name="clock_sync_drift">
+        <item quantity="one">اختلاف: %1$d ثانیه</item>
+        <item quantity="other">اختلاف: %1$d ثانیه</item>
+    </plurals>
+    <string name="clock_sync_within_threshold">ساعت دستگاه حداکثر یک دقیقه با زمان تلفن فاصله دارد، بنابراین تغییری نمی‌کند.</string>
+    <string name="clock_sync_untested_warning">همگام‌سازی ساعت هنوز با این دستگاه آزمایش نشده است. فقط به این دلیل در دسترس است که یکی از گزینه‌های توسعه‌دهنده را روشن کرده‌اید. فقط در صورتی ادامه دهید که این خطر را می‌پذیرید.</string>
+    <string name="clock_sync_choose_time">زمان برای تنظیم (گزینهٔ توسعه‌دهنده)</string>
+    <string name="clock_sync_confirm">اکنون همگام‌سازی شود</string>
+    <string name="monitor_clock_sync_complete">ساعت همگام شد</string>
+    <string name="monitor_clock_sync_skipped">ساعت از قبل درست است</string>
+    <string name="monitor_clock_sync_rejected">همگام‌سازی ساعت ناموفق بود</string>
+    <string name="monitor_clock_sync_cancelled">همگام‌سازی ساعت لغو شد</string>
+    <string name="monitor_clock_sync_unreadable">همگام‌سازی ساعت ممکن نیست</string>
+    <string name="monitor_clock_sync_reconnect">برای وارد کردن اندازه‌گیری‌ها دوباره وصل شوید.</string>
+    <string name="clock_sync_report_prompt">شما ساعت دستگاهی را همگام کردید که این قابلیت هنوز با آن آزمایش نشده است. گزارش دستگاه در یک issue در GitHub نشان می‌دهد که آیا کار کرده است و به در دسترس قرار گرفتن همگام‌سازی ساعت برای دیگران کمک می‌کند.\n\nاین گزارش فقط شامل جزئیات فنی است. هرگز شامل اندازه‌گیری‌ها، زمان اندازه‌گیری‌ها، نام‌ها، نشانی Bluetooth یا شماره سریال نیست. می‌توانید پیش از اشتراک‌گذاری هر چیزی آن را بررسی کنید.</string>
+</resources>

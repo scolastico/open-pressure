@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_sync_clock">Mu aago ṣiṣẹpọ</string>
+    <string name="main_sync_clock_explanation">Ó ń ṣètò aago ẹ̀rọ náà sí àkókò fóònù yìí. Ìwọ yóò rí àkókò méjèèjì, ìwọ yóò sì jẹ́rìí sí i kí ohunkóhun tó yí padà. Lẹ́yìn náà, ìsopọ̀ náà yóò parí; tún sopọ̀ láti kó àwọn ìwọ̀n wọlé.</string>
+    <string name="main_sync_clock_running">A ń mu aago ṣiṣẹpọ…</string>
+    <string name="clock_sync_title">Jẹ́rìí sí mímú aago ṣiṣẹpọ</string>
+    <string name="clock_sync_monitor_time">Aago ẹ̀rọ: %1$s</string>
+    <string name="clock_sync_monitor_time_unset">Aago ẹ̀rọ: a kò tíì ṣètò rẹ̀</string>
+    <string name="clock_sync_phone_time">Àkókò fóònù: %1$s</string>
+    <plurals name="clock_sync_drift">
+        <item quantity="other">Ìyàtọ̀: ìṣẹ́jú-àáyá %1$d</item>
+    </plurals>
+    <string name="clock_sync_within_threshold">Aago ẹ̀rọ náà wà láàárín ìṣẹ́jú kan sí àkókò fóònù, nítorí náà a kò yí i padà.</string>
+    <string name="clock_sync_untested_warning">A kò tíì dán mímú aago ṣiṣẹpọ wò pẹ̀lú ẹ̀rọ yìí. Ó wà nìkan nítorí pé o tan àṣàyàn olùgbéejáde kan. Tẹ̀síwájú nìkan tí o bá gba ewu yẹn.</string>
+    <string name="clock_sync_choose_time">Àkókò láti ṣètò (àṣàyàn olùgbéejáde)</string>
+    <string name="clock_sync_confirm">Mu ṣiṣẹpọ báyìí</string>
+    <string name="monitor_clock_sync_complete">A ti mu aago ṣiṣẹpọ</string>
+    <string name="monitor_clock_sync_skipped">Aago ti tọ̀nà tẹ́lẹ̀</string>
+    <string name="monitor_clock_sync_rejected">Mímú aago ṣiṣẹpọ kùnà</string>
+    <string name="monitor_clock_sync_cancelled">A fagilé mímú aago ṣiṣẹpọ</string>
+    <string name="monitor_clock_sync_unreadable">Kò ṣeé ṣe láti mu aago ṣiṣẹpọ</string>
+    <string name="monitor_clock_sync_reconnect">Tún sopọ̀ láti kó àwọn ìwọ̀n wọlé.</string>
+    <string name="clock_sync_report_prompt">O ti mu aago ẹ̀rọ kan ṣiṣẹpọ tí a kò tíì dán èyí wò pẹ̀lú rẹ̀. Ìròyìn ẹ̀rọ nínú issue GitHub kan fi hàn bóyá ó ṣiṣẹ́, ó sì ń ṣèrànwọ́ láti jẹ́ kí mímú aago ṣiṣẹpọ wà fún àwọn ẹlòmíràn.\n\nÌjábọ̀ náà ní àwọn àlàyé ìmọ̀-ẹ̀rọ nìkan. Kò ní àwọn ìwọ̀n, àkókò ìwọ̀n, orúkọ, àdírẹ́sì Bluetooth tàbí nọ́ńbà ìdánimọ̀ rárá. O lè ṣàyẹ̀wò rẹ̀ kí o tó pín ohunkóhun.</string>
+</resources>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_sync_clock">ซิงค์นาฬิกา</string>
+    <string name="main_sync_clock_explanation">ตั้งนาฬิกาของเครื่องวัดให้ตรงกับเวลาของโทรศัพท์นี้ คุณจะเห็นทั้งสองเวลาและยืนยันก่อนที่จะมีการเปลี่ยนแปลงใดๆ หลังจากนั้นการเชื่อมต่อจะสิ้นสุด โปรดเชื่อมต่ออีกครั้งเพื่อนำเข้าค่าที่วัด</string>
+    <string name="main_sync_clock_running">กำลังซิงค์นาฬิกา…</string>
+    <string name="clock_sync_title">ยืนยันการซิงค์นาฬิกา</string>
+    <string name="clock_sync_monitor_time">นาฬิกาของเครื่องวัด: %1$s</string>
+    <string name="clock_sync_monitor_time_unset">นาฬิกาของเครื่องวัด: ยังไม่ได้ตั้ง</string>
+    <string name="clock_sync_phone_time">เวลาของโทรศัพท์: %1$s</string>
+    <plurals name="clock_sync_drift">
+        <item quantity="other">ต่างกัน: %1$d วินาที</item>
+    </plurals>
+    <string name="clock_sync_within_threshold">นาฬิกาของเครื่องวัดต่างจากเวลาของโทรศัพท์ไม่เกินหนึ่งนาที จึงไม่มีการเปลี่ยนแปลง</string>
+    <string name="clock_sync_untested_warning">การซิงค์นาฬิกายังไม่ได้ทดสอบกับเครื่องวัดนี้ ฟีเจอร์นี้ใช้ได้เพียงเพราะคุณเปิดตัวเลือกสำหรับนักพัฒนาไว้ ดำเนินการต่อเฉพาะเมื่อคุณยอมรับความเสี่ยงนี้</string>
+    <string name="clock_sync_choose_time">เวลาที่จะตั้ง (ตัวเลือกสำหรับนักพัฒนา)</string>
+    <string name="clock_sync_confirm">ซิงค์ตอนนี้</string>
+    <string name="monitor_clock_sync_complete">ซิงค์นาฬิกาแล้ว</string>
+    <string name="monitor_clock_sync_skipped">นาฬิกาถูกต้องอยู่แล้ว</string>
+    <string name="monitor_clock_sync_rejected">ซิงค์นาฬิกาไม่สำเร็จ</string>
+    <string name="monitor_clock_sync_cancelled">ยกเลิกการซิงค์นาฬิกาแล้ว</string>
+    <string name="monitor_clock_sync_unreadable">ซิงค์นาฬิกาไม่ได้</string>
+    <string name="monitor_clock_sync_reconnect">เชื่อมต่ออีกครั้งเพื่อนำเข้าค่าที่วัด</string>
+    <string name="clock_sync_report_prompt">คุณได้ซิงค์นาฬิกาของเครื่องวัดที่ยังไม่เคยทดสอบฟีเจอร์นี้ รายงานอุปกรณ์ใน issue บน GitHub จะแสดงว่าใช้งานได้หรือไม่ และช่วยให้ผู้อื่นใช้การซิงค์นาฬิกาได้ด้วย\n\nรายงานมีเฉพาะรายละเอียดทางเทคนิคเท่านั้น จะไม่มีค่าที่วัดได้ เวลาที่วัด ชื่อ ที่อยู่ Bluetooth หรือหมายเลขซีเรียลเลย คุณตรวจดูได้ก่อนที่จะแชร์สิ่งใด</string>
+</resources>

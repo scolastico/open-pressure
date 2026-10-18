@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_sync_clock">مزامنة الساعة</string>
+    <string name="main_sync_clock_explanation">يضبط ساعة جهاز قياس الضغط على وقت هذا الهاتف. سترى الوقتين وتؤكد قبل أن يتغير أي شيء. بعد ذلك ينتهي الاتصال؛ اتصل مرة أخرى لاستيراد القراءات.</string>
+    <string name="main_sync_clock_running">جارٍ مزامنة الساعة…</string>
+    <string name="clock_sync_title">تأكيد مزامنة الساعة</string>
+    <string name="clock_sync_monitor_time">ساعة الجهاز: %1$s</string>
+    <string name="clock_sync_monitor_time_unset">ساعة الجهاز: غير مضبوطة</string>
+    <string name="clock_sync_phone_time">وقت الهاتف: %1$s</string>
+    <plurals name="clock_sync_drift">
+        <item quantity="few">الفرق: %1$d ثوانٍ</item>
+        <item quantity="many">الفرق: %1$d ثانية</item>
+        <item quantity="one">الفرق: ثانية واحدة (%1$d)</item>
+        <item quantity="other">الفرق: %1$d ثانية</item>
+        <item quantity="two">الفرق: ثانيتان (%1$d)</item>
+        <item quantity="zero">الفرق: %1$d ثانية</item>
+    </plurals>
+    <string name="clock_sync_within_threshold">ساعة الجهاز ضمن دقيقة واحدة من وقت الهاتف، لذا تبقى دون تغيير.</string>
+    <string name="clock_sync_untested_warning">لم تُختبر مزامنة الساعة مع هذا الجهاز بعد. وهي متاحة فقط لأنك فعّلت أحد خيارات المطوّرين. لا تتابع إلا إذا كنت تقبل هذه المخاطرة.</string>
+    <string name="clock_sync_choose_time">الوقت المراد ضبطه (خيار للمطوّرين)</string>
+    <string name="clock_sync_confirm">مزامنة الآن</string>
+    <string name="monitor_clock_sync_complete">تمت مزامنة الساعة</string>
+    <string name="monitor_clock_sync_skipped">الساعة مضبوطة بالفعل</string>
+    <string name="monitor_clock_sync_rejected">فشلت مزامنة الساعة</string>
+    <string name="monitor_clock_sync_cancelled">أُلغيت مزامنة الساعة</string>
+    <string name="monitor_clock_sync_unreadable">تعذّرت مزامنة الساعة</string>
+    <string name="monitor_clock_sync_reconnect">اتصل مرة أخرى لاستيراد القراءات.</string>
+    <string name="clock_sync_report_prompt">لقد زامنت ساعة جهاز قياس ضغط لم تُختبر معه هذه الميزة بعد. يوضح تقرير الجهاز في issue على GitHub ما إذا كانت قد نجحت، ويساعد على إتاحة مزامنة الساعة للآخرين.\n\nيحتوي التقرير على تفاصيل تقنية فقط. ولا يتضمن أبدًا القراءات أو أوقات القياس أو الأسماء أو عنوان Bluetooth أو الرقم التسلسلي. يمكنك مراجعته قبل مشاركة أي شيء.</string>
+</resources>

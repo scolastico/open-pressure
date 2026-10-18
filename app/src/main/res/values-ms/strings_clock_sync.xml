@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_sync_clock">Segerakkan jam</string>
+    <string name="main_sync_clock_explanation">Menetapkan jam monitor kepada masa telefon ini. Anda akan melihat kedua-dua masa dan mengesahkan sebelum apa-apa berubah. Selepas itu sambungan tamat; sambung semula untuk mengimport bacaan.</string>
+    <string name="main_sync_clock_running">Menyegerakkan jam…</string>
+    <string name="clock_sync_title">Sahkan penyegerakan jam</string>
+    <string name="clock_sync_monitor_time">Jam monitor: %1$s</string>
+    <string name="clock_sync_monitor_time_unset">Jam monitor: belum ditetapkan</string>
+    <string name="clock_sync_phone_time">Masa telefon: %1$s</string>
+    <plurals name="clock_sync_drift">
+        <item quantity="other">Perbezaan: %1$d saat</item>
+    </plurals>
+    <string name="clock_sync_within_threshold">Jam monitor berbeza tidak lebih daripada satu minit daripada masa telefon, jadi ia tidak diubah.</string>
+    <string name="clock_sync_untested_warning">Penyegerakan jam belum diuji dengan monitor ini. Ia hanya tersedia kerana anda menghidupkan pilihan pembangun. Teruskan hanya jika anda menerima risiko itu.</string>
+    <string name="clock_sync_choose_time">Masa untuk ditetapkan (pilihan pembangun)</string>
+    <string name="clock_sync_confirm">Segerakkan sekarang</string>
+    <string name="monitor_clock_sync_complete">Jam disegerakkan</string>
+    <string name="monitor_clock_sync_skipped">Jam sudah tepat</string>
+    <string name="monitor_clock_sync_rejected">Penyegerakan jam gagal</string>
+    <string name="monitor_clock_sync_cancelled">Penyegerakan jam dibatalkan</string>
+    <string name="monitor_clock_sync_unreadable">Penyegerakan jam tidak dapat dilakukan</string>
+    <string name="monitor_clock_sync_reconnect">Sambung semula untuk mengimport bacaan.</string>
+    <string name="clock_sync_report_prompt">Anda telah menyegerakkan jam monitor yang belum pernah diuji untuk ciri ini. Laporan peranti dalam issue GitHub menunjukkan sama ada ia berjaya dan membantu menjadikan penyegerakan jam tersedia kepada orang lain.\n\nLaporan hanya mengandungi butiran teknikal. Ia tidak pernah memasukkan bacaan, masa pengukuran, nama, alamat Bluetooth atau nombor siri. Anda boleh menyemaknya sebelum berkongsi apa-apa.</string>
+</resources>

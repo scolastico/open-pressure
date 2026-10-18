@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_sync_clock">Óra szinkronizálása</string>
+    <string name="main_sync_clock_explanation">A vérnyomásmérő óráját a telefon idejére állítja. Mindkét időt látja, és megerősíti, mielőtt bármi megváltozna. Utána a kapcsolat véget ér; a mérések importálásához csatlakozzon újra.</string>
+    <string name="main_sync_clock_running">Óra szinkronizálása…</string>
+    <string name="clock_sync_title">Óraszinkronizálás megerősítése</string>
+    <string name="clock_sync_monitor_time">A mérő órája: %1$s</string>
+    <string name="clock_sync_monitor_time_unset">A mérő órája: nincs beállítva</string>
+    <string name="clock_sync_phone_time">A telefon ideje: %1$s</string>
+    <plurals name="clock_sync_drift">
+        <item quantity="one">Eltérés: %1$d másodperc</item>
+        <item quantity="other">Eltérés: %1$d másodperc</item>
+    </plurals>
+    <string name="clock_sync_within_threshold">A mérő órája legfeljebb egy perccel tér el a telefon idejétől, ezért változatlan marad.</string>
+    <string name="clock_sync_untested_warning">Az óraszinkronizálást még nem tesztelték ezzel a vérnyomásmérővel. Csak azért érhető el, mert bekapcsolt egy fejlesztői beállítást. Csak akkor folytassa, ha elfogadja ezt a kockázatot.</string>
+    <string name="clock_sync_choose_time">Beállítandó idő (fejlesztői beállítás)</string>
+    <string name="clock_sync_confirm">Szinkronizálás most</string>
+    <string name="monitor_clock_sync_complete">Óra szinkronizálva</string>
+    <string name="monitor_clock_sync_skipped">Az óra már pontos</string>
+    <string name="monitor_clock_sync_rejected">Az óraszinkronizálás sikertelen</string>
+    <string name="monitor_clock_sync_cancelled">Óraszinkronizálás megszakítva</string>
+    <string name="monitor_clock_sync_unreadable">Az óraszinkronizálás nem lehetséges</string>
+    <string name="monitor_clock_sync_reconnect">A mérések importálásához csatlakozzon újra.</string>
+    <string name="clock_sync_report_prompt">Olyan vérnyomásmérő óráját szinkronizálta, amellyel ezt még nem tesztelték. Egy GitHub-issue-ban megosztott eszközjelentés megmutatja, sikerült-e, és segít másoknak is elérhetővé tenni az óraszinkronizálást.\n\nA jelentés csak műszaki adatokat tartalmaz. Soha nem tartalmaz méréseket, mérési időpontokat, neveket, a Bluetooth-címet vagy a sorozatszámot. Mielőtt bármit megosztanál, megtekintheted.</string>
+</resources>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_sync_clock">Saati eşitle</string>
+    <string name="main_sync_clock_explanation">Ölçüm cihazının saatini bu telefonun saatine ayarlar. Herhangi bir şey değişmeden önce iki saati de görür ve onaylarsınız. Ardından bağlantı sona erer; ölçümleri içe aktarmak için yeniden bağlanın.</string>
+    <string name="main_sync_clock_running">Saat eşitleniyor…</string>
+    <string name="clock_sync_title">Saat eşitlemeyi onaylayın</string>
+    <string name="clock_sync_monitor_time">Cihaz saati: %1$s</string>
+    <string name="clock_sync_monitor_time_unset">Cihaz saati: ayarlanmamış</string>
+    <string name="clock_sync_phone_time">Telefon saati: %1$s</string>
+    <plurals name="clock_sync_drift">
+        <item quantity="one">Fark: %1$d saniye</item>
+        <item quantity="other">Fark: %1$d saniye</item>
+    </plurals>
+    <string name="clock_sync_within_threshold">Cihaz saati telefon saatinden en fazla bir dakika farklı olduğundan değiştirilmez.</string>
+    <string name="clock_sync_untested_warning">Saat eşitleme bu cihazla henüz test edilmedi. Yalnızca bir geliştirici seçeneğini açtığınız için kullanılabilir. Yalnızca bu riski kabul ediyorsanız devam edin.</string>
+    <string name="clock_sync_choose_time">Ayarlanacak saat (geliştirici seçeneği)</string>
+    <string name="clock_sync_confirm">Şimdi eşitle</string>
+    <string name="monitor_clock_sync_complete">Saat eşitlendi</string>
+    <string name="monitor_clock_sync_skipped">Saat zaten doğru</string>
+    <string name="monitor_clock_sync_rejected">Saat eşitlenemedi</string>
+    <string name="monitor_clock_sync_cancelled">Saat eşitleme iptal edildi</string>
+    <string name="monitor_clock_sync_unreadable">Saat eşitleme mümkün değil</string>
+    <string name="monitor_clock_sync_reconnect">Ölçümleri içe aktarmak için yeniden bağlanın.</string>
+    <string name="clock_sync_report_prompt">Bunun henüz test edilmediği bir ölçüm cihazının saatini eşitlediniz. GitHub\'daki bir issue\'da paylaşılan cihaz raporu, işe yarayıp yaramadığını gösterir ve saat eşitlemenin başkaları için de kullanıma açılmasına yardımcı olur.\n\nRapor yalnızca teknik ayrıntılar içerir. Hiçbir zaman ölçümleri, ölçüm zamanlarını, adları, Bluetooth adresini veya seri numarasını içermez. Herhangi bir şey paylaşmadan önce raporu inceleyebilirsiniz.</string>
+</resources>

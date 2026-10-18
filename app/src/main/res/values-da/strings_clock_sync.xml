@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_sync_clock">Synkroniser uret</string>
+    <string name="main_sync_clock_explanation">Stiller blodtryksmålerens ur efter telefonens tid. Du ser begge tider og bekræfter, før noget ændres. Derefter afsluttes forbindelsen; opret forbindelse igen for at importere målinger.</string>
+    <string name="main_sync_clock_running">Synkroniserer uret…</string>
+    <string name="clock_sync_title">Bekræft synkronisering af uret</string>
+    <string name="clock_sync_monitor_time">Målerens ur: %1$s</string>
+    <string name="clock_sync_monitor_time_unset">Målerens ur: ikke indstillet</string>
+    <string name="clock_sync_phone_time">Telefonens tid: %1$s</string>
+    <plurals name="clock_sync_drift">
+        <item quantity="one">Forskel: %1$d sekund</item>
+        <item quantity="other">Forskel: %1$d sekunder</item>
+    </plurals>
+    <string name="clock_sync_within_threshold">Målerens ur afviger højst et minut fra telefonens tid og forbliver derfor uændret.</string>
+    <string name="clock_sync_untested_warning">Synkronisering af uret er endnu ikke testet med denne måler. Den er kun tilgængelig, fordi du har slået en udviklerindstilling til. Fortsæt kun, hvis du accepterer den risiko.</string>
+    <string name="clock_sync_choose_time">Tid, der skal indstilles (udviklerindstilling)</string>
+    <string name="clock_sync_confirm">Synkroniser nu</string>
+    <string name="monitor_clock_sync_complete">Uret er synkroniseret</string>
+    <string name="monitor_clock_sync_skipped">Uret går allerede rigtigt</string>
+    <string name="monitor_clock_sync_rejected">Synkronisering af uret mislykkedes</string>
+    <string name="monitor_clock_sync_cancelled">Synkronisering af uret annulleret</string>
+    <string name="monitor_clock_sync_unreadable">Synkronisering af uret er ikke mulig</string>
+    <string name="monitor_clock_sync_reconnect">Opret forbindelse igen for at importere målinger.</string>
+    <string name="clock_sync_report_prompt">Du har synkroniseret uret på en måler, som dette endnu ikke er testet med. En enhedsrapport i et GitHub-issue viser, om det virkede, og hjælper med at gøre synkronisering af uret tilgængelig for andre.\n\nRapporten indeholder kun tekniske detaljer. Den indeholder aldrig målinger, måletidspunkter, navne, Bluetooth-adressen eller serienummeret. Du kan gennemse den, før du deler noget.</string>
+</resources>
