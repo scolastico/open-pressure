@@ -73,7 +73,7 @@ Local deletions made with deletion-receipt support record SHA-256 fingerprints. 
 
 ## Time and flags
 
-On the X7, Pair sets the clock as part of its user registration; afterwards use [Sync clock](#sync-clock). The vendor-memory monitors also use Sync clock. Supported standard profiles offer **Set monitor time**, an explicit clock control using a dedicated time characteristic; inspect or read back the monitor time after using it. A successful GATT write alone is not verification.
+On the X7, Pair sets the clock as part of its user registration. Afterwards, and on the vendor-memory monitors, the clock control is [Sync clock](#sync-clock), once it is confirmed for your model or enabled for testing. Supported standard profiles offer **Set monitor time**, an explicit clock control using a dedicated time characteristic; inspect or read back the monitor time after using it. A successful GATT write alone is not verification.
 
 A rejected standard-profile clock update leaves history available. If that write times out without an Android callback, the app closes the connection and asks you to reconnect before importing, because Android may still consider the old write busy.
 
@@ -81,7 +81,7 @@ Cuff timestamps are local wall time without the original timezone. Missing or in
 
 ### Sync clock
 
-**Sync clock** sets the monitor's clock to this phone's time. It appears on the connected monitor for the vendor-memory monitors above and for the X7. You see both times and decide before anything on the monitor changes.
+**Sync clock** sets the monitor's clock to this phone's time. It appears on the connected monitor for the vendor-memory monitors above and for the X7; on an encrypted X7 connection the button stays disabled. You see both times and decide before anything on the monitor changes.
 
 1. Choose **Connect** (not Pair) and wait until the monitor is ready. Use Sync clock before you import: it is not available during or after an import on the same connection, during Pair or during an automatic import.
 2. Choose **Sync clock**. The app reads the monitor's current settings; nothing is changed yet.
