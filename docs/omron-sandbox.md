@@ -162,7 +162,7 @@ The bad-record fixture keeps an Omron-only user-2 reading expectation solely so 
 
 ### Clock sync fixtures
 
-Omron Connect has no standalone clock sync: it writes the clock as part of its settings writes after every transfer (see [post-transfer settings writes](#post-transfer-settings-writes)). OpenPressure instead writes only the clock block, in its own explicit Sync clock session. The `sync-clock` fixtures therefore describe only OpenPressure; their write and acknowledgment steps are OpenPressure-only, and Omron's runner reports `unsupported`.
+Omron Connect has no standalone clock sync: it writes the clock as part of its settings writes after every transfer (see [post-transfer settings writes](#post-transfer-settings-writes)). OpenPressure instead writes only the clock block, in its own explicit Sync clock session, and never the index prefix that Omron writes first; whether a physical monitor applies the block without that prefix write is unverified. The `sync-clock` fixtures therefore describe only OpenPressure; their write and acknowledgment steps are OpenPressure-only, and Omron's runner reports `unsupported`.
 
 | Fixture | OpenPressure | Omron Connect 2026.09.03 |
 | --- | --- | --- |
@@ -176,7 +176,7 @@ The acknowledgments are synthetic full echoes; no physical monitor's reply to a 
 
 ## Post-transfer settings writes
 
-All nineteen indexed legacy Connect and Pair fixtures record two settings writes from Omron Connect 2026.09.03, followed by END `08 0f 00 00 00 00 00 07`. The frames come from the local synthetic exploration transcripts and are pinned as Omron-only steps; their acknowledgments are synthetic full echoes. Normal replay checks the exact requests and decoded results without exploration replies. OpenPressure's production command policy is unchanged and blocks addressed writes for these models.
+All nineteen indexed legacy Connect and Pair fixtures record two settings writes from Omron Connect 2026.09.03, followed by END `08 0f 00 00 00 00 00 07`. The frames come from the local synthetic exploration transcripts and are pinned as Omron-only steps; their acknowledgments are synthetic full echoes. Normal replay checks the exact requests and decoded results without exploration replies. OpenPressure's production command policy blocks these writes. Its only addressed write on these models is the explicit clock-block write of Sync clock, which sends the clock block alone, without the index prefix (see [clock sync fixtures](#clock-sync-fixtures)).
 
 The first write includes the index prefix with the last-read user's unsent counter cleared on Connect, or the registered user's counter cleared on Pair. A changed birthday block is merged with the prefix or the clock block when adjacent. The sandbox's default birthday is 1900-01-01; the clock is fixture time plus one second. Omron recomputes additive settings checksums. The 14-byte-record models swap byte pairs in the settings image as well as the records.
 

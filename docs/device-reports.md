@@ -4,7 +4,7 @@ Only one monitor identity has been tested with OpenPressure. Device reports let 
 
 ## When the app offers a report
 
-After a **Pair** or **Connect** session with a monitor other than the tested HEM-7380T1-EOSL, the Devices screen shows **Help support this monitor**. After a Pair attempt, the app also asks once per monitor whether you want to review the report. Choosing **Not now** dismisses the question; the card stays available until the next connection replaces the report.
+After a **Pair** or **Connect** session with a monitor other than the tested HEM-7380T1-EOSL, the Devices screen shows **Help support this monitor**. After a Pair attempt, the app also asks once per monitor whether you want to review the report. After a [Sync clock](usage.md#sync-clock) that relied on the hidden developer option for an untested monitor and reached a result (written, rejected, interrupted or already within a minute), the app also asks once whether you want to review the report. Choosing **Not now** dismisses the question; the card stays available until the next connection replaces the report.
 
 No report is offered for the tested monitor, for automatic imports, or when the connection ended before the monitor's Bluetooth services were discovered. A report covers a failed session as well as a successful one; failures are often the most useful.
 
@@ -25,7 +25,7 @@ No report is offered for the tested monitor, for automatic imports, or when the 
 
 The report never contains readings, measurement times, profile or monitor-user names, the Bluetooth address, the serial number or system ID, memory contents, pairing keys or key bodies. Record sequence numbers and counts from the advertisement are masked. The [diagnostics export](usage.md) is different: it can contain health data and identifiers and should not be posted publicly.
 
-Collecting a report sends nothing extra to the monitor. It records only what the normal Pair or Connect session already read, so it follows the same read-only [safety boundaries](safety.md): no EEPROM writes today (no write records entries in the `writes` section yet), no probing of unknown memory and no guessed commands.
+Collecting a report sends nothing extra to the monitor. It records only what the session already did, so it follows the same [safety boundaries](safety.md): no probing of unknown memory and no guessed commands. Connect and imports write nothing to the monitor's memory, and Pair writes only the documented [X7 profile registration](safety.md#x7-profile-registration). The only other memory write, an explicit Sync clock, is recorded in the `writes` section as one `clock_block` entry with its outcome and whether the developer override allowed it; the written time and the monitor's clock are never included.
 
 ## Sharing it
 
