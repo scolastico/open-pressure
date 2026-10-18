@@ -36,6 +36,15 @@ public class OmronApkTest {
         assertFalse("no classes without dex conversion",Files.exists(out.resolve("omron-classes.jar")));
     }
 
+    @Test public void staleExtractionIsIgnoredWhenThePackageWasRemoved() throws Exception {
+        Path extracted=temp.newFolder("extracted").toPath(),apks=temp.newFolder("apk").toPath();
+        Files.write(extracted.resolve("version.txt"),"9.9.9 (99)\n".getBytes(StandardCharsets.UTF_8));
+        Files.write(extracted.resolve("omron-classes.jar"),new byte[0]);
+        assertNull("no package left in the apk folder",OmronApk.locate(extracted,apks));
+        Files.write(apks.resolve("omron.xapk"),new byte[0]);
+        assertEquals("9.9.9 (99)",OmronApk.locate(extracted,apks).version);
+    }
+
     @Test public void missingInputIsReportedNotThrownLater() throws Exception {
         Path empty=temp.newFolder("empty").toPath();
         try { ExtractOmron.main(new String[]{empty.toString(),temp.getRoot().toPath().resolve("o").toString(),"--no-dex"}); fail("empty input accepted"); }

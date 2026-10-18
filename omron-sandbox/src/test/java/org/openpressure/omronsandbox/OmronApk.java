@@ -16,13 +16,21 @@ public final class OmronApk {
         this.dir=dir; this.version=version;
         classesJar=dir.resolve("omron-classes.jar"); deviceCategoryZip=dir.resolve("device_category.zip"); deviceModelsJson=dir.resolve("device_models.json");
     }
-    /** Null when no package was extracted. */
+    /** Null when no package was extracted, or when the package it came from is no longer in the apk folder. */
     public static OmronApk locate() {
-        Path dir=Paths.get(System.getProperty("omron.dir","build/omron"));
+        return locate(Paths.get(System.getProperty("omron.dir","build/omron")),Paths.get(System.getProperty("omron.apk.dir","apk")));
+    }
+    static OmronApk locate(Path dir,Path apkDir) {
+        if(!hasPackage(apkDir)) return null;
         Path version=dir.resolve("version.txt");
         if(!Files.isRegularFile(version) || !Files.isRegularFile(dir.resolve("omron-classes.jar"))) return null;
         try { return new OmronApk(dir,new String(Files.readAllBytes(version),StandardCharsets.UTF_8).trim()); }
         catch(IOException unreadable) { return null; }
+    }
+    private static boolean hasPackage(Path apkDir) {
+        try(java.util.stream.Stream<Path> files=Files.list(apkDir)) {
+            return files.anyMatch(f -> f.getFileName().toString().endsWith(".apk") || f.getFileName().toString().endsWith(".xapk"));
+        } catch(IOException missing) { return false; }
     }
     /** Skips the calling test when no Omron package is available. */
     public static OmronApk assumePresent() {
