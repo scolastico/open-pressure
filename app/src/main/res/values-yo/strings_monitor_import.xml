@@ -10,9 +10,9 @@
     <string name="main_read_all_explanation">Ó ń ṣàyẹ̀wò gbogbo àyè ìrántí ẹ̀rọ náà, kì í ṣe àwọn tí ó sọ pé a ti lò nìkan. Lò ó tí ó bá dàbí pé àwọn ìwọ̀n kan sọnù. Ó máa ń pẹ́ jù, nítorí náà jẹ́ kí ẹ̀rọ náà wà nítòsí títí yóò fi parí.</string>
     <string name="main_reading_all">Ń ka gbogbo rẹ̀…</string>
     <plurals name="monitor_import_mode_index">
-        <item quantity="other">Ìwọ̀n %1$d tí a fipamọ́ gẹ́gẹ́ bí ẹ̀rọ náà ṣe sọ</item>
+        <item quantity="other">Ẹ̀rọ náà ròyìn ìwọ̀n %1$d tí a fipamọ́.</item>
     </plurals>
-    <string name="monitor_import_mode_fallback">A kò lè lo atọ́ka ẹ̀rọ náà; a ka gbogbo àyè.</string>
+    <string name="monitor_import_mode_fallback">A kò lè lo àkójọ ìwọ̀n tí ẹ̀rọ náà fipamọ́, nítorí náà a ka gbogbo àyè ìrántí.</string>
     <string name="monitor_import_mode_sweep">A ka gbogbo àyè ìrántí.</string>
     <string name="monitor_import_mode_empty">Ẹ̀rọ náà kò ròyìn ìwọ̀n tí a fipamọ́ kankan. Lo Ka gbogbo rẹ̀ tí o bá retí pé ó yẹ kí ó wà.</string>
     <string name="monitor_unconfirmed_bank_skipped">A fo agbègbè ìrántí kejì kan tí àwòṣe yìí lè má ní.</string>

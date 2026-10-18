@@ -10,14 +10,14 @@
     <string name="main_read_all_explanation">يفحص كل خانة في ذاكرة جهاز قياس الضغط، وليس فقط الخانات التي يبلغ عنها كمستخدمة. استخدمه إذا بدا أن بعض القراءات مفقودة. يستغرق وقتًا أطول، لذا أبقِ الجهاز قريبًا حتى ينتهي.</string>
     <string name="main_reading_all">جارٍ قراءة الكل…</string>
     <plurals name="monitor_import_mode_index">
-        <item quantity="few">%1$d قراءات محفوظة وفقًا للجهاز</item>
-        <item quantity="many">%1$d قراءة محفوظة وفقًا للجهاز</item>
-        <item quantity="one">قراءة محفوظة واحدة (%1$d) وفقًا للجهاز</item>
-        <item quantity="other">%1$d قراءة محفوظة وفقًا للجهاز</item>
-        <item quantity="two">قراءتان محفوظتان (%1$d) وفقًا للجهاز</item>
-        <item quantity="zero">%1$d قراءة محفوظة وفقًا للجهاز</item>
+        <item quantity="few">أبلغ الجهاز عن %1$d قراءات محفوظة.</item>
+        <item quantity="many">أبلغ الجهاز عن %1$d قراءة محفوظة.</item>
+        <item quantity="one">أبلغ الجهاز عن قراءة محفوظة واحدة (%1$d).</item>
+        <item quantity="other">أبلغ الجهاز عن %1$d قراءة محفوظة.</item>
+        <item quantity="two">أبلغ الجهاز عن قراءتين محفوظتين (%1$d).</item>
+        <item quantity="zero">أبلغ الجهاز عن %1$d قراءة محفوظة.</item>
     </plurals>
-    <string name="monitor_import_mode_fallback">تعذّر استخدام فهرس الجهاز؛ تمت قراءة كل خانة.</string>
+    <string name="monitor_import_mode_fallback">تعذّر استخدام قائمة القراءات المحفوظة في الجهاز، لذا تمت قراءة كل خانة في الذاكرة.</string>
     <string name="monitor_import_mode_sweep">تمت قراءة كل خانة في الذاكرة.</string>
     <string name="monitor_import_mode_empty">لم يُبلغ الجهاز عن أي قراءات محفوظة. استخدم قراءة الكل إذا كنت تتوقع وجود بعضها.</string>
     <string name="monitor_unconfirmed_bank_skipped">تم تخطي منطقة ذاكرة ثانية قد لا تكون موجودة في هذا الطراز.</string>

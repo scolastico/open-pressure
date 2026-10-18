@@ -10,12 +10,12 @@
     <string name="main_read_all_explanation">Перевіряє кожну комірку пам’яті тонометра, а не лише ті, що він позначає як зайняті. Використовуйте, якщо здається, що вимірювань бракує. Це триває довше, тож тримайте тонометр поруч до завершення.</string>
     <string name="main_reading_all">Читання всього…</string>
     <plurals name="monitor_import_mode_index">
-        <item quantity="few">%1$d збережені вимірювання за даними тонометра</item>
-        <item quantity="many">%1$d збережених вимірювань за даними тонометра</item>
-        <item quantity="one">%1$d збережене вимірювання за даними тонометра</item>
-        <item quantity="other">%1$d збереженого вимірювання за даними тонометра</item>
+        <item quantity="few">Тонометр повідомив про збережені вимірювання: %1$d.</item>
+        <item quantity="many">Тонометр повідомив про збережені вимірювання: %1$d.</item>
+        <item quantity="one">Тонометр повідомив про збережені вимірювання: %1$d.</item>
+        <item quantity="other">Тонометр повідомив про збережені вимірювання: %1$d.</item>
     </plurals>
-    <string name="monitor_import_mode_fallback">Не вдалося використати покажчик тонометра; прочитано кожну комірку.</string>
+    <string name="monitor_import_mode_fallback">Не вдалося використати список збережених вимірювань тонометра, тому прочитано кожну комірку пам’яті.</string>
     <string name="monitor_import_mode_sweep">Прочитано кожну комірку пам’яті.</string>
     <string name="monitor_import_mode_empty">Тонометр не повідомив про збережені вимірювання. Використайте «Прочитати все», якщо вони мають бути.</string>
     <string name="monitor_unconfirmed_bank_skipped">Пропущено другу область пам’яті, якої ця модель може не мати.</string>

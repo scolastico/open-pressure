@@ -10,9 +10,9 @@
     <string name="main_read_all_explanation">စက်က အသုံးပြုထားသည်ဟု ဖော်ပြသည့်နေရာများသာမက မှတ်ဉာဏ်နေရာတိုင်းကို စစ်ဆေးသည်။ တိုင်းတာမှုများ ပျောက်နေပုံရလျှင် ၎င်းကို အသုံးပြုပါ။ ပိုကြာသဖြင့် ပြီးဆုံးသည်အထိ စက်ကို အနီးတွင်ထားပါ။</string>
     <string name="main_reading_all">အားလုံးဖတ်နေသည်…</string>
     <plurals name="monitor_import_mode_index">
-        <item quantity="other">စက်၏အဆိုအရ သိမ်းထားသော တိုင်းတာမှု %1$d ခု</item>
+        <item quantity="other">စက်က သိမ်းထားသော တိုင်းတာမှု %1$d ခု ရှိကြောင်း ဖော်ပြသည်။</item>
     </plurals>
-    <string name="monitor_import_mode_fallback">စက်၏ အညွှန်းကို အသုံးမပြုနိုင်ပါ။ နေရာတိုင်းကို ဖတ်ပြီးပါပြီ။</string>
+    <string name="monitor_import_mode_fallback">စက်၏ သိမ်းထားသော တိုင်းတာမှုစာရင်းကို အသုံးမပြုနိုင်သဖြင့် မှတ်ဉာဏ်နေရာတိုင်းကို ဖတ်ပြီးပါပြီ။</string>
     <string name="monitor_import_mode_sweep">မှတ်ဉာဏ်နေရာတိုင်းကို ဖတ်ပြီးပါပြီ။</string>
     <string name="monitor_import_mode_empty">စက်က သိမ်းထားသော တိုင်းတာမှု မရှိဟု ဖော်ပြသည်။ ရှိသင့်သည်ဟု ထင်လျှင် အားလုံးဖတ်ရန် ကို အသုံးပြုပါ။</string>
     <string name="monitor_unconfirmed_bank_skipped">ဤမော်ဒယ်တွင် မရှိနိုင်သော ဒုတိယမှတ်ဉာဏ်နေရာကို ကျော်လိုက်သည်။</string>

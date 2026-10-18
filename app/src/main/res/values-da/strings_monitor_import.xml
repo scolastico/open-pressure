@@ -10,10 +10,10 @@
     <string name="main_read_all_explanation">Tjekker hver hukommelsesplads i måleren, ikke kun dem, den angiver som brugt. Brug det, hvis der ser ud til at mangle målinger. Det tager længere tid, så hold måleren i nærheden, indtil det er færdigt.</string>
     <string name="main_reading_all">Læser alt…</string>
     <plurals name="monitor_import_mode_index">
-        <item quantity="one">%1$d gemt måling ifølge måleren</item>
-        <item quantity="other">%1$d gemte målinger ifølge måleren</item>
+        <item quantity="one">Måleren rapporterede %1$d gemt måling.</item>
+        <item quantity="other">Måleren rapporterede %1$d gemte målinger.</item>
     </plurals>
-    <string name="monitor_import_mode_fallback">Målerens indeks kunne ikke bruges; hver plads blev læst.</string>
+    <string name="monitor_import_mode_fallback">Målerens liste over gemte målinger kunne ikke bruges, så hver hukommelsesplads blev læst.</string>
     <string name="monitor_import_mode_sweep">Hver hukommelsesplads blev læst.</string>
     <string name="monitor_import_mode_empty">Måleren rapporterede ingen gemte målinger. Brug Læs alt, hvis du forventer nogle.</string>
     <string name="monitor_unconfirmed_bank_skipped">Et andet hukommelsesområde, som denne model måske ikke har, blev sprunget over.</string>

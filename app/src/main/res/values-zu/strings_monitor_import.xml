@@ -10,10 +10,10 @@
     <string name="main_read_all_explanation">Ihlola yonke indawo yenkumbulo yomshini, hhayi lezo kuphela ezibika njengezisetshenzisiwe. Yisebenzise uma kubonakala sengathi izilinganiso ezithile azikho. Kuthatha isikhathi eside, ngakho gcina umshini useduze kuze kuphele.</string>
     <string name="main_reading_all">Kufundwa konke…</string>
     <plurals name="monitor_import_mode_index">
-        <item quantity="one">Isilinganiso esingu-%1$d esigciniwe ngokusho komshini</item>
-        <item quantity="other">Izilinganiso ezingu-%1$d ezigciniwe ngokusho komshini</item>
+        <item quantity="one">Umshini ubike isilinganiso esingu-%1$d esigciniwe.</item>
+        <item quantity="other">Umshini ubike izilinganiso ezingu-%1$d ezigciniwe.</item>
     </plurals>
-    <string name="monitor_import_mode_fallback">Uhlu lomshini alukwazanga ukusetshenziswa; yonke indawo ifundiwe.</string>
+    <string name="monitor_import_mode_fallback">Uhlu lomshini lwezilinganiso ezigciniwe alukwazanga ukusetshenziswa, ngakho yonke indawo yenkumbulo ifundiwe.</string>
     <string name="monitor_import_mode_sweep">Yonke indawo yenkumbulo ifundiwe.</string>
     <string name="monitor_import_mode_empty">Umshini awubikanga zilinganiso ezigciniwe. Sebenzisa u-Funda konke uma ulindele ezithile.</string>
     <string name="monitor_unconfirmed_bank_skipped">Indawo yesibili yenkumbulo okungenzeka le modeli ingenayo yeqiwe.</string>

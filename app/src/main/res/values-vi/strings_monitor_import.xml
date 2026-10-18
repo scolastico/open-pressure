@@ -10,9 +10,9 @@
     <string name="main_read_all_explanation">Kiểm tra mọi vị trí bộ nhớ của máy đo, không chỉ những vị trí máy báo là đã dùng. Hãy dùng nếu có vẻ thiếu số đo. Việc này lâu hơn, vì vậy hãy để máy đo ở gần cho đến khi xong.</string>
     <string name="main_reading_all">Đang đọc tất cả…</string>
     <plurals name="monitor_import_mode_index">
-        <item quantity="other">%1$d số đo đã lưu theo máy đo</item>
+        <item quantity="other">Máy đo báo có %1$d số đo đã lưu.</item>
     </plurals>
-    <string name="monitor_import_mode_fallback">Không thể dùng chỉ mục của máy đo; đã đọc mọi vị trí.</string>
+    <string name="monitor_import_mode_fallback">Không thể dùng danh sách số đo đã lưu của máy đo, vì vậy đã đọc mọi vị trí bộ nhớ.</string>
     <string name="monitor_import_mode_sweep">Đã đọc mọi vị trí bộ nhớ.</string>
     <string name="monitor_import_mode_empty">Máy đo không báo số đo nào đã lưu. Hãy dùng Đọc tất cả nếu bạn nghĩ là có.</string>
     <string name="monitor_unconfirmed_bank_skipped">Đã bỏ qua vùng bộ nhớ thứ hai mà mẫu này có thể không có.</string>

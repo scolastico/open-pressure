@@ -10,11 +10,11 @@
     <string name="main_read_all_explanation">Revisa cada espacio de memoria del tensiómetro, no solo los que indica como usados. Úsalo si parece que faltan mediciones. Tarda más, así que mantén el tensiómetro cerca hasta que termine.</string>
     <string name="main_reading_all">Leyendo todo…</string>
     <plurals name="monitor_import_mode_index">
-        <item quantity="many">%1$d mediciones guardadas según el tensiómetro</item>
-        <item quantity="one">%1$d medición guardada según el tensiómetro</item>
-        <item quantity="other">%1$d mediciones guardadas según el tensiómetro</item>
+        <item quantity="many">El tensiómetro indicó %1$d mediciones guardadas.</item>
+        <item quantity="one">El tensiómetro indicó %1$d medición guardada.</item>
+        <item quantity="other">El tensiómetro indicó %1$d mediciones guardadas.</item>
     </plurals>
-    <string name="monitor_import_mode_fallback">No se pudo usar el índice del tensiómetro; se leyó cada espacio.</string>
+    <string name="monitor_import_mode_fallback">No se pudo usar la lista de mediciones guardadas del tensiómetro, así que se leyó cada espacio de memoria.</string>
     <string name="monitor_import_mode_sweep">Se leyó cada espacio de memoria.</string>
     <string name="monitor_import_mode_empty">El tensiómetro no indicó mediciones guardadas. Usa Leer todo si esperas alguna.</string>
     <string name="monitor_unconfirmed_bank_skipped">Se omitió una segunda área de memoria que este modelo quizá no tenga.</string>

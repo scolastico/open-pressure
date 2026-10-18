@@ -10,10 +10,10 @@
     <string name="main_read_all_explanation">A vérnyomásmérő minden memóriahelyét ellenőrzi, nem csak azokat, amelyeket foglaltként jelez. Használja, ha úgy tűnik, hogy mérések hiányoznak. Tovább tart, ezért tartsa a készüléket a közelben a befejezésig.</string>
     <string name="main_reading_all">Minden hely olvasása…</string>
     <plurals name="monitor_import_mode_index">
-        <item quantity="one">%1$d tárolt mérés a készülék szerint</item>
-        <item quantity="other">%1$d tárolt mérés a készülék szerint</item>
+        <item quantity="one">A készülék %1$d tárolt mérést jelzett.</item>
+        <item quantity="other">A készülék %1$d tárolt mérést jelzett.</item>
     </plurals>
-    <string name="monitor_import_mode_fallback">A készülék jegyzéke nem volt használható; minden hely beolvasásra került.</string>
+    <string name="monitor_import_mode_fallback">A készülék tárolt méréseinek listája nem volt használható, ezért minden memóriahely beolvasásra került.</string>
     <string name="monitor_import_mode_sweep">Minden memóriahely beolvasásra került.</string>
     <string name="monitor_import_mode_empty">A készülék nem jelzett tárolt mérést. Használja az Összes olvasása gombot, ha vár ilyet.</string>
     <string name="monitor_unconfirmed_bank_skipped">Kimaradt egy második memóriaterület, amely ennél a modellnél talán nem létezik.</string>

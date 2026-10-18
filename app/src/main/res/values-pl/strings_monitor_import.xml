@@ -10,12 +10,12 @@
     <string name="main_read_all_explanation">Sprawdza każde miejsce w pamięci ciśnieniomierza, nie tylko te, które oznacza jako zajęte. Użyj, jeśli wydaje się, że brakuje pomiarów. Trwa to dłużej, więc trzymaj ciśnieniomierz w pobliżu do końca.</string>
     <string name="main_reading_all">Odczytywanie wszystkiego…</string>
     <plurals name="monitor_import_mode_index">
-        <item quantity="few">%1$d zapisane pomiary według ciśnieniomierza</item>
-        <item quantity="many">%1$d zapisanych pomiarów według ciśnieniomierza</item>
-        <item quantity="one">%1$d zapisany pomiar według ciśnieniomierza</item>
-        <item quantity="other">%1$d zapisanego pomiaru według ciśnieniomierza</item>
+        <item quantity="few">Ciśnieniomierz zgłosił %1$d zapisane pomiary.</item>
+        <item quantity="many">Ciśnieniomierz zgłosił %1$d zapisanych pomiarów.</item>
+        <item quantity="one">Ciśnieniomierz zgłosił %1$d zapisany pomiar.</item>
+        <item quantity="other">Ciśnieniomierz zgłosił %1$d zapisanego pomiaru.</item>
     </plurals>
-    <string name="monitor_import_mode_fallback">Nie udało się użyć indeksu ciśnieniomierza; odczytano każde miejsce.</string>
+    <string name="monitor_import_mode_fallback">Nie udało się użyć listy zapisanych pomiarów ciśnieniomierza, więc odczytano każde miejsce w pamięci.</string>
     <string name="monitor_import_mode_sweep">Odczytano każde miejsce w pamięci.</string>
     <string name="monitor_import_mode_empty">Ciśnieniomierz nie zgłosił zapisanych pomiarów. Użyj Odczytaj wszystko, jeśli się ich spodziewasz.</string>
     <string name="monitor_unconfirmed_bank_skipped">Pominięto drugi obszar pamięci, którego ten model może nie mieć.</string>

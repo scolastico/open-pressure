@@ -10,12 +10,12 @@
     <string name="main_read_all_explanation">Skontroluje každé miesto v pamäti tlakomera, nielen tie, ktoré označuje ako použité. Použite, ak sa zdá, že merania chýbajú. Trvá to dlhšie, preto majte tlakomer nablízku až do konca.</string>
     <string name="main_reading_all">Čítanie všetkého…</string>
     <plurals name="monitor_import_mode_index">
-        <item quantity="few">%1$d uložené merania podľa tlakomera</item>
-        <item quantity="many">%1$d uloženého merania podľa tlakomera</item>
-        <item quantity="one">%1$d uložené meranie podľa tlakomera</item>
-        <item quantity="other">%1$d uložených meraní podľa tlakomera</item>
+        <item quantity="few">Tlakomer hlási %1$d uložené merania.</item>
+        <item quantity="many">Tlakomer hlási %1$d uloženého merania.</item>
+        <item quantity="one">Tlakomer hlási %1$d uložené meranie.</item>
+        <item quantity="other">Tlakomer hlási %1$d uložených meraní.</item>
     </plurals>
-    <string name="monitor_import_mode_fallback">Index tlakomera nebolo možné použiť; prečítalo sa každé miesto.</string>
+    <string name="monitor_import_mode_fallback">Zoznam uložených meraní v tlakomeri nebolo možné použiť, preto sa prečítalo každé miesto v pamäti.</string>
     <string name="monitor_import_mode_sweep">Prečítalo sa každé miesto v pamäti.</string>
     <string name="monitor_import_mode_empty">Tlakomer nehlási žiadne uložené merania. Ak nejaké očakávate, použite Prečítať všetko.</string>
     <string name="monitor_unconfirmed_bank_skipped">Druhá oblasť pamäte, ktorú tento model možno nemá, bola preskočená.</string>

@@ -10,10 +10,10 @@
     <string name="main_read_all_explanation">Prüft jeden Speicherplatz des Messgeräts, nicht nur die, die es als belegt meldet. Nutze das, wenn Messwerte zu fehlen scheinen. Es dauert länger, halte das Messgerät daher in der Nähe, bis es fertig ist.</string>
     <string name="main_reading_all">Alle werden gelesen…</string>
     <plurals name="monitor_import_mode_index">
-        <item quantity="one">%1$d gespeicherter Messwert laut Messgerät</item>
-        <item quantity="other">%1$d gespeicherte Messwerte laut Messgerät</item>
+        <item quantity="one">Das Messgerät meldet %1$d gespeicherten Messwert.</item>
+        <item quantity="other">Das Messgerät meldet %1$d gespeicherte Messwerte.</item>
     </plurals>
-    <string name="monitor_import_mode_fallback">Das Verzeichnis des Messgeräts war nicht nutzbar; jeder Speicherplatz wurde gelesen.</string>
+    <string name="monitor_import_mode_fallback">Die Liste der gespeicherten Messwerte im Messgerät war nicht nutzbar, daher wurde jeder Speicherplatz gelesen.</string>
     <string name="monitor_import_mode_sweep">Jeder Speicherplatz wurde gelesen.</string>
     <string name="monitor_import_mode_empty">Das Messgerät meldet keine gespeicherten Messwerte. Nutze Alle lesen, wenn du welche erwartest.</string>
     <string name="monitor_unconfirmed_bank_skipped">Ein zweiter Speicherbereich, den dieses Modell möglicherweise nicht hat, wurde übersprungen.</string>

@@ -10,10 +10,10 @@
     <string name="main_read_all_explanation">Yana duba kowane wuri a ƙwaƙwalwar na’urar, ba waɗanda take cewa an yi amfani da su kawai ba. Yi amfani da wannan idan kamar awo sun ɓace. Yana ɗaukar lokaci mai tsawo, don haka ajiye na’urar kusa har ya ƙare.</string>
     <string name="main_reading_all">Ana karanta duka…</string>
     <plurals name="monitor_import_mode_index">
-        <item quantity="one">Awo %1$d da aka ajiye bisa ga na’urar</item>
-        <item quantity="other">Awo %1$d da aka ajiye bisa ga na’urar</item>
+        <item quantity="one">Na’urar ta ba da rahoton awo %1$d da aka ajiye.</item>
+        <item quantity="other">Na’urar ta ba da rahoton awo %1$d da aka ajiye.</item>
     </plurals>
-    <string name="monitor_import_mode_fallback">Ba a iya amfani da jerin na’urar ba; an karanta kowane wuri.</string>
+    <string name="monitor_import_mode_fallback">Ba a iya amfani da jerin awon da na’urar ta ajiye ba, don haka an karanta kowane wuri a ƙwaƙwalwa.</string>
     <string name="monitor_import_mode_sweep">An karanta kowane wuri a ƙwaƙwalwa.</string>
     <string name="monitor_import_mode_empty">Na’urar ba ta ba da rahoton awon da aka ajiye ba. Yi amfani da Karanta duka idan kana tsammanin akwai.</string>
     <string name="monitor_unconfirmed_bank_skipped">An tsallake wani yanki na biyu na ƙwaƙwalwa wanda wataƙila wannan samfurin ba shi da shi.</string>

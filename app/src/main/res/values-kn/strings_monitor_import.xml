@@ -10,10 +10,10 @@
     <string name="main_read_all_explanation">ಮಾನಿಟರ್ ಬಳಸಲಾಗಿದೆ ಎಂದು ತಿಳಿಸುವ ಸ್ಥಳಗಳನ್ನು ಮಾತ್ರವಲ್ಲ, ಅದರ ಮೆಮೊರಿಯ ಪ್ರತಿಯೊಂದು ಸ್ಥಳವನ್ನೂ ಪರಿಶೀಲಿಸುತ್ತದೆ. ಅಳತೆಗಳು ಕಾಣೆಯಾಗಿವೆ ಎನಿಸಿದರೆ ಇದನ್ನು ಬಳಸಿ. ಇದಕ್ಕೆ ಹೆಚ್ಚು ಸಮಯ ಬೇಕು, ಆದ್ದರಿಂದ ಮುಗಿಯುವವರೆಗೆ ಮಾನಿಟರ್ ಅನ್ನು ಹತ್ತಿರ ಇರಿಸಿ.</string>
     <string name="main_reading_all">ಎಲ್ಲವನ್ನೂ ಓದಲಾಗುತ್ತಿದೆ…</string>
     <plurals name="monitor_import_mode_index">
-        <item quantity="one">ಮಾನಿಟರ್ ಪ್ರಕಾರ %1$d ಉಳಿಸಿದ ಅಳತೆ</item>
-        <item quantity="other">ಮಾನಿಟರ್ ಪ್ರಕಾರ %1$d ಉಳಿಸಿದ ಅಳತೆಗಳು</item>
+        <item quantity="one">ಮಾನಿಟರ್ %1$d ಉಳಿಸಿದ ಅಳತೆಯನ್ನು ತಿಳಿಸಿದೆ.</item>
+        <item quantity="other">ಮಾನಿಟರ್ %1$d ಉಳಿಸಿದ ಅಳತೆಗಳನ್ನು ತಿಳಿಸಿದೆ.</item>
     </plurals>
-    <string name="monitor_import_mode_fallback">ಮಾನಿಟರ್‌ನ ಸೂಚಿಯನ್ನು ಬಳಸಲಾಗಲಿಲ್ಲ; ಪ್ರತಿಯೊಂದು ಸ್ಥಳವನ್ನೂ ಓದಲಾಗಿದೆ.</string>
+    <string name="monitor_import_mode_fallback">ಮಾನಿಟರ್‌ನ ಉಳಿಸಿದ ಅಳತೆಗಳ ಪಟ್ಟಿಯನ್ನು ಬಳಸಲಾಗಲಿಲ್ಲ, ಆದ್ದರಿಂದ ಮೆಮೊರಿಯ ಪ್ರತಿಯೊಂದು ಸ್ಥಳವನ್ನೂ ಓದಲಾಗಿದೆ.</string>
     <string name="monitor_import_mode_sweep">ಮೆಮೊರಿಯ ಪ್ರತಿಯೊಂದು ಸ್ಥಳವನ್ನೂ ಓದಲಾಗಿದೆ.</string>
     <string name="monitor_import_mode_empty">ಮಾನಿಟರ್ ಯಾವುದೇ ಉಳಿಸಿದ ಅಳತೆಗಳನ್ನು ತಿಳಿಸಿಲ್ಲ. ಕೆಲವು ಇರಬೇಕೆಂದು ನಿರೀಕ್ಷಿಸಿದರೆ ಎಲ್ಲವನ್ನೂ ಓದಿ ಬಳಸಿ.</string>
     <string name="monitor_unconfirmed_bank_skipped">ಈ ಮಾದರಿಯಲ್ಲಿ ಇಲ್ಲದಿರಬಹುದಾದ ಎರಡನೇ ಮೆಮೊರಿ ಪ್ರದೇಶವನ್ನು ಬಿಟ್ಟುಬಿಡಲಾಗಿದೆ.</string>

@@ -10,11 +10,11 @@
     <string name="main_read_all_explanation">Controlla ogni posizione di memoria del misuratore, non solo quelle che segnala come usate. Usalo se sembra che manchino misurazioni. Richiede più tempo, quindi tieni il misuratore vicino finché non termina.</string>
     <string name="main_reading_all">Lettura completa…</string>
     <plurals name="monitor_import_mode_index">
-        <item quantity="many">%1$d misurazioni salvate secondo il misuratore</item>
-        <item quantity="one">%1$d misurazione salvata secondo il misuratore</item>
-        <item quantity="other">%1$d misurazioni salvate secondo il misuratore</item>
+        <item quantity="many">Il misuratore ha segnalato %1$d misurazioni salvate.</item>
+        <item quantity="one">Il misuratore ha segnalato %1$d misurazione salvata.</item>
+        <item quantity="other">Il misuratore ha segnalato %1$d misurazioni salvate.</item>
     </plurals>
-    <string name="monitor_import_mode_fallback">Non è stato possibile usare l’indice del misuratore; è stata letta ogni posizione.</string>
+    <string name="monitor_import_mode_fallback">Non è stato possibile usare l’elenco delle misurazioni salvate del misuratore, quindi è stata letta ogni posizione di memoria.</string>
     <string name="monitor_import_mode_sweep">È stata letta ogni posizione di memoria.</string>
     <string name="monitor_import_mode_empty">Il misuratore non ha segnalato misurazioni salvate. Usa Leggi tutto se te ne aspetti.</string>
     <string name="monitor_unconfirmed_bank_skipped">È stata saltata una seconda area di memoria che questo modello potrebbe non avere.</string>

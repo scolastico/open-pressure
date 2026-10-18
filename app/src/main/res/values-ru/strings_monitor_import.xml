@@ -10,12 +10,12 @@
     <string name="main_read_all_explanation">Проверяет каждую ячейку памяти тонометра, а не только те, которые он отмечает как занятые. Используйте, если кажется, что измерений не хватает. Это занимает больше времени, поэтому держите тонометр рядом до завершения.</string>
     <string name="main_reading_all">Чтение всего…</string>
     <plurals name="monitor_import_mode_index">
-        <item quantity="few">%1$d сохранённых измерения по данным тонометра</item>
-        <item quantity="many">%1$d сохранённых измерений по данным тонометра</item>
-        <item quantity="one">%1$d сохранённое измерение по данным тонометра</item>
-        <item quantity="other">%1$d сохранённого измерения по данным тонометра</item>
+        <item quantity="few">Тонометр сообщил о сохранённых измерениях: %1$d.</item>
+        <item quantity="many">Тонометр сообщил о сохранённых измерениях: %1$d.</item>
+        <item quantity="one">Тонометр сообщил о сохранённых измерениях: %1$d.</item>
+        <item quantity="other">Тонометр сообщил о сохранённых измерениях: %1$d.</item>
     </plurals>
-    <string name="monitor_import_mode_fallback">Не удалось использовать указатель тонометра; прочитана каждая ячейка.</string>
+    <string name="monitor_import_mode_fallback">Не удалось использовать список сохранённых измерений тонометра, поэтому прочитана каждая ячейка памяти.</string>
     <string name="monitor_import_mode_sweep">Прочитана каждая ячейка памяти.</string>
     <string name="monitor_import_mode_empty">Тонометр не сообщил о сохранённых измерениях. Используйте «Прочитать всё», если они должны быть.</string>
     <string name="monitor_unconfirmed_bank_skipped">Пропущена вторая область памяти, которой у этой модели может не быть.</string>

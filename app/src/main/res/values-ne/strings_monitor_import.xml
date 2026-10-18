@@ -10,10 +10,10 @@
     <string name="main_read_all_explanation">मनिटरले प्रयोग भएको भनी जनाएका स्थानहरू मात्र होइन, यसको मेमोरीको हरेक स्थान जाँच गर्छ। मापनहरू छुटेको जस्तो लागेमा यो प्रयोग गर्नुहोस्। यसमा बढी समय लाग्छ, त्यसैले नसकिएसम्म मनिटर नजिकै राख्नुहोस्।</string>
     <string name="main_reading_all">सबै पढ्दै…</string>
     <plurals name="monitor_import_mode_index">
-        <item quantity="one">मनिटरका अनुसार %1$d सुरक्षित मापन</item>
-        <item quantity="other">मनिटरका अनुसार %1$d सुरक्षित मापनहरू</item>
+        <item quantity="one">मनिटरले %1$d सुरक्षित मापन जनायो।</item>
+        <item quantity="other">मनिटरले %1$d सुरक्षित मापनहरू जनायो।</item>
     </plurals>
-    <string name="monitor_import_mode_fallback">मनिटरको सूची प्रयोग गर्न सकिएन; हरेक स्थान पढियो।</string>
+    <string name="monitor_import_mode_fallback">मनिटरको सुरक्षित मापनहरूको सूची प्रयोग गर्न सकिएन, त्यसैले मेमोरीको हरेक स्थान पढियो।</string>
     <string name="monitor_import_mode_sweep">मेमोरीको हरेक स्थान पढियो।</string>
     <string name="monitor_import_mode_empty">मनिटरले कुनै सुरक्षित मापन जनाएन। केही हुनुपर्ने लाग्छ भने सबै पढ्नुहोस् प्रयोग गर्नुहोस्।</string>
     <string name="monitor_unconfirmed_bank_skipped">यो मोडेलमा नहुन सक्ने दोस्रो मेमोरी क्षेत्र छोडियो।</string>

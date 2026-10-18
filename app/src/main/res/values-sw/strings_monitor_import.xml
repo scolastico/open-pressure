@@ -10,10 +10,10 @@
     <string name="main_read_all_explanation">Hukagua kila nafasi ya kumbukumbu ya kifaa, si zile tu kinazoripoti kuwa zimetumika. Tumia hii ikiwa vipimo vinaonekana kukosekana. Huchukua muda mrefu zaidi, kwa hivyo weka kifaa karibu hadi kimalize.</string>
     <string name="main_reading_all">Inasoma vyote…</string>
     <plurals name="monitor_import_mode_index">
-        <item quantity="one">Kipimo %1$d kilichohifadhiwa kulingana na kifaa</item>
-        <item quantity="other">Vipimo %1$d vilivyohifadhiwa kulingana na kifaa</item>
+        <item quantity="one">Kifaa kiliripoti kipimo %1$d kilichohifadhiwa.</item>
+        <item quantity="other">Kifaa kiliripoti vipimo %1$d vilivyohifadhiwa.</item>
     </plurals>
-    <string name="monitor_import_mode_fallback">Faharasa ya kifaa haikuweza kutumika; kila nafasi imesomwa.</string>
+    <string name="monitor_import_mode_fallback">Orodha ya vipimo vilivyohifadhiwa kwenye kifaa haikuweza kutumika, kwa hivyo kila nafasi ya kumbukumbu imesomwa.</string>
     <string name="monitor_import_mode_sweep">Kila nafasi ya kumbukumbu imesomwa.</string>
     <string name="monitor_import_mode_empty">Kifaa hakikuripoti vipimo vilivyohifadhiwa. Tumia Soma vyote ikiwa unatarajia baadhi.</string>
     <string name="monitor_unconfirmed_bank_skipped">Eneo la pili la kumbukumbu ambalo huenda modeli hii haina limerukwa.</string>

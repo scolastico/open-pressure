@@ -10,11 +10,11 @@
     <string name="main_read_all_explanation">Verifică fiecare poziție de memorie a tensiometrului, nu doar pe cele raportate ca folosite. Folosiți-l dacă par să lipsească măsurători. Durează mai mult, așa că țineți tensiometrul aproape până la final.</string>
     <string name="main_reading_all">Se citește tot…</string>
     <plurals name="monitor_import_mode_index">
-        <item quantity="few">%1$d măsurători stocate conform tensiometrului</item>
-        <item quantity="one">%1$d măsurătoare stocată conform tensiometrului</item>
-        <item quantity="other">%1$d de măsurători stocate conform tensiometrului</item>
+        <item quantity="few">Tensiometrul a raportat %1$d măsurători stocate.</item>
+        <item quantity="one">Tensiometrul a raportat %1$d măsurătoare stocată.</item>
+        <item quantity="other">Tensiometrul a raportat %1$d de măsurători stocate.</item>
     </plurals>
-    <string name="monitor_import_mode_fallback">Indexul tensiometrului nu a putut fi folosit; s-a citit fiecare poziție.</string>
+    <string name="monitor_import_mode_fallback">Lista de măsurători stocate a tensiometrului nu a putut fi folosită, așa că s-a citit fiecare poziție de memorie.</string>
     <string name="monitor_import_mode_sweep">S-a citit fiecare poziție de memorie.</string>
     <string name="monitor_import_mode_empty">Tensiometrul nu a raportat măsurători stocate. Folosiți Citește tot dacă vă așteptați să existe.</string>
     <string name="monitor_unconfirmed_bank_skipped">A fost omisă o a doua zonă de memorie pe care acest model s-ar putea să nu o aibă.</string>

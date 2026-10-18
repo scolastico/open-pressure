@@ -10,10 +10,10 @@
     <string name="main_read_all_explanation">મોનિટરની મેમરીના દરેક સ્થાનને તપાસે છે, ફક્ત તે જ નહીં જેને તે વપરાયેલા તરીકે જણાવે છે. જો માપ ખૂટતા લાગે તો આનો ઉપયોગ કરો. તેમાં વધુ સમય લાગે છે, તેથી પૂર્ણ થાય ત્યાં સુધી મોનિટર નજીક રાખો.</string>
     <string name="main_reading_all">બધું વંચાઈ રહ્યું છે…</string>
     <plurals name="monitor_import_mode_index">
-        <item quantity="one">મોનિટર મુજબ %1$d સાચવેલું માપ</item>
-        <item quantity="other">મોનિટર મુજબ %1$d સાચવેલા માપ</item>
+        <item quantity="one">મોનિટરે %1$d સાચવેલું માપ જણાવ્યું.</item>
+        <item quantity="other">મોનિટરે %1$d સાચવેલા માપ જણાવ્યા.</item>
     </plurals>
-    <string name="monitor_import_mode_fallback">મોનિટરની સૂચિનો ઉપયોગ થઈ શક્યો નહીં; દરેક સ્થાન વાંચવામાં આવ્યું.</string>
+    <string name="monitor_import_mode_fallback">મોનિટરની સાચવેલા માપની સૂચિનો ઉપયોગ થઈ શક્યો નહીં, તેથી મેમરીનું દરેક સ્થાન વાંચવામાં આવ્યું.</string>
     <string name="monitor_import_mode_sweep">મેમરીનું દરેક સ્થાન વાંચવામાં આવ્યું.</string>
     <string name="monitor_import_mode_empty">મોનિટરે કોઈ સાચવેલા માપ જણાવ્યા નથી. જો તમે અપેક્ષા રાખો તો બધું વાંચો નો ઉપયોગ કરો.</string>
     <string name="monitor_unconfirmed_bank_skipped">એક બીજો મેમરી વિસ્તાર, જે કદાચ આ મોડેલમાં નથી, છોડી દેવામાં આવ્યો.</string>

@@ -10,10 +10,10 @@
     <string name="main_read_all_explanation">ମନିଟର ବ୍ୟବହୃତ ବୋଲି ଜଣାଉଥିବା ସ୍ଥାନ କେବଳ ନୁହେଁ, ଏହାର ମେମୋରୀର ପ୍ରତ୍ୟେକ ସ୍ଥାନ ଯାଞ୍ଚ କରେ। ମାପ ହଜିଯାଇଥିବା ପରି ଲାଗିଲେ ଏହା ବ୍ୟବହାର କରନ୍ତୁ। ଏଥିରେ ଅଧିକ ସମୟ ଲାଗେ, ତେଣୁ ଶେଷ ହେବା ପର୍ଯ୍ୟନ୍ତ ମନିଟରକୁ ପାଖରେ ରଖନ୍ତୁ।</string>
     <string name="main_reading_all">ସବୁ ପଢ଼ାଯାଉଛି…</string>
     <plurals name="monitor_import_mode_index">
-        <item quantity="one">ମନିଟର ଅନୁଯାୟୀ %1$d ସଞ୍ଚିତ ମାପ</item>
-        <item quantity="other">ମନିଟର ଅନୁଯାୟୀ %1$d ସଞ୍ଚିତ ମାପ</item>
+        <item quantity="one">ମନିଟର %1$d ସଞ୍ଚିତ ମାପ ଜଣାଇଲା।</item>
+        <item quantity="other">ମନିଟର %1$d ସଞ୍ଚିତ ମାପ ଜଣାଇଲା।</item>
     </plurals>
-    <string name="monitor_import_mode_fallback">ମନିଟରର ସୂଚୀ ବ୍ୟବହାର କରାଯାଇପାରିଲା ନାହିଁ; ପ୍ରତ୍ୟେକ ସ୍ଥାନ ପଢ଼ାଗଲା।</string>
+    <string name="monitor_import_mode_fallback">ମନିଟରର ସଞ୍ଚିତ ମାପର ତାଲିକା ବ୍ୟବହାର କରାଯାଇପାରିଲା ନାହିଁ, ତେଣୁ ମେମୋରୀର ପ୍ରତ୍ୟେକ ସ୍ଥାନ ପଢ଼ାଗଲା।</string>
     <string name="monitor_import_mode_sweep">ମେମୋରୀର ପ୍ରତ୍ୟେକ ସ୍ଥାନ ପଢ଼ାଗଲା।</string>
     <string name="monitor_import_mode_empty">ମନିଟର କୌଣସି ସଞ୍ଚିତ ମାପ ଜଣାଇଲା ନାହିଁ। କିଛି ଆଶା କରୁଥିଲେ ସବୁ ପଢ଼ନ୍ତୁ ବ୍ୟବହାର କରନ୍ତୁ।</string>
     <string name="monitor_unconfirmed_bank_skipped">ଏହି ମଡେଲରେ ନଥାଇପାରେ ଏପରି ଏକ ଦ୍ୱିତୀୟ ମେମୋରୀ କ୍ଷେତ୍ର ଛାଡ଼ି ଦିଆଗଲା।</string>

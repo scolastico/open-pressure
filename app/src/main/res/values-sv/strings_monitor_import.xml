@@ -10,10 +10,10 @@
     <string name="main_read_all_explanation">Kontrollerar varje minnesplats i mätaren, inte bara de som den anger som använda. Använd detta om mätningar verkar saknas. Det tar längre tid, så håll mätaren nära tills det är klart.</string>
     <string name="main_reading_all">Läser allt…</string>
     <plurals name="monitor_import_mode_index">
-        <item quantity="one">%1$d sparad mätning enligt mätaren</item>
-        <item quantity="other">%1$d sparade mätningar enligt mätaren</item>
+        <item quantity="one">Mätaren rapporterade %1$d sparad mätning.</item>
+        <item quantity="other">Mätaren rapporterade %1$d sparade mätningar.</item>
     </plurals>
-    <string name="monitor_import_mode_fallback">Mätarens index kunde inte användas; varje plats lästes.</string>
+    <string name="monitor_import_mode_fallback">Mätarens lista över sparade mätningar kunde inte användas, så varje minnesplats lästes.</string>
     <string name="monitor_import_mode_sweep">Varje minnesplats lästes.</string>
     <string name="monitor_import_mode_empty">Mätaren rapporterade inga sparade mätningar. Använd Läs allt om du väntar dig några.</string>
     <string name="monitor_unconfirmed_bank_skipped">Ett andra minnesområde som den här modellen kanske inte har hoppades över.</string>

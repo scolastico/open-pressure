@@ -10,9 +10,9 @@
     <string name="main_read_all_explanation">Sinusuri ang bawat puwang sa memorya ng monitor, hindi lang ang mga iniulat nitong ginagamit. Gamitin ito kung tila may nawawalang sukat. Mas matagal ito, kaya panatilihing malapit ang monitor hanggang matapos.</string>
     <string name="main_reading_all">Binabasa lahat…</string>
     <plurals name="monitor_import_mode_index">
-        <item quantity="other">%1$d naka-save na sukat ayon sa monitor</item>
+        <item quantity="other">Nag-ulat ang monitor ng %1$d naka-save na sukat.</item>
     </plurals>
-    <string name="monitor_import_mode_fallback">Hindi magamit ang index ng monitor; binasa ang bawat puwang.</string>
+    <string name="monitor_import_mode_fallback">Hindi magamit ang listahan ng monitor ng mga naka-save na sukat, kaya binasa ang bawat puwang ng memorya.</string>
     <string name="monitor_import_mode_sweep">Binasa ang bawat puwang ng memorya.</string>
     <string name="monitor_import_mode_empty">Walang iniulat na naka-save na sukat ang monitor. Gamitin ang Basahin lahat kung may inaasahan ka.</string>
     <string name="monitor_unconfirmed_bank_skipped">Nilaktawan ang ikalawang bahagi ng memorya na maaaring wala sa modelong ito.</string>
