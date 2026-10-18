@@ -39,6 +39,25 @@ public final class DeviceWritePolicy {
         if(profile!=ProtocolProfile.X7_WLP || !ALIAS.equals(service) || !WLP_TX.equals(characteristic) ||
                 registration==null || !registration.allows(payload)) reject();
     }
+    /**
+     * The authorized clock-block write of a vendor-memory model: one chunk of the plan's frame on
+     * its own TX channel. The single-use permit is consumed last, after every other check passed.
+     */
+    public static void validateVendorClockBlock(VendorMemoryModel model,UUID service,UUID characteristic,byte[] payload,VendorClockWrite plan) {
+        VendorWlpSession.requireModel(model);
+        if(plan==null || payload==null || !VendorWlpSession.service(model).equals(service)) reject();
+        int channel=VendorWlpSession.txChannels(model).indexOf(characteristic);
+        if(channel<0) reject();
+        requireWriteAspect(plan.identity(),WriteAspectIndex.Aspect.CLOCK_BLOCK,plan.override());
+        if(!model.id.equals(plan.identity()) || !plan.allowsChunk(channel,payload)) reject();
+    }
+    /** The authorized X7 clock-block write: the plan's single frame on the WLP TX channel. */
+    public static void validateX7ClockBlock(ProtocolProfile profile,UUID service,UUID characteristic,byte[] payload,VendorClockWrite plan) {
+        if(profile!=ProtocolProfile.X7_WLP || !ALIAS.equals(service) || !WLP_TX.equals(characteristic) || payload==null || plan==null) reject();
+        requireWriteAspect(plan.identity(),WriteAspectIndex.Aspect.CLOCK_BLOCK,plan.override());
+        // A vendor-memory plan's legacy chunk never rides the X7 transport.
+        if(VendorMemoryModel.identify(plan.identity())!=null || !plan.allowsChunk(0,payload)) reject();
+    }
     /** Vendor reads require a positively identified model; generic profile selection grants no access. */
     public static void validateVendorCharacteristic(VendorMemoryModel model,UUID service,UUID characteristic,byte[] payload) {
         VendorWlpSession.requireModel(model);
