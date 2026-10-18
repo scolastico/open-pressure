@@ -415,7 +415,7 @@ public final class MainActivity extends Activity {
         List<String[]> saved=store.devices();
         if(!saved.isEmpty()) add(content,text(getString(R.string.main_saved_monitors),13,TEAL,true),20);
         for(String[] d:saved) {
-            String title=monitorName(d[2],d[1]),detail=getString(R.string.main_saved_monitor_detail,d[0],profileLabel(Integer.parseInt(d[3])));
+            String title=monitorName(ReadingStore.displayModel(d),d[1]),detail=getString(R.string.main_saved_monitor_detail,d[0],profileLabel(Integer.parseInt(d[3])));
             // A product name replaces the Bluetooth name as title; the detail keeps it to tell identical models apart.
             if(!title.equals(d[1])) detail=getString(R.string.main_saved_monitor_detail,d[1],detail);
             LinearLayout item=card(); add(item,text(title,20,INK,true),0); add(item,text(detail,13,MUTED,false),6);
@@ -932,7 +932,7 @@ public final class MainActivity extends Activity {
         final Map<Integer,String> profileNames=new LinkedHashMap<>();
         if(virtual) for(VirtualUser profile:store.virtualUsers()) profileNames.put(-profile.id,profile.name);
         final Map<String,String> monitorModels=new HashMap<>();
-        for(String[] device:store.devices()) monitorModels.put(device[0],device[2]);
+        for(String[] device:store.devices()) monitorModels.put(device[0],ReadingStore.displayModel(device));
         pdfPreparationWorker=new Thread(() -> {
             File snapshot=null;
             try {

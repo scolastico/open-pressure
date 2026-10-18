@@ -135,6 +135,24 @@ public class MainImportControlsTest {
             assertTrue("active card keeps the Bluetooth name",hasText(root(a),"BLEsmart_00000003"));
         }
     }
+    @Test public void reportedModelNamesASavedStandardMonitorWithoutCapabilities() throws Exception {
+        String hint="X7 Smart AFib \u00b7 HEM-7380T1",standard="BLEsmart_00000004";
+        store().remember(SAVED,standard,hint,1); store().setReportedModel(SAVED,"HEM-7155T-EBK");
+        try(ActivityController<MainActivity> controller=Robolectric.buildActivity(MainActivity.class)) {
+            Activity a=open(controller);
+            String user1=a.getString(R.string.main_user_number,"1");
+            assertTrue("the reported model names the saved card",hasText(root(a),"OMRON HEM-7155T-EBK"));
+            assertTrue(hasText(root(a),a.getString(R.string.main_saved_monitor_detail,standard,a.getString(R.string.main_saved_monitor_detail,SAVED,user1))));
+            assertNull("no Readings to import choice from a reported model",savedChoice(a,SAVED,1));
+            assertNull(savedChoice(a,SAVED,3));
+            button(root(a),a.getString(R.string.main_forget_monitor)).performClick(); Shadows.shadowOf(Looper.getMainLooper()).idle();
+            AlertDialog forget=ShadowAlertDialog.getLatestAlertDialog();
+            assertEquals(a.getString(R.string.main_forget_title,"OMRON HEM-7155T-EBK"),Shadows.shadowOf(forget).getTitle().toString());
+            forget.dismiss();
+        }
+        assertTrue("no companion listing from a reported model",new org.openpressure.app.automatic.CompanionLinks(app).knownMonitors().isEmpty());
+        assertEquals("the capability model is unchanged",hint,store().devices().get(0)[2]);
+    }
     @Test public void savedTwoUserMonitorChoiceWritesOnlyTheStore() throws Exception {
         store().remember(SAVED,"Kitchen","HEM-7361T",1); store().remember("CC:DD:EE:FF:00:11","Hall","HEM-7150T",1);
         try(ActivityController<MainActivity> controller=Robolectric.buildActivity(MainActivity.class)) {

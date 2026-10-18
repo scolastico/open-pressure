@@ -21,13 +21,13 @@ public class ReadingStoreDevicesTest {
     @After public void close() { store.close(); }
 
     @Test public void newMonitorsImportBothUsersAndRowsCarryTheSelection() {
-        assertEquals(7,store.getReadableDatabase().getVersion());
+        assertEquals(8,store.getReadableDatabase().getVersion());
         assertEquals(3,store.importUsers("synthetic-unknown"));
         store.remember("synthetic-cuff","Synthetic","synthetic-model",1);
         assertEquals(3,store.importUsers("synthetic-cuff"));
         List<String[]> rows=store.devices();
         assertEquals(1,rows.size());
-        assertArrayEquals(new String[]{"synthetic-cuff","Synthetic","synthetic-model","1","3"},rows.get(0));
+        assertArrayEquals(new String[]{"synthetic-cuff","Synthetic","synthetic-model","1","3",null},rows.get(0));
     }
 
     @Test public void rememberingAgainPreservesTheImportUsers() {
@@ -35,7 +35,7 @@ public class ReadingStoreDevicesTest {
         store.setImportUsers("synthetic-cuff",2);
         store.remember("synthetic-cuff","Renamed","other-model",2);
         assertEquals(2,store.importUsers("synthetic-cuff"));
-        assertArrayEquals(new String[]{"synthetic-cuff","Renamed","other-model","2","2"},store.devices().get(0));
+        assertArrayEquals(new String[]{"synthetic-cuff","Renamed","other-model","2","2",null},store.devices().get(0));
         store.setImportUsers("synthetic-cuff",1); assertEquals(1,store.importUsers("synthetic-cuff"));
         store.forget("synthetic-cuff"); assertEquals(3,store.importUsers("synthetic-cuff"));
         store.remember("synthetic-cuff","Synthetic","synthetic-model",1);
@@ -53,10 +53,33 @@ public class ReadingStoreDevicesTest {
     @Test public void upgradeFromVersionSixKeepsSavedMonitorsWithBothUsers() {
         store.remember("synthetic-cuff","Synthetic","synthetic-model",2);
         SQLiteDatabase db=store.getWritableDatabase();
-        db.execSQL("ALTER TABLE devices DROP COLUMN users"); db.setVersion(6);
+        db.execSQL("ALTER TABLE devices DROP COLUMN users"); db.execSQL("ALTER TABLE devices DROP COLUMN reported_model"); db.setVersion(6);
         store.close(); store=new ReadingStore(context);
-        assertEquals(7,store.getReadableDatabase().getVersion());
-        assertArrayEquals(new String[]{"synthetic-cuff","Synthetic","synthetic-model","2","3"},store.devices().get(0));
+        assertEquals(8,store.getReadableDatabase().getVersion());
+        assertArrayEquals(new String[]{"synthetic-cuff","Synthetic","synthetic-model","2","3",null},store.devices().get(0));
         store.setImportUsers("synthetic-cuff",1); assertEquals(1,store.importUsers("synthetic-cuff"));
+    }
+
+    @Test public void reportedModelIsDisplayOnlyAndKeptBySaving() {
+        store.setReportedModel("synthetic-unknown","HEM-7155T-EBK");
+        assertTrue("unsaved monitors stay unsaved",store.devices().isEmpty());
+        store.remember("synthetic-cuff","Synthetic","synthetic-hint",1);
+        store.setReportedModel("synthetic-cuff","HEM-7155T-EBK");
+        assertArrayEquals(new String[]{"synthetic-cuff","Synthetic","synthetic-hint","1","3","HEM-7155T-EBK"},store.devices().get(0));
+        assertEquals("HEM-7155T-EBK",ReadingStore.displayModel(store.devices().get(0)));
+        store.remember("synthetic-cuff","Synthetic","synthetic-hint",1);
+        assertEquals("a later save keeps the reported model","HEM-7155T-EBK",store.devices().get(0)[5]);
+        store.setReportedModel("synthetic-cuff","");
+        assertEquals("an empty reported model names the row by its saved model","synthetic-hint",ReadingStore.displayModel(store.devices().get(0)));
+    }
+
+    @Test public void upgradeFromVersionSevenKeepsTheSavedModel() {
+        store.remember("synthetic-cuff","Synthetic","HEM-7380T1-EOSL",2); store.setImportUsers("synthetic-cuff",1);
+        SQLiteDatabase db=store.getWritableDatabase();
+        db.execSQL("ALTER TABLE devices DROP COLUMN reported_model"); db.setVersion(7);
+        store.close(); store=new ReadingStore(context);
+        assertEquals(8,store.getReadableDatabase().getVersion());
+        assertArrayEquals(new String[]{"synthetic-cuff","Synthetic","HEM-7380T1-EOSL","2","1",null},store.devices().get(0));
+        assertEquals("HEM-7380T1-EOSL",ReadingStore.displayModel(store.devices().get(0)));
     }
 }

@@ -17,7 +17,7 @@ Notification mode is available on Android 8–9 and 12+. Android 10–11 backgro
 
 ## Eligible monitors
 
-Automatic imports cover saved monitors with a read-only history path: the X7 identities and the verified [vendor-memory models](compatibility.md). A saved monitor must have an existing Android bond and advertise a plain type 1, 2 or 6 record summary. Models that use an application key also need the key saved by an earlier **Pair**. The service rechecks the actual DIS model and channel layout on every connection. Pairing and streaming advertisements are ignored.
+Automatic imports cover saved monitors with a read-only history path: the X7 identities and the verified [vendor-memory models](compatibility.md). Eligibility follows the model saved when an X7 or vendor-memory connection verified it; the model a standard-profile monitor reports in Device Information only names that monitor and never makes it eligible. A saved monitor must have an existing Android bond and advertise a plain type 1, 2 or 6 record summary. Models that use an application key also need the key saved by an earlier **Pair**. The service rechecks the actual DIS model and channel layout on every connection. Pairing and streaming advertisements are ignored.
 
 Standard Bluetooth Blood Pressure monitors and encrypted X7 sessions stay manual. An encrypted X7 needs its application handshake and on-cuff authorization, which are never started in the background. Pairing, key programming and profile registration cannot start automatically. The original app expects record summaries from its other monitors too, but only the tested X7's advertisement has been captured; see the [source evidence](protocol.md#automatic-transfer-source-evidence).
 

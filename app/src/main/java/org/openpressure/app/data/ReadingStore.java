@@ -14,7 +14,7 @@ public final class ReadingStore extends SQLiteOpenHelper {
     private Runnable changeListener,forwardingListener,profileListener;
     private final Context context;
     private final HttpOutbox httpOutbox=new HttpOutbox(this);
-    public ReadingStore(Context context) { super(context,"pressure.db",null,7); this.context=context.getApplicationContext(); }
+    public ReadingStore(Context context) { super(context,"pressure.db",null,8); this.context=context.getApplicationContext(); }
     public HttpOutbox httpOutbox() { return httpOutbox; }
     public synchronized void setForwardingListener(Runnable listener) { forwardingListener=listener; }
     @Override public void onConfigure(SQLiteDatabase db) { db.enableWriteAheadLogging(); db.setForeignKeyConstraintsEnabled(true); }
@@ -23,6 +23,7 @@ public final class ReadingStore extends SQLiteOpenHelper {
         db.execSQL("CREATE INDEX reading_time ON readings(time)");
         db.execSQL("CREATE TABLE devices(address TEXT PRIMARY KEY, name TEXT NOT NULL, model TEXT NOT NULL, user INTEGER NOT NULL)");
         addImportUsers(db);
+        addReportedModel(db);
         db.execSQL("CREATE TABLE packets(id INTEGER PRIMARY KEY, received INTEGER NOT NULL, device TEXT NOT NULL, characteristic TEXT NOT NULL, payload TEXT NOT NULL, note TEXT NOT NULL)");
         createHealthExports(db);
         createDeletionReceipts(db);
@@ -30,17 +31,23 @@ public final class ReadingStore extends SQLiteOpenHelper {
         createVirtualUsers(db);
     }
     @Override public void onUpgrade(SQLiteDatabase db,int oldVersion,int newVersion) {
-        if(oldVersion<1 || newVersion!=7) throw new IllegalStateException("Unsupported database version");
+        if(oldVersion<1 || newVersion!=8) throw new IllegalStateException("Unsupported database version");
         if(oldVersion<2) db.execSQL("ALTER TABLE readings ADD COLUMN afib INTEGER");
         if(oldVersion<3) createHealthExports(db);
         if(oldVersion<4) createDeletionReceipts(db);
         if(oldVersion<5) createHttpForwarding(db);
         if(oldVersion<6) createVirtualUsers(db);
         if(oldVersion<7) addImportUsers(db);
+        if(oldVersion<8) addReportedModel(db);
     }
     // Which monitor user banks automatic imports read: 1, 2 or 3 (both). Existing monitors keep both.
     private void addImportUsers(SQLiteDatabase db) {
         db.execSQL("ALTER TABLE devices ADD COLUMN users INTEGER NOT NULL DEFAULT 3");
+    }
+    // Model from Device Information on standard profiles: display only. The model column stays the
+    // verified identity that grants automatic imports and import-user choices; existing rows keep it.
+    private void addReportedModel(SQLiteDatabase db) {
+        db.execSQL("ALTER TABLE devices ADD COLUMN reported_model TEXT");
     }
     private void createVirtualUsers(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE virtual_users(id INTEGER PRIMARY KEY AUTOINCREMENT CHECK(id>0 AND id<=2147483647), name TEXT NOT NULL CHECK(length(trim(name))>0))");
@@ -356,13 +363,20 @@ public final class ReadingStore extends SQLiteOpenHelper {
         try(Cursor c=getReadableDatabase().rawQuery("SELECT users FROM devices WHERE address=?",new String[]{address})) { return c.moveToFirst()?c.getInt(0):3; }
     }
     public synchronized List<String[]> devices() {
-        List<String[]> rows=new ArrayList<>(); try(Cursor c=getReadableDatabase().rawQuery("SELECT address,name,model,user,users FROM devices ORDER BY name",null)) {
-            while(c.moveToNext()) rows.add(new String[]{c.getString(0),c.getString(1),c.getString(2),c.getString(3),c.getString(4)});
+        List<String[]> rows=new ArrayList<>(); try(Cursor c=getReadableDatabase().rawQuery("SELECT address,name,model,user,users,reported_model FROM devices ORDER BY name",null)) {
+            while(c.moveToNext()) rows.add(new String[]{c.getString(0),c.getString(1),c.getString(2),c.getString(3),c.getString(4),c.getString(5)});
         } return rows;
     }
-    /** Replaces a saved monitor's model with the one it reported; unsaved addresses are left unsaved. */
-    public synchronized void setModel(String address,String model) {
-        ContentValues v=new ContentValues(); v.put("model",model);
+    /** Model to name a {@link #devices()} row by: its reported Device Information model when present, else its saved model. */
+    public static String displayModel(String[] device) {
+        return device.length>5 && device[5]!=null && !device[5].trim().isEmpty()?device[5]:device[2];
+    }
+    /**
+     * Stores the model a standard-profile monitor reported in Device Information, for display only;
+     * the saved model, which grants capabilities, is unchanged. Unsaved addresses are left unsaved.
+     */
+    public synchronized void setReportedModel(String address,String value) {
+        ContentValues v=new ContentValues(); v.put("reported_model",value);
         getWritableDatabase().update("devices",v,"address=?",new String[]{address});
     }
     public synchronized void forget(String address) { getWritableDatabase().delete("devices","address=?",new String[]{address}); }

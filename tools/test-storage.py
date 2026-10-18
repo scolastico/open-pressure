@@ -18,9 +18,10 @@ assignment_receipts=next(s for s in statements if s.startswith('CREATE TABLE ass
 profile_column=next(s for s in statements if s.startswith('ALTER TABLE readings ADD COLUMN virtual_user_id'))
 import_users=next(s for s in statements if s.startswith('ALTER TABLE devices ADD COLUMN users'))
 devices=next(s for s in statements if s.startswith('CREATE TABLE devices('))
+reported_model=next(s for s in statements if s.startswith('ALTER TABLE devices ADD COLUMN reported_model'))
 def add_profiles(db):
     for sql in (profiles,profile_column,profile_config,assignment_inbox,assignment_receipts): db.execute(sql)
-for old in (1,2,3,4,5,6,7):
+for old in (1,2,3,4,5,6,7,8):
     db=sqlite3.connect(':memory:'); db.execute('PRAGMA foreign_keys=ON')
     db.execute(readings.replace(', afib INTEGER','') if old==1 else readings)
     db.execute("INSERT INTO readings(id,fingerprint,device,name,received,sys,dia,unit,source,raw) VALUES(7,'stable','cuff','X7',1,120,80,'mmHg','wlp-history','abc')")
@@ -30,6 +31,7 @@ for old in (1,2,3,4,5,6,7):
     if old>=6: add_profiles(db)
     db.execute(devices)
     if old>=7: db.execute(import_users)
+    if old>=8: db.execute(reported_model)
     db.execute("INSERT INTO devices(address,name,model,user) VALUES('cuff','X7','x7',1)")
     if old>=7: db.execute("INSERT INTO devices(address,name,model,user,users) VALUES('kept','X7','x7',2,2)")
     if old<2: db.execute('ALTER TABLE readings ADD COLUMN afib INTEGER')
@@ -38,8 +40,11 @@ for old in (1,2,3,4,5,6,7):
     if old<5: db.execute(outbox); db.execute(http_receipts)
     if old<6: add_profiles(db)
     if old<7: db.execute(import_users)
+    if old<8: db.execute(reported_model)
     assert db.execute("SELECT users FROM devices WHERE address='cuff'").fetchone()==(3,), 'saved monitors keep importing both users'
     if old>=7: assert db.execute("SELECT users FROM devices WHERE address='kept'").fetchone()==(2,)
+    # Existing saved monitors keep the model that grants capabilities; the display-only reported model starts empty.
+    assert db.execute("SELECT model,reported_model FROM devices WHERE address='cuff'").fetchone()==('x7',None), 'saved monitors keep their model'
     assert db.execute('SELECT fingerprint FROM readings').fetchone()==('stable',)
     if old>=3: assert db.execute('SELECT client_id FROM health_exports').fetchone()==('exported',)
     db.commit()
@@ -80,7 +85,7 @@ count_query=re.search(r'rawQuery\("([^"]+)"',count_method[1])[1]
 packets=next(s for s in statements if s.startswith('CREATE TABLE packets('))
 for user,remaining in ((0,[]),(1,[(2,),(4,),(5,)]),(2,[(1,),(3,),(4,),(5,)]),(-3,[(2,),(3,),(4,),(5,)])) :
     db=sqlite3.connect(':memory:'); db.execute('PRAGMA foreign_keys=ON')
-    for sql in (readings,health,tombstone,devices,import_users,packets): db.execute(sql)
+    for sql in (readings,health,tombstone,devices,import_users,reported_model,packets): db.execute(sql)
     add_profiles(db)
     db.execute("INSERT INTO virtual_users(id,name) VALUES(3,'Synthetic person')")
     # Two banks, multiple dates, manual and unassigned readings all share the store.
@@ -160,4 +165,4 @@ with db:
 assert db.execute('SELECT COUNT(*) FROM http_outbox').fetchone()==(0,)
 assert db.execute('SELECT destination,event_key FROM http_receipts').fetchall()==[(destination,key)]
 db.close()
-print('Storage SQL: migrations 1–6, fresh v7, saved-monitor import users, scoped bulk clear, rollback, deletion receipts, HTTP outbox and health cascade passed')
+print('Storage SQL: migrations 1–7, fresh v8, saved-monitor import users and models, scoped bulk clear, rollback, deletion receipts, HTTP outbox and health cascade passed')

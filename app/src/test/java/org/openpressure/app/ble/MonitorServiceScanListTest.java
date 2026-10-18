@@ -26,7 +26,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 import static org.robolectric.Shadows.shadowOf;
 
-/** Real service and SQLite store: scan results leave saved monitors out; standard profiles save the reported model. */
+/** Real service and SQLite store: scan results leave saved monitors out; standard profiles keep the reported model for display only. */
 @RunWith(RobolectricTestRunner.class)
 @Config(sdk=35,application=Application.class,qualifiers="en")
 @LooperMode(LooperMode.Mode.PAUSED)
@@ -63,7 +63,7 @@ public class MonitorServiceScanListTest {
         call("addScan",ScanResult.class,result(SAVED));
         assertFalse("later advertisements keep it off the list",monitor.discovered.containsKey(SAVED));
     }
-    @Test public void standardProfileSavesTheReportedModelInsteadOfTheHint() throws Exception {
+    @Test public void standardProfileReportedModelNamesTheMonitorWithoutGrantingAutomaticImports() throws Exception {
         store.forget(SAVED);
         BluetoothGatt gatt=mock(BluetoothGatt.class);
         BluetoothGattService dis=new BluetoothGattService(Uuids.sig(0x180a),BluetoothGattService.SERVICE_TYPE_PRIMARY);
@@ -76,22 +76,26 @@ public class MonitorServiceScanListTest {
         assertEquals("X7 Smart AFib · HEM-7380T1",monitor.modelHint);
         Method configureNext=MonitorService.class.getDeclaredMethod("configureNext",List.class,int.class); configureNext.setAccessible(true);
         configureNext.invoke(monitor,new ArrayList<BluetoothGattCharacteristic>(),0);
-        assertEquals("the hint is saved until the monitor reports its model",monitor.modelHint,store.devices().get(0)[2]);
+        assertEquals("standard profiles save the hint",monitor.modelHint,store.devices().get(0)[2]);
         assertEquals("an unverified hint is never printed",NAME,pdfName());
         BluetoothGattCallback callback=(BluetoothGattCallback)get("callback");
         callback.onCharacteristicRead(gatt,model,"HEM-7155T-EBK\u0000".getBytes(StandardCharsets.UTF_8),BluetoothGatt.GATT_SUCCESS);
         shadowOf(Looper.getMainLooper()).idle();
-        assertEquals("HEM-7155T-EBK",store.devices().get(0)[2]);
+        assertEquals("the capability model stays the hint",monitor.modelHint,store.devices().get(0)[2]);
+        assertEquals("HEM-7155T-EBK",store.devices().get(0)[5]);
         assertEquals("OMRON HEM-7155T-EBK",pdfName());
-        // A later save in the same session (user authentication) keeps the reported model.
-        call("rememberMonitor",String.class,(String)call("standardModel",null,null));
-        assertEquals("HEM-7155T-EBK",store.devices().get(0)[2]);
+        assertEquals("HEM-7155T-EBK",monitor.reportedModel());
+        // A later save in the same session (user authentication) keeps both.
+        call("rememberMonitor",String.class,monitor.modelHint);
+        assertEquals(monitor.modelHint,store.devices().get(0)[2]); assertEquals("HEM-7155T-EBK",store.devices().get(0)[5]);
+        monitor.refreshAutomaticImports();
+        assertFalse("a reported model never makes a monitor automatic-import capable",((Map<?,?>)get("automaticDevices")).containsKey(SAVED));
     }
 
     private String pdfName() {
         Reading reading=new Reading(); reading.id=1; reading.user=1; reading.time="2026-01-01T08:00:00";
         reading.systolic=120; reading.diastolic=80; reading.unit="mmHg"; reading.device=SAVED; reading.name=NAME;
-        Map<String,String> models=new HashMap<>(); for(String[] device:store.devices()) models.put(device[0],device[2]);
+        Map<String,String> models=new HashMap<>(); for(String[] device:store.devices()) models.put(device[0],ReadingStore.displayModel(device));
         return PdfReportData.create(Collections.singletonList(reading),0,null,null,ZoneId.of("UTC"),models).entries.get(0).displayName;
     }
     private void startScan() throws Exception { set("scanning",true); call("loadSavedAddresses",null,null); }

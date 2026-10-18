@@ -134,9 +134,9 @@ public class HttpForwardingStoreTest {
         db.execSQL("INSERT INTO reading_tombstones(receipt) VALUES('synthetic-old-hash')");
         db.execSQL("DROP TABLE IF EXISTS http_outbox"); db.execSQL("DROP TABLE IF EXISTS http_receipts");
         db.execSQL("DROP TABLE assignment_receipts"); db.execSQL("DROP TABLE assignment_inbox"); db.execSQL("DROP TABLE profile_configuration");
-        db.execSQL("DROP INDEX reading_profile"); db.execSQL("ALTER TABLE readings DROP COLUMN virtual_user_id"); db.execSQL("DROP TABLE virtual_users"); db.execSQL("ALTER TABLE devices DROP COLUMN users"); db.setVersion(4);
+        db.execSQL("DROP INDEX reading_profile"); db.execSQL("ALTER TABLE readings DROP COLUMN virtual_user_id"); db.execSQL("DROP TABLE virtual_users"); db.execSQL("ALTER TABLE devices DROP COLUMN users"); db.execSQL("ALTER TABLE devices DROP COLUMN reported_model"); db.setVersion(4);
         store.close(); store=new ReadingStore(context);
-        assertEquals(7,store.getReadableDatabase().getVersion());
+        assertEquals(8,store.getReadableDatabase().getVersion());
         assertEquals(1,store.historyCount(0)); assertEquals("synthetic-client",store.healthPending(1,10).get(0).healthClientId);
         assertEquals(0,count("http_outbox")); assertEquals(0,count("http_receipts"));
         assertEquals(1,count("packets")); assertEquals(1,count("devices")); assertEquals(1,count("reading_tombstones"));

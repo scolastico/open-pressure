@@ -414,8 +414,6 @@ public final class MonitorService extends Service {
         store.remember(address,connectedName,model,user); savedAddresses.add(address); discovered.remove(address);
     }
     private void loadSavedAddresses() { savedAddresses.clear(); for(String[] device:store.devices()) savedAddresses.add(device[0]); }
-    /** Standard profiles save the model hint until Device Information reports the actual model. */
-    private String standardModel() { return informationModel.isEmpty()?modelHint:informationModel; }
     /** Called after the user forgets a saved monitor; it may be listed again by a running scan. */
     public void monitorForgotten(String target) { savedAddresses.remove(target); }
     public void connect(String target,String name,boolean pair) {
@@ -1531,7 +1529,7 @@ public final class MonitorService extends Service {
     }
     private void configureNext(List<BluetoothGattCharacteristic> list,int index) {
         if(index<list.size()) { subscribe(list.get(index),() -> configureNext(list,index+1)); return; }
-        ready=true; rememberMonitor(standardModel());
+        ready=true; rememberMonitor(modelHint);
         state("Connected",hasUserControl?"Authenticate user "+user+" to access that user's history.":"Ready for readings. Start a measurement on the monitor.");
         readInformation();
     }
@@ -1544,9 +1542,10 @@ public final class MonitorService extends Service {
                 // The serial number (2A25) is shown locally but never added to the shareable report.
                 if(report!=null && !automaticConnection && uuid==0x2a26) report.firmware(value);
                 if(report!=null && !automaticConnection && uuid==0x2a29) report.manufacturer(value);
-                // WLP paths saved the model they verified; standard profiles replace the user's hint.
+                // WLP paths saved the model they verified. On standard profiles the reported model only
+                // names the monitor; the saved model, which grants automatic imports, stays the hint.
                 if(uuid==0x2a24 && profile!=ProtocolProfile.VENDOR_MEMORY && !profile.isX7() && !value.trim().isEmpty()) {
-                    informationModel=value.trim(); store.setModel(address,informationModel);
+                    informationModel=value.trim(); store.setReportedModel(address,informationModel);
                 }
                 changed();
             });
@@ -1596,9 +1595,9 @@ public final class MonitorService extends Service {
         if(!canReadAll() || historyRunning || dumpRunning || pendingUserOperation!=0) return;
         beginVendorHistory(true);
     }
-    /** Whether the connected, verified model offers a choice between its two users' readings. */
-    /** Model reported in this session (verified WLP identity or standard Device Information), else empty. */
+    /** Model reported in this session (verified WLP identity or standard Device Information), else empty. Display only. */
     public String reportedModel() { return verifiedModel.isEmpty()?informationModel:verifiedModel; }
+    /** Whether the connected, verified model offers a choice between its two users' readings. */
     public boolean offersImportUsers() { return ready && (profile.isX7() || offersImportUsers(verifiedModel)); }
     /** Whether a saved Device Information model offers a choice between two users' readings. */
     public static boolean offersImportUsers(String model) {
@@ -1639,7 +1638,7 @@ public final class MonitorService extends Service {
                 if(next!=null) responseWrite(handshake,next,20000,"Secure pairing response timed out");
                 else {
                     byte[] key=secure.longTermKey(); try { keys.put(address,key); } finally { Arrays.fill(key,(byte)0); }
-                    rememberMonitor(standardModel()); configure();
+                    rememberMonitor(modelHint); configure();
                 }
             } catch(Exception ex) { fail(ex.getMessage()); }
             return;
@@ -1653,7 +1652,7 @@ public final class MonitorService extends Service {
             if(bytes[2]!=1) { state("User access rejected","Monitor returned code "+(bytes[2]&255)+". Check user bank and consent code; register only in pairing mode."); return; }
             if(op==2) { authenticatedUser=pendingUser; state("User authenticated","User "+authenticatedUser+" · You can now read history."); }
             else state("User registered","User "+pendingUser+" registered. Authenticate this user to read history.");
-            rememberMonitor(standardModel()); return;
+            rememberMonitor(modelHint); return;
         }
         store.packet(address,c.getUuid().toString(),bytes,"RX");
         if(c.getUuid().equals(Uuids.MEASUREMENT) && c.getService().getUuid().equals(Uuids.BP)) {
