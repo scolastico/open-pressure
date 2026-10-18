@@ -32,7 +32,7 @@ public class OmronRunnerTest {
         assertNull(catalog.folderFor("BLEsmart_00000999"));
         assertNull("other categories never match",catalog.folderFor("BLEsmart_0001057A"));
         assertNull("names without IDs carry no model",catalog.folderFor("Synthetic monitor"));
-        Fixture f=Fixture.parse("x/y","name x/y\nadvertise name=BLEsmart_00000999 services=ecbe3980-c9a2-11e1-b1bd-0002a5d5c51b\n");
+        Fixture f=Fixture.parse("x/y","name x/y\nadvertise name=BLEsmart_00000999 services=ecbe3980-c9a2-11e1-b1bd-0002a5d5c51b\nkey 05050505050505050505050505050505\n");
         Outcome outcome=OmronRunner.select(f,catalog);
         assertEquals(Outcome.Kind.UNSUPPORTED,outcome.kind);
         assertTrue(outcome.detail,outcome.detail.contains("category 0x0000 model 0x0999"));

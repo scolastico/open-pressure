@@ -81,6 +81,9 @@ public final class Fixture {
             try { f.expand(entry); }
             catch(RuntimeException error) { throw new IllegalArgumentException(name+" line "+number+": "+error.getMessage(),error); }
         }
+        // Runners need these; report them here instead of failing inside a replay.
+        if(f.key==null) throw new IllegalArgumentException(name+": missing key (every flow unlocks with it)");
+        if(f.time==null && f.aliases.containsKey("clock")) throw new IllegalArgumentException(name+": missing time for the clock alias");
         return f;
     }
 
@@ -111,7 +114,11 @@ public final class Fixture {
                     else throw new IllegalArgumentException("unknown advertise field "+e.getKey());
                 }
                 break;
-            case "dis": dis.putAll(pairs(rest)); break;
+            case "dis":
+                dis.putAll(pairs(rest));
+                if(dis.containsKey("systemid") && !dis.get("systemid").matches("([0-9a-fA-F]{2})+"))
+                    throw new IllegalArgumentException("systemid must be hex bytes, got "+dis.get("systemid"));
+                break;
             case "time": {
                 String[] parts=rest.split("\\s+");
                 time=LocalDateTime.parse(parts[0]);
@@ -173,6 +180,9 @@ public final class Fixture {
         int number=(Integer)entry[0];
         String kind=(String)entry[1],only=(String)entry[4],reason=(String)entry[5];
         if(!kind.equals("reads")) {
+            int limit=16*aliases.get((String)entry[2]).size();
+            if(kind.equals("notify") && aliases.get((String)entry[2]).size()>1 && ((byte[])entry[3]).length>limit)
+                throw new IllegalArgumentException("notify on "+entry[2]+" exceeds "+limit+" bytes");
             steps.add(new Step(kind.equals("write")?Step.Kind.WRITE:Step.Kind.NOTIFY,(String)entry[2],(byte[])entry[3],only,reason,number));
             return;
         }
@@ -269,7 +279,7 @@ public final class Fixture {
     }
     private static byte[] hex(String text) {
         String compact=text.replaceAll("\\s+","");
-        if(compact.length()%2!=0) throw new IllegalArgumentException("odd-length hex "+text);
+        if(compact.length()%2!=0 || !compact.matches("[0-9a-fA-F]*")) throw new IllegalArgumentException("invalid hex "+text);
         return HexFormat.of().parseHex(compact);
     }
     private static String strip(String line) {

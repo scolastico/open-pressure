@@ -31,6 +31,7 @@ public final class FixtureTest {
         rejectsMalformedLinesWithLineNumbers();
         reassemblesLegacyChannelWritesIntoOneFrame();
         strayChannelWriteIsADivergence();
+        incompleteFixturesFailAtParseTime();
         divergenceReportsStepAndDecodedFields();
         finishComparesReadings();
         return checks;
@@ -93,6 +94,21 @@ public final class FixtureTest {
         check(cursor.onWrite(tx.get(1),Arrays.copyOfRange(frame,16,24))==null,"second part pending");
         Outcome outcome=cursor.onWrite(tx.get(0),Arrays.copyOfRange(frame,0,16));
         check(outcome!=null && outcome.kind==Outcome.Kind.DIVERGED && outcome.detail.contains("channel 2"),"extra channel part beyond the frame: "+outcome);
+    }
+    private static void incompleteFixturesFailAtParseTime() {
+        String noKey=HEAD.replace("key 05050505050505050505050505050505\n","");
+        String noTime=HEAD.replace("time 2026-01-02T03:04:05 zone=UTC\n","")+"alias clock 00002a2b-0000-1000-8000-00805f9b34fb\n";
+        String badSystemId=HEAD.replace("dis model=HEM-7156T","dis model=HEM-7156T systemid=xyz");
+        String longNotify=HEAD+"notify rx "+"00".repeat(65)+"\n";
+        for(String[] c:new String[][]{{noKey,"key"},{noTime,"time"},{badSystemId,"systemid"},{longNotify,"rx"}}) {
+            checks++;
+            try { Fixture.parse("test/sample",c[0]); }
+            catch(IllegalArgumentException expected) {
+                if(!expected.getMessage().contains("test/sample") || !expected.getMessage().contains(c[1])) throw new AssertionError("unhelpful message: "+expected.getMessage());
+                continue;
+            }
+            throw new AssertionError("incomplete fixture accepted: missing or invalid "+c[1]);
+        }
     }
     private static void divergenceReportsStepAndDecodedFields() {
         Fixture f=Fixture.parse("test/sample",HEAD+"write unlock 01 05050505050505050505050505050505\nnotify unlock 8100\nreads 0x98 16 chunk=16\n");
