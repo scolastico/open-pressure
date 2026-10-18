@@ -32,9 +32,9 @@ notify rx 18 80 00 00 00 10 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f 00 8
 [omron-only: Omron reads the HEM-7156T_AP index block (index_setting_read_address) before records] reads 0x10 44 chunk=44
 [omron-only: Omron reads setting-info block 3 (index_setting_info_read_address 0x20 + 28)] reads 0x3c 16 chunk=16
 
-[ours-only: Omron pairing flags 0x1210 return settings without historical readings; observed in the sandbox] reads 0x98 16 chunk=16
-[ours-only: OpenPressure reads every slot of bank 1; Omron reads only unsent records] reads 0xa8 944 chunk=16
-[ours-only: omblepy two-bank map; Omron HEM-7156T_AP declares one 60-record area (noOfUsers 1), unconfirmed] reads 0x458 960 chunk=16
+[ours-only: index-driven populated-slot read: OpenPressure reads the 68-byte settings/index image at 0x10 in 56-byte blocks, then only the slots it lists as populated; Omron reads 44 bytes plus block 3 and then only unsent records] reads 0x10 68 chunk=56
+
+[ours-only: index-driven populated-slot read: OpenPressure imports the populated slots during Pair; Omron pairing flags 0x1210 return settings without historical readings (observed in the sandbox)] reads 0x98 16 chunk=48
 
 # Omron Connect 2026.09.03 post-transfer settings frames, recorded against this synthetic fixture.
 # Replies are synthetic full echoes; no physical monitor's acknowledgment is established.

@@ -1,4 +1,4 @@
-# HEM-7150T (Z identity): first-time pairing (key registration). Omron registers user 1; OpenPressure programs the key and reads the bank on the same connection.
+# HEM-7150T (Z identity): first-time pairing (key registration). Omron registers user 1; OpenPressure programs the key and reads the populated slots on the same connection.
 # Omron selects HEM-7150T-Z from the advertised IDs (category 0x0000, model 0x0154);
 # OpenPressure maps the Device Information model HEM-7150T-Z to its HEM-7150T (Z identity) map.
 name hem-7150t/pair
@@ -15,7 +15,7 @@ alias rx 49123040-aee8-11e1-a74d-0002a5d5c51b,4d0bf320-aee8-11e1-a0d9-0002a5d5c5
 alias clock 00002a2b-0000-1000-8000-00805f9b34fb
 
 # One synthetic record per user: sequence number 1 at offset 10, Omron record checksum at offset 14
-# (8-bit sum of bytes 0-13; OpenPressure ignores it).
+# (8-bit sum of bytes 0-13; both clients check it).
 memory fill=ff
 memory 0x98 694e4319261da603 0000 0100 00000000
 # Index block (index_setting_read_address=10): per user next write position 1, one unsent record and
@@ -37,7 +37,9 @@ notify rx 18 80 00 00 00 10 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f 00 8
 [omron-only: Omron reads the index block (index_setting_read_address) before records] reads 0x10 44 chunk=44
 [omron-only: Omron reads setting-info block 3 (index_setting_info_read_address 0x20 + 28)] reads 0x3c 16 chunk=16
 
-[ours-only: OpenPressure imports history during Pair; Omron pairing returns no historical readings (hem-7156t/pair, hem-7155t/pair)] reads 0x98 960 chunk=16
+[ours-only: index-driven populated-slot read: OpenPressure reads the 68-byte settings/index image at 0x10 in 56-byte blocks, then only the slots it lists as populated; Omron reads 44 bytes plus block 3 and then only unsent records] reads 0x10 68 chunk=56
+
+[ours-only: index-driven populated-slot read: OpenPressure imports the populated slots during Pair; Omron pairing flags 0x1210 return settings without historical readings (observed in the sandbox)] reads 0x98 16 chunk=48
 
 [ours-only: OpenPressure clock sync via Current Time; Omron writes setting block 3 instead (docs/omron-sandbox.md)] write clock ea 07 01 02 03 04 05 05 00 01
 

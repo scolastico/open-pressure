@@ -33,11 +33,13 @@ notify rx 18 80 00 00 00 10 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f 00 8
 
 [omron-only: Omron reads the index block (index_setting_read_address 0x260) before records] reads 0x260 44 chunk=44
 [omron-only: Omron reads setting-info block 3 (index_setting_info_read_address 0x270 + 28)] reads 0x28c 16 chunk=16
-[omron-only: Omron reads only the unsent record of user 1] reads 0x2e8 14 chunk=14
-[omron-only: Omron reads only the unsent record of user 2] reads 0x860 14 chunk=14
 
-[ours-only: OpenPressure reads every slot of bank 1 in 16-byte blocks] reads 0x2e8 1400 chunk=16
-[ours-only: OpenPressure reads every slot of bank 2 in 16-byte blocks] reads 0x860 1400 chunk=16
+[ours-only: index-driven populated-slot read: OpenPressure reads the 68-byte settings/index image at 0x260 in 56-byte blocks (byte pairs swapped), then only the slots it lists as populated; Omron reads 44 bytes plus block 3 and then only unsent records] reads 0x260 68 chunk=56
+
+# Both clients read the one record per user with the identical frame: OpenPressure because the index lists one
+# populated slot, Omron because it lists one unsent record. The mechanisms differ (open finding on the index read above).
+reads 0x2e8 14 chunk=14
+reads 0x860 14 chunk=14
 
 # Omron Connect 2026.09.03 post-transfer settings frames, recorded against this synthetic fixture.
 # Replies are synthetic full echoes; no physical monitor's acknowledgment is established.

@@ -112,6 +112,13 @@ public class FixtureReplayTest {
         assertEquals(outcome.report(),wanted,outcome.kind);
         // A refused identity must be refused before any byte reaches the monitor.
         if(wanted==Outcome.Kind.REJECTED) assertTrue(outcome.report(),cursor.transcript().stream().noneMatch(line -> line.startsWith("write ")));
+        // Negative fixtures: the corrupt slot is counted and the session still ends; an untrusted index falls back to a sweep.
+        if(name.endsWith("/connect-bad-record-checksum")) {
+            assertEquals(1,(int)(Integer)get("wlpRejected"));
+            assertEquals("History transfer incomplete",monitor.status);
+        }
+        if(name.endsWith("/connect-bad-index-checksum")) assertEquals(MonitorService.ImportMode.INDEX_FALLBACK,monitor.importMode);
+        if(fixture.flow.equals("read-all")) assertEquals(MonitorService.ImportMode.FULL_SWEEP,monitor.importMode);
     }
 
     /** Runs scripted peer events until the service has nothing left to do. */

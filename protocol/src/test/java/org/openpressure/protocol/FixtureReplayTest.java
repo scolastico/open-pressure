@@ -32,21 +32,45 @@ public final class FixtureReplayTest {
         check(outcome.kind==Outcome.Kind.REJECTED && outcome.detail.contains("ended at step"),"extra scripted write after END: "+outcome.report());
     }
     private static void readAllSweepsTheSelectedUsers() {
-        // Both users: where every bank belongs to a selectable user, the read-all sweep issues the same full-bank
-        // reads as a connect history read; otherwise (HEM-7156T's unselectable second bank) it reads fewer banks.
+        // Read-all rule: every slot of the selected users' banks (historyRanges(users)) followed by every unconfirmed
+        // bank (HEM-7156T bank 2), without the index. Each connect fixture's OpenPressure steps are replaced by that
+        // sweep, written independently as reads lines, and must match; dropping the unconfirmed bank must not.
         for(String name:Fixture.all()) {
             if(!name.endsWith("/connect-read-history")) continue;
             Fixture f=Fixture.load(name);
             if(f.expectRejected(Fixture.Client.OURS_PROTOCOL)) continue;
             VendorMemoryModel model=VendorMemoryModel.identify(f.dis.get("model"));
-            boolean everyBank=model.historyRanges(3).equals(model.historyRanges());
-            Outcome outcome=ProtocolReplay.run(Fixture.parse(name,new String(readResource(name))+"flow read-all\nimport users=both\n"));
-            check((outcome.kind==Outcome.Kind.MATCHES)==everyBank,name+" read-all both users: "+outcome.report());
+            for(int users:new int[]{1,2,3}) {
+                java.util.List<VendorMemoryModel.Range> sweep=new java.util.ArrayList<>(model.historyRanges(users));
+                for(VendorMemoryModel.Range bank:model.historyRanges()) if(model.unconfirmedBank(bank.user) && !sweep.contains(bank)) sweep.add(bank);
+                Outcome outcome=ProtocolReplay.run(Fixture.parse(name,readAll(name,model,sweep,users)));
+                check(outcome.kind==Outcome.Kind.MATCHES,name+" read-all users="+users+": "+outcome.report());
+                if(sweep.size()>model.historyRanges(users).size()) {
+                    Outcome without=ProtocolReplay.run(Fixture.parse(name,readAll(name,model,model.historyRanges(users),users)));
+                    check(without.kind!=Outcome.Kind.MATCHES,name+" read-all users="+users+" skipped the unconfirmed bank: "+without.report());
+                }
+            }
         }
-        // One user on a two-bank model: the sweep must skip user 1's bank, so the scripted user-1 reads diverge.
+        // One user on a two-bank model: a sweep that also reads user 1's bank must diverge.
         String name="hem-7155t/connect-read-history";
-        Outcome only2=ProtocolReplay.run(Fixture.parse(name,new String(readResource(name))+"flow read-all\nimport users=2\n"));
-        check(only2.kind!=Outcome.Kind.MATCHES,"read-all users=2 still read user 1: "+only2.report());
+        VendorMemoryModel model=VendorMemoryModel.identify("HEM-7155T-EBK");
+        Outcome both=ProtocolReplay.run(Fixture.parse(name,readAll(name,model,model.historyRanges(),2)));
+        check(both.kind!=Outcome.Kind.MATCHES,"read-all users=2 still read user 1: "+both.report());
+    }
+    /** The connect fixture with its read steps replaced by full reads of {@code banks} as a read-all flow. */
+    private static String readAll(String name,VendorMemoryModel model,java.util.List<VendorMemoryModel.Range> banks,int users) {
+        StringBuilder text=new StringBuilder();
+        java.util.Set<Integer> read=new java.util.HashSet<>();
+        for(VendorMemoryModel.Range bank:banks) read.add(bank.user);
+        for(String line:new String(readResource(name),java.nio.charset.StandardCharsets.UTF_8).split("\n")) {
+            String step=line.replaceFirst("^\\[[^\\]]*\\]\\s*","");
+            if(line.startsWith("[omron-only") || step.startsWith("reads ")) continue;
+            if(step.startsWith("expect reading user=") && !read.contains(Integer.parseInt(step.replaceFirst("^expect reading user=(\\d+).*$","$1")))) continue;
+            if(step.startsWith("write tx 08 0f")) for(VendorMemoryModel.Range bank:banks)
+                text.append("reads 0x").append(Integer.toHexString(bank.start)).append(' ').append(bank.length).append(" chunk=").append(VendorWlpSession.recordBlock(model)).append('\n');
+            text.append(line).append('\n');
+        }
+        return text.append("flow read-all\nimport users=").append(users==3?"both":String.valueOf(users)).append('\n').toString();
     }
     private static byte[] readResource(String name) {
         try(java.io.InputStream in=FixtureReplayTest.class.getResourceAsStream("/org/openpressure/protocol/fixtures/"+name+".fixture")) { return in.readAllBytes(); }

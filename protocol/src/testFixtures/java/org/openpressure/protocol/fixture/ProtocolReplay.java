@@ -103,7 +103,10 @@ public final class ProtocolReplay {
         for(VendorMemoryModel.Range range:ranges) {
             // The settings/index image (user 0) holds no records.
             if(range.user!=0) for(int i=0;i<range.length;i+=model.recordBytes) {
-                BloodPressure bp=model.parse(java.util.Arrays.copyOfRange(data,offset+i,offset+i+model.recordBytes),range.user);
+                // Like MonitorService, a malformed record (e.g. a wrong record checksum) is a rejected slot, not a failed session.
+                BloodPressure bp;
+                try { bp=model.parse(java.util.Arrays.copyOfRange(data,offset+i,offset+i+model.recordBytes),range.user); }
+                catch(IllegalArgumentException rejected) { continue; }
                 if(bp!=null) readings.add(new Fixture.Reading(range.user,(int)bp.systolic,(int)bp.diastolic,bp.pulse.intValue(),bp.time));
             }
             offset+=range.length;

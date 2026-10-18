@@ -35,7 +35,7 @@ notify rx 18 80 00 00 00 10 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 5b 0f 00 d
 
 [omron-only: Omron reads the index and all setting-info blocks (0x260, 8 + 30 bytes) before records] reads 0x260 38 chunk=38
 [omron-only: Omron reads only the unsent record] reads 0x2ac 14 chunk=14
-[ours-only: OpenPressure reads every slot of the bank in 16-byte blocks; Omron reads only unsent records] reads 0x2ac 1400 chunk=16
+[ours-only: HEM-7600T records carry no sequence number, so OpenPressure keeps a full read of the bank in 56-byte blocks; Omron reads only unsent records] reads 0x2ac 1400 chunk=56
 
 # Omron Connect 2026.09.03 post-transfer settings frames, recorded against this synthetic fixture.
 # Replies are synthetic full echoes; no physical monitor's acknowledgment is established.

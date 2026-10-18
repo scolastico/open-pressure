@@ -1,4 +1,4 @@
-# HEM-7530T (Z identity): first-time pairing (key registration). Omron registers user 1; OpenPressure programs the key and reads the bank on the same connection.
+# HEM-7530T (Z identity): first-time pairing (key registration). Omron registers user 1; OpenPressure programs the key and reads the populated slots on the same connection.
 # Omron selects HEM-7530T-Z from the advertised IDs (category 0x0000, model 0x0151);
 # OpenPressure maps the Device Information model HEM-7530T-Z to its HEM-7530T map (14-byte records).
 name hem-7530t/pair
@@ -40,7 +40,9 @@ notify rx 18 80 00 00 00 10 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f 00 8
 [omron-only: Omron reads the index block (index_setting_read_address 0x260) before records] reads 0x260 44 chunk=44
 [omron-only: Omron reads setting-info blocks 3 and 4 (index_setting_info_read_address 0x270 + 28, 16 + 8 bytes)] reads 0x28c 24 chunk=24
 
-[ours-only: OpenPressure imports history during Pair; Omron pairing returns no historical readings (hem-7156t/pair, hem-7155t/pair)] reads 0x2e8 1260 chunk=16
+[ours-only: index-driven populated-slot read: OpenPressure reads the 68-byte settings/index image at 0x260 in 56-byte blocks (byte pairs swapped), then only the slots it lists as populated; Omron reads 44 bytes plus blocks 3 and 4 and then only unsent records] reads 0x260 68 chunk=56
+
+[ours-only: index-driven populated-slot read: OpenPressure imports the populated slots during Pair; Omron pairing flags 0x1210 return settings without historical readings (observed in the sandbox)] reads 0x2e8 14 chunk=56
 
 [ours-only: OpenPressure clock sync via Current Time; Omron writes setting block 3 instead (docs/omron-sandbox.md)] write clock ea 07 01 02 03 04 05 05 00 01
 
