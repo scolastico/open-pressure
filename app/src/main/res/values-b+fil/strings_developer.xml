@@ -31,4 +31,5 @@
     <string name="dev_experimental_force_x7_encrypted">Gamitin ang naka-encrypt na koneksyon kapag nagpapares ng X7</string>
     <string name="dev_experimental_confirm_title">I-on ang hindi pa nasusubukang paraan?</string>
     <string name="dev_experimental_confirm_message">Nasa app ang paraang ito pero hindi pa kailanman nasubukan sa totoong monitor, at maaari itong basta na lang pumalya. Ang pagpapares sa ganitong paraan ay maaaring pumalit sa kasalukuyang pagkakapares ng monitor gamit ang teleponong ito. Ang pumalyang pagsusulat ay maaaring permanenteng sumira sa mga setting ng monitor o gawin itong hindi na magamit.\n\nWalang ipinapadala ang switch na ito nang mag-isa. Nakalista sa device report kung aling mga developer switch ang naka-on.\n\nIkaw ang mananagot sa anumang pinsala sa iyong monitor.</string>
+    <string name="dev_experimental_clock_sync_encrypted_x7">Payagan ang pag-sync ng orasan sa naka-encrypt na koneksyon ng X7</string>
 </resources>

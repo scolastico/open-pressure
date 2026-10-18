@@ -55,9 +55,14 @@ public final class DeviceWritePolicy {
         requireWriteAspect(plan.identity(),WriteAspectIndex.Aspect.CLOCK_BLOCK,plan.override());
         if(!model.id.equals(plan.identity()) || !plan.allowsChunk(channel,payload)) reject();
     }
-    /** The authorized X7 clock-block write: the plan's single frame on the WLP TX channel. */
+    /**
+     * The authorized X7 clock-block write: the plan's single plaintext frame on the WLP TX channel. Plain WLP carries a
+     * plain plan; an established encrypted session carries only a plan built for the encrypted transport, and the
+     * caller encrypts the frame after this check.
+     */
     public static void validateX7ClockBlock(ProtocolProfile profile,UUID service,UUID characteristic,byte[] payload,VendorClockWrite plan) {
-        if(profile!=ProtocolProfile.X7_WLP || !ALIAS.equals(service) || !WLP_TX.equals(characteristic) || payload==null || plan==null) reject();
+        if(!ALIAS.equals(service) || !WLP_TX.equals(characteristic) || payload==null || plan==null) reject();
+        if(!(profile==ProtocolProfile.X7_WLP && !plan.encryptedTransport() || profile==ProtocolProfile.X7_SECURE_WLP && plan.encryptedTransport())) reject();
         requireWriteAspect(plan.identity(),WriteAspectIndex.Aspect.CLOCK_BLOCK,plan.override());
         // A vendor-memory plan's legacy chunk never rides the X7 transport.
         if(VendorMemoryModel.identify(plan.identity())!=null || !plan.allowsChunk(0,payload)) reject();

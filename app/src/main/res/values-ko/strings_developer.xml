@@ -31,4 +31,5 @@
     <string name="dev_experimental_force_x7_encrypted">X7 페어링 시 암호화된 연결 사용</string>
     <string name="dev_experimental_confirm_title">테스트되지 않은 경로를 켤까요?</string>
     <string name="dev_experimental_confirm_message">이 경로는 앱에 있지만 실제 혈압계에서 한 번도 테스트되지 않았으며 그냥 실패할 수도 있습니다. 이 방법으로 페어링하면 혈압계의 기존 페어링이 이 휴대전화로 바뀔 수 있습니다. 쓰기에 실패하면 혈압계 설정이 영구적으로 손상되거나 사용할 수 없게 될 수 있습니다.\n\n이 스위치 자체로는 아무것도 보내지 않습니다. 기기 보고서에 어떤 개발자 스위치가 켜져 있었는지 표시됩니다.\n\n혈압계에 발생하는 모든 손상은 사용자 책임입니다.</string>
+    <string name="dev_experimental_clock_sync_encrypted_x7">암호화된 X7 연결을 통한 시계 동기화 허용</string>
 </resources>

@@ -30,7 +30,7 @@ public final class VendorClockWrite {
     public static final long THRESHOLD_SECONDS=60;
 
     private final String identity;
-    private final boolean override;
+    private final boolean override,encryptedTransport;
     private final int channels;
     private final LocalDateTime target,written,monitorClock;
     private final long driftSeconds;
@@ -41,6 +41,14 @@ public final class VendorClockWrite {
     private int nextChunk;
 
     public VendorClockWrite(String identity,byte[] image,LocalDateTime target,boolean override,int channels) {
+        this(identity,image,target,override,channels,false);
+    }
+
+    /**
+     * @param encryptedTransport the single X7 frame travels over an established encrypted X7 session (experimental
+     *     developer path); the plaintext frame is still validated before encryption. Never valid for a legacy model.
+     */
+    public VendorClockWrite(String identity,byte[] image,LocalDateTime target,boolean override,int channels,boolean encryptedTransport) {
         String resolved=WriteAspectIndex.resolve(identity);
         ClockBlock block=ClockBlock.forIdentity(resolved);
         if(block==null) throw new IllegalArgumentException("No verified clock block for this monitor");
@@ -48,6 +56,7 @@ public final class VendorClockWrite {
         // Four-channel legacy maps or the single X7 TX channel, never a mix.
         int expectedChannels=model==null?1:VendorWlpSession.txChannels(model).size();
         if(channels!=expectedChannels) throw new IllegalArgumentException("Clock write channel count does not match the monitor");
+        if(encryptedTransport && model!=null) throw new IllegalArgumentException("Only an X7 clock write can use the encrypted transport");
         if(block.swapped && (model==null || model.recordBytes!=14))
             throw new IllegalArgumentException("Swapped clock layout requires its 14-byte model map");
         if(image==null || image.length!=block.imageLength())
@@ -62,7 +71,7 @@ public final class VendorClockWrite {
         // An erased block only where Omron's own code accepts one; elsewhere the checksum must hold.
         if(!block.checksumValid(logical) && !(block.erased(logical) && block.erasedAllowed))
             throw new IllegalArgumentException("monitor settings unreadable");
-        this.identity=resolved; this.override=override; this.channels=channels;
+        this.identity=resolved; this.override=override; this.encryptedTransport=encryptedTransport; this.channels=channels;
         this.target=truncated; this.written=clock;
         monitorClock=block.clock(logical);
         driftSeconds=monitorClock==null?Long.MAX_VALUE:Duration.between(truncated,monitorClock).getSeconds();
@@ -80,6 +89,8 @@ public final class VendorClockWrite {
 
     public String identity() { return identity; }
     public boolean override() { return override; }
+    /** The frame is sent over an established encrypted X7 session instead of plain WLP. */
+    public boolean encryptedTransport() { return encryptedTransport; }
     public LocalDateTime target() { return target; }
     /** The clock bytes in the frame: target + 1 s. */
     public LocalDateTime written() { return written; }

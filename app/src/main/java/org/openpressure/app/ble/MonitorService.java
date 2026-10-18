@@ -1467,18 +1467,26 @@ public final class MonitorService extends Service {
     }
     /**
      * Whether an explicit clock sync may start on this manual connection: a fresh, idle vendor-memory or plain-WLP
-     * X7 session of a verified model with a documented clock block whose write aspect is permitted.
+     * X7 session of a verified model with a documented clock block whose write aspect is permitted, or, with the
+     * experimental developer switch, an established and authorized encrypted X7 session.
      */
     public boolean canClockSync() {
         if(!ready || !canHistory || historyRunning || dumpRunning || dumpSaving || automaticConnection || pairingRequested || clockSyncRunning || sessionFinished) return false;
         String identity=WriteAspectIndex.resolve(verifiedModel);
         if(profile==ProtocolProfile.VENDOR_MEMORY) {
             if(vendorModel==null || !vendorModel.id.equals(identity) || vendorRead!=null || vendorSessionEnded || vendorTx.size()!=VendorWlpSession.txChannels(vendorModel).size()) return false;
-        } else if(profile==ProtocolProfile.X7_WLP) {
+        } else if(profile==ProtocolProfile.X7_WLP || profile==ProtocolProfile.X7_SECURE_WLP) {
+            // The encrypted session is an experimental developer path: established, authorized and switched on.
+            if(profile==ProtocolProfile.X7_SECURE_WLP && !encryptedClockSyncReady()) return false;
             // The 24-byte frame is one ATT write: it needs an MTU of at least 27.
             if(!x7ReadReady() || negotiatedMtu<27 || wlpRead!=null || registrationReading || registrationPending || registrationWriting) return false;
         } else return false;
         return clockSyncPermitted(identity);
+    }
+    /** An established, authorized encrypted X7 session with the experimental clock-sync switch on. */
+    private boolean encryptedClockSyncReady() {
+        return secure!=null && secure.established() && x7Authentication!=null && x7Authentication.complete()
+                && experimentEnabled(DeveloperOptions.Experiment.CLOCK_SYNC_ENCRYPTED_X7);
     }
     /**
      * Whether Sync clock is offered at all on this connection, without the session requirements of
@@ -1487,6 +1495,8 @@ public final class MonitorService extends Service {
      */
     public boolean clockSyncOffered() {
         if(profile!=ProtocolProfile.VENDOR_MEMORY && !profile.isX7()) return false;
+        // Encrypted X7 sessions show no clock control unless the experimental switch is on.
+        if(profile==ProtocolProfile.X7_SECURE_WLP && !experimentEnabled(DeveloperOptions.Experiment.CLOCK_SYNC_ENCRYPTED_X7)) return false;
         return clockSyncPermitted(WriteAspectIndex.resolve(verifiedModel));
     }
     private boolean clockSyncPermitted(String identity) {
@@ -1528,6 +1538,10 @@ public final class MonitorService extends Service {
         clockSyncRunning=true; clockSyncPending=false; clockSyncUnreadable=false; clockSyncOutOfRange=false; clockSyncRecorded=false; offerReportAfterWrite=false;
         clockSyncOutcome=DeviceReport.WriteOutcome.NOT_ATTEMPTED; clockUpdate=ClockUpdate.NONE; clockWrite=null;
         clockSyncMonitorClock=null; clockSyncPhoneClock=null; clockSyncDriftSeconds=0; clockSyncOverride=false; clockSyncChosenTimeAllowed=false;
+        if(profile==ProtocolProfile.X7_SECURE_WLP) {
+            store.packet(address,"clock-sync",new byte[0],"Clock sync over the encrypted X7 session allowed by developer option");
+            developerSwitch(DeveloperOptions.Experiment.CLOCK_SYNC_ENCRYPTED_X7);
+        }
         try {
             if(profile==ProtocolProfile.VENDOR_MEMORY) {
                 vendorRead=new VendorWlpSession(vendorModel,Collections.singletonList(vendorModel.settingsRange()),Math.min(56,VendorWlpSession.maxBlock(vendorModel)));
@@ -1553,8 +1567,12 @@ public final class MonitorService extends Service {
         if(!WriteAspectIndex.permits(WriteAspectIndex.lookup(identity,WriteAspectIndex.Aspect.CLOCK_BLOCK).status,override)) {
             endClockSyncWithoutWrite("Writing this monitor's clock is no longer allowed. Its clock was not changed."); return;
         }
+        // The encrypted transport is re-read too: a switch turned off before confirmation ends without a write.
+        if(profile==ProtocolProfile.X7_SECURE_WLP && !encryptedClockSyncReady()) {
+            endClockSyncWithoutWrite("Clock sync over the encrypted connection is no longer allowed. Its clock was not changed."); return;
+        }
         VendorClockWrite plan;
-        try { plan=new VendorClockWrite(identity,clockSyncImage,chosen!=null?chosen:clockNow(),override,clockSyncChannels()); }
+        try { plan=new VendorClockWrite(identity,clockSyncImage,chosen!=null?chosen:clockNow(),override,clockSyncChannels(),clockEncrypted()); }
         catch(VendorClockWrite.TargetOutOfRange outside) {
             // A chosen time can be corrected in the open confirmation; the phone's own date cannot.
             if(chosen==null) { endClockSyncOutOfRange(outside); return; }
@@ -1577,6 +1595,8 @@ public final class MonitorService extends Service {
         endClockSyncWithoutWrite("Cancelled before writing. The monitor's clock was not changed.");
     }
     public File clockSyncBackupFile() { return clockSyncBackup; }
+    /** The clock frame rides the established encrypted X7 session (experimental) rather than plain WLP. */
+    private boolean clockEncrypted() { return profile==ProtocolProfile.X7_SECURE_WLP; }
     private int clockSyncChannels() { return profile==ProtocolProfile.VENDOR_MEMORY?vendorTx.size():1; }
     private boolean clockWriteOpen() {
         VendorClockWrite plan=clockWrite;
@@ -1616,7 +1636,7 @@ public final class MonitorService extends Service {
         clockSyncOverride=override;
         clockSyncChosenTimeAllowed=chosenClockTimeAllowed();
         try {
-            VendorClockWrite plan=new VendorClockWrite(identity,image,clockNow(),override,clockSyncChannels());
+            VendorClockWrite plan=new VendorClockWrite(identity,image,clockNow(),override,clockSyncChannels(),clockEncrypted());
             clockWrite=plan; clockSyncImage=image.clone();
             clockSyncMonitorClock=plan.monitorClock(); clockSyncPhoneClock=plan.target(); clockSyncDriftSeconds=plan.driftSeconds();
             clockSyncPending=true;

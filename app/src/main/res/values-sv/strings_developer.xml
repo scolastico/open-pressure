@@ -32,4 +32,5 @@
     <string name="dev_experimental_force_x7_encrypted">Använd den krypterade anslutningen vid parkoppling av en X7</string>
     <string name="dev_experimental_confirm_title">Aktivera en otestad väg?</string>
     <string name="dev_experimental_confirm_message">Den här vägen finns i appen men har aldrig testats på en riktig mätare, och den kan helt enkelt misslyckas. Att parkoppla på det här sättet kan ersätta mätarens befintliga parkoppling med den här telefonen. En misslyckad skrivning kan permanent förstöra mätarens inställningar eller göra den oanvändbar.\n\nDen här brytaren skickar ingenting av sig själv. Enhetsrapporten anger vilka utvecklarbrytare som var aktiva.\n\nDu ansvarar för eventuella skador på din mätare.</string>
+    <string name="dev_experimental_clock_sync_encrypted_x7">Tillåt klocksynkning över en krypterad X7-anslutning</string>
 </resources>

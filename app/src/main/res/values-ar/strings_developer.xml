@@ -36,4 +36,5 @@
     <string name="dev_experimental_force_x7_encrypted">استخدام الاتصال المشفّر عند إقران جهاز X7</string>
     <string name="dev_experimental_confirm_title">هل تريد تشغيل مسار غير مختبر؟</string>
     <string name="dev_experimental_confirm_message">هذا المسار موجود في التطبيق لكنه لم يُختبر قط على جهاز حقيقي، وقد يفشل ببساطة. قد يؤدي الإقران بهذه الطريقة إلى استبدال الإقران الحالي للجهاز بهذا الهاتف. قد تؤدي عملية كتابة فاشلة إلى إتلاف إعدادات الجهاز بشكل دائم أو جعله غير صالح للاستخدام.\n\nلا يرسل هذا المفتاح أي شيء بمفرده. يسرد تقرير الجهاز مفاتيح المطوّرين التي كانت مفعّلة.\n\nأنت مسؤول عن أي ضرر يلحق بجهازك.</string>
+    <string name="dev_experimental_clock_sync_encrypted_x7">السماح بمزامنة الساعة عبر اتصال X7 مشفّر</string>
 </resources>

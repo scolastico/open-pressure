@@ -136,6 +136,21 @@ public class MainClockSyncTest {
             assertNull(button(root(a),a.getString(R.string.main_set_monitor_time)));
         }
     }
+    @Test public void encryptedX7ShowsSyncClockOnlyWhenOffered() {
+        connected(ProtocolProfile.X7_SECURE_WLP);
+        try(ActivityController<MainActivity> controller=Robolectric.buildActivity(MainActivity.class)) {
+            Activity a=open(controller);
+            assertNull("Without the experimental switch the service offers no clock control",button(root(a),a.getString(R.string.main_sync_clock)));
+        }
+        doReturn(true).when(monitor).clockSyncOffered(); doReturn(true).when(monitor).canClockSync();
+        try(ActivityController<MainActivity> controller=Robolectric.buildActivity(MainActivity.class)) {
+            Activity a=open(controller);
+            Button sync=button(root(a),a.getString(R.string.main_sync_clock));
+            assertNotNull(sync); assertTrue(sync.isEnabled());
+            sync.performClick(); idle();
+            verify(monitor).beginClockSync();
+        }
+    }
     @Test public void notOfferedShowsNoClockControl() {
         for(ProtocolProfile profile:new ProtocolProfile[]{ProtocolProfile.VENDOR_MEMORY,ProtocolProfile.X7_WLP,ProtocolProfile.X7_SECURE_WLP}) {
             connected(profile);

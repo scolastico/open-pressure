@@ -33,4 +33,5 @@
     <string name="dev_experimental_force_x7_encrypted">Folosește conexiunea criptată la asocierea unui X7</string>
     <string name="dev_experimental_confirm_title">Activezi o cale netestată?</string>
     <string name="dev_experimental_confirm_message">Această cale există în aplicație, dar nu a fost testată niciodată pe un tensiometru real și este posibil pur și simplu să eșueze. Asocierea în acest mod poate înlocui asocierea existentă a tensiometrului cu acest telefon. O scriere eșuată poate deteriora definitiv setările tensiometrului sau îl poate face inutilizabil.\n\nAcest comutator nu trimite nimic de la sine. Raportul dispozitivului arată ce comutatoare pentru dezvoltatori erau active.\n\nEști responsabil pentru orice daună adusă tensiometrului.</string>
+    <string name="dev_experimental_clock_sync_encrypted_x7">Permite sincronizarea ceasului printr-o conexiune X7 criptată</string>
 </resources>

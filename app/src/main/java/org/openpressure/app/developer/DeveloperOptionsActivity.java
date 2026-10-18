@@ -60,6 +60,7 @@ public final class DeveloperOptionsActivity extends Activity {
         add(page,text(getString(R.string.dev_experimental_title),20,INK,true),28);
         add(page,text(getString(R.string.dev_experimental_explanation),15,MUTED,false),8);
         add(page,experimental(DeveloperOptions.Experiment.FORCE_X7_ENCRYPTED,R.string.dev_experimental_force_x7_encrypted),8);
+        add(page,experimental(DeveloperOptions.Experiment.CLOCK_SYNC_ENCRYPTED_X7,R.string.dev_experimental_clock_sync_encrypted_x7),8);
         indexSection=new LinearLayout(this); indexSection.setOrientation(LinearLayout.VERTICAL);
         add(page,indexSection,0);
         add(page,button(getString(R.string.dev_hide),this::confirmHide,false),24);

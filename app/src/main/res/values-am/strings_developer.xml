@@ -32,4 +32,5 @@
     <string name="dev_experimental_force_x7_encrypted">X7 ሲያጣምሩ የተመሰጠረውን ግንኙነት ተጠቀም</string>
     <string name="dev_experimental_confirm_title">ያልተፈተነ መንገድ ይብራ?</string>
     <string name="dev_experimental_confirm_message">ይህ መንገድ በመተግበሪያው ውስጥ አለ ነገር ግን በእውነተኛ መለኪያ ላይ ፈጽሞ አልተፈተነም፣ እና በቀላሉ ሊከሽፍ ይችላል። በዚህ መንገድ ማጣመር የመለኪያውን ነባር ጥምረት በዚህ ስልክ ሊተካው ይችላል። ያልተሳካ ጽሑፍ የመለኪያውን ቅንብሮች በቋሚነት ሊያበላሽ ወይም ጥቅም የሌለው ሊያደርገው ይችላል።\n\nይህ ማብሪያ በራሱ ምንም አይልክም። የመሣሪያ ሪፖርቱ የትኞቹ የገንቢ ማብሪያዎች በርተው እንደነበሩ ይዘረዝራል።\n\nበመለኪያዎ ላይ ለሚደርስ ማንኛውም ጉዳት እርስዎ ኃላፊነት አለብዎት።</string>
+    <string name="dev_experimental_clock_sync_encrypted_x7">በተመሰጠረ የX7 ግንኙነት የሰዓት ማመሳሰልን ፍቀድ</string>
 </resources>

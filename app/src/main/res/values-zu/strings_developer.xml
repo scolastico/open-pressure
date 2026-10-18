@@ -32,4 +32,5 @@
     <string name="dev_experimental_force_x7_encrypted">Sebenzisa ukuxhumana okubethelwe uma ubhangqa i-X7</string>
     <string name="dev_experimental_confirm_title">Vula indlela engakahlolwa?</string>
     <string name="dev_experimental_confirm_message">Le ndlela ikhona ku-app kodwa ayikaze ihlolwe esilinganisini sangempela, futhi ingavele ihluleke. Ukubhangqa ngale ndlela kungase kuthathele leli foni indawo yokubhangqa okukhona kwesilinganisi. Ukubhala okwehlulekile kungonakalisa unomphela izilungiselelo zesilinganisi noma kusenze singasebenziseki.\n\nLesi sishintshi asithumeli lutho ngokwaso. Umbiko wedivayisi ubala ukuthi yiziphi izishintshi zonjiniyela ebezivuliwe.\n\nUnesibopho sanoma yimuphi umonakalo esilinganisini sakho.</string>
+    <string name="dev_experimental_clock_sync_encrypted_x7">Vumela ukuvumelanisa iwashi ngokuxhumana kwe-X7 okubethelwe</string>
 </resources>

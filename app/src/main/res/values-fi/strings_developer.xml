@@ -32,4 +32,5 @@
     <string name="dev_experimental_force_x7_encrypted">Käytä salattua yhteyttä X7:n laiteparia muodostettaessa</string>
     <string name="dev_experimental_confirm_title">Otetaanko testaamaton reitti käyttöön?</string>
     <string name="dev_experimental_confirm_message">Tämä reitti on sovelluksessa, mutta sitä ei ole koskaan testattu oikealla mittarilla, ja se voi yksinkertaisesti epäonnistua. Tällä tavalla muodostettu laitepari voi korvata mittarin nykyisen laiteparin tällä puhelimella. Epäonnistunut kirjoitus voi vioittaa mittarin asetukset pysyvästi tai tehdä mittarista käyttökelvottoman.\n\nTämä kytkin ei itse lähetä mitään. Laiteraportissa näkyy, mitkä kehittäjäkytkimet olivat käytössä.\n\nOlet itse vastuussa mittarillesi aiheutuvista vahingoista.</string>
+    <string name="dev_experimental_clock_sync_encrypted_x7">Salli kellon synkronointi salatun X7-yhteyden kautta</string>
 </resources>

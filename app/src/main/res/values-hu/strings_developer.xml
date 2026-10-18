@@ -32,4 +32,5 @@
     <string name="dev_experimental_force_x7_encrypted">Titkosított kapcsolat használata X7 párosításakor</string>
     <string name="dev_experimental_confirm_title">Bekapcsol egy nem tesztelt útvonalat?</string>
     <string name="dev_experimental_confirm_message">Ez az útvonal megvan az alkalmazásban, de valódi mérőn soha nem tesztelték, és egyszerűen sikertelen lehet. Az így végzett párosítás lecserélheti a mérő meglévő párosítását erre a telefonra. Egy sikertelen írás véglegesen károsíthatja a mérő beállításait, vagy használhatatlanná teheti a mérőt.\n\nEz a kapcsoló magától nem küld semmit. Az eszközjelentés felsorolja, mely fejlesztői kapcsolók voltak bekapcsolva.\n\nA mérőt ért bármilyen kárért Ön felel.</string>
+    <string name="dev_experimental_clock_sync_encrypted_x7">Óraszinkronizálás engedélyezése titkosított X7-kapcsolaton keresztül</string>
 </resources>

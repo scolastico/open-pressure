@@ -31,4 +31,5 @@
     <string name="dev_experimental_force_x7_encrypted">配對 X7 時使用加密連線</string>
     <string name="dev_experimental_confirm_title">啟用未經測試的路徑？</string>
     <string name="dev_experimental_confirm_message">此路徑已存在於應用程式中，但從未在真實血壓計上測試過，可能會直接失敗。以這種方式配對可能會用這支手機取代血壓計現有的配對。寫入失敗可能會永久損壞血壓計的設定，或使其無法使用。\n\n此開關本身不會傳送任何內容。裝置報告會列出哪些開發人員開關處於啟用狀態。\n\n你需要對血壓計的任何損壞負責。</string>
+    <string name="dev_experimental_clock_sync_encrypted_x7">允許透過加密的 X7 連線同步時鐘</string>
 </resources>

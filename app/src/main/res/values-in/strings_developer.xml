@@ -31,4 +31,5 @@
     <string name="dev_experimental_force_x7_encrypted">Gunakan koneksi terenkripsi saat menyandingkan X7</string>
     <string name="dev_experimental_confirm_title">Aktifkan jalur yang belum diuji?</string>
     <string name="dev_experimental_confirm_message">Jalur ini ada di aplikasi tetapi belum pernah diuji pada tensimeter sungguhan, dan bisa saja gagal. Menyandingkan dengan cara ini dapat mengganti penyandingan tensimeter yang ada dengan ponsel ini. Penulisan yang gagal dapat merusak pengaturan tensimeter secara permanen atau membuatnya tidak dapat digunakan lagi.\n\nSakelar ini tidak mengirim apa pun dengan sendirinya. Laporan perangkat mencantumkan sakelar developer mana yang aktif.\n\nAnda bertanggung jawab atas kerusakan apa pun pada tensimeter Anda.</string>
+    <string name="dev_experimental_clock_sync_encrypted_x7">Izinkan sinkronisasi jam melalui koneksi X7 terenkripsi</string>
 </resources>

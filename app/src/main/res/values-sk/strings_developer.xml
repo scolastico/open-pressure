@@ -34,4 +34,5 @@
     <string name="dev_experimental_force_x7_encrypted">Pri párovaní X7 použiť šifrované pripojenie</string>
     <string name="dev_experimental_confirm_title">Zapnúť neotestovanú cestu?</string>
     <string name="dev_experimental_confirm_message">Táto cesta v aplikácii existuje, ale nikdy nebola otestovaná na skutočnom tlakomeri a môže jednoducho zlyhať. Spárovanie týmto spôsobom môže nahradiť existujúce spárovanie tlakomera týmto telefónom. Neúspešný zápis môže natrvalo poškodiť nastavenia tlakomera alebo ho urobiť nepoužiteľným.\n\nTento prepínač sám nič neodosiela. Správa o zariadení uvádza, ktoré vývojárske prepínače boli zapnuté.\n\nZa akúkoľvek škodu na tlakomeri zodpovedáte vy.</string>
+    <string name="dev_experimental_clock_sync_encrypted_x7">Povoliť synchronizáciu hodín cez šifrované pripojenie X7</string>
 </resources>

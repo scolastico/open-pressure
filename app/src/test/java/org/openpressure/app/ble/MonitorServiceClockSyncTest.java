@@ -452,7 +452,7 @@ public class MonitorServiceClockSyncTest {
         assertTrue(monitor.canClockSync());
         monitor.profile=ProtocolProfile.X7_SECURE_WLP;
         assertFalse(monitor.canClockSync());
-        assertTrue("offered but unavailable on the encrypted path",monitor.clockSyncOffered());
+        assertFalse("not offered on the encrypted path without the experimental switch",monitor.clockSyncOffered());
         int sent=writes.size(); monitor.beginClockSync(); idle();
         assertEquals(sent,writes.size()); assertFalse(monitor.clockSyncRunning);
     }

@@ -32,4 +32,5 @@
     <string name="dev_experimental_force_x7_encrypted">Yi amfani da haɗin da aka ɓoye lokacin haɗa X7</string>
     <string name="dev_experimental_confirm_title">A kunna hanyar da ba a gwada ba?</string>
     <string name="dev_experimental_confirm_message">Wannan hanya tana cikin manhajar amma ba a taɓa gwada ta a kan na’ura ta gaske ba, kuma tana iya kawai kasawa. Haɗawa ta wannan hanya na iya maye gurbin haɗin da na’urar take da shi da wannan wayar. Rubutun da ya kasa na iya lalata saitunan na’urar har abada ko sa ta zama marar amfani.\n\nWannan maɓalli ba ya aika komai da kansa. Rahoton na’ura yana lissafa maɓallan masu haɓakawa da ke kunne.\n\nKai ne ke da alhakin duk wata lalacewa ga na’urarka.</string>
+    <string name="dev_experimental_clock_sync_encrypted_x7">Ba da damar daidaita agogo ta hanyar haɗin X7 da aka ɓoye</string>
 </resources>

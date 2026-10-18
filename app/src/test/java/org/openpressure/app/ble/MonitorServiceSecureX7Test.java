@@ -92,6 +92,64 @@ public class MonitorServiceSecureX7Test {
         assertTrue("no switch was in effect",peer.report.toJson().replace(" ","").replace("\n","").contains("\"developer\":[]"));
     }
 
+    @Test public void clockSyncOverTheEncryptedSessionValidatesPlaintextThenEncrypts() throws Exception {
+        connectEncrypted();
+        assertFalse("no clock control without the switch",monitor.clockSyncOffered());
+        assertFalse(monitor.canClockSync());
+        int sent=peer.writes.size(); monitor.beginClockSync(); X7TestPeer.idle();
+        assertEquals(sent,peer.writes.size()); assertFalse(monitor.clockSyncRunning);
+        DeveloperOptions.setAllowExperimental(monitor,Experiment.CLOCK_SYNC_ENCRYPTED_X7,true);
+        assertTrue(monitor.clockSyncOffered()); assertTrue(monitor.canClockSync());
+        monitor.beginClockSync(); peer.pump();
+        assertTrue(monitor.clockSyncPending);
+        assertEquals("nothing is written before confirmation",0,peer.addressedWrites().size());
+        byte[] image=Arrays.copyOfRange(peer.memory,0x10,0x54);
+        byte[] frame=new org.openpressure.protocol.VendorClockWrite("HEM-7380T1-EOSL",image,X7TestPeer.NOW,false,1,true).frame();
+        monitor.confirmClockSync(null); peer.pump();
+        assertEquals(1,peer.addressedWrites().size());
+        assertArrayEquals("the cuff decrypts exactly the planned plaintext frame",frame,peer.addressedWrites().get(0));
+        // On the air the frame is an authenticated encrypted packet, never the plaintext.
+        assertTrue(peer.writes.stream().noneMatch(w -> Arrays.equals(w.bytes,frame)));
+        assertTrue(peer.writes.stream().filter(w -> w.characteristic==peer.tx).allMatch(w -> (w.bytes[0]&255)==0xc0));
+        assertEquals("Clock sync complete",monitor.status);
+        assertEquals(org.openpressure.protocol.DeviceReport.WriteOutcome.ACKNOWLEDGED,monitor.clockSyncOutcome);
+        assertEquals("END follows the acknowledgment","080f000000000007",peer.wlpTranscript().get(peer.wlpTranscript().size()-1));
+        String json=peer.report.toJson().replace(" ","").replace("\n","");
+        assertTrue(json,json.contains("\"developer\":[\"clock_sync_encrypted_x7\"]"));
+        assertTrue(json.contains("\"aspect\":\"clock_block\",\"outcome\":\"acknowledged\",\"override\":false"));
+    }
+    @Test public void encryptedClockSyncSwitchTurnedOffBeforeConfirmationWritesNothing() throws Exception {
+        connectEncrypted();
+        DeveloperOptions.setAllowExperimental(monitor,Experiment.CLOCK_SYNC_ENCRYPTED_X7,true);
+        monitor.beginClockSync(); peer.pump();
+        assertTrue(monitor.clockSyncPending);
+        DeveloperOptions.setAllowExperimental(monitor,Experiment.CLOCK_SYNC_ENCRYPTED_X7,false);
+        monitor.confirmClockSync(null); peer.pump();
+        assertEquals(0,peer.addressedWrites().size());
+        assertEquals(org.openpressure.protocol.DeviceReport.WriteOutcome.NOT_ATTEMPTED,monitor.clockSyncOutcome);
+        assertTrue(monitor.sessionFinished);
+    }
+    @Test public void encryptedClockSyncNeedsAnAuthorizedSession() throws Exception {
+        connectEncrypted();
+        DeveloperOptions.setAllowExperimental(monitor,Experiment.CLOCK_SYNC_ENCRYPTED_X7,true);
+        assertTrue(monitor.canClockSync());
+        peer.set("x7Authentication",new org.openpressure.protocol.X7Authentication());
+        assertFalse("authorization must be complete",monitor.canClockSync());
+        peer.set("negotiatedMtu",26);
+        assertFalse(monitor.canClockSync());
+    }
+
+    /** Connect with a saved application key: the encrypted route, without any experimental switch. */
+    private void connectEncrypted() throws Exception {
+        DeveloperOptions.setUnlocked(monitor,true);
+        byte[] key=new byte[16]; for(int i=0;i<16;i++) key[i]=(byte)(0x30+i);
+        new PairingKeys(monitor).put(X7TestPeer.ADDRESS,key);
+        peer.ltk=key.clone();
+        peer.connect("HEM-7380T1-EOSL",X7TestPeer.plainAdvertisement());
+        assertEquals(ProtocolProfile.X7_SECURE_WLP,monitor.profile);
+        assertEquals("X7 authenticated for reads",monitor.status);
+        assertEquals(Arrays.asList("7005","7006","2001"),peer.systemOpcodes().subList(1,4));
+    }
     private void force() {
         DeveloperOptions.setUnlocked(monitor,true);
         DeveloperOptions.setAllowExperimental(monitor,Experiment.FORCE_X7_ENCRYPTED,true);

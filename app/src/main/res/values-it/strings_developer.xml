@@ -33,4 +33,5 @@
     <string name="dev_experimental_force_x7_encrypted">Usa la connessione crittografata quando associ un X7</string>
     <string name="dev_experimental_confirm_title">Attivare un percorso non testato?</string>
     <string name="dev_experimental_confirm_message">Questo percorso esiste nell\'app ma non è mai stato testato su un misuratore reale e potrebbe semplicemente non funzionare. Associare in questo modo può sostituire l\'associazione esistente del misuratore con questo telefono. Una scrittura non riuscita può danneggiare in modo permanente le impostazioni del misuratore o renderlo inutilizzabile.\n\nQuesto interruttore non invia nulla da solo. Il report del dispositivo elenca quali interruttori sviluppatore erano attivi.\n\nSei responsabile di qualsiasi danno al tuo misuratore.</string>
+    <string name="dev_experimental_clock_sync_encrypted_x7">Consenti la sincronizzazione dell\'orologio tramite una connessione X7 crittografata</string>
 </resources>

@@ -23,7 +23,7 @@ public final class DeveloperOptions {
      * Unstable, hardware-untested paths that already exist in code. A switch only selects such a path for an explicit,
      * user-started session; it never authorizes a command the outgoing-write policy does not allow.
      */
-    public enum Experiment { FORCE_X7_ENCRYPTED }
+    public enum Experiment { FORCE_X7_ENCRYPTED, CLOCK_SYNC_ENCRYPTED_X7 }
     private DeveloperOptions() {}
 
     public static boolean isUnlocked(Context context) { return preferences(context).getBoolean(UNLOCKED_KEY,false); }

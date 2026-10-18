@@ -31,4 +31,5 @@
     <string name="dev_experimental_force_x7_encrypted">配对 X7 时使用加密连接</string>
     <string name="dev_experimental_confirm_title">启用未经测试的路径？</string>
     <string name="dev_experimental_confirm_message">此路径已存在于应用中，但从未在真实血压计上测试过，可能会直接失败。以这种方式配对可能会用这部手机替换血压计现有的配对。写入失败可能会永久损坏血压计的设置，或使其无法使用。\n\n此开关本身不会发送任何内容。设备报告会列出哪些开发者开关处于启用状态。\n\n你需要对血压计的任何损坏负责。</string>
+    <string name="dev_experimental_clock_sync_encrypted_x7">允许通过加密的 X7 连接同步时钟</string>
 </resources>

@@ -32,4 +32,5 @@
     <string name="dev_experimental_force_x7_encrypted">Bruk den krypterte tilkoblingen når du kobler sammen en X7</string>
     <string name="dev_experimental_confirm_title">Slå på en utestet vei?</string>
     <string name="dev_experimental_confirm_message">Denne veien finnes i appen, men er aldri testet på en ekte måler, og den kan rett og slett mislykkes. Å koble sammen på denne måten kan erstatte målerens eksisterende sammenkobling med denne telefonen. En mislykket skriving kan permanent ødelegge målerens innstillinger eller gjøre den ubrukelig.\n\nDenne bryteren sender ingenting av seg selv. Enhetsrapporten viser hvilke utviklerbrytere som var i bruk.\n\nDu er ansvarlig for eventuell skade på måleren din.</string>
+    <string name="dev_experimental_clock_sync_encrypted_x7">Tillat klokkesynkronisering over en kryptert X7-tilkobling</string>
 </resources>

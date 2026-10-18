@@ -31,4 +31,5 @@
     <string name="dev_experimental_force_x7_encrypted">Gunakan sambungan tersulit semasa memasangkan X7</string>
     <string name="dev_experimental_confirm_title">Hidupkan laluan yang belum diuji?</string>
     <string name="dev_experimental_confirm_message">Laluan ini wujud dalam apl tetapi tidak pernah diuji pada monitor sebenar, dan ia mungkin gagal begitu sahaja. Memasangkan dengan cara ini boleh menggantikan pasangan sedia ada monitor dengan telefon ini. Penulisan yang gagal boleh merosakkan tetapan monitor secara kekal atau menjadikannya tidak boleh digunakan lagi.\n\nSuis ini tidak menghantar apa-apa dengan sendirinya. Laporan peranti menyenaraikan suis pembangun yang aktif.\n\nAnda bertanggungjawab atas sebarang kerosakan pada monitor anda.</string>
+    <string name="dev_experimental_clock_sync_encrypted_x7">Benarkan penyegerakan jam melalui sambungan X7 tersulit</string>
 </resources>

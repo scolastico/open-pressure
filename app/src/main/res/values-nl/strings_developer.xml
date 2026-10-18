@@ -32,4 +32,5 @@
     <string name="dev_experimental_force_x7_encrypted">De versleutelde verbinding gebruiken bij het koppelen van een X7</string>
     <string name="dev_experimental_confirm_title">Een niet-getest pad inschakelen?</string>
     <string name="dev_experimental_confirm_message">Dit pad bestaat in de app maar is nooit op een echte meter getest en kan gewoon mislukken. Op deze manier koppelen kan de bestaande koppeling van de meter vervangen door deze telefoon. Een mislukte schrijfactie kan de instellingen van de meter blijvend beschadigen of de meter onbruikbaar maken.\n\nDeze schakelaar verstuurt zelf niets. Het apparaatrapport vermeldt welke ontwikkelaarsschakelaars actief waren.\n\nJe bent zelf verantwoordelijk voor eventuele schade aan je meter.</string>
+    <string name="dev_experimental_clock_sync_encrypted_x7">Kloksynchronisatie toestaan via een versleutelde X7-verbinding</string>
 </resources>

@@ -32,4 +32,5 @@
     <string name="dev_experimental_force_x7_encrypted">X7 eşleştirirken şifreli bağlantıyı kullan</string>
     <string name="dev_experimental_confirm_title">Test edilmemiş bir yol açılsın mı?</string>
     <string name="dev_experimental_confirm_message">Bu yol uygulamada bulunuyor ancak gerçek bir alette hiç test edilmedi ve düpedüz başarısız olabilir. Bu şekilde eşleştirmek, aletin mevcut eşleştirmesinin yerine bu telefonu koyabilir. Başarısız bir yazma, aletin ayarlarını kalıcı olarak bozabilir veya aleti kullanılamaz hâle getirebilir.\n\nBu anahtar kendi başına hiçbir şey göndermez. Cihaz raporu, hangi geliştirici anahtarlarının etkin olduğunu listeler.\n\nAletinize gelebilecek her türlü hasardan siz sorumlusunuz.</string>
+    <string name="dev_experimental_clock_sync_encrypted_x7">Şifreli X7 bağlantısı üzerinden saat eşitlemeye izin ver</string>
 </resources>

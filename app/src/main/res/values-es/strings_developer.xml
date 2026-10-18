@@ -33,4 +33,5 @@
     <string name="dev_experimental_force_x7_encrypted">Usar la conexión cifrada al vincular un X7</string>
     <string name="dev_experimental_confirm_title">¿Activar una ruta no probada?</string>
     <string name="dev_experimental_confirm_message">Esta ruta existe en la app pero nunca se ha probado con un tensiómetro real, y puede que simplemente falle. Vincular de esta forma puede sustituir la vinculación existente del tensiómetro por este teléfono. Una escritura fallida puede dañar de forma permanente los ajustes del tensiómetro o dejarlo inservible.\n\nEste interruptor no envía nada por sí solo. El informe del dispositivo indica qué interruptores de desarrollador estaban activos.\n\nEres responsable de cualquier daño a tu tensiómetro.</string>
+    <string name="dev_experimental_clock_sync_encrypted_x7">Permitir sincronizar el reloj mediante una conexión cifrada con un X7</string>
 </resources>

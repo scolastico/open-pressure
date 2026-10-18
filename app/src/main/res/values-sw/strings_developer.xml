@@ -32,4 +32,5 @@
     <string name="dev_experimental_force_x7_encrypted">Tumia muunganisho uliosimbwa kwa njia fiche unapooanisha X7</string>
     <string name="dev_experimental_confirm_title">Washa njia ambayo haijajaribiwa?</string>
     <string name="dev_experimental_confirm_message">Njia hii ipo kwenye programu lakini haijawahi kujaribiwa kwenye kipimo halisi, na huenda ikashindwa tu. Kuoanisha kwa njia hii kunaweza kubadilisha uoanishaji uliopo wa kipimo kwa simu hii. Uandishi ulioshindwa unaweza kuharibu kabisa mipangilio ya kipimo au kukifanya kisitumike.\n\nSwichi hii haitumi chochote yenyewe. Ripoti ya kifaa huorodhesha swichi za wasanidi zilizokuwa zimewashwa.\n\nUnawajibika kwa uharibifu wowote wa kipimo chako.</string>
+    <string name="dev_experimental_clock_sync_encrypted_x7">Ruhusu kusawazisha saa kupitia muunganisho wa X7 uliosimbwa kwa njia fiche</string>
 </resources>

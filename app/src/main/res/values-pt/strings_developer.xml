@@ -33,4 +33,5 @@
     <string name="dev_experimental_force_x7_encrypted">Usar a ligação encriptada ao emparelhar um X7</string>
     <string name="dev_experimental_confirm_title">Ativar um caminho não testado?</string>
     <string name="dev_experimental_confirm_message">Este caminho existe na app, mas nunca foi testado num medidor real e pode simplesmente falhar. Emparelhar desta forma pode substituir o emparelhamento existente do medidor por este telemóvel. Uma escrita falhada pode danificar permanentemente as definições do medidor ou torná-lo inutilizável.\n\nEste interruptor não envia nada por si só. O relatório do dispositivo indica quais interruptores de programador estavam ativos.\n\nÉ responsável por qualquer dano no seu medidor.</string>
+    <string name="dev_experimental_clock_sync_encrypted_x7">Permitir sincronizar o relógio através de uma ligação X7 encriptada</string>
 </resources>

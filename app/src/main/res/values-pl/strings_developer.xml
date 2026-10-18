@@ -34,4 +34,5 @@
     <string name="dev_experimental_force_x7_encrypted">Używaj połączenia szyfrowanego podczas parowania X7</string>
     <string name="dev_experimental_confirm_title">Włączyć nieprzetestowaną ścieżkę?</string>
     <string name="dev_experimental_confirm_message">Ta ścieżka istnieje w aplikacji, ale nigdy nie była testowana z prawdziwym ciśnieniomierzem i może po prostu nie zadziałać. Parowanie w ten sposób może zastąpić istniejące sparowanie ciśnieniomierza tym telefonem. Nieudany zapis może trwale uszkodzić ustawienia ciśnieniomierza lub uczynić go bezużytecznym.\n\nTen przełącznik sam niczego nie wysyła. Raport urządzenia zawiera listę przełączników programisty, które były włączone.\n\nPonosisz odpowiedzialność za wszelkie uszkodzenia ciśnieniomierza.</string>
+    <string name="dev_experimental_clock_sync_encrypted_x7">Zezwalaj na synchronizację zegara przez szyfrowane połączenie z X7</string>
 </resources>

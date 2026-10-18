@@ -202,6 +202,26 @@ public final class VendorWritePolicyTest {
         VendorClockWrite legacy=authorized("HEM-7155T",true,4);
         rejects(() -> DeviceWritePolicy.validateX7ClockBlock(ProtocolProfile.X7_WLP,alias,wlpTx,legacy.chunks().get(0),legacy));
         check(legacy.state()==VendorClockWrite.State.AUTHORIZED,"legacy plan untouched by the X7 validator");
+        // Transport matrix: a plain plan only on plain WLP, an encrypted-transport plan only on the encrypted session.
+        VendorClockWrite encrypted=new VendorClockWrite("HEM-7380T1-EOSL",new byte[68],TARGET,false,1,true);
+        encrypted.authorize();
+        check(encrypted.encryptedTransport() && !confirmed.encryptedTransport(),"transport carried by the plan");
+        rejects(() -> DeviceWritePolicy.validateX7ClockBlock(ProtocolProfile.X7_WLP,alias,wlpTx,encrypted.frame(),encrypted));
+        rejects(() -> DeviceWritePolicy.validateX7ClockBlock(ProtocolProfile.VENDOR_MEMORY,alias,wlpTx,encrypted.frame(),encrypted));
+        rejects(() -> DeviceWritePolicy.validateX7ClockBlock(ProtocolProfile.X7_SECURE_WLP,alias,handshake,encrypted.frame(),encrypted));
+        check(encrypted.state()==VendorClockWrite.State.AUTHORIZED,"rejected transports consume no permit");
+        DeviceWritePolicy.validateX7ClockBlock(ProtocolProfile.X7_SECURE_WLP,alias,wlpTx,encrypted.frame(),encrypted); checks++;
+        rejects(() -> DeviceWritePolicy.validateX7ClockBlock(ProtocolProfile.X7_SECURE_WLP,alias,wlpTx,encrypted.frame(),encrypted));
+        // The write-aspect gate is unchanged by the transport: the untested EBK still needs the override.
+        VendorClockWrite ebk=new VendorClockWrite("HEM-7380T1-EBK",new byte[68],TARGET,false,1,true);
+        ebk.authorize();
+        rejects(() -> DeviceWritePolicy.validateX7ClockBlock(ProtocolProfile.X7_SECURE_WLP,alias,wlpTx,ebk.frame(),ebk));
+        VendorClockWrite forced=new VendorClockWrite("HEM-7380T1-EBK",new byte[68],TARGET,true,1,true);
+        forced.authorize();
+        DeviceWritePolicy.validateX7ClockBlock(ProtocolProfile.X7_SECURE_WLP,alias,wlpTx,forced.frame(),forced); checks++;
+        // Legacy maps never use the encrypted transport, and the generic encrypted read path never passes the frame.
+        rejects(() -> new VendorClockWrite("HEM-7155T",new byte[68],TARGET,true,4,true));
+        rejects(() -> DeviceWritePolicy.validateCharacteristic(ProtocolProfile.X7_SECURE_WLP,alias,wlpTx,forced.frame()));
     }
     private static void describeClockFrames() {
         check(WlpDescribe.describe(hex("1801c0008010a0b1c2d302e5f6071a0a100e1e2e589900a0")).startsWith("write addr=0x000080 len=16"),"clock frame described as write");

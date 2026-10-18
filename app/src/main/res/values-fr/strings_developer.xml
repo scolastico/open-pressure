@@ -33,4 +33,5 @@
     <string name="dev_experimental_force_x7_encrypted">Utiliser la connexion chiffrée lors de l\'association d\'un X7</string>
     <string name="dev_experimental_confirm_title">Activer un chemin non testé ?</string>
     <string name="dev_experimental_confirm_message">Ce chemin existe dans l\'application mais n\'a jamais été testé sur un vrai tensiomètre, et il peut tout simplement échouer. Associer de cette manière peut remplacer l\'association existante du tensiomètre par ce téléphone. Une écriture ratée peut endommager définitivement les réglages du tensiomètre ou le rendre inutilisable.\n\nCet interrupteur n\'envoie rien par lui-même. Le rapport d\'appareil indique quels interrupteurs de développement étaient actifs.\n\nVous êtes responsable de tout dommage causé à votre tensiomètre.</string>
+    <string name="dev_experimental_clock_sync_encrypted_x7">Autoriser la synchronisation de l\'horloge via une connexion X7 chiffrée</string>
 </resources>

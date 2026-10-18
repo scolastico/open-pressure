@@ -19,6 +19,7 @@
     <string name="dev_experimental_title">Experimental paths</string>
     <string name="dev_experimental_explanation">These switches turn on connection paths that exist in the app but have never been tested on a real monitor. They may simply fail.</string>
     <string name="dev_experimental_force_x7_encrypted">Use the encrypted connection when pairing an X7</string>
+    <string name="dev_experimental_clock_sync_encrypted_x7">Allow clock sync over an encrypted X7 connection</string>
     <string name="dev_experimental_confirm_title">Turn on an untested path?</string>
     <string name="dev_experimental_confirm_message">This path exists in the app but has never been tested on a real monitor, and it may simply fail. Pairing this way can replace the monitor\'s existing pairing with this phone. A failed write can permanently corrupt the monitor\'s settings or make it unusable.\n\nThis switch does not send anything by itself. The device report lists which developer switches were in effect.\n\nYou are responsible for any damage to your monitor.</string>
     <string name="dev_index_title">Write support by monitor</string>

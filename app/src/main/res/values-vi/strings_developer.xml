@@ -31,4 +31,5 @@
     <string name="dev_experimental_force_x7_encrypted">Dùng kết nối mã hóa khi ghép đôi X7</string>
     <string name="dev_experimental_confirm_title">Bật một đường kết nối chưa được thử nghiệm?</string>
     <string name="dev_experimental_confirm_message">Đường kết nối này có sẵn trong ứng dụng nhưng chưa từng được thử trên máy đo thật và có thể đơn giản là không hoạt động. Ghép đôi theo cách này có thể thay thế ghép đôi hiện có của máy đo bằng điện thoại này. Một lần ghi thất bại có thể làm hỏng vĩnh viễn cài đặt của máy đo hoặc khiến máy không dùng được nữa.\n\nCông tắc này tự nó không gửi gì cả. Báo cáo thiết bị liệt kê những công tắc nhà phát triển nào đang bật.\n\nBạn chịu trách nhiệm cho mọi hư hỏng của máy đo.</string>
+    <string name="dev_experimental_clock_sync_encrypted_x7">Cho phép đồng bộ đồng hồ qua kết nối X7 được mã hóa</string>
 </resources>

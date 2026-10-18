@@ -31,4 +31,5 @@
     <string name="dev_experimental_force_x7_encrypted">X7 のペア設定時に暗号化接続を使用する</string>
     <string name="dev_experimental_confirm_title">未テストの経路をオンにしますか？</string>
     <string name="dev_experimental_confirm_message">この経路はアプリに存在しますが、実際の血圧計では一度もテストされておらず、単に失敗する可能性があります。この方法でペア設定すると、血圧計の既存のペア設定がこのスマートフォンに置き換わる可能性があります。書き込みに失敗すると、血圧計の設定が恒久的に破損したり、使用できなくなったりするおそれがあります。\n\nこのスイッチ自体は何も送信しません。どの開発者向けスイッチが有効だったかはデバイスレポートに記載されます。\n\n血圧計に生じたいかなる損害も、ご自身の責任となります。</string>
+    <string name="dev_experimental_clock_sync_encrypted_x7">暗号化された X7 接続での時計の同期を許可する</string>
 </resources>

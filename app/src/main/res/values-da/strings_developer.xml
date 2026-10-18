@@ -32,4 +32,5 @@
     <string name="dev_experimental_force_x7_encrypted">Brug den krypterede forbindelse ved parring af en X7</string>
     <string name="dev_experimental_confirm_title">Slå en utestet vej til?</string>
     <string name="dev_experimental_confirm_message">Denne vej findes i appen, men er aldrig testet på en rigtig måler, og den kan simpelthen mislykkes. Parring på denne måde kan erstatte målerens eksisterende parring med denne telefon. En mislykket skrivning kan permanent ødelægge målerens indstillinger eller gøre den ubrugelig.\n\nDenne kontakt sender ikke noget af sig selv. Enhedsrapporten viser, hvilke udviklerkontakter der var slået til.\n\nDu er ansvarlig for enhver skade på din måler.</string>
+    <string name="dev_experimental_clock_sync_encrypted_x7">Tillad ursynkronisering over en krypteret X7-forbindelse</string>
 </resources>
