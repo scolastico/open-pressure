@@ -738,10 +738,13 @@ public final class MonitorService extends Service {
         byte[] command=vendorRead.command();
         // All read/session commands fit TX0. Secret key commands use their separate control characteristic.
         store.packet(address,vendorTx.get(0).getUuid().toString(),command,"Vendor memory TX · read/session control only");
-        if(command[1]==1 && readingUnconfirmedBank()) {
-            // A missing reply from a bank Omron's configuration lacks ends Read all early instead of failing it.
+        if(command[1]==1 && (readingUnconfirmedBank() || readingIndex())) {
+            // A missing reply from a bank Omron's configuration lacks ends Read all early instead of failing it;
+            // a missing index reply continues as a full sweep of the selected banks.
             cancelPhase(); long token=responseGeneration;
-            write(vendorTx.get(0),command,() -> { if(token==responseGeneration) armPhase(15000,() -> skipUnconfirmedBank("no reply")); });
+            write(vendorTx.get(0),command,() -> { if(token==responseGeneration) armPhase(15000,() -> {
+                if(readingIndex()) indexFallback("no reply"); else skipUnconfirmedBank("no reply");
+            }); });
             return;
         }
         responseWrite(vendorTx.get(0),command,15000,"Vendor history response timed out; validated readings already received were retained.");
@@ -756,6 +759,21 @@ public final class MonitorService extends Service {
         VendorMemoryModel.Range range=vendorRead.currentRange();
         vendorRead.abandonRemainingRanges(); vendorPending.clear(); unconfirmedBankSkipped=true;
         store.packet(address,"vendor-history",new byte[0],"Read all skipped unconfirmed bank "+range.user+" ("+reason+"); later ranges dropped before END");
+        decodeVendorRecords();
+        continueVendorHistory();
+    }
+    /** The index-driven import is still waiting for its settings/index image. */
+    private boolean readingIndex() {
+        VendorMemoryModel.Range range=vendorRead==null?null:vendorRead.currentRange();
+        return importMode==ImportMode.INDEX && historyRunning && !vendorIndexRead && range!=null && range.user==0;
+    }
+    /** An index read the monitor refused or never answered: drop it and read every slot of the selected banks. */
+    private void indexFallback(String reason) {
+        cancelPhase();
+        if(!readingIndex()) { fail("Vendor history response timed out; validated readings already received were retained."); return; }
+        List<VendorMemoryModel.Range> ranges=vendorModel.historyRanges(importUsers);
+        vendorRead.abandonRemainingRanges(ranges); vendorPending.clear(); vendorIndexRead=true; importMode=ImportMode.INDEX_FALLBACK;
+        store.packet(address,"vendor-index",new byte[0],"Index not read ("+reason+") · reading every slot of the selected banks");
         decodeVendorRecords();
         continueVendorHistory();
     }
@@ -783,6 +801,7 @@ public final class MonitorService extends Service {
                 if(!vendorRead.accept(channel,bytes)) return;
             } catch(IllegalArgumentException rejected) {
                 if(vendorRead.readStatusError() && readingUnconfirmedBank()) { skipUnconfirmedBank("device status"); return; }
+                if(vendorRead.readStatusError() && readingIndex()) { indexFallback("device status"); return; }
                 throw rejected;
             }
             cancelPhase();

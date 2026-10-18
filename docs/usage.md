@@ -26,7 +26,7 @@ On older legacy models, put the monitor into pairing mode and choose **Pair**. C
 
 Pair immediately imports history on the same connection. Subsequent **Connect** leaves history available through **Import monitor history**. HEM-7377T1/BP5360 uses Android bonding without the legacy key exchange. The BP5360 uses in-record metadata to distinguish users. Reads may include empty or non-record slots; empty slots are skipped, damaged or non-record data is diagnosed and counted as rejected, and valid readings already received remain saved.
 
-Most of these monitors keep a short list of how many readings each user has stored. **Import monitor history** reads that list first and then only the slots it names. If the list looks inconsistent, the app reads every slot of the chosen users instead. HEM-7322T, HEM-7377T1 and HEM-7600T have no usable list, so they always read every slot.
+Most of these monitors keep a short list of how many readings each user has stored. **Import monitor history** reads that list first and then only the slots it names. If the list looks inconsistent or the monitor does not answer the request for it, the app reads every slot of the chosen users instead. HEM-7322T, HEM-7377T1 and HEM-7600T have no usable list, so they always read every slot.
 
 The base HEM-7156T shares the HEM-7155T history layout. Scanning recognizes mixed-case names such as `BLESmart_…`; the app still verifies the actual model after connecting.
 
@@ -44,7 +44,7 @@ After an import the summary explains how slots were chosen:
 | --- | --- |
 | The monitor reported *N* stored readings. | The monitor's list was used; *N* slots were read for the chosen users. Empty slots among them are skipped. |
 | The monitor reported no stored readings. Use Read all if you expect some. | The list was empty, so nothing was read. |
-| The monitor's list of stored readings could not be used, so every memory slot was read. | The list looked inconsistent; every slot of the chosen users was read instead. |
+| The monitor's list of stored readings could not be used, so every memory slot was read. | The list looked inconsistent or could not be read; every slot of the chosen users was read instead. |
 | Every memory slot was read. | Read all, or a model without a usable list. |
 | A second memory area this model may not have was skipped. | HEM-7156T only: Read all found no answer for its second area. It appears together with "Every memory slot was read." |
 

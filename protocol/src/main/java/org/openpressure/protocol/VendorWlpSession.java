@@ -86,13 +86,21 @@ public final class VendorWlpSession {
      * range keeps only the bytes already validated, later ranges are dropped and the next command is END. Nothing
      * can be appended afterwards. Callers decide which ranges may end this way; any other failure stays final.
      */
-    public void abandonRemainingRanges() {
+    public void abandonRemainingRanges() { abandonRemainingRanges(Collections.emptyList()); }
+    /**
+     * As {@link #abandonRemainingRanges()}, but reads {@code continuation} instead of the dropped ranges before END
+     * (an unreadable index continues as a full sweep). Each continuation range must lie inside the model map; nothing
+     * can be appended afterwards.
+     */
+    public void abandonRemainingRanges(List<VendorMemoryModel.Range> continuation) {
         boolean outstanding=!failed && issued && phase==1 && rangeIndex<ranges.size();
         if(!outstanding && !readStatusError()) throw new IllegalArgumentException("Vendor read session has no range to abandon");
+        for(VendorMemoryModel.Range range:continuation) if(range==null || range.length<1 || !mapped(range)) throw new IllegalArgumentException("Vendor read range is outside the model map");
         VendorMemoryModel.Range current=ranges.get(rangeIndex);
         while(ranges.size()>rangeIndex) total-=ranges.remove(ranges.size()-1).length;
         if(rangeReceived>0) { ranges.add(VendorMemoryModel.range(current.start,rangeReceived,current.user)); total+=rangeReceived; }
         rangeIndex=ranges.size(); rangeReceived=0;
+        for(VendorMemoryModel.Range range:continuation) add(range);
         Arrays.fill(channels,null); issued=false; failed=false; statusError=false; abandoned=true;
     }
     /** Byte offset of range {@code index} inside {@link #data()}. */
@@ -109,6 +117,7 @@ public final class VendorWlpSession {
     static void requireModel(VendorMemoryModel model) {
         if(model==null || VendorMemoryModel.identify(model.id)!=model) throw new IllegalArgumentException("Unknown vendor memory model");
     }
+    /** The next request. Once every range is read this is END: it commits the session end and blocks {@link #appendRange}. */
     public byte[] command() {
         if(failed || complete()) throw new IllegalArgumentException("Vendor read session is no longer active");
         issued=true;

@@ -239,6 +239,19 @@ public final class VendorWlpSessionTest {
         byte[] bad=hex("088100009830e300"); // wrong checksum
         u.command(); rejects(() -> u.accept(0,bad));
         check(!u.readStatusError(),"corrupt status reply is not a device status"); rejects(u::abandonRemainingRanges);
+        // A refused index read continues with the given banks instead of END; nothing can be appended afterwards.
+        VendorWlpSession v=new VendorWlpSession(m,List.of(m.settingsRange()),56); v.command(); acceptStart(v,START);
+        byte[] index=v.command(); byte[] refused=new byte[8]; refused[0]=8; refused[1]=(byte)0x81; System.arraycopy(index,2,refused,2,4); refused[6]=(byte)0xe3; fix(refused);
+        rejects(() -> v.accept(0,refused)); check(v.readStatusError() && v.currentRange().user==0,"index status error");
+        rejects(() -> v.abandonRemainingRanges(List.of(VendorMemoryModel.range(0x10000-16,16,1)))); // unmapped continuation is refused
+        check(v.readStatusError(),"a refused continuation leaves the session unchanged");
+        v.abandonRemainingRanges(List.of(banks.get(0)));
+        check(!v.historyComplete() && !v.rangeComplete() && v.currentRange()==banks.get(0) && v.received()==0,"continues with bank 1");
+        same(HexFormat.of().formatHex(Wlp.read(0x98,48)),v.command());
+        while(v.currentRange()!=null) reply(v,v.command());
+        check(v.historyComplete() && v.received()==960,"bank 1 read after the refused index");
+        rejects(() -> v.appendRange(VendorMemoryModel.range(0x98,16,1)));
+        same("080f000000000007",v.command());
     }
     /** START replies arrive as two legacy channel fragments. */
     private static void acceptStart(VendorWlpSession s,byte[] reply) {

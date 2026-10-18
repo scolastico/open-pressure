@@ -379,6 +379,44 @@ public class MonitorServiceImportTest {
         assertEquals("History transfer complete",monitor.status); assertEquals(2,store.historyCount(0));
         assertTrue(store.diagnostics().contains("Index not trusted"));
     }
+    @Test public void indexStatusErrorFallsBackToFullSweep() throws Exception {
+        errorAddress=model().settingsStart;
+        connectManually(); monitor.syncHistory(-1);
+        dataReply(last(),startReply(),true);
+        assertArrayEquals(Wlp.read(model().settingsStart,56),last().bytes);
+        dataReply(last(),memoryReply(last().bytes),false);
+        assertEquals(MonitorService.ImportMode.INDEX_FALLBACK,monitor.importMode);
+        List<byte[]> reads=answerReads();
+        assertEquals("every slot of bank 1 in 48-byte blocks",20,reads.size());
+        for(int i=0;i<reads.size();i++) assertArrayEquals(Wlp.read(0x98+48*i,48),reads.get(i));
+        finishWithClockAndEnd();
+        assertEquals("History transfer complete",monitor.status); assertEquals(2,store.historyCount(0));
+        assertEquals("the index is never read again",1,countReadsAt(model().settingsStart));
+        assertTrue(store.diagnostics().contains("Index not read (device status)"));
+    }
+    @Test public void indexTimeoutFallsBackToFullSweep() throws Exception {
+        connectManually(); monitor.syncHistory(-1);
+        dataReply(last(),startReply(),true);
+        Write index=last(); assertArrayEquals(Wlp.read(model().settingsStart,56),index.bytes);
+        writeDone(index,0);
+        shadowOf(Looper.getMainLooper()).idleFor(Duration.ofSeconds(16));
+        assertEquals(MonitorService.ImportMode.INDEX_FALLBACK,monitor.importMode); assertNotSame(index,last());
+        List<byte[]> reads=answerReads();
+        assertEquals(20,reads.size()); assertArrayEquals(Wlp.read(0x98,48),reads.get(0));
+        finishWithClockAndEnd();
+        assertEquals("History transfer complete",monitor.status); assertEquals(2,store.historyCount(0));
+        assertTrue(store.diagnostics().contains("Index not read (no reply)"));
+    }
+    @Test public void indexFallbackSweepErrorStillFails() throws Exception {
+        errorAddress=0x98;
+        connectManually(); monitor.syncHistory(-1);
+        dataReply(last(),startReply(),true);
+        writeDone(last(),0);
+        shadowOf(Looper.getMainLooper()).idleFor(Duration.ofSeconds(16));
+        assertArrayEquals(Wlp.read(0x98,48),last().bytes);
+        dataReply(last(),memoryReply(last().bytes),false);
+        assertEquals("Action failed",monitor.status); assertFalse(monitor.historyRunning);
+    }
     @Test public void badIndexChecksumFallsBack() throws Exception {
         attach("HEM-7530T");
         index(new int[]{1},new long[]{1});
