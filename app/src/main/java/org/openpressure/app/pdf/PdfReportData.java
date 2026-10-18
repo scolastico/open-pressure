@@ -1,6 +1,7 @@
 package org.openpressure.app.pdf;
 
 import org.openpressure.app.data.Reading;
+import org.openpressure.protocol.MonitorProduct;
 
 import java.time.Instant;
 import java.time.LocalDate;
@@ -43,10 +44,15 @@ public final class PdfReportData {
 
     public static PdfReportData create(List<Reading> source, int selectedUser,
             LocalDate from, LocalDate to, ZoneId zone) {
-        return createInternal(source,selectedUser,from,to,zone,false,Collections.emptyMap());
+        return create(source,selectedUser,from,to,zone,Collections.emptyMap());
     }
-    private static PdfReportData createInternal(List<Reading> source,int selectedUser,LocalDate from,LocalDate to,ZoneId zone,boolean virtualUsers,Map<Integer,String> names) {
+    /** {@code models} maps a saved monitor address to its reported model, for the device column. */
+    public static PdfReportData create(List<Reading> source,int selectedUser,LocalDate from,LocalDate to,ZoneId zone,Map<String,String> models) {
+        return createInternal(source,selectedUser,from,to,zone,false,Collections.emptyMap(),models);
+    }
+    private static PdfReportData createInternal(List<Reading> source,int selectedUser,LocalDate from,LocalDate to,ZoneId zone,boolean virtualUsers,Map<Integer,String> names,Map<String,String> models) {
         Objects.requireNonNull(source, "source");
+        Objects.requireNonNull(models, "models");
         Objects.requireNonNull(zone, "zone");
         if (virtualUsers ? selectedUser>0 || selectedUser==Integer.MIN_VALUE : selectedUser < 0 || selectedUser > 2) {
             throw new IllegalArgumentException("Profile must be all, 1, or 2");
@@ -56,7 +62,7 @@ public final class PdfReportData {
         }
         List<Entry> entries = new ArrayList<>();
         for (Reading reading : source) {
-            Entry entry = new Entry(Objects.requireNonNull(reading, "reading"), zone,virtualUsers);
+            Entry entry = new Entry(Objects.requireNonNull(reading, "reading"), zone,virtualUsers,models.get(reading.device));
             if (selectedUser != 0 && !Integer.valueOf(selectedUser).equals(entry.user)) continue;
             LocalDate date = entry.displayTime.toLocalDate();
             if (from != null && (date.isBefore(from) || date.isAfter(to))) continue;
@@ -81,7 +87,10 @@ public final class PdfReportData {
         return new PdfReportData(selectedUser, from, to, zone, entries, summaries, charts,virtualUsers,names);
     }
     public static PdfReportData createVirtual(List<Reading> source,int selectedUser,LocalDate from,LocalDate to,ZoneId zone,Map<Integer,String> names) {
-        return createInternal(source,selectedUser,from,to,zone,true,names);
+        return createVirtual(source,selectedUser,from,to,zone,names,Collections.emptyMap());
+    }
+    public static PdfReportData createVirtual(List<Reading> source,int selectedUser,LocalDate from,LocalDate to,ZoneId zone,Map<Integer,String> names,Map<String,String> models) {
+        return createInternal(source,selectedUser,from,to,zone,true,names,models);
     }
 
     public static final class Entry {
@@ -92,8 +101,10 @@ public final class PdfReportData {
         public final Integer user, status;
         public final Boolean afib;
         public final String device, name, source, notes, unit;
+        /** Product name when known, else manufacturer and reported model, else the Bluetooth name. */
+        public final String displayName;
 
-        private Entry(Reading reading, ZoneId zone,boolean virtualUsers) {
+        private Entry(Reading reading, ZoneId zone,boolean virtualUsers,String reportedModel) {
             id = reading.id;
             received = reading.received;
             time = parseTime(reading.time);
@@ -107,6 +118,7 @@ public final class PdfReportData {
             afib = reading.afib;
             device = safeText(reading.device);
             name = safeText(reading.name);
+            displayName = safeText(MonitorProduct.displayName(reportedModel, name));
             source = safeText(reading.source);
             notes = safeText(reading.notes);
             unit = safeText(reading.unit);

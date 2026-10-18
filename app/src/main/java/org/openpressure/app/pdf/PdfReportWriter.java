@@ -64,6 +64,8 @@ public final class PdfReportWriter {
         }
     }
     private String s(int id,Object... args) { return context.getString(id,args); }
+    /** Device column: display name (product, else manufacturer and model, else Bluetooth name), address, source. */
+    static String deviceCell(PdfReportData.Entry entry,String source) { return entry.displayName+"\n"+entry.device+"\n"+source; }
     private String n(double value) { return Double.isFinite(value)?numbers.format(value):s(R.string.main_unavailable); }
     private String average(double value) {
         if(!Double.isFinite(value)) return s(R.string.main_unavailable);
@@ -195,7 +197,7 @@ public final class PdfReportWriter {
             else if(flags.isEmpty()) flags.add(s(R.string.pdf_report_no_flags));
             flags.add(s(R.string.main_afib_detail,entry.afib==null?s(R.string.main_unavailable):s(entry.afib?R.string.main_afib_flagged:R.string.main_afib_not_flagged)));
             String pressure="\u2066\u2066"+n(entry.systolic)+"\u2069 / \u2066"+n(entry.diastolic)+"\u2069\u2069\n"+entry.unit;
-            String[] cells={n(row),stamp,profile(entry.user),pressure,entry.pulse==null?"—":n(entry.pulse)+" bpm",entry.map==null?"—":n(entry.map)+" "+entry.unit,String.join("\n",flags),entry.name+"\n"+entry.device+"\n"+s("manual".equals(entry.source)?R.string.main_source_manual:R.string.main_source_monitor),entry.notes};
+            String[] cells={n(row),stamp,profile(entry.user),pressure,entry.pulse==null?"—":n(entry.pulse)+" bpm",entry.map==null?"—":n(entry.map)+" "+entry.unit,String.join("\n",flags),deviceCell(entry,s("manual".equals(entry.source)?R.string.main_source_manual:R.string.main_source_monitor)),entry.notes};
             StaticLayout[] layouts=new StaticLayout[cells.length];int[] consumed=new int[cells.length];
             for(int i=0;i<cells.length;i++) layouts[i]=layout(cells[i],columns[i]-10,8.5f,false,INK,Layout.Alignment.ALIGN_NORMAL);
             boolean more=true;

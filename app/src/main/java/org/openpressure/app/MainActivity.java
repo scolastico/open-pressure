@@ -923,10 +923,12 @@ public final class MainActivity extends Activity {
         final boolean virtual=store.virtualUsersEnabled();
         final Map<Integer,String> profileNames=new LinkedHashMap<>();
         if(virtual) for(VirtualUser profile:store.virtualUsers()) profileNames.put(-profile.id,profile.name);
+        final Map<String,String> monitorModels=new HashMap<>();
+        for(String[] device:store.devices()) monitorModels.put(device[0],device[2]);
         pdfPreparationWorker=new Thread(() -> {
             File snapshot=null;
             try {
-                PdfReportData report=virtual?PdfReportData.createVirtual(store.readings(selectedUser),selectedUser,from,to,zone,profileNames):PdfReportData.create(store.readings(selectedUser),selectedUser,from,to,zone);
+                PdfReportData report=virtual?PdfReportData.createVirtual(store.readings(selectedUser),selectedUser,from,to,zone,profileNames,monitorModels):PdfReportData.create(store.readings(selectedUser),selectedUser,from,to,zone,monitorModels);
                 if(report.entries.isEmpty()) {
                     handler.post(() -> finishPdfPreparation(token,R.string.pdf_no_readings)); return;
                 }
