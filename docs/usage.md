@@ -46,7 +46,7 @@ After an import the summary explains how slots were chosen:
 | The monitor reported no stored readings. Use Read all if you expect some. | The list was empty, so nothing was read. |
 | The monitor's list of stored readings could not be used, so every memory slot was read. | The list looked inconsistent; every slot of the chosen users was read instead. |
 | Every memory slot was read. | Read all, or a model without a usable list. |
-| A second memory area this model may not have was skipped. | HEM-7156T only: Read all found no answer for its second area. |
+| A second memory area this model may not have was skipped. | HEM-7156T only: Read all found no answer for its second area. It appears together with "Every memory slot was read." |
 
 These import paths are built from source evidence and checked with synthetic tests only; they have not been tried on a physical monitor of these models.
 
