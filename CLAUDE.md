@@ -48,7 +48,8 @@ tests does not prove that a command is safe for physical hardware.
   generation guards. Do not enable guessed registers, unrestricted memory access,
   calibration/firmware/deletion commands or generic addressed writes. Keep the
   documented explicit-Pair registration exception narrowly scoped to its exact
-  model, immutable plan, durable backup and live permit; Connect and automatic
+  model (or an untested X7 identity listed in the write-aspect index under the
+  hidden developer override), immutable plan, durable backup and live permit; Connect and automatic
   import must not acquire registration/key-programming privileges.
 - Preserve first-use consent, privacy defaults, user-bank isolation and local data
   across upgrades. Keep migrations, deduplication, deletion receipts, pending keys
