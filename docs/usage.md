@@ -24,9 +24,31 @@ The [compatibility table](compatibility.md) lists the additional implemented mod
 
 On older legacy models, put the monitor into pairing mode and choose **Pair**. Confirm Android's Bluetooth prompt. The app then registers a random application key through the device's dedicated control characteristic. This can replace the key used by another client; switching back may require that client's pairing procedure. Subsequent **Connect** uses the saved key and never starts key programming. If pairing is interrupted, retrying Pair reuses its recoverable pending key.
 
-Pair immediately imports the mapped history banks on the same connection. Subsequent **Connect** leaves history available through **Import monitor history**. HEM-7377T1/BP5360 uses Android bonding without the legacy key exchange. The BP5360 uses in-record metadata to distinguish users. Full-bank reads may include empty or non-record slots; rejected data is diagnosed and valid readings already received remain saved.
+Pair immediately imports history on the same connection. Subsequent **Connect** leaves history available through **Import monitor history**. HEM-7377T1/BP5360 uses Android bonding without the legacy key exchange. The BP5360 uses in-record metadata to distinguish users. Reads may include empty or non-record slots; empty slots are skipped, damaged or non-record data is diagnosed and counted as rejected, and valid readings already received remain saved.
+
+Most of these monitors keep a short list of how many readings each user has stored. **Import monitor history** reads that list first and then only the slots it names. If the list looks inconsistent, the app reads every slot of the chosen users instead. HEM-7322T, HEM-7377T1 and HEM-7600T have no usable list, so they always read every slot.
 
 The base HEM-7156T shares the HEM-7155T history layout. Scanning recognizes mixed-case names such as `BLESmart_…`; the app still verifies the actual model after connecting.
+
+### Readings to import
+
+Monitors with two users show **Readings to import** on the connected monitor and on each saved monitor: **User 1**, **User 2** or **Both users**. The choice is saved per monitor and applies to Pair, Import monitor history, Read all and automatic imports. The default is both users, and monitors saved before an update keep importing both; after X7 profile registration the choice changes to the registered user. On HEM-7377T1/BP5360 both users share the same memory, so every slot is still read and readings are kept or skipped by the user recorded in each reading. One-user models, including the HEM-7156T, show no choice. The choice only decides what OpenPressure copies to the phone; the monitor's memory is unchanged.
+
+### Read all
+
+**Read all**, below Import monitor history on these vendor-memory monitors, checks every memory slot of the chosen users regardless of what the monitor's list says. Use it if readings seem to be missing. It takes longer; keep the monitor nearby. Read all is only available while you are connected, never during an automatic import. On the HEM-7156T it also tries a second memory area that the monitor may not have. If the monitor does not answer for that area, the app skips it without failing the import.
+
+After an import the summary explains how slots were chosen:
+
+| Summary | Meaning |
+| --- | --- |
+| The monitor reported *N* stored readings. | The monitor's list was used; *N* slots were read for the chosen users. Empty slots among them are skipped. |
+| The monitor reported no stored readings. Use Read all if you expect some. | The list was empty, so nothing was read. |
+| The monitor's list of stored readings could not be used, so every memory slot was read. | The list looked inconsistent; every slot of the chosen users was read instead. |
+| Every memory slot was read. | Read all, or a model without a usable list. |
+| A second memory area this model may not have was skipped. | HEM-7156T only: Read all found no answer for its second area. |
+
+These import paths are built from source evidence and checked with synthetic tests only; they have not been tried on a physical monitor of these models.
 
 Before ending the history session, the app attempts phone-local clock sync if the monitor exposes a supported dedicated time characteristic. Missing support or a failed clock update does not stop the import; the result appears in the summary. If the connection closes or session finalization fails after all history arrives, the readings remain imported and the summary explicitly says END was not acknowledged. A disconnect earlier in the transfer remains an interrupted import.
 
@@ -40,7 +62,7 @@ Open **Measurement reminders** on Overview to create phone notifications at your
 
 Optional [HTTP forwarding](http-forwarding.md) is available in **Devices → Advanced**. Configure a destination URL and optional Authorization header value to send new measurements. Local history remains enabled by default. Turning off **Keep new readings in local history** enables passthrough: new readings are queued privately until accepted by the server, without adding them to local history or Health Connect. Existing history stays. Clearing the destination disables forwarding and restores local storage for future readings.
 
-**Import monitor history** imports stored records. X7 reads a fresh index and only populated slots in both banks, leaving cuff history and unread counters intact. Local History filters select All users / User 1 / User 2 and date ranges. Manual entries, notes, trends and filtered CSV export are stored on the phone. The selected profile is shared by Overview and History and saved across app restarts; opening a notification preserves that selection.
+**Import monitor history** imports stored records. X7 reads a fresh index and only the populated slots of the users chosen under **Readings to import**, leaving cuff history and unread counters intact. Local History filters select All users / User 1 / User 2 and date ranges. Manual entries, notes, trends and filtered CSV export are stored on the phone. The selected profile is shared by Overview and History and saved across app restarts; opening a notification preserves that selection.
 
 Repeated imports deduplicate dated identical packets from the same device/user. X7 raw records also retain their sequence, supporting deduplication when time is unavailable. Undated live SIG packets remain separate rather than being merged by pressure values alone. Partial imports keep validated readings already saved; reconnect and repeat the import to finish.
 
