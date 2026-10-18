@@ -121,7 +121,8 @@ public class MonitorServiceClockSyncTest {
     }
     @Test public void fourteenByteMapWritesSwappedBlock() throws Exception {
         allowUntested();
-        attach("HEM-7530T"); settings(erasedBlock());
+        // HEM-7530T refuses an erased block 3; an all-zero block has a valid checksum.
+        attach("HEM-7530T"); settings(new byte[16]);
         connectManually(); monitor.beginClockSync(); readSettings();
         List<byte[]> expected=new VendorClockWrite("HEM-7530T",image(),NOW,true,4).chunks();
         monitor.confirmClockSync(null); flushIo();
@@ -136,7 +137,7 @@ public class MonitorServiceClockSyncTest {
     }
     @Test public void x7SyncUsesSingleWriteAndEnds() throws Exception {
         allowUntested();
-        attachX7("HEM-7380T1-EOSL"); x7Settings(erasedBlock());
+        attachX7("HEM-7380T1-EOSL"); x7Settings(clockBlock(NOW.minusDays(3),true));
         assertTrue(monitor.canClockSync());
         monitor.beginClockSync(); readX7Settings();
         assertTrue(monitor.clockSyncPending);
@@ -162,6 +163,7 @@ public class MonitorServiceClockSyncTest {
         assertEquals("Clock sync skipped",monitor.status);
         assertEquals(WriteOutcome.SKIPPED_WITHIN_THRESHOLD,monitor.clockSyncOutcome);
         assertEquals(MonitorService.ClockUpdate.SKIPPED,monitor.clockUpdate);
+        assertFalse("nothing was written, so no report is offered",monitor.offerReportAfterWrite);
     }
     @Test public void rejectedAcknowledgmentStillEnds() throws Exception {
         allowUntested();
@@ -278,7 +280,7 @@ public class MonitorServiceClockSyncTest {
     }
     @Test public void endTimeoutAfterAcknowledgmentKeepsTheAcceptedClock() throws Exception {
         allowUntested();
-        attachX7("HEM-7380T1-EOSL"); x7Settings(erasedBlock());
+        attachX7("HEM-7380T1-EOSL"); x7Settings(clockBlock(NOW.minusDays(3),true));
         monitor.beginClockSync(); readX7Settings();
         byte[] frame=new VendorClockWrite("HEM-7380T1-EOSL",x7Image(),NOW,true,1).frame();
         monitor.confirmClockSync(null); flushIo(); writeDone(last(),0);
@@ -331,6 +333,112 @@ public class MonitorServiceClockSyncTest {
         shadowOf(Looper.getMainLooper()).idleFor(Duration.ofSeconds(11));
         assertEquals(WriteOutcome.CANCELLED,monitor.clockSyncOutcome);
         assertNull(get("gatt")); assertEquals(1,clockWrites()); assertEquals(0,countOpcode(15));
+        assertTrue("an unacknowledged forced write offers the report",monitor.offerReportAfterWrite);
+    }
+    @Test public void staleBackupCompletionAfterDisconnectWritesNothing() throws Exception {
+        allowUntested();
+        attach("HEM-7155T"); settings(erasedBlock());
+        connectManually(); monitor.beginClockSync(); readSettings();
+        java.util.concurrent.CountDownLatch gate=holdBackup();
+        monitor.confirmClockSync(null); idle();
+        callback.onConnectionStateChange(gatt,0,BluetoothProfile.STATE_DISCONNECTED); idle();
+        gate.countDown(); flushIo();
+        shadowOf(Looper.getMainLooper()).idleFor(Duration.ofSeconds(20));
+        assertEquals("a backup finishing after the disconnect sends nothing",0,clockWrites());
+        assertEquals(WriteOutcome.NOT_ATTEMPTED,monitor.clockSyncOutcome);
+        assertFalse(monitor.offerReportAfterWrite);
+        assertTrue(report.toJson().replace(" ","").contains("\"outcome\":\"not_attempted\""));
+        File backup=monitor.clockSyncBackupFile();
+        assertNotNull("the completed backup is kept",backup); assertTrue(backup.isFile());
+    }
+    @Test public void staleBackupCompletionNeverWritesForANewPreview() throws Exception {
+        allowUntested();
+        attach("HEM-7155T"); settings(erasedBlock());
+        connectManually(); monitor.beginClockSync(); readSettings();
+        java.util.concurrent.CountDownLatch gate=holdBackup();
+        monitor.confirmClockSync(null); idle();
+        callback.onConnectionStateChange(gatt,0,BluetoothProfile.STATE_DISCONNECTED); idle();
+        // A new connection reaches its own preview while the old backup is still being saved.
+        attach("HEM-7155T"); connectManually(); monitor.beginClockSync(); readSettings();
+        assertTrue(monitor.clockSyncPending);
+        gate.countDown(); flushIo();
+        assertEquals("the old backup never authorizes the new preview",0,clockWrites());
+        assertTrue("the new preview still waits for its own confirmation",monitor.clockSyncPending);
+        assertEquals(WriteOutcome.NOT_ATTEMPTED,monitor.clockSyncOutcome);
+        File backup=monitor.clockSyncBackupFile();
+        assertNotNull(backup); assertTrue(backup.isFile());
+        monitor.cancelClockSync();
+        assertEquals(15,last().bytes[1]); legacyReply(END_REPLY);
+        assertEquals(0,clockWrites());
+    }
+    @Test public void acknowledgmentBeforeTheLastChunkCallbackIsAccepted() throws Exception {
+        allowUntested();
+        attach("HEM-7155T"); settings(erasedBlock());
+        connectManually(); monitor.beginClockSync(); readSettings();
+        List<byte[]> expected=new VendorClockWrite("HEM-7155T",image(),NOW,true,4).chunks();
+        monitor.confirmClockSync(null); flushIo();
+        writeDone(last(),0);
+        Write second=last(); assertSame(tx.get(1),second.characteristic);
+        // The monitor answers before Android reports the last chunk's write as complete.
+        legacyReply(echo(expected));
+        assertEquals(WriteOutcome.ACKNOWLEDGED,monitor.clockSyncOutcome);
+        writeDone(second,0);
+        assertEquals("END follows once the write completes",15,last().bytes[1]);
+        shadowOf(Looper.getMainLooper()).idleFor(Duration.ofSeconds(11));
+        assertEquals("no acknowledgment timeout after the early acknowledgment",WriteOutcome.ACKNOWLEDGED,monitor.clockSyncOutcome);
+        legacyReply(END_REPLY);
+        assertEquals("Clock sync complete",monitor.status);
+        assertEquals(1,clockWrites());
+    }
+    @Test public void encryptedX7AndSmallMtuAreRefused() throws Exception {
+        allowUntested();
+        attachX7("HEM-7380T1-EOSL"); x7Settings(clockBlock(NOW.minusDays(3),true));
+        assertTrue(monitor.canClockSync());
+        set("negotiatedMtu",26);
+        assertFalse("the 24-byte frame needs an ATT MTU of at least 27",monitor.canClockSync());
+        set("negotiatedMtu",27);
+        assertTrue(monitor.canClockSync());
+        monitor.profile=ProtocolProfile.X7_SECURE_WLP;
+        assertFalse(monitor.canClockSync());
+        assertTrue("offered but unavailable on the encrypted path",monitor.clockSyncOffered());
+        int sent=writes.size(); monitor.beginClockSync(); idle();
+        assertEquals(sent,writes.size()); assertFalse(monitor.clockSyncRunning);
+    }
+    @Test public void erasedX7BlockIsUnreadable() throws Exception {
+        allowUntested();
+        attachX7("HEM-7380T1-EOSL"); x7Settings(erasedBlock());
+        monitor.beginClockSync(); readX7Settings();
+        assertFalse(monitor.clockSyncPending);
+        assertArrayEquals(hex("080f000000000007"),last().bytes);
+        writeDone(last(),0); x7Reply(END_REPLY);
+        assertEquals("Monitor settings unreadable",monitor.status);
+        assertEquals(WriteOutcome.NOT_ATTEMPTED,monitor.clockSyncOutcome);
+        assertEquals(0,clockWrites());
+    }
+    @Test public void phoneDateOutsideTheRangeHasItsOwnOutcome() throws Exception {
+        allowUntested();
+        monitor.clock=Clock.fixed(LocalDateTime.of(2051,6,7,8,9,10).toInstant(ZoneOffset.UTC),ZoneOffset.UTC);
+        attach("HEM-7155T"); settings(erasedBlock());
+        connectManually(); monitor.beginClockSync(); readSettings();
+        assertFalse(monitor.clockSyncPending);
+        assertEquals(15,last().bytes[1]); legacyReply(END_REPLY);
+        assertEquals("Phone date out of range",monitor.status);
+        assertEquals(WriteOutcome.NOT_ATTEMPTED,monitor.clockSyncOutcome);
+        assertEquals(0,clockWrites());
+        assertEquals(monitor.getString(org.openpressure.app.R.string.monitor_clock_sync_unreadable),org.openpressure.app.ui.MonitorUi.title(monitor,monitor));
+        String detail=org.openpressure.app.ui.MonitorUi.detail(monitor,monitor);
+        assertTrue(detail,detail.startsWith(monitor.getString(org.openpressure.app.R.string.monitor_clock_sync_out_of_range)));
+    }
+    @Test public void offeredOnlyWithConfirmationOrTheDeveloperSwitch() throws Exception {
+        attach("HEM-7155T"); settings(erasedBlock());
+        connectManually();
+        assertFalse("untested and the switch off: not offered",monitor.clockSyncOffered());
+        allowUntested();
+        assertTrue(monitor.clockSyncOffered());
+        set("verifiedModel","HEM-7322T");
+        assertFalse("no clock layout: never offered",monitor.clockSyncOffered());
+        set("verifiedModel","HEM-7155T"); monitor.profile=ProtocolProfile.STANDARD_BP;
+        assertFalse(monitor.clockSyncOffered());
     }
 
     // ---- legacy peer ----
@@ -418,6 +526,12 @@ public class MonitorServiceClockSyncTest {
     private void allowUntested() {
         DeveloperOptions.setUnlocked(monitor,true);
         DeveloperOptions.setAllowUntested(monitor,Aspect.CLOCK_BLOCK,true);
+    }
+    /** Blocks the single backup thread until the returned gate opens. */
+    private java.util.concurrent.CountDownLatch holdBackup() throws Exception {
+        java.util.concurrent.CountDownLatch gate=new java.util.concurrent.CountDownLatch(1);
+        ((ExecutorService)get("dumpIo")).execute(() -> { try { gate.await(10,TimeUnit.SECONDS); } catch(InterruptedException ignored) { Thread.currentThread().interrupt(); } });
+        return gate;
     }
     private void flushIo() throws Exception {
         ((ExecutorService)get("dumpIo")).submit(() -> {}).get(10,TimeUnit.SECONDS); idle();

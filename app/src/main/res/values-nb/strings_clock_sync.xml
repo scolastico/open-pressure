@@ -22,4 +22,7 @@
     <string name="monitor_clock_sync_unreadable">Klokkesynkronisering er ikke mulig</string>
     <string name="monitor_clock_sync_reconnect">Koble til igjen for å importere målinger.</string>
     <string name="clock_sync_report_prompt">Du har synkronisert klokken på en måler som dette ennå ikke er testet med. En enhetsrapport i en GitHub-sak viser om det fungerte, og hjelper med å gjøre klokkesynkronisering tilgjengelig for andre.\n\nRapporten inneholder bare tekniske detaljer. Den inneholder aldri målinger, måletidspunkter, navn, Bluetooth-adressen eller serienummeret. Du kan se gjennom den før du deler noe.</string>
+    <string name="main_clock_sync_backup">Sikkerhetskopi før synkronisering av klokken</string>
+    <string name="main_clock_sync_backup_explanation">Innstillinger lagret før siste synkronisering av klokken. Dette er en sikkerhetskopi av innstillingene, ikke en full sikkerhetskopi av minne eller kalibrering. Tidligere sikkerhetskopier blir værende på denne telefonen.</string>
+    <string name="monitor_clock_sync_out_of_range">Telefonens dato er utenfor det støttede området, så apparatets klokke ble ikke endret. Kontroller datoen på denne telefonen.</string>
 </resources>

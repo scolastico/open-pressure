@@ -22,4 +22,7 @@
     <string name="monitor_clock_sync_unreadable">Ba za a iya daidaita agogo ba</string>
     <string name="monitor_clock_sync_reconnect">Sake haɗawa don shigo da awo.</string>
     <string name="clock_sync_report_prompt">Ka daidaita agogon na\'urar da ba a gwada wannan da ita ba tukuna. Rahoton na\'ura a cikin issue na GitHub yana nuna ko ya yi aiki kuma yana taimakawa a samar da daidaita agogo ga wasu.\n\nRahoton yana ƙunshe da bayanan fasaha kawai. Ba ya taɓa haɗa da sakamakon awo, lokutan awo, sunaye, adireshin Bluetooth ko lambar serial. Za ka iya duba shi kafin ka raba komai.</string>
+    <string name="main_clock_sync_backup">Ajiyar daidaita agogo</string>
+    <string name="main_clock_sync_backup_explanation">Saitunan da aka adana kafin daidaita agogo na ƙarshe. Wannan ajiyar saituna ce, ba cikakkiyar ajiyar ƙwaƙwalwa ko ta daidaitawa ba. Tsoffin ajiya suna nan a wannan wayar.</string>
+    <string name="monitor_clock_sync_out_of_range">Kwanan watan wayar yana wajen kewayon da ake tallafawa, don haka ba a canza agogon na\'urar ba. Duba kwanan wata a wannan wayar.</string>
 </resources>

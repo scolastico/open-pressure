@@ -29,7 +29,7 @@ public final class MonitorUi {
         if(state.equals("Clock sync skipped")) return R.string.monitor_clock_sync_skipped;
         if(state.equals("Clock sync rejected")) return R.string.monitor_clock_sync_rejected;
         if(state.equals("Clock sync cancelled")) return R.string.monitor_clock_sync_cancelled;
-        if(state.equals("Monitor settings unreadable")) return R.string.monitor_clock_sync_unreadable;
+        if(state.equals("Monitor settings unreadable") || state.equals("Phone date out of range")) return R.string.monitor_clock_sync_unreadable;
         if(m.clockSyncPending) return R.string.clock_sync_title;
         if(m.clockSyncRunning) return R.string.main_sync_clock_running;
         if(m.registrationPending) return R.string.monitor_choose_profile;
@@ -101,6 +101,7 @@ public final class MonitorUi {
         int outcome;
         if(title==R.string.monitor_clock_sync_complete) outcome=R.string.monitor_check_clock;
         else if(title==R.string.monitor_clock_sync_skipped) outcome=R.string.clock_sync_within_threshold;
+        else if(title==R.string.monitor_clock_sync_unreadable && m.status.equals("Phone date out of range")) outcome=R.string.monitor_clock_sync_out_of_range;
         else if(title==R.string.monitor_clock_sync_rejected || title==R.string.monitor_clock_sync_unreadable) outcome=R.string.monitor_clock_failed;
         else if(title==R.string.monitor_clock_sync_cancelled) outcome=m.clockUpdate==MonitorService.ClockUpdate.FAILED?R.string.monitor_clock_failed:0;
         else return null;

@@ -22,4 +22,7 @@
     <string name="monitor_clock_sync_unreadable">Haiwezekani kusawazisha saa</string>
     <string name="monitor_clock_sync_reconnect">Unganisha tena ili kuingiza vipimo.</string>
     <string name="clock_sync_report_prompt">Umesawazisha saa ya kipimo ambacho hili bado halijajaribiwa nacho. Ripoti ya kifaa katika issue ya GitHub inaonyesha kama ilifanya kazi na husaidia kufanya kusawazisha saa kupatikane kwa wengine.\n\nRipoti ina maelezo ya kiufundi pekee. Haijumuishi kamwe vipimo, nyakati za vipimo, majina, anwani ya Bluetooth wala nambari ya ufuatiliaji. Unaweza kuikagua kabla ya kushiriki chochote.</string>
+    <string name="main_clock_sync_backup">Nakala ya akiba ya kusawazisha saa</string>
+    <string name="main_clock_sync_backup_explanation">Mipangilio iliyohifadhiwa kabla ya kusawazisha saa mara ya mwisho. Hii ni nakala ya akiba ya mipangilio, si nakala kamili ya kumbukumbu au ya urekebishaji. Nakala za awali zinabaki kwenye simu hii.</string>
+    <string name="monitor_clock_sync_out_of_range">Tarehe ya simu iko nje ya kiwango kinachotumika, kwa hivyo saa ya kifaa haikubadilishwa. Angalia tarehe kwenye simu hii.</string>
 </resources>

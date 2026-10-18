@@ -134,6 +134,8 @@
     <string name="main_measurement_note">Take measurements on your monitor. OpenPressure imports the results.</string>
     <string name="main_registration_user_explanation">Choose the user shown on your monitor. A settings backup has been saved. Registration updates this user’s settings and the clock, keeping existing readings and birthdays.</string>
     <string name="main_find_instructions">1. Select your user on the monitor.\n2. Hold its Bluetooth button to enter pairing mode.\n3. Scan, choose your monitor, then tap Pair and confirm on the monitor.\n\nAlready paired? Put the monitor in transfer mode and tap Connect.</string>
+    <string name="main_clock_sync_backup">Clock sync backup</string>
+    <string name="main_clock_sync_backup_explanation">Settings saved before the latest clock sync. This is a settings backup, not a full memory or calibration backup. Earlier backups stay on this phone.</string>
     <string name="main_backup_explanation">Settings saved before the latest registration. This is a settings backup, not a full memory or calibration backup. Earlier backups stay on this phone.</string>
     <string name="main_user_consent_explanation">Choose the user selected on your monitor and enter its consent code. The default code is 526. Register only to set up a new user while the monitor is in pairing mode.</string>
     <string name="main_memory_read_explanation">Save a read-only copy of monitor memory as JSON. It may contain health and identifying data. A new copy replaces the previous local memory export.\n\nThe default reads 68 bytes of settings at 0x0010, not a full memory or calibration backup. Other ranges may be unavailable.</string>

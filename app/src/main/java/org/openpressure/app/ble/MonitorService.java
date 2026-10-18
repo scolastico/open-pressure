@@ -46,10 +46,10 @@ public final class MonitorService extends Service {
     /** The monitor's stored clock (null when unset or undecodable) and the phone time of the preview. */
     public LocalDateTime clockSyncMonitorClock,clockSyncPhoneClock;
     public long clockSyncDriftSeconds;
-    /** The preview relies on the developer override for an untested model. */
+    /** The preview relies on the developer override for an untested model; never set for a confirmed one. */
     public boolean clockSyncOverride;
     public DeviceReport.WriteOutcome clockSyncOutcome=DeviceReport.WriteOutcome.NOT_ATTEMPTED;
-    /** A forced (override) clock write reached an outcome; the UI may offer the device report. */
+    /** A forced (override) clock write was sent and reached an outcome; the UI may offer the device report. */
     public boolean offerReportAfterWrite;
     public boolean sessionEndUnconfirmed;
     /** How the last vendor-memory history read chose its slots: the monitor's index, its fallback or a sweep. */
@@ -103,7 +103,7 @@ public final class MonitorService extends Service {
     private VendorClockWrite clockWrite;
     private byte[] clockSyncImage;
     private File clockSyncBackup;
-    private boolean clockSyncUnreadable,clockSyncRecorded;
+    private boolean clockSyncUnreadable,clockSyncOutOfRange,clockSyncRecorded;
     private X7Bonding x7Bonding;
     private boolean x7FreshBondEstablished;
     private X7Transaction x7Transaction;
@@ -160,6 +160,7 @@ public final class MonitorService extends Service {
         super.onCreate(); store=((PressureApp)getApplication()).store(); keys=new PairingKeys(this);
         File previousDump=new File(getFilesDir(),"eeprom-dump.json"); if(previousDump.isFile()) dumpFile=previousDump;
         registrationBackup=SettingsBackupStore.latestRegistrationBackup(new File(getFilesDir(),"settings-backups"));
+        clockSyncBackup=SettingsBackupStore.latestClockSyncBackup(new File(getFilesDir(),"settings-backups"));
         BluetoothManager manager=getSystemService(BluetoothManager.class); adapter=manager==null?null:manager.getAdapter();
         operations=new OperationQueue(this::fail);
         registerReceiver(bondReceiver,new IntentFilter(BluetoothDevice.ACTION_BOND_STATE_CHANGED));
@@ -448,7 +449,7 @@ public final class MonitorService extends Service {
             if(clockSyncOutcome==DeviceReport.WriteOutcome.ACKNOWLEDGED) clockUpdate=ClockUpdate.ACCEPTED;
             recordClockOutcome();
         }
-        clockWrite=null; clockSyncRunning=false; clockSyncPending=false; clockSyncUnreadable=false;
+        clockWrite=null; clockSyncRunning=false; clockSyncPending=false; clockSyncUnreadable=false; clockSyncOutOfRange=false;
         if(clockSyncImage!=null) Arrays.fill(clockSyncImage,(byte)0);
         clockSyncImage=null;
         if(x7Bonding!=null) x7Bonding.cancel();
@@ -1205,10 +1206,27 @@ public final class MonitorService extends Service {
         if(profile==ProtocolProfile.VENDOR_MEMORY) {
             if(vendorModel==null || !vendorModel.id.equals(identity) || vendorRead!=null || vendorSessionEnded || vendorTx.size()!=VendorWlpSession.txChannels(vendorModel).size()) return false;
         } else if(profile==ProtocolProfile.X7_WLP) {
-            if(!x7ReadReady() || wlpRead!=null || registrationReading || registrationPending || registrationWriting) return false;
+            // The 24-byte frame is one ATT write: it needs an MTU of at least 27.
+            if(!x7ReadReady() || negotiatedMtu<27 || wlpRead!=null || registrationReading || registrationPending || registrationWriting) return false;
         } else return false;
+        return clockSyncPermitted(identity);
+    }
+    /**
+     * Whether Sync clock is offered at all on this connection, without the session requirements of
+     * {@link #canClockSync()}: a vendor-memory or X7 monitor whose clock block is confirmed, or untested
+     * with the developer switch on. The UI shows no clock control otherwise.
+     */
+    public boolean clockSyncOffered() {
+        if(profile!=ProtocolProfile.VENDOR_MEMORY && !profile.isX7()) return false;
+        return clockSyncPermitted(WriteAspectIndex.resolve(verifiedModel));
+    }
+    private boolean clockSyncPermitted(String identity) {
         return ClockBlock.forIdentity(identity)!=null
                 && WriteAspectIndex.permits(WriteAspectIndex.lookup(identity,WriteAspectIndex.Aspect.CLOCK_BLOCK).status,developerOverride());
+    }
+    /** The override as recorded for this identity: only an untested clock block relies on it. */
+    private boolean clockOverride(String identity) {
+        return developerOverride() && WriteAspectIndex.lookup(identity,WriteAspectIndex.Aspect.CLOCK_BLOCK).status==WriteAspectIndex.Status.UNTESTED;
     }
     /** The only reading of the untested-write override; a locked or unreadable developer state counts as off. */
     private boolean developerOverride() {
@@ -1218,7 +1236,7 @@ public final class MonitorService extends Service {
     /** Starts the clock-sync session: START and a read of the settings image. Nothing is written before confirmation. */
     public void beginClockSync() {
         if(!canClockSync()) return;
-        clockSyncRunning=true; clockSyncPending=false; clockSyncUnreadable=false; clockSyncRecorded=false; offerReportAfterWrite=false;
+        clockSyncRunning=true; clockSyncPending=false; clockSyncUnreadable=false; clockSyncOutOfRange=false; clockSyncRecorded=false; offerReportAfterWrite=false;
         clockSyncOutcome=DeviceReport.WriteOutcome.NOT_ATTEMPTED; clockUpdate=ClockUpdate.NONE; clockWrite=null;
         clockSyncMonitorClock=null; clockSyncPhoneClock=null; clockSyncDriftSeconds=0; clockSyncOverride=false;
         try {
@@ -1235,19 +1253,24 @@ public final class MonitorService extends Service {
      */
     public void confirmClockSync(LocalDateTime chosen) {
         if(!clockSyncRunning || !clockSyncPending || clockWrite==null || clockSyncImage==null) return;
-        boolean override=developerOverride();
-        if(chosen!=null && !override) {
+        if(chosen!=null && !developerOverride()) {
             store.packet(address,"clock-sync",new byte[0],"Chosen clock time refused: the developer override is off");
             detail="A chosen time requires the developer option. Confirm the phone time or cancel."; changed(); return;
         }
         String identity=WriteAspectIndex.resolve(verifiedModel);
-        // The override read now is what the report records, including a withdrawn one.
+        // The override read now is what the plan and report carry, including a withdrawn one; a confirmed model needs none.
+        boolean override=clockOverride(identity);
         clockSyncOverride=override;
         if(!WriteAspectIndex.permits(WriteAspectIndex.lookup(identity,WriteAspectIndex.Aspect.CLOCK_BLOCK).status,override)) {
             endClockSyncWithoutWrite("Writing this monitor's clock is no longer allowed. Its clock was not changed."); return;
         }
         VendorClockWrite plan;
         try { plan=new VendorClockWrite(identity,clockSyncImage,chosen!=null?chosen:clockNow(),override,clockSyncChannels()); }
+        catch(VendorClockWrite.TargetOutOfRange outside) {
+            // A chosen time can be corrected in the open confirmation; the phone's own date cannot.
+            if(chosen==null) { endClockSyncOutOfRange(outside); return; }
+            detail="This time cannot be written: "+outside.getMessage(); changed(); return;
+        }
         catch(IllegalArgumentException invalid) { detail="This time cannot be written: "+invalid.getMessage(); changed(); return; }
         cancelPhase(); clockSyncPending=false;
         clockWrite.cancel(); clockWrite=plan;
@@ -1299,21 +1322,33 @@ public final class MonitorService extends Service {
     }
     /** The complete settings image: a preview plan when its preconditions hold, otherwise END without writing. */
     private void clockSyncImageRead(byte[] image) {
-        boolean override=developerOverride();
+        String identity=WriteAspectIndex.resolve(verifiedModel);
+        boolean override=clockOverride(identity);
         clockSyncOverride=override;
         try {
-            VendorClockWrite plan=new VendorClockWrite(WriteAspectIndex.resolve(verifiedModel),image,clockNow(),override,clockSyncChannels());
+            VendorClockWrite plan=new VendorClockWrite(identity,image,clockNow(),override,clockSyncChannels());
             clockWrite=plan; clockSyncImage=image.clone();
             clockSyncMonitorClock=plan.monitorClock(); clockSyncPhoneClock=plan.target(); clockSyncDriftSeconds=plan.driftSeconds();
             clockSyncPending=true;
             armPhase(90000,() -> endClockSyncWithoutWrite("The clock sync was not confirmed in time. Its clock was not changed."));
             state("Confirm clock sync","Settings read. Compare the monitor and phone times, then confirm or cancel. Nothing has been written.");
+        } catch(VendorClockWrite.TargetOutOfRange outside) {
+            endClockSyncOutOfRange(outside);
         } catch(IllegalArgumentException unreadable) {
             clockSyncUnreadable=true; clockSyncOutcome=DeviceReport.WriteOutcome.NOT_ATTEMPTED;
             store.packet(address,"clock-sync",new byte[0],"Clock sync not attempted: "+unreadable.getMessage());
             state("Monitor settings unreadable","The monitor's settings could not be validated, so its clock was not changed. Ending the session.");
             sendClockSyncCommand();
         }
+    }
+    /** The phone's date (or the written clock) lies outside 2024–2050: END without writing, the settings are not at fault. */
+    private void endClockSyncOutOfRange(VendorClockWrite.TargetOutOfRange outside) {
+        cancelPhase(); clockSyncPending=false;
+        if(clockWrite!=null) clockWrite.cancel();
+        clockSyncOutOfRange=true; clockSyncOutcome=DeviceReport.WriteOutcome.NOT_ATTEMPTED;
+        store.packet(address,"clock-sync",new byte[0],"Clock sync not attempted: "+outside.getMessage());
+        state("Phone date out of range","The phone's date is outside the supported range, so the monitor's clock was not changed. Ending the session.");
+        sendClockSyncCommand();
     }
     private void endClockSyncWithoutWrite(String reason) {
         cancelPhase(); clockSyncPending=false;
@@ -1408,8 +1443,9 @@ public final class MonitorService extends Service {
             case CANCELLED: clockUpdate=ClockUpdate.FAILED; title="Clock sync cancelled"; message="The clock write was not acknowledged."; break;
             default:
                 clockUpdate=ClockUpdate.NONE;
-                title=clockSyncUnreadable?"Monitor settings unreadable":"Clock sync cancelled";
-                message=clockSyncUnreadable?"The monitor's settings could not be validated, so its clock was not changed.":"The monitor's clock was not changed.";
+                title=clockSyncOutOfRange?"Phone date out of range":clockSyncUnreadable?"Monitor settings unreadable":"Clock sync cancelled";
+                message=clockSyncOutOfRange?"The phone's date is outside the supported range, so the monitor's clock was not changed."
+                        :clockSyncUnreadable?"The monitor's settings could not be validated, so its clock was not changed.":"The monitor's clock was not changed.";
         }
         recordClockOutcome();
         if(clockSyncImage!=null) Arrays.fill(clockSyncImage,(byte)0);
@@ -1420,7 +1456,9 @@ public final class MonitorService extends Service {
     private void recordClockOutcome() {
         if(clockSyncRecorded) return;
         clockSyncRecorded=true;
-        offerReportAfterWrite=clockSyncOverride && clockSyncOutcome!=DeviceReport.WriteOutcome.NOT_ATTEMPTED;
+        // Only a write that was actually sent: a skip or a session without a write has nothing to report.
+        offerReportAfterWrite=clockSyncOverride && (clockSyncOutcome==DeviceReport.WriteOutcome.ACKNOWLEDGED
+                || clockSyncOutcome==DeviceReport.WriteOutcome.REJECTED || clockSyncOutcome==DeviceReport.WriteOutcome.CANCELLED);
         if(report!=null && !automaticConnection) report.writeAspect(WriteAspectIndex.Aspect.CLOCK_BLOCK,clockSyncOutcome,clockSyncOverride);
     }
     private void saveDump(byte[] bytes,boolean complete,String error) {

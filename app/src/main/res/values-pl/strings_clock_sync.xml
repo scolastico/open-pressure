@@ -24,4 +24,7 @@
     <string name="monitor_clock_sync_unreadable">Synchronizacja zegara niemożliwa</string>
     <string name="monitor_clock_sync_reconnect">Połącz się ponownie, aby zaimportować pomiary.</string>
     <string name="clock_sync_report_prompt">Zsynchronizowano zegar ciśnieniomierza, z którym ta funkcja nie była jeszcze testowana. Raport urządzenia w zgłoszeniu na GitHubie pokazuje, czy to zadziałało, i pomaga udostępnić synchronizację zegara innym.\n\nRaport zawiera wyłącznie dane techniczne. Nigdy nie zawiera pomiarów, godzin pomiarów, imion, adresu Bluetooth ani numeru seryjnego. Możesz go przejrzeć, zanim cokolwiek udostępnisz.</string>
+    <string name="main_clock_sync_backup">Kopia zapasowa przed synchronizacją zegara</string>
+    <string name="main_clock_sync_backup_explanation">Ustawienia zapisane przed ostatnią synchronizacją zegara. To kopia zapasowa ustawień, a nie pełna kopia pamięci ani kalibracji. Wcześniejsze kopie pozostają na tym telefonie.</string>
+    <string name="monitor_clock_sync_out_of_range">Data w telefonie jest poza obsługiwanym zakresem, więc zegar ciśnieniomierza nie został zmieniony. Sprawdź datę w tym telefonie.</string>
 </resources>

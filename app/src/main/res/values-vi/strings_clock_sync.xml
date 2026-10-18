@@ -21,4 +21,7 @@
     <string name="monitor_clock_sync_unreadable">Không thể đồng bộ đồng hồ</string>
     <string name="monitor_clock_sync_reconnect">Hãy kết nối lại để nhập kết quả đo.</string>
     <string name="clock_sync_report_prompt">Bạn đã đồng bộ đồng hồ của một máy đo chưa từng được thử nghiệm tính năng này. Báo cáo thiết bị trong một issue trên GitHub cho biết tính năng có hoạt động hay không và giúp mở tính năng đồng bộ đồng hồ cho người khác.\n\nBáo cáo chỉ chứa thông tin kỹ thuật. Báo cáo không bao giờ chứa kết quả đo, thời gian đo, tên, địa chỉ Bluetooth hay số sê-ri. Bạn có thể xem lại trước khi chia sẻ bất cứ điều gì.</string>
+    <string name="main_clock_sync_backup">Bản sao lưu đồng bộ đồng hồ</string>
+    <string name="main_clock_sync_backup_explanation">Cài đặt được lưu trước lần đồng bộ đồng hồ gần nhất. Đây là bản sao lưu cài đặt, không phải bản sao lưu toàn bộ bộ nhớ hay hiệu chuẩn. Các bản sao lưu trước vẫn còn trên điện thoại này.</string>
+    <string name="monitor_clock_sync_out_of_range">Ngày của điện thoại nằm ngoài phạm vi được hỗ trợ, vì vậy đồng hồ của máy đo không được thay đổi. Hãy kiểm tra ngày trên điện thoại này.</string>
 </resources>

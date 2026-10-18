@@ -62,6 +62,7 @@ public class MainClockSyncTest {
         when(binder.get()).thenReturn(monitor);
         Shadows.shadowOf(app).setComponentNameAndServiceForBindService(new ComponentName(app,MonitorService.class),binder);
         doReturn(false).when(monitor).canClockSync();
+        doReturn(false).when(monitor).clockSyncOffered();
         doReturn(false).when(monitor).deviceReportPromptDue();
         doNothing().when(monitor).beginClockSync();
         doAnswer(invocation -> { monitor.clockSyncPending=false; return null; }).when(monitor).confirmClockSync(any());
@@ -110,7 +111,7 @@ public class MainClockSyncTest {
     private String drift(Activity a,int seconds) { return a.getResources().getQuantityString(R.plurals.clock_sync_drift,seconds,seconds); }
 
     @Test public void vendorMonitorOffersSyncClockInsteadOfSetTime() {
-        connected(ProtocolProfile.VENDOR_MEMORY); doReturn(true).when(monitor).canClockSync();
+        connected(ProtocolProfile.VENDOR_MEMORY); doReturn(true).when(monitor).clockSyncOffered(); doReturn(true).when(monitor).canClockSync();
         try(ActivityController<MainActivity> controller=Robolectric.buildActivity(MainActivity.class)) {
             Activity a=open(controller);
             assertNull("The Current Time dialog is not offered here",button(root(a),a.getString(R.string.main_set_monitor_time)));
@@ -122,7 +123,7 @@ public class MainClockSyncTest {
         }
     }
     @Test public void x7OffersSyncClockDisabledUntilAllowed() {
-        connected(ProtocolProfile.X7_WLP);
+        connected(ProtocolProfile.X7_WLP); doReturn(true).when(monitor).clockSyncOffered();
         try(ActivityController<MainActivity> controller=Robolectric.buildActivity(MainActivity.class)) {
             Activity a=open(controller);
             Button sync=button(root(a),a.getString(R.string.main_sync_clock));
@@ -130,6 +131,32 @@ public class MainClockSyncTest {
             sync.performClick(); idle();
             verify(monitor,never()).beginClockSync();
             assertNull(button(root(a),a.getString(R.string.main_set_monitor_time)));
+        }
+    }
+    @Test public void notOfferedShowsNoClockControl() {
+        for(ProtocolProfile profile:new ProtocolProfile[]{ProtocolProfile.VENDOR_MEMORY,ProtocolProfile.X7_WLP,ProtocolProfile.X7_SECURE_WLP}) {
+            connected(profile);
+            try(ActivityController<MainActivity> controller=Robolectric.buildActivity(MainActivity.class)) {
+                Activity a=open(controller);
+                assertNull(profile.name(),button(root(a),a.getString(R.string.main_sync_clock)));
+                assertNull(profile.name(),button(root(a),a.getString(R.string.main_set_monitor_time)));
+                assertFalse(profile.name(),hasText(root(a),a.getString(R.string.main_sync_clock_explanation)));
+            }
+        }
+    }
+    @Test public void clockSyncBackupCanBeExported() throws Exception {
+        connected(ProtocolProfile.VENDOR_MEMORY);
+        java.io.File backup=new java.io.File(app.getFilesDir(),"clock-sync-settings-test.json");
+        java.nio.file.Files.write(backup.toPath(),"{}".getBytes(java.nio.charset.StandardCharsets.UTF_8));
+        doReturn(backup).when(monitor).clockSyncBackupFile();
+        try(ActivityController<MainActivity> controller=Robolectric.buildActivity(MainActivity.class)) {
+            Activity a=open(controller);
+            button(root(a),a.getString(R.string.main_advanced)).performClick(); idle();
+            assertTrue(hasText(root(a),a.getString(R.string.main_clock_sync_backup)));
+            assertTrue(hasText(root(a),a.getString(R.string.main_clock_sync_backup_explanation)));
+            assertFalse("no registration backup exists",hasText(root(a),a.getString(R.string.main_registration_backup)));
+            Button export=button(root(a),a.getString(R.string.main_export_settings_backup));
+            assertNotNull(export); assertTrue(export.isEnabled());
         }
     }
     @Test public void runningSyncShowsItsLabel() {

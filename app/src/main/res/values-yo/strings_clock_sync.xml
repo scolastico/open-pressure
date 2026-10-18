@@ -21,4 +21,7 @@
     <string name="monitor_clock_sync_unreadable">Kò ṣeé ṣe láti mu aago ṣiṣẹpọ</string>
     <string name="monitor_clock_sync_reconnect">Tún sopọ̀ láti kó àwọn ìwọ̀n wọlé.</string>
     <string name="clock_sync_report_prompt">O ti mu aago ẹ̀rọ kan ṣiṣẹpọ tí a kò tíì dán èyí wò pẹ̀lú rẹ̀. Ìròyìn ẹ̀rọ nínú issue GitHub kan fi hàn bóyá ó ṣiṣẹ́, ó sì ń ṣèrànwọ́ láti jẹ́ kí mímú aago ṣiṣẹpọ wà fún àwọn ẹlòmíràn.\n\nÌjábọ̀ náà ní àwọn àlàyé ìmọ̀-ẹ̀rọ nìkan. Kò ní àwọn ìwọ̀n, àkókò ìwọ̀n, orúkọ, àdírẹ́sì Bluetooth tàbí nọ́ńbà ìdánimọ̀ rárá. O lè ṣàyẹ̀wò rẹ̀ kí o tó pín ohunkóhun.</string>
+    <string name="main_clock_sync_backup">Ẹ̀dà àfipamọ́ ìmúṣiṣẹpọ̀ aago</string>
+    <string name="main_clock_sync_backup_explanation">Àwọn ètò tí a fipamọ́ ṣáájú ìmúṣiṣẹpọ̀ aago tó kẹ́yìn. Èyí jẹ́ ẹ̀dà àfipamọ́ àwọn ètò, kì í ṣe ẹ̀dà àfipamọ́ gbogbo ìrántí tàbí ìṣàtúnṣe. Àwọn ẹ̀dà àfipamọ́ ti tẹ́lẹ̀ wà lórí fóònù yìí.</string>
+    <string name="monitor_clock_sync_out_of_range">Ọjọ́ fóònù wà ní òde ààlà tí a ṣe àtìlẹ́yìn fún, nítorí náà a kò yí aago ẹ̀rọ náà padà. Ṣàyẹ̀wò ọjọ́ lórí fóònù yìí.</string>
 </resources>

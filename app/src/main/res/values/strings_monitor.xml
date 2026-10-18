@@ -99,6 +99,7 @@
     <string name="monitor_clock_sync_rejected">Clock sync failed</string>
     <string name="monitor_clock_sync_cancelled">Clock sync cancelled</string>
     <string name="monitor_clock_sync_unreadable">Clock sync not possible</string>
+    <string name="monitor_clock_sync_out_of_range">The phone\'s date is outside the supported range, so the monitor\'s clock was not changed. Check the date on this phone.</string>
     <string name="monitor_clock_sync_reconnect">Connect again to import readings.</string>
     <string name="clock_sync_report_prompt">You synced the clock of a monitor on which this has not been tested yet. Sharing a device report in a GitHub issue shows whether it worked and helps make clock sync available to others.\n\nThe report contains only technical details. It never includes readings, measurement times, names, the Bluetooth address or the serial number. You can review it before you share anything.</string>
 </resources>

@@ -22,4 +22,7 @@
     <string name="monitor_clock_sync_unreadable">Ukuvumelanisa iwashi akunakwenzeka</string>
     <string name="monitor_clock_sync_reconnect">Xhuma futhi ukuze ungenise izilinganiso.</string>
     <string name="clock_sync_report_prompt">Uvumelanise iwashi lemonitha lapho lokhu kungakahlolwa khona. Umbiko wedivayisi ku-issue ye-GitHub ukhombisa ukuthi kusebenzile yini futhi kusiza ekwenzeni ukuvumelanisa iwashi kutholakale nakwabanye.\n\nUmbiko uqukethe imininingwane yobuchwepheshe kuphela. Awusoze wafaka izilinganiso, izikhathi zokukala, amagama, ikheli le-Bluetooth noma inombolo yomkhiqizo. Ungawubuyekeza ngaphambi kokuthi wabelane nganoma yini.</string>
+    <string name="main_clock_sync_backup">Isipele sokuvumelanisa iwashi</string>
+    <string name="main_clock_sync_backup_explanation">Izilungiselelo ezigcinwe ngaphambi kokuvumelanisa iwashi kokugcina. Lesi yisipele sezilungiselelo, hhayi isipele esigcwele sememori noma sokulinganisa. Izipele zangaphambili zihlala kule foni.</string>
+    <string name="monitor_clock_sync_out_of_range">Usuku lwefoni lungaphandle kobubanzi obusekelwayo, ngakho iwashi lomshini aliguqulwanga. Hlola usuku kule foni.</string>
 </resources>

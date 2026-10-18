@@ -21,4 +21,7 @@
     <string name="monitor_clock_sync_unreadable">Hindi posible ang pag-sync ng orasan</string>
     <string name="monitor_clock_sync_reconnect">Kumonekta ulit para mag-import ng mga reading.</string>
     <string name="clock_sync_report_prompt">Na-sync mo ang orasan ng isang monitor na hindi pa nasusubukan para dito. Ipinapakita ng device report sa isang GitHub issue kung gumana ito at nakakatulong itong gawing available ang pag-sync ng orasan sa iba.\n\nTeknikal na detalye lang ang laman ng report. Hindi nito kailanman isinasama ang mga reading, oras ng pagsukat, pangalan, Bluetooth address o serial number. Masusuri mo ito bago ka magbahagi ng anuman.</string>
+    <string name="main_clock_sync_backup">Backup ng pag-sync ng orasan</string>
+    <string name="main_clock_sync_backup_explanation">Mga setting na na-save bago ang huling pag-sync ng orasan. Ito ay backup ng mga setting, hindi buong backup ng memorya o ng calibration. Nananatili sa teleponong ito ang mga naunang backup.</string>
+    <string name="monitor_clock_sync_out_of_range">Nasa labas ng sinusuportahang saklaw ang petsa ng telepono, kaya hindi binago ang orasan ng monitor. Tingnan ang petsa sa teleponong ito.</string>
 </resources>

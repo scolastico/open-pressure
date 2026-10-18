@@ -22,4 +22,7 @@
     <string name="monitor_clock_sync_unreadable">Synkronisering af uret er ikke mulig</string>
     <string name="monitor_clock_sync_reconnect">Opret forbindelse igen for at importere målinger.</string>
     <string name="clock_sync_report_prompt">Du har synkroniseret uret på en måler, som dette endnu ikke er testet med. En enhedsrapport i et GitHub-issue viser, om det virkede, og hjælper med at gøre synkronisering af uret tilgængelig for andre.\n\nRapporten indeholder kun tekniske detaljer. Den indeholder aldrig målinger, måletidspunkter, navne, Bluetooth-adressen eller serienummeret. Du kan gennemse den, før du deler noget.</string>
+    <string name="main_clock_sync_backup">Sikkerhedskopi før synkronisering af uret</string>
+    <string name="main_clock_sync_backup_explanation">Indstillinger gemt før den seneste synkronisering af uret. Dette er en sikkerhedskopi af indstillingerne, ikke en fuld sikkerhedskopi af hukommelse eller kalibrering. Tidligere sikkerhedskopier bliver på denne telefon.</string>
+    <string name="monitor_clock_sync_out_of_range">Telefonens dato ligger uden for det understøttede interval, så apparatets ur blev ikke ændret. Kontrollér datoen på denne telefon.</string>
 </resources>

@@ -22,4 +22,7 @@
     <string name="monitor_clock_sync_unreadable">ሰዓቱን ማስመሳሰል አይቻልም</string>
     <string name="monitor_clock_sync_reconnect">ልኬቶችን ለማስመጣት እንደገና ይገናኙ።</string>
     <string name="clock_sync_report_prompt">ይህ ገና ያልተሞከረበትን መቆጣጠሪያ ሰዓት አስምረዋል። በGitHub issue ውስጥ የመሣሪያ ሪፖርት መጋራት መስራቱን ያሳያል እና የሰዓት ማስመሳሰልን ለሌሎችም እንዲገኝ ያግዛል።\n\nሪፖርቱ ቴክኒካዊ ዝርዝሮችን ብቻ ይይዛል። ልኬቶችን፣ የልኬት ሰዓቶችን፣ ስሞችን፣ የBluetooth አድራሻውን ወይም የመለያ ቁጥሩን በጭራሽ አያካትትም። ማንኛውንም ነገር ከማጋራትዎ በፊት ሊገመግሙት ይችላሉ።</string>
+    <string name="main_clock_sync_backup">የሰዓት ማስመሪያ ምትኬ</string>
+    <string name="main_clock_sync_backup_explanation">ከመጨረሻው የሰዓት ማስመር በፊት የተቀመጡ ቅንብሮች። ይህ የቅንብሮች ምትኬ ነው፣ የሙሉ ማህደረ ትውስታ ወይም የማስተካከያ ምትኬ አይደለም። ቀደም ያሉ ምትኬዎች በዚህ ስልክ ላይ ይቆያሉ።</string>
+    <string name="monitor_clock_sync_out_of_range">የስልኩ ቀን ከሚደገፈው ክልል ውጭ ነው፣ ስለዚህ የመለኪያው ሰዓት አልተቀየረም። በዚህ ስልክ ላይ ያለውን ቀን ያረጋግጡ።</string>
 </resources>

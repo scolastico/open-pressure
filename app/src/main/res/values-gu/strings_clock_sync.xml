@@ -22,4 +22,7 @@
     <string name="monitor_clock_sync_unreadable">ઘડિયાળ સિંક શક્ય નથી</string>
     <string name="monitor_clock_sync_reconnect">રીડિંગ આયાત કરવા ફરીથી કનેક્ટ કરો.</string>
     <string name="clock_sync_report_prompt">તમે એવા મોનિટરની ઘડિયાળ સિંક કરી છે જેની સાથે આનું હજુ પરીક્ષણ થયું નથી. GitHub issue માં ઉપકરણ રિપોર્ટ બતાવે છે કે તે કામ કર્યું કે નહીં, અને ઘડિયાળ સિંકને અન્ય લોકો માટે ઉપલબ્ધ બનાવવામાં મદદ કરે છે.\n\nરિપોર્ટમાં ફક્ત ટેકનિકલ વિગતો હોય છે. તેમાં ક્યારેય રીડિંગ, માપનો સમય, નામ, Bluetooth સરનામું કે સીરિયલ નંબર શામેલ હોતા નથી. કંઈપણ શેર કરતાં પહેલાં તમે તેને જોઈ શકો છો.</string>
+    <string name="main_clock_sync_backup">ઘડિયાળ સિંકનો બેકઅપ</string>
+    <string name="main_clock_sync_backup_explanation">છેલ્લા ઘડિયાળ સિંક પહેલાં સાચવેલી સેટિંગ્સ. આ સેટિંગ્સનો બેકઅપ છે, સંપૂર્ણ મેમરી કે કેલિબ્રેશનનો બેકઅપ નથી. અગાઉના બેકઅપ આ ફોન પર રહે છે.</string>
+    <string name="monitor_clock_sync_out_of_range">ફોનની તારીખ સમર્થિત શ્રેણીની બહાર છે, તેથી મોનિટરની ઘડિયાળ બદલાઈ નથી. આ ફોન પરની તારીખ તપાસો.</string>
 </resources>

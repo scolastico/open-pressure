@@ -23,4 +23,7 @@
     <string name="monitor_clock_sync_unreadable">Sincronizarea ceasului nu este posibilă</string>
     <string name="monitor_clock_sync_reconnect">Conectați-vă din nou pentru a importa măsurătorile.</string>
     <string name="clock_sync_report_prompt">Ați sincronizat ceasul unui tensiometru cu care acest lucru nu a fost încă testat. Un raport al dispozitivului într-un issue pe GitHub arată dacă a funcționat și ajută la disponibilizarea sincronizării ceasului și pentru alții.\n\nRaportul conține doar detalii tehnice. Nu include niciodată măsurători, orele măsurătorilor, nume, adresa Bluetooth sau numărul de serie. Îl poți examina înainte de a distribui ceva.</string>
+    <string name="main_clock_sync_backup">Copie de rezervă pentru sincronizarea ceasului</string>
+    <string name="main_clock_sync_backup_explanation">Setări salvate înainte de ultima sincronizare a ceasului. Aceasta este o copie de rezervă a setărilor, nu o copie completă a memoriei sau a calibrării. Copiile anterioare rămân pe acest telefon.</string>
+    <string name="monitor_clock_sync_out_of_range">Data telefonului este în afara intervalului acceptat, așa că ceasul aparatului nu a fost modificat. Verificați data de pe acest telefon.</string>
 </resources>

@@ -195,7 +195,7 @@ public final class MainActivity extends Activity {
     }
     private String deviceState() {
         if(monitor==null) return "starting";
-        return Arrays.asList(monitor.ready,monitor.sessionFinished,monitor.registrationReading,monitor.registrationPending,monitor.registrationWriting,monitor.registrationDone,monitor.registrationBackupFile()!=null,monitor.address,monitor.connectedName,monitor.profile,monitor.user,
+        return Arrays.asList(monitor.ready,monitor.sessionFinished,monitor.registrationReading,monitor.registrationPending,monitor.registrationWriting,monitor.registrationDone,monitor.registrationBackupFile()!=null,monitor.clockSyncBackupFile(),monitor.address,monitor.connectedName,monitor.profile,monitor.user,
                 monitor.battery,monitor.information,monitor.hasUserControl,monitor.authenticatedUser,monitor.canHistory,
                 monitor.historyRunning,monitor.clockSyncRunning,monitor.clockSyncPending,monitor.importMode,monitor.importUsers,monitor.canTime,monitor.deviceTime,monitor.modelHint,monitor.canDump,
                 monitor.dumpRunning,monitor.dumpSaving,monitor.dumpRevision,monitor.eepromDumpFile()!=null,monitor.dumpComplete,monitor.dumpStart,monitor.dumpLength,monitor.deviceReport()!=null,
@@ -394,9 +394,12 @@ public final class MainActivity extends Activity {
             }
             if(!monitor.canHistory) add(active,text(getString(R.string.main_history_unavailable),14,MUTED,false),6);
             if(monitor.profile==org.openpressure.protocol.ProtocolProfile.VENDOR_MEMORY || monitor.profile.isX7()) {
-                Button sync=button(monitor.clockSyncRunning?getString(R.string.main_sync_clock_running):getString(R.string.main_sync_clock),this::startClockSync,false);
-                sync.setEnabled(monitor.canClockSync()); add(active,sync,8);
-                add(active,text(getString(R.string.main_sync_clock_explanation),14,MUTED,false),6);
+                // Only where the clock block is confirmed or the developer switch allows it; otherwise no clock control.
+                if(monitor.clockSyncRunning || monitor.clockSyncOffered()) {
+                    Button sync=button(monitor.clockSyncRunning?getString(R.string.main_sync_clock_running):getString(R.string.main_sync_clock),this::startClockSync,false);
+                    sync.setEnabled(monitor.canClockSync()); add(active,sync,8);
+                    add(active,text(getString(R.string.main_sync_clock_explanation),14,MUTED,false),6);
+                }
             } else {
                 Button clock=button(getString(R.string.main_set_monitor_time),this::clockDialog,false); clock.setEnabled(monitor.canTime&&!monitor.historyRunning&&!monitor.dumpRunning); add(active,clock,8);
             }
@@ -474,6 +477,13 @@ public final class MainActivity extends Activity {
             add(savedBackup,text(getString(R.string.main_backup_explanation),14,MUTED,false),10);
             Button export=button(getString(R.string.main_export_settings_backup),() -> exportJsonSnapshot(monitor.registrationBackupFile(),"open-pressure-settings-backup.json"),false);
             export.setEnabled(!dumpExportPreparing); add(savedBackup,export,8); content.addView(savedBackup);
+        }
+        File clockBackup=monitor.clockSyncBackupFile();
+        if(clockBackup!=null && clockBackup.isFile()) {
+            LinearLayout savedClock=card(); label(savedClock,getString(R.string.main_clock_sync_backup));
+            add(savedClock,text(getString(R.string.main_clock_sync_backup_explanation),14,MUTED,false),10);
+            Button export=button(getString(R.string.main_export_settings_backup),() -> exportJsonSnapshot(monitor.clockSyncBackupFile(),"open-pressure-clock-sync-settings-backup.json"),false);
+            export.setEnabled(!dumpExportPreparing); add(savedClock,export,8); content.addView(savedClock);
         }
         if(DeveloperOptions.isUnlocked(this)) add(content,button(getString(R.string.dev_open),() -> startActivity(new Intent(this,DeveloperOptionsActivity.class)),false),16);
         TextView version=text(getString(R.string.dev_version_label,BuildConfig.VERSION_NAME,BuildConfig.VERSION_CODE),13,MUTED,false);

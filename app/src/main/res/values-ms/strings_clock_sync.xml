@@ -21,4 +21,7 @@
     <string name="monitor_clock_sync_unreadable">Penyegerakan jam tidak dapat dilakukan</string>
     <string name="monitor_clock_sync_reconnect">Sambung semula untuk mengimport bacaan.</string>
     <string name="clock_sync_report_prompt">Anda telah menyegerakkan jam monitor yang belum pernah diuji untuk ciri ini. Laporan peranti dalam issue GitHub menunjukkan sama ada ia berjaya dan membantu menjadikan penyegerakan jam tersedia kepada orang lain.\n\nLaporan hanya mengandungi butiran teknikal. Ia tidak pernah memasukkan bacaan, masa pengukuran, nama, alamat Bluetooth atau nombor siri. Anda boleh menyemaknya sebelum berkongsi apa-apa.</string>
+    <string name="main_clock_sync_backup">Sandaran penyegerakan jam</string>
+    <string name="main_clock_sync_backup_explanation">Tetapan yang disimpan sebelum penyegerakan jam terakhir. Ini ialah sandaran tetapan, bukan sandaran penuh memori atau kalibrasi. Sandaran terdahulu kekal pada telefon ini.</string>
+    <string name="monitor_clock_sync_out_of_range">Tarikh telefon berada di luar julat yang disokong, jadi jam monitor tidak diubah. Semak tarikh pada telefon ini.</string>
 </resources>

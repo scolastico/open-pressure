@@ -22,4 +22,7 @@
     <string name="monitor_clock_sync_unreadable">Uhrsynchronisierung nicht möglich</string>
     <string name="monitor_clock_sync_reconnect">Verbinde dich erneut, um Messwerte zu importieren.</string>
     <string name="clock_sync_report_prompt">Du hast die Uhr eines Messgeräts synchronisiert, mit dem das noch nicht getestet wurde. Ein Gerätebericht in einem GitHub-Issue zeigt, ob es funktioniert hat, und hilft, die Uhrsynchronisierung auch für andere freizuschalten.\n\nDer Bericht enthält nur technische Details. Er enthält niemals Messwerte, Messzeiten, Namen, die Bluetooth-Adresse oder die Seriennummer. Du kannst ihn ansehen, bevor du etwas teilst.</string>
+    <string name="main_clock_sync_backup">Sicherung vor der Uhrsynchronisierung</string>
+    <string name="main_clock_sync_backup_explanation">Vor der letzten Uhrsynchronisierung gespeicherte Einstellungen. Dies ist eine Sicherung der Einstellungen, keine vollständige Speicher- oder Kalibrierungssicherung. Frühere Sicherungen bleiben auf diesem Smartphone.</string>
+    <string name="monitor_clock_sync_out_of_range">Das Datum des Smartphones liegt außerhalb des unterstützten Bereichs, daher wurde die Uhr des Messgeräts nicht geändert. Prüfe das Datum auf diesem Smartphone.</string>
 </resources>

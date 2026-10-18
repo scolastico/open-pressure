@@ -21,4 +21,7 @@
     <string name="monitor_clock_sync_unreadable">시계를 동기화할 수 없음</string>
     <string name="monitor_clock_sync_reconnect">측정값을 가져오려면 다시 연결하세요.</string>
     <string name="clock_sync_report_prompt">아직 이 기능이 테스트되지 않은 혈압계의 시계를 동기화했습니다. GitHub issue에 기기 보고서를 공유하면 성공 여부를 알 수 있고 다른 사람도 시계 동기화를 사용할 수 있도록 도울 수 있습니다.\n\n보고서에는 기술 정보만 포함됩니다. 측정값, 측정 시간, 이름, 블루투스 주소, 일련번호는 절대 포함되지 않습니다. 공유하기 전에 내용을 검토할 수 있습니다.</string>
+    <string name="main_clock_sync_backup">시계 동기화 백업</string>
+    <string name="main_clock_sync_backup_explanation">마지막 시계 동기화 전에 저장된 설정입니다. 설정 백업이며 전체 메모리나 보정 백업이 아닙니다. 이전 백업은 이 휴대전화에 남아 있습니다.</string>
+    <string name="monitor_clock_sync_out_of_range">휴대전화 날짜가 지원 범위를 벗어나 혈압계 시계를 변경하지 않았습니다. 이 휴대전화의 날짜를 확인하세요.</string>
 </resources>

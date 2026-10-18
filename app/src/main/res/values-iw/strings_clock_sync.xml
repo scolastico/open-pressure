@@ -24,4 +24,7 @@
     <string name="monitor_clock_sync_unreadable">לא ניתן לסנכרן את השעון</string>
     <string name="monitor_clock_sync_reconnect">התחברו שוב כדי לייבא מדידות.</string>
     <string name="clock_sync_report_prompt">סנכרנתם את השעון של מד שעדיין לא נבדק לכך. דוח מכשיר ב-issue ב-GitHub מראה אם זה עבד ועוזר להפוך את סנכרון השעון לזמין גם לאחרים.\n\nהדוח מכיל פרטים טכניים בלבד. הוא אף פעם לא כולל מדידות, זמני מדידה, שמות, את כתובת ה-Bluetooth או את המספר הסידורי. אפשר לעיין בו לפני שמשתפים משהו.</string>
+    <string name="main_clock_sync_backup">גיבוי לפני סנכרון השעון</string>
+    <string name="main_clock_sync_backup_explanation">הגדרות שנשמרו לפני סנכרון השעון האחרון. זהו גיבוי של ההגדרות, לא גיבוי מלא של הזיכרון או של הכיול. גיבויים קודמים נשארים בטלפון הזה.</string>
+    <string name="monitor_clock_sync_out_of_range">התאריך בטלפון מחוץ לטווח הנתמך, ולכן השעון של המכשיר לא שונה. יש לבדוק את התאריך בטלפון הזה.</string>
 </resources>

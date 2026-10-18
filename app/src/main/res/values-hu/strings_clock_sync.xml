@@ -22,4 +22,7 @@
     <string name="monitor_clock_sync_unreadable">Az óraszinkronizálás nem lehetséges</string>
     <string name="monitor_clock_sync_reconnect">A mérések importálásához csatlakozzon újra.</string>
     <string name="clock_sync_report_prompt">Olyan vérnyomásmérő óráját szinkronizálta, amellyel ezt még nem tesztelték. Egy GitHub-issue-ban megosztott eszközjelentés megmutatja, sikerült-e, és segít másoknak is elérhetővé tenni az óraszinkronizálást.\n\nA jelentés csak műszaki adatokat tartalmaz. Soha nem tartalmaz méréseket, mérési időpontokat, neveket, a Bluetooth-címet vagy a sorozatszámot. Mielőtt bármit megosztanál, megtekintheted.</string>
+    <string name="main_clock_sync_backup">Biztonsági mentés az óra szinkronizálása előtt</string>
+    <string name="main_clock_sync_backup_explanation">A legutóbbi óraszinkronizálás előtt mentett beállítások. Ez a beállítások biztonsági mentése, nem a teljes memória vagy a kalibráció mentése. A korábbi mentések ezen a telefonon maradnak.</string>
+    <string name="monitor_clock_sync_out_of_range">A telefon dátuma a támogatott tartományon kívül esik, ezért a készülék órája nem változott. Ellenőrizze a telefon dátumát.</string>
 </resources>

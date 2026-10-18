@@ -22,4 +22,7 @@
     <string name="monitor_clock_sync_unreadable">ঘড়ি সিঙ্ক সম্ভব নয়</string>
     <string name="monitor_clock_sync_reconnect">রিডিং আমদানি করতে আবার সংযোগ করুন।</string>
     <string name="clock_sync_report_prompt">আপনি এমন একটি মনিটরের ঘড়ি সিঙ্ক করেছেন যার সাথে এটি এখনও পরীক্ষা করা হয়নি। GitHub issue-তে ডিভাইস রিপোর্ট দেখায় এটি কাজ করেছে কি না, এবং ঘড়ি সিঙ্ক অন্যদের জন্য উপলব্ধ করতে সাহায্য করে।\n\nরিপোর্টে শুধু প্রযুক্তিগত তথ্য থাকে। এতে কখনও রিডিং, পরিমাপের সময়, নাম, Bluetooth ঠিকানা বা সিরিয়াল নম্বর থাকে না। কিছু শেয়ার করার আগে আপনি এটি দেখে নিতে পারেন।</string>
+    <string name="main_clock_sync_backup">ঘড়ি সিঙ্কের ব্যাকআপ</string>
+    <string name="main_clock_sync_backup_explanation">সর্বশেষ ঘড়ি সিঙ্কের আগে সংরক্ষিত সেটিংস। এটি সেটিংসের ব্যাকআপ, সম্পূর্ণ মেমরি বা ক্যালিব্রেশনের ব্যাকআপ নয়। আগের ব্যাকআপগুলো এই ফোনেই থাকে।</string>
+    <string name="monitor_clock_sync_out_of_range">ফোনের তারিখ সমর্থিত সীমার বাইরে, তাই মনিটরের ঘড়ি পরিবর্তন করা হয়নি। এই ফোনের তারিখ পরীক্ষা করুন।</string>
 </resources>

@@ -26,4 +26,7 @@
     <string name="monitor_clock_sync_unreadable">تعذّرت مزامنة الساعة</string>
     <string name="monitor_clock_sync_reconnect">اتصل مرة أخرى لاستيراد القراءات.</string>
     <string name="clock_sync_report_prompt">لقد زامنت ساعة جهاز قياس ضغط لم تُختبر معه هذه الميزة بعد. يوضح تقرير الجهاز في issue على GitHub ما إذا كانت قد نجحت، ويساعد على إتاحة مزامنة الساعة للآخرين.\n\nيحتوي التقرير على تفاصيل تقنية فقط. ولا يتضمن أبدًا القراءات أو أوقات القياس أو الأسماء أو عنوان Bluetooth أو الرقم التسلسلي. يمكنك مراجعته قبل مشاركة أي شيء.</string>
+    <string name="main_clock_sync_backup">نسخة احتياطية لمزامنة الساعة</string>
+    <string name="main_clock_sync_backup_explanation">تم حفظ الإعدادات قبل آخر مزامنة للساعة. هذه نسخة احتياطية للإعدادات، وليست نسخة احتياطية للذاكرة الكاملة أو المعايرة. تبقى النسخ الاحتياطية السابقة على هذا الهاتف.</string>
+    <string name="monitor_clock_sync_out_of_range">تاريخ الهاتف خارج النطاق المدعوم، لذلك لم تتغير ساعة الجهاز. تحقق من التاريخ على هذا الهاتف.</string>
 </resources>

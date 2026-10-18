@@ -22,4 +22,7 @@
     <string name="monitor_clock_sync_unreadable">Kellon synkronointi ei ole mahdollista</string>
     <string name="monitor_clock_sync_reconnect">Yhdistä uudelleen tuodaksesi mittaukset.</string>
     <string name="clock_sync_report_prompt">Synkronoit kellon mittarissa, jolla tätä ei ole vielä testattu. Laiteraportti GitHub-issuessa näyttää, toimiko se, ja auttaa tuomaan kellon synkronoinnin muidenkin käyttöön.\n\nRaportti sisältää vain teknisiä tietoja. Se ei koskaan sisällä mittaustuloksia, mittausaikoja, nimiä, Bluetooth-osoitetta tai sarjanumeroa. Voit tarkistaa sen ennen kuin jaat mitään.</string>
+    <string name="main_clock_sync_backup">Kellon synkronoinnin varmuuskopio</string>
+    <string name="main_clock_sync_backup_explanation">Ennen viimeisintä kellon synkronointia tallennetut asetukset. Tämä on asetusten varmuuskopio, ei koko muistin tai kalibroinnin varmuuskopio. Aiemmat varmuuskopiot säilyvät tässä puhelimessa.</string>
+    <string name="monitor_clock_sync_out_of_range">Puhelimen päivämäärä on tuetun alueen ulkopuolella, joten mittarin kelloa ei muutettu. Tarkista tämän puhelimen päivämäärä.</string>
 </resources>

@@ -22,4 +22,7 @@
     <string name="monitor_clock_sync_unreadable">घड़ी सिंक संभव नहीं</string>
     <string name="monitor_clock_sync_reconnect">रीडिंग आयात करने के लिए फिर से कनेक्ट करें।</string>
     <string name="clock_sync_report_prompt">आपने ऐसे मॉनिटर की घड़ी सिंक की है जिसके साथ इसका अभी परीक्षण नहीं हुआ है। GitHub issue में डिवाइस रिपोर्ट दिखाती है कि यह काम किया या नहीं, और घड़ी सिंक को दूसरों के लिए उपलब्ध कराने में मदद करती है।\n\nरिपोर्ट में केवल तकनीकी जानकारी होती है। इसमें कभी भी रीडिंग, माप का समय, नाम, Bluetooth पता या सीरियल नंबर शामिल नहीं होता। कुछ भी शेयर करने से पहले आप इसे देख सकते हैं।</string>
+    <string name="main_clock_sync_backup">घड़ी सिंक का बैकअप</string>
+    <string name="main_clock_sync_backup_explanation">पिछले घड़ी सिंक से पहले सहेजी गई सेटिंग्स। यह सेटिंग्स का बैकअप है, पूरी मेमोरी या कैलिब्रेशन का बैकअप नहीं। पहले के बैकअप इसी फ़ोन पर रहते हैं।</string>
+    <string name="monitor_clock_sync_out_of_range">फ़ोन की तारीख समर्थित सीमा से बाहर है, इसलिए मॉनिटर की घड़ी नहीं बदली गई। इस फ़ोन की तारीख जाँचें।</string>
 </resources>

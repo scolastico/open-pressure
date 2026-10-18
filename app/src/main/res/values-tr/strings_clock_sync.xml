@@ -22,4 +22,7 @@
     <string name="monitor_clock_sync_unreadable">Saat eşitleme mümkün değil</string>
     <string name="monitor_clock_sync_reconnect">Ölçümleri içe aktarmak için yeniden bağlanın.</string>
     <string name="clock_sync_report_prompt">Bunun henüz test edilmediği bir ölçüm cihazının saatini eşitlediniz. GitHub\'daki bir issue\'da paylaşılan cihaz raporu, işe yarayıp yaramadığını gösterir ve saat eşitlemenin başkaları için de kullanıma açılmasına yardımcı olur.\n\nRapor yalnızca teknik ayrıntılar içerir. Hiçbir zaman ölçümleri, ölçüm zamanlarını, adları, Bluetooth adresini veya seri numarasını içermez. Herhangi bir şey paylaşmadan önce raporu inceleyebilirsiniz.</string>
+    <string name="main_clock_sync_backup">Saat eşitleme yedeği</string>
+    <string name="main_clock_sync_backup_explanation">Son saat eşitlemesinden önce kaydedilen ayarlar. Bu bir ayar yedeğidir; tam bellek veya kalibrasyon yedeği değildir. Önceki yedekler bu telefonda kalır.</string>
+    <string name="monitor_clock_sync_out_of_range">Telefonun tarihi desteklenen aralığın dışında olduğundan cihazın saati değiştirilmedi. Bu telefondaki tarihi kontrol edin.</string>
 </resources>

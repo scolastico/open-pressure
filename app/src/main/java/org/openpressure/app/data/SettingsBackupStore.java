@@ -10,7 +10,7 @@ import java.util.UUID;
 /** A new, flushed settings snapshot must exist before registration or a clock-block write can be authorized. */
 public final class SettingsBackupStore {
     public interface DirectorySync { void sync(File directory) throws IOException; }
-    /** X7 pre-registration snapshots; the only files "Export settings backup" offers. */
+    /** X7 pre-registration snapshots. */
     public static final String REGISTRATION_PREFIX="x7-settings-";
     /** Settings images saved before a clock-block write. */
     public static final String CLOCK_SYNC_PREFIX="clock-sync-settings-";
@@ -37,8 +37,11 @@ public final class SettingsBackupStore {
         } finally { Files.deleteIfExists(temporary.toPath()); }
     }
     /** The newest completed registration snapshot in {@code directory}, or null; clock-sync backups are ignored. */
-    public static File latestRegistrationBackup(File directory) {
-        File[] backups=directory.listFiles((parent,name) -> name.startsWith(REGISTRATION_PREFIX) && name.endsWith(".json"));
+    public static File latestRegistrationBackup(File directory) { return latest(directory,REGISTRATION_PREFIX); }
+    /** The newest completed clock-sync snapshot in {@code directory}, or null; registration backups are ignored. */
+    public static File latestClockSyncBackup(File directory) { return latest(directory,CLOCK_SYNC_PREFIX); }
+    private static File latest(File directory,String prefix) {
+        File[] backups=directory.listFiles((parent,name) -> name.startsWith(prefix) && name.endsWith(".json"));
         File latest=null;
         if(backups!=null) for(File backup:backups) if(backup.isFile() && (latest==null || backup.lastModified()>latest.lastModified())) latest=backup;
         return latest;

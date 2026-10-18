@@ -21,4 +21,7 @@
     <string name="monitor_clock_sync_unreadable">Sinkronisasi jam tidak dapat dilakukan</string>
     <string name="monitor_clock_sync_reconnect">Hubungkan lagi untuk mengimpor hasil pengukuran.</string>
     <string name="clock_sync_report_prompt">Anda telah menyinkronkan jam monitor yang belum pernah diuji untuk fitur ini. Laporan perangkat dalam issue GitHub menunjukkan apakah berhasil dan membantu membuat sinkronisasi jam tersedia bagi orang lain.\n\nLaporan hanya berisi detail teknis. Laporan tidak pernah memuat hasil pengukuran, waktu pengukuran, nama, alamat Bluetooth, atau nomor seri. Anda dapat meninjaunya sebelum membagikan apa pun.</string>
+    <string name="main_clock_sync_backup">Cadangan sinkronisasi jam</string>
+    <string name="main_clock_sync_backup_explanation">Pengaturan yang disimpan sebelum sinkronisasi jam terakhir. Ini adalah cadangan pengaturan, bukan cadangan lengkap memori atau kalibrasi. Cadangan sebelumnya tetap ada di ponsel ini.</string>
+    <string name="monitor_clock_sync_out_of_range">Tanggal ponsel berada di luar rentang yang didukung, sehingga jam monitor tidak diubah. Periksa tanggal di ponsel ini.</string>
 </resources>

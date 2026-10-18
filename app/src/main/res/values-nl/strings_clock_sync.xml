@@ -22,4 +22,7 @@
     <string name="monitor_clock_sync_unreadable">Kloksynchronisatie niet mogelijk</string>
     <string name="monitor_clock_sync_reconnect">Maak opnieuw verbinding om metingen te importeren.</string>
     <string name="clock_sync_report_prompt">Je hebt de klok gesynchroniseerd van een meter waarmee dit nog niet is getest. Een apparaatrapport in een GitHub-issue laat zien of het gelukt is en helpt kloksynchronisatie ook voor anderen beschikbaar te maken.\n\nHet rapport bevat alleen technische details. Het bevat nooit metingen, meettijden, namen, het Bluetooth-adres of het serienummer. Je kunt het bekijken voordat je iets deelt.</string>
+    <string name="main_clock_sync_backup">Back-up van de kloksynchronisatie</string>
+    <string name="main_clock_sync_backup_explanation">Instellingen die vóór de laatste kloksynchronisatie zijn opgeslagen. Dit is een back-up van de instellingen, geen volledige back-up van het geheugen of de kalibratie. Eerdere back-ups blijven op deze telefoon.</string>
+    <string name="monitor_clock_sync_out_of_range">De datum van de telefoon valt buiten het ondersteunde bereik, dus de klok van de meter is niet gewijzigd. Controleer de datum op deze telefoon.</string>
 </resources>

@@ -24,4 +24,7 @@
     <string name="monitor_clock_sync_unreadable">Synchronizácia hodín nie je možná</string>
     <string name="monitor_clock_sync_reconnect">Na import meraní sa pripojte znova.</string>
     <string name="clock_sync_report_prompt">Synchronizovali ste hodiny tlakomeru, s ktorým to zatiaľ nebolo otestované. Hlásenie o zariadení v issue na GitHube ukáže, či to fungovalo, a pomôže sprístupniť synchronizáciu hodín aj ostatným.\n\nSpráva obsahuje iba technické údaje. Nikdy neobsahuje namerané hodnoty, časy meraní, mená, adresu Bluetooth ani sériové číslo. Pred zdieľaním si ju môžete pozrieť.</string>
+    <string name="main_clock_sync_backup">Záloha pred synchronizáciou hodín</string>
+    <string name="main_clock_sync_backup_explanation">Nastavenia uložené pred poslednou synchronizáciou hodín. Ide o zálohu nastavení, nie o úplnú zálohu pamäte ani kalibrácie. Staršie zálohy zostávajú v tomto telefóne.</string>
+    <string name="monitor_clock_sync_out_of_range">Dátum v telefóne je mimo podporovaného rozsahu, preto sa hodiny prístroja nezmenili. Skontrolujte dátum v tomto telefóne.</string>
 </resources>

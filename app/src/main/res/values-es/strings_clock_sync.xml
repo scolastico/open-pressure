@@ -23,4 +23,7 @@
     <string name="monitor_clock_sync_unreadable">No se puede sincronizar el reloj</string>
     <string name="monitor_clock_sync_reconnect">Vuelve a conectar para importar mediciones.</string>
     <string name="clock_sync_report_prompt">Sincronizaste el reloj de un tensiómetro con el que esto aún no se ha probado. Un informe del dispositivo en un issue de GitHub muestra si funcionó y ayuda a habilitar la sincronización del reloj para otras personas.\n\nEl informe solo contiene detalles técnicos. Nunca incluye mediciones, horas de medición, nombres, la dirección Bluetooth ni el número de serie. Puedes revisarlo antes de compartir nada.</string>
+    <string name="main_clock_sync_backup">Copia de seguridad de la sincronización del reloj</string>
+    <string name="main_clock_sync_backup_explanation">Ajustes guardados antes de la última sincronización del reloj. Es una copia de seguridad de los ajustes, no una copia completa de la memoria ni de la calibración. Las copias anteriores permanecen en este teléfono.</string>
+    <string name="monitor_clock_sync_out_of_range">La fecha del teléfono está fuera del intervalo admitido, por lo que no se cambió el reloj del monitor. Comprueba la fecha de este teléfono.</string>
 </resources>

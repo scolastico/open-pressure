@@ -23,4 +23,7 @@
     <string name="monitor_clock_sync_unreadable">Não é possível sincronizar o relógio</string>
     <string name="monitor_clock_sync_reconnect">Conecte novamente para importar medições.</string>
     <string name="clock_sync_report_prompt">Você sincronizou o relógio de um medidor com o qual isso ainda não foi testado. Um relatório do dispositivo em uma issue no GitHub mostra se funcionou e ajuda a disponibilizar a sincronização do relógio para outras pessoas.\n\nO relatório contém apenas detalhes técnicos. Ele nunca inclui medições, horários de medição, nomes, o endereço Bluetooth nem o número de série. Você pode revisá-lo antes de compartilhar qualquer coisa.</string>
+    <string name="main_clock_sync_backup">Backup da sincronização do relógio</string>
+    <string name="main_clock_sync_backup_explanation">Configurações salvas antes da última sincronização do relógio. Este é um backup das configurações, não um backup completo da memória ou da calibração. Os backups anteriores permanecem neste telefone.</string>
+    <string name="monitor_clock_sync_out_of_range">A data do telefone está fora do intervalo suportado, por isso o relógio do monitor não foi alterado. Verifique a data deste telefone.</string>
 </resources>

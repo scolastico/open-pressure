@@ -21,4 +21,7 @@
     <string name="monitor_clock_sync_unreadable">時計を同期できません</string>
     <string name="monitor_clock_sync_reconnect">測定値をインポートするには再度接続してください。</string>
     <string name="clock_sync_report_prompt">この機能がまだテストされていない血圧計の時計を同期しました。GitHub の issue でデバイスレポートを共有していただくと、成功したかどうかがわかり、ほかの方も時計の同期を使えるようになります。\n\nレポートには技術的な情報のみが含まれます。測定値、測定日時、名前、Bluetooth アドレス、シリアル番号が含まれることはありません。何かを共有する前に内容を確認できます。</string>
+    <string name="main_clock_sync_backup">時計同期のバックアップ</string>
+    <string name="main_clock_sync_backup_explanation">前回の時計同期の前に保存された設定。これは設定のバックアップであり、メモリ全体や調整のバックアップではありません。以前のバックアップはこの電話に残ります。</string>
+    <string name="monitor_clock_sync_out_of_range">電話の日付がサポート範囲外のため、血圧計の時計は変更されませんでした。この電話の日付を確認してください。</string>
 </resources>

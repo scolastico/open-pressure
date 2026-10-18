@@ -21,4 +21,7 @@
     <string name="monitor_clock_sync_unreadable">無法同步時鐘</string>
     <string name="monitor_clock_sync_reconnect">請重新連線以匯入測量結果。</string>
     <string name="clock_sync_report_prompt">你同步了一台尚未測試過此功能的血壓計的時鐘。在 GitHub issue 中分享裝置報告可以說明是否成功，並幫助其他人也能使用時鐘同步。\n\n報告只包含技術細節，絕不包含測量數據、測量時間、姓名、藍牙位址或序號。在分享任何內容之前，你都可以先查看報告。</string>
+    <string name="main_clock_sync_backup">時鐘同步備份</string>
+    <string name="main_clock_sync_backup_explanation">在最近一次時鐘同步之前儲存的設定。這是設定備份，不是完整的記憶體或校正備份。較早的備份仍保留在此手機上。</string>
+    <string name="monitor_clock_sync_out_of_range">手機日期超出支援的範圍，因此未變更血壓計的時鐘。請檢查此手機上的日期。</string>
 </resources>
