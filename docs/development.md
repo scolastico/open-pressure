@@ -55,6 +55,10 @@ Reminder tests exercise local-time/weekday scheduling, one-time completion, dayl
 
 Virtual-user tests cover schema v5-to-v6 preservation, durable assignment/FIFO/restart behavior, receipt deduplication, captured passthrough/destination policy, rollback, arbitrary profile counts and scoped deletion. Activity/coordinator tests exercise explicit assignment, later/ignored/blocked notifications and foreground recovery. Service callbacks verify that pending assignments are accepted without prematurely claiming history or uploads. Health Connect tests require matching owner and renewed consent after mode changes; PDF snapshots group and name virtual profiles independently of monitor banks. See [virtual users](virtual-users.md) for the ownership contract.
 
+### Omron reference sandbox
+
+Shared device fixtures under `protocol/src/testFixtures/resources/org/openpressure/protocol/fixtures/` are replayed against OpenPressure by `tools/test.sh` (protocol level) and `FixtureReplayTest` (real `MonitorService`), so they run with the normal checks. With a locally supplied Omron Connect package, `tools/omron-sandbox.sh` also replays them through Omron's own Bluetooth code and prints both results side by side. Without the package, `:omron-sandbox:testDebugUnitTest` skips the Omron side. Setup, fixture syntax and limits are in the [Omron reference sandbox](omron-sandbox.md) guide; never commit the Omron package or anything extracted from it.
+
 ### PDF rendering checks
 
 `PdfReportInstrumentation` is a native Android fixture runner with synthetic data only. It generates English, German and Arabic PDFs containing 121 records, mixed units, missing values and a note spanning several pages, then checks every page's orientation with Android's PDF renderer. On a dedicated test emulator, run:
@@ -88,7 +92,9 @@ Replace the emulator serial with your dedicated test device. The host check requ
 | `app/src/main/java/org/openpressure/app/updates/` | Daily GitHub release check, version comparison and remind/skip state |
 | `app/src/main/java/org/openpressure/app/pdf/` | Immutable report selection, statistics and native PDF rendering |
 | `app/src/main/` | Native Android UI, manifest and localized resources |
-| `tools/` | Protocol/storage checks and optional SDK setup |
+| `protocol/src/testFixtures/` | Shared synthetic device fixtures, their parser and the protocol-level replay |
+| `omron-sandbox/` | Omron reference sandbox; the Omron package in `omron-sandbox/apk/` stays local |
+| `tools/` | Protocol/storage checks, the Omron sandbox command and optional SDK setup |
 | `docs/` | Current guides and verbatim original research notes |
 
 ## Protocol development

@@ -16,6 +16,7 @@ Current guides describe the implementation and its evidence. Hardware results ap
 | [Protocol reference](protocol.md) | Service selection, X7 map and framing, independently recovered cryptography, source evidence |
 | [Safety boundaries](safety.md) | Outgoing command policy, exact registration writes, backup requirements and memory limits |
 | [omblepy comparison](omblepy-comparison.md) | Pinned source audit, per-model maps, implemented vendor paths and validation limits |
+| [Omron reference sandbox](omron-sandbox.md) | Replaying synthetic fixtures through Omron Connect's own code, setup, fixture format and HEM-7156T findings |
 | [Hardware validation](hardware-validation.md) | Existing evidence and focused phone/cuff test procedure |
 | [Languages](localization.md) | Available languages, Android language selection and translation checks |
 | [GitHub releases](releasing.md) | Manual version, commit-count revision, APK signing and publication |
