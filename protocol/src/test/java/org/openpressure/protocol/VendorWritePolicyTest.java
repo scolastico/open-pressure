@@ -190,9 +190,14 @@ public final class VendorWritePolicyTest {
         check(plan.state()==VendorClockWrite.State.AUTHORIZED,"rejected X7 writes consume no permit");
         DeviceWritePolicy.validateX7ClockBlock(ProtocolProfile.X7_WLP,alias,wlpTx,frame,plan); checks++;
         rejects(() -> DeviceWritePolicy.validateX7ClockBlock(ProtocolProfile.X7_WLP,alias,wlpTx,frame,plan));
-        VendorClockWrite plain=authorized("HEM-7380T1-EOSL",false,1);
+        // The untested EBK still needs the override; the gate runs before the permit is consumed.
+        VendorClockWrite plain=authorized("HEM-7380T1-EBK",false,1);
         rejects(() -> DeviceWritePolicy.validateX7ClockBlock(ProtocolProfile.X7_WLP,alias,wlpTx,plain.frame(),plain));
         check(plain.state()==VendorClockWrite.State.AUTHORIZED,"X7 aspect gate runs before the permit");
+        // The confirmed EOSL passes without an override, once.
+        VendorClockWrite confirmed=authorized("HEM-7380T1-EOSL",false,1);
+        DeviceWritePolicy.validateX7ClockBlock(ProtocolProfile.X7_WLP,alias,wlpTx,confirmed.frame(),confirmed); checks++;
+        rejects(() -> DeviceWritePolicy.validateX7ClockBlock(ProtocolProfile.X7_WLP,alias,wlpTx,confirmed.frame(),confirmed));
         // A legacy-map plan never authorizes its first chunk on the X7 transport.
         VendorClockWrite legacy=authorized("HEM-7155T",true,4);
         rejects(() -> DeviceWritePolicy.validateX7ClockBlock(ProtocolProfile.X7_WLP,alias,wlpTx,legacy.chunks().get(0),legacy));

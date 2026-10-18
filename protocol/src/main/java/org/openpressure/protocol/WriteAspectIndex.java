@@ -27,6 +27,8 @@ public final class WriteAspectIndex {
     private static final Entry NOT_IMPLEMENTED=new Entry(Status.BLOCKED,"not implemented");
     private static final Entry CLOCK_UNTESTED=new Entry(Status.UNTESTED,
         "no confirmation run on this model yet; see docs/hardware-validation.md");
+    private static final Entry CLOCK_CONFIRMED_X7_EOSL=new Entry(Status.CONFIRMED,
+        "confirmed 2026-10-18: acknowledged clock-block write on X7 Smart AFib (HEM-7380T1-EOSL, firmware SI.W03.00.03), app 1.2.1; see docs/hardware-validation.md");
     private static final Entry CLOCK_NO_EVIDENCE=new Entry(Status.BLOCKED,
         "no documented clock-block layout for this model; see docs/safety.md");
     private static final Map<String,Map<Aspect,Entry>> TABLE;
@@ -35,8 +37,9 @@ public final class WriteAspectIndex {
     static {
         Map<String,Map<Aspect,Entry>> table=new HashMap<>();
         for(String id:new String[]{"HEM-7150T","HEM-7155T","HEM-7156T","HEM-7342T","HEM-7361T",
-                "HEM-7530T","HEM-7600T","HEM-6232T","HEM-7380T1-EOSL","HEM-7380T1-EBK"})
+                "HEM-7530T","HEM-7600T","HEM-6232T","HEM-7380T1-EBK"})
             put(table,id,CLOCK_UNTESTED);
+        put(table,"HEM-7380T1-EOSL",CLOCK_CONFIRMED_X7_EOSL);
         for(String id:new String[]{"HEM-7322T","HEM-7377T1"}) put(table,id,CLOCK_NO_EVIDENCE);
         TABLE=Collections.unmodifiableMap(table);
         List<String> ids=new ArrayList<>(table.keySet());

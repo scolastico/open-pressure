@@ -20,13 +20,18 @@ public final class WriteAspectIndexTest {
 
     private static void statuses() {
         check(WriteAspectIndex.lookup("HEM-7155T",Aspect.CLOCK_BLOCK).status==Status.UNTESTED,"legacy clock block untested");
-        check(WriteAspectIndex.lookup("HEM-7380T1-EOSL",Aspect.CLOCK_BLOCK).status==Status.UNTESTED,"X7 standalone clock untested");
+        WriteAspectIndex.Entry eosl=WriteAspectIndex.lookup("HEM-7380T1-EOSL",Aspect.CLOCK_BLOCK);
+        check(eosl.status==Status.CONFIRMED && eosl.evidence.contains("docs/hardware-validation.md") && eosl.evidence.contains("2026-10-18"),"X7 EOSL standalone clock confirmed with evidence");
+        check(WriteAspectIndex.lookup("HEM-7380T1-EBK",Aspect.CLOCK_BLOCK).status==Status.UNTESTED,"X7 EBK standalone clock still untested");
+        int confirmed=0;
+        for(String id:WriteAspectIndex.knownIdentities()) for(Aspect aspect:Aspect.values()) if(WriteAspectIndex.lookup(id,aspect).status==Status.CONFIRMED) confirmed++;
+        check(confirmed==1,"exactly one confirmed entry");
         check(WriteAspectIndex.lookup("HEM-7322T",Aspect.CLOCK_BLOCK).status==Status.BLOCKED && WriteAspectIndex.lookup("HEM-7377T1",Aspect.CLOCK_BLOCK).status==Status.BLOCKED,"no clock-block evidence");
         check(WriteAspectIndex.lookup("HEM-7156T-AAP",Aspect.CLOCK_BLOCK).status==Status.BLOCKED && WriteAspectIndex.lookup(null,Aspect.CLOCK_BLOCK).status==Status.BLOCKED,"unknown identities are blocked");
         for(String id:WriteAspectIndex.knownIdentities()) check(WriteAspectIndex.lookup(id,Aspect.UNSENT_COUNTERS).status==Status.BLOCKED,"unsent counters not implemented: "+id);
         check(!WriteAspectIndex.lookup("HEM-7155T",Aspect.CLOCK_BLOCK).evidence.isEmpty(),"evidence text present");
-        // Full initial table: every untested entry names the confirmation-run guide.
-        for(String id:new String[]{"HEM-7150T","HEM-7155T","HEM-7156T","HEM-7342T","HEM-7361T","HEM-7530T","HEM-7600T","HEM-6232T","HEM-7380T1-EOSL","HEM-7380T1-EBK"}) {
+        // Full table apart from the confirmed EOSL: every untested entry names the confirmation-run guide.
+        for(String id:new String[]{"HEM-7150T","HEM-7155T","HEM-7156T","HEM-7342T","HEM-7361T","HEM-7530T","HEM-7600T","HEM-6232T","HEM-7380T1-EBK"}) {
             WriteAspectIndex.Entry entry=WriteAspectIndex.lookup(id,Aspect.CLOCK_BLOCK);
             check(entry.status==Status.UNTESTED && entry.evidence.contains("docs/hardware-validation.md"),"untested clock block with evidence: "+id);
         }
@@ -63,7 +68,7 @@ public final class WriteAspectIndexTest {
 
     private static void resolution() {
         check(WriteAspectIndex.lookup(WriteAspectIndex.resolve("HEM-7155T-EBK"),Aspect.CLOCK_BLOCK).status==Status.UNTESTED,"regional legacy name resolves");
-        check(WriteAspectIndex.lookup(WriteAspectIndex.resolve("x7 smart afib"),Aspect.CLOCK_BLOCK).status==Status.UNTESTED,"X7 firmware name resolves");
+        check(WriteAspectIndex.lookup(WriteAspectIndex.resolve("x7 smart afib"),Aspect.CLOCK_BLOCK).status==Status.CONFIRMED,"X7 firmware name resolves");
         check(WriteAspectIndex.lookup(WriteAspectIndex.resolve("HEM-7380T1"),Aspect.CLOCK_BLOCK).status==Status.BLOCKED,"bare X7 hint stays blocked");
         check(WriteAspectIndex.lookup(WriteAspectIndex.resolve("HEM-7156T-AAP"),Aspect.CLOCK_BLOCK).status==Status.BLOCKED,"unmapped regional name stays blocked");
         check(WriteAspectIndex.lookup(WriteAspectIndex.resolve(null),Aspect.CLOCK_BLOCK).status==Status.BLOCKED,"null stays blocked");

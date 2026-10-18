@@ -183,7 +183,9 @@ public class DeveloperOptionsActivityTest {
         app.store().remember("00:00:00:00:00:03","Regional","HEM-7156T-AAP",1);
         try(ActivityController<DeveloperOptionsActivity> controller=Robolectric.buildActivity(DeveloperOptionsActivity.class).setup()) {
             Activity a=controller.get();
-            assertEquals(a.getString(R.string.dev_index_status_untested),status(a,"00:00:00:00:00:01",Aspect.CLOCK_BLOCK));
+            // The firmware name resolves to HEM-7380T1-EOSL, whose clock block is confirmed (drawn in the accent).
+            assertEquals(a.getString(R.string.dev_index_status_confirmed),status(a,"00:00:00:00:00:01",Aspect.CLOCK_BLOCK));
+            assertEquals(0xff176e65,((TextView)root(a).findViewWithTag("dev_index_00:00:00:00:00:01_CLOCK_BLOCK")).getCurrentTextColor());
             assertEquals(a.getString(R.string.dev_index_status_blocked),status(a,"00:00:00:00:00:02",Aspect.CLOCK_BLOCK));
             assertEquals(a.getString(R.string.dev_index_status_blocked),status(a,"00:00:00:00:00:03",Aspect.CLOCK_BLOCK));
         }
