@@ -23,6 +23,19 @@ public class SettingsBackupStoreTest {
         assertEquals("{\"data\":\"ccdd\"}",new String(Files.readAllBytes(second.toPath()),StandardCharsets.UTF_8));
         assertEquals(2,directory.listFiles().length);
     }
+    @Test public void clockSyncBackupsAreNamedApartAndNeverChosenForRegistration() throws Exception {
+        File directory=new File(temporary.getRoot(),"backups");
+        File registration=SettingsBackupStore.save(directory,new byte[]{1},SettingsBackupStoreTest::syncDirectory);
+        assertTrue(registration.getName().matches("x7-settings-\\d+-[0-9a-f-]{36}\\.json"));
+        File clock=SettingsBackupStore.save(directory,SettingsBackupStore.CLOCK_SYNC_PREFIX,new byte[]{2},SettingsBackupStoreTest::syncDirectory);
+        assertTrue(clock.getName().matches("clock-sync-settings-\\d+-[0-9a-f-]{36}\\.json"));
+        assertTrue(clock.setLastModified(registration.lastModified()+60000));
+        assertEquals("the newer clock-sync file is ignored",registration,SettingsBackupStore.latestRegistrationBackup(directory));
+        assertTrue(registration.delete());
+        assertNull(SettingsBackupStore.latestRegistrationBackup(directory));
+        try { SettingsBackupStore.save(directory,"other-",new byte[]{3},SettingsBackupStoreTest::syncDirectory); fail("Unknown backup kinds are refused"); }
+        catch(IOException expected) { assertEquals(1,directory.listFiles().length); }
+    }
     @Test public void failedStorageCannotReturnAUsableBackup() throws Exception {
         File directory=temporary.newFile("not-a-directory");
         try { SettingsBackupStore.save(directory,new byte[]{1},SettingsBackupStoreTest::syncDirectory); fail("Storage failure must stop registration"); }

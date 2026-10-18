@@ -159,8 +159,7 @@ public final class MonitorService extends Service {
     @Override public void onCreate() {
         super.onCreate(); store=((PressureApp)getApplication()).store(); keys=new PairingKeys(this);
         File previousDump=new File(getFilesDir(),"eeprom-dump.json"); if(previousDump.isFile()) dumpFile=previousDump;
-        File[] backups=new File(getFilesDir(),"settings-backups").listFiles((directory,name) -> name.startsWith("x7-settings-") && name.endsWith(".json"));
-        if(backups!=null) for(File backup:backups) if(backup.isFile() && (registrationBackup==null || backup.lastModified()>registrationBackup.lastModified())) registrationBackup=backup;
+        registrationBackup=SettingsBackupStore.latestRegistrationBackup(new File(getFilesDir(),"settings-backups"));
         BluetoothManager manager=getSystemService(BluetoothManager.class); adapter=manager==null?null:manager.getAdapter();
         operations=new OperationQueue(this::fail);
         registerReceiver(bondReceiver,new IntentFilter(BluetoothDevice.ACTION_BOND_STATE_CHANGED));
@@ -445,6 +444,8 @@ public final class MonitorService extends Service {
         if(clockWrite!=null) clockWrite.cancel();
         if(clockSyncRunning) {
             if(interruptedClock) { clockSyncOutcome=DeviceReport.WriteOutcome.CANCELLED; clockUpdate=ClockUpdate.FAILED; }
+            // An END lost after the acknowledgment cannot undo the acknowledged write.
+            if(clockSyncOutcome==DeviceReport.WriteOutcome.ACKNOWLEDGED) clockUpdate=ClockUpdate.ACCEPTED;
             recordClockOutcome();
         }
         clockWrite=null; clockSyncRunning=false; clockSyncPending=false; clockSyncUnreadable=false;
@@ -730,8 +731,6 @@ public final class MonitorService extends Service {
     private void vendorMemoryReady() {
         clearVendorKeyCandidates();
         if(vendorUnlock!=null) { vendorUnlock.close(); vendorUnlock=null; }
-        timeCharacteristic=characteristic(Uuids.CTS,Uuids.CURRENT_TIME);
-        if(timeCharacteristic==null || !writable(timeCharacteristic)) timeCharacteristic=characteristic(Uuids.COMMAND,Uuids.DATE_TIME);
         // Vendor clocks change only through the explicit Sync clock session, never a Current Time write.
         ready=true; canHistory=true; canTime=false; canDump=false; hasUserControl=false;
         store.remember(address,connectedName,verifiedModel,user);
@@ -1042,10 +1041,11 @@ public final class MonitorService extends Service {
         state(registrationReading?"Backing up X7 settings…":clockSyncRunning?"Reading monitor settings…":dumpRunning?"Reading EEPROM…":"Reading X7 history…","Read requests only. Device settings and unread counters are retained.");
         sendWlpCommand();
     }
-    private void sendWlpCommand() {
+    private void sendWlpCommand() { sendWlpCommand("X7 read response timed out; received data was retained"); }
+    private void sendWlpCommand(String timeout) {
         byte[] command=wlpRead.command();
         store.packet(address,Uuids.WLP_TX.toString(),command,"WLP TX · read/session control only");
-        responseWrite(wlpTx,command,10000,"X7 read response timed out; received data was retained");
+        responseWrite(wlpTx,command,10000,timeout);
     }
     private void handleWlp(byte[] fragment) {
         if(wlpRead==null) return;
@@ -1241,6 +1241,8 @@ public final class MonitorService extends Service {
             detail="A chosen time requires the developer option. Confirm the phone time or cancel."; changed(); return;
         }
         String identity=WriteAspectIndex.resolve(verifiedModel);
+        // The override read now is what the report records, including a withdrawn one.
+        clockSyncOverride=override;
         if(!WriteAspectIndex.permits(WriteAspectIndex.lookup(identity,WriteAspectIndex.Aspect.CLOCK_BLOCK).status,override)) {
             endClockSyncWithoutWrite("Writing this monitor's clock is no longer allowed. Its clock was not changed."); return;
         }
@@ -1248,7 +1250,7 @@ public final class MonitorService extends Service {
         try { plan=new VendorClockWrite(identity,clockSyncImage,chosen!=null?chosen:clockNow(),override,clockSyncChannels()); }
         catch(IllegalArgumentException invalid) { detail="This time cannot be written: "+invalid.getMessage(); changed(); return; }
         cancelPhase(); clockSyncPending=false;
-        clockWrite.cancel(); clockWrite=plan; clockSyncOverride=override;
+        clockWrite.cancel(); clockWrite=plan;
         clockSyncPhoneClock=plan.target(); clockSyncDriftSeconds=plan.driftSeconds();
         if(plan.writesNothing()) {
             plan.cancel(); clockSyncOutcome=DeviceReport.WriteOutcome.SKIPPED_WITHIN_THRESHOLD;
@@ -1270,10 +1272,11 @@ public final class MonitorService extends Service {
     }
     /** The next read or session-control command of the clock-sync session; END once the image is complete. */
     private void sendClockSyncCommand() {
-        if(profile!=ProtocolProfile.VENDOR_MEMORY) { sendWlpCommand(); return; }
+        String timeout="Clock sync response timed out; the monitor did not answer the settings read or session end.";
+        if(profile!=ProtocolProfile.VENDOR_MEMORY) { sendWlpCommand(timeout); return; }
         byte[] command=vendorRead.command();
         store.packet(address,vendorTx.get(0).getUuid().toString(),command,"Vendor memory TX · clock sync read/session control");
-        responseWrite(vendorTx.get(0),command,15000,"Clock sync response timed out.");
+        responseWrite(vendorTx.get(0),command,15000,timeout);
     }
     private void vendorClockSyncNotification(int channel,byte[] bytes) {
         store.packet(address,vendorRx.get(channel).getUuid().toString(),bytes,"Vendor clock sync RX · channel "+channel);
@@ -1292,7 +1295,7 @@ public final class MonitorService extends Service {
         cancelPhase();
         if(wlpRead.complete()) { wlpConnection.finishTransfer(); wlpRead=null; finishClockSync(); }
         else if(wlpRead.rangeComplete()) clockSyncImageRead(wlpRead.data());
-        else sendWlpCommand();
+        else sendClockSyncCommand();
     }
     /** The complete settings image: a preview plan when its preconditions hold, otherwise END without writing. */
     private void clockSyncImageRead(byte[] image) {
@@ -1337,7 +1340,7 @@ public final class MonitorService extends Service {
                 json.put("address",start); json.put("length",bytes.length);
                 json.put("saved_at_utc",java.time.Instant.now().toString()); json.put("encoding","hex"); json.put("data",ReadingStore.hex(bytes));
                 json.put("sha256",ReadingStore.hex(java.security.MessageDigest.getInstance("SHA-256").digest(bytes)));
-                File file=SettingsBackupStore.save(new File(getFilesDir(),"settings-backups"),json.toString(2).getBytes(StandardCharsets.UTF_8),clockBackupSync);
+                File file=SettingsBackupStore.save(new File(getFilesDir(),"settings-backups"),SettingsBackupStore.CLOCK_SYNC_PREFIX,json.toString(2).getBytes(StandardCharsets.UTF_8),clockBackupSync);
                 handler.post(() -> {
                     // A completed local snapshot is always retained, even if the session ended meanwhile.
                     clockSyncBackup=file;
@@ -1700,7 +1703,6 @@ public final class MonitorService extends Service {
         enqueue("write:"+key(c),() -> {
             if(profile==ProtocolProfile.VENDOR_MEMORY) {
                 if(clockWriteOpen() && vendorTx.contains(c)) DeviceWritePolicy.validateVendorClockBlock(vendorModel,c.getService().getUuid(),c.getUuid(),requested,clockWrite);
-                else if(c.equals(timeCharacteristic)) DeviceWritePolicy.validateVendorClock(vendorModel,c.getService().getUuid(),c.getUuid(),requested);
                 else if(c.equals(handshake)) DeviceWritePolicy.validateVendorUnlock(vendorModel,c.getService().getUuid(),c.getUuid(),requested,vendorUnlock);
                 else DeviceWritePolicy.validateVendorCharacteristic(vendorModel,c.getService().getUuid(),c.getUuid(),requested);
             }

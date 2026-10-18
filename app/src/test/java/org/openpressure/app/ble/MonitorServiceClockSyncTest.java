@@ -109,6 +109,9 @@ public class MonitorServiceClockSyncTest {
         assertTrue(monitor.sessionFinished); assertFalse(monitor.ready); assertFalse(monitor.canHistory);
         File backup=monitor.clockSyncBackupFile();
         assertNotNull(backup); assertTrue(backup.isFile());
+        assertTrue(backup.getName(),backup.getName().startsWith("clock-sync-settings-") && backup.getName().endsWith(".json"));
+        assertNull("never offered as the registration backup",monitor.registrationBackupFile());
+        assertNull(org.openpressure.app.data.SettingsBackupStore.latestRegistrationBackup(backup.getParentFile()));
         String saved=new String(java.nio.file.Files.readAllBytes(backup.toPath()),java.nio.charset.StandardCharsets.UTF_8);
         assertTrue(saved.contains("\"kind\": \"clock-sync\"")); assertTrue(saved.contains(ReadingStore.hex(image())));
         String json=report.toJson().replace(" ","");
@@ -236,6 +239,57 @@ public class MonitorServiceClockSyncTest {
         assertEquals(15,last().bytes[1]); legacyReply(END_REPLY);
         assertEquals(0,clockWrites()); assertEquals(WriteOutcome.NOT_ATTEMPTED,monitor.clockSyncOutcome);
         assertFalse(monitor.offerReportAfterWrite);
+        assertTrue("the withdrawn override is recorded",report.toJson().replace(" ","").contains("\"outcome\":\"not_attempted\",\"override\":false"));
+    }
+    @Test public void previewTimeoutEndsWithoutWriting() throws Exception {
+        allowUntested();
+        attach("HEM-7155T"); settings(erasedBlock());
+        connectManually(); monitor.beginClockSync(); readSettings();
+        assertTrue(monitor.clockSyncPending);
+        shadowOf(Looper.getMainLooper()).idleFor(Duration.ofSeconds(91));
+        assertFalse(monitor.clockSyncPending);
+        assertEquals(15,last().bytes[1]); legacyReply(END_REPLY);
+        assertEquals("Clock sync cancelled",monitor.status);
+        assertEquals(WriteOutcome.NOT_ATTEMPTED,monitor.clockSyncOutcome); assertEquals(0,clockWrites());
+        monitor.confirmClockSync(null); flushIo();
+        assertEquals("a late confirmation writes nothing",0,clockWrites());
+    }
+    @Test public void gattErrorOnTheFirstChunkCancelsWithoutRetry() throws Exception {
+        allowUntested();
+        attach("HEM-7155T"); settings(erasedBlock());
+        connectManually(); monitor.beginClockSync(); readSettings();
+        monitor.confirmClockSync(null); flushIo();
+        Write first=last(); assertSame(tx.get(0),first.characteristic);
+        writeDone(first,BluetoothGatt.GATT_WRITE_NOT_PERMITTED);
+        shadowOf(Looper.getMainLooper()).idleFor(Duration.ofSeconds(20));
+        assertEquals(WriteOutcome.CANCELLED,monitor.clockSyncOutcome);
+        assertEquals(MonitorService.ClockUpdate.FAILED,monitor.clockUpdate);
+        assertNull(get("gatt")); assertSame("no retry and no second chunk",first,last());
+        assertTrue(writes.stream().noneMatch(write -> write.characteristic==tx.get(1)));
+        assertEquals(1,clockWrites());
+    }
+    @Test public void refusedWhilePairing() throws Exception {
+        allowUntested();
+        attach("HEM-7155T"); settings(erasedBlock());
+        connectManually(); set("pairingRequested",true);
+        assertFalse(monitor.canClockSync());
+        int sent=writes.size(); monitor.beginClockSync(); idle();
+        assertEquals(sent,writes.size()); assertFalse(monitor.clockSyncRunning);
+    }
+    @Test public void endTimeoutAfterAcknowledgmentKeepsTheAcceptedClock() throws Exception {
+        allowUntested();
+        attachX7("HEM-7380T1-EOSL"); x7Settings(erasedBlock());
+        monitor.beginClockSync(); readX7Settings();
+        byte[] frame=new VendorClockWrite("HEM-7380T1-EOSL",x7Image(),NOW,true,1).frame();
+        monitor.confirmClockSync(null); flushIo(); writeDone(last(),0);
+        x7Reply(compactAck(frame,0));
+        assertEquals(15,last().bytes[1]); writeDone(last(),0);
+        shadowOf(Looper.getMainLooper()).idleFor(Duration.ofSeconds(11));
+        assertEquals("Action failed",monitor.status);
+        assertTrue(monitor.detail,monitor.detail.startsWith("Clock sync response timed out"));
+        assertEquals(WriteOutcome.ACKNOWLEDGED,monitor.clockSyncOutcome);
+        assertEquals(MonitorService.ClockUpdate.ACCEPTED,monitor.clockUpdate);
+        assertTrue(report.toJson().replace(" ","").contains("\"outcome\":\"acknowledged\""));
     }
     @Test public void unreadableSettingsEndWithoutWriting() throws Exception {
         allowUntested();
