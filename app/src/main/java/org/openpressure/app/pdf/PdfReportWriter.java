@@ -10,6 +10,7 @@ import android.text.Layout;
 import android.text.StaticLayout;
 import android.text.TextDirectionHeuristics;
 import android.text.TextPaint;
+import android.text.TextUtils;
 import org.openpressure.app.BuildConfig;
 import org.openpressure.app.R;
 import org.openpressure.app.ui.MonitorUi;
@@ -24,25 +25,54 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-/** Native, offline PDF rendering. All table content wraps and oversized rows continue by whole lines. */
+/**
+ * Native, offline PDF rendering. All table content wraps and oversized rows continue by whole lines.
+ * A single-profile export names the profile in the overview and in every page footer instead of on each
+ * row and chart title; an all-profiles export keeps the per-row profile column and per-profile chart titles.
+ */
 public final class PdfReportWriter {
     private static final int INK=0xff182d2a, MUTED=0xff61726b, TEAL=0xff176e65, ORANGE=0xffbe754d, GRID=0xffdce5de;
     private static final int MARGIN=36;
     private final Context context;
     private final PdfReportData report;
-    private final PdfDocument document=new PdfDocument();
+    private final Pages pages;
     private final Locale locale;
     private final NumberFormat numbers;
     private final DateTimeFormatter date,dateTime,shortTime;
     private final Paint paint=new Paint(Paint.ANTI_ALIAS_FLAG);
-    private PdfDocument.Page page;
+    private boolean pageOpen;
     private Canvas canvas;
     private int pageNumber,width,height;
     private float tableTop,tableBottom;
-    private final int[] columns={36,96,42,92,42,48,112,106,196};
+    /** Table columns: number, date, profile, pressure, pulse, MAP, flags, device, notes. */
+    private static final int[] ALL_USER_COLUMNS={36,96,42,92,42,48,112,106,196};
+    /** Without the profile column its width goes to the device and notes columns. */
+    private static final int[] SINGLE_USER_COLUMNS={36,96,92,42,48,112,120,224};
+    private final int[] columns;
+    /** Text drawn on each page, collected only for tests. */
+    private final List<List<String>> drawn;
 
-    private PdfReportWriter(Context context,PdfReportData report) {
-        this.context=context;this.report=report;
+    /** Page output: the PDF document, or a plain canvas for JVM tests where PdfDocument has no native backing. */
+    interface Pages {
+        Canvas start(int width,int height,int number);
+        void finish();
+        void writeTo(OutputStream output) throws IOException;
+        void close();
+    }
+    private static final class PdfPages implements Pages {
+        private final PdfDocument document=new PdfDocument();
+        private PdfDocument.Page page;
+        @Override public Canvas start(int width,int height,int number) {
+            page=document.startPage(new PdfDocument.PageInfo.Builder(width,height,number).create());return page.getCanvas();
+        }
+        @Override public void finish() { if(page!=null) document.finishPage(page);page=null; }
+        @Override public void writeTo(OutputStream output) throws IOException { document.writeTo(output); }
+        @Override public void close() { finish();document.close(); }
+    }
+
+    private PdfReportWriter(Context context,PdfReportData report,Pages pages,List<List<String>> drawn) {
+        this.context=context;this.report=report;this.pages=pages;this.drawn=drawn;
+        columns=report.singleUser()?SINGLE_USER_COLUMNS:ALL_USER_COLUMNS;
         locale=context.getResources().getConfiguration().getLocales().get(0);
         numbers=NumberFormat.getNumberInstance(locale);numbers.setMaximumFractionDigits(3);numbers.setGroupingUsed(false);
         date=DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(locale);
@@ -50,17 +80,23 @@ public final class PdfReportWriter {
         shortTime=DateTimeFormatter.ofPattern("dd MMM\nHH:mm",locale);
     }
     public static void write(Context context,PdfReportData report,OutputStream output) throws IOException {
+        write(context,report,new PdfPages(),output,null);
+    }
+    /** Renders the report into {@code pages} and returns the text drawn on each page, in drawing order. */
+    static List<List<String>> writeAndCollectText(Context context,PdfReportData report,Pages pages,OutputStream output) throws IOException {
+        List<List<String>> drawn=new ArrayList<>();write(context,report,pages,output,drawn);return drawn;
+    }
+    private static void write(Context context,PdfReportData report,Pages pages,OutputStream output,List<List<String>> drawn) throws IOException {
         if(context==null || report==null || output==null || report.entries.isEmpty()) throw new IllegalArgumentException("A report needs selected readings");
-        PdfReportWriter writer=new PdfReportWriter(context,report);
+        PdfReportWriter writer=new PdfReportWriter(context,report,pages,drawn);
         try {
             writer.overview();
             for(PdfReportData.ChartPage chart:report.charts) writer.chart(chart);
             writer.tables();writer.finishPage();
             if(Thread.currentThread().isInterrupted()) throw new IOException("PDF export cancelled");
-            writer.document.writeTo(output);
+            writer.pages.writeTo(output);
         } finally {
-            if(writer.page!=null) writer.document.finishPage(writer.page);
-            writer.document.close();
+            writer.pages.close();
         }
     }
     private String s(int id,Object... args) { return context.getString(id,args); }
@@ -84,19 +120,27 @@ public final class PdfReportWriter {
     private void newPage(boolean portrait,String title,String subtitle) throws IOException {
         if(Thread.currentThread().isInterrupted()) throw new IOException("PDF export cancelled");
         finishPage();width=portrait?595:842;height=portrait?842:595;
-        page=document.startPage(new PdfDocument.PageInfo.Builder(width,height,++pageNumber).create());canvas=page.getCanvas();
+        canvas=pages.start(width,height,++pageNumber);pageOpen=true;
+        if(drawn!=null) drawn.add(new ArrayList<>());
         text("OpenPressure",MARGIN,22,width-2*MARGIN,12,true,TEAL);
         float y=47+text(title,MARGIN,47,width-2*MARGIN,21,true,INK);
         text(subtitle,MARGIN,y+7,width-2*MARGIN,10,false,MUTED);
     }
     private void finishPage() {
-        if(page==null) return;
+        if(!pageOpen) return;
         line(MARGIN,height-37,width-MARGIN,height-37,GRID,0.6f);
-        text("OpenPressure · "+BuildConfig.VERSION_NAME,MARGIN,height-28,width-2*MARGIN-100,8,false,MUTED);
+        // At most two footer lines, which stay below the content area (it ends at height-47).
+        String footerText=footer();
+        StaticLayout footer=StaticLayout.Builder.obtain(footerText,0,footerText.length(),textPaint(8,false,MUTED),width-2*MARGIN-100)
+                .setTextDirection(TextDirectionHeuristics.FIRSTSTRONG_LTR).setIncludePad(true).setLineSpacing(1,1)
+                .setMaxLines(2).setEllipsize(TextUtils.TruncateAt.END).build();
+        draw(footer,MARGIN,height-28);
         StaticLayout number=layout(s(R.string.pdf_report_page,n(pageNumber)),94,8,false,MUTED,Layout.Alignment.ALIGN_OPPOSITE);
         draw(number,width-MARGIN-94,height-28);
-        document.finishPage(page);page=null;
+        pages.finish();pageOpen=false;
     }
+    /** Footer text: the product, its version and the exported profile, or the all-profiles label. */
+    private String footer() { return "OpenPressure · "+BuildConfig.VERSION_NAME+" · "+selected(); }
     private void overview() throws IOException {
         newPage(true,s(R.string.pdf_report_title),s(R.string.pdf_report_overview)+" · "+selected());
         float y=110;
@@ -123,7 +167,8 @@ public final class PdfReportWriter {
         text(notes,MARGIN,noteY,width-2*MARGIN,9,false,MUTED);
     }
     private void chart(PdfReportData.ChartPage chart) throws IOException {
-        newPage(false,s(R.string.pdf_report_charts)+" · "+profile(chart.user),period()+" · "+s(R.string.pdf_report_count,n(chart.entries.size())));
+        String title=report.singleUser()?s(R.string.pdf_report_charts):s(R.string.pdf_report_charts)+" · "+profile(chart.user);
+        newPage(false,title,period()+" · "+s(R.string.pdf_report_count,n(chart.entries.size())));
         text(s(R.string.pdf_report_pressure)+" (mmHg)",MARGIN,105,350,11,true,INK);
         text(s(R.string.monitor_systolic),400,105,175,10,true,TEAL);
         text(s(R.string.monitor_diastolic),590,105,190,10,true,ORANGE);
@@ -178,7 +223,7 @@ public final class PdfReportWriter {
     private static double seconds(LocalDateTime time) { return time.toLocalDate().toEpochDay()*86400d+time.toLocalTime().toSecondOfDay(); }
     private void tablePage() throws IOException {
         newPage(false,s(R.string.pdf_report_records),selected()+" · "+period());
-        String[] headers={s(R.string.pdf_report_number),s(R.string.pdf_report_date),s(R.string.pdf_report_profile),s(R.string.pdf_report_pressure),s(R.string.pdf_report_pulse),s(R.string.pdf_report_map),s(R.string.pdf_report_flags),s(R.string.pdf_report_device),s(R.string.pdf_report_notes)};
+        String[] headers=withProfile(s(R.string.pdf_report_number),s(R.string.pdf_report_date),s(R.string.pdf_report_profile),s(R.string.pdf_report_pressure),s(R.string.pdf_report_pulse),s(R.string.pdf_report_map),s(R.string.pdf_report_flags),s(R.string.pdf_report_device),s(R.string.pdf_report_notes));
         float x=MARGIN;int headerHeight=0;StaticLayout[] layouts=new StaticLayout[headers.length];
         for(int i=0;i<headers.length;i++) {layouts[i]=layout(headers[i],columns[i]-10,8,true,TEAL,Layout.Alignment.ALIGN_NORMAL);headerHeight=Math.max(headerHeight,layouts[i].getHeight());}
         paint.setColor(0xffe9efea);canvas.drawRect(MARGIN,105,width-MARGIN,115+headerHeight,paint);
@@ -197,7 +242,7 @@ public final class PdfReportWriter {
             else if(flags.isEmpty()) flags.add(s(R.string.pdf_report_no_flags));
             flags.add(s(R.string.main_afib_detail,entry.afib==null?s(R.string.main_unavailable):s(entry.afib?R.string.main_afib_flagged:R.string.main_afib_not_flagged)));
             String pressure="\u2066\u2066"+n(entry.systolic)+"\u2069 / \u2066"+n(entry.diastolic)+"\u2069\u2069\n"+entry.unit;
-            String[] cells={n(row),stamp,profile(entry.user),pressure,entry.pulse==null?"—":n(entry.pulse)+" bpm",entry.map==null?"—":n(entry.map)+" "+entry.unit,String.join("\n",flags),deviceCell(entry,s("manual".equals(entry.source)?R.string.main_source_manual:R.string.main_source_monitor)),entry.notes};
+            String[] cells=withProfile(n(row),stamp,profile(entry.user),pressure,entry.pulse==null?"—":n(entry.pulse)+" bpm",entry.map==null?"—":n(entry.map)+" "+entry.unit,String.join("\n",flags),deviceCell(entry,s("manual".equals(entry.source)?R.string.main_source_manual:R.string.main_source_monitor)),entry.notes);
             StaticLayout[] layouts=new StaticLayout[cells.length];int[] consumed=new int[cells.length];
             for(int i=0;i<cells.length;i++) layouts[i]=layout(cells[i],columns[i]-10,8.5f,false,INK,Layout.Alignment.ALIGN_NORMAL);
             boolean more=true;
@@ -223,7 +268,7 @@ public final class PdfReportWriter {
                     StaticLayout layout=layouts[i];int start=consumed[i],end=ends[i];
                     if(start<end) {
                         canvas.save();canvas.clipRect(x+5,y+5,x+columns[i]-5,y+5+layout.getLineBottom(end-1)-layout.getLineTop(start));
-                        canvas.translate(x+5,y+5-layout.getLineTop(start));layout.draw(canvas);canvas.restore();
+                        canvas.translate(x+5,y+5-layout.getLineTop(start));layout.draw(canvas);canvas.restore();record(layout);
                     } else if(i==0) text(cells[0],x+5,y+5,columns[i]-10,8.5f,false,INK);
                     consumed[i]=end;x+=columns[i];
                 }
@@ -233,15 +278,25 @@ public final class PdfReportWriter {
             }
         }
     }
-    private StaticLayout layout(String value,int width,float size,boolean bold,int color,Layout.Alignment align) {
+    /** Table columns in order; the profile column (index 2) is left out of single-profile exports. */
+    private String[] withProfile(String... all) {
+        if(!report.singleUser()) return all;
+        String[] result=new String[all.length-1];
+        System.arraycopy(all,0,result,0,2);System.arraycopy(all,3,result,2,all.length-3);return result;
+    }
+    private TextPaint textPaint(float size,boolean bold,int color) {
         TextPaint text=new TextPaint(Paint.ANTI_ALIAS_FLAG);text.setTextSize(size);text.setColor(color);
         text.setTypeface(Typeface.create("sans-serif",bold?Typeface.BOLD:Typeface.NORMAL));text.setTextLocale(locale);
-        return StaticLayout.Builder.obtain(value,0,value.length(),text,Math.max(1,width)).setAlignment(align)
+        return text;
+    }
+    private StaticLayout layout(String value,int width,float size,boolean bold,int color,Layout.Alignment align) {
+        return StaticLayout.Builder.obtain(value,0,value.length(),textPaint(size,bold,color),Math.max(1,width)).setAlignment(align)
                 .setTextDirection(TextDirectionHeuristics.FIRSTSTRONG_LTR).setIncludePad(true).setLineSpacing(1,1).build();
     }
     private float text(String value,float x,float y,int width,float size,boolean bold,int color) {
         StaticLayout layout=layout(value,width,size,bold,color,Layout.Alignment.ALIGN_NORMAL);draw(layout,x,y);return layout.getHeight();
     }
-    private void draw(StaticLayout layout,float x,float y) {canvas.save();canvas.translate(x,y);layout.draw(canvas);canvas.restore();}
+    private void draw(StaticLayout layout,float x,float y) {canvas.save();canvas.translate(x,y);layout.draw(canvas);canvas.restore();record(layout);}
+    private void record(StaticLayout layout) { if(drawn!=null) drawn.get(drawn.size()-1).add(layout.getText().toString()); }
     private void line(float x1,float y1,float x2,float y2,int color,float stroke) {paint.setColor(color);paint.setStrokeWidth(stroke);canvas.drawLine(x1,y1,x2,y2,paint);}
 }

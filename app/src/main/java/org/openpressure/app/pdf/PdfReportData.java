@@ -42,6 +42,9 @@ public final class PdfReportData {
         this.profileNames=Collections.unmodifiableMap(new java.util.HashMap<>(profileNames));
     }
 
+    /** True when the export covers one selected bank or virtual profile rather than all of them. */
+    public boolean singleUser() { return selectedUser != 0; }
+
     public static PdfReportData create(List<Reading> source, int selectedUser,
             LocalDate from, LocalDate to, ZoneId zone) {
         return create(source,selectedUser,from,to,zone,Collections.emptyMap());
