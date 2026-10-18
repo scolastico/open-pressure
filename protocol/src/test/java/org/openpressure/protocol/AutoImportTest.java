@@ -14,6 +14,7 @@ public final class AutoImportTest {
         invalidAdvertisementsNeverClaimAnImport();
         typesWithoutRecordCountsNeverClaimAnImport();
         automaticImportsRequireAVerifiedReadMap();
+        forcedAttemptsIgnoreCheckpointAndCooldown();
         return checks;
     }
     private static void capturedAdvertisement() {
@@ -134,6 +135,31 @@ public final class AutoImportTest {
         AutoImportTracker tracker=new AutoImportTracker();
         check(tracker.offer("A",type8,0)==null && tracker.offer("A",type9,0)==null,"encrypted advertisements cannot claim a counted import");
         check(tracker.offer("A",type3,0)==null && !tracker.busy(),"type3 cannot claim an import");
+    }
+    private static void forcedAttemptsIgnoreCheckpointAndCooldown() {
+        AutoImportTracker tracker=new AutoImportTracker();
+        OmronAdvertisement a=advertisement("06017801640b0064");
+        tracker.restore("A",a.revision());
+        check(tracker.offer("A",a,0)==null,"completed revision blocks an offered import");
+        AutoImportTracker.Attempt forced=tracker.force("A",a,0);
+        check(forced!=null && tracker.busy() && forced.revision.equals(a.revision()),"a forced attempt ignores the completed revision");
+        check(tracker.force("B",a,0)==null && tracker.offer("B",a,0)==null,"a forced attempt is exclusive");
+        check(tracker.force("A",a,0)==null,"a forced attempt cannot be claimed twice");
+        check(tracker.finish(forced,false,10) && !tracker.busy(),"a forced attempt finishes like an offered one");
+        check(a.revision().equals(tracker.completedRevision("A")),"a failed forced attempt keeps the earlier checkpoint");
+        OmronAdvertisement changed=advertisement("06017901640b0064");
+        check(tracker.offer("A",changed,20)==null,"a failed forced attempt starts the automatic cooldown");
+        AutoImportTracker.Attempt retry=tracker.force("A",changed,20);
+        check(retry!=null,"a forced attempt ignores the cooldown");
+        check(!tracker.finish(forced,true,21),"a stale forced attempt cannot finish the next one");
+        check(tracker.finish(retry,true,22) && changed.revision().equals(tracker.completedRevision("A")),"a validated forced import checkpoints its revision");
+        check(tracker.offer("A",changed,60030)==null,"the forced checkpoint suppresses the same automatic revision");
+        AutoImportTracker.Attempt cancelled=tracker.force("A",changed,23);
+        tracker.cancel(24);
+        check(!tracker.busy() && !tracker.finish(cancelled,true,25),"cancelling releases a forced attempt");
+        check(tracker.force("A",advertisement("0608780163"),26)==null && tracker.force("A",advertisement("0610780163"),26)==null,"pairing and streaming advertisements are never forced");
+        check(tracker.force("A",advertisement("0600780100"),26)==null && tracker.force("A",advertisement("08410007340278010100000000"),26)==null,"empty or uncounted summaries are never forced");
+        check(tracker.force("",a,26)==null && tracker.force(null,a,26)==null && tracker.force("A",null,26)==null,"a forced attempt needs a device and advertisement");
     }
     private static void automaticImportsRequireAVerifiedReadMap() {
         check(AutoImportTracker.supportsModel("HEM-7380T1-EOSL") && AutoImportTracker.supportsModel("HEM-7380T1-EBK"),"X7 identities are eligible");
