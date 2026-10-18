@@ -39,6 +39,15 @@ public final class MonitorService extends Service {
     public enum ClockUpdate { NONE, SKIPPED, ACCEPTED, FAILED }
     public ClockUpdate clockUpdate=ClockUpdate.NONE;
     public boolean sessionEndUnconfirmed;
+    /** How the last vendor-memory history read chose its slots: the monitor's index, its fallback or a sweep. */
+    public enum ImportMode { NONE, INDEX, INDEX_FALLBACK, FULL_SWEEP, FULL_READ }
+    public volatile ImportMode importMode=ImportMode.NONE;
+    /** Users to import (bitmask: 1 = user 1, 2 = user 2) for the current session. */
+    public int importUsers=3;
+    /** Populated slots the index reported for the selected users when {@link #importMode} is INDEX, else -1. */
+    public int indexStoredCount=-1;
+    /** Read all skipped a memory bank absent from Omron's configuration after it did not answer. */
+    public boolean unconfirmedBankSkipped;
     public boolean scanning,ready,historyRunning,canHistory,canTime,hasUserControl,canDump,dumpRunning,dumpComplete,dumpSaving,sessionFinished,registrationReading,registrationPending,registrationWriting,registrationDone;
     public int dumpStart,dumpReceived,dumpLength;
     public long readingsRevision;
@@ -63,7 +72,10 @@ public final class MonitorService extends Service {
     private LegacyUnlock vendorUnlock;
     private VendorPairingKeys vendorKeys;
     private List<byte[]> vendorKeyCandidates=Collections.emptyList();
-    private int vendorKeyCandidate,vendorParsed;
+    private int vendorKeyCandidate,vendorParsed,vendorRange;
+    private boolean vendorIndexRead;
+    /** Index-selected ranges still to read; the session takes one more range each time its current ranges complete. */
+    private final ArrayDeque<VendorMemoryModel.Range> vendorPending=new ArrayDeque<>();
     private boolean vendorWaitingBond,vendorSessionEnded;
     private boolean vendorClockAttempted,vendorClockPending;
     private String vendorClockResult="";
@@ -289,13 +301,18 @@ public final class MonitorService extends Service {
         AutoImportTracker.Attempt attempt=automaticTracker.offer(target,advertisement,SystemClock.elapsedRealtime());
         if(attempt==null) return;
         store.packet(target,"automatic-advertisement",manufacturer,"New advertised record revision · "+attempt.revision);
-        user=Integer.parseInt(saved[3]);
+        user=Integer.parseInt(saved[3]); importUsers=savedImportUsers(saved);
         connect(target,saved[1],false,false,manufacturer,attempt);
         } catch(RuntimeException failure) {
             if(automaticAttempt!=null) disconnect();
             else automaticTracker.cancel(SystemClock.elapsedRealtime());
             automaticStatus("Automatic import could not start. Check Bluetooth access and reconnect manually if needed.");
         }
+    }
+    /** The saved row's import users (column 4), or both users when it is missing or invalid. */
+    static int savedImportUsers(String[] saved) {
+        try { int users=saved.length>4 && saved[4]!=null?Integer.parseInt(saved[4]):3; return users>=1 && users<=3?users:3; }
+        catch(NumberFormatException invalid) { return 3; }
     }
     private boolean savedVendorKey(String target,VendorMemoryModel vendor) {
         try { return new VendorPairingKeys(keys,target,vendor.id).hasCandidate(); }
@@ -379,6 +396,7 @@ public final class MonitorService extends Service {
         x7FreshBondEstablished=freshBond;
         address=target; connectedName=name; pairingRequested=pair; authenticatedUser=0; storedCount=-1; deviceTime="Not read"; information="";
         clockUpdate=ClockUpdate.NONE; sessionEndUnconfirmed=false;
+        importMode=ImportMode.NONE; indexStoredCount=-1; unconfirmedBankSkipped=false;
         store.packet(address,"session",new byte[0],"OpenPressure "+BuildConfig.VERSION_NAME+" · Android API "+Build.VERSION.SDK_INT+" · "+(pair?"Pair":"Connect"));
         Discovered selected=discovered.get(target);
         connectionManufacturer=manufacturer!=null?manufacturer.clone():selected==null || selected.manufacturerData==null?null:selected.manufacturerData.clone();
@@ -409,7 +427,7 @@ public final class MonitorService extends Service {
         if(dumpRunning && wlpRead!=null) saveDump(wlpRead.data(),false,"Disconnected before the complete read and end acknowledgement");
         dumpRunning=false; wlpRead=null; if(wlpConnection!=null) wlpConnection.close(); wlpConnection=null; sessionFinished=false; x7Transaction=null; x7Authentication=null; x7HistoryIndex=null; x7HistoryRanges=Collections.emptyList(); connectionManufacturer=null; canDump=false; canHistory=false; canTime=false; hasUserControl=false;
         if(vendorUnlock!=null) vendorUnlock.close();
-        vendorUnlock=null; vendorRead=null; vendorModel=null; vendorKeys=null;
+        vendorUnlock=null; vendorRead=null; vendorModel=null; vendorKeys=null; vendorPending.clear();
         clearVendorKeyCandidates(); vendorTx.clear(); vendorRx.clear(); vendorWaitingBond=false; vendorSessionEnded=false;
         vendorClockAttempted=false; vendorClockPending=false; vendorClockResult="";
         generation++; cancelPhase(); cancelOperationTimeout(); operations.clear(); stopScan();
@@ -687,15 +705,31 @@ public final class MonitorService extends Service {
         if(timeCharacteristic==null || !writable(timeCharacteristic)) timeCharacteristic=characteristic(Uuids.COMMAND,Uuids.DATE_TIME);
         ready=true; canHistory=true; canTime=timeCharacteristic!=null && writable(timeCharacteristic); canDump=false; hasUserControl=false;
         store.remember(address,connectedName,verifiedModel,user);
+        // Automatic imports keep the selection captured from the saved row when they started.
+        if(!automaticConnection) importUsers=store.importUsers(address);
         // Do not finish a pairing-only transmission: some cuffs power down on the first END.
-        if(pairingRequested || automaticConnection) { beginVendorHistory(); return; }
+        if(pairingRequested || automaticConnection) { beginVendorHistory(false); return; }
         state("Vendor history available","Ready to import history. A supported clock update will be attempted before the session ends; unread counters and calibration data are retained.");
         readInformation();
     }
-    private void beginVendorHistory() {
+    /**
+     * Index-supported models read the settings/index image first and then only the populated slots of the
+     * selected users; a sweep (Read all) or a model without index support reads every slot of the selected banks.
+     */
+    private void beginVendorHistory(boolean sweep) {
         if(vendorModel==null || vendorRead!=null || vendorSessionEnded) return;
         try {
-            vendorRead=new VendorWlpSession(vendorModel);
+            if(sweep || !vendorModel.indexSupported()) {
+                List<VendorMemoryModel.Range> ranges=new ArrayList<>(vendorModel.historyRanges(importUsers));
+                // Read all also tries banks the pinned map has but Omron's configuration lacks; the index never lists them.
+                if(sweep) for(VendorMemoryModel.Range bank:vendorModel.historyRanges()) if(vendorModel.unconfirmedBank(bank.user) && !ranges.contains(bank)) ranges.add(bank);
+                vendorRead=new VendorWlpSession(vendorModel,ranges,VendorWlpSession.recordBlock(vendorModel));
+                importMode=sweep?ImportMode.FULL_SWEEP:ImportMode.FULL_READ;
+            } else {
+                vendorRead=new VendorWlpSession(vendorModel,Collections.singletonList(vendorModel.settingsRange()),Math.min(56,VendorWlpSession.maxBlock(vendorModel)));
+                importMode=ImportMode.INDEX;
+            }
+            vendorPending.clear(); vendorRange=0; vendorIndexRead=false; indexStoredCount=-1; unconfirmedBankSkipped=false;
             vendorParsed=0; wlpRejected=0; storedCount=-1; receivedInTransfer=0; addedInTransfer=0; historyRunning=true;
             storedInTransfer=0; queuedInTransfer=0; pendingInTransfer=0;
             vendorClockAttempted=false; vendorClockPending=false; vendorClockResult="";
@@ -708,7 +742,26 @@ public final class MonitorService extends Service {
         byte[] command=vendorRead.command();
         // All read/session commands fit TX0. Secret key commands use their separate control characteristic.
         store.packet(address,vendorTx.get(0).getUuid().toString(),command,"Vendor memory TX · read/session control only");
+        if(command[1]==1 && readingUnconfirmedBank()) {
+            // A missing reply from a bank Omron's configuration lacks ends Read all early instead of failing it.
+            cancelPhase(); long token=responseGeneration;
+            write(vendorTx.get(0),command,() -> { if(token==responseGeneration) armPhase(15000,() -> skipUnconfirmedBank("no reply")); });
+            return;
+        }
         responseWrite(vendorTx.get(0),command,15000,"Vendor history response timed out; validated readings already received were retained.");
+    }
+    private boolean readingUnconfirmedBank() {
+        VendorMemoryModel.Range range=vendorRead==null?null:vendorRead.currentRange();
+        return importMode==ImportMode.FULL_SWEEP && historyRunning && range!=null && range.user!=0 && vendorModel.unconfirmedBank(range.user);
+    }
+    private void skipUnconfirmedBank(String reason) {
+        cancelPhase();
+        if(!readingUnconfirmedBank()) { fail("Vendor history response timed out; validated readings already received were retained."); return; }
+        VendorMemoryModel.Range range=vendorRead.currentRange();
+        vendorRead.abandonRemainingRanges(); vendorPending.clear(); unconfirmedBankSkipped=true;
+        store.packet(address,"vendor-history",new byte[0],"Read all skipped unconfirmed bank "+range.user+" ("+reason+"); later ranges dropped before END");
+        decodeVendorRecords();
+        continueVendorHistory();
     }
     private void vendorNotification(BluetoothGattCharacteristic c,byte[] bytes) {
         try {
@@ -730,35 +783,73 @@ public final class MonitorService extends Service {
             int channel=vendorRx.indexOf(c);
             if(channel<0 || vendorRead==null || !historyRunning) return;
             store.packet(address,c.getUuid().toString(),bytes,"Vendor history RX · channel "+channel);
-            if(!vendorRead.accept(channel,bytes)) return;
+            try {
+                if(!vendorRead.accept(channel,bytes)) return;
+            } catch(IllegalArgumentException rejected) {
+                if(vendorRead.readStatusError() && readingUnconfirmedBank()) { skipUnconfirmedBank("device status"); return; }
+                throw rejected;
+            }
             cancelPhase();
-            byte[] data=vendorRead.data(); int offset=0;
-            for(VendorMemoryModel.Range range:vendorModel.historyRanges()) {
-                while(vendorParsed>=offset && vendorParsed<offset+range.length && vendorParsed+vendorModel.recordBytes<=data.length) {
-                    byte[] raw=Arrays.copyOfRange(data,vendorParsed,vendorParsed+vendorModel.recordBytes);
-                    vendorParsed+=vendorModel.recordBytes;
-                    try {
-                        BloodPressure reading=vendorModel.parse(raw,range.user);
-                        if(reading!=null) {
-                            receivedInTransfer++;
-                            if(acceptReading(reading,raw,"vendor-history",range.user,automaticConnection)) { addedInTransfer++; readingNotifications.readingInserted(); }
-                        }
-                    } catch(IllegalArgumentException ex) {
-                        wlpRejected++; store.packet(address,"vendor-record",raw,"Rejected "+vendorModel.id+" bank "+range.user+": "+ex.getMessage());
-                    }
-                }
-                offset+=range.length;
-            }
-            if(vendorRead.complete()) {
-                finishVendorHistory(true);
-                return;
-            }
-            if(vendorRead.historyComplete() && !vendorClockAttempted) { syncVendorClock(); return; }
-            long now=SystemClock.elapsedRealtime();
-            if(now-lastWlpUpdate>=500) { lastWlpUpdate=now; detail=vendorRead.received()+" history bytes read · "+addedInTransfer+" new readings"; changed(); }
-            sendVendorRead();
+            decodeVendorRecords();
+            // Decide and append before asking for the next command: requesting it after the index would commit END.
+            if(importMode==ImportMode.INDEX && !vendorIndexRead && vendorRead.rangeComplete()) appendIndexedRanges();
+            if(vendorRead.rangeComplete() && !vendorPending.isEmpty()) vendorRead.appendRange(vendorPending.removeFirst());
+            continueVendorHistory();
         } catch(Exception ex) { fail("Vendor response rejected: "+ex.getMessage()); }
     }
+    private void continueVendorHistory() {
+        if(vendorRead.complete()) {
+            finishVendorHistory(true);
+            return;
+        }
+        if(vendorRead.historyComplete() && !vendorClockAttempted) { syncVendorClock(); return; }
+        long now=SystemClock.elapsedRealtime();
+        if(now-lastWlpUpdate>=500) { lastWlpUpdate=now; detail=vendorRead.received()+" history bytes read · "+addedInTransfer+" new readings"; changed(); }
+        sendVendorRead();
+    }
+    /** Trusted index: append the selected users' populated slots. Otherwise read every slot of their banks. */
+    private void appendIndexedRanges() {
+        vendorIndexRead=true;
+        List<VendorMemoryModel.Range> ranges;
+        try {
+            VendorMemoryIndex index=VendorMemoryIndex.parse(vendorModel,vendorRead.data());
+            ranges=index.populatedRanges(importUsers);
+            int slots=0; for(VendorMemoryModel.Range range:ranges) slots+=range.length/vendorModel.recordBytes;
+            indexStoredCount=slots;
+            store.packet(address,"vendor-index",new byte[0],"Index-driven import · "+slots+" populated slots for users "+importUsers+"; unread counters retained");
+        } catch(IllegalArgumentException untrusted) {
+            importMode=ImportMode.INDEX_FALLBACK;
+            ranges=vendorModel.historyRanges(importUsers);
+            store.packet(address,"vendor-index",new byte[0],"Index not trusted: "+untrusted.getMessage()+" · reading every slot of the selected banks");
+        }
+        vendorPending.addAll(ranges);
+    }
+    /** Decodes every complete record of the ranges received so far; the settings/index range holds no records. */
+    private void decodeVendorRecords() {
+        byte[] data=vendorRead.data();
+        List<VendorMemoryModel.Range> ranges=vendorRead.ranges();
+        while(vendorRange<ranges.size()) {
+            VendorMemoryModel.Range range=ranges.get(vendorRange);
+            int start=vendorRead.rangeOffset(vendorRange),end=start+range.length;
+            vendorParsed=Math.max(vendorParsed,start);
+            if(range.user!=0) while(vendorParsed+vendorModel.recordBytes<=Math.min(end,data.length)) {
+                byte[] raw=Arrays.copyOfRange(data,vendorParsed,vendorParsed+vendorModel.recordBytes);
+                vendorParsed+=vendorModel.recordBytes;
+                try {
+                    BloodPressure reading=vendorModel.parse(raw,range.user);
+                    // Erased slots (null) are skipped silently; shared-bank readings name their user in the record.
+                    if(reading==null || vendorModel.sharedBank() && !selected(reading.userId)) continue;
+                    receivedInTransfer++;
+                    if(acceptReading(reading,raw,"vendor-history",range.user,automaticConnection)) { addedInTransfer++; readingNotifications.readingInserted(); }
+                } catch(IllegalArgumentException ex) {
+                    wlpRejected++; store.packet(address,"vendor-record",raw,"Rejected "+vendorModel.id+" bank "+range.user+": "+ex.getMessage());
+                }
+            }
+            if(data.length<end) return;
+            vendorParsed=end; vendorRange++;
+        }
+    }
+    private boolean selected(Integer user) { return user!=null && user>=1 && user<=2 && (importUsers&(1<<(user-1)))!=0; }
     LocalDateTime clockNow() { return clock==null?LocalDateTime.now():LocalDateTime.now(clock); }
     private void syncVendorClock() {
         vendorClockAttempted=true;
@@ -789,7 +880,8 @@ public final class MonitorService extends Service {
         finishAutomaticAttempt(ended && wlpRejected==0);
         state(wlpRejected==0?"History transfer complete":"History transfer incomplete",
             addedInTransfer+" new readings accepted · "+receivedInTransfer+" decoded · "+wlpRejected+" rejected slots. Erased slots were skipped. "+vendorClockResult+
-            (ended?" The monitor acknowledged END.":" Session END was not acknowledged.")+" Reconnect for another transfer.");
+            (ended?" The monitor acknowledged END.":" Session END was not acknowledged.")+" Import mode: "+importMode+
+            (importMode==ImportMode.INDEX?" ("+indexStoredCount+" populated slots).":".")+(unconfirmedBankSkipped?" Unconfirmed bank skipped.":"")+" Reconnect for another transfer.");
         if(automaticConnection && ended) {
             // Close an automatic link if the monitor keeps it open, so listening can resume.
             long session=generation;
@@ -894,6 +986,7 @@ public final class MonitorService extends Service {
             return;
         }
         store.remember(address,connectedName,verifiedModel,user);
+        if(!automaticConnection) importUsers=store.importUsers(address);
         state(profile==ProtocolProfile.X7_SECURE_WLP?"X7 authenticated for reads":"X7 read mode available",
                 (profile==ProtocolProfile.X7_SECURE_WLP?"The cuff confirmed application authentication. ":"Bluetooth transport is ready. ")+"On-device profile pairing has not been completed by this app. History and settings backup can be read without registering a profile. The cuff may show OK and switch off after the transfer ends; settings writes remain disabled.");
         if(automaticConnection) { syncHistory(-1); return; }
@@ -948,10 +1041,10 @@ public final class MonitorService extends Service {
             } else if(historyRunning) {
                 if(x7HistoryIndex==null && wlpRead.rangeComplete()) {
                     x7HistoryIndex=X7MemoryIndex.parse(bytes);
-                    x7HistoryRanges=x7HistoryIndex.historyRanges(); x7HistoryRange=0;
+                    x7HistoryRanges=x7HistoryIndex.historyRanges(importUsers); x7HistoryRange=0;
                     wlpParsed=X7MemoryIndex.SETTINGS_BYTES; x7HistoryRangeOffset=wlpParsed;
-                    storedCount=x7HistoryIndex.count(1)+x7HistoryIndex.count(2);
-                    store.packet(address,"x7-history-index",new byte[0],"Populated BP slots: user 1="+x7HistoryIndex.count(1)+", user 2="+x7HistoryIndex.count(2)+"; unread counters retained");
+                    storedCount=x7HistoryIndex.selectedCount(importUsers);
+                    store.packet(address,"x7-history-index",new byte[0],"Populated BP slots: user 1="+x7HistoryIndex.count(1)+", user 2="+x7HistoryIndex.count(2)+"; importing users "+importUsers+"; unread counters retained");
                     if(!x7HistoryRanges.isEmpty()) {
                         X7MemoryIndex.Range range=x7HistoryRanges.get(0); wlpRead.appendRange(range.start,range.length);
                     }
@@ -981,6 +1074,8 @@ public final class MonitorService extends Service {
                     if(x7Registration!=null) x7Registration.cancel(); x7Registration=null;
                     if(registrationSettings!=null) Arrays.fill(registrationSettings,(byte)0); registrationSettings=null;
                     store.remember(address,connectedName,verifiedModel,user);
+                    // The registered profile's bank is the one to import from now on.
+                    store.setImportUsers(address,1<<(user-1)); importUsers=1<<(user-1);
                     state("User "+user+" registration acknowledged","The cuff accepted the selected-user settings, clock and session end. Follow any remaining cuff indication; it may show OK and turn off. Wake it and use Connect for a read-only history transfer. Physical behavior still needs verification.");
                 } else if(dumpRunning) {
                     dumpRunning=false; saveDump(bytes,true,"");
@@ -1153,8 +1248,8 @@ public final class MonitorService extends Service {
         if(!ready || !canHistory) return;
         if(historyRunning || dumpRunning || pendingUserOperation!=0) return;
         if(profile==ProtocolProfile.VENDOR_MEMORY) {
-            if(firstSequence!=-1) { state("Invalid sequence","Vendor memory imports read all mapped history slots; sequence filters are not supported."); return; }
-            beginVendorHistory(); return;
+            if(firstSequence!=-1) { state("Invalid sequence","Vendor memory imports read the monitor's populated history slots; sequence filters are not supported."); return; }
+            beginVendorHistory(false); return;
         }
         if(profile.isX7()) {
             if(!x7ReadReady()) return;
@@ -1173,6 +1268,12 @@ public final class MonitorService extends Service {
         state("Counting stored readings…","Readings are saved as they arrive; device memory is retained.");
         responseWrite(racp,firstSequence<0?Commands.countAll():Commands.countFrom(firstSequence),45000,"History count timed out; transfer incomplete");
     }
+    /** Read all: every slot of the selected banks, regardless of the index. Manual vendor-memory sessions only. */
+    public void readAllHistory() {
+        if(!canReadAll() || historyRunning || dumpRunning || pendingUserOperation!=0) return;
+        beginVendorHistory(true);
+    }
+    public boolean canReadAll() { return ready && canHistory && profile==ProtocolProfile.VENDOR_MEMORY && !automaticConnection; }
     public void readClock() {
         if(!ready || timeCharacteristic==null || (timeCharacteristic.getProperties()&BluetoothGattCharacteristic.PROPERTY_READ)==0) return;
         read(timeCharacteristic,bytes -> { try { LocalDateTime time=Commands.readDateTime(bytes); deviceTime=time==null?"Device clock unset":time.toString().replace('T',' '); changed(); } catch(IllegalArgumentException ex) { deviceTime="Clock format not recognized"; changed(); } });
@@ -1374,7 +1475,8 @@ public final class MonitorService extends Service {
         handler.postDelayed(operationTimeout,15000);
     }
     private void cancelOperationTimeout() { if(operationTimeout!=null) handler.removeCallbacks(operationTimeout); operationTimeout=null; }
-    private void armPhase(long millis,String reason) { cancelPhase(); long session=generation; phaseTimeout=() -> { if(session==generation) fail(reason); }; handler.postDelayed(phaseTimeout,millis); }
+    private void armPhase(long millis,String reason) { armPhase(millis,() -> fail(reason)); }
+    private void armPhase(long millis,Runnable expired) { cancelPhase(); long session=generation; phaseTimeout=() -> { if(session==generation) expired.run(); }; handler.postDelayed(phaseTimeout,millis); }
     private void cancelPhase() { responseGeneration++; if(phaseTimeout!=null) handler.removeCallbacks(phaseTimeout); phaseTimeout=null; }
     private final BluetoothGattCallback callback=new BluetoothGattCallback() {
         private void current(BluetoothGatt source,Runnable action) { handler.post(() -> { if(source==gatt) action.run(); }); }
