@@ -37,7 +37,10 @@ public class OmronFixtureTest {
         // Parent is the platform loader, so neither Robolectric nor Omron classes are shared between fixtures.
         ClassLoader context=Thread.currentThread().getContextClassLoader();
         java.security.Provider[] providers=java.security.Security.getProviders();
-        try(URLClassLoader loader=new URLClassLoader(urls.toArray(new URL[0]),ClassLoader.getSystemClassLoader().getParent())) {
+        // Not closed: Robolectric registers JVM shutdown hooks from this loader that still load classes at exit,
+        // and those hooks keep the loader reachable regardless.
+        URLClassLoader loader=new URLClassLoader(urls.toArray(new URL[0]),ClassLoader.getSystemClassLoader().getParent());
+        try {
             // Robolectric discovers its shadow providers through the context class loader.
             Thread.currentThread().setContextClassLoader(loader);
             Class<?> core=loader.loadClass("org.junit.runner.JUnitCore");
