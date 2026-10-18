@@ -40,8 +40,6 @@ android {
             doFirst {
                 if(!omronForksReported) { logger.quiet("Omron sandbox: up to ${omronForks} parallel test forks (3 GB heap each)"); omronForksReported=true }
             }
-            // dex2jar output has no stack map frames; verification would reject Omron's converted classes.
-            jvmArgs '-XX:+UnlockDiagnosticVMOptions','-XX:-BytecodeVerificationRemote','-XX:-BytecodeVerificationLocal'
         }
     }
 }
@@ -52,6 +50,8 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.robolectric:robolectric:4.17'
     testImplementation 'org.mockito:mockito-core:5.20.0'
+    // ExtractOmron recomputes the converted classes' stack map frames; the same version as Robolectric's and dex2jar's.
+    testImplementation 'org.ow2.asm:asm-tree:9.10.1'
     // Executes the developer-supplied ARM64 Omsec binary; never packaged with OpenPressure.
     testImplementation 'com.github.zhkl0228:unidbg-android:0.9.9'
     testImplementation 'com.github.zhkl0228:unidbg-unicorn2:0.9.9'
@@ -63,11 +63,14 @@ dependencies {
 def hasApk={ apkDir.listFiles()?.any { it.name.endsWith('.apk') || it.name.endsWith('.xapk') } ?: false }
 tasks.register('omronExtract',Exec) {
     description='Extracts the local Omron Connect package from omron-sandbox/apk into build/omron.'
-    inputs.dir(apkDir); outputs.dir(omronDir)
+    def extractor=file('src/test/java/org/openpressure/omronsandbox/ExtractOmron.java')
+    inputs.dir(apkDir); inputs.file(extractor); outputs.dir(omronDir)
     onlyIf { hasApk() }
     doFirst {
-        commandLine "${System.getProperty('java.home')}/bin/java",'-Xmx3g','-cp',configurations.dexConverter.asPath,
-            file('src/test/java/org/openpressure/omronsandbox/ExtractOmron.java').absolutePath,apkDir.absolutePath,omronDir.absolutePath
+        // android.jar resolves Android types while the converted classes get their stack map frames and are verified.
+        commandLine "${System.getProperty('java.home')}/bin/java",'-Xmx3g',"-Domron.libraries=${android.bootClasspath.join(File.pathSeparator)}",
+            '-cp',configurations.dexConverter.asPath,
+            extractor.absolutePath,apkDir.absolutePath,omronDir.absolutePath
     }
 }
 tasks.matching { it.name=='testDebugUnitTest' || it.name=='testReleaseUnitTest' }.configureEach { dependsOn 'omronExtract' }
