@@ -84,6 +84,7 @@ public final class ProtocolTest {
         checks+=LegacyUnlockTest.run();
         checks+=DeviceReportTest.run();
         checks+=VendorWritePolicyTest.run();
+        checks+=WriteAspectIndexTest.run();
         checks+=FixtureTest.run();
         checks+=FixtureReplayTest.run();
         testWlpAppendedRanges();
