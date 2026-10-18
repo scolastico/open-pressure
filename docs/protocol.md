@@ -155,7 +155,7 @@ The WLP4COM key frames belong to the [legacy four-channel models](#other-vendor-
 
 ## Clock-block sync
 
-**Sync clock** writes the monitor's clock through the clock block of its settings image, in a separate explicit session (START, settings-image read, confirmation, one block write, END). The session order, gate, backup and outcomes are in [safety](safety.md#clock-block-write); the user flow is in [usage](usage.md#sync-clock). Layouts and framing below are source-derived and checked with synthetic tests and the `sync-clock` fixtures of the [Omron sandbox](omron-sandbox.md#clock-sync-fixtures); no physical monitor has received or acknowledged this write from OpenPressure.
+**Sync clock** writes the monitor's clock through the clock block of its settings image, in a separate explicit session (START, settings-image read, confirmation, one block write, END). The session order, gate, backup and outcomes are in [safety](safety.md#clock-block-write); the user flow is in [usage](usage.md#sync-clock). Layouts and framing below are source-derived and checked with synthetic tests and the `sync-clock` fixtures of the [Omron sandbox](omron-sandbox.md#clock-sync-fixtures); only the plain-WLP HEM-7380T1-EOSL has acknowledged and applied this write from OpenPressure ([hardware validation](hardware-validation.md#confirming-clock-sync)); no other physical monitor has received it.
 
 ### Clock-block layouts
 
@@ -184,7 +184,7 @@ len 01 C0 addressHi addressLo count data[count] 00 XOR
 
 The acknowledgment is either the compact 8-byte form or a full echo of the frame: `len 81 C0 addressHi addressLo count [data] 00 XOR`. Legacy fragments are joined from the RX channels in channel order; the X7 reply is one notification whose first byte is its length. Opcode, flags, address, count, zero status and XOR must match, and a full echo must repeat every data byte. Anything else is rejected without retry, and END still follows.
 
-Omron Connect has no standalone clock sync. It writes the clock block only as part of its settings writes after every transfer, and always writes the index prefix (`0x54`, or `0x2A4`/`0x286` on 14-byte maps) first. OpenPressure writes the clock block alone and never the prefix. Whether a physical monitor accepts and applies a clock-block write without the preceding prefix write is unverified.
+Omron Connect has no standalone clock sync. It writes the clock block only as part of its settings writes after every transfer, and always writes the index prefix (`0x54`, or `0x2A4`/`0x286` on 14-byte maps) first. OpenPressure writes the clock block alone and never the prefix. The HEM-7380T1-EOSL accepted and applied a clock-block write without the preceding prefix write; whether other physical monitors do is unverified.
 
 ## Independently recovered STP cryptography
 

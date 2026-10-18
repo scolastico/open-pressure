@@ -9,6 +9,7 @@ The tested monitor is **Omron X7 Smart AFib HEM-7380T1-EOSL**, plain WLP manufac
 - Complete default settings/index read: 68 bytes at `[0x0010,0x0054)`, followed by validated END, then expected cuff shutdown about 3.2 seconds later.
 - Both bounded registration-write echoes and END, then a separate complete 111/111-record history transfer. The user confirmed pairing, correct clock and a newly taken measurement imported manually with 0.1.10.
 - Android companion approval on Pixel 9 Pro, Android 17 build `CP3A.260905.009`, after Bluetooth was enabled. The reported endless search was caused by Bluetooth being off.
+- A standalone Sync clock (clock-block write) on 2026-10-18 with firmware SI.W03.00.03 and app 1.2.1: acknowledged, and the written time confirmed on the cuff ([run](#confirmed-run-x7-smart-afib-hem-7380t1-eosl)).
 
 These are user-supplied results; no monitor or real Android device is attached to the development environment. They do not establish every automatic/background timing path, Health Connect provider flow, translation or new UI behavior. The 0.3.0 added vendor readers do not introduce a new hardware-verification claim. Encrypted X7, STP and other standard-profile monitor families remain hardware-untested.
 
@@ -91,7 +92,7 @@ With update checks on and an older installed version, the update dialog must app
 
 ## Confirming clock sync
 
-Every clock-block entry is untested, including the tested HEM-7380T1-EOSL, so a clock-sync run is a deliberate validation with a monitor you are prepared to lose. Never try it on a blocked model, and never repeat a failed write in the hope that it works. The [safety rules](safety.md#clock-block-write) describe what is and is not written.
+The clock-block entry of HEM-7380T1-EOSL is confirmed (see the run below); every other listed entry is untested, so a clock-sync run there is a deliberate validation with a monitor you are prepared to lose. Never try it on a blocked model, and never repeat a failed write in the hope that it works. The [safety rules](safety.md#clock-block-write) describe what is and is not written.
 
 1. Note the exact cuff label and firmware string. Import the monitor's history beforehand on a separate connection so the readings are on the phone, and note the stored-reading count and the user settings shown on the monitor.
 2. Unlock the [developer options](development.md#developer-options) and turn on **Allow clock sync on monitors where it is untested**.
@@ -100,21 +101,27 @@ Every clock-block entry is untested, including the tested HEM-7380T1-EOSL, so a 
 5. Record the result title. On the monitor, check that it shows the written time (the target plus about a second), that the date is right, and that users, settings and stored readings are unchanged. Where practical, repeat with a time just before midnight and check the date change.
 6. Reconnect and import history: no reading may be lost, altered or duplicated. Take a new measurement and check that its timestamp follows the new clock.
 7. Run Sync clock again with the phone time to restore the correct clock. When finished, turn the switch off or hide the developer options.
-8. Send the device report the app offers after the write (its `writes` entry names `clock_block`, the outcome and `override: true`). On the HEM-7380T1-EOSL the report exists only after such a clock sync; ordinary sessions with the tested monitor produce none. Include the cuff label, firmware, Android and app versions, which time was written and what the monitor displayed. If a maintainer asks for the settings image, export the backup through Advanced → Export settings backup (the **Clock sync backup** card) and share it privately; keep diagnostics and that backup out of public issues, because they contain identifiers.
+8. Send the device report the app offers after the write (its `writes` entry names `clock_block`, the outcome and `override: true`). Include the cuff label, firmware, Android and app versions, which time was written and what the monitor displayed. If a maintainer asks for the settings image, export the backup through Advanced → Export settings backup (the **Clock sync backup** card) and share it privately; keep diagnostics and that backup out of public issues, because they contain identifiers.
 
 An acknowledged write that the monitor does not display is an important finding, not a reason to retry. OpenPressure does not send the index-prefix write that Omron Connect sends before the clock block ([protocol](protocol.md#clock-block-write-frame)), and whether monitors need it is unverified. A rejected or cancelled write leaves the monitor's state unverified: check the clock and settings on the monitor, report the result and stop testing that model until a maintainer has reviewed it.
 
-A maintainer then follows [promoting a write aspect](#promoting-a-write-aspect) for that exact identity. Once its clock-block entry is confirmed, Sync clock works there without the developer option, and the maintainer updates [compatibility](compatibility.md), the usage note that clock sync is untested everywhere and this guide.
+A maintainer then follows [promoting a write aspect](#promoting-a-write-aspect) for that exact identity. Once its clock-block entry is confirmed, Sync clock works there without the developer option, and the maintainer updates [compatibility](compatibility.md), the [usage](usage.md#sync-clock) note on where Sync clock appears and this guide.
+
+### Confirmed run: X7 Smart AFib HEM-7380T1-EOSL
+
+On 2026-10-18 the maintainer ran Sync clock on an Omron X7 Smart AFib with cuff label HEM-7380T1-EOSL and firmware SI.W03.00.03, using app version 1.2.1 (a local signed build) on a Google Pixel 9 Pro with Android API 37. It was a manual **Connect** session over the plain WLP connection (verified model, ATT MTU 247) with a deliberately chosen wrong time in **Time to set (developer option)**. The device report recorded one `clock_block` write with outcome `acknowledged` and `override: true`, because the entry was still untested and relied on the developer option, and the session ended with **Clock sync complete**. The maintainer confirmed on the cuff that the written time took effect. The run does not record a midnight crossing or a follow-up history comparison.
+
+Following [promoting a write aspect](#promoting-a-write-aspect), the `CLOCK_BLOCK` entry of exactly this identity is now confirmed: Sync clock appears on it without any developer option and its reports record `override: false`. The firmware name `X7 Smart AFib` resolves to this identity; HEM-7380T1-EBK, a bare `HEM-7380T1`, the encrypted X7 path and every other model are not covered. The remaining nine listed clock-block identities stay untested.
 
 ## Promoting a write aspect
 
-The [write-aspect index](safety.md#write-aspect-index) marks the clock block untested on ten identities and blocked on HEM-7322T, HEM-7377T1 and every unlisted identity; unsent counters are blocked everywhere and nothing is confirmed. Testers enable an untested aspect only through the hidden [developer options](development.md#developer-options), with a monitor they are prepared to lose. Moving an aspect from untested to confirmed is a maintainer code change, never a setting:
+Of the twelve identities listed in the [write-aspect index](safety.md#write-aspect-index), the clock block is confirmed on one (HEM-7380T1-EOSL), untested on nine and blocked on HEM-7322T and HEM-7377T1, as on every unlisted identity; unsent counters are blocked everywhere. Testers enable an untested aspect only through the hidden [developer options](development.md#developer-options), with a monitor they are prepared to lose. Moving an aspect from untested to confirmed is a maintainer code change, never a setting:
 
 1. A tester reports a run with the exact cuff label, firmware string, Android and app versions, the device report and the result checked on the cuff (for the clock: the displayed time, including around midnight, and that settings, users and history are unchanged afterwards).
 2. The maintainer checks that the report's `writes` entry names the aspect with `acknowledged` and `override: true`, that the identity matches the index entry exactly, and confirms the result with the tester.
 3. The maintainer changes that one identity and aspect to confirmed in `WriteAspectIndex`, with an evidence note naming the run, updates `WriteAspectIndexTest` and records the model and operation here and in [compatibility](compatibility.md).
 
-A confirmation covers only that identity and aspect, which includes the exact regional variants that `VendorMemoryModel.identify` maps to that identity. Before promoting, check that the run covers those variants or record which one was tested. It never carries over to another similar model, an unmapped variant or another aspect. A blocked entry cannot be promoted this way; it first needs documented source evidence and review. No aspect has been promoted so far; the explicit [clock-block write](safety.md#clock-block-write) is the only write that uses the index.
+A confirmation covers only that identity and aspect, which includes the exact regional variants that `VendorMemoryModel.identify` maps to that identity. Before promoting, check that the run covers those variants or record which one was tested. It never carries over to another similar model, an unmapped variant or another aspect. A blocked entry cannot be promoted this way; it first needs documented source evidence and review. The only promotion so far is the clock block of HEM-7380T1-EOSL ([run](#confirmed-run-x7-smart-afib-hem-7380t1-eosl)); the explicit [clock-block write](safety.md#clock-block-write) is the only write that uses the index.
 
 ## Other device families
 

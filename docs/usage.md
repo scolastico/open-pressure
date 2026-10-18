@@ -81,7 +81,7 @@ Cuff timestamps are local wall time without the original timezone. Missing or in
 
 ### Sync clock
 
-**Sync clock** sets the monitor's clock to this phone's time. It appears on the connected monitor for the vendor-memory monitors above and for the X7 once clock sync is confirmed for that model; on an encrypted X7 connection the button stays disabled. You see both times and decide before anything on the monitor changes.
+**Sync clock** sets the monitor's clock to this phone's time. It appears on the connected Omron X7 Smart AFib HEM-7380T1-EOSL over its plain connection, where clock sync is confirmed, and on the vendor-memory monitors above and other X7 variants once it is confirmed for that model; on an encrypted X7 connection the button stays disabled. You see both times and decide before anything on the monitor changes.
 
 1. Choose **Connect** (not Pair) and wait until the monitor is ready. Use Sync clock before you import: it is not available during or after an import on the same connection, during Pair or during an automatic import.
 2. Choose **Sync clock**. The app reads the monitor's current settings; nothing is changed yet.

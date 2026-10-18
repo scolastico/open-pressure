@@ -4,9 +4,9 @@ Only one monitor identity has been tested with OpenPressure. Device reports let 
 
 ## When the app offers a report
 
-After a **Pair** or **Connect** session with a monitor other than the tested HEM-7380T1-EOSL, the Devices screen shows **Help support this monitor**. After a Pair attempt, the app also asks once per monitor whether you want to review the report. After a [Sync clock](usage.md#sync-clock) that relied on the hidden developer option because clock sync is untested on that monitor (the tested HEM-7380T1-EOSL included) and actually sent the write (confirmed, rejected or interrupted; not when the clock was already within a minute or nothing was written), the app also asks once whether you want to review the report. Choosing **Not now** dismisses the question; the card stays available until the next connection replaces the report.
+After a **Pair** or **Connect** session with a monitor other than the tested HEM-7380T1-EOSL, the Devices screen shows **Help support this monitor**. After a Pair attempt, the app also asks once per monitor whether you want to review the report. After a [Sync clock](usage.md#sync-clock) that relied on the hidden developer option because clock sync is untested on that monitor (not the HEM-7380T1-EOSL, where it is confirmed) and actually sent the write (confirmed, rejected or interrupted; not when the clock was already within a minute or nothing was written), the app also asks once whether you want to review the report. Choosing **Not now** dismisses the question; the card stays available until the next connection replaces the report.
 
-No report is offered for the tested monitor (except after a Sync clock recorded in `writes`), for automatic imports, or when the connection ended before the monitor's Bluetooth services were discovered. A report covers a failed session as well as a successful one; failures are often the most useful.
+No report is offered for the tested monitor (its confirmed Sync clock does not offer one, although a recorded clock write in `writes` makes its report available on the card), for automatic imports, or when the connection ended before the monitor's Bluetooth services were discovered. A report covers a failed session as well as a successful one; failures are often the most useful.
 
 ## What the report contains
 

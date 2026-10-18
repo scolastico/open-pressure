@@ -74,7 +74,7 @@ One directive per line; `#` starts a comment; hex may contain spaces.
 | --- | --- |
 | `name <group>/<flow>` | Must match the file path; list the name in the `index` file |
 | `flow connect` / `flow pair` / `flow read-all` | Reconnect with the saved key, register the key first, or reconnect and read every slot of the selected users' banks followed by any unconfirmed bank (HEM-7156T bank 2), without the index; Omron has no read-all operation, so its runner reports `unsupported` |
-| `flow sync-clock` | Reconnect with the saved key and run the explicit Sync clock session: START, the settings image read, the clock-block write targeting `time` (written as `time` + 1 s) in chunks on the `tx` channels with its acknowledgment on `rx` (nothing is written when the monitor's clock is within 60 s), then END. Both OpenPressure replays enable the developer override, because every clock-block entry is untested. Omron has no standalone clock sync, so its runner reports `unsupported` |
+| `flow sync-clock` | Reconnect with the saved key and run the explicit Sync clock session: START, the settings image read, the clock-block write targeting `time` (written as `time` + 1 s) in chunks on the `tx` channels with its acknowledgment on `rx` (nothing is written when the monitor's clock is within 60 s), then END. Both OpenPressure replays enable the developer override, because the fixture models' clock-block entries are untested (there is no X7 `sync-clock` fixture). Omron has no standalone clock sync, so its runner reports `unsupported` |
 | `advertise name=… services=<uuid>,… [msd=<hex>]` | Advertisement; drives Omron's model choice |
 | `dis model=… firmware=… software=… systemid=<hex>` | Device Information; `model` drives OpenPressure's model choice |
 | `time <local date-time> zone=<id>` | Pinned clock for clock writes, including Omron's post-transfer clock and the `sync-clock` target |
@@ -162,7 +162,7 @@ The bad-record fixture keeps an Omron-only user-2 reading expectation solely so 
 
 ### Clock sync fixtures
 
-Omron Connect has no standalone clock sync: it writes the clock as part of its settings writes after every transfer (see [post-transfer settings writes](#post-transfer-settings-writes)). OpenPressure instead writes only the clock block, in its own explicit Sync clock session, and never the index prefix that Omron writes first; whether a physical monitor applies the block without that prefix write is unverified. The `sync-clock` fixtures therefore describe only OpenPressure; their write and acknowledgment steps are OpenPressure-only, and Omron's runner reports `unsupported`.
+Omron Connect has no standalone clock sync: it writes the clock as part of its settings writes after every transfer (see [post-transfer settings writes](#post-transfer-settings-writes)). OpenPressure instead writes only the clock block, in its own explicit Sync clock session, and never the index prefix that Omron writes first; only the HEM-7380T1-EOSL has been seen to apply the block without that prefix write, and that is unverified on the fixture models. The `sync-clock` fixtures therefore describe only OpenPressure; their write and acknowledgment steps are OpenPressure-only, and Omron's runner reports `unsupported`.
 
 | Fixture | OpenPressure | Omron Connect 2026.09.03 |
 | --- | --- | --- |
@@ -172,7 +172,7 @@ Omron Connect has no standalone clock sync: it writes the clock as part of its s
 | `hem-7530t/sync-clock` | Reads the image at `0x260`, finds a valid all-zero block 3 (an erased one is refused on this model), writes it at `0x2D0` (checksum `2a`) with byte pairs swapped (`acknowledged`) | `unsupported` |
 | `hem-7600t/sync-clock` | Reads the 38-byte image at `0x260`, finds a valid all-zero block 3 (an erased one is refused on this model), writes the 10-byte block at `0x29A` (checksum `2a`) with byte pairs swapped (`acknowledged`) | `unsupported` |
 
-The acknowledgments are synthetic full echoes; no physical monitor's reply to a clock-block write is established, and every clock-block entry remains untested. Both OpenPressure replays enable the developer override for these fixtures.
+The acknowledgments are synthetic full echoes; no fixture model's physical reply to a clock-block write is established, and their clock-block entries remain untested (only HEM-7380T1-EOSL, which has no fixture here, is confirmed). Both OpenPressure replays enable the developer override for these fixtures.
 
 ## Post-transfer settings writes
 
