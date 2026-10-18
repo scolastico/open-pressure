@@ -51,6 +51,42 @@ public class ExtractOmronRepairTest {
         catch(IllegalStateException expected) { assertTrue(expected.getMessage().contains(name+".bad()")); }
     }
 
+    @Test public void methodAsmCannotAnalyseIsStubbedOutsideExecutedPackages() throws Exception {
+        Map<String,byte[]> classes=new HashMap<>();
+        classes.put("syn/Uneven",uneven("syn/Uneven"));
+        ExtractOmron.Repair repair=ExtractOmron.repair(classes,classes,Collections.emptyList());
+        assertEquals(Collections.singleton("syn/Uneven.bad(Z)I"),repair.stubbed);
+        Class<?> uneven=load(repair.classes,"syn/Uneven");
+        assertEquals("other methods keep their code",5,uneven.getMethod("good").invoke(null));
+        try { uneven.getMethod("bad",boolean.class).invoke(null,true); fail("stub returned"); }
+        catch(InvocationTargetException e) { assertTrue(e.getCause() instanceof UnsupportedOperationException); }
+    }
+
+    @Test public void methodAsmCannotAnalyseInAnExecutedPackageFailsTheExtraction() throws Exception {
+        String name=ExtractOmron.EXECUTED[1]+"Uneven";
+        Map<String,byte[]> classes=new HashMap<>();
+        classes.put(name,uneven(name));
+        try { ExtractOmron.repair(classes,classes,Collections.emptyList()); fail("executed code stubbed"); }
+        catch(IllegalStateException expected) { assertTrue(expected.getMessage().contains(name+".bad(Z)I")); }
+    }
+
+    /** bad(flag) reaches its return with one or two stack values, which ASM cannot merge; good() returns 5. */
+    private static byte[] uneven(String name) {
+        ClassWriter w=new ClassWriter(0);
+        w.visit(Opcodes.V1_8,Opcodes.ACC_PUBLIC,name,null,"java/lang/Object",null);
+        MethodVisitor bad=w.visitMethod(Opcodes.ACC_PUBLIC|Opcodes.ACC_STATIC,"bad","(Z)I",null,null);
+        Label join=new Label();
+        bad.visitCode();
+        bad.visitInsn(Opcodes.ICONST_1); bad.visitVarInsn(Opcodes.ILOAD,0); bad.visitJumpInsn(Opcodes.IFEQ,join);
+        bad.visitInsn(Opcodes.ICONST_2);
+        bad.visitLabel(join); bad.visitInsn(Opcodes.IRETURN);
+        bad.visitMaxs(2,1); bad.visitEnd();
+        MethodVisitor good=w.visitMethod(Opcodes.ACC_PUBLIC|Opcodes.ACC_STATIC,"good","()I",null,null);
+        good.visitCode(); good.visitInsn(Opcodes.ICONST_5); good.visitInsn(Opcodes.IRETURN); good.visitMaxs(1,0); good.visitEnd();
+        w.visitEnd();
+        return w.toByteArray();
+    }
+
     /** Base with value() 0, and A and B overriding it with 1 and 2; known only from these class files. */
     private static Map<String,byte[]> hierarchy(String pkg) {
         Map<String,byte[]> classes=new HashMap<>();

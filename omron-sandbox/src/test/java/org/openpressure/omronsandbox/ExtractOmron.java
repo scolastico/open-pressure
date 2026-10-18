@@ -201,6 +201,11 @@ public final class ExtractOmron {
                 for(String method:failed) { result.stubbed.add(method); owners.add(method.substring(0,method.indexOf('.'))); }
                 for(String owner:owners) result.classes.put(owner,rewrite(classes.get(owner),hierarchy,result.stubbed));
             }
+            // Code the sandbox executes must be checked here, not first when a fixture loads it.
+            List<String> executed=new ArrayList<>();
+            for(String name:result.unverified) for(String prefix:EXECUTED) if(name.startsWith(prefix)) executed.add(name);
+            if(!executed.isEmpty()) throw new IllegalStateException("Cannot verify converted Omron classes the sandbox executes "
+                +"(a class they reference is missing; add its library with -Pomron.libraries): "+executed);
         }
         return result;
     }

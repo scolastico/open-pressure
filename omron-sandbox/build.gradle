@@ -10,7 +10,11 @@ def apkDir=file('apk')
 // forks than shards. -Pomron.forks=N overrides the detection.
 def omronShards=8
 def omronForks={
-    if(project.hasProperty('omron.forks')) return Math.max(1,(project.property('omron.forks') as String).toInteger())
+    if(project.hasProperty('omron.forks')) {
+        def value=(project.property('omron.forks') as String).trim()
+        if(!value.isInteger()) throw new GradleException("-Pomron.forks must be a whole number of parallel test JVMs, not '${value}'")
+        return Math.max(1,value.toInteger())
+    }
     def os=java.lang.management.ManagementFactory.operatingSystemMXBean
     long ram=0
     if(os instanceof com.sun.management.OperatingSystemMXBean) {
@@ -67,8 +71,10 @@ tasks.register('omronExtract',Exec) {
     inputs.dir(apkDir); inputs.file(extractor); outputs.dir(omronDir)
     onlyIf { hasApk() }
     doFirst {
+        // -Pomron.libraries=<jar>[:<jar>…] adds libraries (for example Guava) so more classes are verified at extraction.
+        def extraLibraries=project.hasProperty('omron.libraries')?(project.property('omron.libraries') as String).split(File.pathSeparator).findAll { it }.collect { file(it) }:[]
         // android.jar resolves Android types while the converted classes get their stack map frames and are verified.
-        commandLine "${System.getProperty('java.home')}/bin/java",'-Xmx3g',"-Domron.libraries=${android.bootClasspath.join(File.pathSeparator)}",
+        commandLine "${System.getProperty('java.home')}/bin/java",'-Xmx3g',"-Domron.libraries=${(android.bootClasspath+extraLibraries).join(File.pathSeparator)}",
             '-cp',configurations.dexConverter.asPath,
             extractor.absolutePath,apkDir.absolutePath,omronDir.absolutePath
     }

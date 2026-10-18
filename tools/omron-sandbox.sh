@@ -45,7 +45,8 @@ rm -rf "$out/results" app/build/fixture-replay
 # OMRON_FORKS overrides the detected number of parallel test JVMs (docs/omron-sandbox.md).
 forks=()
 if [ -n "${OMRON_FORKS:-}" ]; then forks=(-Pomron.forks="$OMRON_FORKS"); fi
-./gradlew -q --continue "${forks[@]}" -Dfixture="$fixture" -Domron.sandbox.explore="$explore" \
+# ${forks[@]+...} keeps an empty array valid under set -u on bash before 4.4 (macOS /bin/bash).
+./gradlew -q --continue ${forks[@]+"${forks[@]}"} -Dfixture="$fixture" -Domron.sandbox.explore="$explore" \
   :omron-sandbox:testDebugUnitTest --tests '*OmronFixtureShard*' --rerun \
   :app:testDebugUnitTest --tests '*FixtureReplayTest' --rerun >"$out-gradle.log" 2>&1 || true
 
