@@ -14,7 +14,7 @@ public final class ReadingStore extends SQLiteOpenHelper {
     private Runnable changeListener,forwardingListener,profileListener;
     private final Context context;
     private final HttpOutbox httpOutbox=new HttpOutbox(this);
-    public ReadingStore(Context context) { super(context,"pressure.db",null,6); this.context=context.getApplicationContext(); }
+    public ReadingStore(Context context) { super(context,"pressure.db",null,7); this.context=context.getApplicationContext(); }
     public HttpOutbox httpOutbox() { return httpOutbox; }
     public synchronized void setForwardingListener(Runnable listener) { forwardingListener=listener; }
     @Override public void onConfigure(SQLiteDatabase db) { db.enableWriteAheadLogging(); db.setForeignKeyConstraintsEnabled(true); }
@@ -22,6 +22,7 @@ public final class ReadingStore extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE readings(id INTEGER PRIMARY KEY, fingerprint TEXT UNIQUE, device TEXT NOT NULL, name TEXT NOT NULL, time TEXT, received INTEGER NOT NULL, sys REAL NOT NULL, dia REAL NOT NULL, map REAL, pulse REAL, user INTEGER, status INTEGER, afib INTEGER, unit TEXT NOT NULL, source TEXT NOT NULL, raw TEXT NOT NULL, notes TEXT NOT NULL DEFAULT '')");
         db.execSQL("CREATE INDEX reading_time ON readings(time)");
         db.execSQL("CREATE TABLE devices(address TEXT PRIMARY KEY, name TEXT NOT NULL, model TEXT NOT NULL, user INTEGER NOT NULL)");
+        addImportUsers(db);
         db.execSQL("CREATE TABLE packets(id INTEGER PRIMARY KEY, received INTEGER NOT NULL, device TEXT NOT NULL, characteristic TEXT NOT NULL, payload TEXT NOT NULL, note TEXT NOT NULL)");
         createHealthExports(db);
         createDeletionReceipts(db);
@@ -29,12 +30,17 @@ public final class ReadingStore extends SQLiteOpenHelper {
         createVirtualUsers(db);
     }
     @Override public void onUpgrade(SQLiteDatabase db,int oldVersion,int newVersion) {
-        if(oldVersion<1 || newVersion!=6) throw new IllegalStateException("Unsupported database version");
+        if(oldVersion<1 || newVersion!=7) throw new IllegalStateException("Unsupported database version");
         if(oldVersion<2) db.execSQL("ALTER TABLE readings ADD COLUMN afib INTEGER");
         if(oldVersion<3) createHealthExports(db);
         if(oldVersion<4) createDeletionReceipts(db);
         if(oldVersion<5) createHttpForwarding(db);
         if(oldVersion<6) createVirtualUsers(db);
+        if(oldVersion<7) addImportUsers(db);
+    }
+    // Which monitor user banks automatic imports read: 1, 2 or 3 (both). Existing monitors keep both.
+    private void addImportUsers(SQLiteDatabase db) {
+        db.execSQL("ALTER TABLE devices ADD COLUMN users INTEGER NOT NULL DEFAULT 3");
     }
     private void createVirtualUsers(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE virtual_users(id INTEGER PRIMARY KEY AUTOINCREMENT CHECK(id>0 AND id<=2147483647), name TEXT NOT NULL CHECK(length(trim(name))>0))");
@@ -333,12 +339,25 @@ public final class ReadingStore extends SQLiteOpenHelper {
         return removed;
     }
     public synchronized void remember(String address,String name,String model,int user) {
-        ContentValues v=new ContentValues(); v.put("address",address); v.put("name",name); v.put("model",model); v.put("user",user);
-        getWritableDatabase().insertWithOnConflict("devices",null,v,SQLiteDatabase.CONFLICT_REPLACE);
+        // Update-or-insert keeps the saved import users selection; SQLite UPSERT is unavailable before Android 11.
+        ContentValues v=new ContentValues(); v.put("name",name); v.put("model",model); v.put("user",user);
+        SQLiteDatabase db=getWritableDatabase(); db.beginTransaction();
+        try {
+            if(db.update("devices",v,"address=?",new String[]{address})==0) { v.put("address",address); db.insertOrThrow("devices",null,v); }
+            db.setTransactionSuccessful();
+        } finally { db.endTransaction(); }
+    }
+    public synchronized void setImportUsers(String address,int users) {
+        if(users<1 || users>3) throw new IllegalArgumentException("Import users must be 1, 2 or 3");
+        ContentValues v=new ContentValues(); v.put("users",users);
+        getWritableDatabase().update("devices",v,"address=?",new String[]{address});
+    }
+    public synchronized int importUsers(String address) {
+        try(Cursor c=getReadableDatabase().rawQuery("SELECT users FROM devices WHERE address=?",new String[]{address})) { return c.moveToFirst()?c.getInt(0):3; }
     }
     public synchronized List<String[]> devices() {
-        List<String[]> rows=new ArrayList<>(); try(Cursor c=getReadableDatabase().rawQuery("SELECT address,name,model,user FROM devices ORDER BY name",null)) {
-            while(c.moveToNext()) rows.add(new String[]{c.getString(0),c.getString(1),c.getString(2),c.getString(3)});
+        List<String[]> rows=new ArrayList<>(); try(Cursor c=getReadableDatabase().rawQuery("SELECT address,name,model,user,users FROM devices ORDER BY name",null)) {
+            while(c.moveToNext()) rows.add(new String[]{c.getString(0),c.getString(1),c.getString(2),c.getString(3),c.getString(4)});
         } return rows;
     }
     public synchronized void forget(String address) { getWritableDatabase().delete("devices","address=?",new String[]{address}); }
