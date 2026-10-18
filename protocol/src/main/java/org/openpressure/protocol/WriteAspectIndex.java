@@ -14,7 +14,7 @@ import java.util.Map;
  * strings (VendorMemoryModel.id, or the X7 identities); anything unlisted is blocked.
  */
 public final class WriteAspectIndex {
-    public enum Aspect { CLOCK_BLOCK, UNSENT_COUNTERS }
+    public enum Aspect { CLOCK_BLOCK, UNSENT_COUNTERS, REGISTRATION }
     public enum Status { CONFIRMED, UNTESTED, BLOCKED }
 
     public static final class Entry {
@@ -31,16 +31,22 @@ public final class WriteAspectIndex {
         "confirmed 2026-10-18: acknowledged clock-block write on X7 Smart AFib (HEM-7380T1-EOSL, firmware SI.W03.00.03), app 1.2.1; see docs/hardware-validation.md");
     private static final Entry CLOCK_NO_EVIDENCE=new Entry(Status.BLOCKED,
         "no documented clock-block layout for this model; see docs/safety.md");
+    private static final Entry REGISTRATION_CONFIRMED_X7_EOSL=new Entry(Status.CONFIRMED,
+        "tested registration including its clock on the maintainer's cuff; see docs/hardware-validation.md");
+    private static final Entry REGISTRATION_UNTESTED_X7_EBK=new Entry(Status.UNTESTED,
+        "identical EOSL/EBK configuration except model_id, no run yet; see docs/hardware-validation.md");
+    private static final Entry NO_REGISTRATION=new Entry(Status.BLOCKED,"no registration workflow for this identity");
     private static final Map<String,Map<Aspect,Entry>> TABLE;
     private static final List<String> IDENTITIES;
 
     static {
         Map<String,Map<Aspect,Entry>> table=new HashMap<>();
         for(String id:new String[]{"HEM-7150T","HEM-7155T","HEM-7156T","HEM-7342T","HEM-7361T",
-                "HEM-7530T","HEM-7600T","HEM-6232T","HEM-7380T1-EBK"})
-            put(table,id,CLOCK_UNTESTED);
-        put(table,"HEM-7380T1-EOSL",CLOCK_CONFIRMED_X7_EOSL);
-        for(String id:new String[]{"HEM-7322T","HEM-7377T1"}) put(table,id,CLOCK_NO_EVIDENCE);
+                "HEM-7530T","HEM-7600T","HEM-6232T"})
+            put(table,id,CLOCK_UNTESTED,NO_REGISTRATION);
+        put(table,"HEM-7380T1-EBK",CLOCK_UNTESTED,REGISTRATION_UNTESTED_X7_EBK);
+        put(table,"HEM-7380T1-EOSL",CLOCK_CONFIRMED_X7_EOSL,REGISTRATION_CONFIRMED_X7_EOSL);
+        for(String id:new String[]{"HEM-7322T","HEM-7377T1"}) put(table,id,CLOCK_NO_EVIDENCE,NO_REGISTRATION);
         TABLE=Collections.unmodifiableMap(table);
         List<String> ids=new ArrayList<>(table.keySet());
         Collections.sort(ids);
@@ -49,10 +55,12 @@ public final class WriteAspectIndex {
 
     private WriteAspectIndex() {}
 
-    private static void put(Map<String,Map<Aspect,Entry>> table,String id,Entry clock) {
+    /** Every row carries every aspect: the clock block, the unimplemented unsent counters and profile registration. */
+    private static void put(Map<String,Map<Aspect,Entry>> table,String id,Entry clock,Entry registration) {
         Map<Aspect,Entry> aspects=new EnumMap<>(Aspect.class);
         aspects.put(Aspect.CLOCK_BLOCK,clock);
         aspects.put(Aspect.UNSENT_COUNTERS,NOT_IMPLEMENTED);
+        aspects.put(Aspect.REGISTRATION,registration);
         table.put(id,Collections.unmodifiableMap(aspects));
     }
 

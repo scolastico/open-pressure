@@ -12,6 +12,7 @@ public final class DeviceReportTest {
         identifyingFieldsAreMasked();
         reportContainsLayoutButNoValues();
         reportsWithoutGattAreNotOffered();
+        registrationIsRecordedWithoutValues();
         return checks;
     }
     private static void onlyTheTestedIdentityIsVerified() {
@@ -71,6 +72,19 @@ public final class DeviceReportTest {
         aliased.writeAspect(WriteAspectIndex.Aspect.CLOCK_BLOCK,DeviceReport.WriteOutcome.REJECTED,true);
         check(aliased.useful(),"the tested identity's marketing name is offered after a write too");
         check(report.toJson().contains("\"present\": false"),"missing advertisement is explicit");
+    }
+    private static void registrationIsRecordedWithoutValues() {
+        DeviceReport report=new DeviceReport("Pair","1.2.0",35,"Synthetic Phone");
+        report.service("0000fe4a-0000-1000-8000-00805f9b34fb",Arrays.asList());
+        report.model("HEM-7380T1-EBK");
+        report.writeAspect(WriteAspectIndex.Aspect.REGISTRATION,DeviceReport.WriteOutcome.ACKNOWLEDGED,true);
+        report.writeAspect(WriteAspectIndex.Aspect.REGISTRATION,DeviceReport.WriteOutcome.CANCELLED,true);
+        report.writeAspect(WriteAspectIndex.Aspect.REGISTRATION,DeviceReport.WriteOutcome.NOT_ATTEMPTED,false);
+        String json=report.toJson().replace(" ","");
+        check(json.contains("{\"aspect\":\"registration\",\"outcome\":\"acknowledged\",\"override\":true}"),"registration aspect recorded in lower case");
+        check(json.contains("\"aspect\":\"registration\",\"outcome\":\"cancelled\"") && json.contains("\"aspect\":\"registration\",\"outcome\":\"not_attempted\",\"override\":false"),"each attempt recorded");
+        // Only the aspect, outcome and override: no selected user, clock, address or settings bytes.
+        for(String forbidden:new String[]{"user","clock\":","0x0054","0x0080","data"}) check(!json.contains(forbidden),"registration entry carries no value: "+forbidden);
     }
     private static byte[] hex(String value) { return HexFormat.of().parseHex(value); }
     private static void check(boolean condition,String message) { checks++; if(!condition) throw new AssertionError(message); }

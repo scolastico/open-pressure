@@ -34,10 +34,14 @@ public final class DeviceWritePolicy {
     }
     private static boolean vendor(UUID service) { return VENDOR.equals(service)||ALIAS.equals(service); }
     private static boolean history(UUID service,UUID characteristic) { return (OPTIONAL.equals(service)||BP.equals(service)) && RACP.equals(characteristic); }
-    /** The sole addressed-write exception: an explicitly authorized, model-bound registration frame. */
+    /**
+     * The registration addressed-write exception: an explicitly authorized, identity-bound registration frame.
+     * The write-aspect gate runs before the plan's live permit is consulted.
+     */
     public static void validateX7Registration(ProtocolProfile profile,UUID service,UUID characteristic,byte[] payload,X7Registration registration) {
-        if(profile!=ProtocolProfile.X7_WLP || !ALIAS.equals(service) || !WLP_TX.equals(characteristic) ||
-                registration==null || !registration.allows(payload)) reject();
+        if(profile!=ProtocolProfile.X7_WLP || !ALIAS.equals(service) || !WLP_TX.equals(characteristic) || registration==null) reject();
+        requireWriteAspect(registration.identity(),WriteAspectIndex.Aspect.REGISTRATION,registration.override());
+        if(!registration.allows(payload)) reject();
     }
     /**
      * The authorized clock-block write of a vendor-memory model: one chunk of the plan's frame on
