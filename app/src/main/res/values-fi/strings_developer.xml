@@ -27,4 +27,9 @@
     <string name="dev_allow_registration_confirm_title">Sallitaanko testaamaton profiilin rekisteröinti?</string>
     <string name="dev_allow_registration_confirm_message">Profiilin rekisteröinti kirjoittaa valitun käyttäjän ja kellonajan mittarin asetuksiin. Sitä ei ole vahvistettu näille mittarimalleille. Jos teet sen silti, mittarin asetukset voivat vioittua pysyvästi tai mittari voi muuttua käyttökelvottomaksi.\n\nTämä kytkin ei itse lähetä mitään. Rekisteröinti tehdään edelleen vain, kun valitset Muodosta laitepari ja vahvistat sen, ja laiteraporttiin kirjataan, että testaamatonta kirjoitusta yritettiin.\n\nOlet itse vastuussa mittarillesi aiheutuvista vahingoista.</string>
     <string name="dev_index_aspect_registration">Profiilin rekisteröinti</string>
+    <string name="dev_experimental_title">Kokeelliset reitit</string>
+    <string name="dev_experimental_explanation">Nämä kytkimet ottavat käyttöön yhteysreittejä, jotka ovat sovelluksessa mutta joita ei ole koskaan testattu oikealla mittarilla. Ne voivat yksinkertaisesti epäonnistua.</string>
+    <string name="dev_experimental_force_x7_encrypted">Käytä salattua yhteyttä X7:n laiteparia muodostettaessa</string>
+    <string name="dev_experimental_confirm_title">Otetaanko testaamaton reitti käyttöön?</string>
+    <string name="dev_experimental_confirm_message">Tämä reitti on sovelluksessa, mutta sitä ei ole koskaan testattu oikealla mittarilla, ja se voi yksinkertaisesti epäonnistua. Tällä tavalla muodostettu laitepari voi korvata mittarin nykyisen laiteparin tällä puhelimella. Epäonnistunut kirjoitus voi vioittaa mittarin asetukset pysyvästi tai tehdä mittarista käyttökelvottoman.\n\nTämä kytkin ei itse lähetä mitään. Laiteraportissa näkyy, mitkä kehittäjäkytkimet olivat käytössä.\n\nOlet itse vastuussa mittarillesi aiheutuvista vahingoista.</string>
 </resources>

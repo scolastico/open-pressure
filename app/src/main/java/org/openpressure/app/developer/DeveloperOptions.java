@@ -18,15 +18,21 @@ public final class DeveloperOptions {
     public static final String PREFERENCES="developer";
     public static final int TAP_TARGET=5;
     public static final long TAP_WINDOW_MS=3000;
-    private static final String UNLOCKED_KEY="unlocked", ALLOW_UNTESTED_PREFIX="allow_untested_";
+    private static final String UNLOCKED_KEY="unlocked", ALLOW_UNTESTED_PREFIX="allow_untested_", EXPERIMENTAL_PREFIX="experimental_";
+    /**
+     * Unstable, hardware-untested paths that already exist in code. A switch only selects such a path for an explicit,
+     * user-started session; it never authorizes a command the outgoing-write policy does not allow.
+     */
+    public enum Experiment { FORCE_X7_ENCRYPTED }
     private DeveloperOptions() {}
 
     public static boolean isUnlocked(Context context) { return preferences(context).getBoolean(UNLOCKED_KEY,false); }
 
-    /** Locking and unlocking both clear every untested-aspect override in the same commit, so each unlock starts safe. */
+    /** Locking and unlocking both clear every untested-aspect override and experiment in the same commit, so each unlock starts safe. */
     public static void setUnlocked(Context context,boolean unlocked) {
         SharedPreferences.Editor editor=preferences(context).edit().putBoolean(UNLOCKED_KEY,unlocked);
         for(Aspect aspect:Aspect.values()) editor.remove(key(aspect));
+        for(Experiment experiment:Experiment.values()) editor.remove(key(experiment));
         if(!editor.commit()) throw new IllegalStateException("Could not save developer options");
     }
 
@@ -49,6 +55,23 @@ public final class DeveloperOptions {
         if(!preferences(context).edit().putBoolean(key,allowed).commit()) throw new IllegalStateException("Could not save developer options");
     }
 
+    /** An experimental path only counts while the developer options remain unlocked. */
+    public static boolean allowsExperimental(Context context,Experiment experiment) {
+        SharedPreferences preferences=preferences(context);
+        String key=key(experiment);
+        return preferences.getBoolean(UNLOCKED_KEY,false) && preferences.getBoolean(key,false);
+    }
+
+    public static void setAllowExperimental(Context context,Experiment experiment,boolean allowed) {
+        String key=key(experiment);
+        if(!isUnlocked(context)) throw new IllegalStateException("Developer options are locked");
+        if(!preferences(context).edit().putBoolean(key,allowed).commit()) throw new IllegalStateException("Could not save developer options");
+    }
+
+    /** The stored key, for example {@code experimental_force_x7_encrypted}; also the name the device report lists. */
+    public static String key(Experiment experiment) { return EXPERIMENTAL_PREFIX+name(experiment); }
+    /** The lower-case name of an experiment as the device report lists it. */
+    public static String name(Experiment experiment) { return Objects.requireNonNull(experiment,"experiment").name().toLowerCase(Locale.ROOT); }
     private static String key(Aspect aspect) { return ALLOW_UNTESTED_PREFIX+Objects.requireNonNull(aspect,"aspect").name().toLowerCase(Locale.ROOT); }
     private static SharedPreferences preferences(Context context) { return context.getSharedPreferences(PREFERENCES,Context.MODE_PRIVATE); }
 

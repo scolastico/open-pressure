@@ -72,6 +72,7 @@ public class DeveloperOptionsActivityTest {
             Activity a=controller.get();
             assertTrue(hasText(root(a),a.getString(R.string.dev_warning)));
             assertEquals(a.getString(R.string.dev_allow_clock_untested),clockSwitch(a).getText().toString());
+            assertEquals(a.getString(R.string.dev_experimental_force_x7_encrypted),((Switch)root(a).findViewWithTag("experimental_force_x7_encrypted")).getText().toString());
             assertFalse(clockSwitch(a).isChecked());
         }
     }
@@ -116,6 +117,32 @@ public class DeveloperOptionsActivityTest {
             assertFalse(clockSwitch(a).isChecked());
             registration.performClick(); idle();
             assertFalse("Turning it off is immediate",DeveloperOptions.allowsUntested(app,Aspect.REGISTRATION));
+        }
+    }
+    @Test public void experimentalSwitchesAskFirstAndAreHiddenWithTheOptions() {
+        for(DeveloperOptions.Experiment experiment:DeveloperOptions.Experiment.values()) {
+            try(ActivityController<DeveloperOptionsActivity> controller=Robolectric.buildActivity(DeveloperOptionsActivity.class).setup()) {
+                Activity a=controller.get();
+                assertTrue(hasText(root(a),a.getString(R.string.dev_experimental_title)));
+                assertTrue(hasText(root(a),a.getString(R.string.dev_experimental_explanation)));
+                Switch view=(Switch)root(a).findViewWithTag(DeveloperOptions.key(experiment));
+                assertNotNull(experiment.name(),view); assertFalse(view.isChecked());
+                view.performClick(); idle();
+                AlertDialog dialog=ShadowAlertDialog.getLatestAlertDialog();
+                assertTrue(dialog.isShowing());
+                assertEquals(a.getString(R.string.dev_experimental_confirm_message),((TextView)dialog.findViewById(android.R.id.message)).getText().toString());
+                assertFalse("nothing is stored before the user accepts",DeveloperOptions.allowsExperimental(app,experiment));
+                dialog.getButton(AlertDialog.BUTTON_NEGATIVE).performClick(); idle();
+                assertFalse(view.isChecked());
+                view.performClick(); idle();
+                ShadowAlertDialog.getLatestAlertDialog().getButton(AlertDialog.BUTTON_POSITIVE).performClick(); idle();
+                assertTrue(DeveloperOptions.allowsExperimental(app,experiment)); assertTrue(view.isChecked());
+                for(Aspect aspect:Aspect.values()) assertFalse(DeveloperOptions.allowsUntested(app,aspect));
+                button(root(a),a.getString(R.string.dev_hide)).performClick(); idle();
+                ShadowAlertDialog.getLatestAlertDialog().getButton(AlertDialog.BUTTON_POSITIVE).performClick(); idle();
+                assertFalse(DeveloperOptions.allowsExperimental(app,experiment));
+            }
+            DeveloperOptions.setUnlocked(app,true);
         }
     }
     @Test public void hideTurnsTheRegistrationSwitchOffToo() {

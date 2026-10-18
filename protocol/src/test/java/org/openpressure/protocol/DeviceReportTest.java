@@ -13,6 +13,7 @@ public final class DeviceReportTest {
         reportContainsLayoutButNoValues();
         reportsWithoutGattAreNotOffered();
         registrationIsRecordedWithoutValues();
+        developerSwitchesAreListedByName();
         return checks;
     }
     private static void onlyTheTestedIdentityIsVerified() {
@@ -85,6 +86,16 @@ public final class DeviceReportTest {
         check(json.contains("\"aspect\":\"registration\",\"outcome\":\"cancelled\"") && json.contains("\"aspect\":\"registration\",\"outcome\":\"not_attempted\",\"override\":false"),"each attempt recorded");
         // Only the aspect, outcome and override: no selected user, clock, address or settings bytes.
         for(String forbidden:new String[]{"user","clock\":","0x0054","0x0080","data"}) check(!json.contains(forbidden),"registration entry carries no value: "+forbidden);
+    }
+    private static void developerSwitchesAreListedByName() {
+        DeviceReport report=new DeviceReport("Pair","1.2.0",35,"Synthetic Phone");
+        check(report.toJson().replace(" ","").replace("\n","").contains("\"developer\":[]"),"no switch in effect: empty list");
+        report.developer("force_x7_encrypted"); report.developer("force_x7_encrypted"); report.developer("clock_sync_encrypted_x7");
+        report.developer(null); report.developer("Not A Name"); report.developer("key=00112233");
+        String json=report.toJson().replace(" ","").replace("\n","");
+        check(json.contains("\"developer\":[\"force_x7_encrypted\",\"clock_sync_encrypted_x7\"]"),"names only, once each, in order: "+json);
+        check(json.indexOf("\"developer\"")>json.indexOf("\"writes\"") && json.indexOf("\"developer\"")<json.indexOf("\"outcome\":{"),"developer follows writes");
+        check(!report.useful(),"a developer switch alone does not make a report worth sharing");
     }
     private static byte[] hex(String value) { return HexFormat.of().parseHex(value); }
     private static void check(boolean condition,String message) { checks++; if(!condition) throw new AssertionError(message); }

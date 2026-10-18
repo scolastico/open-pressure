@@ -842,9 +842,17 @@ public final class MonitorService extends Service {
         if(automaticConnection && (advertised!=X7Security.Mode.PLAIN || savedKey || gatt.getDevice().getBondState()!=BluetoothDevice.BOND_BONDED)) {
             fail("Automatic X7 import requires the existing plain-WLP Android bond. Pair manually first; no registration or key exchange was started."); return;
         }
-        profile=advertised==X7Security.Mode.ENCRYPTED || savedKey?ProtocolProfile.X7_SECURE_WLP:ProtocolProfile.X7_WLP;
+        // Experimental: only a user-started Pair may force a plain-advertising X7 onto the encrypted route.
+        boolean forceEncrypted=advertised==X7Security.Mode.PLAIN && !savedKey && pairingRequested && !automaticConnection
+                && experimentEnabled(DeveloperOptions.Experiment.FORCE_X7_ENCRYPTED);
+        profile=advertised==X7Security.Mode.ENCRYPTED || savedKey || forceEncrypted?ProtocolProfile.X7_SECURE_WLP:ProtocolProfile.X7_WLP;
         reportProtocol("HEM-7380T1");
         store.packet(address,"protocol",new byte[0],"Verified model "+verifiedModel+" · "+profile+" · advertisement="+advertised+" · saved application key="+savedKey);
+        if(forceEncrypted) {
+            // No key material: the fresh application pairing below omits its bodies from diagnostics as usual.
+            store.packet(address,"protocol",new byte[0],"Encrypted route forced by developer option");
+            developerSwitch(DeveloperOptions.Experiment.FORCE_X7_ENCRYPTED);
+        }
         if(profile==ProtocolProfile.X7_SECURE_WLP) {
             if((handshake.getProperties()&BluetoothGattCharacteristic.PROPERTY_WRITE)==0 || negotiatedMtu<92) {
                 fail("X7 application pairing requires acknowledged system writes and an ATT MTU of at least 92. No pairing or memory commands were sent."); return;
@@ -1496,6 +1504,15 @@ public final class MonitorService extends Service {
     private boolean developerOverride(WriteAspectIndex.Aspect aspect) {
         try { return DeveloperOptions.allowsUntested(this,aspect); }
         catch(RuntimeException unavailable) { return false; }
+    }
+    /** The only reading of an experimental-path switch; a locked or unreadable developer state counts as off. */
+    private boolean experimentEnabled(DeveloperOptions.Experiment experiment) {
+        try { return DeveloperOptions.allowsExperimental(this,experiment); }
+        catch(RuntimeException unavailable) { return false; }
+    }
+    /** Lists a developer switch that is in effect for this user-started session in its device report (name only). */
+    private void developerSwitch(DeveloperOptions.Experiment experiment) {
+        if(report!=null && !automaticConnection) report.developer(DeveloperOptions.name(experiment));
     }
     /**
      * The only reading of the chosen-time permission; a locked or unreadable developer state counts as off. It only

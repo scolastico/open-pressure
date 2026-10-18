@@ -27,4 +27,9 @@
     <string name="dev_allow_registration_confirm_title">Tillåta otestad profilregistrering?</string>
     <string name="dev_allow_registration_confirm_message">Profilregistrering skriver den valda användaren och klockan till mätarens inställningar. Den har inte bekräftats på dessa mätarmodeller. Att ändå göra det kan permanent förstöra mätarens inställningar eller göra den oanvändbar.\n\nDen här brytaren skickar ingenting av sig själv. Registreringen körs fortfarande bara när du väljer Parkoppla och bekräftar, och enhetsrapporten registrerar att en otestad skrivning försöktes.\n\nDu ansvarar för eventuella skador på din mätare.</string>
     <string name="dev_index_aspect_registration">Profilregistrering</string>
+    <string name="dev_experimental_title">Experimentella vägar</string>
+    <string name="dev_experimental_explanation">Dessa brytare aktiverar anslutningsvägar som finns i appen men aldrig har testats på en riktig mätare. De kan helt enkelt misslyckas.</string>
+    <string name="dev_experimental_force_x7_encrypted">Använd den krypterade anslutningen vid parkoppling av en X7</string>
+    <string name="dev_experimental_confirm_title">Aktivera en otestad väg?</string>
+    <string name="dev_experimental_confirm_message">Den här vägen finns i appen men har aldrig testats på en riktig mätare, och den kan helt enkelt misslyckas. Att parkoppla på det här sättet kan ersätta mätarens befintliga parkoppling med den här telefonen. En misslyckad skrivning kan permanent förstöra mätarens inställningar eller göra den oanvändbar.\n\nDen här brytaren skickar ingenting av sig själv. Enhetsrapporten anger vilka utvecklarbrytare som var aktiva.\n\nDu ansvarar för eventuella skador på din mätare.</string>
 </resources>

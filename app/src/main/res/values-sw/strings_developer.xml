@@ -27,4 +27,9 @@
     <string name="dev_allow_registration_confirm_title">Ruhusu usajili wa wasifu ambao haujajaribiwa?</string>
     <string name="dev_allow_registration_confirm_message">Usajili wa wasifu huandika mtumiaji aliyechaguliwa na saa kwenye mipangilio ya kipimo. Haujathibitishwa kwenye modeli hizi za kipimo. Kufanya hivyo hata hivyo kunaweza kuharibu kabisa mipangilio ya kipimo au kukifanya kisitumike.\n\nSwichi hii haitumi chochote yenyewe. Usajili bado hufanyika tu unapochagua Oanisha na kuthibitisha, na ripoti ya kifaa hurekodi kwamba uandishi ambao haujajaribiwa ulijaribiwa.\n\nUnawajibika kwa uharibifu wowote wa kipimo chako.</string>
     <string name="dev_index_aspect_registration">Usajili wa wasifu</string>
+    <string name="dev_experimental_title">Njia za majaribio</string>
+    <string name="dev_experimental_explanation">Swichi hizi huwasha njia za muunganisho zilizopo kwenye programu lakini hazijawahi kujaribiwa kwenye kipimo halisi. Huenda zikashindwa tu.</string>
+    <string name="dev_experimental_force_x7_encrypted">Tumia muunganisho uliosimbwa kwa njia fiche unapooanisha X7</string>
+    <string name="dev_experimental_confirm_title">Washa njia ambayo haijajaribiwa?</string>
+    <string name="dev_experimental_confirm_message">Njia hii ipo kwenye programu lakini haijawahi kujaribiwa kwenye kipimo halisi, na huenda ikashindwa tu. Kuoanisha kwa njia hii kunaweza kubadilisha uoanishaji uliopo wa kipimo kwa simu hii. Uandishi ulioshindwa unaweza kuharibu kabisa mipangilio ya kipimo au kukifanya kisitumike.\n\nSwichi hii haitumi chochote yenyewe. Ripoti ya kifaa huorodhesha swichi za wasanidi zilizokuwa zimewashwa.\n\nUnawajibika kwa uharibifu wowote wa kipimo chako.</string>
 </resources>

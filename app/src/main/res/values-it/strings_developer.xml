@@ -28,4 +28,9 @@
     <string name="dev_allow_registration_confirm_title">Consentire la registrazione del profilo non testata?</string>
     <string name="dev_allow_registration_confirm_message">La registrazione del profilo scrive l\'utente selezionato e l\'orologio nelle impostazioni del misuratore. Non è stata confermata su questi modelli di misuratore. Farlo comunque può danneggiare in modo permanente le impostazioni del misuratore o renderlo inutilizzabile.\n\nQuesto interruttore non invia nulla da solo. La registrazione avviene comunque solo quando scegli Associa e confermi, e il report del dispositivo registra che è stata tentata una scrittura non testata.\n\nSei responsabile di qualsiasi danno al tuo misuratore.</string>
     <string name="dev_index_aspect_registration">Registrazione del profilo</string>
+    <string name="dev_experimental_title">Percorsi sperimentali</string>
+    <string name="dev_experimental_explanation">Questi interruttori attivano percorsi di connessione presenti nell\'app ma mai testati su un misuratore reale. Potrebbero semplicemente non funzionare.</string>
+    <string name="dev_experimental_force_x7_encrypted">Usa la connessione crittografata quando associ un X7</string>
+    <string name="dev_experimental_confirm_title">Attivare un percorso non testato?</string>
+    <string name="dev_experimental_confirm_message">Questo percorso esiste nell\'app ma non è mai stato testato su un misuratore reale e potrebbe semplicemente non funzionare. Associare in questo modo può sostituire l\'associazione esistente del misuratore con questo telefono. Una scrittura non riuscita può danneggiare in modo permanente le impostazioni del misuratore o renderlo inutilizzabile.\n\nQuesto interruttore non invia nulla da solo. Il report del dispositivo elenca quali interruttori sviluppatore erano attivi.\n\nSei responsabile di qualsiasi danno al tuo misuratore.</string>
 </resources>

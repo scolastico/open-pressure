@@ -27,4 +27,9 @@
     <string name="dev_allow_registration_confirm_title">Engedélyezi a nem tesztelt profilregisztrációt?</string>
     <string name="dev_allow_registration_confirm_message">A profilregisztráció beírja a kiválasztott felhasználót és az órát a mérő beállításaiba. Ez nincs megerősítve ezeken a mérőmodelleken. Ha mégis megteszi, a mérő beállításai véglegesen sérülhetnek, vagy a mérő használhatatlanná válhat.\n\nEz a kapcsoló magától nem küld semmit. A regisztráció továbbra is csak akkor fut le, ha a Párosítás lehetőséget választja és megerősíti, és az eszközjelentés rögzíti, hogy nem tesztelt írást kíséreltek meg.\n\nA mérőt ért bármilyen kárért Ön felel.</string>
     <string name="dev_index_aspect_registration">Profilregisztráció</string>
+    <string name="dev_experimental_title">Kísérleti útvonalak</string>
+    <string name="dev_experimental_explanation">Ezek a kapcsolók olyan kapcsolódási útvonalakat kapcsolnak be, amelyek megvannak az alkalmazásban, de valódi mérőn soha nem tesztelték őket. Egyszerűen sikertelenek lehetnek.</string>
+    <string name="dev_experimental_force_x7_encrypted">Titkosított kapcsolat használata X7 párosításakor</string>
+    <string name="dev_experimental_confirm_title">Bekapcsol egy nem tesztelt útvonalat?</string>
+    <string name="dev_experimental_confirm_message">Ez az útvonal megvan az alkalmazásban, de valódi mérőn soha nem tesztelték, és egyszerűen sikertelen lehet. Az így végzett párosítás lecserélheti a mérő meglévő párosítását erre a telefonra. Egy sikertelen írás véglegesen károsíthatja a mérő beállításait, vagy használhatatlanná teheti a mérőt.\n\nEz a kapcsoló magától nem küld semmit. Az eszközjelentés felsorolja, mely fejlesztői kapcsolók voltak bekapcsolva.\n\nA mérőt ért bármilyen kárért Ön felel.</string>
 </resources>

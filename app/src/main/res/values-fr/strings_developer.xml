@@ -28,4 +28,9 @@
     <string name="dev_allow_registration_confirm_title">Autoriser l\'enregistrement de profil non testé ?</string>
     <string name="dev_allow_registration_confirm_message">L\'enregistrement de profil écrit l\'utilisateur sélectionné et l\'horloge dans les réglages du tensiomètre. Il n\'a pas été confirmé sur ces modèles de tensiomètre. Le faire malgré tout peut endommager définitivement les réglages du tensiomètre ou le rendre inutilisable.\n\nCet interrupteur n\'envoie rien par lui-même. L\'enregistrement n\'a lieu que si vous choisissez Associer et confirmez, et le rapport d\'appareil indique qu\'une écriture non testée a été tentée.\n\nVous êtes responsable de tout dommage causé à votre tensiomètre.</string>
     <string name="dev_index_aspect_registration">Enregistrement de profil</string>
+    <string name="dev_experimental_title">Chemins expérimentaux</string>
+    <string name="dev_experimental_explanation">Ces interrupteurs activent des chemins de connexion présents dans l\'application mais jamais testés sur un vrai tensiomètre. Ils peuvent tout simplement échouer.</string>
+    <string name="dev_experimental_force_x7_encrypted">Utiliser la connexion chiffrée lors de l\'association d\'un X7</string>
+    <string name="dev_experimental_confirm_title">Activer un chemin non testé ?</string>
+    <string name="dev_experimental_confirm_message">Ce chemin existe dans l\'application mais n\'a jamais été testé sur un vrai tensiomètre, et il peut tout simplement échouer. Associer de cette manière peut remplacer l\'association existante du tensiomètre par ce téléphone. Une écriture ratée peut endommager définitivement les réglages du tensiomètre ou le rendre inutilisable.\n\nCet interrupteur n\'envoie rien par lui-même. Le rapport d\'appareil indique quels interrupteurs de développement étaient actifs.\n\nVous êtes responsable de tout dommage causé à votre tensiomètre.</string>
 </resources>

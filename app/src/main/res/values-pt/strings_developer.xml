@@ -28,4 +28,9 @@
     <string name="dev_allow_registration_confirm_title">Permitir o registo de perfil não testado?</string>
     <string name="dev_allow_registration_confirm_message">O registo de perfil escreve o utilizador selecionado e o relógio nas definições do medidor. Não foi confirmado nestes modelos de medidor. Fazê-lo mesmo assim pode danificar permanentemente as definições do medidor ou torná-lo inutilizável.\n\nEste interruptor não envia nada por si só. O registo só é feito quando escolhe Emparelhar e confirma, e o relatório do dispositivo regista que foi tentada uma escrita não testada.\n\nÉ responsável por qualquer dano no seu medidor.</string>
     <string name="dev_index_aspect_registration">Registo de perfil</string>
+    <string name="dev_experimental_title">Caminhos experimentais</string>
+    <string name="dev_experimental_explanation">Estes interruptores ativam caminhos de ligação que existem na app, mas nunca foram testados num medidor real. Podem simplesmente falhar.</string>
+    <string name="dev_experimental_force_x7_encrypted">Usar a ligação encriptada ao emparelhar um X7</string>
+    <string name="dev_experimental_confirm_title">Ativar um caminho não testado?</string>
+    <string name="dev_experimental_confirm_message">Este caminho existe na app, mas nunca foi testado num medidor real e pode simplesmente falhar. Emparelhar desta forma pode substituir o emparelhamento existente do medidor por este telemóvel. Uma escrita falhada pode danificar permanentemente as definições do medidor ou torná-lo inutilizável.\n\nEste interruptor não envia nada por si só. O relatório do dispositivo indica quais interruptores de programador estavam ativos.\n\nÉ responsável por qualquer dano no seu medidor.</string>
 </resources>

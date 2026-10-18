@@ -23,8 +23,8 @@ import org.openpressure.protocol.WriteAspectIndex;
 import org.openpressure.protocol.WriteAspectIndex.Aspect;
 
 /**
- * Hidden developer options: per-aspect overrides for untested writes and a read-only
- * view of the write-aspect index. Nothing here talks to a monitor; a switch only
+ * Hidden developer options: per-aspect overrides for untested writes, switches for experimental
+ * paths and a read-only view of the write-aspect index. Nothing here talks to a monitor; a switch only
  * records the user's choice for a later, explicit request.
  */
 public final class DeveloperOptionsActivity extends Activity {
@@ -57,6 +57,9 @@ public final class DeveloperOptionsActivity extends Activity {
         add(page,text(getString(R.string.dev_warning),16,WARN,true),14);
         add(page,untested(Aspect.CLOCK_BLOCK,"dev_allow_clock_untested",R.string.dev_allow_clock_untested,R.string.dev_allow_confirm_title,R.string.dev_allow_confirm_message),16);
         add(page,untested(Aspect.REGISTRATION,"dev_allow_registration_untested",R.string.dev_allow_registration_untested,R.string.dev_allow_registration_confirm_title,R.string.dev_allow_registration_confirm_message),8);
+        add(page,text(getString(R.string.dev_experimental_title),20,INK,true),28);
+        add(page,text(getString(R.string.dev_experimental_explanation),15,MUTED,false),8);
+        add(page,experimental(DeveloperOptions.Experiment.FORCE_X7_ENCRYPTED,R.string.dev_experimental_force_x7_encrypted),8);
         indexSection=new LinearLayout(this); indexSection.setOrientation(LinearLayout.VERTICAL);
         add(page,indexSection,0);
         add(page,button(getString(R.string.dev_hide),this::confirmHide,false),24);
@@ -73,6 +76,11 @@ public final class DeveloperOptionsActivity extends Activity {
     /** The override switch of one untested write aspect. */
     private Switch untested(Aspect aspect,String tag,int label,int title,int message) {
         return toggle(tag,label,() -> DeveloperOptions.allowsUntested(this,aspect),allowed -> DeveloperOptions.setAllowUntested(this,aspect,allowed),title,message);
+    }
+    /** The switch of one experimental path; its tag is the stored key, for example {@code experimental_force_x7_encrypted}. */
+    private Switch experimental(DeveloperOptions.Experiment experiment,int label) {
+        return toggle(DeveloperOptions.key(experiment),label,() -> DeveloperOptions.allowsExperimental(this,experiment),
+                allowed -> DeveloperOptions.setAllowExperimental(this,experiment,allowed),R.string.dev_experimental_confirm_title,R.string.dev_experimental_confirm_message);
     }
     private Switch toggle(String tag,int label,BooleanSupplier read,Consumer<Boolean> write,int title,int message) {
         Switch view=new Switch(this); view.setText(label); view.setTextSize(16);

@@ -29,4 +29,9 @@
     <string name="dev_allow_registration_confirm_title">לאפשר רישום פרופיל שלא נבדק?</string>
     <string name="dev_allow_registration_confirm_message">רישום פרופיל כותב את המשתמש שנבחר ואת השעון להגדרות המכשיר. הוא לא אושר בדגמי המכשירים האלה. ביצוע הפעולה בכל זאת עלול להשחית לצמיתות את הגדרות המכשיר או להפוך אותו לבלתי שמיש.\n\nהמתג הזה לא שולח שום דבר בעצמו. הרישום עדיין מתבצע רק כשתבחר „שיוך” ותאשר, ודוח המכשיר יתעד שבוצע ניסיון כתיבה שלא נבדק.\n\nהאחריות לכל נזק למכשיר שלך היא עליך.</string>
     <string name="dev_index_aspect_registration">רישום פרופיל</string>
+    <string name="dev_experimental_title">נתיבים ניסיוניים</string>
+    <string name="dev_experimental_explanation">המתגים האלה מפעילים נתיבי חיבור שקיימים באפליקציה אבל מעולם לא נבדקו במכשיר אמיתי. ייתכן שהם פשוט ייכשלו.</string>
+    <string name="dev_experimental_force_x7_encrypted">שימוש בחיבור המוצפן בעת שיוך X7</string>
+    <string name="dev_experimental_confirm_title">להפעיל נתיב שלא נבדק?</string>
+    <string name="dev_experimental_confirm_message">הנתיב הזה קיים באפליקציה אבל מעולם לא נבדק במכשיר אמיתי, וייתכן שהוא פשוט ייכשל. שיוך בדרך הזו עלול להחליף את השיוך הקיים של המכשיר בטלפון הזה. כתיבה שנכשלה עלולה להשחית לצמיתות את הגדרות המכשיר או להפוך אותו לבלתי שמיש.\n\nהמתג הזה לא שולח שום דבר בעצמו. דוח המכשיר מפרט אילו מתגי מפתחים היו פעילים.\n\nהאחריות לכל נזק למכשיר שלך היא עליך.</string>
 </resources>

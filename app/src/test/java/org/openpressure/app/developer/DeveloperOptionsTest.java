@@ -49,6 +49,25 @@ public class DeveloperOptionsTest {
         DeveloperOptions.setUnlocked(context,true);
         assertFalse("every unlock starts with the switch off",DeveloperOptions.allowsUntested(context,Aspect.REGISTRATION));
     }
+    @Test public void experimentalSwitchesCountOnlyWhileUnlockedAndAreClearedOnLockAndUnlock() {
+        for(DeveloperOptions.Experiment experiment:DeveloperOptions.Experiment.values()) {
+            assertFalse(DeveloperOptions.allowsExperimental(context,experiment));
+            assertThrows(IllegalStateException.class,() -> DeveloperOptions.setAllowExperimental(context,experiment,true));
+        }
+        DeveloperOptions.setUnlocked(context,true);
+        DeveloperOptions.setAllowExperimental(context,DeveloperOptions.Experiment.FORCE_X7_ENCRYPTED,true);
+        assertTrue(DeveloperOptions.allowsExperimental(context,DeveloperOptions.Experiment.FORCE_X7_ENCRYPTED));
+        assertEquals("experimental_force_x7_encrypted",DeveloperOptions.key(DeveloperOptions.Experiment.FORCE_X7_ENCRYPTED));
+        assertTrue(context.getSharedPreferences(DeveloperOptions.PREFERENCES,Context.MODE_PRIVATE).getBoolean("experimental_force_x7_encrypted",false));
+        for(Aspect aspect:Aspect.values()) assertFalse("independent of the write-aspect switches",DeveloperOptions.allowsUntested(context,aspect));
+        DeveloperOptions.setUnlocked(context,false);
+        assertFalse(context.getSharedPreferences(DeveloperOptions.PREFERENCES,Context.MODE_PRIVATE).contains("experimental_force_x7_encrypted"));
+        assertTrue(context.getSharedPreferences(DeveloperOptions.PREFERENCES,Context.MODE_PRIVATE).edit().putBoolean("experimental_force_x7_encrypted",true).commit());
+        assertFalse("a stale switch never counts while locked",DeveloperOptions.allowsExperimental(context,DeveloperOptions.Experiment.FORCE_X7_ENCRYPTED));
+        DeveloperOptions.setUnlocked(context,true);
+        for(DeveloperOptions.Experiment experiment:DeveloperOptions.Experiment.values())
+            assertFalse("every unlock starts with the switch off",DeveloperOptions.allowsExperimental(context,experiment));
+    }
     @Test public void lockingClearsEveryAspectToggle() {
         DeveloperOptions.setUnlocked(context,true);
         for(Aspect aspect:Aspect.values()) DeveloperOptions.setAllowUntested(context,aspect,true);

@@ -26,4 +26,9 @@
     <string name="dev_allow_registration_confirm_title">Gba ìforúkọsílẹ̀ profaili tí a kò dán wò láàyè?</string>
     <string name="dev_allow_registration_confirm_message">Ìforúkọsílẹ̀ profaili ń kọ olùmúlò tí a yàn àti aago sínú àwọn ètò ẹ̀rọ náà. A kò tíì fìdí rẹ̀ múlẹ̀ lórí àwọn àwòṣe ẹ̀rọ wọ̀nyí. Ṣíṣe é bí ó ti wù kí ó rí lè ba àwọn ètò ẹ̀rọ náà jẹ́ títí láé tàbí sọ ọ́ di àìwúlò.\n\nỌ̀pá yìí kò fi nǹkan kan ránṣẹ́ fúnra rẹ̀. Ìforúkọsílẹ̀ ṣì ń ṣẹlẹ̀ kìkì nígbà tí o bá yan “So pọ̀ méjì” tí o sì fìdí rẹ̀ múlẹ̀, ìròyìn ẹ̀rọ yóò sì kọ ọ́ sílẹ̀ pé a gbìyànjú kíkọ tí a kò dán wò.\n\nÌwọ ni o ní ojúṣe fún ìbàjẹ́ èyíkéyìí sí ẹ̀rọ rẹ.</string>
     <string name="dev_index_aspect_registration">Ìforúkọsílẹ̀ profaili</string>
+    <string name="dev_experimental_title">Àwọn ọ̀nà àdánwò</string>
+    <string name="dev_experimental_explanation">Àwọn ọ̀pá yìí ń tan àwọn ọ̀nà ìsopọ̀ tí ó wà nínú áàpù ṣùgbọ́n tí a kò tíì dán wò rí lórí ẹ̀rọ gidi. Wọ́n lè kùnà lásán.</string>
+    <string name="dev_experimental_force_x7_encrypted">Lo ìsopọ̀ tí a ti fi kóòdù pa mọ́ nígbà tí o bá ń so X7 pọ̀</string>
+    <string name="dev_experimental_confirm_title">Tan ọ̀nà tí a kò dán wò?</string>
+    <string name="dev_experimental_confirm_message">Ọ̀nà yìí wà nínú áàpù ṣùgbọ́n a kò tíì dán an wò rí lórí ẹ̀rọ gidi, ó sì lè kùnà lásán. Síso pọ̀ lọ́nà yìí lè fi fóònù yìí rọ́pò ìsopọ̀ tí ẹ̀rọ náà ní tẹ́lẹ̀. Kíkọ tí ó kùnà lè ba àwọn ètò ẹ̀rọ náà jẹ́ títí láé tàbí sọ ọ́ di àìwúlò.\n\nỌ̀pá yìí kò fi nǹkan kan ránṣẹ́ fúnra rẹ̀. Ìròyìn ẹ̀rọ ń ṣe àkójọ àwọn ọ̀pá olùgbéejáde tí ó wà ní títàn.\n\nÌwọ ni o ní ojúṣe fún ìbàjẹ́ èyíkéyìí sí ẹ̀rọ rẹ.</string>
 </resources>

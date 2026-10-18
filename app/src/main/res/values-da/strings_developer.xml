@@ -27,4 +27,9 @@
     <string name="dev_allow_registration_confirm_title">Tillad utestet profilregistrering?</string>
     <string name="dev_allow_registration_confirm_message">Profilregistrering skriver den valgte bruger og uret til målerens indstillinger. Den er ikke bekræftet på disse målermodeller. At gøre det alligevel kan permanent ødelægge målerens indstillinger eller gøre den ubrugelig.\n\nDenne kontakt sender ikke noget af sig selv. Registreringen kører stadig kun, når du vælger Par og bekræfter, og enhedsrapporten registrerer, at en utestet skrivning blev forsøgt.\n\nDu er ansvarlig for enhver skade på din måler.</string>
     <string name="dev_index_aspect_registration">Profilregistrering</string>
+    <string name="dev_experimental_title">Eksperimentelle veje</string>
+    <string name="dev_experimental_explanation">Disse kontakter slår forbindelsesveje til, som findes i appen, men aldrig er testet på en rigtig måler. De kan simpelthen mislykkes.</string>
+    <string name="dev_experimental_force_x7_encrypted">Brug den krypterede forbindelse ved parring af en X7</string>
+    <string name="dev_experimental_confirm_title">Slå en utestet vej til?</string>
+    <string name="dev_experimental_confirm_message">Denne vej findes i appen, men er aldrig testet på en rigtig måler, og den kan simpelthen mislykkes. Parring på denne måde kan erstatte målerens eksisterende parring med denne telefon. En mislykket skrivning kan permanent ødelægge målerens indstillinger eller gøre den ubrugelig.\n\nDenne kontakt sender ikke noget af sig selv. Enhedsrapporten viser, hvilke udviklerkontakter der var slået til.\n\nDu er ansvarlig for enhver skade på din måler.</string>
 </resources>

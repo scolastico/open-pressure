@@ -26,4 +26,9 @@
     <string name="dev_allow_registration_confirm_title">Cho phép đăng ký hồ sơ chưa được thử nghiệm?</string>
     <string name="dev_allow_registration_confirm_message">Việc đăng ký hồ sơ ghi người dùng đã chọn và đồng hồ vào cài đặt của máy đo. Việc này chưa được xác nhận trên các mẫu máy đo này. Nếu vẫn làm, cài đặt của máy đo có thể bị hỏng vĩnh viễn hoặc máy có thể không dùng được nữa.\n\nCông tắc này tự nó không gửi gì cả. Việc đăng ký vẫn chỉ diễn ra khi bạn chọn Ghép đôi và xác nhận, và báo cáo thiết bị sẽ ghi lại rằng đã có lần thử ghi chưa được thử nghiệm.\n\nBạn chịu trách nhiệm cho mọi hư hỏng của máy đo.</string>
     <string name="dev_index_aspect_registration">Đăng ký hồ sơ</string>
+    <string name="dev_experimental_title">Đường kết nối thử nghiệm</string>
+    <string name="dev_experimental_explanation">Các công tắc này bật những đường kết nối có sẵn trong ứng dụng nhưng chưa từng được thử trên máy đo thật. Chúng có thể đơn giản là không hoạt động.</string>
+    <string name="dev_experimental_force_x7_encrypted">Dùng kết nối mã hóa khi ghép đôi X7</string>
+    <string name="dev_experimental_confirm_title">Bật một đường kết nối chưa được thử nghiệm?</string>
+    <string name="dev_experimental_confirm_message">Đường kết nối này có sẵn trong ứng dụng nhưng chưa từng được thử trên máy đo thật và có thể đơn giản là không hoạt động. Ghép đôi theo cách này có thể thay thế ghép đôi hiện có của máy đo bằng điện thoại này. Một lần ghi thất bại có thể làm hỏng vĩnh viễn cài đặt của máy đo hoặc khiến máy không dùng được nữa.\n\nCông tắc này tự nó không gửi gì cả. Báo cáo thiết bị liệt kê những công tắc nhà phát triển nào đang bật.\n\nBạn chịu trách nhiệm cho mọi hư hỏng của máy đo.</string>
 </resources>

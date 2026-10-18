@@ -29,4 +29,9 @@
     <string name="dev_allow_registration_confirm_title">Zezwolić na nieprzetestowaną rejestrację profilu?</string>
     <string name="dev_allow_registration_confirm_message">Rejestracja profilu zapisuje wybranego użytkownika i zegar w ustawieniach ciśnieniomierza. Nie została potwierdzona dla tych modeli ciśnieniomierzy. Zrobienie tego mimo to może trwale uszkodzić ustawienia ciśnieniomierza lub uczynić go bezużytecznym.\n\nTen przełącznik sam niczego nie wysyła. Rejestracja nadal odbywa się tylko wtedy, gdy wybierzesz Sparuj i ją potwierdzisz, a raport urządzenia odnotuje, że podjęto próbę nieprzetestowanego zapisu.\n\nPonosisz odpowiedzialność za wszelkie uszkodzenia ciśnieniomierza.</string>
     <string name="dev_index_aspect_registration">Rejestracja profilu</string>
+    <string name="dev_experimental_title">Ścieżki eksperymentalne</string>
+    <string name="dev_experimental_explanation">Te przełączniki włączają ścieżki połączenia, które istnieją w aplikacji, ale nigdy nie były testowane z prawdziwym ciśnieniomierzem. Mogą po prostu nie zadziałać.</string>
+    <string name="dev_experimental_force_x7_encrypted">Używaj połączenia szyfrowanego podczas parowania X7</string>
+    <string name="dev_experimental_confirm_title">Włączyć nieprzetestowaną ścieżkę?</string>
+    <string name="dev_experimental_confirm_message">Ta ścieżka istnieje w aplikacji, ale nigdy nie była testowana z prawdziwym ciśnieniomierzem i może po prostu nie zadziałać. Parowanie w ten sposób może zastąpić istniejące sparowanie ciśnieniomierza tym telefonem. Nieudany zapis może trwale uszkodzić ustawienia ciśnieniomierza lub uczynić go bezużytecznym.\n\nTen przełącznik sam niczego nie wysyła. Raport urządzenia zawiera listę przełączników programisty, które były włączone.\n\nPonosisz odpowiedzialność za wszelkie uszkodzenia ciśnieniomierza.</string>
 </resources>

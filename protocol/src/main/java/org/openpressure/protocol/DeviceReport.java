@@ -27,7 +27,7 @@ public final class DeviceReport {
     private byte[] advertisement;
     private int mtu=-1, decoded=-1, rejected=-1;
     private Boolean endAcknowledged;
-    private final List<String> services=new ArrayList<>(), keyAcknowledgments=new ArrayList<>();
+    private final List<String> services=new ArrayList<>(), keyAcknowledgments=new ArrayList<>(), developer=new ArrayList<>();
     private final List<Object[]> writes=new ArrayList<>();
 
     public DeviceReport(String operation,String appVersion,int androidApi,String phone) {
@@ -78,6 +78,11 @@ public final class DeviceReport {
         writes.add(new Object[]{"aspect",lower(aspect),"outcome",lower(outcome),"override",override});
     }
     public boolean hasWrites() { return !writes.isEmpty(); }
+    /** The name of a developer switch in effect for this session, such as {@code force_x7_encrypted}; names only, once each. */
+    public void developer(String name) {
+        if(name==null || !name.matches("[a-z0-9_]{1,40}") || developer.contains(name) || developer.size()>=WRITE_LIMIT) return;
+        developer.add(name);
+    }
     private static String lower(Enum<?> value) { return value.name().toLowerCase(Locale.ROOT); }
     /** The latest meaningful result. Failure text is scrubbed of addresses and long identifiers. */
     public void outcome(String title,String failureDetail) { status=clean(title); failure=clean(failureDetail); }
@@ -132,6 +137,7 @@ public final class DeviceReport {
         if(endAcknowledged!=null) json.field("decoded_records",decoded).field("rejected_records",rejected).field("end_acknowledged",endAcknowledged);
         json.close();
         json.objects("writes",writes);
+        json.list("developer",developer);
         json.open("outcome").field("status",status).field("failure",failure).close();
         json.field("excluded","Readings, measurement times, Bluetooth address, serial number, system ID, memory contents, keys and names");
         return json.finish();

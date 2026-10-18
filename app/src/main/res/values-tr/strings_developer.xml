@@ -27,4 +27,9 @@
     <string name="dev_allow_registration_confirm_title">Test edilmemiş profil kaydına izin verilsin mi?</string>
     <string name="dev_allow_registration_confirm_message">Profil kaydı, seçilen kullanıcıyı ve saati aletin ayarlarına yazar. Bu, bu alet modellerinde doğrulanmadı. Yine de yapmak aletin ayarlarını kalıcı olarak bozabilir veya aleti kullanılamaz hâle getirebilir.\n\nBu anahtar kendi başına hiçbir şey göndermez. Kayıt yine yalnızca Eşleştir\'i seçip onayladığınızda çalışır ve cihaz raporu, test edilmemiş bir yazma girişiminde bulunulduğunu kaydeder.\n\nAletinize gelebilecek her türlü hasardan siz sorumlusunuz.</string>
     <string name="dev_index_aspect_registration">Profil kaydı</string>
+    <string name="dev_experimental_title">Deneysel yollar</string>
+    <string name="dev_experimental_explanation">Bu anahtarlar, uygulamada bulunan ancak gerçek bir alette hiç test edilmemiş bağlantı yollarını açar. Bunlar düpedüz başarısız olabilir.</string>
+    <string name="dev_experimental_force_x7_encrypted">X7 eşleştirirken şifreli bağlantıyı kullan</string>
+    <string name="dev_experimental_confirm_title">Test edilmemiş bir yol açılsın mı?</string>
+    <string name="dev_experimental_confirm_message">Bu yol uygulamada bulunuyor ancak gerçek bir alette hiç test edilmedi ve düpedüz başarısız olabilir. Bu şekilde eşleştirmek, aletin mevcut eşleştirmesinin yerine bu telefonu koyabilir. Başarısız bir yazma, aletin ayarlarını kalıcı olarak bozabilir veya aleti kullanılamaz hâle getirebilir.\n\nBu anahtar kendi başına hiçbir şey göndermez. Cihaz raporu, hangi geliştirici anahtarlarının etkin olduğunu listeler.\n\nAletinize gelebilecek her türlü hasardan siz sorumlusunuz.</string>
 </resources>

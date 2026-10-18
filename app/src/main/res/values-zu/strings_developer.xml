@@ -27,4 +27,9 @@
     <string name="dev_allow_registration_confirm_title">Vumela ukubhalisa iphrofayela okungakahlolwa?</string>
     <string name="dev_allow_registration_confirm_message">Ukubhalisa iphrofayela kubhala umsebenzisi okhethiwe newashi ezilungiselelweni zesilinganisi. Akukaqinisekiswa kulawa mamodeli ezilinganisi. Ukukwenza noma kunjalo kungonakalisa unomphela izilungiselelo zesilinganisi noma kusenze singasebenziseki.\n\nLesi sishintshi asithumeli lutho ngokwaso. Ukubhalisa kusenzeka kuphela uma ukhetha u-“Bhangqa” bese uqinisekisa, futhi umbiko wedivayisi uqopha ukuthi kuzanywe ukubhala okungakahlolwa.\n\nUnesibopho sanoma yimuphi umonakalo esilinganisini sakho.</string>
     <string name="dev_index_aspect_registration">Ukubhalisa iphrofayela</string>
+    <string name="dev_experimental_title">Izindlela zokuhlola</string>
+    <string name="dev_experimental_explanation">Lezi zishintshi zivula izindlela zokuxhumana ezikhona ku-app kodwa ezingakaze zihlolwe esilinganisini sangempela. Zingavele zihluleke.</string>
+    <string name="dev_experimental_force_x7_encrypted">Sebenzisa ukuxhumana okubethelwe uma ubhangqa i-X7</string>
+    <string name="dev_experimental_confirm_title">Vula indlela engakahlolwa?</string>
+    <string name="dev_experimental_confirm_message">Le ndlela ikhona ku-app kodwa ayikaze ihlolwe esilinganisini sangempela, futhi ingavele ihluleke. Ukubhangqa ngale ndlela kungase kuthathele leli foni indawo yokubhangqa okukhona kwesilinganisi. Ukubhala okwehlulekile kungonakalisa unomphela izilungiselelo zesilinganisi noma kusenze singasebenziseki.\n\nLesi sishintshi asithumeli lutho ngokwaso. Umbiko wedivayisi ubala ukuthi yiziphi izishintshi zonjiniyela ebezivuliwe.\n\nUnesibopho sanoma yimuphi umonakalo esilinganisini sakho.</string>
 </resources>

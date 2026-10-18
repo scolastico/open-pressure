@@ -26,4 +26,9 @@
     <string name="dev_allow_registration_confirm_title">允许未经测试的个人资料注册？</string>
     <string name="dev_allow_registration_confirm_message">个人资料注册会将所选用户和时钟写入血压计的设置。在这些血压计型号上，此操作尚未得到确认。仍然这样做可能会永久损坏血压计的设置，或使其无法使用。\n\n此开关本身不会发送任何内容。只有当你选择“配对”并确认后才会进行注册，设备报告会记录曾尝试过未经测试的写入。\n\n你需要对血压计的任何损坏负责。</string>
     <string name="dev_index_aspect_registration">个人资料注册</string>
+    <string name="dev_experimental_title">实验性路径</string>
+    <string name="dev_experimental_explanation">这些开关会启用应用中已有、但从未在真实血压计上测试过的连接路径。它们可能会直接失败。</string>
+    <string name="dev_experimental_force_x7_encrypted">配对 X7 时使用加密连接</string>
+    <string name="dev_experimental_confirm_title">启用未经测试的路径？</string>
+    <string name="dev_experimental_confirm_message">此路径已存在于应用中，但从未在真实血压计上测试过，可能会直接失败。以这种方式配对可能会用这部手机替换血压计现有的配对。写入失败可能会永久损坏血压计的设置，或使其无法使用。\n\n此开关本身不会发送任何内容。设备报告会列出哪些开发者开关处于启用状态。\n\n你需要对血压计的任何损坏负责。</string>
 </resources>

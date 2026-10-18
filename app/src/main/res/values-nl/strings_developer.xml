@@ -27,4 +27,9 @@
     <string name="dev_allow_registration_confirm_title">Niet-geteste profielregistratie toestaan?</string>
     <string name="dev_allow_registration_confirm_message">Profielregistratie schrijft de geselecteerde gebruiker en de klok naar de instellingen van de meter. Dit is niet bevestigd voor deze metermodellen. Het toch doen kan de instellingen van de meter blijvend beschadigen of de meter onbruikbaar maken.\n\nDeze schakelaar verstuurt zelf niets. Registratie gebeurt nog steeds alleen als je Koppelen kiest en bevestigt, en het apparaatrapport vermeldt dat een niet-geteste schrijfactie is geprobeerd.\n\nJe bent zelf verantwoordelijk voor eventuele schade aan je meter.</string>
     <string name="dev_index_aspect_registration">Profielregistratie</string>
+    <string name="dev_experimental_title">Experimentele paden</string>
+    <string name="dev_experimental_explanation">Deze schakelaars zetten verbindingspaden aan die in de app bestaan maar nooit op een echte meter zijn getest. Ze kunnen gewoon mislukken.</string>
+    <string name="dev_experimental_force_x7_encrypted">De versleutelde verbinding gebruiken bij het koppelen van een X7</string>
+    <string name="dev_experimental_confirm_title">Een niet-getest pad inschakelen?</string>
+    <string name="dev_experimental_confirm_message">Dit pad bestaat in de app maar is nooit op een echte meter getest en kan gewoon mislukken. Op deze manier koppelen kan de bestaande koppeling van de meter vervangen door deze telefoon. Een mislukte schrijfactie kan de instellingen van de meter blijvend beschadigen of de meter onbruikbaar maken.\n\nDeze schakelaar verstuurt zelf niets. Het apparaatrapport vermeldt welke ontwikkelaarsschakelaars actief waren.\n\nJe bent zelf verantwoordelijk voor eventuele schade aan je meter.</string>
 </resources>

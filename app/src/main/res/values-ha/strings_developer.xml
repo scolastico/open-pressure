@@ -27,4 +27,9 @@
     <string name="dev_allow_registration_confirm_title">A ba da damar rajistar bayanin martaba da ba a gwada ba?</string>
     <string name="dev_allow_registration_confirm_message">Rajistar bayanin martaba tana rubuta mai amfani da aka zaɓa da agogo cikin saitunan na’urar. Ba a tabbatar da ita a waɗannan samfuran na’ura ba. Yin hakan duk da haka na iya lalata saitunan na’urar har abada ko sa ta zama marar amfani.\n\nWannan maɓalli ba ya aika komai da kansa. Rajista tana gudana ne kawai idan ka zaɓi “Haɗa biyu” ka tabbatar, kuma rahoton na’ura zai rubuta cewa an yi ƙoƙarin rubutu da ba a gwada ba.\n\nKai ne ke da alhakin duk wata lalacewa ga na’urarka.</string>
     <string name="dev_index_aspect_registration">Rajistar bayanin martaba</string>
+    <string name="dev_experimental_title">Hanyoyin gwaji</string>
+    <string name="dev_experimental_explanation">Waɗannan maɓallan suna kunna hanyoyin haɗi da ke cikin manhajar amma ba a taɓa gwada su a kan na’ura ta gaske ba. Suna iya kawai kasawa.</string>
+    <string name="dev_experimental_force_x7_encrypted">Yi amfani da haɗin da aka ɓoye lokacin haɗa X7</string>
+    <string name="dev_experimental_confirm_title">A kunna hanyar da ba a gwada ba?</string>
+    <string name="dev_experimental_confirm_message">Wannan hanya tana cikin manhajar amma ba a taɓa gwada ta a kan na’ura ta gaske ba, kuma tana iya kawai kasawa. Haɗawa ta wannan hanya na iya maye gurbin haɗin da na’urar take da shi da wannan wayar. Rubutun da ya kasa na iya lalata saitunan na’urar har abada ko sa ta zama marar amfani.\n\nWannan maɓalli ba ya aika komai da kansa. Rahoton na’ura yana lissafa maɓallan masu haɓakawa da ke kunne.\n\nKai ne ke da alhakin duk wata lalacewa ga na’urarka.</string>
 </resources>

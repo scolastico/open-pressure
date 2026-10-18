@@ -27,4 +27,9 @@
     <string name="dev_allow_registration_confirm_title">Ungetestete Profilregistrierung erlauben?</string>
     <string name="dev_allow_registration_confirm_message">Die Profilregistrierung schreibt den ausgewählten Benutzer und die Uhrzeit in die Einstellungen des Messgeräts. Sie ist für diese Messgerätemodelle nicht bestätigt. Es trotzdem zu tun, kann die Einstellungen des Messgeräts dauerhaft beschädigen oder es unbrauchbar machen.\n\nDieser Schalter sendet selbst nichts. Die Registrierung läuft weiterhin nur, wenn du „Koppeln“ wählst und bestätigst, und der Gerätebericht vermerkt, dass ein ungetesteter Schreibvorgang versucht wurde.\n\nDu bist für jeden Schaden an deinem Messgerät verantwortlich.</string>
     <string name="dev_index_aspect_registration">Profilregistrierung</string>
+    <string name="dev_experimental_title">Experimentelle Wege</string>
+    <string name="dev_experimental_explanation">Diese Schalter aktivieren Verbindungswege, die in der App vorhanden sind, aber nie an einem echten Messgerät getestet wurden. Sie können einfach fehlschlagen.</string>
+    <string name="dev_experimental_force_x7_encrypted">Beim Koppeln eines X7 die verschlüsselte Verbindung verwenden</string>
+    <string name="dev_experimental_confirm_title">Ungetesteten Weg aktivieren?</string>
+    <string name="dev_experimental_confirm_message">Dieser Weg ist in der App vorhanden, wurde aber nie an einem echten Messgerät getestet und kann einfach fehlschlagen. Auf diese Weise zu koppeln kann die bestehende Kopplung des Messgeräts durch dieses Smartphone ersetzen. Ein fehlgeschlagener Schreibvorgang kann die Einstellungen des Messgeräts dauerhaft beschädigen oder es unbrauchbar machen.\n\nDieser Schalter sendet selbst nichts. Der Gerätebericht listet auf, welche Entwicklerschalter aktiv waren.\n\nDu bist für jeden Schaden an deinem Messgerät verantwortlich.</string>
 </resources>
