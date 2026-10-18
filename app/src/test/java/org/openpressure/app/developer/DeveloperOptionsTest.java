@@ -45,6 +45,15 @@ public class DeveloperOptionsTest {
         DeveloperOptions.setUnlocked(context,true);
         for(Aspect aspect:Aspect.values()) assertFalse(DeveloperOptions.allowsUntested(context,aspect));
     }
+    @Test public void unlockingStartsWithEveryToggleOff() {
+        DeveloperOptions.setUnlocked(context,true);
+        DeveloperOptions.setAllowUntested(context,Aspect.CLOCK_BLOCK,true);
+        DeveloperOptions.setUnlocked(context,false);
+        assertTrue(context.getSharedPreferences(DeveloperOptions.PREFERENCES,Context.MODE_PRIVATE).edit().putBoolean("allow_untested_clock_block",true).commit());
+        DeveloperOptions.setUnlocked(context,true);
+        assertFalse(DeveloperOptions.allowsUntested(context,Aspect.CLOCK_BLOCK));
+        assertFalse(context.getSharedPreferences(DeveloperOptions.PREFERENCES,Context.MODE_PRIVATE).contains("allow_untested_clock_block"));
+    }
     @Test public void staleToggleIsIgnoredWhileLocked() {
         assertTrue(context.getSharedPreferences(DeveloperOptions.PREFERENCES,Context.MODE_PRIVATE).edit().putBoolean("allow_untested_clock_block",true).commit());
         assertFalse(DeveloperOptions.allowsUntested(context,Aspect.CLOCK_BLOCK));

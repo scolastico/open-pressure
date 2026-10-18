@@ -21,10 +21,10 @@ public final class DeveloperOptions {
 
     public static boolean isUnlocked(Context context) { return preferences(context).getBoolean(UNLOCKED_KEY,false); }
 
-    /** Locking also clears every untested-aspect override in the same commit. */
+    /** Locking and unlocking both clear every untested-aspect override in the same commit, so each unlock starts safe. */
     public static void setUnlocked(Context context,boolean unlocked) {
         SharedPreferences.Editor editor=preferences(context).edit().putBoolean(UNLOCKED_KEY,unlocked);
-        if(!unlocked) for(Aspect aspect:Aspect.values()) editor.remove(key(aspect));
+        for(Aspect aspect:Aspect.values()) editor.remove(key(aspect));
         if(!editor.commit()) throw new IllegalStateException("Could not save developer options");
     }
 
