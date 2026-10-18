@@ -169,8 +169,8 @@ Omron Connect has no standalone clock sync: it writes the clock as part of its s
 | `hem-7155t/sync-clock` | Reads the settings image at `0x10`, finds block 3 erased, writes it at `0x80` (fixture time + 1 s, checksum `22`) in a 16-byte and an 8-byte chunk, accepts the synthetic full echo and sends END (`acknowledged`) | `unsupported`: no standalone clock sync |
 | `hem-7155t/sync-clock-within-threshold` | Block 3 already holds the fixture time; writes nothing and sends END (`skipped`) | `unsupported` |
 | `hem-7155t/sync-clock-rejected` | Writes block 3; the echo carries status `01`, so the write counts as rejected, is not retried, and END still follows (`rejected`) | `unsupported` |
-| `hem-7530t/sync-clock` | Reads the image at `0x260`, writes block 3 at `0x2D0` with byte pairs swapped (`acknowledged`) | `unsupported` |
-| `hem-7600t/sync-clock` | Reads the 38-byte image at `0x260`, writes the 10-byte block 3 at `0x29A` with byte pairs swapped (`acknowledged`) | `unsupported` |
+| `hem-7530t/sync-clock` | Reads the image at `0x260`, finds a valid all-zero block 3 (an erased one is refused on this model), writes it at `0x2D0` (checksum `2a`) with byte pairs swapped (`acknowledged`) | `unsupported` |
+| `hem-7600t/sync-clock` | Reads the 38-byte image at `0x260`, finds a valid all-zero block 3 (an erased one is refused on this model), writes the 10-byte block at `0x29A` (checksum `2a`) with byte pairs swapped (`acknowledged`) | `unsupported` |
 
 The acknowledgments are synthetic full echoes; no physical monitor's reply to a clock-block write is established, and every clock-block entry remains untested. Both OpenPressure replays enable the developer override for these fixtures.
 

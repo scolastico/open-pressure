@@ -159,15 +159,16 @@ The WLP4COM key frames belong to the [legacy four-channel models](#other-vendor-
 
 ### Clock-block layouts
 
-`ClockBlock` maps an exact resolved identity to its layout. Offsets are in the logical settings image read in the same session (on 14-byte maps after un-swapping byte pairs). The block's six clock bytes are year − 2000, month, day, hour, minute and second; the checksum is the 8-bit additive sum of the block bytes before it; the block's last byte is reserved and kept. A stored clock with an out-of-range field or a nonexistent date counts as unset.
+`ClockBlock` maps an exact resolved identity to its layout. Offsets are in the logical settings image read in the same session (on 14-byte maps after un-swapping byte pairs). The block's six clock bytes are year − 2000, month, day, hour, minute and second; the checksum is the 8-bit additive sum of the block bytes before it; the block's last byte is reserved and kept. A stored clock with an out-of-range field or a nonexistent date counts as unset. A block whose checksum does not hold is never written; an erased block (all `FF`) is written only on the layouts marked below, matching where Omron's code accepts one. HEM-7380T1-EOSL/EBK, HEM-7530T and HEM-7600T refuse a block 3 with a bad checksum in Omron's code and in OpenPressure's index and registration paths, so an erased block there ends the session as unreadable settings.
 
-| Identities | Settings image read | Block in image | Clock bytes | Checksum byte | Write address and count | Byte order on the wire |
-| --- | --- | --- | --- | --- | --- | --- |
-| HEM-7150T, HEM-7155T, HEM-7156T, HEM-7342T, HEM-7361T | 68 bytes at `0x10` | 44–59 | 52–57 | 58 | `0x80`, 16 | As read |
-| HEM-7380T1-EOSL, HEM-7380T1-EBK | 68 bytes at `0x10` | 44–59 | 52–57 | 58 | `0x80`, 16 | As read |
-| HEM-7530T, HEM-6232T | 68 bytes at `0x260` | 44–59 | 52–57 | 58 | `0x2D0`, 16 | Adjacent byte pairs swapped |
-| HEM-7600T | 38 bytes at `0x260` | 20–29 | 22–27 | 28 | `0x29A`, 10 | Adjacent byte pairs swapped |
-| HEM-7322T, HEM-7377T1 | No documented clock block; blocked | | | | | |
+| Identities | Settings image read | Block in image | Clock bytes | Checksum byte | Write address and count | Byte order on the wire | Erased block written |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| HEM-7150T, HEM-7155T, HEM-7156T, HEM-7342T, HEM-7361T | 68 bytes at `0x10` | 44–59 | 52–57 | 58 | `0x80`, 16 | As read | Yes |
+| HEM-7380T1-EOSL, HEM-7380T1-EBK | 68 bytes at `0x10` | 44–59 | 52–57 | 58 | `0x80`, 16 | As read | No |
+| HEM-6232T | 68 bytes at `0x260` | 44–59 | 52–57 | 58 | `0x2D0`, 16 | Adjacent byte pairs swapped | Yes |
+| HEM-7530T | 68 bytes at `0x260` | 44–59 | 52–57 | 58 | `0x2D0`, 16 | Adjacent byte pairs swapped | No |
+| HEM-7600T | 38 bytes at `0x260` | 20–29 | 22–27 | 28 | `0x29A`, 10 | Adjacent byte pairs swapped | No |
+| HEM-7322T, HEM-7377T1 | No documented clock block; blocked | | | | | | |
 
 The write address is the settings staging address Omron's code writes to, not the address the block was read from (for example image bytes 44–59 come from `0x3C`, and the block is written to `0x80`). For the legacy models it comes from Omron Connect 2026.09.03's post-transfer settings writes in the [sandbox](omron-sandbox.md#post-transfer-settings-writes) with synthetic memory. For the X7 it is the block-3 stage of [profile registration](safety.md#x7-profile-registration) from the original EOSL assets; EBK's assets are identical apart from the model ID. The X7 standalone write is that registration block-3 frame without the user-bit change: byte 48 is copied unchanged, and no prefix write precedes it.
 

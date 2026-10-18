@@ -73,7 +73,7 @@ Local deletions made with deletion-receipt support record SHA-256 fingerprints. 
 
 ## Time and flags
 
-On the X7, Pair sets the clock as part of its user registration. Afterwards, and on the vendor-memory monitors, the clock control is [Sync clock](#sync-clock), once it is confirmed for your model or enabled for testing. Supported standard profiles offer **Set monitor time**, an explicit clock control using a dedicated time characteristic; inspect or read back the monitor time after using it. A successful GATT write alone is not verification.
+On the X7, Pair sets the clock as part of its user registration. Afterwards, and on the vendor-memory monitors, the clock control is [Sync clock](#sync-clock), once it is confirmed for your model; until then these monitors show no clock control. Supported standard profiles offer **Set monitor time**, an explicit clock control using a dedicated time characteristic; inspect or read back the monitor time after using it. A successful GATT write alone is not verification.
 
 A rejected standard-profile clock update leaves history available. If that write times out without an Android callback, the app closes the connection and asks you to reconnect before importing, because Android may still consider the old write busy.
 
@@ -81,7 +81,7 @@ Cuff timestamps are local wall time without the original timezone. Missing or in
 
 ### Sync clock
 
-**Sync clock** sets the monitor's clock to this phone's time. It appears on the connected monitor for the vendor-memory monitors above and for the X7; on an encrypted X7 connection the button stays disabled. You see both times and decide before anything on the monitor changes.
+**Sync clock** sets the monitor's clock to this phone's time. It appears on the connected monitor for the vendor-memory monitors above and for the X7 once clock sync is confirmed for that model; on an encrypted X7 connection the button stays disabled. You see both times and decide before anything on the monitor changes.
 
 1. Choose **Connect** (not Pair) and wait until the monitor is ready. Use Sync clock before you import: it is not available during or after an import on the same connection, during Pair or during an automatic import.
 2. Choose **Sync clock**. The app reads the monitor's current settings; nothing is changed yet.
@@ -96,9 +96,9 @@ Cuff timestamps are local wall time without the original timezone. Missing or in
 | Clock already correct | The monitor's clock was within a minute of the phone's time, so nothing was changed. |
 | Clock sync failed | The monitor did not confirm the new time. Check the time on the monitor and set it there if needed. |
 | Clock sync cancelled | You cancelled, did not answer in time or the connection ended. If the connection ended while the time was being set, the monitor's clock is uncertain; check it on the monitor. |
-| Clock sync not possible | The monitor's settings could not be checked, so nothing was changed. |
+| Clock sync not possible | The monitor's settings could not be checked, or the phone's date is outside the supported range, so nothing was changed. |
 
-Clock sync has not been tested on any physical monitor yet, so the **Sync clock** button currently stays unavailable on every model. On HEM-7322T and HEM-7377T1 it can never be used, because where they keep their clock is unknown. A hidden developer option can enable it on untested monitors; see the [development guide](development.md#developer-options). It is designed to change only the monitor's clock, never your readings, users or other settings.
+Clock sync has not been tested on any physical monitor yet, so the **Sync clock** button is currently not shown on any model. On HEM-7322T and HEM-7377T1 it can never be used, because where they keep their clock is unknown. It is designed to change only the monitor's clock, never your readings, users or other settings.
 
 ## Snapshots and exports
 
@@ -116,7 +116,7 @@ PDF generation runs locally and takes a snapshot before opening the save dialog.
 
 Devices → **Advanced** offers **Read monitor memory** and **Export memory JSON** for X7. The default address `0010`, length 68, captures settings/index only. It is not a full EEPROM or calibration backup. Other bounded ranges may encounter rejected holes or unused slots; do not assume all addresses exist. Complete means the requested bytes and final session-end acknowledgment validated.
 
-An interrupted read retains actual validated partial bytes with incomplete/error status. JSON includes the device/model, requested address/length, received count, scope, raw hex and SHA-256. A new ordinary dump replaces the previous local dump; export it first. Pre-registration settings backups and the settings copies saved before a clock sync are separate retained files; only pre-registration backups can be exported. Neither type enables an automatic memory restore.
+An interrupted read retains actual validated partial bytes with incomplete/error status. JSON includes the device/model, requested address/length, received count, scope, raw hex and SHA-256. A new ordinary dump replaces the previous local dump; export it first. Pre-registration settings backups and the settings copies saved before a clock sync are separate retained files; under Advanced, the newest of each kind has its own card with **Export settings backup**. Neither type enables an automatic memory restore.
 
 Exports contain health data and identifiers. Review and redact diagnostics before sharing them. The separate [device report](device-reports.md) excludes readings and identifiers and is meant for public issues. Pairing bodies, keys and user consent exchanges are omitted from diagnostic export. Do not publish private traces or raw snapshots in the repository.
 
