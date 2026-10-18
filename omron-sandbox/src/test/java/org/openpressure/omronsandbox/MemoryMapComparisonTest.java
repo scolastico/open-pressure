@@ -31,21 +31,32 @@ public class MemoryMapComparisonTest {
         assertEquals(1,area.user); assertEquals(0x98,area.start); assertEquals(16,area.step); assertEquals(16,area.size); assertEquals(60,area.count);
     }
 
-    @Test public void hem7156tIdentities() throws Exception {
+    @Test public void matchesCatalogIdentitiesToOurModels() {
+        assertEquals("HEM-7155T",OmronConfig.ours("HEM-7155T_ESL",null,null).id);
+        assertEquals("catalog name of the AP entry","HEM-7156T",OmronConfig.ours("HEM-7156T_AP","HEM-7156T-AP","HEM-7156T").id);
+        assertEquals("config model_id","HEM-7361T",OmronConfig.ours("HEM-7361T_X","HEM-7361T-E",null).id);
+        assertNull(OmronConfig.ours("HEM-0000T_X","HEM-0000T-X","BP0000"));
+    }
+
+    @Test public void everyAcceptedIdentity() throws Exception {
         OmronApk apk=OmronApk.assumePresent();
-        StringBuilder report=new StringBuilder("Omron "+apk.version+" memory maps vs OpenPressure\n");
+        OmronCatalog catalog=new OmronCatalog(new String(Files.readAllBytes(apk.deviceModelsJson),StandardCharsets.UTF_8));
+        StringBuilder report=new StringBuilder("Omron "+apk.version+" memory maps vs OpenPressure (identities OpenPressure accepts)\n\n");
         int compared=0;
         try(ZipInputStream zip=new ZipInputStream(Files.newInputStream(apk.deviceCategoryZip))) {
             for(ZipEntry e;(e=zip.getNextEntry())!=null;) {
                 String name=e.getName();
-                if(!name.matches(".*/0x0000/HEM-7156T[^/]*/DeviceConfig\\.sys")) continue;
+                if(name.startsWith("__MACOSX") || !name.matches(".*/0x0000/[^/]+/DeviceConfig\\.sys")) continue;
                 String identifier=name.replaceAll(".*/0x0000/([^/]+)/DeviceConfig\\.sys","$1");
                 OmronConfig config=OmronConfig.parse(new String(zip.readAllBytes(),StandardCharsets.UTF_8));
-                report.append(OmronConfig.compare(identifier,config,VendorMemoryModel.identify("HEM-7156T"))).append('\n');
+                VendorMemoryModel ours=OmronConfig.ours(identifier,config.modelId,catalog.name(identifier));
+                if(ours==null) continue;
+                report.append("accepted as ").append(OmronConfig.acceptedName(identifier,config.modelId,catalog.name(identifier))).append(": ")
+                    .append(OmronConfig.compare(identifier,config,ours)).append('\n');
                 compared++;
             }
         }
-        assertTrue("HEM-7156T configs found",compared>=2);
+        assertTrue("accepted identities found: "+compared,compared>=10);
         Path out=Paths.get("build","omron-sandbox","memory-map.txt");
         Files.createDirectories(out.getParent());
         Files.write(out,report.toString().getBytes(StandardCharsets.UTF_8));

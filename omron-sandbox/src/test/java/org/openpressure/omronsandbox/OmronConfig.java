@@ -54,9 +54,24 @@ public final class OmronConfig {
         return result;
     }
 
+    /**
+     * OpenPressure's model for an Omron catalog identity: the first of the folder identifier (as is and with
+     * {@code _} as {@code -}), the config's {@code model_id} and the catalog name that our exact identification
+     * accepts; null when none is accepted.
+     */
+    public static VendorMemoryModel ours(String identifier,String modelId,String catalogName) {
+        return VendorMemoryModel.identify(acceptedName(identifier,modelId,catalogName));
+    }
+    /** The candidate name OpenPressure's identification accepts, or null. */
+    public static String acceptedName(String identifier,String modelId,String catalogName) {
+        for(String candidate:new String[]{identifier,identifier==null?null:identifier.replace('_','-'),modelId,catalogName})
+            if(VendorMemoryModel.identify(candidate)!=null) return candidate;
+        return null;
+    }
+
     /** Human-readable comparison of Omron's areas for one catalog identifier with OpenPressure's history ranges. */
     public static String compare(String identifier,OmronConfig omron,VendorMemoryModel ours) {
-        StringBuilder out=new StringBuilder(identifier).append(" (").append(omron.modelId).append(", ").append(omron.connectType).append(")\n");
+        StringBuilder out=new StringBuilder(identifier).append(" (").append(omron.modelId).append(", ").append(omron.connectType).append(") -> ours ").append(ours==null?"none":ours.id).append('\n');
         List<Area> areas=omron.areas();
         for(Area a:areas) out.append("  Omron ").append(a).append('\n');
         if(ours==null) return out.append("  OpenPressure: no accepted map\n").toString();

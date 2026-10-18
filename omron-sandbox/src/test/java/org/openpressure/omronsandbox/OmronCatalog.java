@@ -35,6 +35,14 @@ public final class OmronCatalog {
         Matcher m=NAME.matcher(advertisedName);
         return m.find()?new int[]{Integer.parseInt(m.group(1),16),Integer.parseInt(m.group(2),16)}:null;
     }
+    /** Catalog display name of a config folder identifier, or null. */
+    public String name(String identifier) {
+        for(int i=0;i<models.length();i++) {
+            JSONObject entry=models.optJSONObject(i);
+            if(entry!=null && identifier.equals(entry.optString("identifier"))) return entry.optString("name",null);
+        }
+        return null;
+    }
     /** The catalog entry Omron would pick for this advertised name, or null. */
     public Entry folderFor(String advertisedName) {
         int[] ids=ids(advertisedName);
