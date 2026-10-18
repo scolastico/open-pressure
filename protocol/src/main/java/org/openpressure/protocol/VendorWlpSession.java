@@ -31,7 +31,7 @@ public final class VendorWlpSession {
     private byte[] identity;
     private int phase,rangeIndex,rangeReceived;
     private int total;
-    private boolean issued,failed,endIssued;
+    private boolean issued,failed,endIssued,statusError,abandoned;
 
     public VendorWlpSession(VendorMemoryModel model) { this(model,16); }
     /** Full sweep of every bank in blocks of 1–16 bytes. */
@@ -68,12 +68,32 @@ public final class VendorWlpSession {
     private static boolean inside(VendorMemoryModel.Range range,int start,int length) { return range.start>=start && range.start+range.length<=start+length; }
     public List<VendorMemoryModel.Range> ranges() { return Collections.unmodifiableList(new ArrayList<>(ranges)); }
     /** Every current range was received and END has not been issued, so more ranges may be appended. */
-    public boolean rangeComplete() { return !failed && phase==1 && rangeIndex==ranges.size() && !endIssued; }
+    public boolean rangeComplete() { return !failed && !abandoned && phase==1 && rangeIndex==ranges.size() && !endIssued; }
     /** Continues reading after the current ranges; refused once END was issued or a reply is outstanding. */
     public void appendRange(VendorMemoryModel.Range range) {
         if(!rangeComplete() || issued) throw new IllegalArgumentException("Vendor read session cannot take more ranges");
         for(byte[] channel:channels) if(channel!=null) throw new IllegalArgumentException("Vendor read session cannot take more ranges");
         add(range);
+    }
+    /** The range whose read is outstanding, or whose last read the device answered with an error status; null otherwise. */
+    public VendorMemoryModel.Range currentRange() {
+        return phase==1 && rangeIndex<ranges.size() && (!failed || statusError)?ranges.get(rangeIndex):null;
+    }
+    /** The last reply was a well-formed, checksummed read reply carrying a non-zero device status (the session failed). */
+    public boolean readStatusError() { return failed && statusError; }
+    /**
+     * Stops reading after the current range's read went unanswered or returned a device error status. The current
+     * range keeps only the bytes already validated, later ranges are dropped and the next command is END. Nothing
+     * can be appended afterwards. Callers decide which ranges may end this way; any other failure stays final.
+     */
+    public void abandonRemainingRanges() {
+        boolean outstanding=!failed && issued && phase==1 && rangeIndex<ranges.size();
+        if(!outstanding && !readStatusError()) throw new IllegalArgumentException("Vendor read session has no range to abandon");
+        VendorMemoryModel.Range current=ranges.get(rangeIndex);
+        while(ranges.size()>rangeIndex) total-=ranges.remove(ranges.size()-1).length;
+        if(rangeReceived>0) { ranges.add(VendorMemoryModel.range(current.start,rangeReceived,current.user)); total+=rangeReceived; }
+        rangeIndex=ranges.size(); rangeReceived=0;
+        Arrays.fill(channels,null); issued=false; failed=false; statusError=false; abandoned=true;
     }
     /** Byte offset of range {@code index} inside {@link #data()}. */
     public int rangeOffset(int index) {
@@ -102,6 +122,7 @@ public final class VendorWlpSession {
     public boolean accept(int channel,byte[] fragment) {
         try {
             if(failed || complete() || !issued || fragment==null || fragment.length==0 || channel<0 || channel>=rxChannels(model).size()) invalid();
+            statusError=false;
             byte[] response;
             if(!model.legacyUnlock) {
                 if(fragment.length<8 || fragment.length>64 || (fragment[0]&255)!=fragment.length) invalid();
@@ -123,6 +144,7 @@ public final class VendorWlpSession {
                 for(int i=0;i<count;i++) System.arraycopy(channels[i],0,response,i*16,Math.min(16,declared-i*16));
             }
             byte[] request=command();
+            if(phase==1 && rangeIndex<ranges.size()) statusError=deviceStatus(response,request);
             byte[] payload=Wlp.payload(response,request[1]&255);
             if(response[2]!=request[2] || response[3]!=request[3] || response[4]!=request[4] || response[5]!=request[5]) invalid();
             int wanted=request[5]&255;
@@ -140,6 +162,14 @@ public final class VendorWlpSession {
         } catch(IllegalArgumentException error) {
             failed=true; Arrays.fill(channels,null); throw error;
         }
+    }
+    /** A framed, checksummed reply to this read whose status byte reports a device error. */
+    private static boolean deviceStatus(byte[] response,byte[] request) {
+        int n=response.length;
+        if(n<8 || (response[0]&255)!=n || (response[1]&255)!=((request[1]&255)|0x80) || response[n-2]==0) return false;
+        for(int i=2;i<5;i++) if(response[i]!=request[i]) return false;
+        byte bcc=0; for(int i=0;i<n-1;i++) bcc^=response[i];
+        return bcc==response[n-1];
     }
     public boolean complete() { return !failed && phase==3; }
     /** All mapped bytes have been validated; optional work may run before requesting END. */

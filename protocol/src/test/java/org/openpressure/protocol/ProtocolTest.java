@@ -217,6 +217,10 @@ public final class ProtocolTest {
         check(ranges.size()==2,"both populated banks have ranges");
         check(ranges.get(0).start==0x1c4 && ranges.get(0).length==1584 && ranges.get(0).user==1,"first bank ends at 0x7f4 before the unpopulated slot");
         check(ranges.get(1).start==0x804 && ranges.get(1).length==176 && ranges.get(1).user==2,"second bank reads only its eleven populated slots");
+        check(index.historyRanges(3).size()==2 && index.selectedCount(3)==110,"both users selected");
+        check(index.historyRanges(2).size()==1 && index.historyRanges(2).get(0).user==2 && index.selectedCount(2)==11,"user 2 only skips user 1's bank");
+        check(index.historyRanges(1).size()==1 && index.historyRanges(1).get(0).user==1 && index.selectedCount(1)==99,"user 1 only");
+        check(index.historyRanges(0).size()==1 && index.historyRanges(0).get(0).user==1,"empty selection falls back to user 1");
         captured[0]=0;
         check(index.count(1)==99,"later input changes cannot alter a planned read range");
         rejects(() -> index.count(0)); rejects(() -> index.count(3));

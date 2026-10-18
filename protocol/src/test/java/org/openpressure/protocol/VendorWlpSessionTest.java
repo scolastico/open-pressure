@@ -20,6 +20,7 @@ public final class VendorWlpSessionTest {
         clockFailureKeepsHistoryInOneSession();
         appendedRangesAndLargerBlocks();
         identityChecksum();
+        abandonAfterUnansweredOrErrorRead();
         rejects(() -> new VendorWlpSession(null));
         rejects(() -> new VendorWlpSession(model("HEM-7150T"),0));
         rejects(() -> new VendorWlpSession(model("HEM-7150T"),17));
@@ -209,6 +210,35 @@ public final class VendorWlpSessionTest {
         check((ok.command()[1]&255)==1,"valid identity checksum proceeds to reads");
         VendorWlpSession other=new VendorWlpSession(model("HEM-7155T")); other.command(); acceptStart(other,START); // other models do not check
         check((other.command()[1]&255)==1,"other models ignore byte 14");
+    }
+    private static void abandonAfterUnansweredOrErrorRead() {
+        VendorMemoryModel m=model("HEM-7156T");
+        List<VendorMemoryModel.Range> banks=m.historyRanges();
+        // A device error status on bank 2 keeps bank 1 and offers END next.
+        VendorWlpSession s=new VendorWlpSession(m,banks,48); s.command(); acceptStart(s,START);
+        rejects(s::abandonRemainingRanges); // nothing outstanding yet
+        while(s.currentRange()==banks.get(0)) reply(s,s.command());
+        byte[] read=s.command(); check(Arrays.equals(read,Wlp.read(0x458,48)),"first bank 2 read");
+        check(s.currentRange()==banks.get(1),"current range is the outstanding bank");
+        byte[] error=hex("088100045830e300"); fix(error);
+        rejects(() -> s.accept(0,error));
+        check(s.readStatusError() && s.currentRange()==banks.get(1),"framed device status is distinguishable");
+        s.abandonRemainingRanges();
+        check(s.historyComplete() && !s.rangeComplete() && s.ranges().size()==1 && s.received()==960,"bank 1 kept, bank 2 dropped");
+        rejects(() -> s.appendRange(VendorMemoryModel.range(0x98,16,1)));
+        same("080f000000000007",s.command()); acceptFrame(s,m,hex("088f000000000087"));
+        check(s.complete() && s.data().length==960,"END completes after the abandoned bank");
+        // An unanswered read in the middle of a bank keeps only its validated bytes.
+        VendorWlpSession t=new VendorWlpSession(m,banks,48); t.command(); acceptStart(t,START);
+        for(int i=0;i<22;i++) reply(t,t.command());
+        t.command(); t.abandonRemainingRanges();
+        check(t.ranges().size()==2 && t.ranges().get(1).length==96 && t.received()==1056,"partial bank kept up to the last reply");
+        same("080f000000000007",t.command());
+        // A malformed or corrupt reply is final and cannot be turned into an early END.
+        VendorWlpSession u=new VendorWlpSession(m,banks,48); u.command(); acceptStart(u,START);
+        byte[] bad=hex("088100009830e300"); // wrong checksum
+        u.command(); rejects(() -> u.accept(0,bad));
+        check(!u.readStatusError(),"corrupt status reply is not a device status"); rejects(u::abandonRemainingRanges);
     }
     /** START replies arrive as two legacy channel fragments. */
     private static void acceptStart(VendorWlpSession s,byte[] reply) {
