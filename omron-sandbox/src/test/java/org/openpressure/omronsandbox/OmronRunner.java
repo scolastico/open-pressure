@@ -67,6 +67,8 @@ public final class OmronRunner {
     /** Null when Omron's catalog knows the advertised model and Omron offers the flow, otherwise the UNSUPPORTED outcome. */
     static Outcome select(Fixture f,OmronCatalog catalog) {
         if(f.flow.equals("read-all")) return Outcome.unsupported("Omron has no read-all operation");
+        // Omron writes the clock only as part of its post-transfer settings writes.
+        if(f.flow.equals("sync-clock")) return Outcome.unsupported("Omron has no standalone clock sync");
         int[] ids=OmronCatalog.ids(f.advertisedName);
         if(ids==null) return Outcome.unsupported("advertised name "+f.advertisedName+" carries no Omron model ID");
         if(catalog.folderFor(f.advertisedName)==null)

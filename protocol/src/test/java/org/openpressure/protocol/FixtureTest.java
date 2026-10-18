@@ -35,6 +35,7 @@ public final class FixtureTest {
         divergenceReportsStepAndDecodedFields();
         finishComparesReadings();
         finishComparesOnlyTheClientsReadings();
+        parsesClockSyncFlowAndExpectation();
         return checks;
     }
     private static void parsesHeaderAndExpandsReads() {
@@ -175,6 +176,42 @@ public final class FixtureTest {
             "[ours-only: Omron pairing does not transfer history] expect reading user=1 sys=130 dia=78 pulse=67 time=2025-07-09T06:14:38\n");
         check(new FixtureCursor(pair,Fixture.Client.OMRON).finish(List.of()).kind==Outcome.Kind.MATCHES,"Omron pairing may return no readings");
         check(new FixtureCursor(pair,Fixture.Client.OURS_APP).finish(List.of()).kind==Outcome.Kind.DIVERGED,"OpenPressure pairing still requires its reading");
+    }
+    private static void parsesClockSyncFlowAndExpectation() {
+        check(Fixture.parse("test/sample",HEAD).expectClock==null,"no clock expectation unless declared");
+        for(String value:new String[]{"acknowledged","skipped","rejected"}) {
+            Fixture f=Fixture.parse("test/sample",HEAD+"flow sync-clock\nexpect clock "+value+"\n");
+            check(f.flow.equals("sync-clock") && value.equals(f.expectClock),"expect clock "+value);
+        }
+        // The expectation may precede the flow line; both are checked once the whole fixture is read.
+        check(Fixture.parse("test/sample",HEAD+"expect clock skipped\nflow sync-clock\n").expectClock.equals("skipped"),"order-independent");
+        String[][] bad={
+            {"flow sync-clock\n","expect clock"},
+            {"expect clock acknowledged\n","expect clock"},
+            {"flow pair\nexpect clock acknowledged\n","expect clock"},
+            {"flow sync-clock\nexpect clock written\n","line 12"},
+            {"flow sync-clock\nexpect clock\n","line 12"},
+            {"flow sync-clock\nexpect clock skipped\nexpect clock skipped\n","line 13"},
+            {"flow sync-clock\n[ours-only: not allowed] expect clock skipped\n","line 12"}};
+        for(String[] c:bad) {
+            checks++;
+            try { Fixture.parse("test/sample",HEAD+c[0]); }
+            catch(IllegalArgumentException expected) {
+                if(!expected.getMessage().contains("test/sample") || !expected.getMessage().contains(c[1])) throw new AssertionError("unhelpful message: "+expected.getMessage());
+                continue;
+            }
+            throw new AssertionError("accepted: "+c[0]);
+        }
+        try { Fixture.parse("test/sample",HEAD.replace("time 2026-01-02T03:04:05 zone=UTC\n","")+"flow sync-clock\nexpect clock skipped\n"); throw new AssertionError("sync-clock without time accepted"); }
+        catch(IllegalArgumentException expected) { check(expected.getMessage().contains("time"),"sync-clock needs the target time"); }
+        // The cursor compares the client's clock outcome with the expectation once every step is consumed.
+        Fixture f=Fixture.parse("test/sample",HEAD+"flow sync-clock\nexpect clock acknowledged\n");
+        check(new FixtureCursor(f,Fixture.Client.OURS_APP).finish(List.of(),"acknowledged").kind==Outcome.Kind.MATCHES,"expected clock outcome matches");
+        Outcome wrong=new FixtureCursor(f,Fixture.Client.OURS_APP).finish(List.of(),"rejected");
+        check(wrong.kind==Outcome.Kind.DIVERGED && wrong.detail.contains("rejected") && wrong.detail.contains("acknowledged"),"different clock outcome diverges: "+wrong);
+        check(new FixtureCursor(f,Fixture.Client.OURS_APP).finish(List.of()).kind==Outcome.Kind.DIVERGED,"a missing clock sync diverges");
+        Fixture plain=Fixture.parse("test/sample",HEAD);
+        check(new FixtureCursor(plain,Fixture.Client.OURS_APP).finish(List.of(),"acknowledged").kind==Outcome.Kind.DIVERGED,"an unexpected clock sync diverges");
     }
     private static byte[] hex(String s) { return HexFormat.of().parseHex(s); }
     private static void check(boolean value,String message) { checks++; if(!value) throw new AssertionError(message); }

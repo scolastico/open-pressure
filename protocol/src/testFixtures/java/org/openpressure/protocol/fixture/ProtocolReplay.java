@@ -3,19 +3,19 @@ package org.openpressure.protocol.fixture;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 import org.openpressure.protocol.BloodPressure;
 import org.openpressure.protocol.DeviceWritePolicy;
 import org.openpressure.protocol.LegacyUnlock;
+import org.openpressure.protocol.VendorClockWrite;
 import org.openpressure.protocol.VendorMemoryIndex;
 import org.openpressure.protocol.VendorMemoryModel;
 import org.openpressure.protocol.VendorWlpSession;
+import org.openpressure.protocol.WriteAspectIndex;
 
 /**
- * Replays a fixture against OpenPressure's Android-independent unlock and vendor read sessions, passing every
- * write through the same {@link DeviceWritePolicy} checks the app applies. The Current Time write belongs to the
- * app service, so steps on the {@code clock} alias are outside this replay and covered by the app-level replay.
+ * Replays a fixture against OpenPressure's Android-independent unlock, vendor read sessions and clock-block write
+ * plan, passing every write through the same {@link DeviceWritePolicy} checks the app applies.
  */
 public final class ProtocolReplay {
     private ProtocolReplay() {}
@@ -30,7 +30,7 @@ public final class ProtocolReplay {
     }
 
     public static Outcome run(Fixture f) {
-        FixtureCursor cursor=new FixtureCursor(f,Fixture.Client.OURS_PROTOCOL,Set.of("clock"));
+        FixtureCursor cursor=new FixtureCursor(f,Fixture.Client.OURS_PROTOCOL);
         VendorMemoryModel model=VendorMemoryModel.identify(f.dis.get("model"));
         if(model==null) return Outcome.rejected(0,"model "+f.dis.get("model")+" not accepted");
         if(f.key==null) return Outcome.rejected(0,"fixture has no key");
@@ -50,6 +50,7 @@ public final class ProtocolReplay {
                     unlock.accept(reply.value);
                 }
             }
+            if(f.flow.equals("sync-clock")) return syncClock(f,model,service,tx,rx,cursor);
             // Like MonitorService: an index-supported model reads its settings/index image, then only the populated
             // slots of the selected users (every slot of their banks when the index is not trusted). A read-all flow,
             // or a model without index support, sweeps the selected banks; read-all adds unconfirmed banks last.
@@ -95,6 +96,57 @@ public final class ProtocolReplay {
         } catch(IllegalArgumentException refused) {
             return Outcome.rejected(cursor.position(),"OpenPressure refused: "+refused.getMessage());
         }
+    }
+
+    /**
+     * Like MonitorService's explicit clock sync: START and the settings image, a plan targeting the fixture's
+     * {@code time} (the developer override stands in for the untested write aspect, as the app replay enables it),
+     * the chunks on their own TX channels through the GATT-boundary validator, the acknowledgment on RX, then END.
+     * A within-threshold clock writes nothing; a rejected acknowledgment still ends the session.
+     */
+    private static Outcome syncClock(Fixture f,VendorMemoryModel model,UUID service,List<UUID> tx,List<UUID> rx,FixtureCursor cursor) {
+        VendorWlpSession session=new VendorWlpSession(model,List.of(model.settingsRange()),Math.min(56,VendorWlpSession.maxBlock(model)));
+        String clock=null;
+        while(!session.complete()) {
+            if(clock==null && session.rangeComplete()) {
+                VendorClockWrite plan;
+                try { plan=new VendorClockWrite(WriteAspectIndex.resolve(f.dis.get("model")),session.data(),f.time,true,tx.size()); }
+                catch(IllegalArgumentException unreadable) { plan=null; clock="not_attempted"; }
+                if(plan!=null && plan.writesNothing()) clock="skipped";
+                else if(plan!=null) {
+                    plan.authorize();
+                    List<byte[]> chunks=plan.chunks();
+                    for(int i=0;i<chunks.size();i++) {
+                        DeviceWritePolicy.validateVendorClockBlock(model,service,tx.get(i),chunks.get(i),plan);
+                        Outcome diverged=cursor.onWrite(tx.get(i),chunks.get(i));
+                        if(diverged!=null) return diverged;
+                    }
+                    List<FixtureCursor.Notification> replies=cursor.pendingNotifications();
+                    if(replies.isEmpty()) return cursor.stalled();
+                    for(FixtureCursor.Notification reply:replies) {
+                        int channel=rx.indexOf(reply.characteristic);
+                        if(channel<0) return Outcome.rejected(cursor.position(),"reply on unexpected characteristic "+reply.characteristic);
+                        try { if(plan.accept(channel,reply.value)) clock="acknowledged"; }
+                        catch(IllegalArgumentException rejected) { clock="rejected"; break; }
+                    }
+                    if(clock==null) return Outcome.rejected(cursor.position(),"clock write acknowledgment incomplete");
+                }
+            }
+            List<byte[]> parts=VendorWlpSession.chunks(session.command(),tx.size());
+            for(int i=0;i<parts.size();i++) {
+                DeviceWritePolicy.validateVendorCharacteristic(model,service,tx.get(i),parts.get(i));
+                Outcome diverged=cursor.onWrite(tx.get(i),parts.get(i));
+                if(diverged!=null) return diverged;
+            }
+            List<FixtureCursor.Notification> replies=cursor.pendingNotifications();
+            if(replies.isEmpty()) return cursor.stalled();
+            for(FixtureCursor.Notification reply:replies) {
+                int channel=rx.indexOf(reply.characteristic);
+                if(channel<0) return Outcome.rejected(cursor.position(),"reply on unexpected characteristic "+reply.characteristic);
+                session.accept(channel,reply.value);
+            }
+        }
+        return cursor.finish(List.of(),clock);
     }
 
     private static List<Fixture.Reading> decode(VendorMemoryModel model,List<VendorMemoryModel.Range> ranges,byte[] data) {

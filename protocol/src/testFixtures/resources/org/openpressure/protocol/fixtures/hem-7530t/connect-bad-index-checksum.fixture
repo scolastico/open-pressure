@@ -43,7 +43,6 @@ notify rx 18 80 00 00 00 10 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f 00 8
 [ours-only: index-driven read: OpenPressure reads the 68-byte settings/index image at 0x260 in 56-byte blocks; Omron reads 44 bytes plus blocks 3 and 4] reads 0x260 68 chunk=56
 [ours-only: the block-3 checksum fails, so OpenPressure does not trust the index and sweeps every slot of the bank in 56-byte blocks] reads 0x2e8 1260 chunk=56
 
-[ours-only: OpenPressure clock sync via Current Time; Omron writes setting block 3 instead (docs/omron-sandbox.md)] write clock ea 07 01 02 03 04 05 05 00 01
 
 # Omron Connect 2026.09.03 reports "CheckSumError OGSCMemoryMapAnalyzer.checkSettingReadIndex" after reading block 3,
 # sends its error END and disconnects without reading records. OpenPressure ends the session normally after the sweep.

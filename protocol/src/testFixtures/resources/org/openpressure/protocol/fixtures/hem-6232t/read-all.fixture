@@ -30,7 +30,6 @@ notify rx 18 80 00 00 00 10 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f 00 8
 [ours-only: Read all sweeps every slot of bank 1 in 56-byte blocks without the index; Omron has no read-all operation] reads 0x2e8 1400 chunk=56
 [ours-only: Read all sweeps every slot of bank 2 in 56-byte blocks without the index; Omron has no read-all operation] reads 0x860 1400 chunk=56
 
-[ours-only: OpenPressure clock sync via Current Time; Omron writes setting block 3 instead (docs/omron-sandbox.md)] write clock ea 07 01 02 03 04 05 05 00 01
 
 write tx 08 0f 00 00 00 00 00 07
 notify rx 08 8f 00 00 00 00 00 87

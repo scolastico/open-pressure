@@ -35,8 +35,13 @@ public final class Fixture {
     public LocalDateTime time;
     public ZoneId zone=ZoneId.of("UTC");
     public byte[] key;
-    /** "connect" reconnects with a saved key; "pair" registers the key first; "read-all" connects and reads every selected bank. */
+    /**
+     * "connect" reconnects with a saved key; "pair" registers the key first; "read-all" connects and reads every selected
+     * bank; "sync-clock" connects, reads the settings image and runs the explicit clock-block write.
+     */
     public String flow="connect";
+    /** Clock-sync outcome a {@code sync-clock} flow must reach ("acknowledged", "skipped" or "rejected"); null otherwise. */
+    public String expectClock;
     public byte[] random=new byte[0];
     /** User a pairing session registers (Omron registers exactly one; the legacy key is not per user). */
     public int registerUser=1;
@@ -88,6 +93,9 @@ public final class Fixture {
         // Runners need these; report them here instead of failing inside a replay.
         if(f.key==null) throw new IllegalArgumentException(name+": missing key (every flow unlocks with it)");
         if(f.time==null && f.aliases.containsKey("clock")) throw new IllegalArgumentException(name+": missing time for the clock alias");
+        if(f.flow.equals("sync-clock")!=(f.expectClock!=null))
+            throw new IllegalArgumentException(name+": a sync-clock flow needs exactly one expect clock line, and only that flow may have one");
+        if(f.flow.equals("sync-clock") && f.time==null) throw new IllegalArgumentException(name+": missing time (the clock-sync target)");
         return f;
     }
 
@@ -133,7 +141,7 @@ public final class Fixture {
                 break;
             }
             case "flow":
-                if(!Set.of("connect","pair","read-all").contains(rest)) throw new IllegalArgumentException("flow must be connect, pair or read-all");
+                if(!Set.of("connect","pair","read-all","sync-clock").contains(rest)) throw new IllegalArgumentException("flow must be connect, pair, read-all or sync-clock");
                 flow=rest; break;
             case "key": key=hex(rest); if(key.length!=16) throw new IllegalArgumentException("key must be 16 bytes"); break;
             case "register": {
@@ -189,6 +197,12 @@ public final class Fixture {
                 String[] parts=rest.split("\\s+",2);
                 if(parts[0].equals("reading")) readings.add(Reading.parse(parts.length>1?parts[1]:"",only,reason,number));
                 else if(only!=null) throw new IllegalArgumentException("only reading expectations can be annotated");
+                else if(parts[0].equals("clock")) {
+                    String value=parts.length>1?parts[1]:"";
+                    if(!Set.of("acknowledged","skipped","rejected").contains(value)) throw new IllegalArgumentException("expect clock must be acknowledged, skipped or rejected");
+                    if(expectClock!=null) throw new IllegalArgumentException("expect clock given twice");
+                    expectClock=value;
+                }
                 else if(parts.length==2 && parts[1].equals("rejected")) {
                     if(parts[0].equals("ours")) { rejectedBy.add(Client.OURS_PROTOCOL); rejectedBy.add(Client.OURS_APP); }
                     else if(parts[0].equals("omron")) rejectedBy.add(Client.OMRON);

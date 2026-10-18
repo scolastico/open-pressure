@@ -43,12 +43,11 @@ notify rx 18 80 00 00 00 10 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f 00 8
 # populated slot, Omron because it lists one unsent record. The mechanisms differ (open finding on the index read above).
 reads 0x98 16 chunk=16
 
-# OpenPressure updates the clock through Current Time before END. Omron instead writes the monitor's memory
-# after every transfer (OGSCWlpDevice setDeviceSettings): the index prefix with the unsent counter cleared
-# (bytes 4-5 0100 -> 0080), setting block 1 with the profile's birthday when it differs (the sandbox uses the
+# Omron writes the monitor's memory after every transfer (OGSCWlpDevice setDeviceSettings): the index prefix
+# with the unsent counter cleared (bytes 4-5 0100 -> 0080), setting block 1 with the profile's birthday when it differs (the sandbox uses the
 # app's default 1900-01-01) and block 3 with the clock (fixture time + 1 s) and its additive checksum.
-# OpenPressure never writes a monitor's memory on these models.
-[ours-only: OpenPressure clock sync via Current Time; Omron writes setting block 3 instead (docs/omron-sandbox.md)] write clock ea 07 01 02 03 04 05 05 00 01
+# OpenPressure writes nothing after its reads; it sets the clock only in an explicit Sync clock session
+# (hem-7155t/sync-clock).
 [omron-only: Omron's post-transfer settings write: prefix at index_setting_write_address 0x54 with the cleared unsent counter, merged with block 1 (birthday 1900-01-01, checksum f9)] write tx 26 01 c0 00 54 1e 01000000 0080 0000 01000000 ffffffff 000101 ffffffffffffffffff f9 ff 00 d4
 [omron-only: synthetic full echo acknowledgment; a real HEM-7156T reply is unconfirmed] notify rx 26 81 c0 00 54 1e 01000000 0080 0000 01000000 ffffffff 000101 ffffffffffffffffff f9 ff 00 54
 [omron-only: block 3 at 0x80 with the clock (field 100e, bytes 52-57 = fixture time + 1 s) and its additive checksum] write tx 18 01 c0 00 80 10 ffffffffffffffff 1a0102030406 22 ff 00 8c

@@ -40,6 +40,12 @@ public class OmronRunnerTest {
         assertEquals(Outcome.Kind.UNSUPPORTED,outcome.kind);
         assertTrue(outcome.detail,outcome.detail.contains("category 0x0000 model 0x0999"));
     }
+    @Test public void clockSyncFlowIsUnsupported() {
+        Fixture f=Fixture.load("hem-7155t/sync-clock");
+        Outcome outcome=OmronRunner.select(f,new OmronCatalog(CATALOG));
+        assertEquals(Outcome.Kind.UNSUPPORTED,outcome.kind);
+        assertEquals("Omron has no standalone clock sync",outcome.detail);
+    }
     @Test public void profileDefaultReplacesOnlyReportedBirthdays() {
         android.os.Bundle settings=new android.os.Bundle(),device=new android.os.Bundle(),user1=new android.os.Bundle(),user2=new android.os.Bundle(),birthday=new android.os.Bundle(),other=new android.os.Bundle();
         birthday.putString("data","0"); other.putString("data","1");

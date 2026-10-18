@@ -22,3 +22,8 @@ hem-7600t/pair
 hem-6232t/connect-read-history
 hem-6232t/pair
 hem-6232t/read-all
+hem-7155t/sync-clock
+hem-7155t/sync-clock-within-threshold
+hem-7155t/sync-clock-rejected
+hem-7530t/sync-clock
+hem-7600t/sync-clock

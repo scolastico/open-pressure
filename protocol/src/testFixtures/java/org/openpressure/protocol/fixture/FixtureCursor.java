@@ -26,14 +26,10 @@ public final class FixtureCursor {
     private int position;
     private Outcome failure;
 
-    public FixtureCursor(Fixture fixture,Fixture.Client client) { this(fixture,client,java.util.Set.of()); }
-    /** Steps on ignored aliases are outside this client's reach (e.g. the app's clock for a protocol-only replay). */
-    public FixtureCursor(Fixture fixture,Fixture.Client client,java.util.Set<String> ignoredAliases) {
+    public FixtureCursor(Fixture fixture,Fixture.Client client) {
         this.fixture=fixture;
         this.client=client;
-        List<Fixture.Step> kept=new ArrayList<>();
-        for(Fixture.Step step:fixture.steps(client)) if(!ignoredAliases.contains(step.alias)) kept.add(step);
-        steps=Collections.unmodifiableList(kept);
+        steps=fixture.steps(client);
     }
 
     /** Null while channel parts are pending or the frame matched; otherwise the terminal divergence. */
@@ -102,9 +98,17 @@ public final class FixtureCursor {
         return failure!=null?failure:Outcome.rejected(position,"no further write after step "+position+next());
     }
     /** Final verdict once the client is done; compares decoded readings with the fixture's expectations. */
-    public Outcome finish(List<Fixture.Reading> decoded) {
+    public Outcome finish(List<Fixture.Reading> decoded) { return finish(decoded,null); }
+    /**
+     * Final verdict that also compares the client's clock-sync outcome ({@code acknowledged}, {@code skipped},
+     * {@code rejected}, or another lower-case outcome name; null when the client ran no clock sync) with the
+     * fixture's {@code expect clock}.
+     */
+    public Outcome finish(List<Fixture.Reading> decoded,String clock) {
         if(failure!=null) return failure;
         if(position<steps.size()) return Outcome.rejected(position,"client ended at step "+position+next());
+        if(!java.util.Objects.equals(clock,fixture.expectClock))
+            return Outcome.diverged(position,0,null,null,"clock sync outcome "+clock+", expected "+fixture.expectClock);
         List<Fixture.Reading> missing=new ArrayList<>(fixture.readings(client)),extra=new ArrayList<>();
         for(Fixture.Reading reading:decoded) if(!missing.remove(reading)) extra.add(reading);
         if(!missing.isEmpty() || !extra.isEmpty())

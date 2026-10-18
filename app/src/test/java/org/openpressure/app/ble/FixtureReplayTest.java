@@ -10,9 +10,12 @@ import org.openpressure.app.data.PairingKeys;
 import org.openpressure.app.data.Reading;
 import org.openpressure.app.data.ReadingStore;
 import org.openpressure.app.data.VendorPairingKeys;
+import org.openpressure.app.developer.DeveloperOptions;
+import org.openpressure.protocol.DeviceReport;
 import org.openpressure.protocol.OperationQueue;
 import org.openpressure.protocol.VendorMemoryModel;
 import org.openpressure.protocol.VendorWlpSession;
+import org.openpressure.protocol.WriteAspectIndex;
 import org.openpressure.protocol.fixture.FakeAndroidKeyStore;
 import org.openpressure.protocol.fixture.Fixture;
 import org.openpressure.protocol.fixture.FixtureCursor;
@@ -28,6 +31,8 @@ import java.nio.file.*;
 import java.time.Clock;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.TimeUnit;
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
@@ -35,8 +40,9 @@ import static org.robolectric.Shadows.shadowOf;
 
 /**
  * Replays every shared device fixture through the real MonitorService: model verification, notification setup,
- * key handling, the ATT queue, history parsing, the optional clock write and END. Only the Bluetooth peer is
- * simulated, and it answers strictly from the fixture. Writes {@code build/fixture-replay/<fixture>.txt}.
+ * key handling, the ATT queue, history parsing, the explicit clock sync (settings backup, clock-block write and its
+ * acknowledgment) and END. Only the Bluetooth peer is simulated, and it answers strictly from the fixture.
+ * Writes {@code build/fixture-replay/<fixture>.txt}.
  */
 @RunWith(ParameterizedRobolectricTestRunner.class)
 @Config(sdk=35,application=Application.class,qualifiers="en")
@@ -53,7 +59,7 @@ public class FixtureReplayTest {
     private final Map<UUID,BluetoothGattCharacteristic> characteristics=new HashMap<>();
     private final Deque<Runnable> peer=new ArrayDeque<>();
     private Outcome outcome;
-    private boolean historyRequested;
+    private boolean historyRequested,clockConfirmed,backupFlushed;
 
     public FixtureReplayTest(String name) { this.name=name; }
 
@@ -91,6 +97,13 @@ public class FixtureReplayTest {
         buildServices();
         stageKey();
         stubPeer();
+        if(fixture.flow.equals("sync-clock")) {
+            // Every clock-block entry is untested: the developer override lets the explicit sync run, as in a forced sync.
+            DeveloperOptions.setUnlocked(monitor,true);
+            DeveloperOptions.setAllowUntested(monitor,WriteAspectIndex.Aspect.CLOCK_BLOCK,true);
+            // Robolectric cannot fsync a directory; the backup file itself is still written before the write.
+            monitor.clockBackupSync=directory -> {};
+        }
     }
     @After public void cleanup() {
         if(monitor!=null) monitor.disconnect();
@@ -104,7 +117,8 @@ public class FixtureReplayTest {
             List<Fixture.Reading> decoded=new ArrayList<>();
             for(Reading r:store.readings(0))
                 decoded.add(new Fixture.Reading(r.user,(int)r.systolic,(int)r.diastolic,r.pulse.intValue(),r.time==null?null:LocalDateTime.parse(r.time)));
-            outcome=cursor.finished() && !monitor.historyRunning?cursor.finish(decoded)
+            String clock=fixture.flow.equals("sync-clock")?clockOutcome(monitor.clockSyncOutcome):null;
+            outcome=cursor.finished() && !monitor.historyRunning && !monitor.clockSyncRunning?cursor.finish(decoded,clock)
                 :Outcome.rejected(cursor.position(),"MonitorService stopped: "+monitor.status+" — "+monitor.detail+" · "+cursor.stalled().detail);
         }
         writeReport();
@@ -119,6 +133,19 @@ public class FixtureReplayTest {
         }
         if(name.endsWith("/connect-bad-index-checksum")) assertEquals(MonitorService.ImportMode.INDEX_FALLBACK,monitor.importMode);
         if(fixture.flow.equals("read-all")) assertEquals(MonitorService.ImportMode.FULL_SWEEP,monitor.importMode);
+        if(fixture.flow.equals("sync-clock")) {
+            assertTrue("the clock-sync session ends with END",monitor.sessionFinished);
+            // A backup precedes every write; nothing is saved when nothing is written.
+            assertEquals(!"skipped".equals(fixture.expectClock),monitor.clockSyncBackupFile()!=null);
+        }
+    }
+    private static String clockOutcome(DeviceReport.WriteOutcome outcome) {
+        switch(outcome) {
+            case ACKNOWLEDGED: return "acknowledged";
+            case SKIPPED_WITHIN_THRESHOLD: return "skipped";
+            case REJECTED: return "rejected";
+            default: return outcome.name().toLowerCase(Locale.ROOT);
+        }
     }
 
     /** Runs scripted peer events until the service has nothing left to do. */
@@ -129,9 +156,14 @@ public class FixtureReplayTest {
                 // A user-started import (or Read all) after a manual Connect reaches "Vendor history available".
                 if(!historyRequested && !fixture.flow.equals("pair") && !monitor.historyRunning && cursor.position()>0) {
                     historyRequested=true;
-                    if(fixture.flow.equals("read-all")) monitor.readAllHistory(); else monitor.syncHistory(-1);
+                    if(fixture.flow.equals("sync-clock")) monitor.beginClockSync();
+                    else if(fixture.flow.equals("read-all")) monitor.readAllHistory(); else monitor.syncHistory(-1);
                     continue;
                 }
+                // Sync clock: confirm the preview with the phone time (the pinned fixture time) once it is shown.
+                if(monitor.clockSyncPending && !clockConfirmed) { clockConfirmed=true; monitor.confirmClockSync(null); continue; }
+                // The settings backup is saved off the main thread before the write is authorized.
+                if(clockConfirmed && !backupFlushed && monitor.clockSyncRunning) { backupFlushed=true; flushIo(); continue; }
                 return;
             }
             peer.removeFirst().run();
@@ -202,6 +234,11 @@ public class FixtureReplayTest {
         BluetoothGattCharacteristic c=new BluetoothGattCharacteristic(id,properties,BluetoothGattCharacteristic.PERMISSION_WRITE|BluetoothGattCharacteristic.PERMISSION_READ);
         if(cccd) c.addDescriptor(new BluetoothGattDescriptor(Uuids.CCCD,BluetoothGattDescriptor.PERMISSION_WRITE));
         service.addCharacteristic(c); characteristics.put(id,c); return c;
+    }
+    private void flushIo() {
+        try { ((ExecutorService)get("dumpIo")).submit(() -> {}).get(10,TimeUnit.SECONDS); }
+        catch(Exception failure) { throw new AssertionError(failure); }
+        idle();
     }
     private static UUID sig(int id) { return Uuids.sig(id); }
     private static void idle() { shadowOf(Looper.getMainLooper()).idle(); }

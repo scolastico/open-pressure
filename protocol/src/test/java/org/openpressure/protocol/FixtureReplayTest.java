@@ -13,6 +13,7 @@ public final class FixtureReplayTest {
         ownFixturesMatchAtProtocolLevel();
         stalledClientIsRejectedNotHung();
         readAllSweepsTheSelectedUsers();
+        clockSyncOutcomeIsCompared();
         return checks;
     }
     private static void ownFixturesMatchAtProtocolLevel() {
@@ -56,6 +57,14 @@ public final class FixtureReplayTest {
         VendorMemoryModel model=VendorMemoryModel.identify("HEM-7155T-EBK");
         Outcome both=ProtocolReplay.run(Fixture.parse(name,readAll(name,model,model.historyRanges(),2)));
         check(both.kind!=Outcome.Kind.MATCHES,"read-all users=2 still read user 1: "+both.report());
+    }
+    private static void clockSyncOutcomeIsCompared() {
+        String text=new String(readResource("hem-7155t/sync-clock"),java.nio.charset.StandardCharsets.UTF_8);
+        Outcome wrong=ProtocolReplay.run(Fixture.parse("hem-7155t/sync-clock",text.replace("expect clock acknowledged","expect clock skipped")));
+        check(wrong.kind==Outcome.Kind.DIVERGED && wrong.detail.contains("acknowledged"),"clock outcome compared: "+wrong.report());
+        // A written clock other than the fixture time + 1 s is a divergence at the write step.
+        Outcome late=ProtocolReplay.run(Fixture.parse("hem-7155t/sync-clock",text.replace("time 2026-01-02T03:04:05","time 2026-01-02T03:04:06")));
+        check(late.kind==Outcome.Kind.DIVERGED && late.detail.equals("frame differs"),"written clock is the fixture time + 1 s: "+late.report());
     }
     /** The connect fixture with its read steps replaced by full reads of {@code banks} as a read-all flow. */
     private static String readAll(String name,VendorMemoryModel model,java.util.List<VendorMemoryModel.Range> banks,int users) {

@@ -58,7 +58,7 @@ Each result is one of:
 - `matches`: the client followed every step and decoded exactly the expected readings.
 - `diverged at step N`: the client wrote something else; the report shows the expected and actual frame with decoded fields.
 - `rejected`: the client refused or stopped (an error callback, an exception, a disconnect, or no further write). Omron's state and error code are included; its raw log is in the `.log` file next to the transcript.
-- `unsupported`: Omron's catalog has no model for the advertised IDs.
+- `unsupported`: Omron's catalog has no model for the advertised IDs, or Omron has no matching operation (`read-all` and `sync-clock` flows).
 
 Transcripts are kept under `omron-sandbox/build/omron-sandbox/transcripts/<Omron version>/`. Keep the `build` folder when you update the Omron package so `diff` can show what changed in the protocol.
 
@@ -74,9 +74,10 @@ One directive per line; `#` starts a comment; hex may contain spaces.
 | --- | --- |
 | `name <group>/<flow>` | Must match the file path; list the name in the `index` file |
 | `flow connect` / `flow pair` / `flow read-all` | Reconnect with the saved key, register the key first, or reconnect and read every slot of the selected users' banks followed by any unconfirmed bank (HEM-7156T bank 2), without the index; Omron has no read-all operation, so its runner reports `unsupported` |
+| `flow sync-clock` | Reconnect with the saved key and run the explicit Sync clock session: START, the settings image read, the clock-block write targeting `time` (written as `time` + 1 s) in chunks on the `tx` channels with its acknowledgment on `rx` (nothing is written when the monitor's clock is within 60 s), then END. Both OpenPressure replays enable the developer override, because every clock-block entry is untested. Omron has no standalone clock sync, so its runner reports `unsupported` |
 | `advertise name=… services=<uuid>,… [msd=<hex>]` | Advertisement; drives Omron's model choice |
 | `dis model=… firmware=… software=… systemid=<hex>` | Device Information; `model` drives OpenPressure's model choice |
-| `time <local date-time> zone=<id>` | Pinned clock for clock writes |
+| `time <local date-time> zone=<id>` | Pinned clock for clock writes, including Omron's post-transfer clock and the `sync-clock` target |
 | `key <16 bytes hex>` | Pinned application key (pairing stages it instead of generating one) |
 | `register user=<1\|2>` | User a `pair` flow registers on Omron's side (default 1); OpenPressure's legacy key is not per user |
 | `import users=<1\|2\|both>` | Users OpenPressure imports (default both); Connect and Pair read only their populated slots and a `read-all` flow only their banks. A selection without a bank the model offers falls back to user 1; shared-bank models still read every bank. The protocol-level replay does not apply the HEM-7377T1 shared-bank user filter, which no fixture covers |
@@ -88,8 +89,9 @@ One directive per line; `#` starts a comment; hex may contain spaces.
 | `reads <address> <length> chunk=<n>` | Expands to WLP read requests and replies from `memory` |
 | `expect reading user=… sys=… dia=… pulse=… time=…` | A reading every client must decode |
 | `expect ours rejected` / `expect omron rejected` | That client is expected to refuse the device |
+| `expect clock acknowledged\|skipped\|rejected` | Outcome both OpenPressure replays must reach in a `sync-clock` flow: the write acknowledged, nothing written within the threshold, or the acknowledgment refused (END still follows); required exactly once in that flow and not allowed elsewhere |
 
-Prefix a step or `expect reading` with `[omron-only: reason]` or `[ours-only: reason]` when it applies to only one client. The reason is mandatory and should name its evidence. Unannotated readings must be decoded by every client; annotated readings are required only for the named client and remain visible as open findings. Rejection expectations cannot be annotated.
+Prefix a step or `expect reading` with `[omron-only: reason]` or `[ours-only: reason]` when it applies to only one client. The reason is mandatory and should name its evidence. Unannotated readings must be decoded by every client; annotated readings are required only for the named client and remain visible as open findings. Rejection and clock expectations cannot be annotated.
 
 ## HEM-7156T findings
 
@@ -100,7 +102,7 @@ Open findings, all from synthetic sandbox runs:
 - Omron's catalog calls its `HEM-7156T_AP` entry "HEM-7156T" (model ID `0x057A`) with one user. Its configuration declares one 60-record area at `0x98`. OpenPressure's pinned omblepy map also has a second bank at `0x458`, which Omron's code never reads. OpenPressure now reads it only during Read all, after the selected bank; Connect and Pair read user 1's populated slots only.
 - Omron confirms encryption with `02` on every connection and does not send `01` after registering the key.
 - On Connect, Omron reads the index block at `0x10` (44 bytes) and setting-information block 3 at `0x3C`, then only the records its index marks as unsent. It rejects a record whose sequence number at offset 10 does not match the index. OpenPressure reads the 68-byte settings/index image at `0x10` in 56-byte blocks and then the slots the index lists as populated (see [OpenPressure's reads](#openpressures-reads)). With one stored, unsent record the record read is the same frame in both clients.
-- After the transfer Omron writes the monitor's memory (see [post-transfer settings writes](#post-transfer-settings-writes)); OpenPressure writes Current Time to a dedicated characteristic instead and never writes these monitors' memory.
+- After the transfer Omron writes the monitor's memory (see [post-transfer settings writes](#post-transfer-settings-writes)); OpenPressure writes nothing after its reads; it changes only the clock block, and only in a separate, explicit Sync clock session (see [clock sync fixtures](#clock-sync-fixtures)).
 - Both clients end the session with `08 0f 00 00 00 00 00 07`. Earlier sandbox versions cancelled the session instead of letting Omron finish it and therefore recorded Omron's error END `08 0f ff ff ff 00 00 f8`; the app does not send it in a normal session.
 
 ## Other legacy vendor-memory models
@@ -117,7 +119,7 @@ Each of these Connect fixtures reconnects with a saved key, reads one synthetic 
 | `hem-7600t/connect-read-history` | HEM-7600T (`0x001F`, config model_id HEM-7270C) | 1 | 14 bytes, byte pairs swapped |
 | `hem-6232t/connect-read-history` | HEM-6232T-Z (`0x0144`) | 2 | 14 bytes, byte pairs swapped |
 
-Each model in the table also has a `pair` fixture; `hem-7156t-aap/pair` covers the regional identity that OpenPressure rejects. With Omron Connect 2026.09.03, Pair registers one user, reads the index and settings, and returns no historical readings with flags `0x1210`. It then writes the registered user's cleared unsent counter, birthday block and clock, sends normal END and disconnects. The two-user models HEM-7155T, HEM-7342T, HEM-7361T and HEM-6232T register user 2. Their extra `readSettings(null)` call reuses the index/settings image and produces no additional link traffic in these fixtures. OpenPressure's accepted legacy Pair flows instead import history on the same connection, with the same index and populated-slot reads as Connect (a full read on HEM-7600T), and write Current Time; they never write these monitors' memory. These are synthetic observations of Omron's code, not physical monitor behavior.
+Each model in the table also has a `pair` fixture; `hem-7156t-aap/pair` covers the regional identity that OpenPressure rejects. With Omron Connect 2026.09.03, Pair registers one user, reads the index and settings, and returns no historical readings with flags `0x1210`. It then writes the registered user's cleared unsent counter, birthday block and clock, sends normal END and disconnects. The two-user models HEM-7155T, HEM-7342T, HEM-7361T and HEM-6232T register user 2. Their extra `readSettings(null)` call reuses the index/settings image and produces no additional link traffic in these fixtures. OpenPressure's accepted legacy Pair flows instead import history on the same connection, with the same index and populated-slot reads as Connect (a full read on HEM-7600T); they write nothing to these monitors' memory. These are synthetic observations of Omron's code, not physical monitor behavior.
 
 They confirm OpenPressure's record addresses, record sizes and the decoding of pressure, pulse and date and time for these maps. They also show the checks Omron's code applies; OpenPressure now applies most of them:
 
@@ -140,12 +142,12 @@ These are synthetic observations of Omron's code; they do not show how a physica
 
 After the saved-key unlock and START, OpenPressure reads legacy vendor memory as follows; each difference from Omron is an annotated step and is printed as an open finding:
 
-- **Index-supported models** (HEM-7150T, HEM-7155T, HEM-7156T, HEM-7342T, HEM-7361T, HEM-7530T, HEM-6232T): `reads <settings start> 68 chunk=56`, at `0x10` on 16-byte maps and at `0x260` on HEM-7530T and HEM-6232T. Omron reads 44 bytes and then setting-information block 3 (and block 4 on HEM-7530T) separately, so this step stays OpenPressure-only. OpenPressure then reads the populated slots of each selected user (every slot of a bank whose full flag is set) in record blocks (48 bytes on 16-byte maps, 56 on 14-byte maps), writes Current Time and sends END.
-- **HEM-7600T** (no sequence numbers): a full read of its bank in 56-byte blocks, then Current Time and END.
+- **Index-supported models** (HEM-7150T, HEM-7155T, HEM-7156T, HEM-7342T, HEM-7361T, HEM-7530T, HEM-6232T): `reads <settings start> 68 chunk=56`, at `0x10` on 16-byte maps and at `0x260` on HEM-7530T and HEM-6232T. Omron reads 44 bytes and then setting-information block 3 (and block 4 on HEM-7530T) separately, so this step stays OpenPressure-only. OpenPressure then reads the populated slots of each selected user (every slot of a bank whose full flag is set) in record blocks (48 bytes on 16-byte maps, 56 on 14-byte maps) and sends END.
+- **HEM-7600T** (no sequence numbers): a full read of its bank in 56-byte blocks, then END.
 - **Untrusted index** (a failed block-3 checksum, a next write position beyond the bank capacity, or an index read that fails): a full sweep of the selected users' banks in record blocks.
 - **Read all**: a full sweep of the selected users' banks followed by any unconfirmed bank, without the index. Omron has no matching operation.
 
-Open findings that closed: OpenPressure now uses the index, validates record checksums (Omron's models), the HEM-7530T block-3 checksum and the HEM-7600T identity checksum. Open findings that remain: Omron reads only unsent records and checks their sequence numbers, while OpenPressure reads every populated slot; Omron writes the monitor's memory after every transfer, while OpenPressure writes none and uses Current Time; Omron confirms encryption with `02`, and after registration OpenPressure sends `01` and Omron does not.
+Open findings that closed: OpenPressure now uses the index, validates record checksums (Omron's models), the HEM-7530T block-3 checksum and the HEM-7600T identity checksum. Open findings that remain: Omron reads only unsent records and checks their sequence numbers, while OpenPressure reads every populated slot; Omron writes the monitor's memory after every transfer, while OpenPressure writes nothing during an import and sets the clock only in an explicit Sync clock session; Omron confirms encryption with `02`, and after registration OpenPressure sends `01` and Omron does not.
 
 ### Read all and negative fixtures
 
@@ -153,10 +155,24 @@ Open findings that closed: OpenPressure now uses the index, validates record che
 | --- | --- | --- |
 | `hem-7155t/read-all` | Reads every slot of user 2's bank only (`import users=2`) and decodes user 2's reading | `unsupported`: no read-all operation |
 | `hem-6232t/read-all` | Reads every slot of both banks and decodes both readings | `unsupported`: no read-all operation |
-| `hem-7155t/connect-bad-record-checksum` | Rejects user 2's record (one rejected slot, "History transfer incomplete"), keeps user 1's reading, writes Current Time and ends normally | Delivers user 1's reading, then reports `ParseMeasurement(postOGSCHandler2)Error` for user 2; the sandbox stops at that error callback, before Omron's settings writes and END (`rejected`) |
+| `hem-7155t/connect-bad-record-checksum` | Rejects user 2's record (one rejected slot, "History transfer incomplete"), keeps user 1's reading and ends normally | Delivers user 1's reading, then reports `ParseMeasurement(postOGSCHandler2)Error` for user 2; the sandbox stops at that error callback, before Omron's settings writes and END (`rejected`) |
 | `hem-7530t/connect-bad-index-checksum` | Does not trust the index, sweeps the whole bank and decodes the reading | Reports `CheckSumError OGSCMemoryMapAnalyzer.checkSettingReadIndex` after reading block 3, sends its error END `08 0f ff ff ff 00 00 f8` and disconnects without reading records (`rejected`) |
 
 The bad-record fixture keeps an Omron-only user-2 reading expectation solely so that the sandbox requests user 2 from Omron; no client is expected to decode it. These describe Omron's code and OpenPressure against synthetic memory, not a physical monitor's corruption or recovery.
+
+### Clock sync fixtures
+
+Omron Connect has no standalone clock sync: it writes the clock as part of its settings writes after every transfer (see [post-transfer settings writes](#post-transfer-settings-writes)). OpenPressure instead writes only the clock block, in its own explicit Sync clock session. The `sync-clock` fixtures therefore describe only OpenPressure; their write and acknowledgment steps are OpenPressure-only, and Omron's runner reports `unsupported`.
+
+| Fixture | OpenPressure | Omron Connect 2026.09.03 |
+| --- | --- | --- |
+| `hem-7155t/sync-clock` | Reads the settings image at `0x10`, finds block 3 erased, writes it at `0x80` (fixture time + 1 s, checksum `22`) in a 16-byte and an 8-byte chunk, accepts the synthetic full echo and sends END (`acknowledged`) | `unsupported`: no standalone clock sync |
+| `hem-7155t/sync-clock-within-threshold` | Block 3 already holds the fixture time; writes nothing and sends END (`skipped`) | `unsupported` |
+| `hem-7155t/sync-clock-rejected` | Writes block 3; the echo carries status `01`, so the write counts as rejected, is not retried, and END still follows (`rejected`) | `unsupported` |
+| `hem-7530t/sync-clock` | Reads the image at `0x260`, writes block 3 at `0x2D0` with byte pairs swapped (`acknowledged`) | `unsupported` |
+| `hem-7600t/sync-clock` | Reads the 38-byte image at `0x260`, writes the 10-byte block 3 at `0x29A` with byte pairs swapped (`acknowledged`) | `unsupported` |
+
+The acknowledgments are synthetic full echoes; no physical monitor's reply to a clock-block write is established, and every clock-block entry remains untested. Both OpenPressure replays enable the developer override for these fixtures.
 
 ## Post-transfer settings writes
 

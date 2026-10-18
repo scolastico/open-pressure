@@ -39,7 +39,6 @@ notify rx 18 80 00 00 00 10 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 5b 0f 00 d
 
 # Omron Connect 2026.09.03 post-transfer settings frames, recorded against this synthetic fixture.
 # Replies are synthetic full echoes; no physical monitor's acknowledgment is established.
-[ours-only: OpenPressure clock sync via Current Time; Omron writes setting block 3 instead (docs/omron-sandbox.md)] write clock ea 07 01 02 03 04 05 05 00 01
 [omron-only: Omron 2026.09.03 post-transfer index prefix at 0x286, with the last-read user's cleared unsent counter and birthday block 1; docs/omron-sandbox.md] write tx 1601c002860e 00010000800000000100ff01ff01 00dd
 [omron-only: synthetic full echo acknowledgment; the physical monitor reply is unconfirmed] notify rx 1681c002860e 00010000800000000100ff01ff01 005d
 [omron-only: Omron 2026.09.03 settings at 0x29a, block 3 clock (fixture time + 1 s); docs/omron-sandbox.md] write tx 1201c0029a0a 0000011a03020604002a 0073

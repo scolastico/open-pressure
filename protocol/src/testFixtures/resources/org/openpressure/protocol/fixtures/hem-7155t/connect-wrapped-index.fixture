@@ -107,7 +107,6 @@ notify rx 18 80 00 00 00 10 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f 00 8
 
 reads 0x458 16 chunk=16
 
-[ours-only: OpenPressure clock sync via Current Time; Omron writes setting block 3 instead (docs/omron-sandbox.md)] write clock ea 07 01 02 03 04 05 05 00 01
 [omron-only: Omron 2026.09.03 post-transfer index prefix at 0x54 for this index: user 1's full position word and unsent count kept, the last-read user 2's unsent counter cleared; recorded from the sandbox exploration transcript] write tx 1801c0005410 054001003c0000809600000001000000 00f2
 [omron-only: synthetic full echo acknowledgment; the physical monitor reply is unconfirmed] notify rx 1881c0005410 054001003c0000809600000001000000 0072
 [omron-only: Omron 2026.09.03 settings at 0x72, block 3 clock (fixture time + 1 s) merged with birthday block 2; docs/omron-sandbox.md] write tx 2601c000721e 000101fffffffffffffffffff9ffffffffffffffffff1a010203040622ff 00b7

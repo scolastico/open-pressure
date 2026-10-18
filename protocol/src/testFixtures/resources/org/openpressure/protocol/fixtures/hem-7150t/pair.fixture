@@ -41,7 +41,6 @@ notify rx 18 80 00 00 00 10 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f 00 8
 
 [ours-only: index-driven populated-slot read: OpenPressure imports the populated slots during Pair; Omron pairing flags 0x1210 return settings without historical readings (observed in the sandbox)] reads 0x98 16 chunk=48
 
-[ours-only: OpenPressure clock sync via Current Time; Omron writes setting block 3 instead (docs/omron-sandbox.md)] write clock ea 07 01 02 03 04 05 05 00 01
 
 # Omron Connect 2026.09.03 post-pairing settings frames from this synthetic fixture.
 [omron-only: Omron Connect 2026.09.03 Pair user 1, index prefix with the registered user's cleared unsent counter merged with birthday block 1 at 0x54; docs/omron-sandbox.md] write tx 2601c000541e 01000000008000000100000000000000000101fffffffffffffffffff9ff 00d4
