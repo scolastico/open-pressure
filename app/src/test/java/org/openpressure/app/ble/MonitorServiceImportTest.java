@@ -316,15 +316,18 @@ public class MonitorServiceImportTest {
         assertEquals("Connect never sends key programming",2,writes.stream().filter(write -> write.characteristic==unlock).count());
     }
     @Test public void paddedNegativeUnlockDuringPairNeverTriesAnotherKey() throws Exception {
+        byte[] prior=new byte[16],pending=new byte[16]; Arrays.fill(prior,(byte)5); Arrays.fill(pending,(byte)7);
+        VendorPairingKeys keys=vendorKeys(); keys.stage(prior); keys.confirm(prior); keys.stage(pending);
         set("pairingRequested",true);
-        set("vendorKeys",vendorKeys());
-        set("vendorUnlock",LegacyUnlock.pair(new byte[16])); call("sendLegacyUnlock");
+        set("vendorKeys",keys); set("vendorKeyCandidates",keys.candidates());
+        set("vendorUnlock",LegacyUnlock.pair(pending)); call("sendLegacyUnlock");
         for(byte[] reply:new byte[][]{hex("8200"),hex("8000"),hex("810100")}) {
             assertSame(unlock,last().characteristic); writeDone(last(),0);
             callback.onCharacteristicChanged(gatt,unlock,reply); idle();
         }
         assertFalse(monitor.historyRunning);
         assertEquals("a rejected Pair unlock sends no further key frame",3,writes.stream().filter(write -> write.characteristic==unlock).count());
+        assertTrue("Pair never falls back to another saved key",writes.stream().noneMatch(write -> Arrays.equals(unlockFrame(prior),write.bytes)));
     }
     private static byte[] unlockFrame(byte[] key) {
         byte[] frame=new byte[17]; frame[0]=1; System.arraycopy(key,0,frame,1,16); return frame;

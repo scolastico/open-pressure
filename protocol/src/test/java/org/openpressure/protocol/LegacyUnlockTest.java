@@ -18,7 +18,7 @@ public final class LegacyUnlockTest {
         check(pair.allows(hex("0200000000000000000000000000000000")),"issued enter-pairing command has permit");
         check(!pair.allows(null) && !pair.allows(new byte[0]),"missing frame has no permit");
         rejects(pair::key);
-        check(pair.accept(hex("8200")) && !pair.complete(),"entering pairing mode does not establish a key");
+        check(pair.accept(hex("820000ff")) && !pair.complete(),"padded pairing-mode ACK does not establish a key");
         check(!pair.allows(hex("0200000000000000000000000000000000")),"pairing-mode ACK revokes previous permit");
         check(!pair.allows(hex("0000112233445566778899aabbccddeeff")),"programming needs command issuance");
         same("0000112233445566778899aabbccddeeff",pair.command());
