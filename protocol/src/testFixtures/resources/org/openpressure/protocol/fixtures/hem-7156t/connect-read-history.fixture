@@ -15,7 +15,8 @@ alias rx 49123040-aee8-11e1-a74d-0002a5d5c51b,4d0bf320-aee8-11e1-a0d9-0002a5d5c5
 alias clock 00002a2b-0000-1000-8000-00805f9b34fb
 
 # One synthetic 130/78 mmHg, pulse 67, 2025-07-09 06:14:38 record in the first slot of bank 1, sequence
-# number 1 at offset 10 (Omron rejects a record whose sequence number does not match its index).
+# number 1 at offset 10 (Omron rejects a record whose sequence number does not match its index). Byte 14 is
+# Omron's record checksum, the 8-bit sum of bytes 0-13, which is 00 for this record.
 # Every other slot is erased (ff), so both clients must decode exactly one reading.
 memory fill=ff
 memory 0x98 694e4319261da603 0000 0100 00000000
