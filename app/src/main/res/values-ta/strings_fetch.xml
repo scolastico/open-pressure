@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fetch_looking">உங்கள் மானிட்டர்களைத் தேடுகிறது…</string>
+    <string name="fetch_importing">%1$s இலிருந்து இறக்குமதி செய்கிறது…</string>
+    <string name="fetch_none_nearby">அருகில் மானிட்டர் இல்லை. அளவீட்டுக்குப் பின் சிறிது நேரம் அல்லது Bluetooth பயன்முறையில் மட்டுமே மானிட்டர்கள் சிக்னல் அனுப்பும்.</string>
+    <string name="fetch_done">சமீபத்திய அளவீடுகள் பெறப்பட்டன. மானிட்டர்கள்: %1$d.</string>
+    <string name="fetch_incomplete">சில இறக்குமதிகள் முடியவில்லை. பெறப்பட்ட அளவீடுகள் சேமிக்கப்பட்டுள்ளன; மீண்டும் முயல கீழே இழுக்கவும்.</string>
+    <string name="fetch_busy">மானிட்டரின் தற்போதைய செயலை முடித்து, பின் மீண்டும் கீழே இழுக்கவும்.</string>
+    <string name="fetch_no_monitor">முதலில் ஆதரிக்கப்படும் மானிட்டரை இணைக்கவும் அல்லது இணைப்பை ஏற்படுத்தவும்.</string>
+    <string name="fetch_failed">மானிட்டர்களைத் தேட முடியவில்லை. Bluetooth-ஐச் சரிபார்த்து, பின் மீண்டும் கீழே இழுக்கவும்.</string>
+</resources>

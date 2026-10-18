@@ -156,10 +156,40 @@ public final class MonitorService extends Service {
     private boolean automaticConnection,foregroundActive,destroying;
     private long automaticRetryAt;
     private final Runnable automaticRefresh=() -> { if(!destroying) refreshAutomaticImports(); };
+    /** How long Fetch now keeps looking for advertising monitors. */
+    public static final long FETCH_WINDOW_MS=15000;
+    /** Fetch now progress and its last result, shown on the Overview automatic-import card. */
+    public enum FetchState {
+        NONE(""), LOOKING("Looking for your monitors…"), IMPORTING("Importing from %s…"),
+        NONE_NEARBY("No monitor is nearby. Monitors advertise for a short time after a measurement or in Bluetooth mode."),
+        DONE("Fetched the newest readings from %s."), INCOMPLETE("Some imports did not finish. Readings already received are saved; pull down to try again."),
+        BUSY("Finish the current monitor action, then pull down again."), NO_MONITOR("Pair or connect a supported monitor first."),
+        BLUETOOTH_OFF("Turn on Bluetooth to fetch readings."), PERMISSION("Open the app and grant Bluetooth access to fetch readings."),
+        FAILED("Could not look for monitors. Check Bluetooth, then pull down again.");
+        final String text;
+        FetchState(String text) { this.text=text; }
+    }
+    /** A user-started fetch is looking for or importing from saved monitors; the Overview spinner follows it. */
+    public boolean fetchRunning;
+    public FetchState fetchState=FetchState.NONE;
+    /** Display name of the monitor being imported, and the imports of the current or last fetch. */
+    public String fetchName="";
+    public int fetchImported,fetchIncomplete;
+    private static final class FetchCandidate {
+        final String address; final byte[] manufacturer;
+        FetchCandidate(String address,byte[] manufacturer) { this.address=address; this.manufacturer=manufacturer; }
+    }
+    private final ArrayDeque<FetchCandidate> fetchQueue=new ArrayDeque<>();
+    private final Set<String> fetchSeen=new HashSet<>();
+    private final Map<String,String[]> fetchDevices=new LinkedHashMap<>();
+    private ScanCallback fetchScan;
+    private long fetchSerial;
+    private boolean fetchWindowOpen,fetchImporting,fetchImportCompleted;
+    private final Runnable fetchWindow=() -> { if(fetchRunning) { fetchWindowOpen=false; stopFetchScan(); advanceFetch(); } };
 
     private final Runnable scanTimeout=() -> {
         boolean awaitingAdvertisement=pendingConnection!=null;
-        stopScan();
+        stopManualScan();
         if(awaitingAdvertisement) state("X7 advertisement not received","Wake the cuff in pairing or transfer mode and scan again so the app can determine its security protocol.");
     };
     @Override public void onCreate() {
@@ -180,7 +210,7 @@ public final class MonitorService extends Service {
         if(intent!=null && "disconnect".equals(intent.getAction())) disconnect();
         else if(intent!=null && "stop-automatic".equals(intent.getAction())) {
             AutoImportSettings.setMode(this,AutoImportSettings.OFF);
-            if(automaticConnection) disconnect();
+            if(automaticConnection && !fetchImporting) endConnection();
             refreshAutomaticImports();
         }
         return START_NOT_STICKY;
@@ -247,12 +277,14 @@ public final class MonitorService extends Service {
             getSharedPreferences("automatic-checkpoints",MODE_PRIVATE).edit().remove(removed).apply();
         }
         automaticDevices.clear(); automaticDevices.putAll(saved);
+        // Fetch now owns scanning and connections until it ends; it then calls this again.
+        if(fetchRunning) { stopAutomaticScan(); return; }
         boolean visible=!visibleOwners.isEmpty();
         boolean notificationAllowed=mode==AutoImportSettings.NOTIFICATION && (Build.VERSION.SDK_INT<29 || Build.VERSION.SDK_INT>=31);
         boolean watch=mode!=AutoImportSettings.OFF && (visible || notificationAllowed && foregroundActive || mode==AutoImportSettings.COMPANION && !companionPresent.isEmpty());
         if(mode==AutoImportSettings.OFF) {
             stopAutomaticScan(); automaticStatus("Automatic imports are off.");
-            if(automaticConnection) disconnect(); stopIdleService(); return;
+            if(automaticConnection) endConnection(); stopIdleService(); return;
         }
         if(saved.isEmpty()) { stopAutomaticScan(); automaticStatus("Pair or connect a supported monitor first."); stopIdleService(); return; }
         if(!automaticPermissions()) { stopAutomaticScan(); automaticStatus("Open the app and grant Bluetooth access to enable automatic imports."); stopIdleService(); return; }
@@ -311,7 +343,7 @@ public final class MonitorService extends Service {
         } catch(RuntimeException ignored) {}
     }
     private void acceptAutomaticAdvertisement(ScanCallback source,ScanResult result) {
-        if(source!=automaticScan || !autoWatching || gatt!=null || scanning || !automaticPermissions()) return;
+        if(source!=automaticScan || !autoWatching || fetchRunning || gatt!=null || scanning || !automaticPermissions()) return;
         int mode=AutoImportSettings.getMode(this);
         if(mode==AutoImportSettings.OFF || mode==AutoImportSettings.VISIBLE && visibleOwners.isEmpty()) return;
         try {
@@ -332,7 +364,7 @@ public final class MonitorService extends Service {
         user=Integer.parseInt(saved[3]); int users=store.importUsers(target); importUsers=users>=1 && users<=3?users:3;
         connect(target,saved[1],false,false,manufacturer,attempt);
         } catch(RuntimeException failure) {
-            if(automaticAttempt!=null) disconnect();
+            if(automaticAttempt!=null) endConnection();
             else automaticTracker.cancel(SystemClock.elapsedRealtime());
             automaticStatus("Automatic import could not start. Check Bluetooth access and reconnect manually if needed.");
         }
@@ -341,14 +373,140 @@ public final class MonitorService extends Service {
         try { return new VendorPairingKeys(keys,target,vendor.id).hasCandidate(); }
         catch(Exception ex) { return false; }
     }
+    /**
+     * Fetch now: an explicit, user-started import from every saved eligible monitor that is advertising.
+     * It runs in every automatic-import mode but never changes the mode and never gains pairing privileges:
+     * each monitor is imported, one at a time, through the read-only automatic path with a forced attempt.
+     */
+    public void fetchNow() {
+        if(destroying) return;
+        if(fetchRunning) { changed(); return; }
+        if(!automaticPermissions()) { fetchState(FetchState.PERMISSION); return; }
+        if(!adapter.isEnabled()) { fetchState(FetchState.BLUETOOTH_OFF); return; }
+        Map<String,String[]> eligible=new LinkedHashMap<>();
+        for(String[] device:store.devices()) if(AutoImportTracker.supportsModel(device[2])) eligible.put(device[0],device);
+        if(eligible.isEmpty()) { fetchState(FetchState.NO_MONITOR); return; }
+        if(gatt!=null || scanning || x7Bonding!=null || pendingConnection!=null || dumpSaving || clockSyncRunning || automaticConnection || automaticTracker.busy()) {
+            fetchState(FetchState.BUSY); return;
+        }
+        fetchSerial++; fetchRunning=true; fetchWindowOpen=true; fetchImporting=false; fetchImportCompleted=false;
+        fetchImported=0; fetchIncomplete=0; fetchName="";
+        fetchQueue.clear(); fetchSeen.clear(); fetchDevices.clear(); fetchDevices.putAll(eligible);
+        stopAutomaticScan();
+        handler.removeCallbacks(fetchWindow); handler.postDelayed(fetchWindow,FETCH_WINDOW_MS);
+        advanceFetch();
+    }
+    private void fetchState(FetchState value) {
+        fetchState=value;
+        if(value!=FetchState.NONE) automaticStatus=value==FetchState.IMPORTING?String.format(value.text,fetchName)
+                :value==FetchState.DONE?String.format(value.text,fetchImported==1?"1 monitor":fetchImported+" monitors"):value.text;
+        changed();
+    }
+    /** Ends a running fetch for a user request, a manual operation or service shutdown. */
+    private void cancelFetch() { if(fetchRunning) endFetch(FetchState.NONE); }
+    private void endFetch(FetchState result) {
+        if(!fetchRunning) return;
+        fetchRunning=false; fetchWindowOpen=false; fetchImporting=false; fetchImportCompleted=false; fetchSerial++;
+        handler.removeCallbacks(fetchWindow); stopFetchScan();
+        fetchQueue.clear(); fetchSeen.clear(); fetchDevices.clear();
+        fetchState(result);
+        refreshAutomaticImports(); stopIdleService();
+    }
+    /** Starts the next queued import, or keeps looking while the window is open, or ends the fetch. */
+    private void advanceFetch() {
+        if(!fetchRunning || fetchImporting || destroying) return;
+        if(gatt!=null || x7Bonding!=null || scanning || pendingConnection!=null) return;
+        while(!fetchQueue.isEmpty()) {
+            FetchCandidate next=fetchQueue.poll();
+            String[] saved=fetchDevices.get(next.address);
+            if(saved==null) continue;
+            OmronAdvertisement advertisement;
+            try { advertisement=OmronAdvertisement.parseManufacturerPayload(next.manufacturer); } catch(IllegalArgumentException ignored) { continue; }
+            AutoImportTracker.Attempt attempt=automaticTracker.force(next.address,advertisement,SystemClock.elapsedRealtime());
+            if(attempt==null) continue;
+            stopFetchScan();
+            store.packet(next.address,"automatic-advertisement",next.manufacturer,"Fetch now · advertised record revision · "+attempt.revision);
+            user=Integer.parseInt(saved[3]); int users=store.importUsers(next.address); importUsers=users>=1 && users<=3?users:3;
+            String name=MonitorProduct.displayName(ReadingStore.displayModel(saved),saved[1]);
+            fetchName=name==null || name.isEmpty()?saved[1]:name;
+            fetchState(FetchState.IMPORTING);
+            long serial=fetchSerial;
+            try { connect(next.address,saved[1],false,false,next.manufacturer,attempt); }
+            catch(RuntimeException failure) { if(automaticAttempt!=null) endConnection(); else automaticTracker.cancel(SystemClock.elapsedRealtime()); }
+            if(!fetchRunning || serial!=fetchSerial) return;
+            if(gatt!=null) { fetchImporting=true; return; }
+            // The connection could not start; its attempt is already finished.
+            if(automaticTracker.busy()) automaticTracker.cancel(SystemClock.elapsedRealtime());
+            fetchIncomplete++;
+        }
+        if(!fetchWindowOpen) {
+            endFetch(fetchImported+fetchIncomplete==0?FetchState.NONE_NEARBY:fetchIncomplete>0?FetchState.INCOMPLETE:FetchState.DONE);
+            return;
+        }
+        if(fetchState!=FetchState.LOOKING) fetchState(FetchState.LOOKING);
+        startFetchScan();
+    }
+    private void startFetchScan() {
+        if(fetchScan!=null || adapter==null) return;
+        BluetoothLeScanner scanner=adapter.isEnabled()?adapter.getBluetoothLeScanner():null;
+        if(scanner==null) { endFetch(FetchState.FAILED); return; }
+        List<ScanFilter> filters=new ArrayList<>();
+        for(String target:fetchDevices.keySet()) filters.add(new ScanFilter.Builder().setDeviceAddress(target).build());
+        ScanCallback callback=new ScanCallback() {
+            @Override public void onScanResult(int type,ScanResult result) { handler.post(() -> acceptFetchAdvertisement(this,result)); }
+            @Override public void onBatchScanResults(List<ScanResult> results) { handler.post(() -> { for(ScanResult result:results) acceptFetchAdvertisement(this,result); }); }
+            @Override public void onScanFailed(int code) { handler.post(() -> {
+                if(this!=fetchScan) return;
+                stopFetchScan(); fetchWindowOpen=false; handler.removeCallbacks(fetchWindow);
+                if(fetchImporting) return;
+                if(fetchQueue.isEmpty() && fetchImported+fetchIncomplete==0) endFetch(FetchState.FAILED); else advanceFetch();
+            }); }
+        };
+        try {
+            fetchScan=callback;
+            scanner.startScan(filters,new ScanSettings.Builder().setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY).build(),callback);
+        } catch(RuntimeException failure) { stopFetchScan(); endFetch(FetchState.FAILED); }
+    }
+    private void stopFetchScan() {
+        ScanCallback previous=fetchScan; fetchScan=null;
+        if(previous!=null && adapter!=null) try {
+            BluetoothLeScanner scanner=adapter.getBluetoothLeScanner(); if(scanner!=null) scanner.stopScan(previous);
+        } catch(RuntimeException ignored) {}
+    }
+    /** Queues a saved monitor once per fetch when its advertisement qualifies exactly as an automatic import's does. */
+    private void acceptFetchAdvertisement(ScanCallback source,ScanResult result) {
+        if(source!=fetchScan || !fetchRunning || !automaticPermissions()) return;
+        try {
+            String target=result.getDevice().getAddress(); String[] saved=fetchDevices.get(target);
+            if(saved==null || fetchSeen.contains(target)) return;
+            ScanRecord record=result.getScanRecord(); if(record==null) return;
+            byte[] manufacturer=record.getManufacturerSpecificData(0x020e);
+            if(X7Security.fromManufacturerPayload(manufacturer)!=X7Security.Mode.PLAIN || result.getDevice().getBondState()!=BluetoothDevice.BOND_BONDED) return;
+            // Fetch now, like automatic Connect, may only unlock with a key saved by an explicit Pair.
+            VendorMemoryModel vendor=VendorMemoryModel.identify(saved[2]);
+            if(vendor!=null && vendor.legacyUnlock && !savedVendorKey(target,vendor)) return;
+            OmronAdvertisement advertisement;
+            try { advertisement=OmronAdvertisement.parseManufacturerPayload(manufacturer); } catch(IllegalArgumentException ignored) { return; }
+            if(!AutoImportTracker.importable(advertisement)) return;
+            fetchSeen.add(target); fetchQueue.add(new FetchCandidate(target,manufacturer.clone()));
+            // After the whole batch is queued; a cancelled or newer fetch changes the serial.
+            long serial=fetchSerial;
+            handler.post(() -> { if(fetchRunning && serial==fetchSerial) advanceFetch(); });
+        } catch(RuntimeException ignored) {}
+    }
     private final BroadcastReceiver adapterReceiver=new BroadcastReceiver() {
-        @Override public void onReceive(Context context,Intent intent) { refreshAutomaticImports(); }
+        @Override public void onReceive(Context context,Intent intent) {
+            if(fetchRunning && (adapter==null || !adapter.isEnabled())) endFetch(FetchState.BLUETOOTH_OFF);
+            refreshAutomaticImports();
+        }
     };
-    public void scan() {
+    /** A manual scan; it ends a running Fetch now. */
+    public void scan() { cancelFetch(); manualScan(); }
+    private void manualScan() {
         if(!available()) return;
-        if(automaticConnection) disconnect();
+        if(automaticConnection) endConnection();
         if(gatt!=null || x7Bonding!=null) { state("Disconnect before scanning","Finish the active monitor session first."); return; }
-        stopAutomaticScan(); stopScan(); discovered.clear(); foreground(); scanning=true;
+        stopAutomaticScan(); stopManualScan(); discovered.clear(); foreground(); scanning=true;
         loadSavedAddresses();
         state("Looking for monitors…","Put the monitor in Bluetooth pairing or transfer mode. Scan lasts 60 seconds.");
         BluetoothLeScanner scanner=adapter.getBluetoothLeScanner();
@@ -356,7 +514,9 @@ public final class MonitorService extends Service {
         try { scanner.startScan(null,new ScanSettings.Builder().setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY).build(),scanCallback); handler.postDelayed(scanTimeout,60000); }
         catch(RuntimeException ex) { scanning=false; fail("Could not scan: " + ex.getMessage()); }
     }
-    public void stopScan() {
+    /** Stops a manual scan; it also ends a running Fetch now. */
+    public void stopScan() { cancelFetch(); stopManualScan(); }
+    private void stopManualScan() {
         pendingConnection=null;
         handler.removeCallbacks(scanTimeout);
         handler.removeCallbacks(scanUpdate); scanUpdatePending=false;
@@ -371,7 +531,7 @@ public final class MonitorService extends Service {
     private final ScanCallback scanCallback=new ScanCallback() {
         @Override public void onScanResult(int type,ScanResult result) { handler.post(() -> addScan(result)); }
         @Override public void onBatchScanResults(List<ScanResult> results) { handler.post(() -> { for(ScanResult r:results) addScan(r); }); }
-        @Override public void onScanFailed(int code) { handler.post(() -> { stopScan(); fail("Bluetooth scan failed ("+code+")"); }); }
+        @Override public void onScanFailed(int code) { handler.post(() -> { stopManualScan(); fail("Bluetooth scan failed ("+code+")"); }); }
     };
     private void addScan(ScanResult result) {
         if(!scanning) return;
@@ -396,7 +556,7 @@ public final class MonitorService extends Service {
                 PendingConnection pending=pendingConnection;
                 discovered.put(d.address,d);
                 // Defer past this scan callback; cancellation clears the token before connecting.
-                handler.post(() -> { if(scanning && pendingConnection==pending) connect(pending.address,pending.name,pending.pair); });
+                handler.post(() -> { if(scanning && pendingConnection==pending) connect(pending.address,pending.name,pending.pair,false,null); });
                 return;
             }
         }
@@ -418,7 +578,9 @@ public final class MonitorService extends Service {
     private void loadSavedAddresses() { savedAddresses.clear(); for(String[] device:store.devices()) savedAddresses.add(device[0]); }
     /** Called after the user forgets a saved monitor; it may be listed again by a running scan. */
     public void monitorForgotten(String target) { savedAddresses.remove(target); }
+    /** A user-started Pair or Connect; it ends a running Fetch now. */
     public void connect(String target,String name,boolean pair) {
+        cancelFetch();
         connect(target,name,pair,false,null);
     }
     private void connect(String target,String name,boolean pair,boolean freshBond,byte[] manufacturer) {
@@ -426,7 +588,8 @@ public final class MonitorService extends Service {
     }
     private void connect(String target,String name,boolean pair,boolean freshBond,byte[] manufacturer,AutoImportTracker.Attempt attempt) {
         if(!available()) { if(attempt!=null) automaticTracker.finish(attempt,false,SystemClock.elapsedRealtime()); return; }
-        disconnect(); stopScan(); stopAutomaticScan();
+        endConnection(); stopManualScan(); stopAutomaticScan();
+        if(!fetchRunning) fetchState=FetchState.NONE;
         automaticConnection=attempt!=null; automaticAttempt=attempt;
         readingNotifications.begin(automaticConnection);
         receivedInTransfer=0; addedInTransfer=0; storedInTransfer=0; queuedInTransfer=0; pendingInTransfer=0;
@@ -450,7 +613,10 @@ public final class MonitorService extends Service {
         try { foreground(); state("Connecting…",name+" · Keep the monitor in transfer mode."); gatt=adapter.getRemoteDevice(target).connectGatt(this,false,callback,BluetoothDevice.TRANSPORT_LE); armPhase(30000,"Connection timed out"); }
         catch(RuntimeException ex) { fail("Connection failed: "+ex.getMessage()); }
     }
-    public void disconnect() {
+    /** The user's Disconnect or Cancel: it also ends a running Fetch now. */
+    public void disconnect() { cancelFetch(); endConnection(); }
+    /** Closes the current connection; a Fetch now import that ends here continues with the next monitor. */
+    private void endConnection() {
         boolean interruptedRegistration=registrationWriting;
         boolean interruptedClock=clockWrite!=null && clockWrite.state()==VendorClockWrite.State.WRITING;
         notifyAutomaticReadings();
@@ -480,7 +646,7 @@ public final class MonitorService extends Service {
         vendorUnlock=null; vendorRead=null; vendorModel=null; vendorKeys=null; vendorPending.clear();
         clearVendorKeyCandidates(); vendorTx.clear(); vendorRx.clear(); vendorWaitingBond=false; vendorSessionEnded=false;
         vendorEndRequested=false;
-        generation++; cancelPhase(); cancelOperationTimeout(); operations.clear(); stopScan();
+        generation++; cancelPhase(); cancelOperationTimeout(); operations.clear(); stopManualScan();
         ready=false; historyRunning=false; waitingBond=false; pendingUserOperation=0; authenticatedUser=0;
         if(secure!=null) { secure.close(); secure=null; }
         BluetoothGatt previous=gatt; gatt=null;
@@ -490,6 +656,14 @@ public final class MonitorService extends Service {
         if(interruptedRegistration) state("Action failed","Registration was interrupted before its acknowledged END. The cuff's settings state is unverified; the pre-registration backup is retained. No further settings write or automatic retry was sent.");
         else if(interruptedClock) state("Clock sync cancelled","The connection ended before the monitor acknowledged the clock write. Its clock is unverified; the settings backup is retained. No retry or further settings write was sent.");
         else state("Disconnected","Your saved readings remain on this phone.");
+        if(fetchImporting) {
+            fetchImporting=false;
+            if(fetchImportCompleted) fetchImported++; else fetchIncomplete++;
+            fetchImportCompleted=false;
+            // Continue after this callback; a cancelled or newer fetch changes the serial.
+            long serial=fetchSerial;
+            handler.post(() -> { if(fetchRunning && serial==fetchSerial) advanceFetch(); });
+        }
         scheduleAutomaticRefresh();
     }
     private void reportProtocol(String memoryMap) {
@@ -519,7 +693,7 @@ public final class MonitorService extends Service {
     }
     private void stopIdleService() {
         // Keep the single persistence owner alive across Activity recreation until its last save settles.
-        if(gatt==null && x7Bonding==null && !scanning && !dumpSaving && !autoWatching) {
+        if(gatt==null && x7Bonding==null && !scanning && !dumpSaving && !autoWatching && !fetchRunning) {
             if(!destroying && AutoImportSettings.getMode(this)==AutoImportSettings.NOTIFICATION && foregroundActive && !automaticDevices.isEmpty()) return;
             stopForeground(STOP_FOREGROUND_REMOVE); foregroundActive=false; stopSelf();
         }
@@ -537,7 +711,7 @@ public final class MonitorService extends Service {
         if(registrationWriting) message+=" Profile registration is incomplete; the cuff's settings state is unverified. The pre-registration backup is retained. No retry or further settings write was sent.";
         if(message.contains("(257)") || message.contains("error 257")) message+=" Android reported a generic GATT failure, not an EEPROM status. The cuff may have left transfer mode; reconnect and export Bluetooth diagnostics if it recurs.";
         if(dumpRunning && wlpRead!=null) { saveDump(wlpRead.data(),false,message); dumpRunning=false; }
-        disconnect(); state("Action failed",message);
+        endConnection(); state("Action failed",message);
     }
     private BluetoothGattCharacteristic characteristic(UUID service,UUID characteristic) {
         if(gatt==null) return null; BluetoothGattService s=gatt.getService(service); return s==null?null:s.getCharacteristic(characteristic);
@@ -640,7 +814,7 @@ public final class MonitorService extends Service {
         } catch(Exception ex) { fail("Could not read this monitor's pairing key: "+ex.getMessage()); return; }
         if(advertised==X7Security.Mode.UNKNOWN && !savedKey) {
             String target=address,name=connectedName; boolean pair=pairingRequested;
-            disconnect(); scan();
+            endConnection(); manualScan();
             if(scanning) {
                 pendingConnection=new PendingConnection(target,name,pair);
                 state("Checking X7 advertisement…","Wake the cuff in pairing or transfer mode. Its advertisement determines whether application encryption is required; connecting will resume automatically.");
@@ -943,8 +1117,10 @@ public final class MonitorService extends Service {
     /** Only a complete validated transfer checkpoints its advertised revision; the alert is posted once. */
     private void finishAutomaticAttempt(boolean completed) {
         if(automaticConnection && automaticAttempt!=null) {
-            if(automaticTracker.finish(automaticAttempt,completed,SystemClock.elapsedRealtime()) && completed)
+            if(automaticTracker.finish(automaticAttempt,completed,SystemClock.elapsedRealtime()) && completed) {
                 getSharedPreferences("automatic-checkpoints",MODE_PRIVATE).edit().putString(automaticAttempt.address,automaticAttempt.revision).apply();
+                if(fetchImporting) fetchImportCompleted=true;
+            }
             automaticAttempt=null;
         }
         notifyAutomaticReadings();
@@ -962,7 +1138,7 @@ public final class MonitorService extends Service {
         byte[] manufacturer=connectionManufacturer==null?null:connectionManufacturer.clone();
         // The identity and plain-WLP branch were verified before reaching this operation.
         // Close the probe connection before replacing the Android bond, as fresh registration does.
-        disconnect();
+        endConnection();
         connectionManufacturer=manufacturer; verifiedModel=model; profile=ProtocolProfile.X7_WLP;
         x7Bonding=new X7Bonding(bondState(device.getBondState()));
         foreground();
@@ -1160,7 +1336,7 @@ public final class MonitorService extends Service {
     }
     private void closeFinishedWlp(String note) {
         String completedStatus=status,completedDetail=detail; boolean registered=registrationDone;
-        disconnect(); sessionFinished=true; registrationDone=registered;
+        endConnection(); sessionFinished=true; registrationDone=registered;
         state(completedStatus,completedDetail+note);
     }
     public File registrationBackupFile() { return registrationBackup; }
@@ -1456,7 +1632,7 @@ public final class MonitorService extends Service {
         if(clockWrite!=null) clockWrite.cancel();
         clockSyncOutcome=DeviceReport.WriteOutcome.CANCELLED; clockUpdate=ClockUpdate.FAILED;
         recordClockOutcome();
-        disconnect();
+        endConnection();
         state("Clock sync cancelled","The monitor did not acknowledge the clock write in time. Its clock is unverified; the settings backup is retained. No retry or further settings write was sent.");
     }
     /** The monitor acknowledged END: the session is over and history needs a new connection. */
@@ -1627,7 +1803,7 @@ public final class MonitorService extends Service {
             error -> {
                 // A missing callback can leave Android's ATT slot busy even after our queue times out.
                 if(error.startsWith("Bluetooth operation timed out: ")) {
-                    disconnect(); state("Clock sync unavailable","The clock update timed out. Reconnect before importing history.");
+                    endConnection(); state("Clock sync unavailable","The clock update timed out. Reconnect before importing history.");
                 } else state("Clock sync unavailable","Monitor time was not confirmed. You can still import history.");
             });
     }
@@ -1835,7 +2011,7 @@ public final class MonitorService extends Service {
             if(state==BluetoothProfile.STATE_DISCONNECTED && (registrationReading || registrationPending)) { fail("X7 left pairing before profile registration. No settings writes were sent; wake the cuff and retry Pair."); return; }
             if(result!=BluetoothGatt.GATT_SUCCESS) { fail("Bluetooth connection error "+result+". Wake the monitor and reconnect."); return; }
             if(state==BluetoothProfile.STATE_CONNECTED) { MonitorService.this.state("Discovering monitor…","Negotiating Bluetooth MTU."); if(!source.requestMtu(243)) discover(source); }
-            else if(state==BluetoothProfile.STATE_DISCONNECTED) { boolean partial=historyRunning; disconnect(); if(partial) MonitorService.this.state("Transfer interrupted","Partial readings were saved. Reconnect to retry history."); }
+            else if(state==BluetoothProfile.STATE_DISCONNECTED) { boolean partial=historyRunning; endConnection(); if(partial) MonitorService.this.state("Transfer interrupted","Partial readings were saved. Reconnect to retry history."); }
         }); }
         @Override public void onMtuChanged(BluetoothGatt source,int mtu,int result) { current(source,() -> { if(result==0) negotiatedMtu=mtu; if(report!=null && !automaticConnection) report.mtu(negotiatedMtu); store.packet(address,"mtu",new byte[0],"ATT MTU="+negotiatedMtu+" · callback status="+result); discover(source); }); }
         private void discover(BluetoothGatt source) { if(!source.discoverServices()) fail("Android rejected service discovery"); else armPhase(20000,"Service discovery timed out"); }
@@ -1857,7 +2033,7 @@ public final class MonitorService extends Service {
         private void notifyDone(BluetoothGatt source,BluetoothGattCharacteristic c,byte[] bytes) { byte[] value=bytes==null?new byte[0]:bytes.clone(); current(source,() -> notification(c,value)); }
     };
     @Override public void onDestroy() {
-        destroying=true; handler.removeCallbacks(automaticRefresh); stopAutomaticScan(); disconnect();
+        destroying=true; handler.removeCallbacks(automaticRefresh); stopAutomaticScan(); cancelFetch(); endConnection();
         dumpIo.shutdown(); unregisterReceiver(bondReceiver); unregisterReceiver(adapterReceiver); super.onDestroy();
     }
 }

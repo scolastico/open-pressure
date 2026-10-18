@@ -56,6 +56,8 @@ public final class MainActivity extends Activity {
     private boolean overviewHasStatus;
     private LocalDate renderedDay;
     private ScrollView scroll;
+    /** Overview only: pulling the page down starts Fetch now in the service. */
+    private androidx.swiperefreshlayout.widget.SwipeRefreshLayout pull;
     private int tab,filterUser,days,historyLimit=100;
     private boolean bound,uiVisible,advancedExpanded,virtualMode;
     private final DeveloperOptions.TapCounter developerTaps=new DeveloperOptions.TapCounter();
@@ -155,7 +157,9 @@ public final class MainActivity extends Activity {
             header.addView(button(getString(R.string.main_about),this::about,false)); root.addView(header);
             scroll=new ScrollView(this); scroll.setFillViewport(true);
             content=new LinearLayout(this); content.setOrientation(LinearLayout.VERTICAL); content.setPadding(dp(22),dp(6),dp(22),dp(28)); scroll.addView(content);
-            root.addView(scroll,new LinearLayout.LayoutParams(-1,0,1));
+            pull=new androidx.swiperefreshlayout.widget.SwipeRefreshLayout(this); pull.setColorSchemeColors(TEAL);
+            pull.setOnRefreshListener(this::fetchNow); pull.addView(scroll);
+            root.addView(pull,new LinearLayout.LayoutParams(-1,0,1));
             LinearLayout nav=row(); nav.setPadding(dp(12),dp(8),dp(12),dp(8)); nav.setBackgroundColor(Color.WHITE);
             String[] labels={getString(R.string.main_overview),getString(R.string.main_history),getString(R.string.main_devices)};
             for(int i=0;i<labels.length;i++) {
@@ -172,6 +176,7 @@ public final class MainActivity extends Activity {
         }
         overviewHasStatus=monitor!=null && (monitor.ready || monitor.scanning);
         if(tab==0) today(); else if(tab==1) history(); else devices();
+        updatePull();
         renderedReadingsRevision=monitor==null?0:monitor.readingsRevision; renderedDay=LocalDate.now();
         renderedDeviceState=deviceState();
         scroll.post(() -> scroll.scrollTo(0,position));
@@ -201,7 +206,21 @@ public final class MainActivity extends Activity {
                 monitor.dumpRunning,monitor.dumpSaving,monitor.dumpRevision,monitor.eepromDumpFile()!=null,monitor.dumpComplete,monitor.dumpStart,monitor.dumpLength,monitor.deviceReport()!=null,
                 !monitor.address.isEmpty()&&!monitor.status.equals("Disconnected")&&!monitor.status.equals("Action failed")).toString();
     }
+    /** The pull indicator follows the service's fetch, so a fetch still running after recreation keeps spinning. */
+    private void updatePull() {
+        if(pull==null) return;
+        boolean running=tab==0 && monitor!=null && monitor.fetchRunning;
+        pull.setEnabled(tab==0);
+        if(pull.isRefreshing()!=running) pull.setRefreshing(running);
+    }
+    private void fetchNow() {
+        if(monitor==null || tab!=0) { updatePull(); return; }
+        withBluetooth(monitor::fetchNow);
+        // Refused, or preconditions still pending: clear the indicator at once.
+        updatePull(); updateStatus();
+    }
     private void updateStatus() {
+        updatePull();
         if(automaticStatusText!=null && monitor!=null) setText(automaticStatusText,MonitorUi.automatic(this,monitor));
         if(statusText==null || monitor==null) return;
         setText(statusHeading,getString(R.string.main_monitor));

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fetch_looking">در حال جستجوی دستگاه‌های شما…</string>
+    <string name="fetch_importing">در حال وارد کردن از %1$s…</string>
+    <string name="fetch_none_nearby">هیچ دستگاهی در نزدیکی نیست. دستگاه‌ها فقط مدت کوتاهی پس از اندازه‌گیری یا در حالت Bluetooth سیگنال می‌فرستند.</string>
+    <string name="fetch_done">جدیدترین اندازه‌گیری‌ها دریافت شد. تعداد دستگاه‌ها: %1$d.</string>
+    <string name="fetch_incomplete">برخی از واردکردن‌ها کامل نشد. اندازه‌گیری‌های دریافت‌شده ذخیره شده‌اند؛ برای تلاش دوباره به پایین بکشید.</string>
+    <string name="fetch_busy">کار فعلی دستگاه را تمام کنید، سپس دوباره به پایین بکشید.</string>
+    <string name="fetch_no_monitor">ابتدا یک دستگاه پشتیبانی‌شده را جفت یا متصل کنید.</string>
+    <string name="fetch_failed">جستجوی دستگاه‌ها ممکن نشد. Bluetooth را بررسی کنید، سپس دوباره به پایین بکشید.</string>
+</resources>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fetch_looking">Đang tìm máy đo của bạn…</string>
+    <string name="fetch_importing">Đang nhập từ %1$s…</string>
+    <string name="fetch_none_nearby">Không có máy đo nào ở gần. Máy đo chỉ phát tín hiệu trong thời gian ngắn sau khi đo hoặc ở chế độ Bluetooth.</string>
+    <string name="fetch_done">Đã lấy các kết quả đo mới nhất. Số máy đo: %1$d.</string>
+    <string name="fetch_incomplete">Một số lần nhập chưa hoàn tất. Các kết quả đã nhận được đã lưu; kéo xuống để thử lại.</string>
+    <string name="fetch_busy">Hoàn tất thao tác hiện tại của máy đo, rồi kéo xuống lại.</string>
+    <string name="fetch_no_monitor">Hãy ghép nối hoặc kết nối một máy đo được hỗ trợ trước.</string>
+    <string name="fetch_failed">Không thể tìm máy đo. Kiểm tra Bluetooth, rồi kéo xuống lại.</string>
+</resources>

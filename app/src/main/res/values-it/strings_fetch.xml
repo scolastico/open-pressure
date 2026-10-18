@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fetch_looking">Ricerca dei tuoi misuratori…</string>
+    <string name="fetch_importing">Importazione da %1$s…</string>
+    <string name="fetch_none_nearby">Nessun misuratore nelle vicinanze. I misuratori sono visibili solo per poco dopo una misurazione o in modalità Bluetooth.</string>
+    <string name="fetch_done">Misurazioni più recenti recuperate. Misuratori: %1$d.</string>
+    <string name="fetch_incomplete">Alcune importazioni non sono state completate. Le misurazioni già ricevute sono salvate; trascina verso il basso per riprovare.</string>
+    <string name="fetch_busy">Completa l\'azione in corso sul misuratore, poi trascina di nuovo verso il basso.</string>
+    <string name="fetch_no_monitor">Prima associa o collega un misuratore supportato.</string>
+    <string name="fetch_failed">Impossibile cercare i misuratori. Controlla il Bluetooth, poi trascina di nuovo verso il basso.</string>
+</resources>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fetch_looking">Recherche de vos tensiomètres…</string>
+    <string name="fetch_importing">Importation depuis %1$s…</string>
+    <string name="fetch_none_nearby">Aucun tensiomètre à proximité. Les tensiomètres ne sont visibles que peu de temps après une mesure ou en mode Bluetooth.</string>
+    <string name="fetch_done">Dernières mesures récupérées. Tensiomètres : %1$d.</string>
+    <string name="fetch_incomplete">Certaines importations n\'ont pas abouti. Les mesures déjà reçues sont enregistrées ; tirez vers le bas pour réessayer.</string>
+    <string name="fetch_busy">Terminez l\'action en cours sur le tensiomètre, puis tirez de nouveau vers le bas.</string>
+    <string name="fetch_no_monitor">Associez ou connectez d\'abord un tensiomètre compatible.</string>
+    <string name="fetch_failed">Impossible de rechercher les tensiomètres. Vérifiez le Bluetooth, puis tirez de nouveau vers le bas.</string>
+</resources>

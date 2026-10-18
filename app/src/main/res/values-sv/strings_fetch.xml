@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fetch_looking">Söker efter dina blodtrycksmätare…</string>
+    <string name="fetch_importing">Importerar från %1$s…</string>
+    <string name="fetch_none_nearby">Ingen mätare i närheten. Mätare sänder bara en kort stund efter en mätning eller i Bluetooth-läge.</string>
+    <string name="fetch_done">De senaste mätningarna hämtades. Mätare: %1$d.</string>
+    <string name="fetch_incomplete">Vissa importer slutfördes inte. Redan mottagna mätningar är sparade; dra nedåt för att försöka igen.</string>
+    <string name="fetch_busy">Slutför den pågående åtgärden med mätaren och dra sedan nedåt igen.</string>
+    <string name="fetch_no_monitor">Parkoppla eller anslut först en mätare som stöds.</string>
+    <string name="fetch_failed">Kunde inte söka efter mätare. Kontrollera Bluetooth och dra sedan nedåt igen.</string>
+</resources>

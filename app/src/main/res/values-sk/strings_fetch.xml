@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fetch_looking">Hľadanie vašich tlakomerov…</string>
+    <string name="fetch_importing">Import z %1$s…</string>
+    <string name="fetch_none_nearby">V blízkosti nie je žiadny tlakomer. Tlakomery vysielajú len krátko po meraní alebo v režime Bluetooth.</string>
+    <string name="fetch_done">Najnovšie merania načítané. Tlakomery: %1$d.</string>
+    <string name="fetch_incomplete">Niektoré importy sa nedokončili. Už prijaté merania sú uložené; potiahnite nadol a skúste to znova.</string>
+    <string name="fetch_busy">Dokončite aktuálnu akciu tlakomera a potom znova potiahnite nadol.</string>
+    <string name="fetch_no_monitor">Najprv spárujte alebo pripojte podporovaný tlakomer.</string>
+    <string name="fetch_failed">Tlakomery sa nepodarilo vyhľadať. Skontrolujte Bluetooth a potom znova potiahnite nadol.</string>
+</resources>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fetch_looking">ਤੁਹਾਡੇ ਮਾਨੀਟਰ ਲੱਭੇ ਜਾ ਰਹੇ ਹਨ…</string>
+    <string name="fetch_importing">%1$s ਤੋਂ ਆਯਾਤ ਹੋ ਰਿਹਾ ਹੈ…</string>
+    <string name="fetch_none_nearby">ਨੇੜੇ ਕੋਈ ਮਾਨੀਟਰ ਨਹੀਂ ਹੈ। ਮਾਨੀਟਰ ਮਾਪ ਤੋਂ ਥੋੜ੍ਹੀ ਦੇਰ ਬਾਅਦ ਜਾਂ Bluetooth ਮੋਡ ਵਿੱਚ ਹੀ ਸਿਗਨਲ ਭੇਜਦੇ ਹਨ।</string>
+    <string name="fetch_done">ਨਵੀਨਤਮ ਰੀਡਿੰਗਾਂ ਪ੍ਰਾਪਤ ਹੋਈਆਂ। ਮਾਨੀਟਰ: %1$d।</string>
+    <string name="fetch_incomplete">ਕੁਝ ਆਯਾਤ ਪੂਰੇ ਨਹੀਂ ਹੋਏ। ਪ੍ਰਾਪਤ ਰੀਡਿੰਗਾਂ ਸੁਰੱਖਿਅਤ ਹਨ; ਮੁੜ ਕੋਸ਼ਿਸ਼ ਕਰਨ ਲਈ ਹੇਠਾਂ ਖਿੱਚੋ।</string>
+    <string name="fetch_busy">ਮਾਨੀਟਰ ਦੀ ਮੌਜੂਦਾ ਕਾਰਵਾਈ ਪੂਰੀ ਕਰੋ, ਫਿਰ ਦੁਬਾਰਾ ਹੇਠਾਂ ਖਿੱਚੋ।</string>
+    <string name="fetch_no_monitor">ਪਹਿਲਾਂ ਕਿਸੇ ਸਮਰਥਿਤ ਮਾਨੀਟਰ ਨੂੰ ਜੋੜੋ ਜਾਂ ਕਨੈਕਟ ਕਰੋ।</string>
+    <string name="fetch_failed">ਮਾਨੀਟਰ ਨਹੀਂ ਲੱਭੇ ਜਾ ਸਕੇ। Bluetooth ਜਾਂਚੋ, ਫਿਰ ਦੁਬਾਰਾ ਹੇਠਾਂ ਖਿੱਚੋ।</string>
+</resources>

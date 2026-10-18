@@ -135,7 +135,29 @@ public final class MonitorUi {
         if(m.sessionEndUnconfirmed) summary+="\n\n"+context.getString(R.string.monitor_session_unconfirmed);
         return summary;
     }
+    /** The automatic-import card: a running Fetch now, else its last result above the listener state. */
     public static String automatic(Context context,MonitorService m) {
+        String fetch=fetch(context,m);
+        if(m.fetchRunning) return fetch==null?context.getString(R.string.fetch_looking):fetch;
+        String listener=listener(context,m);
+        return fetch==null?listener:fetch+"\n\n"+listener;
+    }
+    private static String fetch(Context context,MonitorService m) {
+        switch(m.fetchState) {
+            case LOOKING: return context.getString(R.string.fetch_looking);
+            case IMPORTING: return context.getString(R.string.fetch_importing,m.fetchName);
+            case NONE_NEARBY: return context.getString(R.string.fetch_none_nearby);
+            case DONE: return context.getString(R.string.fetch_done,m.fetchImported);
+            case INCOMPLETE: return context.getString(R.string.fetch_incomplete);
+            case BUSY: return context.getString(R.string.fetch_busy);
+            case NO_MONITOR: return context.getString(R.string.fetch_no_monitor);
+            case BLUETOOTH_OFF: return context.getString(R.string.monitor_enable_bluetooth);
+            case PERMISSION: return context.getString(R.string.monitor_allow_bluetooth);
+            case FAILED: return context.getString(R.string.fetch_failed);
+            default: return null;
+        }
+    }
+    private static String listener(Context context,MonitorService m) {
         int mode=AutoImportSettings.getMode(context);
         String status=m.automaticStatus;
         if(mode==AutoImportSettings.OFF) return context.getString(R.string.monitor_auto_off);

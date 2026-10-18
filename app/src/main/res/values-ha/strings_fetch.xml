@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fetch_looking">Ana neman na\'urorinka…</string>
+    <string name="fetch_importing">Ana shigo da shi daga %1$s…</string>
+    <string name="fetch_none_nearby">Babu na\'ura a kusa. Na\'urori suna aika sigina na ɗan lokaci ne kawai bayan aunawa ko a yanayin Bluetooth.</string>
+    <string name="fetch_done">An samo sababbin karatu. Na\'urori: %1$d.</string>
+    <string name="fetch_incomplete">Wasu shigowa ba su kammala ba. An ajiye karatun da aka karɓa; ja ƙasa don sake gwadawa.</string>
+    <string name="fetch_busy">Kammala aikin na\'urar na yanzu, sannan ka sake ja ƙasa.</string>
+    <string name="fetch_no_monitor">Da farko haɗa ko jona na\'urar da ake tallafawa.</string>
+    <string name="fetch_failed">Ba a iya neman na\'urori ba. Duba Bluetooth, sannan ka sake ja ƙasa.</string>
+</resources>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fetch_looking">Søker etter blodtrykksmålerne dine…</string>
+    <string name="fetch_importing">Importerer fra %1$s…</string>
+    <string name="fetch_none_nearby">Ingen måler i nærheten. Målere sender bare en kort stund etter en måling eller i Bluetooth-modus.</string>
+    <string name="fetch_done">De nyeste målingene er hentet. Målere: %1$d.</string>
+    <string name="fetch_incomplete">Noen importer ble ikke fullført. Målinger som allerede er mottatt, er lagret; dra ned for å prøve igjen.</string>
+    <string name="fetch_busy">Fullfør den pågående handlingen med måleren, og dra deretter ned igjen.</string>
+    <string name="fetch_no_monitor">Par eller koble til en støttet måler først.</string>
+    <string name="fetch_failed">Kunne ikke søke etter målere. Kontroller Bluetooth, og dra deretter ned igjen.</string>
+</resources>

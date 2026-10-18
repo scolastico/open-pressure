@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fetch_looking">Inatafuta vipimo vyako…</string>
+    <string name="fetch_importing">Inaleta kutoka %1$s…</string>
+    <string name="fetch_none_nearby">Hakuna kipimo karibu. Vipimo hutuma ishara kwa muda mfupi tu baada ya kupima au katika hali ya Bluetooth.</string>
+    <string name="fetch_done">Vipimo vya hivi karibuni vimepatikana. Vifaa: %1$d.</string>
+    <string name="fetch_incomplete">Baadhi ya uletaji haukukamilika. Vipimo vilivyopokelewa vimehifadhiwa; vuta chini ili kujaribu tena.</string>
+    <string name="fetch_busy">Maliza kitendo cha sasa cha kifaa, kisha vuta chini tena.</string>
+    <string name="fetch_no_monitor">Kwanza oanisha au unganisha kifaa kinachotumika.</string>
+    <string name="fetch_failed">Imeshindwa kutafuta vifaa. Angalia Bluetooth, kisha vuta chini tena.</string>
+</resources>

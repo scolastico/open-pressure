@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fetch_looking">നിങ്ങളുടെ മോണിറ്ററുകൾ തിരയുന്നു…</string>
+    <string name="fetch_importing">%1$s ൽ നിന്ന് ഇമ്പോർട്ട് ചെയ്യുന്നു…</string>
+    <string name="fetch_none_nearby">സമീപത്ത് മോണിറ്റർ ഇല്ല. അളവിനുശേഷം കുറച്ചുനേരമോ Bluetooth മോഡിലോ മാത്രമേ മോണിറ്ററുകൾ സിഗ്നൽ അയയ്ക്കൂ.</string>
+    <string name="fetch_done">ഏറ്റവും പുതിയ റീഡിംഗുകൾ ലഭിച്ചു. മോണിറ്ററുകൾ: %1$d.</string>
+    <string name="fetch_incomplete">ചില ഇമ്പോർട്ടുകൾ പൂർത്തിയായില്ല. ലഭിച്ച റീഡിംഗുകൾ സംരക്ഷിച്ചു; വീണ്ടും ശ്രമിക്കാൻ താഴേക്ക് വലിക്കുക.</string>
+    <string name="fetch_busy">മോണിറ്ററിന്റെ നിലവിലെ പ്രവർത്തനം പൂർത്തിയാക്കി വീണ്ടും താഴേക്ക് വലിക്കുക.</string>
+    <string name="fetch_no_monitor">ആദ്യം പിന്തുണയുള്ള ഒരു മോണിറ്റർ ജോടിയാക്കുക അല്ലെങ്കിൽ കണക്റ്റ് ചെയ്യുക.</string>
+    <string name="fetch_failed">മോണിറ്ററുകൾ തിരയാനായില്ല. Bluetooth പരിശോധിച്ച് വീണ്ടും താഴേക്ക് വലിക്കുക.</string>
+</resources>

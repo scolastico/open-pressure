@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fetch_looking">Αναζήτηση των πιεσόμετρών σας…</string>
+    <string name="fetch_importing">Εισαγωγή από %1$s…</string>
+    <string name="fetch_none_nearby">Δεν υπάρχει πιεσόμετρο κοντά. Τα πιεσόμετρα εκπέμπουν μόνο για λίγο μετά από μια μέτρηση ή σε λειτουργία Bluetooth.</string>
+    <string name="fetch_done">Οι νεότερες μετρήσεις ανακτήθηκαν. Πιεσόμετρα: %1$d.</string>
+    <string name="fetch_incomplete">Ορισμένες εισαγωγές δεν ολοκληρώθηκαν. Οι μετρήσεις που ελήφθησαν έχουν αποθηκευτεί· σύρετε προς τα κάτω για νέα προσπάθεια.</string>
+    <string name="fetch_busy">Ολοκληρώστε την τρέχουσα ενέργεια του πιεσόμετρου και σύρετε ξανά προς τα κάτω.</string>
+    <string name="fetch_no_monitor">Πρώτα αντιστοιχίστε ή συνδέστε ένα υποστηριζόμενο πιεσόμετρο.</string>
+    <string name="fetch_failed">Δεν ήταν δυνατή η αναζήτηση πιεσόμετρων. Ελέγξτε το Bluetooth και σύρετε ξανά προς τα κάτω.</string>
+</resources>

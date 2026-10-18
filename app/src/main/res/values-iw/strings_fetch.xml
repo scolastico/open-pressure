@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fetch_looking">מחפש את המדים שלך…</string>
+    <string name="fetch_importing">מייבא מ-%1$s…</string>
+    <string name="fetch_none_nearby">אין מד בקרבת מקום. מדים משדרים רק זמן קצר אחרי מדידה או במצב Bluetooth.</string>
+    <string name="fetch_done">המדידות האחרונות נאספו. מדים: %1$d.</string>
+    <string name="fetch_incomplete">חלק מהייבואים לא הסתיימו. מדידות שכבר התקבלו נשמרו; משוך למטה כדי לנסות שוב.</string>
+    <string name="fetch_busy">סיים את הפעולה הנוכחית במד, ואז משוך שוב למטה.</string>
+    <string name="fetch_no_monitor">קודם יש להתאים או לחבר מד נתמך.</string>
+    <string name="fetch_failed">לא ניתן לחפש מדים. בדוק את ה-Bluetooth ואז משוך שוב למטה.</string>
+</resources>

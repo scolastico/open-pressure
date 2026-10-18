@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fetch_looking">Търсене на вашите апарати…</string>
+    <string name="fetch_importing">Импортиране от %1$s…</string>
+    <string name="fetch_none_nearby">Няма апарат наблизо. Апаратите излъчват само за кратко след измерване или в Bluetooth режим.</string>
+    <string name="fetch_done">Най-новите измервания са изтеглени. Апарати: %1$d.</string>
+    <string name="fetch_incomplete">Някои импортирания не завършиха. Вече получените измервания са запазени; плъзнете надолу, за да опитате отново.</string>
+    <string name="fetch_busy">Завършете текущото действие с апарата, след което плъзнете отново надолу.</string>
+    <string name="fetch_no_monitor">Първо сдвоете или свържете поддържан апарат.</string>
+    <string name="fetch_failed">Неуспешно търсене на апарати. Проверете Bluetooth, след което плъзнете отново надолу.</string>
+</resources>

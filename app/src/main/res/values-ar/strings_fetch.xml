@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fetch_looking">جارٍ البحث عن أجهزتك…</string>
+    <string name="fetch_importing">جارٍ الاستيراد من %1$s…</string>
+    <string name="fetch_none_nearby">لا يوجد جهاز قريب. تبث الأجهزة لفترة قصيرة فقط بعد القياس أو في وضع Bluetooth.</string>
+    <string name="fetch_done">تم جلب أحدث القراءات. عدد الأجهزة: %1$d.</string>
+    <string name="fetch_incomplete">لم تكتمل بعض عمليات الاستيراد. القراءات المستلمة محفوظة؛ اسحب لأسفل للمحاولة مرة أخرى.</string>
+    <string name="fetch_busy">أنهِ الإجراء الحالي للجهاز، ثم اسحب لأسفل مرة أخرى.</string>
+    <string name="fetch_no_monitor">قم أولاً بإقران جهاز مدعوم أو الاتصال به.</string>
+    <string name="fetch_failed">تعذر البحث عن الأجهزة. تحقق من Bluetooth، ثم اسحب لأسفل مرة أخرى.</string>
+</resources>

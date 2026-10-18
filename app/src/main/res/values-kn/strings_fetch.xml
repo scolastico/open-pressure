@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fetch_looking">ನಿಮ್ಮ ಮಾನಿಟರ್‌ಗಳನ್ನು ಹುಡುಕಲಾಗುತ್ತಿದೆ…</string>
+    <string name="fetch_importing">%1$s ನಿಂದ ಆಮದು ಮಾಡಲಾಗುತ್ತಿದೆ…</string>
+    <string name="fetch_none_nearby">ಹತ್ತಿರ ಯಾವುದೇ ಮಾನಿಟರ್ ಇಲ್ಲ. ಮಾಪನದ ನಂತರ ಸ್ವಲ್ಪ ಸಮಯ ಅಥವಾ Bluetooth ಮೋಡ್‌ನಲ್ಲಿ ಮಾತ್ರ ಮಾನಿಟರ್‌ಗಳು ಸಂಕೇತ ಕಳುಹಿಸುತ್ತವೆ.</string>
+    <string name="fetch_done">ಇತ್ತೀಚಿನ ರೀಡಿಂಗ್‌ಗಳನ್ನು ಪಡೆಯಲಾಗಿದೆ. ಮಾನಿಟರ್‌ಗಳು: %1$d.</string>
+    <string name="fetch_incomplete">ಕೆಲವು ಆಮದುಗಳು ಪೂರ್ಣಗೊಂಡಿಲ್ಲ. ಸ್ವೀಕರಿಸಿದ ರೀಡಿಂಗ್‌ಗಳನ್ನು ಉಳಿಸಲಾಗಿದೆ; ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಲು ಕೆಳಗೆ ಎಳೆಯಿರಿ.</string>
+    <string name="fetch_busy">ಮಾನಿಟರ್‌ನ ಪ್ರಸ್ತುತ ಕ್ರಿಯೆಯನ್ನು ಮುಗಿಸಿ, ನಂತರ ಮತ್ತೆ ಕೆಳಗೆ ಎಳೆಯಿರಿ.</string>
+    <string name="fetch_no_monitor">ಮೊದಲು ಬೆಂಬಲಿತ ಮಾನಿಟರ್ ಅನ್ನು ಜೋಡಿಸಿ ಅಥವಾ ಸಂಪರ್ಕಿಸಿ.</string>
+    <string name="fetch_failed">ಮಾನಿಟರ್‌ಗಳನ್ನು ಹುಡುಕಲಾಗಲಿಲ್ಲ. Bluetooth ಪರಿಶೀಲಿಸಿ, ನಂತರ ಮತ್ತೆ ಕೆಳಗೆ ಎಳೆಯಿರಿ.</string>
+</resources>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fetch_looking">Hinahanap ang iyong mga monitor…</string>
+    <string name="fetch_importing">Nag-i-import mula sa %1$s…</string>
+    <string name="fetch_none_nearby">Walang monitor sa malapit. Nagpapadala lang ng signal ang mga monitor sandali pagkatapos ng pagsukat o sa Bluetooth mode.</string>
+    <string name="fetch_done">Nakuha ang pinakabagong mga reading. Mga monitor: %1$d.</string>
+    <string name="fetch_incomplete">May mga import na hindi natapos. Naka-save ang mga natanggap nang reading; hilahin pababa para subukan ulit.</string>
+    <string name="fetch_busy">Tapusin ang kasalukuyang aksyon ng monitor, saka hilahin ulit pababa.</string>
+    <string name="fetch_no_monitor">Mag-pair o kumonekta muna sa isang sinusuportahang monitor.</string>
+    <string name="fetch_failed">Hindi makahanap ng mga monitor. Suriin ang Bluetooth, saka hilahin ulit pababa.</string>
+</resources>

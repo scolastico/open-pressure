@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fetch_looking">Se caută tensiometrele tale…</string>
+    <string name="fetch_importing">Se importă de la %1$s…</string>
+    <string name="fetch_none_nearby">Niciun tensiometru în apropiere. Tensiometrele emit doar scurt timp după o măsurare sau în modul Bluetooth.</string>
+    <string name="fetch_done">Cele mai noi măsurători au fost preluate. Tensiometre: %1$d.</string>
+    <string name="fetch_incomplete">Unele importuri nu s-au încheiat. Măsurătorile deja primite sunt salvate; trage în jos pentru a încerca din nou.</string>
+    <string name="fetch_busy">Încheie acțiunea curentă a tensiometrului, apoi trage din nou în jos.</string>
+    <string name="fetch_no_monitor">Mai întâi asociază sau conectează un tensiometru compatibil.</string>
+    <string name="fetch_failed">Nu s-au putut căuta tensiometre. Verifică Bluetooth, apoi trage din nou în jos.</string>
+</resources>

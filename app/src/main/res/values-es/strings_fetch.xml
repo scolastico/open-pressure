@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fetch_looking">Buscando tus monitores…</string>
+    <string name="fetch_importing">Importando desde %1$s…</string>
+    <string name="fetch_none_nearby">No hay ningún monitor cerca. Los monitores solo emiten durante un breve tiempo tras una medición o en modo Bluetooth.</string>
+    <string name="fetch_done">Lecturas más recientes obtenidas. Monitores: %1$d.</string>
+    <string name="fetch_incomplete">Algunas importaciones no terminaron. Las lecturas ya recibidas están guardadas; desliza hacia abajo para volver a intentarlo.</string>
+    <string name="fetch_busy">Termina la acción actual del monitor y vuelve a deslizar hacia abajo.</string>
+    <string name="fetch_no_monitor">Primero empareja o conecta un monitor compatible.</string>
+    <string name="fetch_failed">No se pudo buscar monitores. Comprueba el Bluetooth y vuelve a deslizar hacia abajo.</string>
+</resources>

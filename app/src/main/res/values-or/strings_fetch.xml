@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fetch_looking">ଆପଣଙ୍କ ମନିଟର ଖୋଜାଯାଉଛି…</string>
+    <string name="fetch_importing">%1$s ରୁ ଆମଦାନି ହେଉଛି…</string>
+    <string name="fetch_none_nearby">ପାଖରେ କୌଣସି ମନିଟର ନାହିଁ। ମାପ ପରେ କିଛି ସମୟ କିମ୍ବା Bluetooth ମୋଡରେ ହିଁ ମନିଟର ସଙ୍କେତ ପଠାଏ।</string>
+    <string name="fetch_done">ସର୍ବଶେଷ ରିଡିଂ ମିଳିଲା। ମନିଟର: %1$d।</string>
+    <string name="fetch_incomplete">କିଛି ଆମଦାନି ସମ୍ପୂର୍ଣ୍ଣ ହୋଇନାହିଁ। ମିଳିଥିବା ରିଡିଂ ସଞ୍ଚିତ ଅଛି; ପୁଣି ଚେଷ୍ଟା ପାଇଁ ତଳକୁ ଟାଣନ୍ତୁ।</string>
+    <string name="fetch_busy">ମନିଟରର ବର୍ତ୍ତମାନର କାର୍ଯ୍ୟ ସମାପ୍ତ କରନ୍ତୁ, ତାପରେ ପୁଣି ତଳକୁ ଟାଣନ୍ତୁ।</string>
+    <string name="fetch_no_monitor">ପ୍ରଥମେ ଏକ ସମର୍ଥିତ ମନିଟର ପେୟାର କିମ୍ବା ସଂଯୋଗ କରନ୍ତୁ।</string>
+    <string name="fetch_failed">ମନିଟର ଖୋଜିହେଲା ନାହିଁ। Bluetooth ଯାଞ୍ଚ କରନ୍ତୁ, ତାପରେ ପୁଣି ତଳକୁ ଟାଣନ୍ତୁ।</string>
+</resources>

@@ -29,6 +29,7 @@ dependencies {
     testImplementation testFixtures(project(':protocol'))
     implementation 'androidx.health.connect:connect-client:1.1.0'
     implementation 'androidx.work:work-runtime:2.10.5'
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.2'
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.robolectric:robolectric:4.17'

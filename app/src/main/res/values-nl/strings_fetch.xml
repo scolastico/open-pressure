@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fetch_looking">Zoeken naar je bloeddrukmeters…</string>
+    <string name="fetch_importing">Importeren van %1$s…</string>
+    <string name="fetch_none_nearby">Geen bloeddrukmeter in de buurt. Meters zenden alleen kort na een meting of in Bluetooth-modus.</string>
+    <string name="fetch_done">Nieuwste metingen opgehaald. Meters: %1$d.</string>
+    <string name="fetch_incomplete">Sommige imports zijn niet voltooid. Al ontvangen metingen zijn opgeslagen; trek omlaag om het opnieuw te proberen.</string>
+    <string name="fetch_busy">Rond de huidige actie met de meter af en trek dan opnieuw omlaag.</string>
+    <string name="fetch_no_monitor">Koppel of verbind eerst een ondersteunde bloeddrukmeter.</string>
+    <string name="fetch_failed">Kan niet naar meters zoeken. Controleer Bluetooth en trek dan opnieuw omlaag.</string>
+</resources>

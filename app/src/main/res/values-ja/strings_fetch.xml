@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fetch_looking">血圧計を探しています…</string>
+    <string name="fetch_importing">%1$s からインポート中…</string>
+    <string name="fetch_none_nearby">近くに血圧計がありません。血圧計は測定後の短い間、または Bluetooth モードのときだけ信号を発信します。</string>
+    <string name="fetch_done">最新の測定値を取得しました。血圧計：%1$d 台。</string>
+    <string name="fetch_incomplete">一部のインポートが完了しませんでした。受信済みの測定値は保存されています。下に引いて再試行してください。</string>
+    <string name="fetch_busy">血圧計の現在の操作を終えてから、もう一度下に引いてください。</string>
+    <string name="fetch_no_monitor">先に対応する血圧計をペア設定または接続してください。</string>
+    <string name="fetch_failed">血圧計を検索できませんでした。Bluetooth を確認してから、もう一度下に引いてください。</string>
+</resources>
