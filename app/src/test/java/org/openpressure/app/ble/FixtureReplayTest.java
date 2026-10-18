@@ -84,6 +84,10 @@ public class FixtureReplayTest {
         callback=(BluetoothGattCallback)get("callback");
         monitor.address=ADDRESS; monitor.connectedName="Synthetic monitor";
         set("pairingRequested",fixture.flow.equals("pair"));
+        // The fixture's import users are the saved selection that Connect and Pair load for this monitor.
+        monitor.importUsers=fixture.importUsers;
+        store.remember(ADDRESS,"Synthetic monitor",String.valueOf(fixture.dis.get("model")),1);
+        store.setImportUsers(ADDRESS,fixture.importUsers);
         buildServices();
         stageKey();
         stubPeer();
@@ -115,9 +119,11 @@ public class FixtureReplayTest {
         for(int guard=0;guard<100000 && outcome==null;guard++) {
             idle();
             if(peer.isEmpty()) {
-                // A user-started import after a manual Connect reaches "Vendor history available".
-                if(!historyRequested && fixture.flow.equals("connect") && !monitor.historyRunning && cursor.position()>0) {
-                    historyRequested=true; monitor.syncHistory(-1); continue;
+                // A user-started import (or Read all) after a manual Connect reaches "Vendor history available".
+                if(!historyRequested && !fixture.flow.equals("pair") && !monitor.historyRunning && cursor.position()>0) {
+                    historyRequested=true;
+                    if(fixture.flow.equals("read-all")) monitor.readAllHistory(); else monitor.syncHistory(-1);
+                    continue;
                 }
                 return;
             }
