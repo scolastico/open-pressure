@@ -13,9 +13,10 @@ import java.util.List;
  * X7 monitor (docs/omron-sandbox.md). The frame is built only from the fresh settings image
  * read in the same session and the written clock (target + 1 s): every other block byte is
  * copied unchanged. Nothing here sends a byte; the GATT boundary permits each chunk through
- * {@link #allowsChunk} only after {@link #authorize()}, in order, on its own TX channel.
- * The caller reports each chunk with {@link #chunkSent} when it is handed to GATT, before
- * routing the acknowledgment to {@link #accept}. Any unexpected acknowledgment revokes the permit.
+ * {@link #allowsChunk} only after {@link #authorize()}, in order, on its own TX channel, and
+ * each permit is consumed when granted: a failed GATT write is never retried (the plan stays
+ * WRITING until {@link #cancel()}). Once the last permit is consumed the acknowledgment may
+ * arrive at {@link #accept}. Any unexpected acknowledgment revokes the plan.
  */
 public final class VendorClockWrite {
     public enum State { PREVIEW, AUTHORIZED, WRITING, ACKNOWLEDGED, REJECTED, CANCELLED }
@@ -47,16 +48,17 @@ public final class VendorClockWrite {
         if(image==null || image.length!=block.imageLength())
             throw new IllegalArgumentException("Clock write requires exactly "+block.imageLength()+" settings bytes");
         if(target==null) throw new IllegalArgumentException("Clock write requires a target time");
-        LocalDateTime clock;
-        try { clock=target.plusSeconds(1); }
+        // Whole seconds: the frame carries no fraction and drift rounds symmetrically.
+        LocalDateTime truncated=target.withNano(0),clock;
+        try { clock=truncated.plusSeconds(1); }
         catch(DateTimeException invalid) { throw new IllegalArgumentException("Invalid clock target",invalid); }
         if(clock.getYear()<2024 || clock.getYear()>2050) throw new IllegalArgumentException("Clock time must be in 2024–2050");
         byte[] logical=block.swapped?model.logical(image):image.clone();
         if(!block.checksumValid(logical) && !block.erased(logical)) throw new IllegalArgumentException("monitor settings unreadable");
         this.identity=resolved; this.override=override; this.channels=channels;
-        this.target=target; this.written=clock;
+        this.target=truncated; this.written=clock;
         monitorClock=block.clock(logical);
-        driftSeconds=monitorClock==null?Long.MAX_VALUE:Duration.between(target,monitorClock).getSeconds();
+        driftSeconds=monitorClock==null?Long.MAX_VALUE:Duration.between(truncated,monitorClock).getSeconds();
         byte[] data=block.updated(logical,clock);
         if(block.swapped) for(int i=0;i+1<data.length;i+=2) { byte b=data[i]; data[i]=data[i+1]; data[i+1]=b; }
         frame=new byte[8+block.length];
@@ -103,18 +105,16 @@ public final class VendorClockWrite {
         return Collections.unmodifiableList(copy);
     }
 
-    /** Permits exactly the next unsent chunk on its own channel index while authorized. */
+    /**
+     * Permits exactly the next unsent chunk on its own channel index while authorized, and consumes
+     * that permit when it returns true: the same chunk is never permitted twice.
+     */
     public synchronized boolean allowsChunk(int channelIndex,byte[] payload) {
-        return (state==State.AUTHORIZED || state==State.WRITING) && channelIndex==nextChunk
-            && nextChunk<chunks.size() && Arrays.equals(chunks.get(nextChunk),payload);
-    }
-
-    /** Records that the permitted chunk was handed to GATT; anything out of order revokes the plan. */
-    public synchronized void chunkSent(int channelIndex) {
-        if((state!=State.AUTHORIZED && state!=State.WRITING) || channelIndex!=nextChunk || nextChunk>=chunks.size())
-            throw reject();
+        if((state!=State.AUTHORIZED && state!=State.WRITING) || channelIndex!=nextChunk
+                || nextChunk>=chunks.size() || !Arrays.equals(chunks.get(nextChunk),payload)) return false;
         nextChunk++;
         state=State.WRITING;
+        return true;
     }
 
     /**

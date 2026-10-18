@@ -20,6 +20,7 @@ public final class VendorClockWriteTest {
         swappedLayouts();
         x7Frame();
         threshold();
+        subSecondTarget();
         preconditions();
         lifecycle();
         return checks;
@@ -44,16 +45,15 @@ public final class VendorClockWriteTest {
         check(!plan.allowsChunk(0,chunks.get(0)),"nothing permitted before authorization");
         plan.authorize();
         check(plan.state()==VendorClockWrite.State.AUTHORIZED,"authorized");
-        check(plan.allowsChunk(0,chunks.get(0)),"chunk 0 on channel 0");
-        check(!plan.allowsChunk(1,chunks.get(1)),"chunk 1 not before chunk 0 is sent");
+        check(!plan.allowsChunk(1,chunks.get(1)),"chunk 1 not before chunk 0 was permitted");
         check(!plan.allowsChunk(1,chunks.get(0)) && !plan.allowsChunk(0,chunks.get(1)),"chunk bound to its channel");
         byte[] altered=chunks.get(0).clone(); altered[10]^=1;
         check(!plan.allowsChunk(0,altered) && !plan.allowsChunk(0,null) && !plan.allowsChunk(-1,chunks.get(0)),"exact bytes only");
-        plan.chunkSent(0);
-        check(plan.state()==VendorClockWrite.State.WRITING,"writing after first chunk");
-        check(!plan.allowsChunk(0,chunks.get(0)),"chunk 0 not permitted twice");
+        check(plan.state()==VendorClockWrite.State.AUTHORIZED,"refused checks consume nothing");
+        check(plan.allowsChunk(0,chunks.get(0)),"chunk 0 on channel 0");
+        check(plan.state()==VendorClockWrite.State.WRITING,"writing once chunk 0 was permitted");
+        check(!plan.allowsChunk(0,chunks.get(0)),"chunk 0 permitted only once");
         check(plan.allowsChunk(1,chunks.get(1)),"chunk 1 after chunk 0");
-        plan.chunkSent(1);
         check(!plan.allowsChunk(1,chunks.get(1)) && !plan.allowsChunk(0,chunks.get(0)),"nothing after the last chunk");
         byte[] frame=plan.frame(); frame[0]=0;
         same(FRAME_7156,plan.frame());
@@ -62,7 +62,8 @@ public final class VendorClockWriteTest {
     private static VendorClockWrite sent7156() {
         VendorClockWrite plan=plan7156();
         plan.authorize();
-        plan.chunkSent(0); plan.chunkSent(1);
+        List<byte[]> chunks=plan.chunks();
+        check(plan.allowsChunk(0,chunks.get(0)) && plan.allowsChunk(1,chunks.get(1)),"both chunks permitted");
         return plan;
     }
 
@@ -73,10 +74,10 @@ public final class VendorClockWriteTest {
         rejects(plan::authorize);
         rejects(plan::frame);
         rejects(() -> plan.accept(0,closed("0881c000801000")));
-        rejects(() -> plan.chunkSent(0));
+        check(!plan.allowsChunk(0,plan7156().chunks().get(0)),"no permit after acknowledgment");
         plan.cancel();
         check(plan.complete() && plan.state()==VendorClockWrite.State.ACKNOWLEDGED,"cancel after completion keeps the outcome");
-        VendorClockWrite early=plan7156(); early.authorize(); early.chunkSent(0);
+        VendorClockWrite early=plan7156(); early.authorize(); early.allowsChunk(0,early.chunks().get(0));
         rejects(() -> early.accept(0,closed("0881c000801000")));
         check(early.state()==VendorClockWrite.State.REJECTED && !early.complete(),"acknowledgment before the last chunk rejected");
     }
@@ -175,17 +176,16 @@ public final class VendorClockWriteTest {
         same("1801c0008010a0b1c2d302e5f6071a0a100e1e2e589900a0",alias.frame());
         alias.authorize();
         check(alias.allowsChunk(0,alias.frame()) && !alias.allowsChunk(1,alias.frame()),"X7 single channel");
-        alias.chunkSent(0);
         rejects(() -> alias.accept(1,closed("0881c000801000")));
         VendorClockWrite x7=new VendorClockWrite("HEM-7380T1-EOSL",preimage,now,true,1);
-        x7.authorize(); x7.chunkSent(0);
+        x7.authorize(); check(x7.allowsChunk(0,x7.frame()),"X7 permit");
         check(x7.accept(0,closed("0881c000801000")),"X7 compact ack");
         VendorClockWrite echo=new VendorClockWrite("HEM-7380T1-EOSL",preimage,now,true,1);
-        echo.authorize(); echo.chunkSent(0);
+        echo.authorize(); check(echo.allowsChunk(0,echo.frame()),"X7 permit");
         byte[] reply=echo.frame(); reply[1]=(byte)0x81; fix(reply);
         check(echo.accept(0,reply),"X7 full echo in one notification");
         VendorClockWrite split=new VendorClockWrite("HEM-7380T1-EOSL",preimage,now,true,1);
-        split.authorize(); split.chunkSent(0);
+        split.authorize(); check(split.allowsChunk(0,split.frame()),"X7 permit");
         rejects(() -> split.accept(0,Arrays.copyOf(reply,16)));
         rejects(() -> new VendorClockWrite("HEM-7380T1-EOSL",preimage,now,true,4));
         rejects(() -> new VendorClockWrite("HEM-7156T",ff(68),TARGET,false,1));
@@ -224,6 +224,21 @@ public final class VendorClockWriteTest {
         check(Arrays.equals(Arrays.copyOfRange(f,14,20),hex("1a050608080a")),"frame carries chosen + 1 s");
     }
 
+    private static void subSecondTarget() {
+        LocalDateTime fine=TARGET.withNano(999_000_000);
+        VendorClockWrite plan=new VendorClockWrite("HEM-7156T",ff(68),fine,false,4);
+        check(TARGET.equals(plan.target()) && TARGET.plusSeconds(1).equals(plan.written()),"target truncated to whole seconds");
+        same(FRAME_7156,plan.frame());
+        VendorClockWrite ahead=new VendorClockWrite("HEM-7156T",withClock("HEM-7156T",TARGET.minusSeconds(60)),fine,false,4);
+        check(ahead.driftSeconds()==-60 && ahead.writesNothing(),"sub-second target keeps a symmetric threshold");
+        VendorClockWrite behind=new VendorClockWrite("HEM-7156T",withClock("HEM-7156T",TARGET.plusSeconds(60)),TARGET.withNano(1),false,4);
+        check(behind.driftSeconds()==60 && behind.writesNothing(),"sub-second target, monitor ahead");
+        // An acknowledgment right after the last permit is accepted without any other call.
+        VendorClockWrite x7=new VendorClockWrite("HEM-7380T1-EOSL",ff(68),fine,true,1);
+        x7.authorize();
+        check(x7.allowsChunk(0,x7.frame()) && x7.accept(0,closed("0881c000801000")),"acknowledged right after the permit");
+    }
+
     private static void preconditions() {
         byte[] corrupt=withClock("HEM-7156T",TARGET); corrupt[58]^=1;
         boolean unreadable=false;
@@ -252,21 +267,24 @@ public final class VendorClockWriteTest {
         plan.authorize();
         rejects(plan::authorize);
         byte[] chunk0=plan.chunks().get(0);
-        rejects(() -> plan.chunkSent(1));
-        check(plan.state()==VendorClockWrite.State.REJECTED,"out-of-order send rejects");
-        check(!plan.allowsChunk(0,chunk0),"no permit after an out-of-order send");
+        check(plan.allowsChunk(0,chunk0),"chunk 0 permitted");
+        // A failed GATT write leaves the plan writing with no retry; cancel() ends it.
+        check(!plan.allowsChunk(0,chunk0) && plan.state()==VendorClockWrite.State.WRITING,"no retry of a consumed permit");
+        plan.cancel();
+        check(plan.state()==VendorClockWrite.State.CANCELLED && !plan.allowsChunk(1,plan7156().chunks().get(1)),"cancel ends a stalled write");
         VendorClockWrite cancelled=plan7156();
         cancelled.authorize();
         cancelled.cancel();
         check(cancelled.state()==VendorClockWrite.State.CANCELLED && !cancelled.complete(),"cancelled");
         check(!cancelled.allowsChunk(0,chunk0),"cancel revokes the permit");
         rejects(cancelled::authorize);
-        rejects(() -> cancelled.chunkSent(0));
         rejects(() -> cancelled.accept(0,closed("0881c000801000")));
         check(cancelled.state()==VendorClockWrite.State.CANCELLED,"stale calls keep the cancelled outcome");
         rejects(cancelled::frame);
         VendorClockWrite unsent=plan7156();
-        rejects(() -> unsent.chunkSent(0));
+        unsent.authorize();
+        rejects(() -> unsent.accept(0,closed("0881c000801000")));
+        check(unsent.state()==VendorClockWrite.State.REJECTED,"acknowledgment before any permit rejected");
         VendorClockWrite noAck=plan7156();
         rejects(() -> noAck.accept(0,closed("0881c000801000")));
         VendorClockWrite preview=plan7156();
