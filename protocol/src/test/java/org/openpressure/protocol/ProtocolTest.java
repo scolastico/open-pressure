@@ -86,6 +86,7 @@ public final class ProtocolTest {
         checks+=VendorWritePolicyTest.run();
         checks+=WriteAspectIndexTest.run();
         checks+=ClockBlockTest.run();
+        checks+=VendorClockWriteTest.run();
         checks+=WriteAspectSourceGuardTest.run();
         checks+=FixtureTest.run();
         checks+=FixtureReplayTest.run();
