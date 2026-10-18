@@ -129,7 +129,7 @@ No clock sync or other memory write uses these switches yet. Today the clock swi
 
 **Hide.** **Hide developer options** asks for confirmation, then locks the options, turns every switch off and removes the button. Unlocking again starts from all switches off.
 
-If saving a developer option fails (for example on a full or read-only data partition), unlocking, a switch change and hiding show **Could not save developer options** instead of crashing, and the screen shows the stored state again.
+If saving a developer option fails (for example on a full or read-only data partition), unlocking, a switch change and hiding show **Could not save developer options** instead of crashing. The screen then shows the state the app is currently using: Android keeps the new value in memory even when the disk write fails, so this may differ from what is saved. After an app restart the previous saved state may come back, so repeat **Hide developer options** or the switch change and check that it took effect.
 
 **Source guard.** `WriteAspectSourceGuardTest` (run by `tools/test.sh` and `:protocol:check`) scans `app/src/main` and `protocol/src/main` and fails when `requireWriteAspect(` or `allowsUntested(` appears outside its allow-list: `DeviceWritePolicy.java` (the definition) and `app/src/main/java/org/openpressure/app/developer/`. Any new caller needs review and an explicit allow-list entry; the future Sync clock path must be added there when it is implemented.
 
