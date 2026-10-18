@@ -24,4 +24,5 @@
     <string name="dev_index_no_monitors">עדיין אין מכשירים שמורים.</string>
     <string name="dev_hide">הסתרת אפשרויות המפתחים</string>
     <string name="dev_hidden">אפשרויות המפתחים הוסתרו; כל מתגי המפתחים כבויים</string>
+    <string name="dev_save_failed">לא ניתן היה לשמור את אפשרויות המפתחים</string>
 </resources>

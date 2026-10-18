@@ -22,4 +22,5 @@
     <string name="dev_index_no_monitors">Ingen gemte målere endnu.</string>
     <string name="dev_hide">Skjul udviklerindstillinger</string>
     <string name="dev_hidden">Udviklerindstillinger skjult; alle udviklerkontakter er slået fra</string>
+    <string name="dev_save_failed">Udviklerindstillinger kunne ikke gemmes</string>
 </resources>

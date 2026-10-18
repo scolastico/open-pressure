@@ -50,7 +50,7 @@ public class MainDeveloperUnlockTest {
         MonitorService monitor=Robolectric.buildService(MonitorService.class).create().get();
         Shadows.shadowOf(app).setComponentNameAndServiceForBindService(new ComponentName(app,MonitorService.class),monitor.onBind(new Intent(app,MonitorService.class)));
     }
-    @After public void close() { app.store().close(); }
+    @After public void close() { new java.io.File(app.getDataDir(),"shared_prefs").setWritable(true); app.store().close(); }
     private static void idle() { Shadows.shadowOf(Looper.getMainLooper()).idle(); }
     private Activity openAdvanced(ActivityController<MainActivity> controller) {
         controller.setup(); idle();
@@ -122,6 +122,18 @@ public class MainDeveloperUnlockTest {
             assertNotNull(button(root(a),a.getString(R.string.dev_open)));
             for(int i=0;i<5;i++) tap(a);
             assertTrue("Unlock is only written on a state change",DeveloperOptions.allowsUntested(app,Aspect.CLOCK_BLOCK));
+        }
+    }
+    @Test public void failedUnlockSaveShowsAMessageInsteadOfCrashing() {
+        try(ActivityController<MainActivity> controller=Robolectric.buildActivity(MainActivity.class)) {
+            Activity a=openAdvanced(controller);
+            tap(a); tap(a); tap(a); tap(a);
+            java.io.File prefs=new java.io.File(app.getDataDir(),"shared_prefs"); prefs.mkdirs();
+            assertTrue("test needs a non-writable preferences directory",prefs.setWritable(false) && !prefs.canWrite());
+            tap(a);
+            assertEquals(a.getString(R.string.dev_save_failed),ShadowToast.getTextOfLatestToast());
+            assertFalse(a.isFinishing());
+            assertNotNull("The screen is rendered again",plainText(root(a),versionText(a)));
         }
     }
 }

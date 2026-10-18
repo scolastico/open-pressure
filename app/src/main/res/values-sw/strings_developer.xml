@@ -22,4 +22,5 @@
     <string name="dev_index_no_monitors">Bado hakuna vipimo vilivyohifadhiwa.</string>
     <string name="dev_hide">Ficha chaguo za wasanidi</string>
     <string name="dev_hidden">Chaguo za wasanidi zimefichwa; swichi zote za wasanidi zimezimwa</string>
+    <string name="dev_save_failed">Imeshindwa kuhifadhi chaguo za wasanidi</string>
 </resources>

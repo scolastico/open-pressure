@@ -22,4 +22,5 @@
     <string name="dev_index_no_monitors">No saved monitors yet.</string>
     <string name="dev_hide">Hide developer options</string>
     <string name="dev_hidden">Developer options hidden; all developer switches are off</string>
+    <string name="dev_save_failed">Could not save developer options</string>
 </resources>

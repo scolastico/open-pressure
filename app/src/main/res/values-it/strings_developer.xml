@@ -23,4 +23,5 @@
     <string name="dev_index_no_monitors">Nessun misuratore salvato.</string>
     <string name="dev_hide">Nascondi opzioni sviluppatore</string>
     <string name="dev_hidden">Opzioni sviluppatore nascoste; tutti gli interruttori sviluppatore sono disattivati</string>
+    <string name="dev_save_failed">Impossibile salvare le opzioni sviluppatore</string>
 </resources>

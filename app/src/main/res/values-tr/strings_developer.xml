@@ -22,4 +22,5 @@
     <string name="dev_index_no_monitors">Henüz kayıtlı alet yok.</string>
     <string name="dev_hide">Geliştirici seçeneklerini gizle</string>
     <string name="dev_hidden">Geliştirici seçenekleri gizlendi; tüm geliştirici anahtarları kapalı</string>
+    <string name="dev_save_failed">Geliştirici seçenekleri kaydedilemedi</string>
 </resources>

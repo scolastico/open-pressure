@@ -22,4 +22,5 @@
     <string name="dev_index_no_monitors">ابھی کوئی محفوظ مانیٹر نہیں۔</string>
     <string name="dev_hide">ڈویلپر آپشنز چھپائیں</string>
     <string name="dev_hidden">ڈویلپر آپشنز چھپا دیے گئے؛ تمام ڈویلپر سوئچ بند ہیں</string>
+    <string name="dev_save_failed">ڈویلپر آپشنز محفوظ نہیں کیے جا سکے</string>
 </resources>

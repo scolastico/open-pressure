@@ -22,4 +22,5 @@
     <string name="dev_index_no_monitors">ഇതുവരെ സംരക്ഷിച്ച മോണിറ്ററുകളില്ല.</string>
     <string name="dev_hide">ഡെവലപ്പർ ഓപ്ഷനുകൾ മറയ്ക്കുക</string>
     <string name="dev_hidden">ഡെവലപ്പർ ഓപ്ഷനുകൾ മറച്ചു; എല്ലാ ഡെവലപ്പർ സ്വിച്ചുകളും ഓഫാണ്</string>
+    <string name="dev_save_failed">ഡെവലപ്പർ ഓപ്ഷനുകൾ സംരക്ഷിക്കാനായില്ല</string>
 </resources>

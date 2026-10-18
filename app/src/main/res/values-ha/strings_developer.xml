@@ -22,4 +22,5 @@
     <string name="dev_index_no_monitors">Babu na’urorin da aka adana tukuna.</string>
     <string name="dev_hide">Ɓoye zaɓuɓɓukan masu haɓakawa</string>
     <string name="dev_hidden">An ɓoye zaɓuɓɓukan masu haɓakawa; duk maɓallan masu haɓakawa a kashe suke</string>
+    <string name="dev_save_failed">Ba a iya ajiye zaɓuɓɓukan masu haɓakawa ba</string>
 </resources>

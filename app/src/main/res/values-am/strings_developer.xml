@@ -22,4 +22,5 @@
     <string name="dev_index_no_monitors">እስካሁን የተቀመጡ መለኪያዎች የሉም።</string>
     <string name="dev_hide">የገንቢ አማራጮችን ደብቅ</string>
     <string name="dev_hidden">የገንቢ አማራጮች ተደብቀዋል፤ ሁሉም የገንቢ ማብሪያዎች ጠፍተዋል</string>
+    <string name="dev_save_failed">የገንቢ አማራጮችን ማስቀመጥ አልተቻለም</string>
 </resources>

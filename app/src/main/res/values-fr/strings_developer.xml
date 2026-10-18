@@ -23,4 +23,5 @@
     <string name="dev_index_no_monitors">Aucun tensiomètre enregistré pour le moment.</string>
     <string name="dev_hide">Masquer les options pour les développeurs</string>
     <string name="dev_hidden">Options pour les développeurs masquées ; tous les interrupteurs pour les développeurs sont désactivés</string>
+    <string name="dev_save_failed">Impossible d\'enregistrer les options pour les développeurs</string>
 </resources>

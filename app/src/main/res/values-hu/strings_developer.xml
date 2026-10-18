@@ -22,4 +22,5 @@
     <string name="dev_index_no_monitors">Még nincs mentett mérő.</string>
     <string name="dev_hide">Fejlesztői beállítások elrejtése</string>
     <string name="dev_hidden">Fejlesztői beállítások elrejtve; minden fejlesztői kapcsoló ki van kapcsolva</string>
+    <string name="dev_save_failed">Nem sikerült menteni a fejlesztői beállításokat</string>
 </resources>

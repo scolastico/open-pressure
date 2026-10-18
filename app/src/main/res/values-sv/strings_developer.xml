@@ -22,4 +22,5 @@
     <string name="dev_index_no_monitors">Inga sparade mätare ännu.</string>
     <string name="dev_hide">Dölj utvecklaralternativ</string>
     <string name="dev_hidden">Utvecklaralternativ dolda; alla utvecklarbrytare är av</string>
+    <string name="dev_save_failed">Det gick inte att spara utvecklaralternativen</string>
 </resources>

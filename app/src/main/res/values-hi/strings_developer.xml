@@ -22,4 +22,5 @@
     <string name="dev_index_no_monitors">अभी कोई सहेजा गया मॉनिटर नहीं है।</string>
     <string name="dev_hide">डेवलपर विकल्प छिपाएँ</string>
     <string name="dev_hidden">डेवलपर विकल्प छिपा दिए गए; सभी डेवलपर स्विच बंद हैं</string>
+    <string name="dev_save_failed">डेवलपर विकल्प सहेजे नहीं जा सके</string>
 </resources>

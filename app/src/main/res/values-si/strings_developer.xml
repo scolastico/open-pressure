@@ -22,4 +22,5 @@
     <string name="dev_index_no_monitors">තවම සුරකින ලද මොනිටර නැත.</string>
     <string name="dev_hide">සංවර්ධක විකල්ප සඟවන්න</string>
     <string name="dev_hidden">සංවර්ධක විකල්ප සඟවා ඇත; සියලු සංවර්ධක ස්විච අක්‍රියයි</string>
+    <string name="dev_save_failed">සංවර්ධක විකල්ප සුරැකිය නොහැකි විය</string>
 </resources>

@@ -23,4 +23,5 @@
     <string name="dev_index_no_monitors">Nu există încă tensiometre salvate.</string>
     <string name="dev_hide">Ascunde opțiunile pentru dezvoltatori</string>
     <string name="dev_hidden">Opțiunile pentru dezvoltatori sunt ascunse; toate comutatoarele pentru dezvoltatori sunt dezactivate</string>
+    <string name="dev_save_failed">Opțiunile pentru dezvoltatori nu au putut fi salvate</string>
 </resources>

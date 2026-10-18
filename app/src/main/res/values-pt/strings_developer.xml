@@ -23,4 +23,5 @@
     <string name="dev_index_no_monitors">Ainda não há medidores guardados.</string>
     <string name="dev_hide">Ocultar opções de programador</string>
     <string name="dev_hidden">Opções de programador ocultas; todos os interruptores de programador estão desligados</string>
+    <string name="dev_save_failed">Não foi possível guardar as opções de programador</string>
 </resources>

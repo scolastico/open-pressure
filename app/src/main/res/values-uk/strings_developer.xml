@@ -24,4 +24,5 @@
     <string name="dev_index_no_monitors">Збережених тонометрів поки немає.</string>
     <string name="dev_hide">Сховати параметри розробника</string>
     <string name="dev_hidden">Параметри розробника приховано; усі перемикачі розробника вимкнено</string>
+    <string name="dev_save_failed">Не вдалося зберегти параметри розробника</string>
 </resources>

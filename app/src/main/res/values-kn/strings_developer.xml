@@ -22,4 +22,5 @@
     <string name="dev_index_no_monitors">ಇನ್ನೂ ಉಳಿಸಿದ ಮಾನಿಟರ್‌ಗಳಿಲ್ಲ.</string>
     <string name="dev_hide">ಡೆವಲಪರ್ ಆಯ್ಕೆಗಳನ್ನು ಮರೆಮಾಡಿ</string>
     <string name="dev_hidden">ಡೆವಲಪರ್ ಆಯ್ಕೆಗಳನ್ನು ಮರೆಮಾಡಲಾಗಿದೆ; ಎಲ್ಲಾ ಡೆವಲಪರ್ ಸ್ವಿಚ್‌ಗಳು ಆಫ್ ಆಗಿವೆ</string>
+    <string name="dev_save_failed">ಡೆವಲಪರ್ ಆಯ್ಕೆಗಳನ್ನು ಉಳಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ</string>
 </resources>

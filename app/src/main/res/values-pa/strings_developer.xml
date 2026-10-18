@@ -22,4 +22,5 @@
     <string name="dev_index_no_monitors">ਅਜੇ ਕੋਈ ਸੁਰੱਖਿਅਤ ਮਾਨੀਟਰ ਨਹੀਂ।</string>
     <string name="dev_hide">ਡਿਵੈਲਪਰ ਵਿਕਲਪ ਲੁਕਾਓ</string>
     <string name="dev_hidden">ਡਿਵੈਲਪਰ ਵਿਕਲਪ ਲੁਕਾਏ ਗਏ; ਸਾਰੇ ਡਿਵੈਲਪਰ ਸਵਿੱਚ ਬੰਦ ਹਨ</string>
+    <string name="dev_save_failed">ਡਿਵੈਲਪਰ ਵਿਕਲਪ ਰੱਖਿਅਤ ਨਹੀਂ ਕੀਤੇ ਜਾ ਸਕੇ</string>
 </resources>

@@ -22,4 +22,5 @@
     <string name="dev_index_no_monitors">இன்னும் சேமித்த கருவிகள் இல்லை.</string>
     <string name="dev_hide">டெவலப்பர் விருப்பங்களை மறை</string>
     <string name="dev_hidden">டெவலப்பர் விருப்பங்கள் மறைக்கப்பட்டன; அனைத்து டெவலப்பர் ஸ்விட்ச்களும் அணைக்கப்பட்டுள்ளன</string>
+    <string name="dev_save_failed">டெவலப்பர் விருப்பங்களைச் சேமிக்க முடியவில்லை</string>
 </resources>

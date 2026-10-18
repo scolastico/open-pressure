@@ -22,4 +22,5 @@
     <string name="dev_index_no_monitors">ଏପର୍ଯ୍ୟନ୍ତ କୌଣସି ସଞ୍ଚିତ ମନିଟର ନାହିଁ।</string>
     <string name="dev_hide">ଡେଭେଲପର ବିକଳ୍ପ ଲୁଚାନ୍ତୁ</string>
     <string name="dev_hidden">ଡେଭେଲପର ବିକଳ୍ପ ଲୁଚାଯାଇଛି; ସମସ୍ତ ଡେଭେଲପର ସୁଇଚ ବନ୍ଦ ଅଛି</string>
+    <string name="dev_save_failed">ଡେଭେଲପର ବିକଳ୍ପ ସେଭ କରାଯାଇପାରିଲା ନାହିଁ</string>
 </resources>

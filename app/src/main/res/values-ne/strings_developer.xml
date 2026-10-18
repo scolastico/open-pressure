@@ -22,4 +22,5 @@
     <string name="dev_index_no_monitors">अहिलेसम्म कुनै सुरक्षित मनिटर छैन।</string>
     <string name="dev_hide">विकासकर्ता विकल्पहरू लुकाउनुहोस्</string>
     <string name="dev_hidden">विकासकर्ता विकल्पहरू लुकाइयो; सबै विकासकर्ता स्विचहरू बन्द छन्</string>
+    <string name="dev_save_failed">विकासकर्ता विकल्पहरू सुरक्षित गर्न सकिएन</string>
 </resources>

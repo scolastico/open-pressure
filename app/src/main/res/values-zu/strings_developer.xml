@@ -22,4 +22,5 @@
     <string name="dev_index_no_monitors">Azikho izilinganisi ezilondoloziwe okwamanje.</string>
     <string name="dev_hide">Fihla izinketho zonjiniyela</string>
     <string name="dev_hidden">Izinketho zonjiniyela zifihliwe; zonke izishintshi zonjiniyela zivaliwe</string>
+    <string name="dev_save_failed">Ayikwazanga ukulondoloza izinketho zonjiniyela</string>
 </resources>

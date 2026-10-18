@@ -16,7 +16,6 @@ import android.widget.Toast;
 import java.util.List;
 import org.openpressure.app.PressureApp;
 import org.openpressure.app.R;
-import org.openpressure.protocol.VendorMemoryModel;
 import org.openpressure.protocol.WriteAspectIndex;
 import org.openpressure.protocol.WriteAspectIndex.Aspect;
 
@@ -28,6 +27,7 @@ import org.openpressure.protocol.WriteAspectIndex.Aspect;
 public final class DeveloperOptionsActivity extends Activity {
     private static final int TEAL=0xff176e65, INK=0xff182d2a, MUTED=0xff61726b, WARN=0xff9a3412;
     private Switch clock;
+    private LinearLayout indexSection;
     private boolean binding;
     private AlertDialog dialog;
 
@@ -52,13 +52,16 @@ public final class DeveloperOptionsActivity extends Activity {
         bindClock();
         clock.setOnCheckedChangeListener((view,checked) -> { if(!binding) clockChanged(checked); });
         add(page,clock,16);
-        index(page);
+        indexSection=new LinearLayout(this); indexSection.setOrientation(LinearLayout.VERTICAL);
+        add(page,indexSection,0);
         add(page,button(getString(R.string.dev_hide),this::confirmHide,false),24);
     }
     @Override protected void onResume() {
         super.onResume();
         if(!DeveloperOptions.isUnlocked(this)) { finish(); return; }
         if(dialog==null || !dialog.isShowing()) bindClock();
+        // Rebuilt on every resume so monitors forgotten or renamed meanwhile are current.
+        index();
     }
     @Override protected void onDestroy() { if(dialog!=null) dialog.dismiss(); dialog=null; super.onDestroy(); }
 
@@ -78,7 +81,11 @@ public final class DeveloperOptionsActivity extends Activity {
     }
     private void store(boolean allowed) {
         try { DeveloperOptions.setAllowUntested(this,Aspect.CLOCK_BLOCK,allowed); }
-        catch(IllegalStateException locked) { finish(); return; }
+        catch(IllegalStateException failed) {
+            // Locked meanwhile: nothing to change here. Otherwise the save failed: say so and show what is stored.
+            if(!DeveloperOptions.isUnlocked(this)) { finish(); return; }
+            saveFailed();
+        }
         bindClock();
     }
     private void confirmHide() {
@@ -89,13 +96,18 @@ public final class DeveloperOptionsActivity extends Activity {
     }
     private void hide() {
         // Locking clears every switch; only write when the state actually changes.
-        if(DeveloperOptions.isUnlocked(this)) DeveloperOptions.setUnlocked(this,false);
+        try { if(DeveloperOptions.isUnlocked(this)) DeveloperOptions.setUnlocked(this,false); }
+        catch(IllegalStateException failed) { saveFailed(); bindClock(); index(); return; }
         Toast.makeText(this,R.string.dev_hidden,Toast.LENGTH_LONG).show();
         finish();
     }
 
+    private void saveFailed() { Toast.makeText(this,R.string.dev_save_failed,Toast.LENGTH_LONG).show(); }
+
     /** One row per saved monitor and write aspect: name, aspect, status and the index's evidence note. */
-    private void index(LinearLayout page) {
+    private void index() {
+        if(indexSection==null) return;
+        LinearLayout page=indexSection; page.removeAllViews();
         add(page,text(getString(R.string.dev_index_title),20,INK,true),28);
         List<String[]> devices=((PressureApp)getApplication()).store().devices();
         if(devices.isEmpty()) { add(page,text(getString(R.string.dev_index_no_monitors),15,MUTED,false),8); return; }
@@ -105,11 +117,11 @@ public final class DeveloperOptionsActivity extends Activity {
             card.setTag("dev_index_"+device[0]);
             add(card,text(device[1],17,INK,true),0);
             TextView model=text(device[2],13,MUTED,false); model.setTextDirection(View.TEXT_DIRECTION_LTR); add(card,model,2);
-            String identity=identity(device[2]);
+            String identity=WriteAspectIndex.resolve(device[2]);
             for(Aspect aspect:Aspect.values()) {
                 WriteAspectIndex.Entry entry=WriteAspectIndex.lookup(identity,aspect);
                 add(card,text(getString(aspect==Aspect.CLOCK_BLOCK?R.string.dev_index_aspect_clock:R.string.dev_index_aspect_unsent),15,INK,true),10);
-                TextView status=text(getString(status(entry.status)),15,entry.status==WriteAspectIndex.Status.BLOCKED?MUTED:TEAL,false);
+                TextView status=text(getString(status(entry.status)),15,color(entry.status),false);
                 status.setTag("dev_index_"+device[0]+"_"+aspect.name()); add(card,status,2);
                 // Evidence notes are technical references from the index, shown as-is.
                 TextView evidence=text(entry.evidence,12,MUTED,false); evidence.setTypeface(Typeface.MONOSPACE);
@@ -118,10 +130,13 @@ public final class DeveloperOptionsActivity extends Activity {
             add(page,card,10);
         }
     }
-    /** The index keys verified identities: vendor-memory models by their table id, X7 identities as reported. */
-    static String identity(String model) {
-        VendorMemoryModel known=VendorMemoryModel.identify(model);
-        return known!=null?known.id:model;
+    /** Only a hardware-confirmed aspect uses the accent; untested ones are a warning, blocked ones muted. */
+    private static int color(WriteAspectIndex.Status status) {
+        switch(status) {
+            case CONFIRMED: return TEAL;
+            case UNTESTED: return WARN;
+            default: return MUTED;
+        }
     }
     private static int status(WriteAspectIndex.Status status) {
         switch(status) {

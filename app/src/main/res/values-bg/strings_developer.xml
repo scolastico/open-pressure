@@ -22,4 +22,5 @@
     <string name="dev_index_no_monitors">Все още няма запазени апарати.</string>
     <string name="dev_hide">Скриване на опциите за програмисти</string>
     <string name="dev_hidden">Опциите за програмисти са скрити; всички превключватели за програмисти са изключени</string>
+    <string name="dev_save_failed">Опциите за програмисти не можаха да бъдат запазени</string>
 </resources>

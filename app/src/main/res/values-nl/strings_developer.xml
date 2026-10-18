@@ -22,4 +22,5 @@
     <string name="dev_index_no_monitors">Nog geen opgeslagen meters.</string>
     <string name="dev_hide">Ontwikkelaarsopties verbergen</string>
     <string name="dev_hidden">Ontwikkelaarsopties verborgen; alle ontwikkelaarsschakelaars staan uit</string>
+    <string name="dev_save_failed">Ontwikkelaarsopties konden niet worden opgeslagen</string>
 </resources>

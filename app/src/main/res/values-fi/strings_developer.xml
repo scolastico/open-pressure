@@ -22,4 +22,5 @@
     <string name="dev_index_no_monitors">Ei vielä tallennettuja mittareita.</string>
     <string name="dev_hide">Piilota kehittäjäasetukset</string>
     <string name="dev_hidden">Kehittäjäasetukset piilotettu; kaikki kehittäjäkytkimet ovat pois päältä</string>
+    <string name="dev_save_failed">Kehittäjäasetuksia ei voitu tallentaa</string>
 </resources>

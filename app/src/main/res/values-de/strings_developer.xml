@@ -22,4 +22,5 @@
     <string name="dev_index_no_monitors">Noch keine gespeicherten Messgeräte.</string>
     <string name="dev_hide">Entwickleroptionen ausblenden</string>
     <string name="dev_hidden">Entwickleroptionen ausgeblendet; alle Entwicklerschalter sind aus</string>
+    <string name="dev_save_failed">Entwickleroptionen konnten nicht gespeichert werden</string>
 </resources>

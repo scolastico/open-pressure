@@ -22,4 +22,5 @@
     <string name="dev_index_no_monitors">હજી કોઈ સાચવેલ મોનિટર નથી.</string>
     <string name="dev_hide">ડેવલપર વિકલ્પો છુપાવો</string>
     <string name="dev_hidden">ડેવલપર વિકલ્પો છુપાવ્યા; બધી ડેવલપર સ્વિચ બંધ છે</string>
+    <string name="dev_save_failed">ડેવલપર વિકલ્પો સાચવી શકાયા નથી</string>
 </resources>

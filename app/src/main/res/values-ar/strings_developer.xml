@@ -26,4 +26,5 @@
     <string name="dev_index_no_monitors">لا توجد أجهزة محفوظة بعد.</string>
     <string name="dev_hide">إخفاء خيارات المطوّرين</string>
     <string name="dev_hidden">تم إخفاء خيارات المطوّرين؛ جميع مفاتيح المطوّرين متوقفة</string>
+    <string name="dev_save_failed">تعذّر حفظ خيارات المطوّرين</string>
 </resources>

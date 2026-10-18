@@ -22,4 +22,5 @@
     <string name="dev_index_no_monitors">ఇంకా సేవ్ చేసిన మానిటర్‌లు లేవు.</string>
     <string name="dev_hide">డెవలపర్ ఎంపికలను దాచండి</string>
     <string name="dev_hidden">డెవలపర్ ఎంపికలు దాచబడ్డాయి; అన్ని డెవలపర్ స్విచ్‌లు ఆఫ్‌లో ఉన్నాయి</string>
+    <string name="dev_save_failed">డెవలపర్ ఎంపికలను సేవ్ చేయడం సాధ్యపడలేదు</string>
 </resources>

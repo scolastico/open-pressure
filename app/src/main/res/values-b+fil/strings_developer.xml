@@ -21,4 +21,5 @@
     <string name="dev_index_no_monitors">Wala pang naka-save na monitor.</string>
     <string name="dev_hide">Itago ang mga opsyon ng developer</string>
     <string name="dev_hidden">Nakatago na ang mga opsyon ng developer; naka-off ang lahat ng switch ng developer</string>
+    <string name="dev_save_failed">Hindi ma-save ang mga opsyon ng developer</string>
 </resources>

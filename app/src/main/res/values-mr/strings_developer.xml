@@ -22,4 +22,5 @@
     <string name="dev_index_no_monitors">अद्याप कोणतेही सेव्ह केलेले मॉनिटर नाहीत.</string>
     <string name="dev_hide">डेव्हलपर पर्याय लपवा</string>
     <string name="dev_hidden">डेव्हलपर पर्याय लपवले; सर्व डेव्हलपर स्विच बंद आहेत</string>
+    <string name="dev_save_failed">डेव्हलपर पर्याय सेव्ह करता आले नाहीत</string>
 </resources>

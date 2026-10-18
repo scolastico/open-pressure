@@ -474,7 +474,9 @@ public final class MainActivity extends Activity {
         if(DeveloperOptions.isUnlocked(this)) return;
         int remaining=developerTaps.tap(android.os.SystemClock.uptimeMillis());
         if(remaining>0) { if(remaining<=2) developerToast(getResources().getQuantityString(R.plurals.dev_taps_remaining,remaining,remaining)); return; }
-        DeveloperOptions.setUnlocked(this,true); developerToast(getString(R.string.dev_unlocked)); render();
+        try { DeveloperOptions.setUnlocked(this,true); developerToast(getString(R.string.dev_unlocked)); }
+        catch(IllegalStateException failed) { developerToast(getString(R.string.dev_save_failed)); }
+        render();
     }
     /** Replaces the previous hint so quick taps do not queue a backlog of toasts. */
     private void developerToast(String message) {

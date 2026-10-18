@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.Switch;
 import android.widget.TextView;
 import androidx.work.WorkManager;
+import java.io.File;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -41,7 +42,13 @@ public class DeveloperOptionsActivityTest {
     }
     private PressureApp app;
     @Before public void setup() { app=(PressureApp)RuntimeEnvironment.getApplication(); DeveloperOptions.setUnlocked(app,true); }
-    @After public void close() { app.store().close(); }
+    @After public void close() { prefsDir(app).setWritable(true); app.store().close(); }
+    /** Makes the next SharedPreferences commit fail on disk, as a full or read-only data partition would. */
+    static File prefsDir(Context context) { return new File(context.getDataDir(),"shared_prefs"); }
+    static void failPreferenceWrites(Context context) {
+        File dir=prefsDir(context); dir.mkdirs();
+        assertTrue("test needs a non-writable preferences directory",dir.setWritable(false) && !dir.canWrite());
+    }
     private static void idle() { Shadows.shadowOf(Looper.getMainLooper()).idle(); }
     private static View root(Activity a) { return a.findViewById(android.R.id.content); }
     private static Button button(View root,String label) {
@@ -169,5 +176,77 @@ public class DeveloperOptionsActivityTest {
             Activity a=controller.get();
             assertTrue(hasText(root(a),a.getString(R.string.dev_index_no_monitors)));
         }
+    }
+    @Test public void indexViewerResolvesAliasesAndBlocksHints() {
+        app.store().remember("00:00:00:00:00:01","Afib","X7 Smart AFib",1);
+        app.store().remember("00:00:00:00:00:02","Hint","HEM-7380T1",1);
+        app.store().remember("00:00:00:00:00:03","Regional","HEM-7156T-AAP",1);
+        try(ActivityController<DeveloperOptionsActivity> controller=Robolectric.buildActivity(DeveloperOptionsActivity.class).setup()) {
+            Activity a=controller.get();
+            assertEquals(a.getString(R.string.dev_index_status_untested),status(a,"00:00:00:00:00:01",Aspect.CLOCK_BLOCK));
+            assertEquals(a.getString(R.string.dev_index_status_blocked),status(a,"00:00:00:00:00:02",Aspect.CLOCK_BLOCK));
+            assertEquals(a.getString(R.string.dev_index_status_blocked),status(a,"00:00:00:00:00:03",Aspect.CLOCK_BLOCK));
+        }
+    }
+    @Test public void untestedIsDrawnAsAWarningNotTheAccent() {
+        app.store().remember("00:11:22:33:44:55","Kitchen","HEM-7155T",1);
+        try(ActivityController<DeveloperOptionsActivity> controller=Robolectric.buildActivity(DeveloperOptionsActivity.class).setup()) {
+            Activity a=controller.get();
+            TextView untested=(TextView)root(a).findViewWithTag("dev_index_00:11:22:33:44:55_CLOCK_BLOCK");
+            TextView blocked=(TextView)root(a).findViewWithTag("dev_index_00:11:22:33:44:55_UNSENT_COUNTERS");
+            assertEquals(0xff9a3412,untested.getCurrentTextColor());
+            assertEquals(0xff61726b,blocked.getCurrentTextColor());
+        }
+    }
+    @Test public void resumeDropsAMonitorForgottenMeanwhile() {
+        app.store().remember("00:11:22:33:44:55","Kitchen","HEM-7155T",1);
+        try(ActivityController<DeveloperOptionsActivity> controller=Robolectric.buildActivity(DeveloperOptionsActivity.class).setup()) {
+            Activity a=controller.get();
+            assertTrue(hasText(root(a),"Kitchen"));
+            controller.pause().stop();
+            app.store().forget("00:11:22:33:44:55");
+            controller.restart().resume(); idle();
+            assertFalse(hasText(root(a),"Kitchen"));
+            assertNull(root(a).findViewWithTag("dev_index_00:11:22:33:44:55_CLOCK_BLOCK"));
+            assertTrue(hasText(root(a),a.getString(R.string.dev_index_no_monitors)));
+            assertEquals("The section is rebuilt, not appended",1,count(root(a),a.getString(R.string.dev_index_title)));
+        }
+    }
+    @Test public void failedSwitchSaveShowsAMessageAndKeepsTheScreen() {
+        try(ActivityController<DeveloperOptionsActivity> controller=Robolectric.buildActivity(DeveloperOptionsActivity.class).setup()) {
+            Activity a=controller.get();
+            clockSwitch(a).performClick(); idle();
+            failPreferenceWrites(app);
+            ShadowAlertDialog.getLatestAlertDialog().getButton(AlertDialog.BUTTON_POSITIVE).performClick(); idle();
+            assertEquals(a.getString(R.string.dev_save_failed),ShadowToast.getTextOfLatestToast());
+            assertFalse("A save failure does not close the screen",a.isFinishing());
+            assertEquals("The switch shows the stored choice",DeveloperOptions.allowsUntested(app,Aspect.CLOCK_BLOCK),clockSwitch(a).isChecked());
+        }
+    }
+    @Test public void switchOnALockedScreenCloses() {
+        try(ActivityController<DeveloperOptionsActivity> controller=Robolectric.buildActivity(DeveloperOptionsActivity.class).setup()) {
+            Activity a=controller.get();
+            clockSwitch(a).performClick(); idle();
+            DeveloperOptions.setUnlocked(app,false);
+            ShadowAlertDialog.getLatestAlertDialog().getButton(AlertDialog.BUTTON_POSITIVE).performClick(); idle();
+            assertTrue(a.isFinishing());
+            assertFalse(DeveloperOptions.allowsUntested(app,Aspect.CLOCK_BLOCK));
+            assertNotEquals(a.getString(R.string.dev_save_failed),ShadowToast.getTextOfLatestToast());
+        }
+    }
+    @Test public void failedHideShowsAMessageInsteadOfCrashing() {
+        try(ActivityController<DeveloperOptionsActivity> controller=Robolectric.buildActivity(DeveloperOptionsActivity.class).setup()) {
+            Activity a=controller.get();
+            button(root(a),a.getString(R.string.dev_hide)).performClick(); idle();
+            failPreferenceWrites(app);
+            ShadowAlertDialog.getLatestAlertDialog().getButton(AlertDialog.BUTTON_POSITIVE).performClick(); idle();
+            assertEquals(a.getString(R.string.dev_save_failed),ShadowToast.getTextOfLatestToast());
+            assertFalse(hasText(root(a),a.getString(R.string.dev_hidden)));
+        }
+    }
+    private static int count(View root,String value) {
+        int n=root instanceof TextView && ((TextView)root).getText().toString().equals(value)?1:0;
+        if(root instanceof ViewGroup) for(int i=0;i<((ViewGroup)root).getChildCount();i++) n+=count(((ViewGroup)root).getChildAt(i),value);
+        return n;
     }
 }

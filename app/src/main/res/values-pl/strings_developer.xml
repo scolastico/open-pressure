@@ -24,4 +24,5 @@
     <string name="dev_index_no_monitors">Brak zapisanych ciśnieniomierzy.</string>
     <string name="dev_hide">Ukryj opcje programisty</string>
     <string name="dev_hidden">Opcje programisty ukryte; wszystkie przełączniki programisty są wyłączone</string>
+    <string name="dev_save_failed">Nie udało się zapisać opcji programisty</string>
 </resources>

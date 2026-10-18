@@ -21,4 +21,5 @@
     <string name="dev_index_no_monitors">ยังไม่มีเครื่องวัดที่บันทึกไว้</string>
     <string name="dev_hide">ซ่อนตัวเลือกสำหรับนักพัฒนา</string>
     <string name="dev_hidden">ซ่อนตัวเลือกสำหรับนักพัฒนาแล้ว สวิตช์สำหรับนักพัฒนาทั้งหมดปิดอยู่</string>
+    <string name="dev_save_failed">บันทึกตัวเลือกสำหรับนักพัฒนาไม่ได้</string>
 </resources>

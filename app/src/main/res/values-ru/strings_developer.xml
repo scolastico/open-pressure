@@ -24,4 +24,5 @@
     <string name="dev_index_no_monitors">Сохранённых тонометров пока нет.</string>
     <string name="dev_hide">Скрыть параметры разработчика</string>
     <string name="dev_hidden">Параметры разработчика скрыты; все переключатели разработчика выключены</string>
+    <string name="dev_save_failed">Не удалось сохранить параметры разработчика</string>
 </resources>

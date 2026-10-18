@@ -22,4 +22,5 @@
     <string name="dev_index_no_monitors">Δεν υπάρχουν ακόμη αποθηκευμένα πιεσόμετρα.</string>
     <string name="dev_hide">Απόκρυψη επιλογών για προγραμματιστές</string>
     <string name="dev_hidden">Οι επιλογές για προγραμματιστές αποκρύφθηκαν· όλοι οι διακόπτες προγραμματιστή είναι απενεργοποιημένοι</string>
+    <string name="dev_save_failed">Δεν ήταν δυνατή η αποθήκευση των επιλογών για προγραμματιστές</string>
 </resources>

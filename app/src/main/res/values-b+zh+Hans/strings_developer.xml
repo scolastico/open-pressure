@@ -21,4 +21,5 @@
     <string name="dev_index_no_monitors">还没有已保存的血压计。</string>
     <string name="dev_hide">隐藏开发者选项</string>
     <string name="dev_hidden">已隐藏开发者选项；所有开发者开关均已关闭</string>
+    <string name="dev_save_failed">无法保存开发者选项</string>
 </resources>

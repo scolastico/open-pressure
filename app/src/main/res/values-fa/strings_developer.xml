@@ -22,4 +22,5 @@
     <string name="dev_index_no_monitors">هنوز دستگاه ذخیره‌شده‌ای وجود ندارد.</string>
     <string name="dev_hide">پنهان کردن گزینه‌های توسعه‌دهنده</string>
     <string name="dev_hidden">گزینه‌های توسعه‌دهنده پنهان شد؛ همه کلیدهای توسعه‌دهنده خاموش هستند</string>
+    <string name="dev_save_failed">ذخیرهٔ گزینه‌های توسعه‌دهنده ممکن نشد</string>
 </resources>

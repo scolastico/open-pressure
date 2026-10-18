@@ -24,4 +24,5 @@
     <string name="dev_index_no_monitors">Zatiaľ žiadne uložené tlakomery.</string>
     <string name="dev_hide">Skryť možnosti pre vývojárov</string>
     <string name="dev_hidden">Možnosti pre vývojárov skryté; všetky vývojárske prepínače sú vypnuté</string>
+    <string name="dev_save_failed">Možnosti pre vývojárov sa nepodarilo uložiť</string>
 </resources>

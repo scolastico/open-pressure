@@ -22,4 +22,5 @@
     <string name="dev_index_no_monitors">Ingen lagrede målere ennå.</string>
     <string name="dev_hide">Skjul utvikleralternativer</string>
     <string name="dev_hidden">Utvikleralternativer skjult; alle utviklerbrytere er av</string>
+    <string name="dev_save_failed">Kunne ikke lagre utvikleralternativene</string>
 </resources>
