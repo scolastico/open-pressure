@@ -30,6 +30,7 @@ public final class FixtureTest {
         filtersOnlyStepsPerClient();
         rejectsMalformedLinesWithLineNumbers();
         reassemblesLegacyChannelWritesIntoOneFrame();
+        strayChannelWriteIsADivergence();
         divergenceReportsStepAndDecodedFields();
         finishComparesReadings();
         return checks;
@@ -82,6 +83,16 @@ public final class FixtureTest {
         check(replies.size()==2 && replies.get(0).characteristic.equals(rx.get(0)) && replies.get(1).characteristic.equals(rx.get(1)),"reply split over rx channels");
         check(replies.get(0).value.length==16 && replies.get(1).value.length==8,"16-byte channel parts");
         check(cursor.finished(),"all steps consumed");
+    }
+    private static void strayChannelWriteIsADivergence() {
+        byte[] frame=new byte[24]; frame[0]=24; frame[1]=1; for(int i=0;i<23;i++) frame[23]^=frame[i];
+        Fixture f=Fixture.parse("test/sample",HEAD+"write tx "+HexFormat.of().formatHex(frame)+"\n");
+        FixtureCursor cursor=new FixtureCursor(f,Fixture.Client.OURS_APP);
+        List<UUID> tx=f.aliases.get("tx");
+        check(cursor.onWrite(tx.get(2),new byte[]{1,2,3})==null,"a channel part is pending until the frame is known");
+        check(cursor.onWrite(tx.get(1),Arrays.copyOfRange(frame,16,24))==null,"second part pending");
+        Outcome outcome=cursor.onWrite(tx.get(0),Arrays.copyOfRange(frame,0,16));
+        check(outcome!=null && outcome.kind==Outcome.Kind.DIVERGED && outcome.detail.contains("channel 2"),"extra channel part beyond the frame: "+outcome);
     }
     private static void divergenceReportsStepAndDecodedFields() {
         Fixture f=Fixture.parse("test/sample",HEAD+"write unlock 01 05050505050505050505050505050505\nnotify unlock 8100\nreads 0x98 16 chunk=16\n");

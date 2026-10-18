@@ -85,8 +85,8 @@ public final class MonitorService extends Service {
     private PendingConnection pendingConnection;
     private int wlpParsed,wlpRejected,negotiatedMtu=23;
     private String verifiedModel="";
-    /** Time source for the optional clock write; replaced by fixtures to keep transcripts deterministic. */
-    java.time.Clock clock=java.time.Clock.systemDefaultZone();
+    /** Fixed time source for fixture replays; null uses the phone's current time and time zone at each write. */
+    java.time.Clock clock;
     private long lastWlpUpdate;
     private final ExecutorService dumpIo=Executors.newSingleThreadExecutor();
     private volatile File dumpFile;
@@ -759,6 +759,7 @@ public final class MonitorService extends Service {
             sendVendorRead();
         } catch(Exception ex) { fail("Vendor response rejected: "+ex.getMessage()); }
     }
+    LocalDateTime clockNow() { return clock==null?LocalDateTime.now():LocalDateTime.now(clock); }
     private void syncVendorClock() {
         vendorClockAttempted=true;
         // Automatic imports are read-only, so the optional clock write belongs to explicit sessions.
@@ -769,7 +770,7 @@ public final class MonitorService extends Service {
             sendVendorRead(); return;
         }
         vendorClockPending=true;
-        LocalDateTime time=LocalDateTime.now(clock);
+        LocalDateTime time=clockNow();
         state("Finishing history import…","Readings saved. Attempting a clock update before ending the session.");
         writeClock(time,() -> {
             vendorClockPending=false; vendorClockResult="Clock write accepted.";

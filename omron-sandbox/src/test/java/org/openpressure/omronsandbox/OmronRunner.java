@@ -48,14 +48,15 @@ public final class OmronRunner {
     private static final long PACING_STEP_MS=10;
     private final Fixture fixture;
     private final OmronApk apk;
-    private final List<String> log=new ArrayList<>();
-    private final List<OmronVitals.Delivery> vitals=new ArrayList<>();
+    // Written from Omron's threads, read by the pump.
+    private final List<String> log=java.util.Collections.synchronizedList(new ArrayList<>());
+    private final List<OmronVitals.Delivery> vitals=java.util.Collections.synchronizedList(new ArrayList<>());
     private FixtureCursor cursor;
     private FixtureGatt peer;
     private OmronAnchors anchors;
-    private Object device;
-    private String failure;
-    private boolean vitalDone,connected,disconnected;
+    private volatile Object device;
+    private volatile String failure;
+    private volatile boolean vitalDone,connected,disconnected;
 
     private OmronRunner(Fixture fixture,OmronApk apk) { this.fixture=fixture; this.apk=apk; }
 
@@ -101,8 +102,8 @@ public final class OmronRunner {
             // Omron's HandlerThreads would otherwise outlive the run and keep its class loader alive.
             for(Looper looper:ShadowLooper.getAllLoopers()) if(background(looper)) looper.quit();
         }
-        runner.write(transcript,outcome);
-        SandboxBluetoothDevice.peer=null;
+        try { runner.write(transcript,outcome); }
+        finally { SandboxBluetoothDevice.peer=null; }
         return outcome;
     }
 
@@ -181,7 +182,7 @@ public final class OmronRunner {
         pump(() -> disconnected || peer.outcome()!=null);
         if(peer.outcome()!=null) return peer.outcome();
         if(!cursor.finished()) return cursor.stalled();
-        return cursor.finish(OmronVitals.readings(vitals,log));
+        synchronized(vitals) { return cursor.finish(OmronVitals.readings(new ArrayList<>(vitals),log)); }
     }
 
     /**
@@ -339,7 +340,7 @@ public final class OmronRunner {
     private void write(Path transcript,Outcome outcome) throws IOException {
         StringBuilder out=new StringBuilder("omron ").append(apk.version).append(": ").append(outcome.report()).append("\n\n");
         StringBuilder noisy=new StringBuilder();
-        for(String line:log) (line.startsWith("time +")?noisy:out).append(normalise(line)).append('\n');
+        synchronized(log) { for(String line:log) (line.startsWith("time +")?noisy:out).append(normalise(line)).append('\n'); }
         if(peer!=null) { out.append("\n-- link --\n"); synchronized(peer.transcript()) { for(String line:peer.transcript()) out.append(line).append('\n'); } }
         noisy.append("\n-- Omron log (last 400) --\n");
         List<ShadowLog.LogItem> logs=ShadowLog.getLogs();

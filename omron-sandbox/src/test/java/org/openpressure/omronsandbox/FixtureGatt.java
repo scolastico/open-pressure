@@ -28,8 +28,8 @@ public final class FixtureGatt {
     private final List<String> transcript=Collections.synchronizedList(new ArrayList<>());
     private BluetoothGatt gatt;
     private BluetoothGattCallback callback;
-    private Outcome outcome;
-    private boolean connected;
+    private volatile Outcome outcome;
+    private volatile boolean connected;
 
     public FixtureGatt(Fixture fixture,FixtureCursor cursor) {
         this.fixture=fixture; this.cursor=cursor;

@@ -15,8 +15,11 @@ case "${1:-all}" in
   -h|--help) usage; exit 0 ;;
   resolve)
     rm -f "$out/resolve.txt"
-    ./gradlew -q :omron-sandbox:testDebugUnitTest --tests '*OmronAnchorsTest' >/dev/null
-    cat "$out/resolve.txt" 2>/dev/null || echo "Omron: skipped (Omron APK not found, see docs/omron-sandbox.md)"
+    # The test fails exactly when an anchor is missing; the report is still written and shown.
+    ./gradlew -q :omron-sandbox:testDebugUnitTest --tests '*OmronAnchorsTest' >"$out-gradle.log" 2>&1 || true
+    if [ -f "$out/resolve.txt" ]; then cat "$out/resolve.txt"
+    elif [ -f omron-sandbox/build/omron/version.txt ]; then echo "Omron: error, see $out-gradle.log"
+    else echo "Omron: skipped (Omron APK not found, see docs/omron-sandbox.md)"; fi
     exit 0 ;;
   diff)
     [ $# -eq 3 ] || { usage; exit 2; }
@@ -46,6 +49,7 @@ javac -encoding UTF-8 -d protocol/build/plain-tests @protocol/build/plain-tests/
 for name in $names; do
   echo "== $name"
   if [ -f "$out/results/$name.txt" ]; then cat "$out/results/$name.txt"
+  elif [ -f omron-sandbox/build/omron/version.txt ]; then echo "omron: error before a result was written, see $out-gradle.log"
   else echo "omron: skipped (Omron APK not found, see docs/omron-sandbox.md)"; fi
   if [ -f "app/build/fixture-replay/$name.txt" ]; then head -1 "app/build/fixture-replay/$name.txt"
   else echo "ours (app): not run (see ./gradlew :app:testDebugUnitTest --tests '*FixtureReplayTest')"; fi

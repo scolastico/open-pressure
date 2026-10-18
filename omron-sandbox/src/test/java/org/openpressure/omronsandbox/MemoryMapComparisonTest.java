@@ -18,12 +18,12 @@ import static org.junit.Assert.*;
 @RunWith(RobolectricTestRunner.class)
 @Config(sdk=35)
 public class MemoryMapComparisonTest {
-    private static final String HEM_7156T_AP="[model]\nmodel_id=HEM-7156T-AP\nconnect_type=WLS3.0\n\n[memory_map]\n"+
-        "index_setting_read_address=10\nindex_num_of_datatypes=1\nindex_1_data_pointer_max=59\n"+
-        "; measurement data of person no.1.\ndata_1_address=98\ndata_1_address_step=16\ndata_1_size=16\n\n[func_GETDATA1_command]\nattr=wait:5000,len:8\n";
+    /** Invented configuration in Omron's INI shape; no Omron text is committed. */
+    private static final String SYNTHETIC="[model]\nmodel_id=HEM-0000T-X\nconnect_type=WLS3.0\n\n[memory_map]\n"+
+        "index_num_of_datatypes=1\nindex_1_data_pointer_max=59\n; synthetic area\ndata_1_address=98\ndata_1_address_step=16\ndata_1_size=16\n\n[other]\nkey=value\n";
 
     @Test public void parsesSyntheticDeviceConfig() {
-        OmronConfig config=OmronConfig.parse(HEM_7156T_AP);
+        OmronConfig config=OmronConfig.parse(SYNTHETIC);
         assertEquals("WLS3.0",config.connectType);
         List<OmronConfig.Area> areas=config.areas();
         assertEquals(1,areas.size());

@@ -106,6 +106,8 @@ public class FixtureReplayTest {
         writeReport();
         Outcome.Kind wanted=fixture.expectRejected(Fixture.Client.OURS_APP)?Outcome.Kind.REJECTED:Outcome.Kind.MATCHES;
         assertEquals(outcome.report(),wanted,outcome.kind);
+        // A refused identity must be refused before any byte reaches the monitor.
+        if(wanted==Outcome.Kind.REJECTED) assertTrue(outcome.report(),cursor.transcript().stream().noneMatch(line -> line.startsWith("write ")));
     }
 
     /** Runs scripted peer events until the service has nothing left to do. */

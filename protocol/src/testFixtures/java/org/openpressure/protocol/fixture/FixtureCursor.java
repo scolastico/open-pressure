@@ -51,6 +51,12 @@ public final class FixtureCursor {
             parts.put(channel,value.clone());
             frame=assemble();
             if(frame==null) return null;
+            int used=Math.max(1,((parts.get(0)[0]&255)+15)/16);
+            for(int extra:parts.keySet()) if(extra>=used) {
+                byte[] stray=parts.get(extra);
+                parts.clear();
+                return fail(Outcome.diverged(position,expected.line,expected.bytes,stray,"channel "+extra+" written beyond the "+used+"-part frame"));
+            }
             parts.clear();
         }
         if(!Arrays.equals(frame,expected.bytes)) return fail(Outcome.diverged(position,expected.line,expected.bytes,frame,"frame differs"));

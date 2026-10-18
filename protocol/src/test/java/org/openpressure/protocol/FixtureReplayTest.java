@@ -21,6 +21,8 @@ public final class FixtureReplayTest {
             Outcome outcome=ProtocolReplay.run(f);
             Outcome.Kind wanted=f.expectRejected(Fixture.Client.OURS_PROTOCOL)?Outcome.Kind.REJECTED:Outcome.Kind.MATCHES;
             check(outcome.kind==wanted,name+": "+outcome.report());
+            // A refused identity must be refused before any byte reaches the monitor.
+            if(wanted==Outcome.Kind.REJECTED) check(outcome.step==0,name+" wrote before refusing: "+outcome.report());
         }
     }
     private static void stalledClientIsRejectedNotHung() {
