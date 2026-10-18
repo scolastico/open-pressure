@@ -301,18 +301,14 @@ public final class MonitorService extends Service {
         AutoImportTracker.Attempt attempt=automaticTracker.offer(target,advertisement,SystemClock.elapsedRealtime());
         if(attempt==null) return;
         store.packet(target,"automatic-advertisement",manufacturer,"New advertised record revision · "+attempt.revision);
-        user=Integer.parseInt(saved[3]); importUsers=savedImportUsers(saved);
+        // The current "Readings to import" choice, not the row cached when listening started.
+        user=Integer.parseInt(saved[3]); int users=store.importUsers(target); importUsers=users>=1 && users<=3?users:3;
         connect(target,saved[1],false,false,manufacturer,attempt);
         } catch(RuntimeException failure) {
             if(automaticAttempt!=null) disconnect();
             else automaticTracker.cancel(SystemClock.elapsedRealtime());
             automaticStatus("Automatic import could not start. Check Bluetooth access and reconnect manually if needed.");
         }
-    }
-    /** The saved row's import users (column 4), or both users when it is missing or invalid. */
-    static int savedImportUsers(String[] saved) {
-        try { int users=saved.length>4 && saved[4]!=null?Integer.parseInt(saved[4]):3; return users>=1 && users<=3?users:3; }
-        catch(NumberFormatException invalid) { return 3; }
     }
     private boolean savedVendorKey(String target,VendorMemoryModel vendor) {
         try { return new VendorPairingKeys(keys,target,vendor.id).hasCandidate(); }

@@ -2,6 +2,7 @@ package org.openpressure.app.ble;
 
 import android.app.Application;
 import android.bluetooth.*;
+import android.bluetooth.le.*;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Looper;
@@ -11,6 +12,7 @@ import org.openpressure.app.R;
 import org.openpressure.app.automatic.AutoImportSettings;
 import org.openpressure.app.data.ReadingStore;
 import org.openpressure.app.data.ExperimentalConsent;
+import org.openpressure.app.data.PairingKeys;
 import org.openpressure.app.data.VendorPairingKeys;
 import org.openpressure.app.forwarding.HttpForwardingSettings;
 import org.openpressure.app.ui.MonitorUi;
@@ -439,17 +441,34 @@ public class MonitorServiceImportTest {
         int sent=writes.size(); monitor.readAllHistory();
         assertEquals(sent,writes.size()); assertEquals(MonitorService.ImportMode.INDEX,monitor.importMode);
     }
-    @Test public void automaticImportUsesIndexAndSavedUsers() throws Exception {
+    @Test public void automaticImportUsesTheCurrentReadingsToImportChoice() throws Exception {
+        store.remember(monitor.address,"Synthetic monitor","HEM-7155T",1);
+        monitor.refreshAutomaticImports(); // caches the saved row (both users) while automatic imports are off
+        store.setImportUsers(monitor.address,2); // the choice changes after the row was cached
+        ExperimentalConsent.accept(monitor);
+        shadowOf(monitor.getApplication()).grantPermissions(android.Manifest.permission.BLUETOOTH_SCAN,android.Manifest.permission.BLUETOOTH_CONNECT);
+        BluetoothAdapter adapter=monitor.getSystemService(BluetoothManager.class).getAdapter(); shadowOf(adapter).setEnabled(true);
+        set("adapter",adapter); set("keys",new PairingKeys(monitor));
+        // Only the presence of a key saved by an explicit Pair is checked before connecting.
+        monitor.getSharedPreferences("pairing",Context.MODE_PRIVATE).edit().putString(monitor.address+"/vendor/HEM-7155T","synthetic").commit();
+        AutoImportSettings.setMode(monitor,AutoImportSettings.NOTIFICATION);
+        ScanCallback scan=new ScanCallback() {};
+        set("automaticScan",scan); set("autoWatching",true); set("gatt",null);
+        BluetoothDevice device=mock(BluetoothDevice.class);
+        when(device.getAddress()).thenReturn(monitor.address); when(device.getBondState()).thenReturn(BluetoothDevice.BOND_BONDED);
+        ScanRecord record=mock(ScanRecord.class); when(record.getManufacturerSpecificData(0x020e)).thenReturn(hex("0601010001010001"));
+        ScanResult result=mock(ScanResult.class); when(result.getDevice()).thenReturn(device); when(result.getScanRecord()).thenReturn(record);
+        call("acceptAutomaticAdvertisement",new Class<?>[]{ScanCallback.class,ScanResult.class},scan,result);
+        AutoImportTracker.Attempt attempt=(AutoImportTracker.Attempt)get("automaticAttempt");
+        assertNotNull("the advertisement started an automatic import",attempt); assertTrue((Boolean)get("automaticConnection"));
+        assertEquals("the stored choice, not the cached row",2,monitor.importUsers);
         attach("HEM-7155T");
         index(new int[]{1,1},new long[]{1,1});
         put(0x98,RECORD_A); put(0x458,RECORD_C);
-        assertEquals(2,MonitorService.savedImportUsers(new String[]{monitor.address,"Synthetic monitor","HEM-7155T","1","2"}));
-        assertEquals(3,MonitorService.savedImportUsers(new String[]{monitor.address,"Synthetic monitor","HEM-7155T","1",null}));
-        monitor.importUsers=2; // what an accepted advertisement takes from the saved row
-        AutoImportTracker.Attempt attempt=automaticAttempt(); connectWithSavedKey();
+        connectWithSavedKey();
         List<byte[]> reads=importHistory();
         assertEquals(MonitorService.ImportMode.INDEX,monitor.importMode);
-        assertEquals(1,reads.size()); assertArrayEquals(Wlp.read(0x458,16),reads.get(0));
+        assertEquals("bank 2 only",1,reads.size()); assertArrayEquals(Wlp.read(0x458,16),reads.get(0));
         assertEquals(15,last().bytes[1]); dataReply(last(),hex("088f000000000087"),false);
         assertEquals("History transfer complete",monitor.status); assertEquals(1,store.historyCount(2)); assertEquals(0,store.historyCount(1));
         assertEquals(attempt.revision,checkpoint());

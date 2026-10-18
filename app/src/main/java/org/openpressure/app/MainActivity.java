@@ -375,7 +375,7 @@ public final class MainActivity extends Activity {
             }
             if(monitor.offersImportUsers()) {
                 String address=monitor.address;
-                importUsersChoice(active,"import_users_",monitor.importUsers,!monitor.historyRunning&&!monitor.dumpRunning,users -> { store.setImportUsers(address,users); if(monitor.address.equals(address)) monitor.importUsers=users; render(); });
+                importUsersChoice(active,"import_users_",monitor.importUsers,!monitor.historyRunning&&!monitor.dumpRunning,users -> { store.setImportUsers(address,users); if(monitor.address.equals(address)) monitor.importUsers=users; monitor.refreshAutomaticImports(); render(); });
             }
             Button history=button(monitor.historyRunning?getString(R.string.main_importing):getString(R.string.main_import_history),this::historyDialog,true); history.setEnabled(monitor.canHistory&&!monitor.historyRunning&&!monitor.dumpRunning); add(active,history,8);
             if(monitor.profile==org.openpressure.protocol.ProtocolProfile.VENDOR_MEMORY) {
@@ -399,7 +399,7 @@ public final class MainActivity extends Activity {
             LinearLayout item=card(); add(item,text(d[1],20,INK,true),0); add(item,text(getString(R.string.main_saved_monitor_detail,d[0],profileLabel(Integer.parseInt(d[3]))),13,MUTED,false),6);
             // The connected monitor's card above already carries the choice; one control per monitor.
             boolean activeChoice=monitor.offersImportUsers() && monitor.address.equals(d[0]);
-            if(!activeChoice && MonitorService.offersImportUsers(d[2])) importUsersChoice(item,"import_users_"+d[0]+"_",parseUsers(d[4]),true,users -> { store.setImportUsers(d[0],users); render(); });
+            if(!activeChoice && MonitorService.offersImportUsers(d[2])) importUsersChoice(item,"import_users_"+d[0]+"_",parseUsers(d[4]),true,users -> { store.setImportUsers(d[0],users); monitor.refreshAutomaticImports(); render(); });
             add(item,button(getString(R.string.main_reconnect),() -> { monitor.user=Integer.parseInt(d[3]); monitor.modelHint=d[2]; connect(d[0],d[1],false); },true),10);
             add(item,button(getString(R.string.main_forget_monitor),() -> new AlertDialog.Builder(this).setTitle(getString(R.string.main_forget_title,d[1])).setMessage(getString(R.string.main_forget_explanation)).setNegativeButton(getString(R.string.main_cancel),null).setPositiveButton(getString(R.string.main_forget),(dialog,which) -> { if(monitor.address.equals(d[0])) monitor.disconnect(); new PairingKeys(this).forget(d[0]); new CompanionLinks(this).forget(d[0]); store.forget(d[0]); monitor.refreshAutomaticImports(); render(); }).show(),false),6); content.addView(item);
         }
