@@ -82,7 +82,7 @@ Detailed captured evidence confirms both staged write echoes and END, followed b
 | `UNSENT_COUNTERS` | Blocked: not implemented | Every identity |
 | Any aspect | Blocked: no evidence | Every unlisted identity |
 
-No aspect is confirmed. "Untested" means only that a source-derived layout exists; it has not been exercised on that model. Lookups use the exact identity (a vendor-memory model's table id or the reported X7 identity); a similar name, regional alias or shared UUID never maps to a listed entry. The `HEM-7380T1-EOSL` entry concerns a standalone clock-block write; it does not change or extend the [X7 profile registration](#x7-profile-registration) exception, whose clock bytes remain part of that exact Pair plan.
+No aspect is confirmed. "Untested" means only that a source-derived layout exists; it has not been exercised on that model. Lookups use the exact identity: a vendor-memory model's table id or the reported X7 identity. The app first resolves a saved model string with `VendorMemoryModel.identify`, so only the documented exact regional variants that it maps to a table id (for example HEM-7155T-EBK, -D, -ESL and -AP to HEM-7155T, or HEM-7377T1-ZAZ to HEM-7377T1) share that entry. Any other similar name, alias or shared UUID does not map to a listed entry and is blocked. The `HEM-7380T1-EOSL` entry concerns a standalone clock-block write; it does not change or extend the [X7 profile registration](#x7-profile-registration) exception, whose clock bytes remain part of that exact Pair plan.
 
 ### Override rule
 

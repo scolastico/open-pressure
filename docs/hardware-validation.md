@@ -91,13 +91,13 @@ With update checks on and an older installed version, the update dialog must app
 
 ## Promoting a write aspect
 
-The [write-aspect index](safety.md#write-aspect-index) marks every clock-block entry untested and unsent counters blocked; nothing is confirmed. Testers enable an untested aspect only through the hidden [developer options](development.md#developer-options), with a monitor they are prepared to lose. Moving an aspect from untested to confirmed is a maintainer code change, never a setting:
+The [write-aspect index](safety.md#write-aspect-index) marks the clock block untested on ten identities and blocked on HEM-7322T, HEM-7377T1 and every unlisted identity; unsent counters are blocked everywhere and nothing is confirmed. Testers enable an untested aspect only through the hidden [developer options](development.md#developer-options), with a monitor they are prepared to lose. Moving an aspect from untested to confirmed is a maintainer code change, never a setting:
 
 1. A tester reports a run with the exact cuff label, firmware string, Android and app versions, the device report and the result checked on the cuff (for the clock: the displayed time, including around midnight, and that settings, users and history are unchanged afterwards).
 2. The maintainer checks that the report's `writes` entry names the aspect with `acknowledged` and `override: true`, that the identity matches the index entry exactly, and confirms the result with the tester.
 3. The maintainer changes that one identity and aspect to confirmed in `WriteAspectIndex`, with an evidence note naming the run, updates `WriteAspectIndexTest` and records the model and operation here and in [compatibility](compatibility.md).
 
-A confirmation covers only that identity and aspect; it never carries over to a similar model, a regional variant or another aspect. A blocked entry cannot be promoted this way; it first needs documented source evidence and review. No aspect has been promoted so far, and no write that uses the index exists yet.
+A confirmation covers only that identity and aspect, which includes the exact regional variants that `VendorMemoryModel.identify` maps to that identity. Before promoting, check that the run covers those variants or record which one was tested. It never carries over to another similar model, an unmapped variant or another aspect. A blocked entry cannot be promoted this way; it first needs documented source evidence and review. No aspect has been promoted so far, and no write that uses the index exists yet.
 
 ## Other device families
 
