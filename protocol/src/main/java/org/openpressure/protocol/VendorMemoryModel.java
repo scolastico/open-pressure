@@ -77,6 +77,12 @@ public final class VendorMemoryModel {
         boolean erased=true;
         for(byte value:raw) erased&=value==(byte)255;
         if(erased) return null;
+        // Omron's own code rejects a record whose additive checksum byte is wrong. The upstream
+        // BP5360 map has no such evidence (byte 13 is a user marker), so it keeps field checks only.
+        if(!id.equals("HEM-7377T1")) {
+            byte[] l=logical(raw); int n=recordBytes==16?14:12;
+            if(checksum(l,n)!=(l[n]&255)) throw new IllegalArgumentException("Vendor record checksum mismatch");
+        }
         boolean little=recordBytes==16;
         int sys=u8(raw,little?0:1)+25, dia=u8(raw,little?1:0), pulse=u8(raw,little?2:3);
         if(dia==0 || sys<=dia || pulse==0)
@@ -112,6 +118,20 @@ public final class VendorMemoryModel {
         int status=((date&movementMask)!=0?1:0)|((date&irregularMask)!=0?4:0);
         // None of these reviewed maps establishes an AFib field. IHB remains independent.
         return new BloodPressure(sys,dia,Double.NaN,(double)pulse,user,status,time,false);
+    }
+
+    /** Logical record order: 14-byte maps arrive with adjacent byte pairs swapped; 16-byte maps are copied unchanged. */
+    public byte[] logical(byte[] wire) {
+        byte[] l=wire.clone();
+        if(recordBytes==14) for(int i=0;i+1<l.length;i+=2) { byte b=l[i]; l[i]=l[i+1]; l[i+1]=b; }
+        return l;
+    }
+
+    /** 8-bit additive checksum of the first {@code count} logical bytes. */
+    public static int checksum(byte[] logical,int count) {
+        int sum=0;
+        for(int i=0;i<count;i++) sum+=logical[i]&255;
+        return sum&255;
     }
 
     private static int u8(byte[] bytes,int index) { return bytes[index]&255; }

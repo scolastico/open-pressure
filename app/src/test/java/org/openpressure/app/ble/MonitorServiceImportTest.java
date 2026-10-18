@@ -360,7 +360,7 @@ public class MonitorServiceImportTest {
         byte[] reply=new byte[length+8]; reply[0]=(byte)reply.length; reply[1]=(byte)0x81;
         System.arraycopy(request,2,reply,2,4); Arrays.fill(reply,6,6+length,(byte)255);
         // One synthetic 130/78, pulse 67, 2025-07-09 06:14:38 record per user bank.
-        if(address==0x98 || address==0x458) System.arraycopy(hex("694e4319261da6030000000000000000"),0,reply,6,16);
+        if(address==0x98 || address==0x458) System.arraycopy(hex("694e4319261da603000000000000ff00"),0,reply,6,16);
         // Diastolic zero cannot be a measurement; the slot is rejected rather than skipped.
         if(address==0x458 && invalidSecondBank) reply[7]=0;
         for(int i=0;i<reply.length-1;i++) reply[reply.length-1]^=reply[i];
