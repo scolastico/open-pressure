@@ -87,7 +87,34 @@ Open findings, all from synthetic sandbox runs:
 - Omron ends the session with `08 0f ff ff ff 00 00 f8`; OpenPressure sends `08 0f 00 00 00 00 00 07`. The monitor's reply to Omron's END is not confirmed.
 - Omron wrote no clock in these flows; OpenPressure writes Current Time before END.
 
-`MemoryMapComparisonTest` writes the memory-map comparison for all HEM-7156T configurations to `omron-sandbox/build/omron-sandbox/memory-map.txt`.
+## Other legacy vendor-memory models
+
+Each of these fixtures reconnects with a saved key, reads one synthetic record per user and ends the session. Omron's code follows every one of them and decodes the same readings as both OpenPressure replays:
+
+| Fixture | Omron catalog entry (model ID) | Users | Record |
+| --- | --- | --- | --- |
+| `hem-7150t/connect-read-history` | HEM-7150T-Z (`0x0154`) | 1 | 16 bytes |
+| `hem-7155t/connect-read-history` | HEM-7155T-EBK (`0x0264`) | 2 | 16 bytes |
+| `hem-7342t/connect-read-history` | HEM-7342T-Z (`0x0152`) | 2 | 16 bytes |
+| `hem-7361t/connect-read-history` | HEM-7361T-EBK (`0x0258`) | 2 | 16 bytes |
+| `hem-7530t/connect-read-history` | HEM-7530T-Z (`0x0151`) | 1 | 14 bytes, byte pairs swapped |
+| `hem-7600t/connect-read-history` | HEM-7600T (`0x001F`, config model_id HEM-7270C) | 1 | 14 bytes, byte pairs swapped |
+| `hem-6232t/connect-read-history` | HEM-6232T-Z (`0x0144`) | 2 | 14 bytes, byte pairs swapped |
+
+They confirm OpenPressure's record addresses, record sizes and the decoding of pressure, pulse and date and time for these maps. They also show checks that Omron's code applies and OpenPressure does not:
+
+- **Record checksum**: byte 14 of a 16-byte record (byte 12 of a 14-byte record) is the 8-bit sum of the bytes before it. Omron rejects a record whose checksum does not match; OpenPressure ignores the byte.
+- **Index block**: Omron reads the index at `0x10` (16-byte maps) or `0x260` (14-byte maps) and then only the records it marks as unsent, and checks each record's sequence number against it. On the 14-byte maps the index uses the same swapped byte pairs as the records.
+- **Setting-information blocks**: blocks not listed in `ignoreCheckSumBlocks` carry the same additive checksum (HEM-7530T block 3, HEM-7600T block 3); Omron refuses the index otherwise.
+- **Product identity**: for HEM-7600T, Omron checks byte 14 of the 16-byte identity in the start reply as the sum of bytes 0-13 and ends the session without reading when it does not match.
+
+These are synthetic observations of Omron's code; they do not show how a physical monitor fills these fields.
+
+`MemoryMapComparisonTest` compares the record areas of every Omron configuration that OpenPressure's model identification accepts and writes them to `omron-sandbox/build/omron-sandbox/memory-map.txt`. With Omron Connect 2026.09.03, the areas agree except for these:
+
+- **HEM-7156T**: one area in Omron's configuration against our two banks (see above).
+- **HEM-7155T K4 variants** (`HEM-7155T_K4-D`, `-EBK`, `-ESL`, WLD2.0): different layout. Their catalog names equal those of the regular HEM-7155T identities that OpenPressure accepts, so the Device Information model a K4 monitor reports decides whether it would be read with the wrong map. That is unconfirmed.
+- **HEM-7377T1-ZAZ**: no plain record area (split WLD3.0 map), as already documented in the [omblepy comparison](omblepy-comparison.md).
 
 ## Native Omsec execution
 
