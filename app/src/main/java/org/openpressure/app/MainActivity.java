@@ -835,10 +835,9 @@ public final class MainActivity extends Activity {
     private void connect(String address,String name,boolean pair) {
         withBluetooth(() -> {
             monitor.connect(address,name,pair);
-            if(pair) {
-                tab=2; scroll.scrollTo(0,0); render();
-                scroll.post(() -> scroll.scrollTo(0,0));
-            }
+            // Pair and Connect both show the monitor status at the top of Devices.
+            tab=2; scroll.scrollTo(0,0); render();
+            scroll.post(() -> scroll.scrollTo(0,0));
         });
     }
     private void withBluetooth(Runnable action) {

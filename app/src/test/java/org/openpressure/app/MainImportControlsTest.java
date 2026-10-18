@@ -164,6 +164,23 @@ public class MainImportControlsTest {
             assertTrue(savedChoice(a,SAVED,1).isSelected());
         }
     }
+    @Test public void connectScrollsToTheMonitorStatus() {
+        Shadows.shadowOf(app).grantPermissions(android.Manifest.permission.BLUETOOTH_SCAN,android.Manifest.permission.BLUETOOTH_CONNECT,android.Manifest.permission.POST_NOTIFICATIONS);
+        Shadows.shadowOf(monitor.getSystemService(android.bluetooth.BluetoothManager.class).getAdapter()).setEnabled(true);
+        for(int i=0;i<6;i++) store().remember(String.format("66:77:88:99:AA:%02X",i),"Monitor "+i,"HEM-7155T",1);
+        try(ActivityController<MainActivity> controller=Robolectric.buildActivity(MainActivity.class)) {
+            Activity a=open(controller);
+            android.widget.ScrollView scroll=scrollView(root(a)); assertNotNull(scroll);
+            scroll.scrollTo(0,400); assertTrue("the page starts scrolled",scroll.getScrollY()>0);
+            button(root(a),a.getString(R.string.main_reconnect)).performClick(); Shadows.shadowOf(Looper.getMainLooper()).idle();
+            assertEquals("Connect shows the monitor status at the top",0,scrollView(root(a)).getScrollY());
+        }
+    }
+    private static android.widget.ScrollView scrollView(View root) {
+        if(root instanceof android.widget.ScrollView) return (android.widget.ScrollView)root;
+        if(root instanceof ViewGroup) for(int i=0;i<((ViewGroup)root).getChildCount();i++) { android.widget.ScrollView found=scrollView(((ViewGroup)root).getChildAt(i)); if(found!=null) return found; }
+        return null;
+    }
     @Test public void savedX7OffersTheChoice() {
         store().remember(SAVED,"X7","HEM-7380T1",1);
         try(ActivityController<MainActivity> controller=Robolectric.buildActivity(MainActivity.class)) {
