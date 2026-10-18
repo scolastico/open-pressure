@@ -42,6 +42,28 @@ public class OmronApkTest {
         catch(IllegalStateException expected) { assertTrue(expected.getMessage().contains("docs/omron-sandbox.md")); }
     }
 
+    @Test public void replacingPackageWithoutArm64SplitRemovesThePreviousNativeLibrary() throws Exception {
+        byte[] categories=zip(new String[][]{{"device_category/synthetic","synthetic config"}});
+        ByteArrayOutputStream base=new ByteArrayOutputStream();
+        try(ZipOutputStream z=new ZipOutputStream(base)) {
+            entry(z,"res/raw/device_category.zip",categories);
+            entry(z,"assets/Device/device_models.json","[]".getBytes(StandardCharsets.UTF_8));
+        }
+        byte[] nativeBytes="synthetic non-executable library".getBytes(StandardCharsets.UTF_8);
+        ByteArrayOutputStream split=new ByteArrayOutputStream();
+        try(ZipOutputStream z=new ZipOutputStream(split)) { entry(z,"lib/arm64-v8a/libnativeOmsec.so",nativeBytes); }
+        Path input=temp.newFolder("package").toPath(),out=temp.newFolder("extracted").toPath();
+        Files.write(input.resolve("base.apk"),base.toByteArray());
+        Path arm64=input.resolve("arm64.apk"); Files.write(arm64,split.toByteArray());
+        String[] args={input.toString(),out.toString(),"--no-dex"};
+        ExtractOmron.main(args);
+        Path library=out.resolve("lib/arm64-v8a/libnativeOmsec.so");
+        assertArrayEquals(nativeBytes,Files.readAllBytes(library));
+        Files.delete(arm64);
+        ExtractOmron.main(args);
+        assertFalse("a base-only update must not silently use another version's native library",Files.exists(library));
+    }
+
     private static String read(Path p) throws IOException { return new String(Files.readAllBytes(p),StandardCharsets.UTF_8); }
     private static byte[] zip(String[][] files) throws IOException {
         ByteArrayOutputStream out=new ByteArrayOutputStream();

@@ -8,7 +8,7 @@ The sandbox never talks to a real monitor, a phone or the network. A fixture tha
 
 - **Fixtures** are text files in `protocol/src/testFixtures/resources/org/openpressure/protocol/fixtures/`. Each describes one connection: the advertisement, Device Information values, pinned time and key, the phone's expected writes and the monitor's scripted replies, and the readings both clients must decode. They contain only synthetic data and are committed.
 - **OpenPressure** is replayed twice against every fixture, without the Omron package: at protocol level by `bash tools/test.sh`, and through the real `MonitorService` by `./gradlew :app:testDebugUnitTest`. Both are part of the normal checks, so a fixture keeps protecting OpenPressure after it has been confirmed.
-- **Omron Connect** is replayed by the `omron-sandbox/` module. It converts the locally supplied app package to Java classes, runs Omron's communication library in Robolectric (Android framework on the JVM, no emulator) and replaces only the Bluetooth peer with the fixture. Omron chooses the model configuration exactly like the app: from the IDs in the advertised `BLEsmart_<category><model>` name, looked up in the app's model catalog.
+- **Omron Connect** is replayed by the `omron-sandbox/` module. It converts the locally supplied app package to Java classes and runs Omron's communication library in Robolectric (Android framework on the JVM, no Android device required). The Bluetooth peer is replaced with the fixture. Native Omsec calls run the locally extracted ARM64 library in Unidbg, with a repeatable entropy source. Omron chooses the model configuration exactly like the app: from the IDs in the advertised `BLEsmart_<category><model>` name, looked up in the app's model catalog.
 
 Each client is compared with the fixture, not with the other client, so the fixture is the common reference. Steps only one client performs are marked in the fixture with a reason and listed as open findings in every report.
 
@@ -16,7 +16,7 @@ Each client is compared with the fixture, not with the other client, so the fixt
 
 The Omron app is not part of this repository and must never be committed or redistributed, together with anything derived from it (converted classes, native libraries, configuration files, transcripts).
 
-1. Obtain Omron Connect (`com.omronhealthcare.omronconnect`) yourself, either as an `.xapk` from a download source you trust, or from your own phone: `adb shell pm path com.omronhealthcare.omronconnect` lists the base and split APKs, which you copy with `adb pull`. The sandbox needs the base APK; the `arm64-v8a` split is kept for the later native-library phase.
+1. Obtain Omron Connect (`com.omronhealthcare.omronconnect`) yourself, either as an `.xapk` from a download source you trust, or from your own phone: `adb shell pm path com.omronhealthcare.omronconnect` lists the base and split APKs, which you copy with `adb pull`. The sandbox needs the base APK; native Omsec execution also requires the `arm64-v8a` split containing `libnativeOmsec.so`.
 2. Put the `.xapk`, or the `.apk` files, into `omron-sandbox/apk/`. The folder is gitignored.
 3. Run `./gradlew :omron-sandbox:omronExtract` (the sandbox tests also run it). It writes `omron-sandbox/build/omron/`: Omron's classes and the libraries they reference as `omron-classes.jar`, the model catalog, the memory-map configurations, the native library and the app version. The conversion uses dex2jar from Maven Central and takes about a minute.
 
@@ -64,7 +64,7 @@ One directive per line; `#` starts a comment; hex may contain spaces.
 | `dis model=… firmware=… software=… systemid=<hex>` | Device Information; `model` drives OpenPressure's model choice |
 | `time <local date-time> zone=<id>` | Pinned clock for clock writes |
 | `key <16 bytes hex>` | Pinned application key (pairing stages it instead of generating one) |
-| `random <hex>` | Pinned entropy, reserved for the native-library phase |
+| `random <hex>` | Native Omsec entropy stream, consumed in order by its random-number callback; exhaustion fails the run |
 | `alias <name> <uuid>[,<uuid>…]` | Characteristic name; several UUIDs form 16-byte legacy channels |
 | `memory fill=<byte>` / `memory <address> <hex>` | Synthetic memory used by `reads` |
 | `write <alias> <hex>` | A frame the phone must write; channel parts are reassembled |
@@ -89,9 +89,25 @@ Open findings, all from synthetic sandbox runs:
 
 `MemoryMapComparisonTest` writes the memory-map comparison for all HEM-7156T configurations to `omron-sandbox/build/omron-sandbox/memory-map.txt`.
 
+## Native Omsec execution
+
+`ShadowOmsecNatives` forwards all eleven JNI entry points to the locally extracted `lib/arm64-v8a/libnativeOmsec.so`. Unidbg 0.9.9 with its Unicorn2 backend executes the ARM64 instructions on the host; Omron's pairing, ECDH, key derivation and AES-CCM code remain intact. These are test-only dependencies and are not included in the Android app.
+
+The emulator replaces micro-ecc's registered entropy callback, which supplies both key generation and handshake randomness. A fixture's `random` bytes are consumed verbatim, without wrapping or extending them; provide enough for the complete exchange, including key-generation retries. When `random` is absent, a fresh `java.util.Random(0)` supplies a repeatable default stream. Explicit streams are preferable for pinned wire packets. Each fixture starts with a fresh native VM and entropy stream; cleanup closes remaining sessions even after a failed exchange. Unknown or already closed session handles are rejected before entering native code.
+
+Native initialization takes either `null` for fresh pairing or Omron's **80-byte saved state**. This differs from the fixture's 16-byte application `key` used by legacy models. Native `GetLtk` returns that state after fresh pairing, an empty array after a successful reconnect, or `null` after rejection. Calls and return values are forwarded without translating these native conventions. Encrypted reconnect fixtures will also need Omron's Java-side saved-state/Keystore setup; the existing shared fixtures cover legacy HEM-7156T flows, not complete encrypted-model history transfers.
+
+Run the focused native checks with:
+
+```sh
+./gradlew :omron-sandbox:testDebugUnitTest --tests '*Omsec*Test'
+```
+
+With the local ARM64 split, these checks exercise fresh pairing and saved-key authentication against an independent synthetic peer, packet encryption/decryption, invalid challenges, modified tags, replay rejection, deterministic entropy and cleanup. A Robolectric integration check invokes the private native declarations on Omron's real pairing object. Native execution tests skip when the package or ARM64 split is absent; a native call during a fixture instead reports the missing split explicitly. These are synthetic observations of the supplied binary and do not establish monitor compatibility.
+
 ## Limits and technical notes
 
-- **Native library**: encrypted models (X7 and others) use Omron's `libnativeOmsec.so`. The sandbox does not emulate it yet; any call fails the run with `native omsec not emulated yet`.
+- **Native library**: Omsec execution requires the local ARM64 split and a host supported by Unidbg/Unicorn2. The native bridge is tested with Omron Connect 2026.09.03; complete encrypted-model fixtures and their Android key storage remain separate work.
 - **Obfuscated code**: Omron's release build renames most classes and methods. The sandbox hooks only Android Bluetooth classes and fixed native names, and finds Omron's entry points by kept names and exact signatures (`OmronAnchors`). `tools/omron-sandbox.sh resolve` names any entry point a new Omron version breaks.
 - **Timing**: virtual time passes only while Omron waits, so its pacing delays and timeouts behave as on a phone without real waiting. Callbacks from different Omron threads may appear in either order in a transcript.
 - **Isolation**: each fixture runs with fresh copies of Omron's classes, because Omron keeps process-wide state. The sandbox blocks HTTP for the whole test JVM because Omron's analytics library tries to send tracking data.

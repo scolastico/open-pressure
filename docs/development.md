@@ -59,6 +59,8 @@ Virtual-user tests cover schema v5-to-v6 preservation, durable assignment/FIFO/r
 
 Shared device fixtures under `protocol/src/testFixtures/resources/org/openpressure/protocol/fixtures/` are replayed against OpenPressure by `tools/test.sh` (protocol level) and `FixtureReplayTest` (real `MonitorService`), so they run with the normal checks. With a locally supplied Omron Connect package, `tools/omron-sandbox.sh` also replays them through Omron's own Bluetooth code and prints both results side by side. Without the package, `:omron-sandbox:testDebugUnitTest` skips the Omron side. Setup, fixture syntax and limits are in the [Omron reference sandbox](omron-sandbox.md) guide; never commit the Omron package or anything extracted from it.
 
+The sandbox also executes the local ARM64 `libnativeOmsec.so` using test-only Unidbg/Unicorn2 dependencies. Native tests verify pairing and authenticated encryption against a synthetic peer and skip without the ARM64 split. Fixture entropy is repeatable and each run closes its native VM; see the guide for saved-state conventions and encrypted-fixture limits.
+
 ### PDF rendering checks
 
 `PdfReportInstrumentation` is a native Android fixture runner with synthetic data only. It generates English, German and Arabic PDFs containing 121 records, mixed units, missing values and a note spanning several pages, then checks every page's orientation with Android's PDF renderer. On a dedicated test emulator, run:

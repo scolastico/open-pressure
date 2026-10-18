@@ -1,6 +1,6 @@
 # Protocol reference
 
-This reference describes the independently implemented blood pressure paths. It separates facts recovered by static inspection from captured behavior. The [compatibility guide](compatibility.md) records what has actually been tested. No original executable code, Omron SDK or proprietary native binary is included, linked or loaded.
+This reference describes the independently implemented blood pressure paths. It separates facts recovered by static inspection from captured behavior. The [compatibility guide](compatibility.md) records what has actually been tested. The OpenPressure app includes, links and loads no original executable code, Omron SDK or proprietary native binary. The separate, test-only [Omron sandbox](omron-sandbox.md) can execute a developer-supplied native library locally.
 
 ## Source artifacts and traceability
 

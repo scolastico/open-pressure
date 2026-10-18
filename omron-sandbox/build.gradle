@@ -28,6 +28,9 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.robolectric:robolectric:4.17'
     testImplementation 'org.mockito:mockito-core:5.20.0'
+    // Executes the developer-supplied ARM64 Omsec binary; never packaged with OpenPressure.
+    testImplementation 'com.github.zhkl0228:unidbg-android:0.9.9'
+    testImplementation 'com.github.zhkl0228:unidbg-unicorn2:0.9.9'
     // Present only after omronExtract ran on a locally supplied package.
     testRuntimeOnly files(provider { def jar=new File(omronDir,'omron-classes.jar'); jar.exists()?[jar]:[] })
     dexConverter 'de.femtopedia.dex2jar:dex-tools:2.4.38'

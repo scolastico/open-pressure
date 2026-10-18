@@ -36,8 +36,9 @@ import static org.robolectric.Shadows.shadowOf;
  * Runs Omron Connect's own communication library against one fixture inside Robolectric, in the order the
  * app's {@code OmronCommLibManager} uses: initialize OGSC, scan for the fixture's advertisement, pass the
  * catalog-selected definition folder, connect in registration or authentication mode with the fixture key
- * (where the app passes its account-derived key), then request vital data per user. Only the Bluetooth peer
- * is replaced; see {@link FixtureGatt}. Must run inside a Robolectric test configured like {@code OmronRunnerTest}.
+ * (where the app passes its account-derived key), then request vital data per user. The Bluetooth peer and
+ * native entropy source are replaced; see {@link FixtureGatt} and {@link ShadowOmsecNatives}. Must run inside
+ * a Robolectric test configured like {@code OmronRunnerTest}.
  */
 public final class OmronRunner {
     private static final String ADDRESS="AA:BB:CC:DD:EE:FF";
@@ -88,6 +89,7 @@ public final class OmronRunner {
     public static Outcome run(Fixture f,OmronApk apk,Path transcript) throws IOException {
         blockNetwork();
         OmronRunner runner=new OmronRunner(f,apk);
+        ShadowOmsecNatives.configure(apk.dir.resolve("lib/arm64-v8a/libnativeOmsec.so"),f.random);
         Outcome outcome;
         Thread.UncaughtExceptionHandler previous=Thread.getDefaultUncaughtExceptionHandler();
         // A crash on one of Omron's threads would otherwise only stall the run.
@@ -101,6 +103,7 @@ public final class OmronRunner {
             Thread.setDefaultUncaughtExceptionHandler(previous);
             // Omron's HandlerThreads would otherwise outlive the run and keep its class loader alive.
             for(Looper looper:ShadowLooper.getAllLoopers()) if(background(looper)) looper.quit();
+            ShadowOmsecNatives.reset();
         }
         try { runner.write(transcript,outcome); }
         finally { SandboxBluetoothDevice.peer=null; }

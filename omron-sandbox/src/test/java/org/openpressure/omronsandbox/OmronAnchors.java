@@ -29,7 +29,7 @@ import java.util.Map;
  * <li>{@code resume}: class {@code ogsc.OGSCResume} with an {@code (int user)} constructor.</li>
  * <li>{@code connectionMode.*}, {@code scanMode.*}: {@code getMode()} of the connectivity library enums
  * {@code OGSCConnectionMode} and {@code OGSCScanMode}.</li>
- * <li>{@code pairing.natives}: class {@code ohq.OHQCustomPairing} declaring native methods (not emulated yet).</li>
+ * <li>{@code pairing.natives}: class {@code ohq.OHQCustomPairing} declaring the native methods bridged by {@link ShadowOmsecNatives}.</li>
  * </ul>
  */
 public final class OmronAnchors {

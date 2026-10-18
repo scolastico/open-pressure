@@ -20,7 +20,7 @@ import java.util.zip.ZipOutputStream;
 /**
  * Extracts what the sandbox needs from a locally supplied Omron Connect package (one .xapk, or base and split
  * .apk files): converted Omron classes, the model catalog and memory-map configs, the native library for the
- * later encrypted-model phase, and the app version. Run by the {@code omronExtract} Gradle task as a single-file
+ * encrypted-model emulation, and the app version. Run by the {@code omronExtract} Gradle task as a single-file
  * program with the dex2jar converter on the class path; the converter is called reflectively so the unit-test
  * class path stays free of its ASM version.
  */
@@ -61,6 +61,8 @@ public final class ExtractOmron {
         }
         if(apks.isEmpty()) throw new IllegalStateException(HELP+" (no .xapk or .apk in "+input+")");
         Files.createDirectories(out);
+        // This split is optional. Never execute a previous package's binary after a base-only update.
+        Files.deleteIfExists(out.resolve("lib/arm64-v8a/libnativeOmsec.so"));
         List<byte[]> dexFiles=new ArrayList<>();
         boolean catalog=false,configs=false;
         for(byte[] apk:apks) {
