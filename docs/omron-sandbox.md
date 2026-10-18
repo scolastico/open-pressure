@@ -34,6 +34,15 @@ tools/omron-sandbox.sh resolve                           # how Omron's entry poi
 tools/omron-sandbox.sh diff <old-version> <new-version>  # transcript changes between Omron versions
 ```
 
+Both replay tests also accept a comma-separated `-Dfixture` list for a focused batch, for example:
+
+```sh
+./gradlew -Dfixture=hem-7155t/pair,hem-6232t/pair :omron-sandbox:testDebugUnitTest --tests '*OmronFixtureTest'
+./gradlew -Dfixture=hem-7155t/pair,hem-6232t/pair :app:testDebugUnitTest --tests '*FixtureReplayTest'
+```
+
+Run Gradle commands sequentially: they share build and test-output directories. The shell helper accepts one fixture name or `all`.
+
 For each fixture the command prints three results, followed by the fixture's open findings:
 
 | Line | Meaning |
@@ -93,7 +102,7 @@ Open findings, all from synthetic sandbox runs:
 
 ## Other legacy vendor-memory models
 
-Each of these fixtures reconnects with a saved key, reads one synthetic record per user and ends the session. Omron's code follows every one of them and decodes the same readings as both OpenPressure replays:
+Each of these Connect fixtures reconnects with a saved key, reads one synthetic record per user and ends the session. Omron's code follows every one of them and decodes the same readings as both OpenPressure replays:
 
 | Fixture | Omron catalog entry (model ID) | Users | Record |
 | --- | --- | --- | --- |
@@ -104,6 +113,8 @@ Each of these fixtures reconnects with a saved key, reads one synthetic record p
 | `hem-7530t/connect-read-history` | HEM-7530T-Z (`0x0151`) | 1 | 14 bytes, byte pairs swapped |
 | `hem-7600t/connect-read-history` | HEM-7600T (`0x001F`, config model_id HEM-7270C) | 1 | 14 bytes, byte pairs swapped |
 | `hem-6232t/connect-read-history` | HEM-6232T-Z (`0x0144`) | 2 | 14 bytes, byte pairs swapped |
+
+Each model in the table also has a `pair` fixture; `hem-7156t-aap/pair` covers the regional identity that OpenPressure rejects. With Omron Connect 2026.09.03, Pair registers one user, reads the index and settings, and returns no historical readings with flags `0x1210`. It then writes the registered user's cleared unsent counter, birthday block and clock, sends normal END and disconnects. The two-user models HEM-7155T, HEM-7342T, HEM-7361T and HEM-6232T register user 2. Their extra `readSettings(null)` call reuses the index/settings image and produces no additional link traffic in these fixtures. OpenPressure's accepted legacy Pair flows instead read full history on the same connection and write Current Time; they never write these monitors' memory. These are synthetic observations of Omron's code, not physical monitor behavior.
 
 They confirm OpenPressure's record addresses, record sizes and the decoding of pressure, pulse and date and time for these maps. They also show checks that Omron's code applies and OpenPressure does not:
 
@@ -123,17 +134,27 @@ These are synthetic observations of Omron's code; they do not show how a physica
 
 ## Post-transfer settings writes
 
-All ten indexed legacy fixtures record two settings writes from Omron Connect 2026.09.03, followed by END `08 0f 00 00 00 00 00 07`. The frames come from the local synthetic exploration transcripts and are pinned as Omron-only steps; their acknowledgments are synthetic full echoes. Normal replay checks the exact requests and decoded results without exploration replies. OpenPressure's production command policy is unchanged and blocks addressed writes for these models.
+All eighteen indexed legacy fixtures record two settings writes from Omron Connect 2026.09.03, followed by END `08 0f 00 00 00 00 00 07`. The frames come from the local synthetic exploration transcripts and are pinned as Omron-only steps; their acknowledgments are synthetic full echoes. Normal replay checks the exact requests and decoded results without exploration replies. OpenPressure's production command policy is unchanged and blocks addressed writes for these models.
 
-The first write includes the index prefix with the last-read user's unsent counter cleared. A changed birthday block is merged with the prefix or the clock block when adjacent. The sandbox's default birthday is 1900-01-01; the clock is fixture time plus one second. Omron recomputes additive settings checksums. The 14-byte-record models swap byte pairs in the settings image as well as the records.
+The first write includes the index prefix with the last-read user's unsent counter cleared on Connect, or the registered user's counter cleared on Pair. A changed birthday block is merged with the prefix or the clock block when adjacent. The sandbox's default birthday is 1900-01-01; the clock is fixture time plus one second. Omron recomputes additive settings checksums. The 14-byte-record models swap byte pairs in the settings image as well as the records.
+
+Data lengths below are decimal payload bytes, excluding the eight framing bytes. Pair prefixes are recorded independently: their bytes can differ from Connect when the synthetic index or selected user differs.
 
 | Fixtures | First write: address, data length | Second write: address, data length |
 | --- | --- | --- |
-| HEM-7156T Connect/Pair, HEM-7156T-AAP, HEM-7150T | `0x54`, 30 bytes: prefix + birthday block 1 | `0x80`, 16 bytes: clock block 3 |
-| HEM-7155T, HEM-7342T, HEM-7361T | `0x54`, 16 bytes: prefix | `0x72`, 30 bytes: birthday block 2 + clock block 3 |
-| HEM-7530T | `0x2A4`, 30 bytes: prefix + birthday block 1 | `0x2D0`, 16 bytes: clock block 3 |
-| HEM-6232T | `0x2A4`, 16 bytes: prefix | `0x2C2`, 30 bytes: birthday block 2 + clock block 3 |
-| HEM-7600T | `0x286`, 14 bytes: prefix + birthday block 1 | `0x29A`, 10 bytes: clock block 3 |
+| HEM-7156T Connect/Pair, HEM-7156T-AAP Connect, HEM-7150T Connect | `0x54`, 30 bytes: prefix + birthday block 1 | `0x80`, 16 bytes: clock block 3 |
+| HEM-7155T/HEM-7342T/HEM-7361T Connect | `0x54`, 16 bytes: prefix | `0x72`, 30 bytes: birthday block 2 + clock block 3 |
+| HEM-7530T Connect | `0x2A4`, 30 bytes: prefix + birthday block 1 | `0x2D0`, 16 bytes: clock block 3 |
+| HEM-6232T Connect | `0x2A4`, 16 bytes: prefix | `0x2C2`, 30 bytes: birthday block 2 + clock block 3 |
+| HEM-7600T Connect | `0x286`, 14 bytes: prefix + birthday block 1 | `0x29A`, 10 bytes: clock block 3 |
+| HEM-7150T Pair (user 1) | `0x54`, 30 bytes: prefix + birthday block 1 | `0x80`, 16 bytes: clock block 3 |
+| HEM-7156T-AAP Pair (user 1) | `0x54`, 30 bytes: prefix + birthday block 1 | `0x80`, 16 bytes: clock block 3 |
+| HEM-7155T Pair (user 2) | `0x54`, 16 bytes: prefix | `0x72`, 30 bytes: birthday block 2 + clock block 3 |
+| HEM-7342T Pair (user 2) | `0x54`, 16 bytes: prefix | `0x72`, 30 bytes: birthday block 2 + clock block 3 |
+| HEM-7361T Pair (user 2) | `0x54`, 16 bytes: prefix | `0x72`, 30 bytes: birthday block 2 + clock block 3 |
+| HEM-7530T Pair (user 1) | `0x2A4`, 30 bytes: prefix + birthday block 1 | `0x2D0`, 16 bytes: clock block 3 |
+| HEM-6232T Pair (user 2) | `0x2A4`, 16 bytes: prefix | `0x2C2`, 30 bytes: birthday block 2 + clock block 3 |
+| HEM-7600T Pair (user 1) | `0x286`, 14 bytes: prefix + birthday block 1 | `0x29A`, 10 bytes: clock block 3 |
 
 These results describe Omron's code against synthetic memory, including settings returned during Pair without a history read. They do not establish a physical monitor's reply, memory effects or compatibility, and do not authorize adding these writes to OpenPressure's legacy device path.
 

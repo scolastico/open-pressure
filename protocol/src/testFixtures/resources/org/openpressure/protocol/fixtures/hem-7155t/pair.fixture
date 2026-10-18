@@ -46,7 +46,11 @@ notify rx 18 80 00 00 00 10 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f 00 8
 
 [ours-only: OpenPressure clock sync via Current Time; Omron writes setting block 3 instead (docs/omron-sandbox.md)] write clock ea 07 01 02 03 04 05 05 00 01
 
-# Omron's post-pairing settings write for user 2 belongs here (see the exploration transcript).
+# Omron Connect 2026.09.03 post-pairing settings frames from this synthetic fixture.
+[omron-only: Omron Connect 2026.09.03 Pair user 2, index prefix with the registered user's cleared unsent counter at 0x54; docs/omron-sandbox.md] write tx 1801c0005410 01000100010000800100000001000000 001c
+[omron-only: synthetic full echo acknowledgment; the physical monitor reply is unconfirmed] notify rx 1881c0005410 01000100010000800100000001000000 009c
+[omron-only: Omron Connect 2026.09.03 Pair user 2, clock block 3 (fixture time + 1 s) merged with birthday block 2 at 0x72; docs/omron-sandbox.md] write tx 2601c000721e 000101fffffffffffffffffff9ffffffffffffffffff1a010203040622ff 00b7
+[omron-only: synthetic full echo acknowledgment; the physical monitor reply is unconfirmed] notify rx 2681c000721e 000101fffffffffffffffffff9ffffffffffffffffff1a010203040622ff 0037
 
 write tx 08 0f 00 00 00 00 00 07
 notify rx 08 8f 00 00 00 00 00 87
