@@ -49,7 +49,7 @@ public final class OmronRunner {
     private final Fixture fixture;
     private final OmronApk apk;
     private final List<String> log=new ArrayList<>();
-    private final List<Bundle> vitals=new ArrayList<>();
+    private final List<OmronVitals.Delivery> vitals=new ArrayList<>();
     private FixtureCursor cursor;
     private FixtureGatt peer;
     private OmronAnchors anchors;
@@ -162,16 +162,18 @@ public final class OmronRunner {
         List<Integer> users=new ArrayList<>();
         for(Fixture.Reading r:fixture.readings()) if(!users.contains(r.user)) users.add(r.user);
         if(users.isEmpty()) users.add(1);
-        for(int user:users) {
+        for(int requested:users) {
             vitalDone=false;
-            Object resume=anchors.type("resume").getConstructor(int.class).newInstance(user);
+            Object resume=anchors.type("resume").getConstructor(int.class).newInstance(requested);
+            final int user=requested;
             Object vital=anchors.proxy("OGSCOnGetVitalDataResumeCallback",(p,m,args) -> {
                 log("callback OGSCOnGetVitalDataResumeCallback."+m.getName()+describe(args));
-                if(m.getName().equals("onGetVitalData") && args[0] instanceof Bundle) vitals.add((Bundle)args[0]);
+                if(m.getName().equals("onGetVitalData") && args[0] instanceof Bundle) vitals.add(new OmronVitals.Delivery(user,(Bundle)args[0]));
+                if(m.getName().equals("onGetVitalData") && args[4]!=null && !isSuccess(args[4])) failure="vital data: "+args[4];
                 if(m.getName().equals("onGetVitalDataCompleted")) { vitalDone=true; if(args[3]!=null && !isSuccess(args[3])) failure="vital data: "+args[3]; }
                 return null;
             });
-            if(!ok(call("device.vitalData",device,user+4112,resume,vital))) return rejected("vital data request refused");
+            if(!ok(call("device.vitalData",device,requested+4112,resume,vital))) return rejected("vital data request refused");
             pump(() -> vitalDone || disconnected || failure!=null || peer.outcome()!=null);
             if(failure!=null) return rejected(failure);
         }
@@ -236,7 +238,7 @@ public final class OmronRunner {
     }
     /** No live background looper has due work and no Omron or looper thread is running. */
     private static boolean quiet() {
-        for(Looper looper:ShadowLooper.getAllLoopers()) if(background(looper) && !shadowOf(looper).isIdle()) return false;
+        for(Looper looper:ShadowLooper.getAllLoopers()) if(background(looper) && !idle(looper)) return false;
         for(java.util.Map.Entry<Thread,StackTraceElement[]> e:Thread.getAllStackTraces().entrySet()) {
             if(e.getKey()==Thread.currentThread() || e.getKey().getState()!=Thread.State.RUNNABLE) continue;
             for(StackTraceElement frame:e.getValue()) if(frame.getClassName().startsWith("jp.co.omron.") || frame.getClassName().equals("android.os.Looper")) return false;
@@ -256,6 +258,11 @@ public final class OmronRunner {
         return out.toString();
     }
 
+    /** A looper that is still being set up on its new thread counts as busy. */
+    private static boolean idle(Looper looper) {
+        try { return shadowOf(looper).isIdle(); }
+        catch(NullPointerException starting) { return false; }
+    }
     /** A live background looper; a quit HandlerThread keeps its undelivered messages but never runs them. */
     private static boolean background(Looper looper) {
         return looper!=Looper.getMainLooper() && looper.getThread().isAlive();
@@ -325,16 +332,25 @@ public final class OmronRunner {
         return root;
     }
 
+    /**
+     * Writes the comparable transcript (calls, callbacks and link traffic, normalised for object IDs and temporary
+     * paths) and, next to it with a {@code .log} suffix, the noisy details: virtual-time steps and Omron's own log.
+     */
     private void write(Path transcript,Outcome outcome) throws IOException {
         StringBuilder out=new StringBuilder("omron ").append(apk.version).append(": ").append(outcome.report()).append("\n\n");
-        for(String line:log) out.append(line).append('\n');
-        if(peer!=null) { out.append("\n-- link --\n"); for(String line:peer.transcript()) out.append(line).append('\n'); }
-        out.append("\n-- Omron log (last 400) --\n");
+        StringBuilder noisy=new StringBuilder();
+        for(String line:log) (line.startsWith("time +")?noisy:out).append(normalise(line)).append('\n');
+        if(peer!=null) { out.append("\n-- link --\n"); synchronized(peer.transcript()) { for(String line:peer.transcript()) out.append(line).append('\n'); } }
+        noisy.append("\n-- Omron log (last 400) --\n");
         List<ShadowLog.LogItem> logs=ShadowLog.getLogs();
         for(ShadowLog.LogItem item:logs.subList(Math.max(0,logs.size()-400),logs.size()))
-            out.append(item.type).append(' ').append(item.tag).append(": ").append(item.msg).append(item.throwable==null?"":" "+item.throwable).append('\n');
+            noisy.append(item.type).append(' ').append(item.tag).append(": ").append(item.msg).append(item.throwable==null?"":" "+item.throwable).append('\n');
         Files.createDirectories(transcript.toAbsolutePath().getParent());
         Files.write(transcript,out.toString().getBytes(StandardCharsets.UTF_8));
+        Files.write(transcript.resolveSibling(transcript.getFileName()+".log"),noisy.toString().getBytes(StandardCharsets.UTF_8));
+    }
+    private static String normalise(String line) {
+        return line.replaceAll("@[0-9a-f]{4,8}\\b","@<id>").replaceAll("/tmp/robolectric-[^ ,}]*?/files/","<files>/");
     }
     void log(String line) { log.add(line); }
     private static String describe(Object[] args) {
@@ -350,6 +366,7 @@ public final class OmronRunner {
         StringBuilder out=new StringBuilder("{");
         for(String key:new java.util.TreeSet<>(b.keySet())) {
             Object v=b.get(key);
+            if(v instanceof java.util.Calendar) v="<wall clock>";
             out.append(key).append('=').append(v instanceof byte[]?FixtureGatt.hex((byte[])v):v instanceof Bundle?bundle((Bundle)v):v instanceof Object[]?Arrays.toString((Object[])v):String.valueOf(v)).append(", ");
         }
         return out.append('}').toString();

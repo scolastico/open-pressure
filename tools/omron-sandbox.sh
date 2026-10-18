@@ -21,7 +21,8 @@ case "${1:-all}" in
   diff)
     [ $# -eq 3 ] || { usage; exit 2; }
     ls "$out/transcripts/$2" "$out/transcripts/$3" >/dev/null
-    diff -ru "$out/transcripts/$2" "$out/transcripts/$3" && echo "No transcript differences."
+    # .log files hold virtual-time steps and Omron's raw log; they differ between any two runs.
+    diff -ru -x '*.log' "$out/transcripts/$2" "$out/transcripts/$3" && echo "No transcript differences."
     exit 0 ;;
 esac
 

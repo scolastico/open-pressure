@@ -50,5 +50,6 @@ public class OmronRunnerTest {
         System.out.println(text);
         assertNotNull(outcome);
         assertTrue("Omron reached the unlock characteristic:\n"+text,text.contains("write unlock "));
+        assertEquals(text,Outcome.Kind.MATCHES,outcome.kind);
     }
 }
