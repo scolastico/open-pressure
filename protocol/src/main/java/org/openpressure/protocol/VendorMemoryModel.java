@@ -14,27 +14,27 @@ import java.util.List;
  */
 public final class VendorMemoryModel {
     private static final VendorMemoryModel[] MODELS={
-        new VendorMemoryModel("HEM-7150T",16,0x10,68,true,60,0x98),
-        new VendorMemoryModel("HEM-7155T",16,0x10,68,true,60,0x98,0x458),
-        new VendorMemoryModel("HEM-7156T",16,0x10,68,true,60,0x98,0x458),
-        new VendorMemoryModel("HEM-7322T",14,0x260,38,true,100,0x2ac,0x824),
-        new VendorMemoryModel("HEM-7342T",16,0x10,68,true,100,0x98,0x6d8),
-        new VendorMemoryModel("HEM-7361T",16,0x10,68,true,100,0x98,0x6d8),
+        new VendorMemoryModel("HEM-7150T",16,0x10,68,true,true,60,0x98),
+        new VendorMemoryModel("HEM-7155T",16,0x10,68,true,true,60,0x98,0x458),
+        new VendorMemoryModel("HEM-7156T",16,0x10,68,true,true,60,0x98,0x458),
+        new VendorMemoryModel("HEM-7322T",14,0x260,38,true,false,100,0x2ac,0x824),
+        new VendorMemoryModel("HEM-7342T",16,0x10,68,true,true,100,0x98,0x6d8),
+        new VendorMemoryModel("HEM-7361T",16,0x10,68,true,true,100,0x98,0x6d8),
         // Pinned upstream BP5360 variant: the original APK has a different split map.
         // Keep this read map tied to its separately guarded single-channel, bonded transport.
-        new VendorMemoryModel("HEM-7377T1",16,0x40,24,false,100,0x1cc,0x80c),
-        new VendorMemoryModel("HEM-7530T",14,0x260,68,true,90,0x2e8),
-        new VendorMemoryModel("HEM-7600T",14,0x260,38,true,100,0x2ac),
-        new VendorMemoryModel("HEM-6232T",14,0x260,68,true,100,0x2e8,0x860)
+        new VendorMemoryModel("HEM-7377T1",16,0x40,24,false,false,100,0x1cc,0x80c),
+        new VendorMemoryModel("HEM-7530T",14,0x260,68,true,true,90,0x2e8),
+        new VendorMemoryModel("HEM-7600T",14,0x260,38,true,true,100,0x2ac),
+        new VendorMemoryModel("HEM-6232T",14,0x260,68,true,true,100,0x2e8,0x860)
     };
     public final String id;
-    public final boolean legacyUnlock;
+    public final boolean legacyUnlock,recordChecksum;
     public final int settingsStart,settingsLength,recordBytes,userCount;
     private final List<Range> ranges;
 
-    private VendorMemoryModel(String id,int recordBytes,int settingsStart,int settingsLength,boolean legacyUnlock,int capacity,int... starts) {
+    private VendorMemoryModel(String id,int recordBytes,int settingsStart,int settingsLength,boolean legacyUnlock,boolean recordChecksum,int capacity,int... starts) {
         this.id=id; this.recordBytes=recordBytes; this.settingsStart=settingsStart;
-        this.settingsLength=settingsLength; this.legacyUnlock=legacyUnlock; this.userCount=starts.length;
+        this.settingsLength=settingsLength; this.legacyUnlock=legacyUnlock; this.recordChecksum=recordChecksum; this.userCount=starts.length;
         List<Range> ranges=new ArrayList<>();
         for(int i=0;i<starts.length;i++) ranges.add(new Range(starts[i],capacity*recordBytes,i+1));
         this.ranges=Collections.unmodifiableList(ranges);
@@ -77,9 +77,9 @@ public final class VendorMemoryModel {
         boolean erased=true;
         for(byte value:raw) erased&=value==(byte)255;
         if(erased) return null;
-        // Omron's own code rejects a record whose additive checksum byte is wrong. The upstream
-        // BP5360 map has no such evidence (byte 13 is a user marker), so it keeps field checks only.
-        if(!id.equals("HEM-7377T1")) {
+        // Only models whose maps the Omron sandbox replayed carry evidence of the additive record
+        // checksum that Omron's code enforces; the others (HEM-7322T, HEM-7377T1) keep field checks only.
+        if(recordChecksum) {
             byte[] l=logical(raw); int n=recordBytes==16?14:12;
             if(checksum(l,n)!=(l[n]&255)) throw new IllegalArgumentException("Vendor record checksum mismatch");
         }

@@ -124,6 +124,11 @@ public final class VendorMemoryModelTest {
         check(Arrays.equals(model("HEM-7155T").logical(hex("694e")),hex("694e")),"16-byte maps unchanged");
         // erased slots are still null, never checksum-rejected
         check(model("HEM-6232T").parse(hex("ffffffffffffffffffffffffffff"),1)==null,"erased 14-byte slot");
+        // Models without sandbox checksum evidence accept any checksum byte.
+        check(!model("HEM-7322T").recordChecksum && !model("HEM-7377T1").recordChecksum && model("HEM-7600T").recordChecksum,"checksum only where evidenced");
+        reading(model("HEM-7322T").parse(hex("4e6919431d2603a60000000000fe"),1),2025,1,0);
+        reading(model("HEM-7377T1").parse(hex("694e4319261da6030001000000010200"),2),2025,1,0);
+        rejects(() -> model("HEM-7600T").parse(hex("4e6919431d2603a60000000000fe"),1));
     }
 
     private static void bp5360Attribution() {
