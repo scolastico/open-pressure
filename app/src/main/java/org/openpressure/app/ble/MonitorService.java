@@ -717,7 +717,7 @@ public final class MonitorService extends Service {
                 if(report!=null && !automaticConnection) report.keyAcknowledgment(bytes);
                 // Only a matching negative unlock response may try the other durable candidate.
                 // Connect never changes to key programming, even when both candidates fail.
-                if(!pairingRequested && bytes.length==2 && (bytes[0]&255)==0x81 && bytes[1]!=0 && vendorKeyCandidate+1<vendorKeyCandidates.size()) {
+                if(!pairingRequested && bytes.length>=2 && (bytes[0]&255)==0x81 && bytes[1]!=0 && vendorKeyCandidate+1<vendorKeyCandidates.size()) {
                     vendorUnlock.close(); vendorUnlock=LegacyUnlock.connect(vendorKeyCandidates.get(++vendorKeyCandidate));
                     sendLegacyUnlock(); return;
                 }

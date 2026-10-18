@@ -28,10 +28,11 @@ public final class LegacyUnlock implements AutoCloseable {
     public boolean allows(byte[] payload) {
         return issued && !failed && !complete() && java.util.Arrays.equals(payload,frame());
     }
+    /** Checks byte 0 like the original app, plus a zero status byte when present; trailing padding is ignored. */
     public boolean accept(byte[] response) {
         int expected=pairing && phase==0?0x82:pairing && phase==1?0x80:0x81;
-        if(failed || complete() || !issued || response==null || response.length!=2 ||
-                (response[0]&255)!=expected || response[1]!=0) {
+        if(failed || complete() || !issued || response==null || response.length<1 ||
+                (response[0]&255)!=expected || response.length>=2 && response[1]!=0) {
             failed=true;
             throw new IllegalArgumentException("Invalid legacy unlock acknowledgment");
         }

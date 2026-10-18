@@ -298,6 +298,37 @@ public class MonitorServiceImportTest {
         repeat.model("HEM-7380T1-EOSL");
         assertNull("the tested monitor is never asked for a report",monitor.deviceReport());
     }
+    @Test public void paddedNegativeUnlockOnConnectTriesTheNextSavedKey() throws Exception {
+        byte[] prior=new byte[16],pending=new byte[16]; Arrays.fill(prior,(byte)5); Arrays.fill(pending,(byte)7);
+        VendorPairingKeys keys=vendorKeys(); keys.stage(prior); keys.confirm(prior); keys.stage(pending);
+        List<byte[]> candidates=keys.candidates();
+        set("vendorKeys",keys); set("vendorKeyCandidates",candidates);
+        set("vendorUnlock",LegacyUnlock.connect(candidates.get(0))); call("sendLegacyUnlock");
+        assertSame(unlock,last().characteristic); assertArrayEquals(unlockFrame(pending),last().bytes);
+        writeDone(last(),0); callback.onCharacteristicChanged(gatt,unlock,hex("810100")); idle();
+        assertSame(unlock,last().characteristic); assertArrayEquals("the padded rejection tries the prior key",unlockFrame(prior),last().bytes);
+        writeDone(last(),0); callback.onCharacteristicChanged(gatt,unlock,hex("8100ff")); idle();
+        assertTrue("a padded positive acknowledgment unlocks",(Boolean)get("ready"));
+        assertNull(get("vendorUnlock"));
+        List<byte[]> remaining=keys.candidates();
+        assertEquals("the accepted prior key is confirmed and the pending one dropped",1,remaining.size());
+        assertArrayEquals(prior,remaining.get(0));
+        assertEquals("Connect never sends key programming",2,writes.stream().filter(write -> write.characteristic==unlock).count());
+    }
+    @Test public void paddedNegativeUnlockDuringPairNeverTriesAnotherKey() throws Exception {
+        set("pairingRequested",true);
+        set("vendorKeys",vendorKeys());
+        set("vendorUnlock",LegacyUnlock.pair(new byte[16])); call("sendLegacyUnlock");
+        for(byte[] reply:new byte[][]{hex("8200"),hex("8000"),hex("810100")}) {
+            assertSame(unlock,last().characteristic); writeDone(last(),0);
+            callback.onCharacteristicChanged(gatt,unlock,reply); idle();
+        }
+        assertFalse(monitor.historyRunning);
+        assertEquals("a rejected Pair unlock sends no further key frame",3,writes.stream().filter(write -> write.characteristic==unlock).count());
+    }
+    private static byte[] unlockFrame(byte[] key) {
+        byte[] frame=new byte[17]; frame[0]=1; System.arraycopy(key,0,frame,1,16); return frame;
+    }
     private AutoImportTracker.Attempt automaticAttempt() throws Exception {
         AutoImportSettings.setMode(monitor,AutoImportSettings.VISIBLE);
         OmronAdvertisement advertisement=OmronAdvertisement.parseManufacturerPayload(hex("0601010001010001"));
