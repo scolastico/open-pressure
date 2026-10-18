@@ -24,8 +24,16 @@ public final class VendorMemoryIndexTest {
         check(i.populatedRanges(1).size()==1 && i.populatedRanges(1).get(0).user==1,"user filter");
         // unsent bit 15 is parity, not part of the count
         check(VendorMemoryIndex.parse(model("HEM-7155T"),image("HEM-7155T","0100010001800100 01000000 01000000")).unsent(1)==1,"unsent parity bit masked");
-        // wrapped bank: sequence 150 >= capacity 60 -> all 60 slots
-        check(VendorMemoryIndex.parse(model("HEM-7156T"),image("HEM-7156T","0500000005000000 96000000 00000000")).populatedRanges(1).get(0).length==960,"wrapped bank reads every slot");
+        // full flag (bit 14 of the position word, as on the X7): all 60 slots, whatever the low byte says
+        VendorMemoryIndex full=VendorMemoryIndex.parse(model("HEM-7156T"),image("HEM-7156T","0540000007000000 96000000 00000000"));
+        check(full.full(1) && full.position(1)==5 && full.populated(1)==60 && full.populatedRanges(1).get(0).length==960,"full bank reads every slot");
+        // flag clear: the position bounds the slots even when the sequence is large (sequence is informational)
+        VendorMemoryIndex large=VendorMemoryIndex.parse(model("HEM-7156T"),image("HEM-7156T","0500000007000000 96000000 00000000"));
+        check(!large.full(1) && large.sequence(1)==150 && large.populated(1)==5 && large.populatedRanges(1).get(0).length==80,"position-bounded despite a large sequence");
+        // bit 15 is ignored (Omron treats 0x8005 like 0x0005)
+        check(VendorMemoryIndex.parse(model("HEM-7156T"),image("HEM-7156T","0580000007000000 96000000 00000000")).populated(1)==5,"bit 15 ignored");
+        // the position no longer has to equal the sequence
+        check(VendorMemoryIndex.parse(model("HEM-7150T"),image("HEM-7150T","0200000001000000 01000000 00000000")).populated(1)==2,"sequence does not decide trust");
         // sequence 0 and position 0: trusted, nothing populated
         check(VendorMemoryIndex.parse(model("HEM-7150T"),image("HEM-7150T","0000000000000000 00000000 00000000")).populatedRanges(1).isEmpty(),"empty bank");
         // a missing user is never trusted and its bit is ignored
@@ -38,13 +46,12 @@ public final class VendorMemoryIndexTest {
     }
 
     private static void untrustedIndexes() {
-        // mismatch position 2 / sequence 1: untrusted
-        check(!VendorMemoryIndex.parse(model("HEM-7150T"),image("HEM-7150T","0200000001000000 01000000 00000000")).trusted(1),"position must equal sequence below capacity");
-        rejects(() -> VendorMemoryIndex.parse(model("HEM-7150T"),image("HEM-7150T","0200000001000000 01000000 00000000")).populatedRanges(1));
-        // position above capacity: untrusted
+        // position above capacity: untrusted, even with the full flag
         check(!VendorMemoryIndex.parse(model("HEM-7150T"),image("HEM-7150T","3d00000001000000 3d000000 00000000")).trusted(1),"pointer beyond capacity");
+        rejects(() -> VendorMemoryIndex.parse(model("HEM-7150T"),image("HEM-7150T","3d00000001000000 3d000000 00000000")).populatedRanges(1));
+        check(!VendorMemoryIndex.parse(model("HEM-7150T"),image("HEM-7150T","3d40000001000000 3d000000 00000000")).trusted(1),"full flag does not excuse an out-of-range pointer");
         // an untrusted unselected user does not block the selected one
-        VendorMemoryIndex mixed=VendorMemoryIndex.parse(model("HEM-7155T"),image("HEM-7155T","0100020001000100 01000000 01000000"));
+        VendorMemoryIndex mixed=VendorMemoryIndex.parse(model("HEM-7155T"),image("HEM-7155T","01003d0001000100 01000000 01000000"));
         check(!mixed.trusted(2) && mixed.populatedRanges(1).size()==1,"only selected users must be trusted");
         rejects(() -> mixed.populatedRanges(3));
     }

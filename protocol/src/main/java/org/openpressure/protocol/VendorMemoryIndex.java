@@ -7,7 +7,8 @@ import java.util.List;
 
 /**
  * Populated slots from a fresh legacy settings/index image. Logical prefix, little-endian:
- * position u16 at 2*(u-1), unsent u16 at 4+2*(u-1) (count in the low 15 bits), sequence u32 at 8+4*(u-1).
+ * position word u16 at 2*(u-1) (next-write position in the low byte, bit 14 = bank full, as on the X7),
+ * unsent u16 at 4+2*(u-1) (count in the low 15 bits), sequence u32 at 8+4*(u-1).
  * Field getters and {@link #trusted} accept every bank the model has, while
  * {@link #populatedRanges} follows the selectable users exactly like {@link VendorMemoryModel#historyRanges(int)}.
  */
@@ -27,25 +28,28 @@ public final class VendorMemoryIndex {
         return new VendorMemoryIndex(model,logical);
     }
 
-    public int position(int user) { return u16(2*(index(user)-1)); }
+    /** Next-write position: the low byte of the position word. */
+    public int position(int user) { return u16(2*(index(user)-1))&255; }
+    /** Bit 14 of the position word: every slot of the bank is populated. Bit 15 and bits 8-13 are ignored. */
+    public boolean full(int user) { return (u16(2*(index(user)-1))&0x4000)!=0; }
     /** Informational only: the low 15 bits of the unsent field. */
     public int unsent(int user) { return u16(4+2*(index(user)-1))&0x7fff; }
+    /** Informational only; it does not decide which slots are populated. */
     public long sequence(int user) {
         int o=8+4*(index(user)-1);
         return u16(o)|((long)u16(o+2)<<16);
     }
 
-    /** Below capacity the position must equal the sequence; a full bank needs only an in-range position. */
+    /** Omron's rule (and X7MemoryIndex's): the next-write position must lie within the bank. */
     public boolean trusted(int user) {
         if(user<1 || user>model.userCount) return false;
-        int position=position(user); long sequence=sequence(user);
-        if(position>model.capacity()) return false;
-        return sequence>=model.capacity() || position==sequence;
+        return position(user)<=model.capacity();
     }
 
+    /** A full bank populates every slot; otherwise slots 0..position-1. */
     public int populated(int user) {
         if(!trusted(user)) throw new IllegalArgumentException("Vendor index for user "+user+" is not trusted");
-        return (int)Math.min(sequence(user),model.capacity());
+        return full(user)?model.capacity():position(user);
     }
 
     /**

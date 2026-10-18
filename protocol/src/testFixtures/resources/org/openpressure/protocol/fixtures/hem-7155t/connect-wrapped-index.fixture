@@ -1,0 +1,179 @@
+# HEM-7155T (EBK identity): reconnect with a saved key after user 1's bank has wrapped, read history, end the session.
+# Synthetic: user 1's position word is 0x4005. Bit 14 marks the 60-slot bank as full (the same flag the X7 index
+# uses); the low byte is the next write position 5. Both clients therefore read every slot of bank 1. A client that
+# trusted the position alone would read only slots 0-4 and miss the older records in slots 5-59.
+name hem-7155t/connect-wrapped-index
+flow connect
+advertise name=BLEsmart_000002640011223344 services=ecbe3980-c9a2-11e1-b1bd-0002a5d5c51b
+dis model=HEM-7155T-EBK firmware=0001 software=0001 systemid=0011223344556677
+time 2026-01-02T03:04:05 zone=UTC
+key 05050505050505050505050505050505
+
+alias unlock b305b680-aee7-11e1-a730-0002a5d5c51b
+alias tx db5b55e0-aee7-11e1-965e-0002a5d5c51b,e0b8a060-aee7-11e1-92f4-0002a5d5c51b,0ae12b00-aee8-11e1-a192-0002a5d5c51b,10e1ba60-aee8-11e1-89e5-0002a5d5c51b
+alias rx 49123040-aee8-11e1-a74d-0002a5d5c51b,4d0bf320-aee8-11e1-a0d9-0002a5d5c51b,5128ce60-aee8-11e1-b84b-0002a5d5c51b,560f1420-aee8-11e1-8184-0002a5d5c51b
+alias clock 00002a2b-0000-1000-8000-00805f9b34fb
+
+# Synthetic user 1 records in all 60 slots, with the sequence number at offset 10 and Omron's record checksum at
+# offset 14 (8-bit sum of bytes 0-13). The newest record (sequence 150) sits in slot 4, just below the next write
+# position; slot 5 holds the oldest (sequence 91) and the sequence rises from there, wrapping from slot 59 to slot 0.
+memory fill=ff
+memory 0x98 604a3d19471fae06000092000000ac00
+memory 0xa8 614b3e19671fef060000930000001100
+memory 0xb8 624c3f19871f30070000940000007700
+memory 0xc8 634d4019a71f7107000095000000dc00
+memory 0xd8 644e4119c71f80070000960000000f00
+memory 0xe8 5d493d192718e90700005b0000008600
+memory 0xf8 5e4a3e1947182a0800005c000000ec00
+memory 0x108 5f4b3f1967186b0800005d0000005100
+memory 0x118 604c40198718ac0800005e000000b600
+memory 0x128 614d4119a718ed0800005f0000001b00
+memory 0x138 624e4219c7182e090000600000008100
+memory 0x148 634f4319e7186f09000061000000e600
+memory 0x158 645044190719b0090000620000004c00
+memory 0x168 65483a192719f1090000630000009d00
+memory 0x178 66493b194719000a000064000000d100
+memory 0x188 674a3c196719410a0000650000003600
+memory 0x198 684b3d198719820a0000660000009b00
+memory 0x1a8 694c3e19a719c30a0000670000000000
+memory 0x1b8 5d4d3f19c719040b0000680000005900
+memory 0x1c8 5e4e4019e719450b000069000000be00
+memory 0x1d8 5f4f4119071a860b00006a0000002400
+memory 0x1e8 60504219271ac70b00006b0000008900
+memory 0x1f8 61484319471a080c00006c000000e600
+memory 0x208 62494419671a490c00006d0000004b00
+memory 0x218 634a3a19871a8a0c00006e000000a500
+memory 0x228 644b3b19a71acb0c00006f0000000a00
+memory 0x238 654c3c19c71a0c0d0000700000007000
+memory 0x248 664d3d19e71a4d0d000071000000d500
+memory 0x258 674e3e19071b8e0d0000720000003b00
+memory 0x268 684f3f19271bcf0d000073000000a000
+memory 0x278 69504019471b100e0000740000000600
+memory 0x288 5d484119671b510e0000750000005500
+memory 0x298 5e494219871b920e000076000000ba00
+memory 0x2a8 5f4a4319a71bd30e0000770000001f00
+memory 0x2b8 604b4419c71b14000000780000007600
+memory 0x2c8 614c3a19271c55000000790000001100
+memory 0x2d8 624d3b19471c960000007a0000007600
+memory 0x2e8 634e3c19671cd70000007b000000db00
+memory 0x2f8 644f3d19871c180100007c0000004100
+memory 0x308 65503e19a71c590100007d000000a600
+memory 0x318 66483f19c71c9a0100007e0000000200
+memory 0x328 67494019e71cdb0100007f0000006700
+memory 0x338 684a4119071d1c02000080000000ce00
+memory 0x348 694b4219271d5d020000810000003300
+memory 0x358 5d4c4319471d9e020000820000008b00
+memory 0x368 5e4d4419671ddf02000083000000f000
+memory 0x378 5f4e3a19871d20030000840000004b00
+memory 0x388 604f3b19a71d6103000085000000b000
+memory 0x398 61503c19c71da2030000860000001500
+memory 0x3a8 62483d19e71de3030000870000007100
+memory 0x3b8 63493e19071e2404000088000000d800
+memory 0x3c8 644a3f19271e65040000890000003d00
+memory 0x3d8 654b4019471ea60400008a000000a200
+memory 0x3e8 664c4119671ee70400008b0000000700
+memory 0x3f8 674d4219871e280500008c0000006d00
+memory 0x408 684e4319a71e690500008d000000d200
+memory 0x418 694f4419c71eaa0500008e0000003700
+memory 0x428 5d503a19e71eeb0500008f0000008400
+memory 0x438 5e483b19071f2c06000090000000e200
+memory 0x448 5f493c19271f6d060000910000004700
+# User 2 as in hem-7155t/connect-read-history: 120/80 mmHg, pulse 70, 2025-08-01 07:30:00, sequence 1.
+memory 0x458 5f504619 27208007 0000 0100 0000 dd00
+# Index block: position words 0x4005 (user 1: full, next write 5) and 0x0001 (user 2), unsent counts 60 and 1,
+# sequences 150 and 1.
+memory 0x10 0540 0100 3c00 0100 96000000 01000000
+
+[omron-only: Omron 2026.09.03 sends 02 (confirm encryption) before authenticating, observed in the sandbox] write unlock 02 00000000000000000000000000000000
+[omron-only: acknowledgment for the confirm-encryption frame above] notify unlock 8200
+write unlock 01 05050505050505050505050505050505
+notify unlock 8100
+
+write tx 08 00 00 00 00 10 00 18
+notify rx 18 80 00 00 00 10 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f 00 88
+
+[omron-only: Omron reads the index block (index_setting_read_address) before records] reads 0x10 44 chunk=44
+[omron-only: Omron reads setting-info block 3 (index_setting_info_read_address 0x20 + 28)] reads 0x3c 16 chunk=16
+
+[ours-only: index-driven populated-slot read: OpenPressure reads the 68-byte settings/index image at 0x10 in 56-byte blocks; Omron reads 44 bytes plus block 3] reads 0x10 68 chunk=56
+[ours-only: full flag set: OpenPressure reads all 60 slots of bank 1 from slot 0 in 48-byte blocks; Omron reads the same records starting at the newest slot] reads 0x98 960 chunk=48
+
+# Omron reads the same 60 records, starting at the newest slot (4) and wrapping to slots 0-3. Its unsent subset is
+# the whole bank here; in general Omron reads only unsent records while OpenPressure reads every slot of a full bank.
+# Both clients agree on every record they both read.
+[omron-only: full flag set: Omron 2026.09.03 reads slots 4-59 from the newest record, observed in the sandbox] reads 0xd8 896 chunk=48
+[omron-only: Omron then wraps to slots 0-2] reads 0x98 48 chunk=48
+[omron-only: Omron then reads slot 3, the last unsent record before the newest] reads 0xc8 16 chunk=16
+
+reads 0x458 16 chunk=16
+
+[ours-only: OpenPressure clock sync via Current Time; Omron writes setting block 3 instead (docs/omron-sandbox.md)] write clock ea 07 01 02 03 04 05 05 00 01
+[omron-only: Omron 2026.09.03 post-transfer index prefix at 0x54 for this index: user 1's full position word and unsent count kept, the last-read user 2's unsent counter cleared; recorded from the sandbox exploration transcript] write tx 1801c0005410 054001003c0000809600000001000000 00f2
+[omron-only: synthetic full echo acknowledgment; the physical monitor reply is unconfirmed] notify rx 1881c0005410 054001003c0000809600000001000000 0072
+[omron-only: Omron 2026.09.03 settings at 0x72, block 3 clock (fixture time + 1 s) merged with birthday block 2; docs/omron-sandbox.md] write tx 2601c000721e 000101fffffffffffffffffff9ffffffffffffffffff1a010203040622ff 00b7
+[omron-only: synthetic full echo acknowledgment; the physical monitor reply is unconfirmed] notify rx 2681c000721e 000101fffffffffffffffffff9ffffffffffffffffff1a010203040622ff 0037
+
+write tx 08 0f 00 00 00 00 00 07
+notify rx 08 8f 00 00 00 00 00 87
+
+expect reading user=1 sys=118 dia=73 pulse=61 time=2025-06-01T07:31:41
+expect reading user=1 sys=119 dia=74 pulse=62 time=2025-06-02T07:32:42
+expect reading user=1 sys=120 dia=75 pulse=63 time=2025-06-03T07:33:43
+expect reading user=1 sys=121 dia=76 pulse=64 time=2025-06-04T07:34:44
+expect reading user=1 sys=122 dia=77 pulse=65 time=2025-06-05T07:35:45
+expect reading user=1 sys=123 dia=78 pulse=66 time=2025-06-06T07:36:46
+expect reading user=1 sys=124 dia=79 pulse=67 time=2025-06-07T07:37:47
+expect reading user=1 sys=125 dia=80 pulse=68 time=2025-06-08T07:38:48
+expect reading user=1 sys=126 dia=72 pulse=58 time=2025-06-09T07:39:49
+expect reading user=1 sys=127 dia=73 pulse=59 time=2025-06-10T07:40:00
+expect reading user=1 sys=128 dia=74 pulse=60 time=2025-06-11T07:41:01
+expect reading user=1 sys=129 dia=75 pulse=61 time=2025-06-12T07:42:02
+expect reading user=1 sys=130 dia=76 pulse=62 time=2025-06-13T07:43:03
+expect reading user=1 sys=118 dia=77 pulse=63 time=2025-06-14T07:44:04
+expect reading user=1 sys=119 dia=78 pulse=64 time=2025-06-15T07:45:05
+expect reading user=1 sys=120 dia=79 pulse=65 time=2025-06-16T07:46:06
+expect reading user=1 sys=121 dia=80 pulse=66 time=2025-06-17T07:47:07
+expect reading user=1 sys=122 dia=72 pulse=67 time=2025-06-18T07:48:08
+expect reading user=1 sys=123 dia=73 pulse=68 time=2025-06-19T07:49:09
+expect reading user=1 sys=124 dia=74 pulse=58 time=2025-06-20T07:50:10
+expect reading user=1 sys=125 dia=75 pulse=59 time=2025-06-21T07:51:11
+expect reading user=1 sys=126 dia=76 pulse=60 time=2025-06-22T07:52:12
+expect reading user=1 sys=127 dia=77 pulse=61 time=2025-06-23T07:53:13
+expect reading user=1 sys=128 dia=78 pulse=62 time=2025-06-24T07:54:14
+expect reading user=1 sys=129 dia=79 pulse=63 time=2025-06-25T07:55:15
+expect reading user=1 sys=130 dia=80 pulse=64 time=2025-06-26T07:56:16
+expect reading user=1 sys=118 dia=72 pulse=65 time=2025-06-27T07:57:17
+expect reading user=1 sys=119 dia=73 pulse=66 time=2025-06-28T07:58:18
+expect reading user=1 sys=120 dia=74 pulse=67 time=2025-06-29T07:59:19
+expect reading user=1 sys=121 dia=75 pulse=68 time=2025-06-30T07:00:20
+expect reading user=1 sys=122 dia=76 pulse=58 time=2025-07-01T07:01:21
+expect reading user=1 sys=123 dia=77 pulse=59 time=2025-07-02T07:02:22
+expect reading user=1 sys=124 dia=78 pulse=60 time=2025-07-03T07:03:23
+expect reading user=1 sys=125 dia=79 pulse=61 time=2025-07-04T07:04:24
+expect reading user=1 sys=126 dia=80 pulse=62 time=2025-07-05T07:05:25
+expect reading user=1 sys=127 dia=72 pulse=63 time=2025-07-06T07:06:26
+expect reading user=1 sys=128 dia=73 pulse=64 time=2025-07-07T07:07:27
+expect reading user=1 sys=129 dia=74 pulse=65 time=2025-07-08T07:08:28
+expect reading user=1 sys=130 dia=75 pulse=66 time=2025-07-09T07:09:29
+expect reading user=1 sys=118 dia=76 pulse=67 time=2025-07-10T07:10:30
+expect reading user=1 sys=119 dia=77 pulse=68 time=2025-07-11T07:11:31
+expect reading user=1 sys=120 dia=78 pulse=58 time=2025-07-12T07:12:32
+expect reading user=1 sys=121 dia=79 pulse=59 time=2025-07-13T07:13:33
+expect reading user=1 sys=122 dia=80 pulse=60 time=2025-07-14T07:14:34
+expect reading user=1 sys=123 dia=72 pulse=61 time=2025-07-15T07:15:35
+expect reading user=1 sys=124 dia=73 pulse=62 time=2025-07-16T07:16:36
+expect reading user=1 sys=125 dia=74 pulse=63 time=2025-07-17T07:17:37
+expect reading user=1 sys=126 dia=75 pulse=64 time=2025-07-18T07:18:38
+expect reading user=1 sys=127 dia=76 pulse=65 time=2025-07-19T07:19:39
+expect reading user=1 sys=128 dia=77 pulse=66 time=2025-07-20T07:20:40
+expect reading user=1 sys=129 dia=78 pulse=67 time=2025-07-21T07:21:41
+expect reading user=1 sys=130 dia=79 pulse=68 time=2025-07-22T07:22:42
+expect reading user=1 sys=118 dia=80 pulse=58 time=2025-07-23T07:23:43
+expect reading user=1 sys=119 dia=72 pulse=59 time=2025-07-24T07:24:44
+expect reading user=1 sys=120 dia=73 pulse=60 time=2025-07-25T07:25:45
+expect reading user=1 sys=121 dia=74 pulse=61 time=2025-07-26T07:26:46
+expect reading user=1 sys=122 dia=75 pulse=62 time=2025-07-27T07:27:47
+expect reading user=1 sys=123 dia=76 pulse=63 time=2025-07-28T07:28:48
+expect reading user=1 sys=124 dia=77 pulse=64 time=2025-07-29T07:29:49
+expect reading user=1 sys=125 dia=78 pulse=65 time=2025-07-30T07:30:00
+expect reading user=2 sys=120 dia=80 pulse=70 time=2025-08-01T07:30:00

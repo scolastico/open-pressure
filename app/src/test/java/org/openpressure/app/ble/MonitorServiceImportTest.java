@@ -369,7 +369,7 @@ public class MonitorServiceImportTest {
         assertEquals(0,(int)(Integer)get("wlpRejected")); assertEquals(1,store.historyCount(0)); assertEquals(1,monitor.receivedInTransfer);
     }
     @Test public void untrustedIndexFallsBackToFullSweep() throws Exception {
-        index(new int[]{5},new long[]{1}); // position 5 cannot follow sequence 1 below capacity
+        index(new int[]{61},new long[]{1}); // next-write position 61 lies beyond the 60-slot bank
         connectManually(); monitor.syncHistory(-1);
         List<byte[]> reads=importHistory();
         assertEquals(MonitorService.ImportMode.INDEX_FALLBACK,monitor.importMode); assertEquals(-1,monitor.indexStoredCount);
@@ -378,6 +378,22 @@ public class MonitorServiceImportTest {
         finishWithClockAndEnd();
         assertEquals("History transfer complete",monitor.status); assertEquals(2,store.historyCount(0));
         assertTrue(store.diagnostics().contains("Index not trusted"));
+    }
+    @Test public void fullFlagReadsEveryIndexedSlot() throws Exception {
+        index(new int[]{0x4002},new long[]{150}); // bit 14: the bank is full; the low byte is the next-write position
+        connectManually(); monitor.syncHistory(-1);
+        List<byte[]> reads=importHistory();
+        assertEquals(MonitorService.ImportMode.INDEX,monitor.importMode); assertEquals(60,monitor.indexStoredCount);
+        assertEquals("all 60 slots in 48-byte blocks",20,reads.size());
+        finishWithClockAndEnd();
+        assertEquals("History transfer complete",monitor.status); assertEquals(2,store.historyCount(0));
+    }
+    @Test public void largeSequenceWithoutFullFlagStaysPositionBounded() throws Exception {
+        index(new int[]{2},new long[]{150});
+        connectManually(); monitor.syncHistory(-1);
+        List<byte[]> reads=importHistory();
+        assertEquals(MonitorService.ImportMode.INDEX,monitor.importMode); assertEquals(2,monitor.indexStoredCount);
+        assertEquals(1,reads.size()); assertArrayEquals(Wlp.read(0x98,32),reads.get(0));
     }
     @Test public void indexStatusErrorFallsBackToFullSweep() throws Exception {
         errorAddress=model().settingsStart;
@@ -523,7 +539,7 @@ public class MonitorServiceImportTest {
         assertEquals(attempt.revision,checkpoint());
     }
     @Test public void automaticCheckpointRequiresNoRejectedRecordsInFallback() throws Exception {
-        index(new int[]{5},new long[]{1});
+        index(new int[]{61},new long[]{1});
         byte[] corrupt=hex(RECORD_B); corrupt[14]^=1; put(0xa8,HexFormat.of().formatHex(corrupt));
         automaticAttempt(); connectWithSavedKey();
         importHistory();

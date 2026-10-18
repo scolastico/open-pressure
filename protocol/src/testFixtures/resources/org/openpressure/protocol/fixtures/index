@@ -7,6 +7,7 @@ hem-7155t/connect-read-history
 hem-7155t/pair
 hem-7155t/read-all
 hem-7155t/connect-bad-record-checksum
+hem-7155t/connect-wrapped-index
 hem-7150t/connect-read-history
 hem-7150t/pair
 hem-7342t/connect-read-history
