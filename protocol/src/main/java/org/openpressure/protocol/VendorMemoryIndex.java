@@ -7,7 +7,9 @@ import java.util.List;
 
 /**
  * Populated slots from a fresh legacy settings/index image. Logical prefix, little-endian:
- * position u16 at 2*(u-1), unsent u16 at 4+2*(u-1) (bit 15 is parity), sequence u32 at 8+4*(u-1).
+ * position u16 at 2*(u-1), unsent u16 at 4+2*(u-1) (count in the low 15 bits), sequence u32 at 8+4*(u-1).
+ * Field getters and {@link #trusted} accept every bank the model has, while
+ * {@link #populatedRanges} follows the selectable users exactly like {@link VendorMemoryModel#historyRanges(int)}.
  */
 public final class VendorMemoryIndex {
     private final VendorMemoryModel model;
@@ -26,7 +28,7 @@ public final class VendorMemoryIndex {
     }
 
     public int position(int user) { return u16(2*(index(user)-1)); }
-    /** Informational only: the unsent count, without its parity bit. */
+    /** Informational only: the low 15 bits of the unsent field. */
     public int unsent(int user) { return u16(4+2*(index(user)-1))&0x7fff; }
     public long sequence(int user) {
         int o=8+4*(index(user)-1);
@@ -46,11 +48,14 @@ public final class VendorMemoryIndex {
         return (int)Math.min(sequence(user),model.capacity());
     }
 
-    /** Slots 0..populated-1 of each selected user; throws if a selected user's index is untrusted. */
+    /**
+     * Slots 0..populated-1 of each selected user, selected exactly as {@link VendorMemoryModel#historyRanges(int)}
+     * (an empty or unsupported selection means user 1); throws if a selected user's index is untrusted.
+     */
     public List<VendorMemoryModel.Range> populatedRanges(int users) {
         List<VendorMemoryModel.Range> ranges=new ArrayList<>();
-        for(VendorMemoryModel.Range bank:model.historyRanges()) {
-            if(!model.selectable(bank.user,users)) continue;
+        // Index-supported models never use a shared bank, so each bank here is one selected user.
+        for(VendorMemoryModel.Range bank:model.historyRanges(users)) {
             int count=populated(bank.user);
             if(count>0) ranges.add(VendorMemoryModel.range(bank.start,count*model.recordBytes,bank.user));
         }

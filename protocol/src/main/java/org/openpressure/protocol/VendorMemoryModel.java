@@ -89,7 +89,7 @@ public final class VendorMemoryModel {
     }
 
     /** True when {@code user} is in the bitmask and is a bank this model offers for selection. */
-    boolean selectable(int user,int users) { return user>=1 && user<=selectableUsers && (users&(1<<(user-1)))!=0; }
+    private boolean selectable(int user,int users) { return user>=1 && user<=selectableUsers && (users&(1<<(user-1)))!=0; }
 
     /** The settings/index image as a read range; user 0 marks it as not a history bank. */
     public Range settingsRange() { return new Range(settingsStart,settingsLength,0); }

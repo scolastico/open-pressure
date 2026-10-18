@@ -31,6 +31,10 @@ public final class VendorMemoryIndexTest {
         // a missing user is never trusted and its bit is ignored
         VendorMemoryIndex one=VendorMemoryIndex.parse(model("HEM-7150T"),image("HEM-7150T","0100000001000000 01000000 00000000"));
         check(!one.trusted(2) && !one.trusted(0) && one.populatedRanges(3).size()==1,"missing user ignored");
+        // selection fallback matches historyRanges(int): an unoffered user 2 means user 1
+        VendorMemoryIndex aap=VendorMemoryIndex.parse(model("HEM-7156T"),image("HEM-7156T","0100000001000000 01000000 00000000"));
+        check(aap.populatedRanges(2).size()==1 && aap.populatedRanges(2).get(0).user==1 && aap.populatedRanges(2).get(0).start==0x98 && aap.populatedRanges(2).get(0).length==16,"unoffered user falls back to user 1");
+        check(one.populatedRanges(0).size()==1 && one.populatedRanges(0).get(0).user==1,"empty selection falls back to user 1");
     }
 
     private static void untrustedIndexes() {
@@ -55,6 +59,10 @@ public final class VendorMemoryIndexTest {
         // HEM-7530T block-3 checksum: zero block passes, corrupted block fails
         check(VendorMemoryIndex.parse(model("HEM-7530T"),image("HEM-7530T","0001000000010000 00010000")).populated(1)==1,"checked block passes");
         rejects(() -> { byte[] bad=image("HEM-7530T","0001000000010000 00010000"); bad[50]=1; VendorMemoryIndex.parse(model("HEM-7530T"),bad); });
+        // non-zero block: logical byte 44 = 05 travels as wire byte 45, its checksum (logical 58) as wire byte 59
+        byte[] ordered=image("HEM-7530T","0001000000010000 00010000"); ordered[45]=5; ordered[59]=5;
+        check(VendorMemoryIndex.parse(model("HEM-7530T"),ordered).trusted(1),"block 3 checked in logical order");
+        rejects(() -> { byte[] wireOrder=image("HEM-7530T","0001000000010000 00010000"); wireOrder[45]=5; wireOrder[58]=5; VendorMemoryIndex.parse(model("HEM-7530T"),wireOrder); });
         // unsupported models and wrong lengths
         rejects(() -> VendorMemoryIndex.parse(model("HEM-7600T"),new byte[38]));
         rejects(() -> VendorMemoryIndex.parse(model("HEM-7322T"),new byte[38]));
