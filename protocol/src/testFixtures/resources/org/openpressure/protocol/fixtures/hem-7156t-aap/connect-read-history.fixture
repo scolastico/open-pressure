@@ -31,7 +31,15 @@ reads 0x10 44 chunk=44
 reads 0x3c 16 chunk=16
 reads 0x98 16 chunk=16
 
-write tx 08 0f ff ff ff 00 00 f8
-notify rx 08 8f ff ff ff 00 00 78
+# Omron Connect 2026.09.03 post-transfer settings frames, recorded against this synthetic fixture.
+# Replies are synthetic full echoes; no physical monitor's acknowledgment is established.
+[omron-only: Omron 2026.09.03 post-transfer index prefix at 0x54, with the last-read user's cleared unsent counter and birthday block 1; docs/omron-sandbox.md] write tx 2601c000541e 010000000080000001000000ffffffff000101fffffffffffffffffff9ff 00d4
+[omron-only: synthetic full echo acknowledgment; the physical monitor reply is unconfirmed] notify rx 2681c000541e 010000000080000001000000ffffffff000101fffffffffffffffffff9ff 0054
+[omron-only: Omron 2026.09.03 settings at 0x80, block 3 clock (fixture time + 1 s); docs/omron-sandbox.md] write tx 1801c0008010 ffffffffffffffff1a010203040622ff 008c
+[omron-only: synthetic full echo acknowledgment; the physical monitor reply is unconfirmed] notify rx 1881c0008010 ffffffffffffffff1a010203040622ff 000c
+
+# Omron completes with normal END; OpenPressure rejects this identity before the scripted steps.
+write tx 08 0f 00 00 00 00 00 07
+notify rx 08 8f 00 00 00 00 00 87
 
 expect reading user=1 sys=130 dia=78 pulse=67 time=2025-07-09T06:14:38

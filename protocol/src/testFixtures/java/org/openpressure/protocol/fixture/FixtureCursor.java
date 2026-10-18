@@ -19,6 +19,7 @@ public final class FixtureCursor {
         Notification(UUID characteristic,byte[] value) { this.characteristic=characteristic; this.value=value; }
     }
     private final Fixture fixture;
+    private final Fixture.Client client;
     private final List<Fixture.Step> steps;
     private final Map<Integer,byte[]> parts=new HashMap<>();
     private final List<String> transcript=new ArrayList<>();
@@ -29,6 +30,7 @@ public final class FixtureCursor {
     /** Steps on ignored aliases are outside this client's reach (e.g. the app's clock for a protocol-only replay). */
     public FixtureCursor(Fixture fixture,Fixture.Client client,java.util.Set<String> ignoredAliases) {
         this.fixture=fixture;
+        this.client=client;
         List<Fixture.Step> kept=new ArrayList<>();
         for(Fixture.Step step:fixture.steps(client)) if(!ignoredAliases.contains(step.alias)) kept.add(step);
         steps=Collections.unmodifiableList(kept);
@@ -103,7 +105,7 @@ public final class FixtureCursor {
     public Outcome finish(List<Fixture.Reading> decoded) {
         if(failure!=null) return failure;
         if(position<steps.size()) return Outcome.rejected(position,"client ended at step "+position+next());
-        List<Fixture.Reading> missing=new ArrayList<>(fixture.readings()),extra=new ArrayList<>();
+        List<Fixture.Reading> missing=new ArrayList<>(fixture.readings(client)),extra=new ArrayList<>();
         for(Fixture.Reading reading:decoded) if(!missing.remove(reading)) extra.add(reading);
         if(!missing.isEmpty() || !extra.isEmpty())
             return Outcome.diverged(position,0,null,null,"readings differ; missing "+missing+", unexpected "+extra);

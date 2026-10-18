@@ -39,12 +39,17 @@ reads 0x98 16 chunk=16
 reads 0x6d8 16 chunk=16
 [ours-only: OpenPressure reads every slot of bank 2; Omron reads only unsent records] reads 0x6e8 1584 chunk=16
 
-[ours-only: OpenPressure clock sync via Current Time; not observed from Omron] write clock ea 07 01 02 03 04 05 05 00 01
+# Omron Connect 2026.09.03 post-transfer settings frames, recorded against this synthetic fixture.
+# Replies are synthetic full echoes; no physical monitor's acknowledgment is established.
+[ours-only: OpenPressure clock sync via Current Time; Omron writes setting block 3 instead (docs/omron-sandbox.md)] write clock ea 07 01 02 03 04 05 05 00 01
+[omron-only: Omron 2026.09.03 post-transfer index prefix at 0x54, with the last-read user's cleared unsent counter; docs/omron-sandbox.md] write tx 1801c0005410 01000100010000800100000001000000 001c
+[omron-only: synthetic full echo acknowledgment; the physical monitor reply is unconfirmed] notify rx 1881c0005410 01000100010000800100000001000000 009c
+[omron-only: Omron 2026.09.03 settings at 0x72, block 3 clock (fixture time + 1 s) merged with birthday block 2; docs/omron-sandbox.md] write tx 2601c000721e 000101fffffffffffffffffff9ffffffffffffffffff1a010203040622ff 00b7
+[omron-only: synthetic full echo acknowledgment; the physical monitor reply is unconfirmed] notify rx 2681c000721e 000101fffffffffffffffffff9ffffffffffffffffff1a010203040622ff 0037
 
-[ours-only: OpenPressure END with address 000000 (pinned omblepy)] write tx 08 0f 00 00 00 00 00 07
-[ours-only: reply to the END above] notify rx 08 8f 00 00 00 00 00 87
-[omron-only: Omron END with address ffffff, observed for HEM-7156T] write tx 08 0f ff ff ff 00 00 f8
-[omron-only: synthetic echo reply to Omron's END; the real reply is unconfirmed] notify rx 08 8f ff ff ff 00 00 78
+# Both clients use the normal END after completing their respective steps.
+write tx 08 0f 00 00 00 00 00 07
+notify rx 08 8f 00 00 00 00 00 87
 
 expect reading user=1 sys=130 dia=78 pulse=67 time=2025-07-09T06:14:38
 expect reading user=2 sys=120 dia=80 pulse=70 time=2025-08-01T07:30:00

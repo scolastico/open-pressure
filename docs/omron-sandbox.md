@@ -10,6 +10,8 @@ The sandbox never talks to a real monitor, a phone or the network. A fixture tha
 - **OpenPressure** is replayed twice against every fixture, without the Omron package: at protocol level by `bash tools/test.sh`, and through the real `MonitorService` by `./gradlew :app:testDebugUnitTest`. Both are part of the normal checks, so a fixture keeps protecting OpenPressure after it has been confirmed.
 - **Omron Connect** is replayed by the `omron-sandbox/` module. It converts the locally supplied app package to Java classes and runs Omron's communication library in Robolectric (Android framework on the JVM, no Android device required). The Bluetooth peer is replaced with the fixture. Native Omsec calls run the locally extracted ARM64 library in Unidbg, with a repeatable entropy source. Omron chooses the model configuration exactly like the app: from the IDs in the advertised `BLEsmart_<category><model>` name, looked up in the app's model catalog.
 
+The sandbox drives Omron's library in the order the app's connectivity layer uses for a blood pressure monitor: connect in registration or authentication mode, read the product index, read the device settings when pairing a multi-user model, request vital data (flags `0x1010` for a transfer, `0x1210` for pairing, the user in the resume object) and hand the settings received with the completed transfer back to `setDeviceSettings` for the users read. Omron's library then writes the clock and the cleared unsent counters into the monitor's memory and ends the session itself; the app never cancels a healthy session. The sandbox stands in for the app's profile with Omron's default date of birth (1900-01-01) and pins the wall clock Omron's time setting uses to the fixture's `time`, so the settings frames are repeatable. The app serves one selected user per session; a multi-user fixture reads each expected user in turn and makes one final settings call with the last transfer's settings bundle. Its settings frames therefore describe that synthetic sequence, including the last user's cleared counter and changed birthday.
+
 Each client is compared with the fixture, not with the other client, so the fixture is the common reference. Steps only one client performs are marked in the fixture with a reason and listed as open findings in every report.
 
 ## Setting up the Omron package
@@ -27,6 +29,7 @@ Without a package, the Omron side is skipped and every other check still runs. T
 ```sh
 tools/omron-sandbox.sh                                   # every fixture
 tools/omron-sandbox.sh hem-7156t/connect-read-history     # one fixture
+tools/omron-sandbox.sh --explore hem-7156t/pair           # keep answering Omron after a divergence
 tools/omron-sandbox.sh resolve                           # how Omron's entry points were found
 tools/omron-sandbox.sh diff <old-version> <new-version>  # transcript changes between Omron versions
 ```
@@ -50,7 +53,7 @@ Transcripts are kept under `omron-sandbox/build/omron-sandbox/transcripts/<Omron
 
 ### Tuning a fixture
 
-When Omron diverges or rejects, adjust the fixture's Omron-side steps or replies (not OpenPressure) and run the fixture again. When Omron matches but OpenPressure does not, the difference is a finding about OpenPressure. Changing what OpenPressure sends to a monitor still goes through the normal evidence and [safety](safety.md) review; the sandbox result alone is not enough.
+When Omron diverges or rejects, adjust the fixture's Omron-side steps or replies (not OpenPressure) and run the fixture again. With `--explore`, the peer keeps answering after the first divergence with synthetic replies (reads from the fixture memory, echoed writes and END, acknowledged key frames), so one transcript shows everything Omron would send in the session; the reported result is still the first divergence, and the synthetic replies prove nothing about a monitor. When Omron matches but OpenPressure does not, the difference is a finding about OpenPressure. Changing what OpenPressure sends to a monitor still goes through the normal evidence and [safety](safety.md) review; the sandbox result alone is not enough.
 
 ## Fixture format
 
@@ -64,6 +67,7 @@ One directive per line; `#` starts a comment; hex may contain spaces.
 | `dis model=… firmware=… software=… systemid=<hex>` | Device Information; `model` drives OpenPressure's model choice |
 | `time <local date-time> zone=<id>` | Pinned clock for clock writes |
 | `key <16 bytes hex>` | Pinned application key (pairing stages it instead of generating one) |
+| `register user=<1\|2>` | User a `pair` flow registers on Omron's side (default 1); OpenPressure's legacy key is not per user |
 | `random <hex>` | Native Omsec entropy stream, consumed in order by its random-number callback; exhaustion fails the run |
 | `alias <name> <uuid>[,<uuid>…]` | Characteristic name; several UUIDs form 16-byte legacy channels |
 | `memory fill=<byte>` / `memory <address> <hex>` | Synthetic memory used by `reads` |
@@ -73,19 +77,19 @@ One directive per line; `#` starts a comment; hex may contain spaces.
 | `expect reading user=… sys=… dia=… pulse=… time=…` | A reading every client must decode |
 | `expect ours rejected` / `expect omron rejected` | That client is expected to refuse the device |
 
-Prefix a step with `[omron-only: reason]` or `[ours-only: reason]` when only one client performs it. The reason is mandatory and should name its evidence.
+Prefix a step or `expect reading` with `[omron-only: reason]` or `[ours-only: reason]` when it applies to only one client. The reason is mandatory and should name its evidence. Unannotated readings must be decoded by every client; annotated readings are required only for the named client and remain visible as open findings. Rejection expectations cannot be annotated.
 
 ## HEM-7156T findings
 
-With Omron Connect 2026.09.03, Omron's code follows the three HEM-7156T fixtures (`hem-7156t/connect-read-history`, `hem-7156t/pair` and `hem-7156t-aap/connect-read-history`) and decodes the same reading as OpenPressure. Agreed in both clients: the saved-key unlock, key registration, the start frame, the first record read and the record decoding.
+With Omron Connect 2026.09.03, Omron's code follows the three HEM-7156T fixtures (`hem-7156t/connect-read-history`, `hem-7156t/pair` and `hem-7156t-aap/connect-read-history`). On base-model Connect, both clients agree on the saved-key unlock, start frame, first record read and decoded reading. OpenPressure deliberately rejects the AAP identity; Omron accepts it and decodes the same synthetic record. On Pair, both clients agree on key registration and START, but Omron's pairing flags `0x1210` return settings without reading history in this fixture, while OpenPressure imports the record. The Pair fixture marks its record read and expected reading as OpenPressure-only.
 
 Open findings, all from synthetic sandbox runs:
 
 - Omron's catalog calls its `HEM-7156T_AP` entry "HEM-7156T" (model ID `0x057A`) with one user. Its configuration declares one 60-record area at `0x98`. OpenPressure's pinned omblepy map also reads a second bank at `0x458`, which Omron's code never reads.
 - Omron confirms encryption with `02` on every connection and does not send `01` after registering the key.
-- Omron reads the index block at `0x10` and setting-information block 3 at `0x3C`, then only the records its index marks as unsent. It rejects a record whose sequence number at offset 10 does not match the index. OpenPressure reads complete banks and does not use the index.
-- Omron ends the session with `08 0f ff ff ff 00 00 f8`; OpenPressure sends `08 0f 00 00 00 00 00 07`. The monitor's reply to Omron's END is not confirmed.
-- Omron wrote no clock in these flows; OpenPressure writes Current Time before END.
+- On Connect, Omron reads the index block at `0x10` and setting-information block 3 at `0x3C`, then only the records its index marks as unsent. It rejects a record whose sequence number at offset 10 does not match the index. OpenPressure reads complete banks and does not use the index.
+- After the transfer Omron writes the monitor's memory (see [post-transfer settings writes](#post-transfer-settings-writes)); OpenPressure writes Current Time to a dedicated characteristic instead and never writes these monitors' memory.
+- Both clients end the session with `08 0f 00 00 00 00 00 07`. Earlier sandbox versions cancelled the session instead of letting Omron finish it and therefore recorded Omron's error END `08 0f ff ff ff 00 00 f8`; the app does not send it in a normal session.
 
 ## Other legacy vendor-memory models
 
@@ -107,6 +111,7 @@ They confirm OpenPressure's record addresses, record sizes and the decoding of p
 - **Index block**: Omron reads the index at `0x10` (16-byte maps) or `0x260` (14-byte maps) and then only the records it marks as unsent, and checks each record's sequence number against it. On the 14-byte maps the index uses the same swapped byte pairs as the records.
 - **Setting-information blocks**: blocks not listed in `ignoreCheckSumBlocks` carry the same additive checksum (HEM-7530T block 3, HEM-7600T block 3); Omron refuses the index otherwise.
 - **Product identity**: for HEM-7600T, Omron checks byte 14 of the 16-byte identity in the start reply as the sum of bytes 0-13 and ends the session without reading when it does not match.
+- **Session completion**: all these fixtures include Omron's post-transfer settings writes and full synthetic echo acknowledgments, followed by the normal END shared with OpenPressure. The former `ffffff` END finding came from the runner cancelling the session.
 
 These are synthetic observations of Omron's code; they do not show how a physical monitor fills these fields.
 
@@ -115,6 +120,22 @@ These are synthetic observations of Omron's code; they do not show how a physica
 - **HEM-7156T**: one area in Omron's configuration against our two banks (see above).
 - **HEM-7155T K4 variants** (`HEM-7155T_K4-D`, `-EBK`, `-ESL`, WLD2.0): different layout. Their catalog names equal those of the regular HEM-7155T identities that OpenPressure accepts, so the Device Information model a K4 monitor reports decides whether it would be read with the wrong map. That is unconfirmed.
 - **HEM-7377T1-ZAZ**: no plain record area (split WLD3.0 map), as already documented in the [omblepy comparison](omblepy-comparison.md).
+
+## Post-transfer settings writes
+
+All ten indexed legacy fixtures record two settings writes from Omron Connect 2026.09.03, followed by END `08 0f 00 00 00 00 00 07`. The frames come from the local synthetic exploration transcripts and are pinned as Omron-only steps; their acknowledgments are synthetic full echoes. Normal replay checks the exact requests and decoded results without exploration replies. OpenPressure's production command policy is unchanged and blocks addressed writes for these models.
+
+The first write includes the index prefix with the last-read user's unsent counter cleared. A changed birthday block is merged with the prefix or the clock block when adjacent. The sandbox's default birthday is 1900-01-01; the clock is fixture time plus one second. Omron recomputes additive settings checksums. The 14-byte-record models swap byte pairs in the settings image as well as the records.
+
+| Fixtures | First write: address, data length | Second write: address, data length |
+| --- | --- | --- |
+| HEM-7156T Connect/Pair, HEM-7156T-AAP, HEM-7150T | `0x54`, 30 bytes: prefix + birthday block 1 | `0x80`, 16 bytes: clock block 3 |
+| HEM-7155T, HEM-7342T, HEM-7361T | `0x54`, 16 bytes: prefix | `0x72`, 30 bytes: birthday block 2 + clock block 3 |
+| HEM-7530T | `0x2A4`, 30 bytes: prefix + birthday block 1 | `0x2D0`, 16 bytes: clock block 3 |
+| HEM-6232T | `0x2A4`, 16 bytes: prefix | `0x2C2`, 30 bytes: birthday block 2 + clock block 3 |
+| HEM-7600T | `0x286`, 14 bytes: prefix + birthday block 1 | `0x29A`, 10 bytes: clock block 3 |
+
+These results describe Omron's code against synthetic memory, including settings returned during Pair without a history read. They do not establish a physical monitor's reply, memory effects or compatibility, and do not authorize adding these writes to OpenPressure's legacy device path.
 
 ## Native Omsec execution
 

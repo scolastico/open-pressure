@@ -15,11 +15,17 @@ import static org.mockito.Mockito.*;
  * writes are acknowledged and followed by the scripted notifications. Everything else Omron does on the link
  * (service discovery, MTU, notification setup, Device Information reads) is answered generically and logged.
  * Callbacks are queued and delivered by the runner's pump, never re-entrantly from inside Omron's call.
+ *
+ * <p>With {@code -Domron.sandbox.explore=true} the peer keeps answering after a divergence, with synthetic
+ * acknowledgments: WLP reads from the fixture memory, writes and END echoed, key frames acknowledged. The
+ * outcome stays the first divergence; the transcript then shows everything Omron would have sent, which
+ * saves one run per fixture step when tuning. Exploration replies are synthetic and prove nothing.
  */
 public final class FixtureGatt {
     private static final Map<String,UUID> DIS=Map.of(
         "model",sig(0x2a24),"serial",sig(0x2a25),"firmware",sig(0x2a26),"hardware",sig(0x2a27),
         "software",sig(0x2a28),"manufacturer",sig(0x2a29),"systemid",sig(0x2a23));
+    static final boolean EXPLORE=Boolean.getBoolean("omron.sandbox.explore");
     private final Fixture fixture;
     private final FixtureCursor cursor;
     private final List<BluetoothGattService> services=new ArrayList<>();
@@ -134,9 +140,14 @@ public final class FixtureGatt {
     private boolean write(BluetoothGattCharacteristic c,byte[] value) {
         byte[] bytes=value==null?new byte[0]:value.clone();
         event("write "+name(c.getUuid())+" "+hex(bytes)+"  "+WlpDescribe.describe(bytes));
-        if(outcome!=null) return true;
+        if(outcome!=null) return explore(c,bytes,null);
         Outcome diverged=cursor.onWrite(c.getUuid(),bytes);
-        if(diverged!=null) { outcome=diverged; return true; }
+        if(diverged!=null) {
+            outcome=diverged;
+            if(EXPLORE) event("-- exploring past the divergence with synthetic replies --");
+            // The cursor already reassembled the diverging frame; later frames are reassembled here.
+            return explore(c,bytes,diverged.actual!=null && diverged.kind==Outcome.Kind.DIVERGED?diverged.actual:null);
+        }
         pending.add(() -> callback.onCharacteristicWrite(gatt,c,BluetoothGatt.GATT_SUCCESS));
         for(FixtureCursor.Notification n:cursor.pendingNotifications()) {
             BluetoothGattCharacteristic target=characteristics.get(n.characteristic);
@@ -145,6 +156,61 @@ public final class FixtureGatt {
                 target.setValue(n.value);
                 callback.onCharacteristicChanged(gatt,target,n.value);
             });
+        }
+        return true;
+    }
+    /** After a divergence in exploration mode: acknowledge and answer from the fixture memory; otherwise stay silent. */
+    private final Map<Integer,byte[]> exploreParts=new HashMap<>();
+    private boolean explore(BluetoothGattCharacteristic c,byte[] part,byte[] assembled) {
+        if(!EXPLORE) return true;
+        pending.add(() -> callback.onCharacteristicWrite(gatt,c,BluetoothGatt.GATT_SUCCESS));
+        String alias=fixture.aliasOf(c.getUuid());
+        if(alias==null) return true;
+        List<UUID> channels=fixture.uuids(alias);
+        byte[] bytes=assembled;
+        if(bytes==null && channels.size()>1) {
+            exploreParts.put(channels.indexOf(c.getUuid()),part.clone());
+            byte[] first=exploreParts.get(0);
+            if(first==null || first.length==0) return true;
+            int declared=first[0]&255,count=Math.max(1,(declared+15)/16);
+            bytes=new byte[declared];
+            for(int i=0;i<count;i++) {
+                byte[] piece=exploreParts.get(i);
+                if(piece==null) return true;
+                System.arraycopy(piece,0,bytes,i*16,Math.min(piece.length,Math.min(16,declared-i*16)));
+            }
+            exploreParts.clear();
+        } else if(bytes==null) bytes=part;
+        else exploreParts.clear();
+        byte[] reply=null;
+        String replyAlias=alias;
+        if(alias.equals("unlock") && bytes.length>0) reply=new byte[]{(byte)(bytes[0]|0x80),0};
+        else if(alias.equals("tx") && bytes.length>=8) {
+            int declared=bytes[0]&255,op=bytes[1]&255;
+            replyAlias="rx";
+            if(op==0x01 && (bytes[2]&0xc0)==0 && declared==8) {
+                int address=((bytes[2]&0x3f)<<16)|((bytes[3]&255)<<8)|(bytes[4]&255),length=bytes[5]&255;
+                byte[] data=fixture.memory(address,length);
+                reply=new byte[length+8];
+                reply[0]=(byte)reply.length; reply[1]=(byte)0x81;
+                System.arraycopy(bytes,2,reply,2,4);
+                System.arraycopy(data,0,reply,6,length);
+            } else {
+                // Write and END: full echo with the response opcode and a zero status.
+                reply=Arrays.copyOf(bytes,Math.max(8,Math.min(declared,bytes.length)));
+                reply[0]=(byte)reply.length; reply[1]=(byte)(op|0x80);
+                reply[reply.length-2]=0;
+            }
+            reply[reply.length-1]=0;
+            for(int i=0;i<reply.length-1;i++) reply[reply.length-1]^=reply[i];
+        }
+        if(reply==null || !fixture.aliases.containsKey(replyAlias)) return true;
+        List<UUID> targets=fixture.uuids(replyAlias);
+        byte[] value=reply;
+        for(int i=0;i*16<value.length && i<targets.size();i++) {
+            BluetoothGattCharacteristic target=characteristics.get(targets.get(i));
+            byte[] piece=targets.size()==1?value:Arrays.copyOfRange(value,i*16,Math.min(value.length,(i+1)*16));
+            pending.add(() -> { event("notify "+name(target.getUuid())+" "+hex(piece)+"  (synthetic exploration reply)"); target.setValue(piece); callback.onCharacteristicChanged(gatt,target,piece); });
         }
         return true;
     }

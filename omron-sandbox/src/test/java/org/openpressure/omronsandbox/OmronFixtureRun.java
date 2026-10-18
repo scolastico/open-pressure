@@ -21,7 +21,7 @@ import static org.junit.Assert.*;
  * version for later diffs.
  */
 @RunWith(RobolectricTestRunner.class)
-@Config(sdk=35,shadows={SandboxBluetoothDevice.class,ShadowOmsecNatives.class},
+@Config(sdk=35,shadows={SandboxBluetoothDevice.class,ShadowOmsecNatives.class,ShadowOmronClock.class},
     instrumentedPackages={"jp.co.omron.healthcare.communicationlibrary","com.omronhealthcare.connectivitylibrary"})
 @LooperMode(LooperMode.Mode.PAUSED)
 public class OmronFixtureRun {

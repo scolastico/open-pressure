@@ -25,7 +25,13 @@ public final class OmronCatalog {
     public static final class Entry {
         public final int category,model;
         public final String identifier,name;
-        Entry(int category,int model,String identifier,String name) { this.category=category; this.model=model; this.identifier=identifier; this.name=name; }
+        /** {@code noOfUsers}: the app pairs a one-user model without asking which user to register. */
+        public final int users;
+        /** {@code deviceSeries}; the app reads an extra user 0 after transfers on the {@code ppw} series. */
+        public final String series;
+        Entry(int category,int model,String identifier,String name,int users,String series) {
+            this.category=category; this.model=model; this.identifier=identifier; this.name=name; this.users=users; this.series=series;
+        }
         public String folder() { return String.format(Locale.ROOT,"device_category/0x%04X/%s",category,identifier); }
     }
 
@@ -52,7 +58,7 @@ public final class OmronCatalog {
             if(entry==null || entry.optInt("category",-1)!=ids[0]) continue;
             String primary=entry.optString("deviceGroupIncludedGroupIDKey",""),secondary=entry.optString("secondaryDeviceGroupIncludedGroupIDKey","");
             if(String.valueOf(ids[1]).equals(primary) || String.valueOf(ids[1]).equals(secondary))
-                return new Entry(ids[0],ids[1],entry.optString("identifier"),entry.optString("name"));
+                return new Entry(ids[0],ids[1],entry.optString("identifier"),entry.optString("name"),entry.optInt("noOfUsers",1),entry.optString("deviceSeries",""));
         }
         return null;
     }

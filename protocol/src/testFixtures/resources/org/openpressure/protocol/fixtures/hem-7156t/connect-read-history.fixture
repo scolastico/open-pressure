@@ -43,13 +43,19 @@ reads 0x98 16 chunk=16
 [ours-only: OpenPressure reads every slot of bank 1; Omron reads only unsent records] reads 0xa8 944 chunk=16
 [ours-only: omblepy two-bank map; Omron HEM-7156T_AP declares one 60-record area (noOfUsers 1), unconfirmed] reads 0x458 960 chunk=16
 
-# OpenPressure updates the clock through Current Time before END; Omron wrote no clock in this flow.
-[ours-only: OpenPressure clock sync via Current Time; Omron 2026.09.03 sent no clock write here] write clock ea 07 01 02 03 04 05 05 00 01
+# OpenPressure updates the clock through Current Time before END. Omron instead writes the monitor's memory
+# after every transfer (OGSCWlpDevice setDeviceSettings): the index prefix with the unsent counter cleared
+# (bytes 4-5 0100 -> 0080), setting block 1 with the profile's birthday when it differs (the sandbox uses the
+# app's default 1900-01-01) and block 3 with the clock (fixture time + 1 s) and its additive checksum.
+# OpenPressure never writes a monitor's memory on these models.
+[ours-only: OpenPressure clock sync via Current Time; Omron writes setting block 3 instead (docs/omron-sandbox.md)] write clock ea 07 01 02 03 04 05 05 00 01
+[omron-only: Omron's post-transfer settings write: prefix at index_setting_write_address 0x54 with the cleared unsent counter, merged with block 1 (birthday 1900-01-01, checksum f9)] write tx 26 01 c0 00 54 1e 01000000 0080 0000 01000000 ffffffff 000101 ffffffffffffffffff f9 ff 00 d4
+[omron-only: synthetic full echo acknowledgment; a real HEM-7156T reply is unconfirmed] notify rx 26 81 c0 00 54 1e 01000000 0080 0000 01000000 ffffffff 000101 ffffffffffffffffff f9 ff 00 54
+[omron-only: block 3 at 0x80 with the clock (field 100e, bytes 52-57 = fixture time + 1 s) and its additive checksum] write tx 18 01 c0 00 80 10 ffffffffffffffff 1a0102030406 22 ff 00 8c
+[omron-only: synthetic full echo acknowledgment; a real HEM-7156T reply is unconfirmed] notify rx 18 81 c0 00 80 10 ffffffffffffffff 1a0102030406 22 ff 00 0c
 
-# END: Omron addresses 0xffffff, OpenPressure 0x000000.
-[ours-only: OpenPressure END with address 000000 (pinned omblepy)] write tx 08 0f 00 00 00 00 00 07
-[ours-only: reply to the END above] notify rx 08 8f 00 00 00 00 00 87
-[omron-only: Omron 2026.09.03 END with address ffffff, observed in the sandbox] write tx 08 0f ff ff ff 00 00 f8
-[omron-only: synthetic echo reply to Omron's END; the real reply is unconfirmed] notify rx 08 8f ff ff ff 00 00 78
+# END is identical in both clients once Omron's session completes normally.
+write tx 08 0f 00 00 00 00 00 07
+notify rx 08 8f 00 00 00 00 00 87
 
 expect reading user=1 sys=130 dia=78 pulse=67 time=2025-07-09T06:14:38

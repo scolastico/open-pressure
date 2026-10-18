@@ -23,7 +23,7 @@ public final class ProtocolReplay {
         for(String name:args.length==0?Fixture.all():List.of(args)) {
             Fixture f=Fixture.load(name);
             System.out.println("ours (protocol): "+run(f).report().replace("\n","\n  "));
-            for(Fixture.Step step:f.annotated()) System.out.println("open finding (line "+step.line+", "+step.only+"-only): "+step.reason);
+            for(Fixture.Annotation annotation:f.annotated()) System.out.println("open finding (line "+annotation.line+", "+annotation.only+"-only): "+annotation.reason);
         }
     }
 

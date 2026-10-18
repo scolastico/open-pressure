@@ -36,9 +36,11 @@ import static org.robolectric.Shadows.shadowOf;
  * Runs Omron Connect's own communication library against one fixture inside Robolectric, in the order the
  * app's {@code OmronCommLibManager} uses: initialize OGSC, scan for the fixture's advertisement, pass the
  * catalog-selected definition folder, connect in registration or authentication mode with the fixture key
- * (where the app passes its account-derived key), then request vital data per user. The Bluetooth peer and
- * native entropy source are replaced; see {@link FixtureGatt} and {@link ShadowOmsecNatives}. Must run inside
- * a Robolectric test configured like {@code OmronRunnerTest}.
+ * (where the app passes its account-derived key), read the product index, request vital data per user and
+ * hand the received settings back to setDeviceSettings, after which Omron's library writes the clock and the
+ * cleared unsent counters and ends the session. The Bluetooth peer, native entropy source and Omron's wall
+ * clock are replaced; see {@link FixtureGatt}, {@link ShadowOmsecNatives} and {@link ShadowOmronClock}. Must
+ * run inside a Robolectric test configured like {@code OmronRunnerTest}.
  */
 public final class OmronRunner {
     private static final String ADDRESS="AA:BB:CC:DD:EE:FF";
@@ -57,7 +59,8 @@ public final class OmronRunner {
     private OmronAnchors anchors;
     private volatile Object device;
     private volatile String failure;
-    private volatile boolean vitalDone,connected,disconnected;
+    private volatile boolean indexDone,settingsDone,vitalDone,setDone,connected,disconnected;
+    private volatile Bundle deviceSetting;
 
     private OmronRunner(Fixture fixture,OmronApk apk) { this.fixture=fixture; this.apk=apk; }
 
@@ -90,6 +93,7 @@ public final class OmronRunner {
         blockNetwork();
         OmronRunner runner=new OmronRunner(f,apk);
         ShadowOmsecNatives.configure(apk.dir.resolve("lib/arm64-v8a/libnativeOmsec.so"),f.random);
+        ShadowOmronClock.configure(f.time,f.zone);
         Outcome outcome;
         Thread.UncaughtExceptionHandler previous=Thread.getDefaultUncaughtExceptionHandler();
         // A crash on one of Omron's threads would otherwise only stall the run.
@@ -104,6 +108,7 @@ public final class OmronRunner {
             // Omron's HandlerThreads would otherwise outlive the run and keep its class loader alive.
             for(Looper looper:ShadowLooper.getAllLoopers()) if(background(looper)) looper.quit();
             ShadowOmsecNatives.reset();
+            ShadowOmronClock.reset();
         }
         try { runner.write(transcript,outcome); }
         finally { SandboxBluetoothDevice.peer=null; }
@@ -159,13 +164,42 @@ public final class OmronRunner {
             return null;
         });
         if(!ok(call("device.connect",device,anchors.constant(pairing?"connectionMode.registration":"connectionMode.authentication"),fixture.key.clone(),60,connect))) return rejected("connect refused");
-        pump(() -> connected || disconnected || failure!=null || peer.outcome()!=null);
+        pump(() -> connected || disconnected || failure!=null || halted());
         if(!connected && failure==null && peer.outcome()==null) return rejected("never reported a connection");
         if(failure!=null) return rejected(failure);
 
+        // BaseOmronConnectivity.g(): the app asks for the product index as soon as the device reports CONNECT.
+        Object index=anchors.proxy("OGSCOnGetProductIndexCallback",(p,m,args) -> {
+            log("callback OGSCOnGetProductIndexCallback."+m.getName()+describe(args));
+            if(m.getName().equals("onGetProductIndex")) { indexDone=true; if(args[1]!=null && !isSuccess(args[1])) failure="product index: "+args[1]; }
+            return null;
+        });
+        if(!ok(call("device.productIndex",device,index))) return rejected("product index request refused");
+        pump(() -> indexDone || disconnected || failure!=null || halted());
+        if(failure!=null) return rejected(failure);
+        if(!indexDone) return rejected("never reported the product index");
+
+        // The app registers one user per pairing session (BaseOmronConnectivity.q -> G(n)); a transfer serves the
+        // selected user. The sandbox transfers every user with Omron readings instead, to compare them in one run.
         List<Integer> users=new ArrayList<>();
-        for(Fixture.Reading r:fixture.readings()) if(!users.contains(r.user)) users.add(r.user);
+        if(pairing) users.add(fixture.registerUser);
+        else for(Fixture.Reading r:fixture.readings(Fixture.Client.OMRON)) if(!users.contains(r.user)) users.add(r.user);
         if(users.isEmpty()) users.add(1);
+        // BaseOmronConnectivity.q(): pairing a multi-user model reads the settings (all users) to offer the free user.
+        if(pairing && entry.users>1) {
+            Object settings=anchors.proxy("OGSCOnGetDeviceSettingCallback",(p,m,args) -> {
+                log("callback OGSCOnGetDeviceSettingCallback."+m.getName()+describe(args));
+                if(m.getName().equals("onGetDeviceSetting")) { settingsDone=true; if(args[1]!=null && !isSuccess(args[1])) failure="device settings: "+args[1]; }
+                return null;
+            });
+            if(!ok(call("device.readSettings",device,null,settings))) return rejected("device settings request refused");
+            pump(() -> settingsDone || disconnected || failure!=null || halted());
+            if(failure!=null) return rejected(failure);
+        }
+        // OmronCommLibManager.m(): 0x1010 for a manual or automatic transfer, 0x1210 for pairing (0x1310 for
+        // SYNC_ALL); the user number travels in OGSCResume. One app session serves one user; the
+        // sandbox reads every user with expected readings in turn, then writes settings for all of them.
+        int flags=pairing?0x1210:0x1010;
         for(int requested:users) {
             vitalDone=false;
             Object resume=anchors.type("resume").getConstructor(int.class).newInstance(requested);
@@ -174,18 +208,56 @@ public final class OmronRunner {
                 log("callback OGSCOnGetVitalDataResumeCallback."+m.getName()+describe(args));
                 if(m.getName().equals("onGetVitalData") && args[0] instanceof Bundle) vitals.add(new OmronVitals.Delivery(user,(Bundle)args[0]));
                 if(m.getName().equals("onGetVitalData") && args[4]!=null && !isSuccess(args[4])) failure="vital data: "+args[4];
-                if(m.getName().equals("onGetVitalDataCompleted")) { vitalDone=true; if(args[3]!=null && !isSuccess(args[3])) failure="vital data: "+args[3]; }
+                if(m.getName().equals("onGetVitalDataCompleted")) {
+                    if(args[1] instanceof Bundle) deviceSetting=(Bundle)args[1];
+                    vitalDone=true;
+                    if(args[3]!=null && !isSuccess(args[3])) failure="vital data: "+args[3];
+                }
                 return null;
             });
-            if(!ok(call("device.vitalData",device,requested+4112,resume,vital))) return rejected("vital data request refused");
-            pump(() -> vitalDone || disconnected || failure!=null || peer.outcome()!=null);
+            if(!ok(call("device.vitalData",device,flags,resume,vital))) return rejected("vital data request refused");
+            pump(() -> vitalDone || disconnected || failure!=null || halted());
             if(failure!=null) return rejected(failure);
         }
-        call("device.disconnect",device);
-        pump(() -> disconnected || peer.outcome()!=null);
+        // BaseOmronConnectivity.u(): after every completed transfer the app hands the settings it received back
+        // to setDeviceSettings for the selected user; the library adds the clock and ends the session itself.
+        if(deviceSetting==null) log("no device settings were delivered with the vital data; skipping the settings write");
+        else if(!disconnected && !halted()) {
+            Object set=anchors.proxy("OGSCOnSetDeviceSettingCallback",(p,m,args) -> {
+                log("callback OGSCOnSetDeviceSettingCallback."+m.getName()+describe(args));
+                if(m.getName().equals("onSetDeviceSetting")) { setDone=true; if(args[2]!=null && !isSuccess(args[2])) failure="set settings: "+args[2]; }
+                return null;
+            });
+            applyProfile(deviceSetting);
+            if(!ok(call("device.setSettings",device,new ArrayList<>(users),deviceSetting,set))) return rejected("settings write refused");
+            pump(() -> setDone || disconnected || failure!=null || halted());
+            if(failure!=null) return rejected(failure);
+        }
+        pump(() -> disconnected || halted());
+        if(!disconnected && !halted()) {
+            // The app never cancels a healthy session; the library ends it after the settings write.
+            log("Omron kept the connection open; cancelling (the app would not)");
+            call("device.disconnect",device);
+            pump(() -> disconnected || halted());
+        }
         if(peer.outcome()!=null) return peer.outcome();
         if(!cursor.finished()) return cursor.stalled();
         synchronized(vitals) { return cursor.finish(OmronVitals.readings(new ArrayList<>(vitals),log)); }
+    }
+
+    /**
+     * DeviceSettingsMapperKt.r(): the app merges its profile into the user settings it received, changing only
+     * fields the device reported. The sandbox has no profile, so it applies the app's default date of birth
+     * (field 1005, {@code yyyyMMdd000000}); a monitor's unparsed birthday reads as "0", which Omron's writer
+     * rejects as a null date.
+     */
+    static void applyProfile(Bundle settings) {
+        for(String key:settings.keySet()) {
+            if(!key.matches("[1-9]\\d*") || !(settings.get(key) instanceof Bundle)) continue;
+            Bundle user=(Bundle)settings.get(key);
+            Object birthday=user.get("1005");
+            if(birthday instanceof Bundle) ((Bundle)birthday).putString("data","19000101000000");
+        }
     }
 
     /**
@@ -205,7 +277,7 @@ public final class OmronRunner {
             boolean progressed=false;
             if(!shadowOf(main).isIdle()) { shadowOf(main).idle(); progressed=true; }
             if(waitForBackground()) progressed=true;
-            if(peer!=null && peer.outcome()==null && peer.deliverNext()) progressed=true;
+            if(peer!=null && !halted() && peer.deliverNext()) progressed=true;
             if(progressed) continue;
             if(until==null || until.getAsBoolean()) return;
             // Nothing is runnable: let virtual time pass until the next scheduled message, as a real wait would.
@@ -280,6 +352,8 @@ public final class OmronRunner {
             return result;
         } catch(InvocationTargetException thrown) { throw new IllegalStateException(anchor+" threw "+thrown.getCause(),thrown.getCause()); }
     }
+    /** The peer stopped answering after a divergence; in exploration mode it keeps answering synthetically. */
+    private boolean halted() { return peer.outcome()!=null && !FixtureGatt.EXPLORE; }
     private Outcome rejected(String why) {
         if(peer!=null && peer.outcome()!=null) return peer.outcome();
         return Outcome.rejected(cursor==null?0:cursor.position(),"Omron: "+why+(cursor==null?"":"; "+cursor.stalled().detail));

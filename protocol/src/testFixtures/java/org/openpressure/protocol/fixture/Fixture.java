@@ -38,6 +38,8 @@ public final class Fixture {
     /** "connect" reconnects with a saved key; "pair" registers the key first. */
     public String flow="connect";
     public byte[] random=new byte[0];
+    /** User a pairing session registers (Omron registers exactly one; the legacy key is not per user). */
+    public int registerUser=1;
     public final Map<String,List<UUID>> aliases=new LinkedHashMap<>();
     private final List<Step> steps=new ArrayList<>();
     private final List<Reading> readings=new ArrayList<>();
@@ -103,7 +105,7 @@ public final class Fixture {
         }
         String[] words=line.split("\\s+",2);
         String rest=words.length>1?words[1].trim():"";
-        if(only!=null && !Set.of("write","notify","reads").contains(words[0])) throw new IllegalArgumentException("only steps can be annotated");
+        if(only!=null && !Set.of("write","notify","reads","expect").contains(words[0])) throw new IllegalArgumentException("only steps and reading expectations can be annotated");
         switch(words[0]) {
             case "name": if(!rest.equals(name)) throw new IllegalArgumentException("name "+rest+" does not match file "+name); break;
             case "advertise":
@@ -132,6 +134,13 @@ public final class Fixture {
                 if(!rest.equals("connect") && !rest.equals("pair")) throw new IllegalArgumentException("flow must be connect or pair");
                 flow=rest; break;
             case "key": key=hex(rest); if(key.length!=16) throw new IllegalArgumentException("key must be 16 bytes"); break;
+            case "register": {
+                Map<String,String> v=pairs(rest);
+                if(v.size()!=1 || !v.containsKey("user")) throw new IllegalArgumentException("register needs: register user=<n>");
+                registerUser=Integer.parseInt(v.get("user"));
+                if(registerUser<1 || registerUser>2) throw new IllegalArgumentException("register user must be 1 or 2");
+                break;
+            }
             case "random": random=hex(rest); break;
             case "alias": {
                 String[] parts=rest.split("\\s+");
@@ -165,7 +174,8 @@ public final class Fixture {
             }
             case "expect": {
                 String[] parts=rest.split("\\s+",2);
-                if(parts[0].equals("reading")) readings.add(Reading.parse(parts.length>1?parts[1]:""));
+                if(parts[0].equals("reading")) readings.add(Reading.parse(parts.length>1?parts[1]:"",only,reason,number));
+                else if(only!=null) throw new IllegalArgumentException("only reading expectations can be annotated");
                 else if(parts.length==2 && parts[1].equals("rejected")) {
                     if(parts[0].equals("ours")) { rejectedBy.add(Client.OURS_PROTOCOL); rejectedBy.add(Client.OURS_APP); }
                     else if(parts[0].equals("omron")) rejectedBy.add(Client.OMRON);
@@ -208,19 +218,36 @@ public final class Fixture {
 
     /** Steps a client must follow: shared steps plus that client's own annotated steps. */
     public List<Step> steps(Client client) {
-        String own=client==Client.OMRON?"omron":"ours";
         List<Step> result=new ArrayList<>();
-        for(Step step:steps) if(step.only==null || step.only.equals(own)) result.add(step);
+        for(Step step:steps) if(includes(step,client)) result.add(step);
         return Collections.unmodifiableList(result);
     }
     /** Every annotated difference; reported as open findings rather than silently accepted. */
-    public List<Step> annotated() {
-        List<Step> result=new ArrayList<>();
+    public List<Annotation> annotated() {
+        List<Annotation> result=new ArrayList<>();
         Set<Integer> lines=new java.util.HashSet<>();
         for(Step step:steps) if(step.only!=null && lines.add(step.line)) result.add(step);
+        for(Reading reading:readings) if(reading.only!=null) result.add(reading);
+        result.sort(java.util.Comparator.comparingInt(annotation -> annotation.line));
         return Collections.unmodifiableList(result);
     }
+    /** All declared readings, also used to choose the synthetic session's users. */
     public List<Reading> readings() { return Collections.unmodifiableList(readings); }
+    /** Readings this client must decode, including shared expectations. */
+    public List<Reading> readings(Client client) {
+        List<Reading> result=new ArrayList<>();
+        for(Reading reading:readings) if(includes(reading,client)) result.add(reading);
+        return Collections.unmodifiableList(result);
+    }
+    private static boolean includes(Annotation annotation,Client client) {
+        return annotation.only==null || annotation.only.equals(client==Client.OMRON?"omron":"ours");
+    }
+    /** The synthetic memory behind {@code reads}: declared bytes, the fill byte elsewhere. */
+    public byte[] memory(int address,int length) {
+        byte[] out=new byte[length];
+        for(int i=0;i<length;i++) out[i]=memory.getOrDefault(address+i,fill);
+        return out;
+    }
     /** True when the fixture expects this client to refuse the device instead of following the steps. */
     public boolean expectRejected(Client client) { return rejectedBy.contains(client); }
     public List<UUID> uuids(String alias) { return alias(alias); }
@@ -230,32 +257,41 @@ public final class Fixture {
         return null;
     }
 
-    public static final class Step {
+    public static class Annotation {
+        public final String only,reason;
+        public final int line;
+        Annotation(String only,String reason,int line) { this.only=only; this.reason=reason; this.line=line; }
+    }
+
+    public static final class Step extends Annotation {
         public enum Kind { WRITE, NOTIFY }
         public final Kind kind;
         public final String alias;
         public final byte[] bytes;
-        public final String only,reason;
-        public final int line;
         Step(Kind kind,String alias,byte[] bytes,String only,String reason,int line) {
-            this.kind=kind; this.alias=alias; this.bytes=bytes; this.only=only; this.reason=reason; this.line=line;
+            super(only,reason,line);
+            this.kind=kind; this.alias=alias; this.bytes=bytes;
         }
         @Override public String toString() {
             return (only==null?"":"["+only+"-only] ")+kind.name().toLowerCase()+" "+alias+" "+HexFormat.of().formatHex(bytes)+" (line "+line+")";
         }
     }
 
-    public static final class Reading {
+    public static final class Reading extends Annotation {
         public final int user,sys,dia,pulse;
         public final LocalDateTime time;
         public Reading(int user,int sys,int dia,int pulse,LocalDateTime time) {
+            this(user,sys,dia,pulse,time,null,null,0);
+        }
+        private Reading(int user,int sys,int dia,int pulse,LocalDateTime time,String only,String reason,int line) {
+            super(only,reason,line);
             this.user=user; this.sys=sys; this.dia=dia; this.pulse=pulse; this.time=time;
         }
-        static Reading parse(String text) {
+        static Reading parse(String text,String only,String reason,int line) {
             Map<String,String> v=pairs(text);
             for(String field:new String[]{"user","sys","dia","pulse","time"}) if(!v.containsKey(field)) throw new IllegalArgumentException("reading needs "+field);
             return new Reading(Integer.parseInt(v.get("user")),Integer.parseInt(v.get("sys")),Integer.parseInt(v.get("dia")),
-                Integer.parseInt(v.get("pulse")),LocalDateTime.parse(v.get("time")));
+                Integer.parseInt(v.get("pulse")),LocalDateTime.parse(v.get("time")),only,reason,line);
         }
         @Override public boolean equals(Object other) {
             return other instanceof Reading && toString().equals(other.toString());

@@ -34,6 +34,7 @@ public final class FixtureTest {
         incompleteFixturesFailAtParseTime();
         divergenceReportsStepAndDecodedFields();
         finishComparesReadings();
+        finishComparesOnlyTheClientsReadings();
         return checks;
     }
     private static void parsesHeaderAndExpandsReads() {
@@ -52,6 +53,11 @@ public final class FixtureTest {
         check(Arrays.equals(Wlp.payload(reply,1),hex("694e4319261da6030000000000000000")),"reply checksum valid");
         byte[] second=steps.get(3).bytes;
         check(Arrays.equals(Wlp.payload(second,1),hex("ffffffffffffffffffffffffffffffff")),"unset memory uses the fill byte");
+        check(Arrays.equals(f.memory(0x96,6),hex("ffff694e4319")),"memory exposes declared bytes and the fill around them");
+        check(f.registerUser==1,"pairing registers user 1 unless told otherwise");
+        check(Fixture.parse("test/sample",HEAD+"flow pair\nregister user=2\n").registerUser==2,"register user directive");
+        try { Fixture.parse("test/sample",HEAD+"register user=3\n"); throw new AssertionError("user 3 accepted"); }
+        catch(IllegalArgumentException expected) { check(expected.getMessage().contains("1 or 2"),"register user range"); }
     }
     private static void filtersOnlyStepsPerClient() {
         Fixture f=Fixture.parse("test/sample",HEAD+"[omron-only: Omron confirms encryption] write unlock 02 00000000000000000000000000000000\nwrite unlock 01 05050505050505050505050505050505\n");
@@ -61,7 +67,10 @@ public final class FixtureTest {
     }
     private static void rejectsMalformedLinesWithLineNumbers() {
         String head="name test/bad\nalias unlock b305b680-aee7-11e1-a730-0002a5d5c51b\n";
-        for(String line:new String[]{"[omron-only] write unlock 01","write nowhere 01","write unlock 012"}) {
+        for(String line:new String[]{"[omron-only] write unlock 01","write nowhere 01","write unlock 012",
+            "[ours-only] expect reading user=1 sys=130 dia=78 pulse=67 time=2025-07-09T06:14:38",
+            "[omron-only: unsupported annotation] expect ours rejected",
+            "[ours-only: not a step or reading] flow pair"}) {
             checks++;
             try { Fixture.parse("test/bad",head+line+"\n"); }
             catch(IllegalArgumentException expected) {
@@ -132,6 +141,29 @@ public final class FixtureTest {
         check(cursor.finish(List.of(reading)).kind==Outcome.Kind.MATCHES,"matching readings pass");
         FixtureCursor early=new FixtureCursor(f,Fixture.Client.OURS_PROTOCOL);
         check(early.finish(List.of(reading)).kind==Outcome.Kind.REJECTED,"unconsumed steps cannot match");
+    }
+    private static void finishComparesOnlyTheClientsReadings() {
+        Fixture f=Fixture.parse("test/sample",HEAD+
+            "[ours-only: Omron pairing does not transfer history] expect reading user=1 sys=130 dia=78 pulse=67 time=2025-07-09T06:14:38\n"+
+            "[omron-only: synthetic client-specific reading] expect reading user=2 sys=120 dia=80 pulse=70 time=2025-08-01T07:30:00\n"+
+            "expect reading user=1 sys=110 dia=70 pulse=60 time=2025-08-02T07:30:00\n");
+        Fixture.Reading ours=f.readings().get(0),omron=f.readings().get(1),shared=f.readings().get(2);
+        for(Fixture.Client client:Fixture.Client.values()) {
+            FixtureCursor cursor=new FixtureCursor(f,client);
+            Fixture.Reading own=client==Fixture.Client.OMRON?omron:ours;
+            Fixture.Reading other=client==Fixture.Client.OMRON?ours:omron;
+            check(cursor.finish(List.of(own,shared)).kind==Outcome.Kind.MATCHES,"client sees its own and shared readings: "+client);
+            check(cursor.finish(List.of(shared)).kind==Outcome.Kind.DIVERGED,"missing own reading rejected: "+client);
+            check(cursor.finish(List.of(own)).kind==Outcome.Kind.DIVERGED,"missing shared reading rejected: "+client);
+            check(cursor.finish(List.of(own,shared,other)).kind==Outcome.Kind.DIVERGED,"another client's reading is unexpected: "+client);
+            check(cursor.finish(List.of(own,shared,own)).kind==Outcome.Kind.DIVERGED,"duplicate reading rejected: "+client);
+        }
+        check(f.annotated().size()==2 && f.annotated().get(0).line==11 &&
+            "Omron pairing does not transfer history".equals(f.annotated().get(0).reason),"reading differences are reported with evidence and location");
+        Fixture pair=Fixture.parse("test/sample",HEAD+
+            "[ours-only: Omron pairing does not transfer history] expect reading user=1 sys=130 dia=78 pulse=67 time=2025-07-09T06:14:38\n");
+        check(new FixtureCursor(pair,Fixture.Client.OMRON).finish(List.of()).kind==Outcome.Kind.MATCHES,"Omron pairing may return no readings");
+        check(new FixtureCursor(pair,Fixture.Client.OURS_APP).finish(List.of()).kind==Outcome.Kind.DIVERGED,"OpenPressure pairing still requires its reading");
     }
     private static byte[] hex(String s) { return HexFormat.of().parseHex(s); }
     private static void check(boolean value,String message) { checks++; if(!value) throw new AssertionError(message); }

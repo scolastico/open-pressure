@@ -25,6 +25,7 @@ import java.util.Map;
  * {@code device.readSettings}: {@code ErrorInfo (ArrayList, OGSCOnGetDeviceSettingCallback)};
  * {@code device.productIndex}: {@code ErrorInfo (OGSCOnGetProductIndexCallback)};
  * {@code device.vitalData}: {@code ErrorInfo (int, OGSCResume, OGSCOnGetVitalDataResumeCallback)};
+ * {@code device.setSettings}: {@code ErrorInfo (ArrayList, Bundle, OGSCOnSetDeviceSettingCallback)};
  * {@code device.disconnect}: the only no-argument method returning {@code ErrorInfo}.</li>
  * <li>{@code resume}: class {@code ogsc.OGSCResume} with an {@code (int user)} constructor.</li>
  * <li>{@code connectionMode.*}, {@code scanMode.*}: {@code getMode()} of the connectivity library enums
@@ -54,6 +55,7 @@ public final class OmronAnchors {
         a.method("device.readSettings","device",false,ERROR,"java.util.ArrayList",CALLBACK+"OGSCOnGetDeviceSettingCallback");
         a.method("device.productIndex","device",false,ERROR,CALLBACK+"OGSCOnGetProductIndexCallback");
         a.method("device.vitalData","device",false,ERROR,"int",OGSC+"OGSCResume",CALLBACK+"OGSCOnGetVitalDataResumeCallback");
+        a.method("device.setSettings","device",false,ERROR,"java.util.ArrayList",BUNDLE,CALLBACK+"OGSCOnSetDeviceSettingCallback");
         a.method("device.disconnect","device",false,ERROR);
         a.type("resume",OGSC+"OGSCResume");
         a.mode("connectionMode.registration",ENUMS+"OGSCConnectionMode","REGISTRATION");

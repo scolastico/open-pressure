@@ -22,14 +22,15 @@ public class OmronAnchorsTest {
         source(src,"android.content.Context","package android.content; public class Context {}");
         source(src,"android.os.Bundle","package android.os; public class Bundle {}");
         source(src,P+".utility.ErrorInfo","package "+P+".utility; public class ErrorInfo {}");
-        for(String callback:new String[]{"OGSCManagerCallback","OGSCScanCallback","OGSCOnConnectStateChangeCallback"})
+        for(String callback:new String[]{"OGSCManagerCallback","OGSCScanCallback","OGSCOnConnectStateChangeCallback","OGSCOnSetDeviceSettingCallback"})
             source(src,P+".ogsc.interfaces."+callback,"package "+P+".ogsc.interfaces; public interface "+callback+" {}");
         source(src,P+".ogsc.OGSCManager","package "+P+".ogsc; import "+P+".ogsc.interfaces.*; import "+P+".utility.ErrorInfo;"+
             " public class OGSCManager { public static void f(android.content.Context c,OGSCManagerCallback cb) {}"+
             " public static ErrorInfo j(int a,int b,int c,int d,OGSCScanCallback cb) { return null; } }");
         // The device stub lacks the connect signature (int, byte[], int, callback).
-        source(src,P+".ogsc.OGSCDevice","package "+P+".ogsc; import "+P+".utility.ErrorInfo;"+
-            " public interface OGSCDevice { ErrorInfo b(android.os.Bundle b); ErrorInfo e(); }");
+        source(src,P+".ogsc.OGSCDevice","package "+P+".ogsc; import "+P+".utility.ErrorInfo; import "+P+".ogsc.interfaces.*;"+
+            " public interface OGSCDevice { ErrorInfo b(android.os.Bundle b); ErrorInfo e();"+
+            " ErrorInfo g(java.util.ArrayList users,android.os.Bundle settings,OGSCOnSetDeviceSettingCallback cb); }");
         compile(src,out);
         try(URLClassLoader loader=new URLClassLoader(new URL[]{out.toUri().toURL()},null)) {
             OmronAnchors anchors=OmronAnchors.resolve(loader);
@@ -37,6 +38,7 @@ public class OmronAnchorsTest {
             assertFalse(anchors.complete());
             assertTrue(report,report.contains("ok manager.init -> "+P+".ogsc.OGSCManager.f"));
             assertTrue(report,report.contains("ok device.disconnect -> "+P+".ogsc.OGSCDevice.e"));
+            assertTrue(report,report.contains("ok device.setSettings -> "+P+".ogsc.OGSCDevice.g"));
             assertTrue(report,report.contains("MISSING device.connect"));
             try { anchors.method("device.connect"); fail("missing anchor returned a member"); }
             catch(IllegalStateException expected) { assertTrue(expected.getMessage().contains("device.connect")); }

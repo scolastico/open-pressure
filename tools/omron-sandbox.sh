@@ -6,8 +6,11 @@ cd "$(dirname "$0")/.."
 
 out=omron-sandbox/build/omron-sandbox
 mkdir -p omron-sandbox/build
+explore=false
+if [ "${1:-}" = --explore ]; then explore=true; shift; fi
 usage() {
-  echo "usage: tools/omron-sandbox.sh [all|<fixture>]   replay fixtures with both clients"
+  echo "usage: tools/omron-sandbox.sh [--explore] [all|<fixture>]   replay fixtures with both clients"
+  echo "         --explore: after a divergence, keep answering Omron with synthetic replies to see its whole session"
   echo "       tools/omron-sandbox.sh resolve            show how Omron's entry points were found"
   echo "       tools/omron-sandbox.sh diff <old> <new>   compare transcripts of two Omron versions"
 }
@@ -38,7 +41,7 @@ fi
 
 rm -rf "$out/results" app/build/fixture-replay
 # Our app replay fails the build when OpenPressure diverges; keep going so both sides are reported.
-./gradlew -q --continue -Dfixture="$fixture" \
+./gradlew -q --continue -Dfixture="$fixture" -Domron.sandbox.explore="$explore" \
   :omron-sandbox:testDebugUnitTest --tests '*OmronFixtureTest' --rerun \
   :app:testDebugUnitTest --tests '*FixtureReplayTest' --rerun >"$out-gradle.log" 2>&1 || true
 

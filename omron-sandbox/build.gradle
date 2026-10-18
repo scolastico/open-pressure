@@ -16,6 +16,7 @@ android {
             systemProperty 'omron.dir', omronDir.absolutePath
             systemProperty 'omron.apk.dir', apkDir.absolutePath
             systemProperty 'fixture', System.getProperty('fixture','')
+            systemProperty 'omron.sandbox.explore', System.getProperty('omron.sandbox.explore','false')
             maxHeapSize = '3g'
             // dex2jar output has no stack map frames; verification would reject Omron's converted classes.
             jvmArgs '-XX:+UnlockDiagnosticVMOptions','-XX:-BytecodeVerificationRemote','-XX:-BytecodeVerificationLocal'
