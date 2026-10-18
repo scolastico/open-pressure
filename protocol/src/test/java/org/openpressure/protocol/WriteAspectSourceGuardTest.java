@@ -19,20 +19,27 @@ public final class WriteAspectSourceGuardTest {
     /** Repository-relative files or directories (ending in '/') that may contain the guarded calls. */
     private static final String[] ALLOWED={
         "protocol/src/main/java/org/openpressure/protocol/DeviceWritePolicy.java",
-        "app/src/main/java/org/openpressure/app/developer/"
+        "app/src/main/java/org/openpressure/app/developer/",
+        "app/src/main/java/org/openpressure/app/ble/MonitorService.java"
     };
+    /** The explicit Sync clock request reads the stored override through exactly one private helper. */
+    private static final String MONITOR_SERVICE="app/src/main/java/org/openpressure/app/ble/MonitorService.java";
     private static int checks;
     public static void main(String[] args) { System.out.println("Write aspect source guard checks: "+run()); }
     public static int run() {
         checks=0;
         Path root=repositoryRoot();
         List<String> violations=new ArrayList<>();
-        int definitions=0;
+        int definitions=0,monitorOverrides=-1;
         for(String tree:new String[]{"app/src/main","protocol/src/main"}) {
             try(Stream<Path> files=Files.walk(root.resolve(tree))) {
                 for(Path file:(Iterable<Path>)files.filter(Files::isRegularFile)::iterator) {
                     String relative=root.relativize(file).toString().replace('\\','/');
                     String source=read(file);
+                    if(relative.equals(MONITOR_SERVICE)) {
+                        monitorOverrides=occurrences(source,"allowsUntested(");
+                        if(source.contains("requireWriteAspect(")) violations.add(relative+": requireWriteAspect(");
+                    }
                     for(String call:GUARDED) {
                         if(!source.contains(call)) continue;
                         if(allowed(relative)) { if(relative.endsWith("DeviceWritePolicy.java")) definitions++; continue; }
@@ -44,9 +51,15 @@ public final class WriteAspectSourceGuardTest {
         }
         if(!violations.isEmpty()) throw new AssertionError("write-aspect gate used outside the reviewed allow-list: "+violations);
         if(definitions==0) throw new AssertionError("source guard did not find the requireWriteAspect definition");
+        if(monitorOverrides!=1) throw new AssertionError("MonitorService must read the untested-write override exactly once, found "+monitorOverrides);
         if(!allowed("app/src/main/java/org/openpressure/app/developer/DeveloperOptions.java") || allowed("app/src/main/java/org/openpressure/app/MonitorService.java")
                 || allowed("protocol/src/main/java/org/openpressure/protocol/DeviceWritePolicyHelper.java")) throw new AssertionError("allow-list matching");
         return ++checks;
+    }
+    private static int occurrences(String source,String call) {
+        int count=0;
+        for(int at=source.indexOf(call);at>=0;at=source.indexOf(call,at+call.length())) count++;
+        return count;
     }
     private static boolean allowed(String relative) {
         for(String entry:ALLOWED) if(entry.endsWith("/")?relative.startsWith(entry):relative.equals(entry)) return true;

@@ -43,7 +43,7 @@ public class MonitorServiceImportTest {
     private BluetoothGattCharacteristic clock,unlock;
     private final List<Write> writes=new ArrayList<>();
     private final List<BluetoothGattCharacteristic> rx=new ArrayList<>();
-    private boolean rejectEnd,rejectHistory;
+    private boolean rejectEnd;
     private final byte[] memory=new byte[0x10000];
     private int errorAddress=-1;
     // Synthetic 130/78 mmHg, pulse 67, 2025-07-09 06:14:38/39/40 records with valid additive checksums (byte 14).
@@ -69,7 +69,7 @@ public class MonitorServiceImportTest {
         when(gatt.getService(vendor.getUuid())).thenReturn(vendor);
         when(gatt.writeCharacteristic(any(BluetoothGattCharacteristic.class),any(byte[].class),anyInt())).thenAnswer(invocation -> {
             Write write=new Write(invocation.getArgument(0),invocation.getArgument(1)); writes.add(write);
-            boolean busy=write.bytes.length==8 && (rejectEnd && write.bytes[1]==15 || rejectHistory && write.characteristic.getService()==vendor);
+            boolean busy=write.bytes.length==8 && rejectEnd && write.bytes[1]==15;
             return busy?BluetoothStatusCodes.ERROR_GATT_WRITE_REQUEST_BUSY:BluetoothStatusCodes.SUCCESS;
         });
         // Default memory: two consecutive records in bank 1 that the index reports as populated.
@@ -97,35 +97,39 @@ public class MonitorServiceImportTest {
         if(monitor!=null) monitor.disconnect();
         if(store!=null) store.close();
     }
-    @Test public void pairingReadsPopulatedSlotsThenUpdatesClockBeforeTheOnlyEnd() throws Exception {
+    @Test public void pairingReadsPopulatedSlotsBeforeTheOnlyEnd() throws Exception {
         pair(); List<byte[]> reads=importHistory();
         assertEquals(1,reads.size()); assertArrayEquals("both populated records in one 32-byte block",Wlp.read(0x98,32),reads.get(0));
-        assertSame(clock,last().characteristic);
         assertEquals(2,store.historyCount(0)); assertEquals(2,store.historyCount(1)); assertEquals(0,store.historyCount(2));
         assertEquals(MonitorService.ImportMode.INDEX,monitor.importMode); assertEquals(2,monitor.indexStoredCount);
-        assertTrue(monitor.historyRunning); assertEquals(0,countOpcode(15));
-        writeDone(last(),BluetoothGatt.GATT_SUCCESS);
-        assertEquals(15,last().bytes[1]);
+        assertTrue(monitor.historyRunning);
+        assertEquals("END follows the last history read directly",15,last().bytes[1]);
         dataReply(last(),hex("088f000000000087"),true);
         assertImported();
-        assertTrue(MonitorUi.detail(monitor,monitor).contains(monitor.getString(R.string.monitor_check_clock)));
+        assertEquals(MonitorService.ClockUpdate.NONE,monitor.clockUpdate);
+        assertFalse(MonitorUi.detail(monitor,monitor).contains(monitor.getString(R.string.monitor_check_clock)));
+        assertTrue(writes.stream().noneMatch(write -> write.characteristic==clock));
         assertEquals(1,countOpcode(0)); assertEquals(1,countOpcode(15));
         // A late error for END and the cuff's normal disconnect must retain the completed result.
         callback.onCharacteristicWrite(gatt,last().characteristic,133); idle();
         assertImported();
         callback.onConnectionStateChange(gatt,0,BluetoothProfile.STATE_DISCONNECTED); idle(); assertImported();
     }
-    @Test public void rejectedClockDoesNotAbortHistoryAndItsWarningIsVisible() throws Exception {
-        pair(); importHistory(); writeDone(last(),BluetoothGatt.GATT_WRITE_NOT_PERMITTED);
-        dataReply(last(),hex("088f000000000087"),false);
+    @Test public void legacyImportNoLongerWritesCurrentTime() throws Exception {
+        pair(); importHistory();
+        assertFalse("vendor clocks change only through Sync clock",monitor.canTime);
+        assertEquals(15,last().bytes[1]); dataReply(last(),hex("088f000000000087"),false);
         assertImported();
-        assertTrue(MonitorUi.detail(monitor,monitor).contains(monitor.getString(R.string.monitor_clock_failed)));
+        assertTrue(writes.stream().noneMatch(write -> write.characteristic==clock));
+        String detail=MonitorUi.detail(monitor,monitor);
+        for(int note:new int[]{R.string.monitor_check_clock,R.string.monitor_clock_failed,R.string.monitor_clock_skipped})
+            assertFalse(detail.contains(monitor.getString(note)));
     }
     @Test public void passthroughQueuesBothBanksWithoutRetainingHistoryHealthExportsOrPackets() throws Exception {
         String endpoint="https://example.invalid/measurements";
         ExperimentalConsent.accept(monitor);
         HttpForwardingSettings.save(monitor,endpoint,"Bearer synthetic-test-token",false);
-        pair(); importHistory(); writeDone(last(),0);
+        pair(); importHistory();
         dataReply(last(),hex("088f000000000087"),false);
         assertEquals("History transfer complete",monitor.status);
         assertEquals(2,monitor.addedInTransfer); assertEquals(2,monitor.receivedInTransfer);
@@ -144,7 +148,7 @@ public class MonitorServiceImportTest {
         ExperimentalConsent.accept(monitor); HttpForwardingSettings.save(monitor,endpoint,"",false);
         store.createVirtualUser("Synthetic A"); store.createVirtualUser("Synthetic B");
         int person=store.createVirtualUser("Synthetic C").id; store.setVirtualUsersEnabled(true);
-        pair(); importHistory(); writeDone(last(),0); dataReply(last(),hex("088f000000000087"),false);
+        pair(); importHistory(); dataReply(last(),hex("088f000000000087"),false);
         assertEquals("History transfer complete",monitor.status);
         assertEquals(2,monitor.addedInTransfer); assertEquals(2,monitor.pendingInTransfer);
         assertEquals(0,monitor.storedInTransfer); assertEquals(0,monitor.queuedInTransfer);
@@ -164,7 +168,7 @@ public class MonitorServiceImportTest {
         spreadRecords();
         pair(); dataReply(last(),startReply(),false); indexReply(image()); dataReply(last(),memoryReply(last().bytes),false);
         HttpForwardingSettings.save(monitor,endpoint,"",false);
-        assertEquals(1,answerReads().size()); writeDone(last(),0); dataReply(last(),hex("088f000000000087"),false);
+        assertEquals(1,answerReads().size()); dataReply(last(),hex("088f000000000087"),false);
         assertEquals("History transfer complete",monitor.status);
         assertEquals(1,store.historyCount(0)); assertEquals(2,store.httpOutbox().count(endpoint));
         String detail=MonitorUi.detail(monitor,monitor);
@@ -182,47 +186,36 @@ public class MonitorServiceImportTest {
         assertEquals("Action failed",monitor.status); assertFalse(monitor.ready); assertFalse(monitor.canHistory);
         assertEquals(0,store.historyCount(0)); assertEquals(0,store.httpOutbox().count(endpoint)); assertEquals(0,monitor.addedInTransfer);
     }
-    @Test public void missingClockIsReportedAsSkippedWithoutAnyClockWrite() throws Exception {
-        when(gatt.getService(Uuids.CTS)).thenReturn(null);
-        pair(); importHistory();
-        assertEquals(15,last().bytes[1]);
-        dataReply(last(),hex("088f000000000087"),false); assertImported();
-        assertTrue(writes.stream().noneMatch(write -> write.characteristic==clock));
-        assertTrue(MonitorUi.detail(monitor,monitor).contains(monitor.getString(R.string.monitor_clock_skipped)));
-    }
-    @Test public void omronDateTimeFallbackRunsBeforeEndWhenCurrentTimeIsUnavailable() throws Exception {
+    @Test public void omronDateTimeIsNotWrittenEitherWhenCurrentTimeIsUnavailable() throws Exception {
         when(gatt.getService(Uuids.CTS)).thenReturn(null);
         BluetoothGattService time=new BluetoothGattService(Uuids.COMMAND,BluetoothGattService.SERVICE_TYPE_PRIMARY);
         clock=characteristic(time,Uuids.DATE_TIME,BluetoothGattCharacteristic.PROPERTY_WRITE);
         when(gatt.getService(Uuids.COMMAND)).thenReturn(time);
         pair(); importHistory();
-        assertSame(clock,last().characteristic); assertEquals(7,last().bytes.length);
-        writeDone(last(),0); dataReply(last(),hex("088f000000000087"),false);
-        assertImported(); assertTrue(MonitorUi.detail(monitor,monitor).contains(monitor.getString(R.string.monitor_check_clock)));
+        assertEquals(15,last().bytes[1]); dataReply(last(),hex("088f000000000087"),false);
+        assertImported(); assertTrue(writes.stream().noneMatch(write -> write.characteristic==clock));
+        assertFalse(MonitorUi.detail(monitor,monitor).contains(monitor.getString(R.string.monitor_check_clock)));
     }
-    @Test public void clockTimeoutAndBusyEndPreserveReadingsAndExposeBothWarnings() throws Exception {
-        pair(); importHistory(); Write timedOut=last(); rejectEnd=true;
-        shadowOf(Looper.getMainLooper()).idleFor(Duration.ofSeconds(15));
+    @Test public void busyEndPreservesReadingsAndExposesTheUnconfirmedEnd() throws Exception {
+        rejectEnd=true; pair(); importHistory();
         assertImported();
         String detail=MonitorUi.detail(monitor,monitor);
-        assertTrue(detail.contains(monitor.getString(R.string.monitor_clock_failed)));
+        assertFalse(detail.contains(monitor.getString(R.string.monitor_clock_failed)));
         assertTrue(detail.contains(monitor.getString(R.string.monitor_session_unconfirmed)));
         assertFalse(monitor.ready); assertNull(get("gatt"));
-        callback.onCharacteristicWrite(gatt,timedOut.characteristic,0); idle();
-        assertEquals(detail,MonitorUi.detail(monitor,monitor)); assertImported();
     }
-    @Test public void disconnectDuringClockRetainsLocalizedWarningsAfterCleanup() throws Exception {
-        pair(); importHistory();
+    @Test public void disconnectBeforeEndAcknowledgmentRetainsLocalizedWarningAfterCleanup() throws Exception {
+        pair(); importHistory(); assertEquals(15,last().bytes[1]);
         callback.onConnectionStateChange(gatt,0,BluetoothProfile.STATE_DISCONNECTED); idle(); assertImported();
         for(String language:new String[]{"en","de","ar"}) {
             Configuration configuration=new Configuration(monitor.getResources().getConfiguration());
             configuration.setLocale(Locale.forLanguageTag(language));
             Context context=monitor.createConfigurationContext(configuration);
             String detail=MonitorUi.detail(context,monitor);
-            assertTrue(detail.contains(context.getString(R.string.monitor_clock_failed)));
+            assertFalse(detail.contains(context.getString(R.string.monitor_clock_failed)));
             assertTrue(detail.contains(context.getString(R.string.monitor_session_unconfirmed)));
             assertFalse(detail.contains("END")); assertFalse(detail.contains("GATT"));
-            if(!language.equals("en")) assertNotEquals(monitor.getString(R.string.monitor_clock_failed),context.getString(R.string.monitor_clock_failed));
+            if(!language.equals("en")) assertNotEquals(monitor.getString(R.string.monitor_session_unconfirmed),context.getString(R.string.monitor_session_unconfirmed));
         }
     }
     @Test public void disconnectBeforeAllHistoryArrivesRemainsAnInterruptedImport() throws Exception {
@@ -246,29 +239,18 @@ public class MonitorServiceImportTest {
         assertEquals(1,store.historyCount(0)); assertEquals(sent,writes.size());
     }
     @Test public void invalidEndIsNotReportedAsAcknowledgedEvenWhenHistoryWasSaved() throws Exception {
-        pair(); importHistory(); writeDone(last(),0);
+        pair(); importHistory();
         dataReply(last(),hex("088f000000000186"),false);
         assertEquals("Action failed",monitor.status); assertEquals(2,store.historyCount(0));
         assertFalse(monitor.sessionFinished);
     }
-    @Test public void standaloneClockFailureLeavesHistoryAvailableAndHasSpecificLocalizedStatus() throws Exception {
-        call("vendorMemoryReady"); monitor.setClock(LocalDateTime.of(2026,10,16,12,0));
-        writeDone(last(),BluetoothGatt.GATT_WRITE_NOT_PERMITTED);
+    @Test public void vendorMonitorsRefuseTheStandaloneCurrentTimeWrite() throws Exception {
+        call("vendorMemoryReady");
+        assertFalse(monitor.canTime);
+        int sent=writes.size(); monitor.setClock(LocalDateTime.of(2026,10,16,12,0)); idle();
+        assertEquals(sent,writes.size());
         assertTrue(monitor.ready); assertTrue(monitor.canHistory);
-        assertEquals(monitor.getString(R.string.monitor_time_not_updated),MonitorUi.title(monitor,monitor));
-        assertTrue(MonitorUi.detail(monitor,monitor).contains(monitor.getString(R.string.monitor_clock_failed)));
-    }
-    @Test public void standaloneClockTimeoutRequiresReconnectBeforeAnyHistoryStart() throws Exception {
-        call("vendorMemoryReady"); monitor.setClock(LocalDateTime.of(2026,10,16,12,0));
-        rejectHistory=true; // The missing clock callback leaves Android's ATT transport busy.
-        shadowOf(Looper.getMainLooper()).idleFor(Duration.ofSeconds(15));
-        assertFalse(monitor.ready); assertFalse(monitor.canHistory); assertNull(get("gatt"));
-        int sent=writes.size(); monitor.syncHistory(-1);
-        assertEquals(sent,writes.size()); assertEquals(0,store.historyCount(0));
-        assertEquals(monitor.getString(R.string.monitor_time_not_updated),MonitorUi.title(monitor,monitor));
-        String detail=MonitorUi.detail(monitor,monitor);
-        assertTrue(detail.contains(monitor.getString(R.string.monitor_clock_failed)));
-        assertTrue(detail.contains(monitor.getString(R.string.monitor_reconnect_next_time)));
+        assertEquals("Vendor history available",monitor.status);
     }
     @Test public void automaticImportUnlocksWithTheSavedKeySkipsTheClockAndCheckpointsAfterEnd() throws Exception {
         AutoImportTracker.Attempt attempt=automaticAttempt();
@@ -295,7 +277,7 @@ public class MonitorServiceImportTest {
         DeviceReport report=new DeviceReport("Pair","test",35,"Synthetic phone");
         report.service(vendor.getUuid().toString(),Collections.emptyList()); report.model("HEM-7156T");
         set("report",report); set("reportAddress",monitor.address);
-        pair(); importHistory(); writeDone(last(),0); dataReply(last(),hex("088f000000000087"),false);
+        pair(); importHistory(); dataReply(last(),hex("088f000000000087"),false);
         String json=monitor.deviceReport().toJson();
         assertTrue(json.contains("82 00 (2 bytes)") && json.contains("80 00 (2 bytes)") && json.contains("81 00 (2 bytes)"));
         assertTrue(json.contains("\"decoded_records\": 2") && json.contains("\"end_acknowledged\": true"));
@@ -355,7 +337,7 @@ public class MonitorServiceImportTest {
         assertArrayEquals("user 1: two populated slots in one 32-byte block",Wlp.read(0x98,32),reads.get(0));
         assertArrayEquals("user 2: one populated slot",Wlp.read(0x458,16),reads.get(1));
         assertEquals(MonitorService.ImportMode.INDEX,monitor.importMode); assertEquals(3,monitor.indexStoredCount);
-        finishWithClockAndEnd();
+        finishWithEnd();
         assertEquals("History transfer complete",monitor.status);
         assertEquals(2,store.historyCount(1)); assertEquals(1,store.historyCount(2));
         assertTrue(monitor.detail.contains("INDEX"));
@@ -364,7 +346,7 @@ public class MonitorServiceImportTest {
         put(0xa8,"ffffffffffffffffffffffffffffffff");
         pair(); List<byte[]> reads=importHistory();
         assertArrayEquals(Wlp.read(0x98,32),reads.get(0));
-        finishWithClockAndEnd();
+        finishWithEnd();
         assertEquals("History transfer complete",monitor.status);
         assertEquals(0,(int)(Integer)get("wlpRejected")); assertEquals(1,store.historyCount(0)); assertEquals(1,monitor.receivedInTransfer);
     }
@@ -375,7 +357,7 @@ public class MonitorServiceImportTest {
         assertEquals(MonitorService.ImportMode.INDEX_FALLBACK,monitor.importMode); assertEquals(-1,monitor.indexStoredCount);
         assertEquals("every slot of bank 1 in 48-byte blocks",20,reads.size());
         for(int i=0;i<reads.size();i++) assertArrayEquals(Wlp.read(0x98+48*i,48),reads.get(i));
-        finishWithClockAndEnd();
+        finishWithEnd();
         assertEquals("History transfer complete",monitor.status); assertEquals(2,store.historyCount(0));
         assertTrue(store.diagnostics().contains("Index not trusted"));
     }
@@ -385,7 +367,7 @@ public class MonitorServiceImportTest {
         List<byte[]> reads=importHistory();
         assertEquals(MonitorService.ImportMode.INDEX,monitor.importMode); assertEquals(60,monitor.indexStoredCount);
         assertEquals("all 60 slots in 48-byte blocks",20,reads.size());
-        finishWithClockAndEnd();
+        finishWithEnd();
         assertEquals("History transfer complete",monitor.status); assertEquals(2,store.historyCount(0));
     }
     @Test public void largeSequenceWithoutFullFlagStaysPositionBounded() throws Exception {
@@ -405,7 +387,7 @@ public class MonitorServiceImportTest {
         List<byte[]> reads=answerReads();
         assertEquals("every slot of bank 1 in 48-byte blocks",20,reads.size());
         for(int i=0;i<reads.size();i++) assertArrayEquals(Wlp.read(0x98+48*i,48),reads.get(i));
-        finishWithClockAndEnd();
+        finishWithEnd();
         assertEquals("History transfer complete",monitor.status); assertEquals(2,store.historyCount(0));
         assertEquals("the index is never read again",1,countReadsAt(model().settingsStart));
         assertTrue(store.diagnostics().contains("Index not read (device status)"));
@@ -419,7 +401,7 @@ public class MonitorServiceImportTest {
         assertEquals(MonitorService.ImportMode.INDEX_FALLBACK,monitor.importMode); assertNotSame(index,last());
         List<byte[]> reads=answerReads();
         assertEquals(20,reads.size()); assertArrayEquals(Wlp.read(0x98,48),reads.get(0));
-        finishWithClockAndEnd();
+        finishWithEnd();
         assertEquals("History transfer complete",monitor.status); assertEquals(2,store.historyCount(0));
         assertTrue(store.diagnostics().contains("Index not read (no reply)"));
     }
@@ -443,7 +425,7 @@ public class MonitorServiceImportTest {
         assertEquals(MonitorService.ImportMode.INDEX_FALLBACK,monitor.importMode);
         assertEquals("1260-byte bank in 56-byte blocks",23,reads.size());
         assertArrayEquals(Wlp.read(0x2e8,56),reads.get(0)); assertArrayEquals(Wlp.read(0x2e8+22*56,28),reads.get(22));
-        finishWithClockAndEnd();
+        finishWithEnd();
         assertEquals("History transfer complete",monitor.status); assertEquals(1,store.historyCount(0));
     }
     @Test public void importUsersTwoReadsOnlyBankTwo() throws Exception {
@@ -455,7 +437,7 @@ public class MonitorServiceImportTest {
         List<byte[]> reads=importHistory();
         assertEquals(1,reads.size()); assertArrayEquals(Wlp.read(0x458,16),reads.get(0));
         assertEquals(1,monitor.indexStoredCount);
-        finishWithClockAndEnd();
+        finishWithEnd();
         assertEquals(0,store.historyCount(1)); assertEquals(1,store.historyCount(2));
     }
     @Test public void importUsersTwoOnOneUserModelReadsBankOne() throws Exception {
@@ -464,7 +446,7 @@ public class MonitorServiceImportTest {
         connectManually(); monitor.syncHistory(-1);
         List<byte[]> reads=importHistory();
         assertEquals(1,reads.size()); assertArrayEquals("the only offered user is read",Wlp.read(0x98,16),reads.get(0));
-        finishWithClockAndEnd();
+        finishWithEnd();
         assertEquals(1,store.historyCount(1));
     }
     @Test public void sequenceZeroImportsNothingAndReadAllFindsRecords() throws Exception {
@@ -472,7 +454,7 @@ public class MonitorServiceImportTest {
         connectManually(); monitor.syncHistory(-1);
         assertTrue(importHistory().isEmpty());
         assertEquals(MonitorService.ImportMode.INDEX,monitor.importMode); assertEquals(0,monitor.indexStoredCount);
-        finishWithClockAndEnd();
+        finishWithEnd();
         assertEquals("History transfer complete",monitor.status); assertEquals(0,store.historyCount(0));
         monitor.disconnect(); attach("HEM-7156T"); put(0x98,RECORD_A); put(0xa8,RECORD_B);
         connectManually(); monitor.readAllHistory();
@@ -480,7 +462,7 @@ public class MonitorServiceImportTest {
         assertEquals(MonitorService.ImportMode.FULL_SWEEP,monitor.importMode);
         assertEquals("bank 1, then the unconfirmed bank 2",40,reads.size());
         assertArrayEquals(Wlp.read(0x98,48),reads.get(0)); assertArrayEquals(Wlp.read(0x458,48),reads.get(20));
-        finishWithClockAndEnd();
+        finishWithEnd();
         assertEquals("History transfer complete",monitor.status); assertEquals(2,store.historyCount(0));
         assertFalse(monitor.unconfirmedBankSkipped);
     }
@@ -488,7 +470,7 @@ public class MonitorServiceImportTest {
         byte[] corrupt=hex(RECORD_B); corrupt[14]^=1; put(0xa8,HexFormat.of().formatHex(corrupt));
         connectManually(); monitor.readAllHistory();
         assertEquals(40,sweepHistory().size());
-        finishWithClockAndEnd();
+        finishWithEnd();
         assertEquals(MonitorService.ImportMode.FULL_SWEEP,monitor.importMode);
         assertEquals("every slot was read to END","History transfer complete",monitor.status);
         assertEquals(1,monitor.rejectedSlots()); assertEquals(1,store.historyCount(0));
@@ -556,7 +538,7 @@ public class MonitorServiceImportTest {
         assertArrayEquals(Wlp.read(0x458,48),last().bytes);
         dataReply(last(),memoryReply(last().bytes),false);
         assertTrue(monitor.unconfirmedBankSkipped);
-        finishWithClockAndEnd();
+        finishWithEnd();
         assertEquals("History transfer complete",monitor.status); assertEquals(2,store.historyCount(0));
         assertEquals(0,countReadsAt(0x458+48)); assertTrue(monitor.unconfirmedBankSkipped);
     }
@@ -566,8 +548,8 @@ public class MonitorServiceImportTest {
         answerReadsUntil(0x458);
         writeDone(last(),0);
         shadowOf(Looper.getMainLooper()).idleFor(Duration.ofSeconds(16));
-        assertTrue(monitor.unconfirmedBankSkipped); assertSame(clock,last().characteristic);
-        finishWithClockAndEnd();
+        assertTrue(monitor.unconfirmedBankSkipped); assertEquals(15,last().bytes[1]);
+        finishWithEnd();
         assertEquals("History transfer complete",monitor.status); assertEquals(2,store.historyCount(0));
     }
     @Test public void errorStatusOnAConfirmedBankStillFails() throws Exception {
@@ -598,9 +580,9 @@ public class MonitorServiceImportTest {
     private void selectUsers(int users) {
         store.remember(monitor.address,"Synthetic monitor",model().id,1); store.setImportUsers(monitor.address,users);
     }
-    /** Accepts the clock write when one is sent, then acknowledges the single END. */
-    private void finishWithClockAndEnd() {
-        if(last().characteristic==clock) writeDone(last(),0);
+    /** Acknowledges the single END, which follows the history reads without any clock write. */
+    private void finishWithEnd() {
+        assertNotSame(clock,last().characteristic);
         assertEquals(15,last().bytes[1]); dataReply(last(),hex("088f000000000087"),false);
     }
     private int countReadsAt(int at) { return (int)writes.stream().filter(write -> isRead(write) && address(write.bytes)==at).count(); }

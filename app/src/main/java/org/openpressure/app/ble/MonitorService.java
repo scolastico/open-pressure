@@ -12,6 +12,7 @@ import org.openpressure.app.*;
 import org.openpressure.app.data.*;
 import org.openpressure.app.automatic.*;
 import org.openpressure.app.notifications.*;
+import org.openpressure.app.developer.DeveloperOptions;
 import org.openpressure.protocol.*;
 import java.util.*;
 import java.time.LocalDateTime;
@@ -38,6 +39,18 @@ public final class MonitorService extends Service {
     public String status="Ready to connect", detail="Choose your monitor and scan nearby devices.", address="", connectedName="", modelHint="X7 Smart AFib · HEM-7380T1", deviceTime="Not read", information="";
     public enum ClockUpdate { NONE, SKIPPED, ACCEPTED, FAILED }
     public ClockUpdate clockUpdate=ClockUpdate.NONE;
+    /** An explicit Sync clock session owns this connection: settings read, preview, one block write, END. */
+    public boolean clockSyncRunning;
+    /** The settings were read and a preview waits for {@link #confirmClockSync} or {@link #cancelClockSync}. */
+    public volatile boolean clockSyncPending;
+    /** The monitor's stored clock (null when unset or undecodable) and the phone time of the preview. */
+    public LocalDateTime clockSyncMonitorClock,clockSyncPhoneClock;
+    public long clockSyncDriftSeconds;
+    /** The preview relies on the developer override for an untested model. */
+    public boolean clockSyncOverride;
+    public DeviceReport.WriteOutcome clockSyncOutcome=DeviceReport.WriteOutcome.NOT_ATTEMPTED;
+    /** A forced (override) clock write reached an outcome; the UI may offer the device report. */
+    public boolean offerReportAfterWrite;
     public boolean sessionEndUnconfirmed;
     /** How the last vendor-memory history read chose its slots: the monitor's index, its fallback or a sweep. */
     public enum ImportMode { NONE, INDEX, INDEX_FALLBACK, FULL_SWEEP, FULL_READ }
@@ -79,14 +92,18 @@ public final class MonitorService extends Service {
     /** Index-selected ranges still to read; the session takes one more range each time its current ranges complete. */
     private final ArrayDeque<VendorMemoryModel.Range> vendorPending=new ArrayDeque<>();
     private boolean vendorWaitingBond,vendorSessionEnded;
-    private boolean vendorClockAttempted,vendorClockPending;
-    private String vendorClockResult="";
+    /** History is complete and the single END was requested; a lost END acknowledgment keeps the import. */
+    private boolean vendorEndRequested;
     private final List<BluetoothGattCharacteristic> vendorTx=new ArrayList<>(),vendorRx=new ArrayList<>();
     private WlpConnection wlpConnection;
     private X7Registration x7Registration;
     private byte[] registrationSettings;
     private File registrationBackup;
     private long registrationBackupGeneration=-1;
+    private VendorClockWrite clockWrite;
+    private byte[] clockSyncImage;
+    private File clockSyncBackup;
+    private boolean clockSyncUnreadable,clockSyncRecorded;
     private X7Bonding x7Bonding;
     private boolean x7FreshBondEstablished;
     private X7Transaction x7Transaction;
@@ -101,6 +118,8 @@ public final class MonitorService extends Service {
     private String verifiedModel="";
     /** Fixed time source for fixture replays; null uses the phone's current time and time zone at each write. */
     java.time.Clock clock;
+    /** Directory flush after a clock-sync backup; tests replace the Android fsync, which Robolectric lacks. */
+    SettingsBackupStore.DirectorySync clockBackupSync=MonitorService::syncBackupDirectory;
     private long lastWlpUpdate;
     private final ExecutorService dumpIo=Executors.newSingleThreadExecutor();
     private volatile File dumpFile;
@@ -394,6 +413,7 @@ public final class MonitorService extends Service {
         x7FreshBondEstablished=freshBond;
         address=target; connectedName=name; pairingRequested=pair; authenticatedUser=0; storedCount=-1; deviceTime="Not read"; information="";
         clockUpdate=ClockUpdate.NONE; sessionEndUnconfirmed=false;
+        clockSyncOutcome=DeviceReport.WriteOutcome.NOT_ATTEMPTED; offerReportAfterWrite=false;
         importMode=ImportMode.NONE; indexStoredCount=-1; unconfirmedBankSkipped=false;
         store.packet(address,"session",new byte[0],"OpenPressure "+BuildConfig.VERSION_NAME+" · Android API "+Build.VERSION.SDK_INT+" · "+(pair?"Pair":"Connect"));
         Discovered selected=discovered.get(target);
@@ -412,6 +432,7 @@ public final class MonitorService extends Service {
     }
     public void disconnect() {
         boolean interruptedRegistration=registrationWriting;
+        boolean interruptedClock=clockWrite!=null && clockWrite.state()==VendorClockWrite.State.WRITING;
         notifyAutomaticReadings();
         if(automaticAttempt!=null) automaticTracker.finish(automaticAttempt,false,SystemClock.elapsedRealtime());
         automaticAttempt=null; automaticConnection=false;
@@ -420,6 +441,15 @@ public final class MonitorService extends Service {
         x7Registration=null; registrationReading=false; registrationPending=false; registrationWriting=false; registrationDone=false; registrationBackupGeneration=-1;
         if(registrationSettings!=null) Arrays.fill(registrationSettings,(byte)0);
         registrationSettings=null;
+        // A disconnect never retries: an unacknowledged clock write ends as cancelled.
+        if(clockWrite!=null) clockWrite.cancel();
+        if(clockSyncRunning) {
+            if(interruptedClock) { clockSyncOutcome=DeviceReport.WriteOutcome.CANCELLED; clockUpdate=ClockUpdate.FAILED; }
+            recordClockOutcome();
+        }
+        clockWrite=null; clockSyncRunning=false; clockSyncPending=false; clockSyncUnreadable=false;
+        if(clockSyncImage!=null) Arrays.fill(clockSyncImage,(byte)0);
+        clockSyncImage=null;
         if(x7Bonding!=null) x7Bonding.cancel();
         x7Bonding=null; x7FreshBondEstablished=false;
         if(dumpRunning && wlpRead!=null) saveDump(wlpRead.data(),false,"Disconnected before the complete read and end acknowledgement");
@@ -427,7 +457,7 @@ public final class MonitorService extends Service {
         if(vendorUnlock!=null) vendorUnlock.close();
         vendorUnlock=null; vendorRead=null; vendorModel=null; vendorKeys=null; vendorPending.clear();
         clearVendorKeyCandidates(); vendorTx.clear(); vendorRx.clear(); vendorWaitingBond=false; vendorSessionEnded=false;
-        vendorClockAttempted=false; vendorClockPending=false; vendorClockResult="";
+        vendorEndRequested=false;
         generation++; cancelPhase(); cancelOperationTimeout(); operations.clear(); stopScan();
         ready=false; historyRunning=false; waitingBond=false; pendingUserOperation=0; authenticatedUser=0;
         if(secure!=null) { secure.close(); secure=null; }
@@ -436,6 +466,7 @@ public final class MonitorService extends Service {
         handshake=null; racp=null; userControl=null; timeCharacteristic=null; wlpTx=null; wlpRx=null;
         stopIdleService();
         if(interruptedRegistration) state("Action failed","Registration was interrupted before its acknowledged END. The cuff's settings state is unverified; the pre-registration backup is retained. No further settings write or automatic retry was sent.");
+        else if(interruptedClock) state("Clock sync cancelled","The connection ended before the monitor acknowledged the clock write. Its clock is unverified; the settings backup is retained. No retry or further settings write was sent.");
         else state("Disconnected","Your saved readings remain on this phone.");
         scheduleAutomaticRefresh();
     }
@@ -472,15 +503,15 @@ public final class MonitorService extends Service {
         }
     }
     private void fail(String message) {
-        if(vendorRead!=null && vendorRead.historyComplete() && !vendorRead.complete() && vendorClockAttempted) {
-            // Android may still be busy after an optional clock timeout and reject END.
+        if(vendorRead!=null && vendorRead.historyComplete() && !vendorRead.complete() && vendorEndRequested) {
+            // Android may still be busy and reject END.
             // All history is already validated and stored; finalization cannot undo the import.
-            if(vendorClockPending) { clockUpdate=ClockUpdate.FAILED; vendorClockResult="Clock update could not be confirmed; imported readings were retained."; }
             store.packet(address,"vendor-finalization",new byte[0],message);
             finishVendorHistory(false);
             closeFinishedWlp(" Session finalization warning: "+message);
             return;
         }
+        if(clockWrite!=null && clockWrite.state()==VendorClockWrite.State.WRITING) message+=" The clock write was not acknowledged; the monitor's clock is unverified. No retry or further settings write was sent.";
         if(registrationWriting) message+=" Profile registration is incomplete; the cuff's settings state is unverified. The pre-registration backup is retained. No retry or further settings write was sent.";
         if(message.contains("(257)") || message.contains("error 257")) message+=" Android reported a generic GATT failure, not an EEPROM status. The cuff may have left transfer mode; reconnect and export Bluetooth diagnostics if it recurs.";
         if(dumpRunning && wlpRead!=null) { saveDump(wlpRead.data(),false,message); dumpRunning=false; }
@@ -701,13 +732,14 @@ public final class MonitorService extends Service {
         if(vendorUnlock!=null) { vendorUnlock.close(); vendorUnlock=null; }
         timeCharacteristic=characteristic(Uuids.CTS,Uuids.CURRENT_TIME);
         if(timeCharacteristic==null || !writable(timeCharacteristic)) timeCharacteristic=characteristic(Uuids.COMMAND,Uuids.DATE_TIME);
-        ready=true; canHistory=true; canTime=timeCharacteristic!=null && writable(timeCharacteristic); canDump=false; hasUserControl=false;
+        // Vendor clocks change only through the explicit Sync clock session, never a Current Time write.
+        ready=true; canHistory=true; canTime=false; canDump=false; hasUserControl=false;
         store.remember(address,connectedName,verifiedModel,user);
         // Automatic imports keep the selection captured from the saved row when they started.
         if(!automaticConnection) importUsers=store.importUsers(address);
         // Do not finish a pairing-only transmission: some cuffs power down on the first END.
         if(pairingRequested || automaticConnection) { beginVendorHistory(false); return; }
-        state("Vendor history available","Ready to import history. A supported clock update will be attempted before the session ends; unread counters and calibration data are retained.");
+        state("Vendor history available","Ready to import history or sync the clock; each needs its own connection. Unread counters and calibration data are retained.");
         readInformation();
     }
     /**
@@ -730,9 +762,9 @@ public final class MonitorService extends Service {
             vendorPending.clear(); vendorRange=0; vendorIndexRead=false; indexStoredCount=-1; unconfirmedBankSkipped=false;
             vendorParsed=0; wlpRejected=0; storedCount=-1; receivedInTransfer=0; addedInTransfer=0; historyRunning=true;
             storedInTransfer=0; queuedInTransfer=0; pendingInTransfer=0;
-            vendorClockAttempted=false; vendorClockPending=false; vendorClockResult="";
+            vendorEndRequested=false;
             clockUpdate=ClockUpdate.NONE; sessionEndUnconfirmed=false;
-            state("Reading history…","Reading the verified model's history banks before an optional clock update and a single session end.");
+            state("Reading history…","Reading the verified model's history banks before a single session end.");
             sendVendorRead();
         } catch(IllegalArgumentException ex) { fail("Could not start vendor history: "+ex.getMessage()); }
     }
@@ -797,6 +829,7 @@ public final class MonitorService extends Service {
                 vendorMemoryReady(); return;
             }
             int channel=vendorRx.indexOf(c);
+            if(channel>=0 && vendorRead!=null && clockSyncRunning) { vendorClockSyncNotification(channel,bytes); return; }
             if(channel<0 || vendorRead==null || !historyRunning) return;
             store.packet(address,c.getUuid().toString(),bytes,"Vendor history RX · channel "+channel);
             try {
@@ -819,7 +852,8 @@ public final class MonitorService extends Service {
             finishVendorHistory(true);
             return;
         }
-        if(vendorRead.historyComplete() && !vendorClockAttempted) { syncVendorClock(); return; }
+        // History is complete: the next command is the single END, with no clock write before it.
+        if(vendorRead.historyComplete()) vendorEndRequested=true;
         long now=SystemClock.elapsedRealtime();
         if(now-lastWlpUpdate>=500) { lastWlpUpdate=now; detail=vendorRead.received()+" history bytes read · "+addedInTransfer+" new readings"; changed(); }
         sendVendorRead();
@@ -868,27 +902,6 @@ public final class MonitorService extends Service {
     }
     private boolean selected(Integer user) { return user!=null && user>=1 && user<=2 && (importUsers&(1<<(user-1)))!=0; }
     LocalDateTime clockNow() { return clock==null?LocalDateTime.now():LocalDateTime.now(clock); }
-    private void syncVendorClock() {
-        vendorClockAttempted=true;
-        // Automatic imports are read-only, so the optional clock write belongs to explicit sessions.
-        if(automaticConnection) { sendVendorRead(); return; }
-        if(!canTime) {
-            clockUpdate=ClockUpdate.SKIPPED;
-            vendorClockResult="Clock sync skipped: no supported time characteristic.";
-            sendVendorRead(); return;
-        }
-        vendorClockPending=true;
-        LocalDateTime time=clockNow();
-        state("Finishing history import…","Readings saved. Attempting a clock update before ending the session.");
-        writeClock(time,() -> {
-            vendorClockPending=false; vendorClockResult="Clock write accepted.";
-            sendVendorRead();
-        },error -> {
-            vendorClockPending=false; vendorClockResult="Clock sync unavailable; imported readings were retained.";
-            store.packet(address,"clock",new byte[0],"Optional clock write failed: "+error);
-            sendVendorRead();
-        });
-    }
     private void finishVendorHistory(boolean ended) {
         sessionEndUnconfirmed=!ended;
         vendorSessionEnded=ended; sessionFinished=true; ready=false; canHistory=false; canTime=false; historyRunning=false;
@@ -898,7 +911,7 @@ public final class MonitorService extends Service {
         // A sweep that read every slot to END is complete even if some slots were unreadable; the summary counts them.
         boolean sweep=importMode==ImportMode.FULL_SWEEP || importMode==ImportMode.FULL_READ;
         state(wlpRejected==0 || ended && sweep?"History transfer complete":"History transfer incomplete",
-            addedInTransfer+" new readings accepted · "+receivedInTransfer+" decoded · "+wlpRejected+" rejected slots. Erased slots were skipped. "+vendorClockResult+
+            addedInTransfer+" new readings accepted · "+receivedInTransfer+" decoded · "+wlpRejected+" rejected slots. Erased slots were skipped."+
             (ended?" The monitor acknowledged END.":" Session END was not acknowledged.")+" Import mode: "+importMode+
             (importMode==ImportMode.INDEX?" ("+indexStoredCount+" populated slots).":".")+(unconfirmedBankSkipped?" Unconfirmed bank skipped.":"")+" Reconnect for another transfer.");
         if(automaticConnection && ended) {
@@ -1017,7 +1030,7 @@ public final class MonitorService extends Service {
     }
     public File eepromDumpFile() { return dumpFile; }
     public void dumpEeprom(int start,int length) {
-        if(!ready || !canDump || !x7ReadReady() || historyRunning || dumpRunning || dumpSaving || pendingUserOperation!=0) return;
+        if(!ready || !canDump || !x7ReadReady() || historyRunning || dumpRunning || dumpSaving || clockSyncRunning || pendingUserOperation!=0) return;
         try { new WlpReadSession(start,length,8); }
         catch(IllegalArgumentException ex) { state("Invalid EEPROM range",ex.getMessage()); return; }
         dumpSerial++; dumpFile=null; dumpStart=start; dumpLength=length; dumpReceived=0; dumpComplete=false; dumpRunning=true; dumpStartedAt=System.currentTimeMillis();
@@ -1026,7 +1039,7 @@ public final class MonitorService extends Service {
     }
     private void beginWlpRead(int start,int length) {
         wlpRead=wlpConnection.begin(start,length,negotiatedMtu>=27?16:8); lastWlpUpdate=0;
-        state(registrationReading?"Backing up X7 settings…":dumpRunning?"Reading EEPROM…":"Reading X7 history…","Read requests only. Device settings and unread counters are retained.");
+        state(registrationReading?"Backing up X7 settings…":clockSyncRunning?"Reading monitor settings…":dumpRunning?"Reading EEPROM…":"Reading X7 history…","Read requests only. Device settings and unread counters are retained.");
         sendWlpCommand();
     }
     private void sendWlpCommand() {
@@ -1036,6 +1049,7 @@ public final class MonitorService extends Service {
     }
     private void handleWlp(byte[] fragment) {
         if(wlpRead==null) return;
+        if(clockSyncRunning) { x7ClockSyncNotification(fragment); return; }
         try {
             if(registrationWriting && x7Registration!=null && !x7Registration.complete()) {
                 if(!x7Registration.accept(fragment)) return;
@@ -1163,7 +1177,7 @@ public final class MonitorService extends Service {
         if(!registrationPending || registrationBackupGeneration!=generation || registrationBackup==null || !registrationBackup.isFile() ||
                 registrationSettings==null || profile!=ProtocolProfile.X7_WLP || !x7ReadReady()) return;
         try {
-            X7Registration registration=new X7Registration(verifiedModel,registrationSettings,bank,LocalDateTime.now());
+            X7Registration registration=new X7Registration(verifiedModel,registrationSettings,bank,clockNow());
             cancelPhase(); user=bank; x7Registration=registration; registrationPending=false; registrationWriting=true;
             registration.authorize();
             state("Registering X7 user "+bank+"…","Applying the selected-user setting and phone clock to the model's settings staging area. Birthdays, revision values, history pointers and all other settings bytes are preserved. Pre-registration backup retained.");
@@ -1180,6 +1194,231 @@ public final class MonitorService extends Service {
         byte[] command=x7Registration.command();
         store.packet(address,Uuids.WLP_TX.toString(),command,"X7 registration TX · bounded settings staging only · user "+user);
         responseWrite(wlpTx,command,10000,"X7 registration acknowledgment timed out");
+    }
+    /**
+     * Whether an explicit clock sync may start on this manual connection: a fresh, idle vendor-memory or plain-WLP
+     * X7 session of a verified model with a documented clock block whose write aspect is permitted.
+     */
+    public boolean canClockSync() {
+        if(!ready || !canHistory || historyRunning || dumpRunning || dumpSaving || automaticConnection || pairingRequested || clockSyncRunning || sessionFinished) return false;
+        String identity=WriteAspectIndex.resolve(verifiedModel);
+        if(profile==ProtocolProfile.VENDOR_MEMORY) {
+            if(vendorModel==null || !vendorModel.id.equals(identity) || vendorRead!=null || vendorSessionEnded || vendorTx.size()!=VendorWlpSession.txChannels(vendorModel).size()) return false;
+        } else if(profile==ProtocolProfile.X7_WLP) {
+            if(!x7ReadReady() || wlpRead!=null || registrationReading || registrationPending || registrationWriting) return false;
+        } else return false;
+        return ClockBlock.forIdentity(identity)!=null
+                && WriteAspectIndex.permits(WriteAspectIndex.lookup(identity,WriteAspectIndex.Aspect.CLOCK_BLOCK).status,developerOverride());
+    }
+    /** The only reading of the untested-write override; a locked or unreadable developer state counts as off. */
+    private boolean developerOverride() {
+        try { return DeveloperOptions.allowsUntested(this,WriteAspectIndex.Aspect.CLOCK_BLOCK); }
+        catch(RuntimeException unavailable) { return false; }
+    }
+    /** Starts the clock-sync session: START and a read of the settings image. Nothing is written before confirmation. */
+    public void beginClockSync() {
+        if(!canClockSync()) return;
+        clockSyncRunning=true; clockSyncPending=false; clockSyncUnreadable=false; clockSyncRecorded=false; offerReportAfterWrite=false;
+        clockSyncOutcome=DeviceReport.WriteOutcome.NOT_ATTEMPTED; clockUpdate=ClockUpdate.NONE; clockWrite=null;
+        clockSyncMonitorClock=null; clockSyncPhoneClock=null; clockSyncDriftSeconds=0; clockSyncOverride=false;
+        try {
+            if(profile==ProtocolProfile.VENDOR_MEMORY) {
+                vendorRead=new VendorWlpSession(vendorModel,Collections.singletonList(vendorModel.settingsRange()),Math.min(56,VendorWlpSession.maxBlock(vendorModel)));
+                state("Reading monitor settings…","Reading the settings before a clock sync. Nothing is written without your confirmation.");
+                sendClockSyncCommand();
+            } else beginWlpRead(X7MemoryIndex.SETTINGS_START,X7MemoryIndex.SETTINGS_BYTES);
+        } catch(IllegalArgumentException ex) { fail("Could not start the clock sync: "+ex.getMessage()); }
+    }
+    /**
+     * Confirms the pending preview. {@code chosen==null} writes the phone time read now; a chosen time needs the
+     * developer override at this moment. The plan is rebuilt with the override read now.
+     */
+    public void confirmClockSync(LocalDateTime chosen) {
+        if(!clockSyncRunning || !clockSyncPending || clockWrite==null || clockSyncImage==null) return;
+        boolean override=developerOverride();
+        if(chosen!=null && !override) {
+            store.packet(address,"clock-sync",new byte[0],"Chosen clock time refused: the developer override is off");
+            detail="A chosen time requires the developer option. Confirm the phone time or cancel."; changed(); return;
+        }
+        String identity=WriteAspectIndex.resolve(verifiedModel);
+        if(!WriteAspectIndex.permits(WriteAspectIndex.lookup(identity,WriteAspectIndex.Aspect.CLOCK_BLOCK).status,override)) {
+            endClockSyncWithoutWrite("Writing this monitor's clock is no longer allowed. Its clock was not changed."); return;
+        }
+        VendorClockWrite plan;
+        try { plan=new VendorClockWrite(identity,clockSyncImage,chosen!=null?chosen:clockNow(),override,clockSyncChannels()); }
+        catch(IllegalArgumentException invalid) { detail="This time cannot be written: "+invalid.getMessage(); changed(); return; }
+        cancelPhase(); clockSyncPending=false;
+        clockWrite.cancel(); clockWrite=plan; clockSyncOverride=override;
+        clockSyncPhoneClock=plan.target(); clockSyncDriftSeconds=plan.driftSeconds();
+        if(plan.writesNothing()) {
+            plan.cancel(); clockSyncOutcome=DeviceReport.WriteOutcome.SKIPPED_WITHIN_THRESHOLD;
+            state("Ending clock sync…","The monitor clock is within a minute of the target time; nothing was written.");
+            sendClockSyncCommand(); return;
+        }
+        saveClockSyncBackup(plan);
+    }
+    /** Ends a pending preview without writing. */
+    public void cancelClockSync() {
+        if(!clockSyncRunning || !clockSyncPending) return;
+        endClockSyncWithoutWrite("Cancelled before writing. The monitor's clock was not changed.");
+    }
+    public File clockSyncBackupFile() { return clockSyncBackup; }
+    private int clockSyncChannels() { return profile==ProtocolProfile.VENDOR_MEMORY?vendorTx.size():1; }
+    private boolean clockWriteOpen() {
+        VendorClockWrite plan=clockWrite;
+        return plan!=null && (plan.state()==VendorClockWrite.State.AUTHORIZED || plan.state()==VendorClockWrite.State.WRITING);
+    }
+    /** The next read or session-control command of the clock-sync session; END once the image is complete. */
+    private void sendClockSyncCommand() {
+        if(profile!=ProtocolProfile.VENDOR_MEMORY) { sendWlpCommand(); return; }
+        byte[] command=vendorRead.command();
+        store.packet(address,vendorTx.get(0).getUuid().toString(),command,"Vendor memory TX · clock sync read/session control");
+        responseWrite(vendorTx.get(0),command,15000,"Clock sync response timed out.");
+    }
+    private void vendorClockSyncNotification(int channel,byte[] bytes) {
+        store.packet(address,vendorRx.get(channel).getUuid().toString(),bytes,"Vendor clock sync RX · channel "+channel);
+        if(clockWrite!=null && clockWrite.state()==VendorClockWrite.State.WRITING) { clockAcknowledgment(channel,bytes); return; }
+        try { if(!vendorRead.accept(channel,bytes)) return; }
+        catch(IllegalArgumentException ex) { fail("Vendor response rejected: "+ex.getMessage()); return; }
+        cancelPhase();
+        if(vendorRead.complete()) finishClockSync();
+        else if(vendorRead.rangeComplete()) clockSyncImageRead(vendorRead.data());
+        else sendClockSyncCommand();
+    }
+    private void x7ClockSyncNotification(byte[] fragment) {
+        if(clockWrite!=null && clockWrite.state()==VendorClockWrite.State.WRITING) { clockAcknowledgment(0,fragment); return; }
+        try { if(!wlpRead.accept(fragment)) return; }
+        catch(IllegalArgumentException ex) { fail("X7 response rejected: "+ex.getMessage()); return; }
+        cancelPhase();
+        if(wlpRead.complete()) { wlpConnection.finishTransfer(); wlpRead=null; finishClockSync(); }
+        else if(wlpRead.rangeComplete()) clockSyncImageRead(wlpRead.data());
+        else sendWlpCommand();
+    }
+    /** The complete settings image: a preview plan when its preconditions hold, otherwise END without writing. */
+    private void clockSyncImageRead(byte[] image) {
+        boolean override=developerOverride();
+        clockSyncOverride=override;
+        try {
+            VendorClockWrite plan=new VendorClockWrite(WriteAspectIndex.resolve(verifiedModel),image,clockNow(),override,clockSyncChannels());
+            clockWrite=plan; clockSyncImage=image.clone();
+            clockSyncMonitorClock=plan.monitorClock(); clockSyncPhoneClock=plan.target(); clockSyncDriftSeconds=plan.driftSeconds();
+            clockSyncPending=true;
+            armPhase(90000,() -> endClockSyncWithoutWrite("The clock sync was not confirmed in time. Its clock was not changed."));
+            state("Confirm clock sync","Settings read. Compare the monitor and phone times, then confirm or cancel. Nothing has been written.");
+        } catch(IllegalArgumentException unreadable) {
+            clockSyncUnreadable=true; clockSyncOutcome=DeviceReport.WriteOutcome.NOT_ATTEMPTED;
+            store.packet(address,"clock-sync",new byte[0],"Clock sync not attempted: "+unreadable.getMessage());
+            state("Monitor settings unreadable","The monitor's settings could not be validated, so its clock was not changed. Ending the session.");
+            sendClockSyncCommand();
+        }
+    }
+    private void endClockSyncWithoutWrite(String reason) {
+        cancelPhase(); clockSyncPending=false;
+        if(clockWrite!=null) clockWrite.cancel();
+        clockSyncOutcome=DeviceReport.WriteOutcome.NOT_ATTEMPTED;
+        store.packet(address,"clock-sync",new byte[0],"Clock sync ended without a write: "+reason);
+        state("Ending clock sync…",reason);
+        sendClockSyncCommand();
+    }
+    /** Durably saves the settings image read in this session before the write can be authorized. */
+    private void saveClockSyncBackup(VendorClockWrite plan) {
+        final long session=generation;
+        final String device=address,model=verifiedModel;
+        final byte[] bytes=clockSyncImage.clone();
+        final int start=profile==ProtocolProfile.VENDOR_MEMORY?vendorModel.settingsStart:X7MemoryIndex.SETTINGS_START;
+        armPhase(15000,() -> endClockSyncWithoutWrite("The settings backup could not finish in time. No clock write was sent."));
+        state("Saving settings backup…","Saving the monitor's settings before the clock write.");
+        dumpIo.execute(() -> {
+            try {
+                JSONObject json=new JSONObject();
+                json.put("format","open-pressure-settings-backup-v1"); json.put("kind","clock-sync"); json.put("app_version",BuildConfig.VERSION_NAME);
+                json.put("device",device); json.put("model",model); json.put("read_only",true);
+                json.put("scope","Settings image read before a clock-block write; not a full EEPROM or calibration backup");
+                json.put("address",start); json.put("length",bytes.length);
+                json.put("saved_at_utc",java.time.Instant.now().toString()); json.put("encoding","hex"); json.put("data",ReadingStore.hex(bytes));
+                json.put("sha256",ReadingStore.hex(java.security.MessageDigest.getInstance("SHA-256").digest(bytes)));
+                File file=SettingsBackupStore.save(new File(getFilesDir(),"settings-backups"),json.toString(2).getBytes(StandardCharsets.UTF_8),clockBackupSync);
+                handler.post(() -> {
+                    // A completed local snapshot is always retained, even if the session ended meanwhile.
+                    clockSyncBackup=file;
+                    if(session!=generation || !clockSyncRunning || clockWrite!=plan || gatt==null || plan.state()!=VendorClockWrite.State.PREVIEW) { changed(); return; }
+                    cancelPhase();
+                    writeClockBlock(plan);
+                });
+            } catch(Exception ex) {
+                handler.post(() -> {
+                    if(session==generation && clockSyncRunning && clockWrite==plan && plan.state()==VendorClockWrite.State.PREVIEW)
+                        endClockSyncWithoutWrite("Could not save the settings backup. No clock write was sent.");
+                });
+            }
+        });
+    }
+    private void writeClockBlock(VendorClockWrite plan) {
+        List<byte[]> chunks;
+        try { plan.authorize(); chunks=plan.chunks(); }
+        catch(IllegalArgumentException refused) { endClockSyncWithoutWrite("The clock write could not be authorized. Its clock was not changed."); return; }
+        state("Writing monitor clock…","Writing only the clock block. The settings backup is saved; a failed write is never retried.");
+        cancelPhase();
+        sendClockChunk(plan,chunks,0,responseGeneration);
+    }
+    /** One chunk at a time on its own TX channel; the next follows the previous write's success callback. */
+    private void sendClockChunk(VendorClockWrite plan,List<byte[]> chunks,int index,long token) {
+        BluetoothGattCharacteristic c=profile==ProtocolProfile.VENDOR_MEMORY?vendorTx.get(index):wlpTx;
+        store.packet(address,c.getUuid().toString(),chunks.get(index),"Clock block TX · chunk "+(index+1)+" of "+chunks.size());
+        write(c,chunks.get(index),() -> {
+            if(clockWrite!=plan || plan.state()!=VendorClockWrite.State.WRITING) return;
+            if(index+1<chunks.size()) sendClockChunk(plan,chunks,index+1,token);
+            else if(token==responseGeneration) armPhase(10000,this::clockAcknowledgmentTimedOut);
+        });
+    }
+    private void clockAcknowledgment(int channel,byte[] bytes) {
+        VendorClockWrite plan=clockWrite;
+        try { if(!plan.accept(channel,bytes)) return; }
+        catch(IllegalArgumentException rejected) {
+            cancelPhase(); clockSyncOutcome=DeviceReport.WriteOutcome.REJECTED;
+            store.packet(address,"clock-sync",new byte[0],"Clock write acknowledgment rejected; no retry");
+            state("Ending clock sync…","The monitor did not accept the clock write. No retry is sent.");
+            sendClockSyncCommand(); return;
+        }
+        cancelPhase(); clockSyncOutcome=DeviceReport.WriteOutcome.ACKNOWLEDGED;
+        deviceTime=plan.written().toString().replace('T',' ');
+        state("Ending clock sync…","The monitor acknowledged the clock write.");
+        sendClockSyncCommand();
+    }
+    private void clockAcknowledgmentTimedOut() {
+        if(clockWrite!=null) clockWrite.cancel();
+        clockSyncOutcome=DeviceReport.WriteOutcome.CANCELLED; clockUpdate=ClockUpdate.FAILED;
+        recordClockOutcome();
+        disconnect();
+        state("Clock sync cancelled","The monitor did not acknowledge the clock write in time. Its clock is unverified; the settings backup is retained. No retry or further settings write was sent.");
+    }
+    /** The monitor acknowledged END: the session is over and history needs a new connection. */
+    private void finishClockSync() {
+        cancelPhase();
+        clockSyncRunning=false; clockSyncPending=false; sessionFinished=true; ready=false; canHistory=false; canTime=false; canDump=false;
+        if(profile==ProtocolProfile.VENDOR_MEMORY) vendorSessionEnded=true;
+        String title,message;
+        switch(clockSyncOutcome) {
+            case ACKNOWLEDGED: clockUpdate=ClockUpdate.ACCEPTED; title="Clock sync complete"; message="The monitor acknowledged the clock write and the session end."; break;
+            case SKIPPED_WITHIN_THRESHOLD: clockUpdate=ClockUpdate.SKIPPED; title="Clock sync skipped"; message="The monitor clock was already within a minute; nothing was written."; break;
+            case REJECTED: clockUpdate=ClockUpdate.FAILED; title="Clock sync rejected"; message="The monitor did not accept the clock write; nothing was retried."; break;
+            case CANCELLED: clockUpdate=ClockUpdate.FAILED; title="Clock sync cancelled"; message="The clock write was not acknowledged."; break;
+            default:
+                clockUpdate=ClockUpdate.NONE;
+                title=clockSyncUnreadable?"Monitor settings unreadable":"Clock sync cancelled";
+                message=clockSyncUnreadable?"The monitor's settings could not be validated, so its clock was not changed.":"The monitor's clock was not changed.";
+        }
+        recordClockOutcome();
+        if(clockSyncImage!=null) Arrays.fill(clockSyncImage,(byte)0);
+        clockSyncImage=null; clockWrite=null;
+        state(title,message+" Reconnect to import history.");
+    }
+    /** Once per session: the report entry and whether a forced write may offer the device report. */
+    private void recordClockOutcome() {
+        if(clockSyncRecorded) return;
+        clockSyncRecorded=true;
+        offerReportAfterWrite=clockSyncOverride && clockSyncOutcome!=DeviceReport.WriteOutcome.NOT_ATTEMPTED;
+        if(report!=null && !automaticConnection) report.writeAspect(WriteAspectIndex.Aspect.CLOCK_BLOCK,clockSyncOutcome,clockSyncOverride);
     }
     private void saveDump(byte[] bytes,boolean complete,String error) {
         final long serial=dumpSerial, started=dumpStartedAt;
@@ -1265,7 +1504,7 @@ public final class MonitorService extends Service {
     }
     public void syncHistory(int firstSequence) {
         if(!ready || !canHistory) return;
-        if(historyRunning || dumpRunning || pendingUserOperation!=0) return;
+        if(historyRunning || dumpRunning || clockSyncRunning || pendingUserOperation!=0) return;
         if(profile==ProtocolProfile.VENDOR_MEMORY) {
             if(firstSequence!=-1) { state("Invalid sequence","Vendor memory imports read the monitor's populated history slots; sequence filters are not supported."); return; }
             beginVendorHistory(false); return;
@@ -1300,13 +1539,13 @@ public final class MonitorService extends Service {
         VendorMemoryModel vendor=VendorMemoryModel.identify(model);
         return vendor!=null && vendor.selectableUsers()==2;
     }
-    public boolean canReadAll() { return ready && canHistory && profile==ProtocolProfile.VENDOR_MEMORY && !automaticConnection; }
+    public boolean canReadAll() { return ready && canHistory && profile==ProtocolProfile.VENDOR_MEMORY && !automaticConnection && !clockSyncRunning; }
     public void readClock() {
         if(!ready || timeCharacteristic==null || (timeCharacteristic.getProperties()&BluetoothGattCharacteristic.PROPERTY_READ)==0) return;
         read(timeCharacteristic,bytes -> { try { LocalDateTime time=Commands.readDateTime(bytes); deviceTime=time==null?"Device clock unset":time.toString().replace('T',' '); changed(); } catch(IllegalArgumentException ex) { deviceTime="Clock format not recognized"; changed(); } });
     }
     public void setClock(LocalDateTime time) {
-        if(!ready || !canTime || historyRunning || pendingUserOperation!=0) return;
+        if(!ready || !canTime || historyRunning || clockSyncRunning || pendingUserOperation!=0) return;
         writeClock(time,() -> state("Clock write accepted","Monitor accepted the time write. Read the clock to verify, if available."),
             error -> {
                 // A missing callback can leave Android's ATT slot busy even after our queue times out.
@@ -1460,12 +1699,15 @@ public final class MonitorService extends Service {
         byte[] requested=bytes.clone();
         enqueue("write:"+key(c),() -> {
             if(profile==ProtocolProfile.VENDOR_MEMORY) {
-                if(c.equals(timeCharacteristic)) DeviceWritePolicy.validateVendorClock(vendorModel,c.getService().getUuid(),c.getUuid(),requested);
+                if(clockWriteOpen() && vendorTx.contains(c)) DeviceWritePolicy.validateVendorClockBlock(vendorModel,c.getService().getUuid(),c.getUuid(),requested,clockWrite);
+                else if(c.equals(timeCharacteristic)) DeviceWritePolicy.validateVendorClock(vendorModel,c.getService().getUuid(),c.getUuid(),requested);
                 else if(c.equals(handshake)) DeviceWritePolicy.validateVendorUnlock(vendorModel,c.getService().getUuid(),c.getUuid(),requested,vendorUnlock);
                 else DeviceWritePolicy.validateVendorCharacteristic(vendorModel,c.getService().getUuid(),c.getUuid(),requested);
             }
             else if(registrationWriting && x7Registration!=null && c.equals(wlpTx) && requested.length>8)
                 DeviceWritePolicy.validateX7Registration(profile,c.getService().getUuid(),c.getUuid(),requested,x7Registration);
+            else if(clockWriteOpen() && c.equals(wlpTx) && requested.length>8)
+                DeviceWritePolicy.validateX7ClockBlock(profile,c.getService().getUuid(),c.getUuid(),requested,clockWrite);
             else DeviceWritePolicy.validateCharacteristic(profile,c.getService().getUuid(),c.getUuid(),requested);
             byte[] value=requested;
             if(vendorCharacteristic(c) && secure!=null && secure.established()) {
@@ -1508,8 +1750,7 @@ public final class MonitorService extends Service {
     private final BluetoothGattCallback callback=new BluetoothGattCallback() {
         private void current(BluetoothGatt source,Runnable action) { handler.post(() -> { if(source==gatt) action.run(); }); }
         @Override public void onConnectionStateChange(BluetoothGatt source,int result,int state) { current(source,() -> {
-            if(state==BluetoothProfile.STATE_DISCONNECTED && vendorRead!=null && vendorRead.historyComplete() && vendorClockAttempted && !vendorSessionEnded) {
-                if(vendorClockPending) { clockUpdate=ClockUpdate.FAILED; vendorClockResult="Clock update could not be confirmed; imported readings were retained."; }
+            if(state==BluetoothProfile.STATE_DISCONNECTED && vendorRead!=null && vendorRead.historyComplete() && vendorEndRequested && !vendorSessionEnded) {
                 finishVendorHistory(false); closeFinishedWlp(); return;
             }
             if(state==BluetoothProfile.STATE_DISCONNECTED && vendorSessionEnded) { closeFinishedWlp(); return; }
