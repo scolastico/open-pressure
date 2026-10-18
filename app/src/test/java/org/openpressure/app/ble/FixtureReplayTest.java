@@ -61,7 +61,7 @@ public class FixtureReplayTest {
     public static List<Object[]> fixtures() {
         String only=System.getProperty("fixture");
         List<Object[]> result=new ArrayList<>();
-        for(String name:Fixture.all()) if(only==null || only.isEmpty() || only.equals("all") || only.equals(name)) result.add(new Object[]{name});
+        for(String name:Fixture.all()) if(only==null || only.isEmpty() || only.equals("all") || java.util.Arrays.asList(only.split(",")).contains(name)) result.add(new Object[]{name});
         return result;
     }
 
