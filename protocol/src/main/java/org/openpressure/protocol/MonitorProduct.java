@@ -21,6 +21,7 @@ public final class MonitorProduct {
         Map<String,MonitorProduct> map=new LinkedHashMap<>();
         for(String id:new String[]{"HEM-7150T","HEM-7155T","HEM-7156T","HEM-7322T","HEM-7342T","HEM-7361T","HEM-7530T","HEM-7600T","HEM-6232T"})
             map.put(id,new MonitorProduct(id,"OMRON",null));
+        map.put("HEM-7380T1",new MonitorProduct("HEM-7380T1","OMRON",null));
         map.put("HEM-7377T1",new MonitorProduct("HEM-7377T1","OMRON","BP5360"));
         map.put("HEM-7380T1-EOSL",new MonitorProduct("HEM-7380T1-EOSL","OMRON","X7 Smart AFib"));
         map.put("HEM-7380T1-EBK",new MonitorProduct("HEM-7380T1-EBK","OMRON","X7 Smart AFib"));
@@ -32,14 +33,14 @@ public final class MonitorProduct {
 
     /**
      * Human-readable monitor name: manufacturer and product name for a known identity, else
-     * manufacturer and the reported model; an unknown model as reported; without a reported
-     * model, the Bluetooth name (which may be null).
+     * manufacturer and the reported model. A model that resolves to no listed identity may be
+     * an unverified hint, so it is never shown; the Bluetooth name (which may be null) is.
      */
     public static String displayName(String reportedModel,String bluetoothName) {
         String model=reportedModel==null?"":reportedModel.replace("\u0000","").trim();
         if(model.isEmpty()) return bluetoothName;
         MonitorProduct product=lookup(WriteAspectIndex.resolve(model));
-        if(product==null) return model;
+        if(product==null) return bluetoothName;
         return product.manufacturer+" "+(product.productName!=null?product.productName:model);
     }
 }

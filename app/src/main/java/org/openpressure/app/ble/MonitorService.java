@@ -116,6 +116,10 @@ public final class MonitorService extends Service {
     private PendingConnection pendingConnection;
     private int wlpParsed,wlpRejected,negotiatedMtu=23;
     private String verifiedModel="";
+    /** Device Information model read on a standard-profile connection; empty until read. */
+    private String informationModel="";
+    /** Saved monitor addresses, loaded when a scan starts; scan results leave these out. */
+    private final Set<String> savedAddresses=new HashSet<>();
     /** Fixed time source for fixture replays; null uses the phone's current time and time zone at each write. */
     java.time.Clock clock;
     /** Directory flush after a clock-sync backup; tests replace the Android fsync, which Robolectric lacks. */
@@ -343,6 +347,7 @@ public final class MonitorService extends Service {
         if(automaticConnection) disconnect();
         if(gatt!=null || x7Bonding!=null) { state("Disconnect before scanning","Finish the active monitor session first."); return; }
         stopAutomaticScan(); stopScan(); discovered.clear(); foreground(); scanning=true;
+        loadSavedAddresses();
         state("Looking for monitors…","Put the monitor in Bluetooth pairing or transfer mode. Scan lasts 60 seconds.");
         BluetoothLeScanner scanner=adapter.getBluetoothLeScanner();
         if(scanner==null) { scanning=false; fail("Bluetooth scanner is unavailable"); return; }
@@ -395,7 +400,7 @@ public final class MonitorService extends Service {
         }
         // Saved monitors are reconnected from their saved card. Checked per advertisement, so a
         // monitor forgotten during the scan appears with its next advertisement.
-        if(store!=null && store.isSaved(d.address)) {
+        if(savedAddresses.contains(d.address)) {
             if(discovered.remove(d.address)!=null && !scanUpdatePending) { scanUpdatePending=true; handler.postDelayed(scanUpdate,500); }
             return;
         }
@@ -406,8 +411,13 @@ public final class MonitorService extends Service {
     }
     /** Saves the connected monitor; from then on only its saved card offers it, not the scan list. */
     private void rememberMonitor(String model) {
-        store.remember(address,connectedName,model,user); discovered.remove(address);
+        store.remember(address,connectedName,model,user); savedAddresses.add(address); discovered.remove(address);
     }
+    private void loadSavedAddresses() { savedAddresses.clear(); for(String[] device:store.devices()) savedAddresses.add(device[0]); }
+    /** Standard profiles save the model hint until Device Information reports the actual model. */
+    private String standardModel() { return informationModel.isEmpty()?modelHint:informationModel; }
+    /** Called after the user forgets a saved monitor; it may be listed again by a running scan. */
+    public void monitorForgotten(String target) { savedAddresses.remove(target); }
     public void connect(String target,String name,boolean pair) {
         connect(target,name,pair,false,null);
     }
@@ -436,7 +446,7 @@ public final class MonitorService extends Service {
             report.advertisement(selected==null?name:selected.name,connectionManufacturer);
             reportAddress=target; reportPrompted=false;
         }
-        canHistory=false; canTime=false; hasUserControl=false; canDump=false; verifiedModel=""; negotiatedMtu=23; battery=-1; profile=ProtocolProfile.UNSUPPORTED;
+        canHistory=false; canTime=false; hasUserControl=false; canDump=false; verifiedModel=""; informationModel=""; negotiatedMtu=23; battery=-1; profile=ProtocolProfile.UNSUPPORTED;
         try { foreground(); state("Connecting…",name+" · Keep the monitor in transfer mode."); gatt=adapter.getRemoteDevice(target).connectGatt(this,false,callback,BluetoothDevice.TRANSPORT_LE); armPhase(30000,"Connection timed out"); }
         catch(RuntimeException ex) { fail("Connection failed: "+ex.getMessage()); }
     }
@@ -1521,7 +1531,7 @@ public final class MonitorService extends Service {
     }
     private void configureNext(List<BluetoothGattCharacteristic> list,int index) {
         if(index<list.size()) { subscribe(list.get(index),() -> configureNext(list,index+1)); return; }
-        ready=true; rememberMonitor(modelHint);
+        ready=true; rememberMonitor(standardModel());
         state("Connected",hasUserControl?"Authenticate user "+user+" to access that user's history.":"Ready for readings. Start a measurement on the monitor.");
         readInformation();
     }
@@ -1534,6 +1544,10 @@ public final class MonitorService extends Service {
                 // The serial number (2A25) is shown locally but never added to the shareable report.
                 if(report!=null && !automaticConnection && uuid==0x2a26) report.firmware(value);
                 if(report!=null && !automaticConnection && uuid==0x2a29) report.manufacturer(value);
+                // WLP paths saved the model they verified; standard profiles replace the user's hint.
+                if(uuid==0x2a24 && profile!=ProtocolProfile.VENDOR_MEMORY && !profile.isX7() && !value.trim().isEmpty()) {
+                    informationModel=value.trim(); store.setModel(address,informationModel);
+                }
                 changed();
             });
         }
@@ -1583,6 +1597,8 @@ public final class MonitorService extends Service {
         beginVendorHistory(true);
     }
     /** Whether the connected, verified model offers a choice between its two users' readings. */
+    /** Model reported in this session (verified WLP identity or standard Device Information), else empty. */
+    public String reportedModel() { return verifiedModel.isEmpty()?informationModel:verifiedModel; }
     public boolean offersImportUsers() { return ready && (profile.isX7() || offersImportUsers(verifiedModel)); }
     /** Whether a saved Device Information model offers a choice between two users' readings. */
     public static boolean offersImportUsers(String model) {
@@ -1623,7 +1639,7 @@ public final class MonitorService extends Service {
                 if(next!=null) responseWrite(handshake,next,20000,"Secure pairing response timed out");
                 else {
                     byte[] key=secure.longTermKey(); try { keys.put(address,key); } finally { Arrays.fill(key,(byte)0); }
-                    rememberMonitor(modelHint); configure();
+                    rememberMonitor(standardModel()); configure();
                 }
             } catch(Exception ex) { fail(ex.getMessage()); }
             return;
@@ -1637,7 +1653,7 @@ public final class MonitorService extends Service {
             if(bytes[2]!=1) { state("User access rejected","Monitor returned code "+(bytes[2]&255)+". Check user bank and consent code; register only in pairing mode."); return; }
             if(op==2) { authenticatedUser=pendingUser; state("User authenticated","User "+authenticatedUser+" · You can now read history."); }
             else state("User registered","User "+pendingUser+" registered. Authenticate this user to read history.");
-            rememberMonitor(modelHint); return;
+            rememberMonitor(standardModel()); return;
         }
         store.packet(address,c.getUuid().toString(),bytes,"RX");
         if(c.getUuid().equals(Uuids.MEASUREMENT) && c.getService().getUuid().equals(Uuids.BP)) {

@@ -119,6 +119,22 @@ public class MainImportControlsTest {
             assertFalse("The choice cannot change during an import",choice(a,2).isEnabled());
         }
     }
+    @Test public void savedAndActiveCardsShowTheProductName() throws Exception {
+        store().remember(SAVED,"BLEsmart_00000001","HEM-7380T1-EOSL",1);
+        store().remember("CC:DD:EE:FF:00:11","BLEsmart_00000002","X7 Smart AFib \u00b7 HEM-7380T1",1);
+        connected("HEM-7155T-EBK"); monitor.connectedName="BLEsmart_00000003"; store().remember(ADDRESS,"BLEsmart_00000003","HEM-7155T-EBK",1);
+        try(ActivityController<MainActivity> controller=Robolectric.buildActivity(MainActivity.class)) {
+            Activity a=open(controller);
+            String user1=a.getString(R.string.main_user_number,"1");
+            assertTrue("X7 product name as title",hasText(root(a),"OMRON X7 Smart AFib"));
+            assertTrue("the Bluetooth name stays beside the address",hasText(root(a),a.getString(R.string.main_saved_monitor_detail,"BLEsmart_00000001",a.getString(R.string.main_saved_monitor_detail,SAVED,user1))));
+            assertTrue("an unverified hint falls back to the Bluetooth name",hasText(root(a),"BLEsmart_00000002"));
+            assertFalse(hasText(root(a),"X7 Smart AFib \u00b7 HEM-7380T1"));
+            assertTrue(hasText(root(a),a.getString(R.string.main_saved_monitor_detail,"CC:DD:EE:FF:00:11",user1)));
+            assertTrue("active card: manufacturer and model",hasText(root(a),"OMRON HEM-7155T-EBK"));
+            assertTrue("active card keeps the Bluetooth name",hasText(root(a),"BLEsmart_00000003"));
+        }
+    }
     @Test public void savedTwoUserMonitorChoiceWritesOnlyTheStore() throws Exception {
         store().remember(SAVED,"Kitchen","HEM-7361T",1); store().remember("CC:DD:EE:FF:00:11","Hall","HEM-7150T",1);
         try(ActivityController<MainActivity> controller=Robolectric.buildActivity(MainActivity.class)) {

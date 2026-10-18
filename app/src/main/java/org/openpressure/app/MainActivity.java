@@ -376,7 +376,8 @@ public final class MainActivity extends Activity {
             add(registration,users,12); content.addView(registration);
         }
         if(monitor.ready) {
-            LinearLayout active=card(); label(active,monitor.connectedName);
+            LinearLayout active=card(); String activeName=monitorName(monitor.reportedModel(),monitor.connectedName); label(active,activeName);
+            if(!activeName.equals(monitor.connectedName)) add(active,text(monitor.connectedName,14,MUTED,false),6);
             add(active,text(profileLabel(monitor.user),14,MUTED,false),12);
             if(monitor.battery>=0) add(active,text(getString(R.string.main_battery,NumberFormat.getPercentInstance(getResources().getConfiguration().getLocales().get(0)).format(monitor.battery/100.0)),14,MUTED,false),6);
             if(monitor.hasUserControl) {
@@ -414,15 +415,22 @@ public final class MainActivity extends Activity {
         List<String[]> saved=store.devices();
         if(!saved.isEmpty()) add(content,text(getString(R.string.main_saved_monitors),13,TEAL,true),20);
         for(String[] d:saved) {
-            LinearLayout item=card(); add(item,text(d[1],20,INK,true),0); add(item,text(getString(R.string.main_saved_monitor_detail,d[0],profileLabel(Integer.parseInt(d[3]))),13,MUTED,false),6);
+            String title=monitorName(d[2],d[1]),detail=getString(R.string.main_saved_monitor_detail,d[0],profileLabel(Integer.parseInt(d[3])));
+            // A product name replaces the Bluetooth name as title; the detail keeps it to tell identical models apart.
+            if(!title.equals(d[1])) detail=getString(R.string.main_saved_monitor_detail,d[1],detail);
+            LinearLayout item=card(); add(item,text(title,20,INK,true),0); add(item,text(detail,13,MUTED,false),6);
             // The connected monitor's card above already carries the choice; one control per monitor.
             boolean activeChoice=monitor.offersImportUsers() && monitor.address.equals(d[0]);
             if(!activeChoice && MonitorService.offersImportUsers(d[2])) importUsersChoice(item,"import_users_"+d[0]+"_",parseUsers(d[4]),true,users -> { store.setImportUsers(d[0],users); monitor.refreshAutomaticImports(); render(); });
             add(item,button(getString(R.string.main_reconnect),() -> { monitor.user=Integer.parseInt(d[3]); monitor.modelHint=d[2]; connect(d[0],d[1],false); },true),10);
-            add(item,button(getString(R.string.main_forget_monitor),() -> new AlertDialog.Builder(this).setTitle(getString(R.string.main_forget_title,d[1])).setMessage(getString(R.string.main_forget_explanation)).setNegativeButton(getString(R.string.main_cancel),null).setPositiveButton(getString(R.string.main_forget),(dialog,which) -> { if(monitor.address.equals(d[0])) monitor.disconnect(); new PairingKeys(this).forget(d[0]); new CompanionLinks(this).forget(d[0]); store.forget(d[0]); monitor.refreshAutomaticImports(); render(); }).show(),false),6); content.addView(item);
+            add(item,button(getString(R.string.main_forget_monitor),() -> new AlertDialog.Builder(this).setTitle(getString(R.string.main_forget_title,title)).setMessage(getString(R.string.main_forget_explanation)).setNegativeButton(getString(R.string.main_cancel),null).setPositiveButton(getString(R.string.main_forget),(dialog,which) -> { if(monitor.address.equals(d[0])) monitor.disconnect(); new PairingKeys(this).forget(d[0]); new CompanionLinks(this).forget(d[0]); store.forget(d[0]); monitor.monitorForgotten(d[0]); monitor.refreshAutomaticImports(); render(); }).show(),false),6); content.addView(item);
         }
         add(content,button(advancedExpanded?getString(R.string.main_hide_advanced):getString(R.string.main_advanced),() -> { advancedExpanded=!advancedExpanded; render(); },false),16);
         if(advancedExpanded) advancedDeviceControls();
+    }
+    /** Same name as the PDF device column: product or manufacturer and model when listed, else the Bluetooth name. */
+    private static String monitorName(String model,String bluetoothName) {
+        String name=org.openpressure.protocol.MonitorProduct.displayName(model,bluetoothName); return name==null?"":name;
     }
     /** Readings to import: User 1, User 2 or both, as toggle buttons with the current choice highlighted. */
     private void importUsersChoice(LinearLayout parent,String tag,int current,boolean enabled,java.util.function.IntConsumer choose) {

@@ -360,9 +360,10 @@ public final class ReadingStore extends SQLiteOpenHelper {
             while(c.moveToNext()) rows.add(new String[]{c.getString(0),c.getString(1),c.getString(2),c.getString(3),c.getString(4)});
         } return rows;
     }
-    /** Whether {@code address} is a saved monitor; scan results omit those, their saved card offers Reconnect. */
-    public synchronized boolean isSaved(String address) {
-        try(Cursor c=getReadableDatabase().rawQuery("SELECT 1 FROM devices WHERE address=? LIMIT 1",new String[]{address})) { return c.moveToFirst(); }
+    /** Replaces a saved monitor's model with the one it reported; unsaved addresses are left unsaved. */
+    public synchronized void setModel(String address,String model) {
+        ContentValues v=new ContentValues(); v.put("model",model);
+        getWritableDatabase().update("devices",v,"address=?",new String[]{address});
     }
     public synchronized void forget(String address) { getWritableDatabase().delete("devices","address=?",new String[]{address}); }
     public synchronized List<Reading> healthPending(int user,int limit) {
