@@ -21,6 +21,11 @@ import java.util.List;
 public final class VendorClockWrite {
     public enum State { PREVIEW, AUTHORIZED, WRITING, ACKNOWLEDGED, REJECTED, CANCELLED }
 
+    /** The target (or its written clock) lies outside the supported years; the monitor's settings are not at fault. */
+    public static final class TargetOutOfRange extends IllegalArgumentException {
+        TargetOutOfRange(String message,Throwable cause) { super(message,cause); }
+    }
+
     /** Largest |monitor clock - target| in seconds that is left alone. */
     public static final long THRESHOLD_SECONDS=60;
 
@@ -51,10 +56,12 @@ public final class VendorClockWrite {
         // Whole seconds: the frame carries no fraction and drift rounds symmetrically.
         LocalDateTime truncated=target.withNano(0),clock;
         try { clock=truncated.plusSeconds(1); }
-        catch(DateTimeException invalid) { throw new IllegalArgumentException("Invalid clock target",invalid); }
-        if(clock.getYear()<2024 || clock.getYear()>2050) throw new IllegalArgumentException("Clock time must be in 2024–2050");
+        catch(DateTimeException invalid) { throw new TargetOutOfRange("Invalid clock target",invalid); }
+        if(clock.getYear()<2024 || clock.getYear()>2050) throw new TargetOutOfRange("Clock time must be in 2024–2050",null);
         byte[] logical=block.swapped?model.logical(image):image.clone();
-        if(!block.checksumValid(logical) && !block.erased(logical)) throw new IllegalArgumentException("monitor settings unreadable");
+        // An erased block only where Omron's own code accepts one; elsewhere the checksum must hold.
+        if(!block.checksumValid(logical) && !(block.erased(logical) && block.erasedAllowed))
+            throw new IllegalArgumentException("monitor settings unreadable");
         this.identity=resolved; this.override=override; this.channels=channels;
         this.target=truncated; this.written=clock;
         monitorClock=block.clock(logical);

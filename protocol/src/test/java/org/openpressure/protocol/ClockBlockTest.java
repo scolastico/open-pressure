@@ -19,17 +19,19 @@ public final class ClockBlockTest {
     }
 
     private static void table() {
-        for(String id:new String[]{"HEM-7150T","HEM-7155T","HEM-7156T","HEM-7342T","HEM-7361T","HEM-7380T1-EOSL","HEM-7380T1-EBK"})
-            layout(ClockBlock.forIdentity(id),0x80,44,16,52,58,false,68,id);
-        for(String id:new String[]{"HEM-7530T","HEM-6232T"}) layout(ClockBlock.forIdentity(id),0x2D0,44,16,52,58,true,68,id);
-        layout(ClockBlock.forIdentity("HEM-7600T"),0x29A,20,10,22,28,true,38,"HEM-7600T");
+        for(String id:new String[]{"HEM-7150T","HEM-7155T","HEM-7156T","HEM-7342T","HEM-7361T"})
+            layout(ClockBlock.forIdentity(id),0x80,44,16,52,58,false,true,68,id);
+        for(String id:new String[]{"HEM-7380T1-EOSL","HEM-7380T1-EBK"}) layout(ClockBlock.forIdentity(id),0x80,44,16,52,58,false,false,68,id);
+        layout(ClockBlock.forIdentity("HEM-6232T"),0x2D0,44,16,52,58,true,true,68,"HEM-6232T");
+        layout(ClockBlock.forIdentity("HEM-7530T"),0x2D0,44,16,52,58,true,false,68,"HEM-7530T");
+        layout(ClockBlock.forIdentity("HEM-7600T"),0x29A,20,10,22,28,true,false,38,"HEM-7600T");
         for(String id:new String[]{"HEM-7322T","HEM-7377T1","HEM-7156T-AAP","HEM-7155T-EBK","HEM-7380T1","",null})
             check(ClockBlock.forIdentity(id)==null,"no clock layout: "+id);
     }
 
-    private static void layout(ClockBlock b,int address,int offset,int length,int clock,int sum,boolean swapped,int image,String id) {
+    private static void layout(ClockBlock b,int address,int offset,int length,int clock,int sum,boolean swapped,boolean erased,int image,String id) {
         check(b!=null && b.writeAddress==address && b.imageOffset==offset && b.length==length && b.clockOffset==clock
-            && b.checksumOffset==sum && b.swapped==swapped && b.imageLength()==image,"layout: "+id);
+            && b.checksumOffset==sum && b.swapped==swapped && b.erasedAllowed==erased && b.imageLength()==image,"layout: "+id);
     }
 
     private static void decode() {

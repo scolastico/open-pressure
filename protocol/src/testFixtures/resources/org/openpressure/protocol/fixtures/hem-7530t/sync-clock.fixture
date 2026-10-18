@@ -1,6 +1,7 @@
 # HEM-7530T (Z identity): explicit Sync clock after a saved-key reconnect. OpenPressure reads the 68-byte settings
-# image at 0x260 (byte pairs swapped), finds setting block 3 (image bytes 44..59 at 0x28c) erased and writes only
-# that block at 0x2d0 with the fixture time + 1 s and its checksum, byte pairs swapped, then ends the session.
+# image at 0x260 (byte pairs swapped), finds setting block 3 (image bytes 44..59 at 0x28c) valid (all zeros, as in
+# the connect fixtures; this model refuses an erased block 3) and writes only that block at 0x2d0 with the fixture
+# time + 1 s and its checksum, byte pairs swapped, then ends the session.
 # Omron has no standalone clock sync (unsupported). The replays enable the developer override for this untested write.
 name hem-7530t/sync-clock
 flow sync-clock
@@ -13,8 +14,9 @@ alias unlock b305b680-aee7-11e1-a730-0002a5d5c51b
 alias tx db5b55e0-aee7-11e1-965e-0002a5d5c51b,e0b8a060-aee7-11e1-92f4-0002a5d5c51b,0ae12b00-aee8-11e1-a192-0002a5d5c51b,10e1ba60-aee8-11e1-89e5-0002a5d5c51b
 alias rx 49123040-aee8-11e1-a74d-0002a5d5c51b,4d0bf320-aee8-11e1-a0d9-0002a5d5c51b,5128ce60-aee8-11e1-b84b-0002a5d5c51b,560f1420-aee8-11e1-8184-0002a5d5c51b
 
-# Block 3 (0x28c..0x29b) stays erased through the fill byte.
 memory fill=ff
+# Setting-info block 3 (0x28c..0x29b) is checksummed; all zeros is valid.
+memory 0x28c 00000000000000000000000000000000
 
 write unlock 01 05050505050505050505050505050505
 notify unlock 8100
@@ -24,9 +26,9 @@ notify rx 18 80 00 00 00 10 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f 00 8
 
 [ours-only: Sync clock reads the 68-byte settings image at 0x260 in 56-byte blocks before the write; Omron has no standalone clock sync] reads 0x260 68 chunk=56
 
-# Logical block: ff x8, clock 1a 01 02 03 04 06 (fixture time + 1 s), checksum 22, ff kept; written with pairs swapped.
-[ours-only: OpenPressure-only clock-block write (explicit Sync clock); Omron has no standalone clock sync and writes the clock only after a transfer] write tx 1801c002d010 ffffffffffffffff011a03020604ff22 00de
-[ours-only: synthetic full echo acknowledgment; a physical HEM-7530T reply to this write is unconfirmed] notify rx 1881c002d010 ffffffffffffffff011a03020604ff22 005e
+# Logical block: 00 x8, clock 1a 01 02 03 04 06 (fixture time + 1 s), checksum 2a, 00 kept; written with pairs swapped.
+[ours-only: OpenPressure-only clock-block write (explicit Sync clock); Omron has no standalone clock sync and writes the clock only after a transfer] write tx 1801c002d010 0000000000000000011a03020604002a 0029
+[ours-only: synthetic full echo acknowledgment; a physical HEM-7530T reply to this write is unconfirmed] notify rx 1881c002d010 0000000000000000011a03020604002a 00a9
 
 # The session always ends with the normal END, whatever the clock outcome.
 write tx 08 0f 00 00 00 00 00 07

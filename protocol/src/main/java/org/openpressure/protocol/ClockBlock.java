@@ -14,11 +14,17 @@ public final class ClockBlock {
     public final int writeAddress,imageOffset,length,clockOffset,checksumOffset;
     /** Whether the device expects the block with adjacent byte pairs swapped (14-byte maps). */
     public final boolean swapped;
+    /**
+     * Whether an erased (all-FF) block may be written. Omron's code and OpenPressure's index and
+     * registration paths refuse a block 3 with a bad checksum on HEM-7380T1-EOSL/EBK, HEM-7530T and
+     * HEM-7600T, so only a checksum-valid block is written there.
+     */
+    public final boolean erasedAllowed;
     private final int imageLength;
 
-    private ClockBlock(int writeAddress,int imageOffset,int length,int clockOffset,int checksumOffset,boolean swapped,int imageLength) {
+    private ClockBlock(int writeAddress,int imageOffset,int length,int clockOffset,int checksumOffset,boolean swapped,boolean erasedAllowed,int imageLength) {
         this.writeAddress=writeAddress; this.imageOffset=imageOffset; this.length=length; this.clockOffset=clockOffset;
-        this.checksumOffset=checksumOffset; this.swapped=swapped; this.imageLength=imageLength;
+        this.checksumOffset=checksumOffset; this.swapped=swapped; this.erasedAllowed=erasedAllowed; this.imageLength=imageLength;
     }
 
     /** Exact resolved identities only (see {@link WriteAspectIndex#resolve(String)}); null without a layout. */
@@ -27,9 +33,11 @@ public final class ClockBlock {
         switch(identity) {
             // 16-byte legacy maps share the X7 block-3 layout: bytes 44..59, clock 52..57, checksum 58.
             case "HEM-7150T": case "HEM-7155T": case "HEM-7156T": case "HEM-7342T": case "HEM-7361T":
-            case "HEM-7380T1-EOSL": case "HEM-7380T1-EBK": return new ClockBlock(0x80,44,16,52,58,false,68);
-            case "HEM-7530T": case "HEM-6232T": return new ClockBlock(0x2D0,44,16,52,58,true,68);
-            case "HEM-7600T": return new ClockBlock(0x29A,20,10,22,28,true,38);
+                return new ClockBlock(0x80,44,16,52,58,false,true,68);
+            case "HEM-7380T1-EOSL": case "HEM-7380T1-EBK": return new ClockBlock(0x80,44,16,52,58,false,false,68);
+            case "HEM-6232T": return new ClockBlock(0x2D0,44,16,52,58,true,true,68);
+            case "HEM-7530T": return new ClockBlock(0x2D0,44,16,52,58,true,false,68);
+            case "HEM-7600T": return new ClockBlock(0x29A,20,10,22,28,true,false,38);
             default: return null;
         }
     }

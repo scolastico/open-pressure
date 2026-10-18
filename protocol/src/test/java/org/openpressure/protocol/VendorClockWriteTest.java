@@ -234,7 +234,7 @@ public final class VendorClockWriteTest {
         VendorClockWrite behind=new VendorClockWrite("HEM-7156T",withClock("HEM-7156T",TARGET.plusSeconds(60)),TARGET.withNano(1),false,4);
         check(behind.driftSeconds()==60 && behind.writesNothing(),"sub-second target, monitor ahead");
         // An acknowledgment right after the last permit is accepted without any other call.
-        VendorClockWrite x7=new VendorClockWrite("HEM-7380T1-EOSL",ff(68),fine,true,1);
+        VendorClockWrite x7=new VendorClockWrite("HEM-7380T1-EOSL",withClock("HEM-7380T1-EOSL",TARGET.minusDays(3)),fine,true,1);
         x7.authorize();
         check(x7.allowsChunk(0,x7.frame()) && x7.accept(0,closed("0881c000801000")),"acknowledged right after the permit");
     }
@@ -245,6 +245,30 @@ public final class VendorClockWriteTest {
         try { new VendorClockWrite("HEM-7156T",corrupt,TARGET,false,4); }
         catch(IllegalArgumentException e) { unreadable="monitor settings unreadable".equals(e.getMessage()); }
         check(unreadable,"invalid checksum and not erased");
+        // An erased block 3 is written only where Omron accepts one (the legacy 16-byte maps and HEM-6232T).
+        for(String id:new String[]{"HEM-7380T1-EOSL","HEM-7380T1-EBK","HEM-7530T","HEM-7600T"}) {
+            int length=ClockBlock.forIdentity(id).imageLength(), channels=id.startsWith("HEM-7380T1")?1:4;
+            boolean refused=false;
+            try { new VendorClockWrite(id,ff(length),TARGET,false,channels); }
+            catch(IllegalArgumentException e) { refused="monitor settings unreadable".equals(e.getMessage()); }
+            check(refused,"erased block refused: "+id);
+        }
+        for(String id:new String[]{"HEM-7150T","HEM-7155T","HEM-7156T","HEM-7342T","HEM-7361T","HEM-6232T"})
+            check(!new VendorClockWrite(id,ff(68),TARGET,false,4).writesNothing(),"erased block accepted: "+id);
+        // A target outside 2024..2050 is its own failure, not unreadable settings.
+        boolean range=false;
+        try { new VendorClockWrite("HEM-7156T",ff(68),LocalDateTime.of(2051,1,1,0,0,0),false,4); }
+        catch(VendorClockWrite.TargetOutOfRange e) { range=true; }
+        check(range,"target out of range has its own exception");
+        range=false;
+        try { new VendorClockWrite("HEM-7156T",ff(68),LocalDateTime.MAX,false,4); }
+        catch(VendorClockWrite.TargetOutOfRange e) { range=true; }
+        check(range,"overflowing target is out of range");
+        boolean notRange=true;
+        try { new VendorClockWrite("HEM-7156T",corrupt,TARGET,false,4); }
+        catch(VendorClockWrite.TargetOutOfRange e) { notRange=false; }
+        catch(IllegalArgumentException expected) { }
+        check(notRange,"unreadable settings are not a range failure");
         rejects(() -> new VendorClockWrite("HEM-7156T",ff(68),LocalDateTime.of(2050,12,31,23,59,59),false,4));
         new VendorClockWrite("HEM-7156T",ff(68),LocalDateTime.of(2050,12,31,23,59,58),false,4);
         rejects(() -> new VendorClockWrite("HEM-7156T",ff(68),LocalDateTime.of(2023,12,31,23,59,58),false,4));
