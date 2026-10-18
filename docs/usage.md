@@ -8,7 +8,7 @@ Enable Bluetooth and grant Nearby devices permissions on Android 12+. Android 8â
 
 ## Pairing and connecting
 
-In Devices, choose the model hint, put the cuff into the pairing mode described in its manual, scan and select it. **Pair** starts initial setup; **Connect** is the routine reconnect/read path. Selecting a model is a hint; the app still checks discovered capabilities and the actual model before X7 memory access.
+In Devices, choose the model hint, put the cuff into the pairing mode described in its manual, scan and select it. **Pair** starts initial setup; **Connect** is the routine reconnect/read path. Selecting a model is a hint; the app still checks discovered capabilities and the actual model before X7 memory access. Monitors that are already saved are left out of the scan results; reconnect them from their saved card. After **Forget**, a monitor appears again with its next advertisement.
 
 For the tested plain-WLP HEM-7380T1-EOSL, Pair replaces an existing Android bond and waits for fresh confirmation. If Android blocks removal, forget this cuff in Android Bluetooth settings and retry. After transport verification, the app reads and saves a settings/index backup. Choose user 1 or 2 **on the phone**, check the exact cuff label and confirm registration. The intended changes are the selected-user setting and phone clock. The backup and narrow write bounds are documented in [safety](safety.md#x7-profile-registration).
 

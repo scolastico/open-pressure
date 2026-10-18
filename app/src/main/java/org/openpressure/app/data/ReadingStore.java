@@ -360,6 +360,10 @@ public final class ReadingStore extends SQLiteOpenHelper {
             while(c.moveToNext()) rows.add(new String[]{c.getString(0),c.getString(1),c.getString(2),c.getString(3),c.getString(4)});
         } return rows;
     }
+    /** Whether {@code address} is a saved monitor; scan results omit those, their saved card offers Reconnect. */
+    public synchronized boolean isSaved(String address) {
+        try(Cursor c=getReadableDatabase().rawQuery("SELECT 1 FROM devices WHERE address=? LIMIT 1",new String[]{address})) { return c.moveToFirst(); }
+    }
     public synchronized void forget(String address) { getWritableDatabase().delete("devices","address=?",new String[]{address}); }
     public synchronized List<Reading> healthPending(int user,int limit) {
         if(user==0 || user>2 || user==Integer.MIN_VALUE || limit<1 || limit>500) throw new IllegalArgumentException("Select one user bank and a bounded batch");

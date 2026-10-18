@@ -393,10 +393,20 @@ public final class MonitorService extends Service {
                 return;
             }
         }
+        // Saved monitors are reconnected from their saved card. Checked per advertisement, so a
+        // monitor forgotten during the scan appears with its next advertisement.
+        if(store!=null && store.isSaved(d.address)) {
+            if(discovered.remove(d.address)!=null && !scanUpdatePending) { scanUpdatePending=true; handler.postDelayed(scanUpdate,500); }
+            return;
+        }
         Discovered previous=discovered.get(d.address);
         if(previous!=null && previous.name.equals(d.name) && previous.metadata.equals(d.metadata) && Arrays.equals(previous.manufacturerData,d.manufacturerData) && Math.abs(previous.rssi-d.rssi)<5) return;
         discovered.put(d.address,d);
         if(!scanUpdatePending) { scanUpdatePending=true; handler.postDelayed(scanUpdate,500); }
+    }
+    /** Saves the connected monitor; from then on only its saved card offers it, not the scan list. */
+    private void rememberMonitor(String model) {
+        store.remember(address,connectedName,model,user); discovered.remove(address);
     }
     public void connect(String target,String name,boolean pair) {
         connect(target,name,pair,false,null);
@@ -734,7 +744,7 @@ public final class MonitorService extends Service {
         if(vendorUnlock!=null) { vendorUnlock.close(); vendorUnlock=null; }
         // Vendor clocks change only through the explicit Sync clock session, never a Current Time write.
         ready=true; canHistory=true; canTime=false; canDump=false; hasUserControl=false;
-        store.remember(address,connectedName,verifiedModel,user);
+        rememberMonitor(verifiedModel);
         // Automatic imports keep the selection captured from the saved row when they started.
         if(!automaticConnection) importUsers=store.importUsers(address);
         // Do not finish a pairing-only transmission: some cuffs power down on the first END.
@@ -1017,7 +1027,7 @@ public final class MonitorService extends Service {
             beginWlpRead(X7MemoryIndex.SETTINGS_START,X7MemoryIndex.SETTINGS_BYTES);
             return;
         }
-        store.remember(address,connectedName,verifiedModel,user);
+        rememberMonitor(verifiedModel);
         if(!automaticConnection) importUsers=store.importUsers(address);
         state(profile==ProtocolProfile.X7_SECURE_WLP?"X7 authenticated for reads":"X7 read mode available",
                 (profile==ProtocolProfile.X7_SECURE_WLP?"The cuff confirmed application authentication. ":"Bluetooth transport is ready. ")+"On-device profile pairing has not been completed by this app. History and settings backup can be read without registering a profile. The cuff may show OK and switch off after the transfer ends; settings writes remain disabled.");
@@ -1107,7 +1117,7 @@ public final class MonitorService extends Service {
                     registrationWriting=false; registrationDone=true;
                     if(x7Registration!=null) x7Registration.cancel(); x7Registration=null;
                     if(registrationSettings!=null) Arrays.fill(registrationSettings,(byte)0); registrationSettings=null;
-                    store.remember(address,connectedName,verifiedModel,user);
+                    rememberMonitor(verifiedModel);
                     // The registered profile's bank is the one to import from now on.
                     store.setImportUsers(address,1<<(user-1)); importUsers=1<<(user-1);
                     state("User "+user+" registration acknowledged","The cuff accepted the selected-user settings, clock and session end. Follow any remaining cuff indication; it may show OK and turn off. Wake it and use Connect for a read-only history transfer. Physical behavior still needs verification.");
@@ -1511,7 +1521,7 @@ public final class MonitorService extends Service {
     }
     private void configureNext(List<BluetoothGattCharacteristic> list,int index) {
         if(index<list.size()) { subscribe(list.get(index),() -> configureNext(list,index+1)); return; }
-        ready=true; store.remember(address,connectedName,modelHint,user);
+        ready=true; rememberMonitor(modelHint);
         state("Connected",hasUserControl?"Authenticate user "+user+" to access that user's history.":"Ready for readings. Start a measurement on the monitor.");
         readInformation();
     }
@@ -1613,7 +1623,7 @@ public final class MonitorService extends Service {
                 if(next!=null) responseWrite(handshake,next,20000,"Secure pairing response timed out");
                 else {
                     byte[] key=secure.longTermKey(); try { keys.put(address,key); } finally { Arrays.fill(key,(byte)0); }
-                    store.remember(address,connectedName,modelHint,user); configure();
+                    rememberMonitor(modelHint); configure();
                 }
             } catch(Exception ex) { fail(ex.getMessage()); }
             return;
@@ -1627,7 +1637,7 @@ public final class MonitorService extends Service {
             if(bytes[2]!=1) { state("User access rejected","Monitor returned code "+(bytes[2]&255)+". Check user bank and consent code; register only in pairing mode."); return; }
             if(op==2) { authenticatedUser=pendingUser; state("User authenticated","User "+authenticatedUser+" · You can now read history."); }
             else state("User registered","User "+pendingUser+" registered. Authenticate this user to read history.");
-            store.remember(address,connectedName,modelHint,user); return;
+            rememberMonitor(modelHint); return;
         }
         store.packet(address,c.getUuid().toString(),bytes,"RX");
         if(c.getUuid().equals(Uuids.MEASUREMENT) && c.getService().getUuid().equals(Uuids.BP)) {
