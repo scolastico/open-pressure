@@ -4,14 +4,17 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-/** Populated BP slots from a fresh HEM-7380T1-EOSL settings/index read. */
+/** Populated BP slots from a fresh X7-family settings/index read, bound to the verified model's banks. */
 public final class X7MemoryIndex {
-    public static final int SETTINGS_START=0x10, SETTINGS_BYTES=68;
+    public static final int SETTINGS_START=X7Model.SETTINGS_START, SETTINGS_BYTES=X7Model.SETTINGS_BYTES;
+    private final X7Model model;
     private final int user1,user2;
 
-    private X7MemoryIndex(int user1,int user2) { this.user1=user1; this.user2=user2; }
+    private X7MemoryIndex(X7Model model,int user1,int user2) { this.model=model; this.user1=user1; this.user2=user2; }
 
-    public static X7MemoryIndex parse(byte[] settings) {
+    /** The model must be the one resolved from the verified Device Information identity. */
+    public static X7MemoryIndex parse(X7Model model,byte[] settings) {
+        if(model==null) throw new IllegalArgumentException("X7 index requires its verified model");
         if(settings==null || settings.length!=SETTINGS_BYTES)
             throw new IllegalArgumentException("X7 index requires exactly 68 fresh settings bytes");
         // The model skips checksum blocks 1 and 2. The original read path checks
@@ -19,27 +22,30 @@ public final class X7MemoryIndex {
         int checksum=0;
         for(int i=44;i<58;i++) checksum=(checksum+(settings[i]&255))&255;
         if(checksum!=(settings[58]&255)) throw new IllegalArgumentException("X7 settings checksum does not match");
-        return new X7MemoryIndex(populated(settings,0),populated(settings,2));
+        return new X7MemoryIndex(model,populated(model,settings,0),populated(model,settings,2));
     }
 
-    private static int populated(byte[] settings,int offset) {
+    private static int populated(X7Model model,byte[] settings,int offset) {
         int pointer=settings[offset]&255;
-        if(pointer>X7Record.RECORDS_PER_USER) throw new IllegalArgumentException("Invalid X7 history pointer");
+        if(pointer>model.recordsPerUser) throw new IllegalArgumentException("Invalid X7 history pointer");
         // Layout OF00000011111111: F is bit 14, pointer is the low byte.
         // With latest-position correction -1, a nonfull pointer is its record count.
-        return (settings[offset+1]&0x40)!=0?X7Record.RECORDS_PER_USER:pointer;
+        return (settings[offset+1]&0x40)!=0?model.recordsPerUser:pointer;
     }
 
+    /** The model whose banks this index addresses. */
+    public X7Model model() { return model; }
+
     public int count(int user) {
-        if(user<1 || user>2) throw new IllegalArgumentException("X7 user must be 1 or 2");
+        X7Model.requireUser(user);
         return user==1?user1:user2;
     }
 
     public List<Range> historyRanges() {
         List<Range> ranges=new ArrayList<>();
-        for(int user=1;user<=2;user++) {
+        for(int user=1;user<=X7Model.USERS;user++) {
             int count=count(user);
-            if(count>0) ranges.add(new Range(X7Record.START+(user-1)*X7Record.RECORDS_PER_USER*X7Record.RECORD_BYTES,count*X7Record.RECORD_BYTES,user));
+            if(count>0) ranges.add(new Range(model.bankStart(user),count*X7Model.RECORD_BYTES,user));
         }
         return Collections.unmodifiableList(ranges);
     }
@@ -58,7 +64,7 @@ public final class X7MemoryIndex {
     /** Populated slots of the selected users, with the same fallback as {@link #historyRanges(int)}. */
     public int selectedCount(int users) {
         int total=0;
-        for(Range range:historyRanges(users)) total+=range.length/X7Record.RECORD_BYTES;
+        for(Range range:historyRanges(users)) total+=range.length/X7Model.RECORD_BYTES;
         return total;
     }
 

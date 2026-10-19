@@ -61,6 +61,16 @@ final class X7TestPeer {
     final byte[] memory=new byte[0x10000];
     WriteReply addressedReply=WriteReply.ACK;
     String modelName="HEM-7380T1-EOSL";
+    /** The Bluetooth name the session was started with; a catalog-style name carries a model ID. */
+    String advertisedName="Synthetic X7";
+    /** Status codes for the next descriptor writes, in order; success once empty. */
+    final Deque<Integer> descriptorResults=new ArrayDeque<>();
+    final List<BluetoothGattDescriptor> descriptorWrites=new ArrayList<>();
+    /** Status codes for the next Device Information model reads, in order; success once empty. */
+    final Deque<Integer> modelReadResults=new ArrayDeque<>();
+    int modelReads;
+    /** Completion status of each characteristic write as sent on the air; a failed write gets no reply. */
+    java.util.function.ToIntFunction<byte[]> writeStatus=value -> BluetoothGatt.GATT_SUCCESS;
     DeviceReport report;
 
     X7TestPeer() throws Exception {
@@ -92,20 +102,27 @@ final class X7TestPeer {
         when(gatt.readCharacteristic(any())).thenAnswer(invocation -> {
             BluetoothGattCharacteristic c=invocation.getArgument(0);
             byte[] value=c==model?modelName.getBytes(StandardCharsets.UTF_8):new byte[0];
-            peer.add(() -> callback.onCharacteristicRead(gatt,c,value,BluetoothGatt.GATT_SUCCESS));
+            Integer result=c==model?modelReadResults.poll():null;
+            if(c==model) modelReads++;
+            int status=result==null?BluetoothGatt.GATT_SUCCESS:result;
+            peer.add(() -> callback.onCharacteristicRead(gatt,c,status==BluetoothGatt.GATT_SUCCESS?value:new byte[0],status));
             return true;
         });
         when(gatt.writeDescriptor(any(BluetoothGattDescriptor.class),any(byte[].class))).thenAnswer(invocation -> {
             BluetoothGattDescriptor d=invocation.getArgument(0);
-            peer.add(() -> callback.onDescriptorWrite(gatt,d,BluetoothGatt.GATT_SUCCESS));
+            descriptorWrites.add(d);
+            Integer result=descriptorResults.poll();
+            int status=result==null?BluetoothGatt.GATT_SUCCESS:result;
+            peer.add(() -> callback.onDescriptorWrite(gatt,d,status));
             return BluetoothStatusCodes.SUCCESS;
         });
         when(gatt.writeCharacteristic(any(BluetoothGattCharacteristic.class),any(byte[].class),anyInt())).thenAnswer(invocation -> {
             BluetoothGattCharacteristic c=invocation.getArgument(0);
             byte[] value=((byte[])invocation.getArgument(1)).clone();
             writes.add(new Write(c,value));
-            peer.add(() -> callback.onCharacteristicWrite(gatt,c,BluetoothGatt.GATT_SUCCESS));
-            answer(c,value);
+            int status=writeStatus.applyAsInt(value);
+            peer.add(() -> callback.onCharacteristicWrite(gatt,c,status));
+            if(status==BluetoothGatt.GATT_SUCCESS) answer(c,value);
             return BluetoothStatusCodes.SUCCESS;
         });
         System.arraycopy(SETTINGS,0,memory,0x10,SETTINGS.length);
@@ -148,6 +165,15 @@ final class X7TestPeer {
         return null;
     }
     void notify(BluetoothGattCharacteristic c,byte[] value) { peer.add(() -> callback.onCharacteristicChanged(gatt,c,value)); }
+    /** Android's bond state changes to {@code state}; the broadcast reaches the service's bond receiver. */
+    void bond(int state,int previous) throws Exception {
+        when(device.getBondState()).thenReturn(state);
+        android.content.Intent intent=new android.content.Intent(BluetoothDevice.ACTION_BOND_STATE_CHANGED);
+        intent.putExtra(BluetoothDevice.EXTRA_DEVICE,device);
+        intent.putExtra(BluetoothDevice.EXTRA_BOND_STATE,state);
+        intent.putExtra(BluetoothDevice.EXTRA_PREVIOUS_BOND_STATE,previous);
+        ((android.content.BroadcastReceiver)get("bondReceiver")).onReceive(monitor,intent);
+    }
 
     /** A user-started Pair that already completed its fresh Android bond, from the model read on. */
     void pair(String name,byte[] manufacturer) throws Exception { start(name,manufacturer,true); }
@@ -159,7 +185,7 @@ final class X7TestPeer {
     void prepare(String name,byte[] manufacturer,boolean pair) throws Exception {
         modelName=name; established=false; sessionKey=null; peerSent=0;
         set("gatt",gatt);
-        monitor.address=ADDRESS; monitor.connectedName="Synthetic X7";
+        monitor.address=ADDRESS; monitor.connectedName=advertisedName;
         set("pairingRequested",pair); set("x7FreshBondEstablished",pair); set("automaticConnection",false);
         set("negotiatedMtu",247); set("connectionManufacturer",manufacturer==null?null:manufacturer.clone());
         monitor.profile=org.openpressure.protocol.ProtocolProfile.LEGACY_WLP;

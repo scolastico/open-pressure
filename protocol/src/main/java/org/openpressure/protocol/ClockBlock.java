@@ -16,7 +16,7 @@ public final class ClockBlock {
     public final boolean swapped;
     /**
      * Whether an erased (all-FF) block may be written. Omron's code and OpenPressure's index and
-     * registration paths refuse a block 3 with a bad checksum on HEM-7380T1-EOSL/EBK, HEM-7530T and
+     * registration paths refuse a block 3 with a bad checksum on HEM-7380T1-EOSL/EBK, HEM-7196T1-FLE/FLEO, HEM-7530T and
      * HEM-7600T, so only a checksum-valid block is written there.
      */
     public final boolean erasedAllowed;
@@ -34,7 +34,9 @@ public final class ClockBlock {
             // 16-byte legacy maps share the X7 block-3 layout: bytes 44..59, clock 52..57, checksum 58.
             case "HEM-7150T": case "HEM-7155T": case "HEM-7156T": case "HEM-7342T": case "HEM-7361T":
                 return new ClockBlock(0x80,44,16,52,58,false,true,68);
-            case "HEM-7380T1-EOSL": case "HEM-7380T1-EBK": return new ClockBlock(0x80,44,16,52,58,false,false,68);
+            // Omron's HEM-7196T1 configurations share the X7 settings image, block 3 and staging address.
+            case "HEM-7380T1-EOSL": case "HEM-7380T1-EBK": case "HEM-7196T1-FLE": case "HEM-7196T1-FLEO":
+                return new ClockBlock(0x80,44,16,52,58,false,false,68);
             case "HEM-6232T": return new ClockBlock(0x2D0,44,16,52,58,true,true,68);
             case "HEM-7530T": return new ClockBlock(0x2D0,44,16,52,58,true,false,68);
             case "HEM-7600T": return new ClockBlock(0x29A,20,10,22,28,true,false,38);

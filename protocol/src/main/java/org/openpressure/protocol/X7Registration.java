@@ -9,7 +9,8 @@ import java.util.Arrays;
  * The caller must persist backup() and obtain the user's selection before
  * authorize(), and send the existing WLP END only after complete().
  * This class cannot authorize any other memory range or construct END.
- * The plan is bound to one exact X7 identity (HEM-7380T1-EOSL or HEM-7380T1-EBK) and carries the
+ * The plan is bound to one exact X7-family identity with a registration row in {@link WriteAspectIndex}
+ * (HEM-7380T1-EOSL, HEM-7380T1-EBK, HEM-7196T1-FLE or HEM-7196T1-FLEO) and carries the
  * write-aspect override read when the user confirmed it; the GATT boundary checks both through
  * {@link DeviceWritePolicy#validateX7Registration} before any frame passes.
  */
@@ -27,13 +28,15 @@ public final class X7Registration {
     public X7Registration(String model,byte[] preimage,int user,LocalDateTime time) { this(model,preimage,user,time,false); }
 
     /**
-     * @param model the verified model string; it must resolve to HEM-7380T1-EOSL or HEM-7380T1-EBK
+     * @param model the verified model string; it must resolve to HEM-7380T1-EOSL, HEM-7380T1-EBK, HEM-7196T1-FLE or
+     *     HEM-7196T1-FLEO, whose Omron configurations share the settings write layout
      * @param override whether this request explicitly allows an untested registration (developer option)
      */
     public X7Registration(String model,byte[] preimage,int user,LocalDateTime time,boolean override) {
         String resolved=WriteAspectIndex.resolve(model);
-        if(!"HEM-7380T1-EOSL".equals(resolved) && !"HEM-7380T1-EBK".equals(resolved))
-            throw new IllegalArgumentException("Registration requires an exact X7 identity (HEM-7380T1-EOSL or HEM-7380T1-EBK)");
+        X7Model map=X7Model.identify(resolved);
+        if(map==null || !map.identity.equals(resolved) || map==X7Model.HEM_7380T1)
+            throw new IllegalArgumentException("Registration requires an exact X7-family identity (HEM-7380T1-EOSL, HEM-7380T1-EBK, HEM-7196T1-FLE or HEM-7196T1-FLEO)");
         if(user<1 || user>2) throw new IllegalArgumentException("Select X7 user 1 or 2");
         if(time==null || time.getYear()<2024 || time.getYear()>2050)
             throw new IllegalArgumentException("X7 registration time must be in 2024–2050");
@@ -44,7 +47,7 @@ public final class X7Registration {
         this.identity=resolved; this.override=override; this.user=user;
         if(preimage==null) throw new IllegalArgumentException("X7 registration requires a fresh settings backup");
         backup=preimage.clone();
-        X7MemoryIndex.parse(backup);
+        X7MemoryIndex.parse(map,backup);
         updated=backup.clone();
         // Original p4 adds 0024 for only the selected user and 100e for now+1 s.
         // The model's write map places those fields in settings block 3.

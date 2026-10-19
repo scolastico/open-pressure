@@ -35,7 +35,7 @@ public final class VendorMemoryModelTest {
         check(model("HEM-7530T-Z").id.equals("HEM-7530T"),"documented Complete regional identity");
         check(model("HEM-7530T_E3").id.equals("HEM-7530T"),"documented Complete underscore identity");
         check(model(" HEM-7600T\u0000").id.equals("HEM-7600T"),"DIS padding removed");
-        for(String id:new String[]{null,"","BP5360","Omron Evolv","HEM-7380T1","HEM-7196T","HEM-7155TUNKNOWN","Other HEM-7155T","HEM-7155T-UNKNOWN","HEM-7377T1-ZAZ-extra","HEM-7600T\u0000ignored"})
+        for(String id:new String[]{null,"","BP5360","Omron Evolv","HEM-7380T1","HEM-7196T","HEM-7196T1","HEM-7196T1-FLE","HEM-7196T1-FLEO","M4 Connect AFib","HEM-7155TUNKNOWN","Other HEM-7155T","HEM-7155T-UNKNOWN","HEM-7377T1-ZAZ-extra","HEM-7600T\u0000ignored"})
             check(VendorMemoryModel.identify(id)==null,"unverified identity must not select a memory map: "+id);
     }
 

@@ -16,6 +16,7 @@ import org.openpressure.protocol.WlpReadSession;
 import org.openpressure.protocol.WriteAspectIndex;
 import org.openpressure.protocol.ProtocolProfile;
 import org.openpressure.protocol.X7MemoryIndex;
+import org.openpressure.protocol.X7Model;
 import org.openpressure.protocol.X7Record;
 import org.openpressure.protocol.X7Registration;
 import org.openpressure.protocol.X7Security;
@@ -40,7 +41,8 @@ public final class ProtocolReplay {
 
     public static Outcome run(Fixture f) {
         FixtureCursor cursor=new FixtureCursor(f,Fixture.Client.OURS_PROTOCOL);
-        if(X7Record.supportsModel(f.dis.get("model"))) return runX7(f,cursor);
+        X7Model x7=X7Model.identify(f.dis.get("model"));
+        if(x7!=null) return runX7(f,x7,cursor);
         VendorMemoryModel model=VendorMemoryModel.identify(f.dis.get("model"));
         if(model==null) return Outcome.rejected(0,"model "+f.dis.get("model")+" not accepted");
         if(f.key==null) return Outcome.rejected(0,"fixture has no key");
@@ -170,7 +172,7 @@ public final class ProtocolReplay {
      * selected users; Pair reads the image and, when the write-aspect index permits registration, runs the fixture
      * user's profile registration (two staged writes) before END. The encrypted route is not replayed here.
      */
-    private static Outcome runX7(Fixture f,FixtureCursor cursor) {
+    private static Outcome runX7(Fixture f,X7Model model,FixtureCursor cursor) {
         for(String alias:new String[]{"tx","rx","sys"})
             if(!f.aliases.containsKey(alias) || f.uuids(alias).size()!=1) return Outcome.rejected(0,"an X7 fixture needs single-characteristic tx, rx and sys aliases");
         UUID tx=f.uuids("tx").get(0),rx=f.uuids("rx").get(0),sys=f.uuids("sys").get(0);
@@ -217,7 +219,7 @@ public final class ProtocolReplay {
                         }
                     } else {
                         // Like MonitorService, an untrusted X7 index fails the import instead of sweeping.
-                        ranges.addAll(X7MemoryIndex.parse(session.data()).historyRanges(f.importUsers));
+                        ranges.addAll(X7MemoryIndex.parse(model,session.data()).historyRanges(f.importUsers));
                         pending.addAll(ranges);
                     }
                 }
@@ -227,7 +229,7 @@ public final class ProtocolReplay {
                 if((diverged=cursor.onWrite(tx,command))!=null) return diverged;
                 if((diverged=deliver(cursor,rx,session::accept))!=null) return diverged;
             }
-            return cursor.finish(decodeX7(ranges,session.data()));
+            return cursor.finish(decodeX7(model,ranges,session.data()));
         } catch(IllegalArgumentException refused) {
             return Outcome.rejected(cursor.position(),"OpenPressure refused: "+refused.getMessage());
         }
@@ -243,13 +245,13 @@ public final class ProtocolReplay {
         return null;
     }
     /** X7 records after the 68-byte image, in range order; malformed slots are rejected slots, as in MonitorService. */
-    private static List<Fixture.Reading> decodeX7(List<X7MemoryIndex.Range> ranges,byte[] data) {
+    private static List<Fixture.Reading> decodeX7(X7Model model,List<X7MemoryIndex.Range> ranges,byte[] data) {
         List<Fixture.Reading> readings=new ArrayList<>();
         int offset=X7MemoryIndex.SETTINGS_BYTES;
         for(X7MemoryIndex.Range range:ranges) {
             for(int i=0;i+X7Record.RECORD_BYTES<=range.length;i+=X7Record.RECORD_BYTES) {
                 X7Record record;
-                try { record=X7Record.parse(java.util.Arrays.copyOfRange(data,offset+i,offset+i+X7Record.RECORD_BYTES),range.user); }
+                try { record=X7Record.parse(java.util.Arrays.copyOfRange(data,offset+i,offset+i+X7Record.RECORD_BYTES),range.user,model); }
                 catch(IllegalArgumentException rejected) { continue; }
                 if(record!=null) readings.add(new Fixture.Reading(range.user,(int)record.measurement.systolic,(int)record.measurement.diastolic,record.measurement.pulse.intValue(),record.measurement.time));
             }

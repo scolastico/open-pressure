@@ -19,6 +19,13 @@ public final class DeviceReportTest {
     private static void onlyTheTestedIdentityIsVerified() {
         check(DeviceReport.verifiedModel("HEM-7380T1-EOSL\u0000") && DeviceReport.verifiedModel("x7 smart afib"),"tested identity and its marketing name are verified");
         check(!DeviceReport.verifiedModel("HEM-7380T1-EBK") && !DeviceReport.verifiedModel("HEM-7380T1"),"same-map variants are not hardware-verified");
+        for(String untested:new String[]{"HEM-7196T1-FLE","HEM-7196T1-FLEO","M4 Connect AFib","X4 Connect AFib"}) {
+            check(!DeviceReport.verifiedModel(untested),"HEM-7196T1 is never the tested model: "+untested);
+            DeviceReport offered=new DeviceReport("Connect","1.3.0",35,"Synthetic Phone");
+            offered.service("0000fe4a-0000-1000-8000-00805f9b34fb",Arrays.asList());
+            offered.model(untested);
+            check(offered.useful(),"a HEM-7196T1 session offers a report: "+untested);
+        }
         check(!DeviceReport.verifiedModel("HEM-7155T") && !DeviceReport.verifiedModel(null),"other and unknown monitors are not verified");
     }
     private static void identifyingFieldsAreMasked() {

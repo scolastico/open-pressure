@@ -78,6 +78,7 @@ public final class ProtocolTest {
         testX7FreshBond();
         testX7MemoryIndex();
         checks+=X7RegistrationTest.run();
+        checks+=X7ModelTest.run();
         checks+=VendorMemoryModelTest.run();
         checks+=VendorMemoryIndexTest.run();
         checks+=VendorWlpSessionTest.run();
@@ -120,6 +121,19 @@ public final class ProtocolTest {
         check(events.equals(List.of("optional failed","required started")),"optional metadata failure must not discard required writes");
         queue.complete("write:required",0);
         check(events.contains("required done"),"connection remains usable after optional read failure");
+        events.clear();
+        int[] starts={0};
+        queue.add("descriptor:held",() -> { starts[0]++; return true; },() -> events.add("held done"));
+        queue.add("write:after",() -> { events.add("after started"); return true; },() -> events.add("after done"));
+        check(!queue.restart("write:after") && starts[0]==1,"only the active operation can restart");
+        check(queue.restart("descriptor:held") && starts[0]==2 && queue.busy() && !events.contains("after started"),"a held operation restarts in place and keeps the queue");
+        queue.complete("descriptor:held",0);
+        check(events.equals(List.of("held done","after started")),"the restarted operation completes once and releases the next");
+        queue.complete("write:after",0);
+        check(!queue.restart("write:after") && !queue.busy(),"nothing to restart when idle");
+        events.clear();
+        queue.add("descriptor:rejected",() -> starts[0]++==2,() -> events.add("bad"));
+        check(queue.restart("descriptor:rejected") && !queue.busy() && events.size()==1 && events.get(0).startsWith("Android rejected"),"a rejected restart fails like a rejected start");
         events.clear();
         queue.add("read:required",() -> true,() -> events.add("bad"));
         queue.add("write:after-timeout",() -> { events.add("bad"); return true; },() -> events.add("bad"));
@@ -216,7 +230,7 @@ public final class ProtocolTest {
     private static void testX7MemoryIndex() {
         // Captured index and checksum block; personal-profile bytes 24..43 are cleared.
         byte[] captured=hex("63800b0000800b00780100000b0000008380010101800b800000000000000000000000000000000000000000d6a40100000000001a0a1010172f05000000000000000000");
-        X7MemoryIndex index=X7MemoryIndex.parse(captured);
+        X7MemoryIndex index=X7MemoryIndex.parse(X7Model.HEM_7380T1_EOSL,captured);
         check(index.count(1)==99 && index.count(2)==11,"captured next pointers select only populated records");
         List<X7MemoryIndex.Range> ranges=index.historyRanges();
         check(ranges.size()==2,"both populated banks have ranges");
@@ -233,26 +247,26 @@ public final class ProtocolTest {
             byte[] settings=new byte[68]; settings[(user-1)*2]=(byte)pointer;
             final int selected=user;
             if(pointer<=100) {
-                X7MemoryIndex parsed=X7MemoryIndex.parse(settings);
+                X7MemoryIndex parsed=X7MemoryIndex.parse(X7Model.HEM_7380T1_EOSL,settings);
                 check(parsed.count(selected)==pointer,"nonfull count applies original minus-one latest-position correction");
                 check(parsed.historyRanges().size()==(pointer==0?0:1),"empty banks never produce a memory request");
                 settings[(user-1)*2+1]=0x40;
-                check(X7MemoryIndex.parse(settings).count(selected)==100,"full flag exposes all one hundred slots including pointer zero");
-            } else rejects(() -> X7MemoryIndex.parse(settings));
+                check(X7MemoryIndex.parse(X7Model.HEM_7380T1_EOSL,settings).count(selected)==100,"full flag exposes all one hundred slots including pointer zero");
+            } else rejects(() -> X7MemoryIndex.parse(X7Model.HEM_7380T1_EOSL,settings));
         }
         byte[] parityFlag=new byte[68]; parityFlag[1]=(byte)0x80;
-        check(X7MemoryIndex.parse(parityFlag).count(1)==0,"parity bit must not be mistaken for the full flag");
+        check(X7MemoryIndex.parse(X7Model.HEM_7380T1_EOSL,parityFlag).count(1)==0,"parity bit must not be mistaken for the full flag");
         byte[] valid=hex("63800b0000800b00780100000b0000008380010101800b800000000000000000000000000000000000000000d6a40100000000001a0a1010172f05000000000000000000");
         for(int position:new int[]{44,57,58}) {
             byte[] corrupt=valid.clone(); corrupt[position]^=1;
-            rejects(() -> X7MemoryIndex.parse(corrupt));
+            rejects(() -> X7MemoryIndex.parse(X7Model.HEM_7380T1_EOSL,corrupt));
         }
         byte[] ignoredChecksum=valid.clone(); ignoredChecksum[24]^=1; ignoredChecksum[34]^=1; ignoredChecksum[59]=(byte)0xff;
-        check(X7MemoryIndex.parse(ignoredChecksum).count(2)==11,"original model skips checksum blocks one and two and ignores the second checksum byte");
-        rejects(() -> X7MemoryIndex.parse(null));
+        check(X7MemoryIndex.parse(X7Model.HEM_7380T1_EOSL,ignoredChecksum).count(2)==11,"original model skips checksum blocks one and two and ignores the second checksum byte");
+        rejects(() -> X7MemoryIndex.parse(X7Model.HEM_7380T1_EOSL,null));
         for(int length=0;length<=69;length++) if(length!=68) {
             byte[] wrong=Arrays.copyOf(valid,length);
-            rejects(() -> X7MemoryIndex.parse(wrong));
+            rejects(() -> X7MemoryIndex.parse(X7Model.HEM_7380T1_EOSL,wrong));
         }
     }
     private static void testWlpAppendedRanges() {
@@ -612,27 +626,27 @@ public final class ProtocolTest {
         check(!X7Record.supportsModel("X7 Smart") && !X7Record.supportsModel("X7 Smart Afib Unknown"),"only the confirmed marketing alias selects X7 map");
         check(!X7Record.supportsModel("HEM-7361T") && !X7Record.supportsModel("Other HEM-7380T1"),"hints cannot select a model-specific memory map");
         byte[] raw=hex("5f50481a0e2aad070000341200000000");
-        X7Record r=X7Record.parse(raw,2);
+        X7Record r=X7Record.parse(raw,2,X7Model.HEM_7380T1_EOSL);
         near(120,r.measurement.systolic); near(80,r.measurement.diastolic); near(72,r.measurement.pulse);
         check(r.sequence==0x1234 && r.measurement.userId==2,"record sequence and bank preserved");
         check(r.measurement.time.equals(LocalDateTime.of(2026,10,16,14,30,45)),"original APK little-endian packed timestamp");
         check(Double.isNaN(r.measurement.meanArterialPressure),"MAP is absent, not calculated");
         byte[] empty=new byte[16]; Arrays.fill(empty,(byte)255);
-        check(X7Record.parse(empty,1)==null,"erased slot skipped");
-        rejects(() -> X7Record.parse(new byte[15],1));
-        rejects(() -> X7Record.parse(raw,0));
-        rejects(() -> X7Record.parse(new byte[16],1));
+        check(X7Record.parse(empty,1,X7Model.HEM_7380T1_EOSL)==null,"erased slot skipped");
+        rejects(() -> X7Record.parse(new byte[15],1,X7Model.HEM_7380T1_EOSL));
+        rejects(() -> X7Record.parse(raw,0,X7Model.HEM_7380T1_EOSL));
+        rejects(() -> X7Record.parse(new byte[16],1,X7Model.HEM_7380T1_EOSL));
         byte[] noTime=raw.clone(); noTime[6]=(byte)0xbf;
-        check(X7Record.parse(noTime,1).measurement.time==null,"invalid63seconds retained as unknown without clamping");
+        check(X7Record.parse(noTime,1,X7Model.HEM_7380T1_EOSL).measurement.time==null,"invalid63seconds retained as unknown without clamping");
         byte[] year=raw.clone(); year[3]=100;
-        check(X7Record.parse(year,1).measurement.time.getYear()==2100,"year uses full original byte, not six bits");
+        check(X7Record.parse(year,1,X7Model.HEM_7380T1_EOSL).measurement.time.getYear()==2100,"year uses full original byte, not six bits");
         byte[] flagged=raw.clone(); flagged[5]|=(byte)0xc0; flagged[7]|=0x20;
-        BloodPressure flags=X7Record.parse(flagged,1).measurement;
+        BloodPressure flags=X7Record.parse(flagged,1,X7Model.HEM_7380T1_EOSL).measurement;
         check(flags.status==5 && Boolean.TRUE.equals(flags.atrialFibrillation),"independent movement, IHB and actual AFib bit from original map");
         check(Boolean.FALSE.equals(r.measurement.atrialFibrillation),"clear AFib bit retained without inferring it from IHB");
         check(BloodPressure.parse(hex("00780050005d00")).atrialFibrillation==null,"standard SIG readings cannot infer AFib");
         byte[] ihb=raw.clone(); ihb[5]|=0x40;
-        check(Boolean.FALSE.equals(X7Record.parse(ihb,1).measurement.atrialFibrillation),"IHB-only record does not assert AFib");
+        check(Boolean.FALSE.equals(X7Record.parse(ihb,1,X7Model.HEM_7380T1_EOSL).measurement.atrialFibrillation),"IHB-only record does not assert AFib");
     }
     private static java.util.UUID uuid(String shortUuid) { return java.util.UUID.fromString("0000"+shortUuid+"-0000-1000-8000-00805f9b34fb"); }
     private static void testHealthExport() {

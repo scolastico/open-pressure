@@ -7,6 +7,7 @@ import java.util.Locale;
 import java.util.Map;
 import org.openpressure.protocol.VendorMemoryModel;
 import org.openpressure.protocol.X7MemoryIndex;
+import org.openpressure.protocol.X7Model;
 import org.openpressure.protocol.X7Record;
 
 /**
@@ -81,11 +82,12 @@ public final class OmronConfig {
     }
     /** OpenPressure's X7 BP banks for an accepted identity: the ranges its index yields with every slot of both users populated. */
     public static List<X7MemoryIndex.Range> x7Banks(String acceptedName) {
-        if(!X7Record.supportsModel(acceptedName)) throw new IllegalArgumentException("not an accepted X7 identity: "+acceptedName);
+        X7Model model=X7Model.identify(acceptedName);
+        if(model==null) throw new IllegalArgumentException("not an accepted X7 identity: "+acceptedName);
         byte[] full=new byte[X7MemoryIndex.SETTINGS_BYTES];
         // Full flag (bit 14 of each user's pointer word); an all-zero block 3 carries a valid zero checksum.
         full[1]=0x40; full[3]=0x40;
-        return X7MemoryIndex.parse(full).historyRanges();
+        return X7MemoryIndex.parse(model,full).historyRanges();
     }
     /** Omron's BP areas (users 1 and 2) of a WLD configuration against OpenPressure's X7 banks. */
     public static String compareX7(String identifier,OmronConfig omron,String acceptedName) {

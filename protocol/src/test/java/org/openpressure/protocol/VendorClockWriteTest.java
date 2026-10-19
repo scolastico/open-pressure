@@ -246,8 +246,8 @@ public final class VendorClockWriteTest {
         catch(IllegalArgumentException e) { unreadable="monitor settings unreadable".equals(e.getMessage()); }
         check(unreadable,"invalid checksum and not erased");
         // An erased block 3 is written only where Omron accepts one (the legacy 16-byte maps and HEM-6232T).
-        for(String id:new String[]{"HEM-7380T1-EOSL","HEM-7380T1-EBK","HEM-7530T","HEM-7600T"}) {
-            int length=ClockBlock.forIdentity(id).imageLength(), channels=id.startsWith("HEM-7380T1")?1:4;
+        for(String id:new String[]{"HEM-7380T1-EOSL","HEM-7380T1-EBK","HEM-7196T1-FLE","HEM-7196T1-FLEO","HEM-7530T","HEM-7600T"}) {
+            int length=ClockBlock.forIdentity(id).imageLength(), channels=X7Model.identify(id)!=null?1:4;
             boolean refused=false;
             try { new VendorClockWrite(id,ff(length),TARGET,false,channels); }
             catch(IllegalArgumentException e) { refused="monitor settings unreadable".equals(e.getMessage()); }

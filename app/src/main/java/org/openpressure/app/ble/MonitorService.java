@@ -120,6 +120,8 @@ public final class MonitorService extends Service {
     private X7Transaction x7Transaction;
     private X7Authentication x7Authentication;
     private X7MemoryIndex x7HistoryIndex;
+    /** The verified X7-family map of this session; null until identifyX7 accepts the Device Information identity. */
+    private X7Model x7Model;
     private List<X7MemoryIndex.Range> x7HistoryRanges=Collections.emptyList();
     private int x7HistoryRange,x7HistoryRangeOffset;
     private long x7AuthenticationDeadline;
@@ -146,6 +148,10 @@ public final class MonitorService extends Service {
     private boolean scanUpdatePending;
     private final Runnable scanUpdate=() -> { scanUpdatePending=false; if(scanning) changed(); };
     private boolean pairingRequested,waitingBond;
+    /** Encrypted X7 route: the GATT operation held until Android's bond completes, and whether its one retry was used. */
+    private String secureBondKey;
+    private boolean secureBondRetried;
+    private Runnable secureBondTimeout;
     private int pendingUserOperation,pendingUser,minimumSequence;
     private Runnable operationTimeout,phaseTimeout;
     private long generation;
@@ -656,11 +662,12 @@ public final class MonitorService extends Service {
         if(x7Bonding!=null) x7Bonding.cancel();
         x7Bonding=null; x7FreshBondEstablished=false;
         if(dumpRunning && wlpRead!=null) saveDump(wlpRead.data(),false,"Disconnected before the complete read and end acknowledgement");
-        dumpRunning=false; wlpRead=null; if(wlpConnection!=null) wlpConnection.close(); wlpConnection=null; sessionFinished=false; x7Transaction=null; x7Authentication=null; x7HistoryIndex=null; x7HistoryRanges=Collections.emptyList(); connectionManufacturer=null; canDump=false; canHistory=false; canTime=false; hasUserControl=false;
+        dumpRunning=false; wlpRead=null; if(wlpConnection!=null) wlpConnection.close(); wlpConnection=null; sessionFinished=false; x7Transaction=null; x7Authentication=null; x7HistoryIndex=null; x7HistoryRanges=Collections.emptyList(); x7Model=null; connectionManufacturer=null; canDump=false; canHistory=false; canTime=false; hasUserControl=false;
         if(vendorUnlock!=null) vendorUnlock.close();
         vendorUnlock=null; vendorRead=null; vendorModel=null; vendorKeys=null; vendorPending.clear();
         clearVendorKeyCandidates(); vendorTx.clear(); vendorRx.clear(); vendorWaitingBond=false; vendorSessionEnded=false;
         vendorEndRequested=false;
+        clearSecureBondWait(); secureBondRetried=false;
         generation++; cancelPhase(); cancelOperationTimeout(); operations.clear(); stopManualScan();
         ready=false; historyRunning=false; waitingBond=false; pendingUserOperation=0; authenticatedUser=0;
         if(secure!=null) { secure.close(); secure=null; }
@@ -791,6 +798,18 @@ public final class MonitorService extends Service {
                     advanceFreshX7Bond(device,x7Bonding.changed(bondState(bond)));
                 return;
             }
+            if(secureBondKey!=null) {
+                if(bond!=device.getBondState()) return;
+                if(bond==BluetoothDevice.BOND_BONDED) {
+                    String key=secureBondKey; clearSecureBondWait();
+                    store.packet(address,"android-bond",new byte[0],"Android bond completed; retrying the held encrypted X7 operation once");
+                    state("Configuring X7…","Android pairing completed. Continuing the encrypted session.");
+                    operations.restart(key);
+                } else if(bond==BluetoothDevice.BOND_NONE && intent.getIntExtra(BluetoothDevice.EXTRA_PREVIOUS_BOND_STATE,-1)==BluetoothDevice.BOND_BONDING)
+                    fail("Bluetooth pairing was cancelled or rejected. Accept Android's pairing request, then reconnect.");
+                // Any other broadcast (for example a late NONE that never left NONE) keeps waiting.
+                return;
+            }
             if(vendorWaitingBond) {
                 if(bond!=device.getBondState()) return;
                 if(bond==BluetoothDevice.BOND_BONDED) {
@@ -820,10 +839,19 @@ public final class MonitorService extends Service {
         });
     }
     private void identifyX7() {
+        x7Model=X7Model.identify(verifiedModel);
+        if(x7Model==null) { fail("WLP model is not enabled: "+verifiedModel+". No memory commands were sent."); return; }
         wlpTx=characteristic(Uuids.VENDOR_ALIAS,Uuids.WLP_TX); wlpRx=characteristic(Uuids.VENDOR_ALIAS,Uuids.WLP_RX);
         handshake=characteristic(Uuids.VENDOR_ALIAS,Uuids.HANDSHAKE);
         if(wlpTx==null || (wlpTx.getProperties()&BluetoothGattCharacteristic.PROPERTY_WRITE_NO_RESPONSE)==0 || wlpRx==null || (wlpRx.getProperties()&BluetoothGattCharacteristic.PROPERTY_NOTIFY)==0 || handshake==null || (handshake.getProperties()&BluetoothGattCharacteristic.PROPERTY_WRITE_NO_RESPONSE)==0 || (handshake.getProperties()&BluetoothGattCharacteristic.PROPERTY_NOTIFY)==0) {
             fail("Unsupported X7 WLP layout. No memory commands were sent."); return;
+        }
+        // The advertisement only discovers; Device Information selects the map. A catalog model ID of another X7-family map
+        // in the name or the type 8/9 payload means the two disagree, so nothing is sent.
+        if(x7Model.contradictedBy(connectedName,connectionManufacturer)) {
+            X7Model named=X7Model.advertised(connectedName,connectionManufacturer);
+            store.packet(address,"protocol",new byte[0],"Advertised model contradicts Device Information "+verifiedModel+" · advertised "+(named==null?"unknown":named.identity));
+            fail("The monitor's advertisement names a different model than its Device Information ("+verifiedModel+"). No pairing or memory commands were sent."); return;
         }
         X7Security.Mode advertised=X7Security.fromManufacturerPayload(connectionManufacturer);
         boolean savedKey;
@@ -846,7 +874,7 @@ public final class MonitorService extends Service {
         boolean forceEncrypted=advertised==X7Security.Mode.PLAIN && !savedKey && pairingRequested && !automaticConnection
                 && experimentEnabled(DeveloperOptions.Experiment.FORCE_X7_ENCRYPTED);
         profile=advertised==X7Security.Mode.ENCRYPTED || savedKey || forceEncrypted?ProtocolProfile.X7_SECURE_WLP:ProtocolProfile.X7_WLP;
-        reportProtocol("HEM-7380T1");
+        reportProtocol(x7Model.mapName);
         store.packet(address,"protocol",new byte[0],"Verified model "+verifiedModel+" · "+profile+" · advertisement="+advertised+" · saved application key="+savedKey);
         if(forceEncrypted) {
             // No key material: the fresh application pairing below omits its bodies from diagnostics as usual.
@@ -1275,6 +1303,12 @@ public final class MonitorService extends Service {
         sendWlpCommand();
     }
     private void sendWlpCommand() { sendWlpCommand("X7 read response timed out; received data was retained"); }
+    /** History reads stay inside the verified model's banks; an index from another map can never widen them. */
+    private void appendX7HistoryRange(X7MemoryIndex.Range range) {
+        if(x7HistoryIndex.model()!=x7Model || !x7Model.containsReadRange(range.start,range.length))
+            throw new IllegalArgumentException("X7 history range outside the verified model's banks");
+        wlpRead.appendRange(range.start,range.length);
+    }
     private void sendWlpCommand(String timeout) {
         byte[] command=wlpRead.command();
         store.packet(address,Uuids.WLP_TX.toString(),command,"WLP TX · read/session control only");
@@ -1299,7 +1333,7 @@ public final class MonitorService extends Service {
             cancelPhase();
             byte[] bytes=wlpRead.data();
             if(registrationReading && wlpRead.rangeComplete()) {
-                X7MemoryIndex.parse(bytes);
+                X7MemoryIndex.parse(x7Model,bytes);
                 registrationSettings=bytes.clone();
                 saveRegistrationBackup(bytes);
                 return;
@@ -1309,13 +1343,13 @@ public final class MonitorService extends Service {
                 if(bytes.length>0 && bytes.length%512==0 && !wlpRead.complete()) saveDump(bytes,false,"Read in progress");
             } else if(historyRunning) {
                 if(x7HistoryIndex==null && wlpRead.rangeComplete()) {
-                    x7HistoryIndex=X7MemoryIndex.parse(bytes);
+                    x7HistoryIndex=X7MemoryIndex.parse(x7Model,bytes);
                     x7HistoryRanges=x7HistoryIndex.historyRanges(importUsers); x7HistoryRange=0;
                     wlpParsed=X7MemoryIndex.SETTINGS_BYTES; x7HistoryRangeOffset=wlpParsed;
                     storedCount=x7HistoryIndex.selectedCount(importUsers);
                     store.packet(address,"x7-history-index",new byte[0],"Populated BP slots: user 1="+x7HistoryIndex.count(1)+", user 2="+x7HistoryIndex.count(2)+"; importing users "+importUsers+"; unread counters retained");
                     if(!x7HistoryRanges.isEmpty()) {
-                        X7MemoryIndex.Range range=x7HistoryRanges.get(0); wlpRead.appendRange(range.start,range.length);
+                        X7MemoryIndex.Range range=x7HistoryRanges.get(0); appendX7HistoryRange(range);
                     }
                 }
                 while(x7HistoryIndex!=null && !x7HistoryRanges.isEmpty() && wlpParsed+X7Record.RECORD_BYTES<=bytes.length) {
@@ -1323,7 +1357,7 @@ public final class MonitorService extends Service {
                     int slot=(wlpParsed-x7HistoryRangeOffset)/X7Record.RECORD_BYTES, bank=range.user;
                     byte[] raw=Arrays.copyOfRange(bytes,wlpParsed,wlpParsed+X7Record.RECORD_BYTES); wlpParsed+=X7Record.RECORD_BYTES;
                     try {
-                        X7Record record=X7Record.parse(raw,bank);
+                        X7Record record=X7Record.parse(raw,bank,x7HistoryIndex.model());
                         if(record!=null) {
                             receivedInTransfer++;
                             if(acceptReading(record.measurement,raw,"wlp-history",bank,automaticConnection)) { addedInTransfer++; readingNotifications.readingInserted(); }
@@ -1332,7 +1366,7 @@ public final class MonitorService extends Service {
                 }
                 if(x7HistoryIndex!=null && wlpRead.rangeComplete() && x7HistoryRange+1<x7HistoryRanges.size()) {
                     x7HistoryRangeOffset=bytes.length; x7HistoryRange++;
-                    X7MemoryIndex.Range range=x7HistoryRanges.get(x7HistoryRange); wlpRead.appendRange(range.start,range.length);
+                    X7MemoryIndex.Range range=x7HistoryRanges.get(x7HistoryRange); appendX7HistoryRange(range);
                 }
             }
             if(wlpRead.complete()) {
@@ -2096,6 +2130,46 @@ public final class MonitorService extends Service {
             () -> { cancelOperationTimeout(); success.accept(readResult); },
             error -> { cancelOperationTimeout(); information+="Optional read unavailable: "+c.getUuid()+"\n"; changed(); });
     }
+    /**
+     * Encrypted X7 route only: an operation that failed for missing link security (insufficient authentication or
+     * encryption) while the monitor is not bonded stays the active operation until Android's own bond completes, then
+     * runs once more; createBond() is never called, mirroring Omron's library. This covers the Device Information
+     * model read when the advertisement (type 8/9) or a saved application key already selects the encrypted route,
+     * and every operation of that route until its application session is established. Afterwards nothing is held:
+     * a restart would encrypt the frame again under the next counter. A second such failure, a bonded monitor, a
+     * cancelled bond or a timeout ends the session through the normal failure path.
+     */
+    private boolean holdForSecureBond(String operation,int result) {
+        if(result!=BluetoothGatt.GATT_INSUFFICIENT_AUTHENTICATION && result!=BluetoothGatt.GATT_INSUFFICIENT_ENCRYPTION) return false;
+        if(automaticConnection || secureBondRetried || secureBondKey!=null || gatt==null || secure!=null && secure.established()) return false;
+        if(profile!=ProtocolProfile.X7_SECURE_WLP && !(profile==ProtocolProfile.LEGACY_WLP && verifiedModel.isEmpty() && operation.equals(disModelReadKey()) && secureRouteExpected())) return false;
+        if(!operation.equals(operations.activeKey()) || gatt.getDevice().getBondState()==BluetoothDevice.BOND_BONDED) return false;
+        secureBondRetried=true; secureBondKey=operation; cancelOperationTimeout();
+        store.packet(address,"android-bond",new byte[0],"Encrypted X7 operation needs link security (status "+result+"); waiting for Android's bond without createBond");
+        state("Pair on your phone","Confirm Android's Bluetooth pairing request for this monitor. The interrupted step is retried once after pairing completes.");
+        long session=generation;
+        secureBondTimeout=() -> { if(session==generation && secureBondKey!=null) fail("Android Bluetooth pairing did not complete, so the encrypted session stopped. Accept Android's pairing request, then reconnect."); };
+        handler.postDelayed(secureBondTimeout,60000);
+        return true;
+    }
+    /** The pending Device Information model read of identifyWlp, or null without that characteristic. */
+    private String disModelReadKey() {
+        BluetoothGattCharacteristic model=characteristic(Uuids.sig(0x180a),Uuids.sig(0x2a24));
+        return model==null?null:"read:"+key(model);
+    }
+    /** Before the model is known: an encrypted advertisement or a saved application key selects the encrypted X7 route. */
+    private boolean secureRouteExpected() {
+        if(X7Security.fromManufacturerPayload(connectionManufacturer)==X7Security.Mode.ENCRYPTED) return true;
+        try {
+            byte[] ltk=keys.get(address);
+            if(ltk==null) return false;
+            Arrays.fill(ltk,(byte)0); return true;
+        } catch(Exception unreadable) { return false; }
+    }
+    private void clearSecureBondWait() {
+        if(secureBondTimeout!=null) handler.removeCallbacks(secureBondTimeout);
+        secureBondTimeout=null; secureBondKey=null;
+    }
     private void armOperation(String key,long session) {
         cancelOperationTimeout(); operationTimeout=() -> { if(session==generation) operations.timeout(key); };
         handler.postDelayed(operationTimeout,15000);
@@ -2121,18 +2195,26 @@ public final class MonitorService extends Service {
         @Override public void onMtuChanged(BluetoothGatt source,int mtu,int result) { current(source,() -> { if(result==0) negotiatedMtu=mtu; if(report!=null && !automaticConnection) report.mtu(negotiatedMtu); store.packet(address,"mtu",new byte[0],"ATT MTU="+negotiatedMtu+" · callback status="+result); discover(source); }); }
         private void discover(BluetoothGatt source) { if(!source.discoverServices()) fail("Android rejected service discovery"); else armPhase(20000,"Service discovery timed out"); }
         @Override public void onServicesDiscovered(BluetoothGatt source,int result) { current(source,() -> { if(result==0) discoverProfile(); else fail("Service discovery failed ("+result+")"); }); }
-        @Override public void onDescriptorWrite(BluetoothGatt source,BluetoothGattDescriptor d,int result) { current(source,() -> operations.complete("descriptor:"+key(d.getCharacteristic()),result)); }
+        @Override public void onDescriptorWrite(BluetoothGatt source,BluetoothGattDescriptor d,int result) { current(source,() -> {
+            String operation="descriptor:"+key(d.getCharacteristic());
+            if(!holdForSecureBond(operation,result)) operations.complete(operation,result);
+        }); }
         @Override public void onCharacteristicWrite(BluetoothGatt source,BluetoothGattCharacteristic c,int result) { current(source,() -> {
             if(result!=BluetoothGatt.GATT_SUCCESS && vendorSessionEnded && vendorTx.contains(c)) { closeFinishedWlp(); return; }
             if(result!=BluetoothGatt.GATT_SUCCESS && c.equals(wlpTx) && wlpConnection!=null && wlpConnection.shutdownExpected()) {
                 store.packet(address,"android-write",new byte[0],"Late WLP TX completion status="+result+" after validated END acknowledgment");
                 closeFinishedWlp(); return;
             }
-            operations.complete("write:"+key(c),result);
+            String operation="write:"+key(c);
+            if(!holdForSecureBond(operation,result)) operations.complete(operation,result);
         }); }
         @Override public void onCharacteristicRead(BluetoothGatt source,BluetoothGattCharacteristic c,int result) { byte[] bytes=c.getValue(); readDone(source,c,bytes,result); }
         @Override public void onCharacteristicRead(BluetoothGatt source,BluetoothGattCharacteristic c,byte[] bytes,int result) { readDone(source,c,bytes,result); }
-        private void readDone(BluetoothGatt source,BluetoothGattCharacteristic c,byte[] bytes,int result) { byte[] value=bytes==null?new byte[0]:bytes.clone(); current(source,() -> { readResult=value; operations.complete("read:"+key(c),result); }); }
+        private void readDone(BluetoothGatt source,BluetoothGattCharacteristic c,byte[] bytes,int result) { byte[] value=bytes==null?new byte[0]:bytes.clone(); current(source,() -> {
+            String operation="read:"+key(c);
+            if(holdForSecureBond(operation,result)) return;
+            readResult=value; operations.complete(operation,result);
+        }); }
         @Override public void onCharacteristicChanged(BluetoothGatt source,BluetoothGattCharacteristic c) { byte[] bytes=c.getValue(); notifyDone(source,c,bytes); }
         @Override public void onCharacteristicChanged(BluetoothGatt source,BluetoothGattCharacteristic c,byte[] bytes) { notifyDone(source,c,bytes); }
         private void notifyDone(BluetoothGatt source,BluetoothGattCharacteristic c,byte[] bytes) { byte[] value=bytes==null?new byte[0]:bytes.clone(); current(source,() -> notification(c,value)); }

@@ -40,6 +40,18 @@ public final class OperationQueue {
         }
         done.success.run(); runNext();
     }
+    /**
+     * Starts the still-active operation once more, for an owner that held back its failed completion (for example
+     * until a link-security bond completed). False when another or no operation is active; a rejected start fails
+     * like any other start.
+     */
+    public boolean restart(String key) {
+        if(active==null || !active.key.equals(key)) return false;
+        try {
+            if(!active.start.getAsBoolean()) fail("Android rejected ");
+        } catch(RuntimeException ex) { fail("Could not start: " + ex.getMessage() + ": "); }
+        return true;
+    }
     public void clear() { waiting.clear(); active=null; }
     private void runNext() {
         if (active!=null || waiting.isEmpty()) return;
