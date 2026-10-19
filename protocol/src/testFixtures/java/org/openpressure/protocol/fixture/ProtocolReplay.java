@@ -15,17 +15,19 @@ import org.openpressure.protocol.WlpConnection;
 import org.openpressure.protocol.WlpReadSession;
 import org.openpressure.protocol.WriteAspectIndex;
 import org.openpressure.protocol.ProtocolProfile;
+import org.openpressure.protocol.SecureSession;
 import org.openpressure.protocol.X7MemoryIndex;
 import org.openpressure.protocol.X7Model;
 import org.openpressure.protocol.X7Record;
+import org.openpressure.protocol.X7Authentication;
 import org.openpressure.protocol.X7Registration;
 import org.openpressure.protocol.X7Security;
 import org.openpressure.protocol.X7Transaction;
 
 /**
  * Replays a fixture against OpenPressure's Android-independent unlock, vendor read sessions and clock-block write
- * plan, or the plain single-channel X7 transaction, read session and profile registration, passing every write
- * through the same {@link DeviceWritePolicy} checks the app applies.
+ * plan, or the single-channel X7 transaction, application encryption ({@link SecureSession}), read session and
+ * profile registration, passing every write through the same {@link DeviceWritePolicy} checks the app applies.
  */
 public final class ProtocolReplay {
     private ProtocolReplay() {}
@@ -167,40 +169,56 @@ public final class ProtocolReplay {
     private static final int REQUESTED_MTU=243;
 
     /**
-     * Like MonitorService on a plain-advertising X7 without a saved key: the SYS transaction with a fresh random
-     * nonce, then one WLP session. Connect reads the 68-byte settings/index image and the populated slots of the
-     * selected users; Pair reads the image and, when the write-aspect index permits registration, runs the fixture
-     * user's profile registration (two staged writes) before END. The encrypted route is not replayed here.
+     * Like MonitorService on an X7-family monitor: the SYS transaction with a fresh random nonce, then one WLP session.
+     * An encrypted advertisement (type 8/9) or a saved application key ({@code secure saved}, the fixture's key) selects
+     * the encrypted route: a fresh {@link SecureSession} pairing (Pair, or Connect without a key) or the saved-key
+     * authentication, the authorization poll until the cuff reports COMPLETE, and then every command validated as
+     * plaintext and sent encrypted. Connect reads the 68-byte settings/index image and the populated slots of the
+     * selected users. A plain Pair reads the image and, when the write-aspect index permits registration, runs the
+     * fixture user's profile registration (two staged writes) before END; an encrypted Pair never registers and, like
+     * a user starting Import afterwards, reads history as Connect does.
      */
     private static Outcome runX7(Fixture f,X7Model model,FixtureCursor cursor) {
         for(String alias:new String[]{"tx","rx","sys"})
             if(!f.aliases.containsKey(alias) || f.uuids(alias).size()!=1) return Outcome.rejected(0,"an X7 fixture needs single-characteristic tx, rx and sys aliases");
         UUID tx=f.uuids("tx").get(0),rx=f.uuids("rx").get(0),sys=f.uuids("sys").get(0);
+        if(model.contradictedBy(f.advertisedName,f.omronManufacturerPayload())) return Outcome.rejected(0,"OpenPressure refused: the advertisement names another X7-family model");
         X7Security.Mode advertised=X7Security.fromManufacturerPayload(f.omronManufacturerPayload());
-        if(advertised!=X7Security.Mode.PLAIN) return Outcome.rejected(0,"X7 advertisement "+advertised+": only the plain route is replayed at protocol level");
-        if(!f.flow.equals("connect") && !f.flow.equals("pair")) return Outcome.rejected(0,"X7 flow "+f.flow+" is not replayed at protocol level");
-        int mtu=Math.min(REQUESTED_MTU,f.mtu);
         boolean pair=f.flow.equals("pair");
+        // Like PairingKeys in the app: a Connect fixture with a saved key keeps it; Pair forgets it first.
+        byte[] savedKey=!pair && "saved".equals(f.secureMode)?f.key:null;
+        if(advertised==X7Security.Mode.UNKNOWN && savedKey==null) return Outcome.rejected(0,"X7 advertisement UNKNOWN without a saved key: MonitorService rescans");
+        boolean encrypted=advertised==X7Security.Mode.ENCRYPTED || savedKey!=null;
+        ProtocolProfile profile=encrypted?ProtocolProfile.X7_SECURE_WLP:ProtocolProfile.X7_WLP;
+        if(!f.flow.equals("connect") && !pair) return Outcome.rejected(0,"X7 flow "+f.flow+" is not replayed at protocol level");
+        int mtu=Math.min(REQUESTED_MTU,f.mtu);
+        if(encrypted && mtu<92) return Outcome.rejected(0,"OpenPressure refused: X7 application pairing requires an ATT MTU of at least 92");
+        X7Link link=new X7Link(profile,cursor,sys);
         try {
             byte[] nonce=new byte[4];
             new java.security.SecureRandom().nextBytes(nonce);
             X7Transaction transaction=new X7Transaction(nonce);
-            byte[] request=transaction.request();
-            DeviceWritePolicy.validateCharacteristic(ProtocolProfile.X7_WLP,X7_SERVICE,sys,request);
-            Outcome diverged=cursor.onWrite(sys,request);
+            Outcome diverged=link.write(sys,transaction.request());
             if(diverged!=null) return diverged;
-            List<FixtureCursor.Notification> replies=cursor.pendingNotifications();
-            if(replies.isEmpty()) return cursor.stalled();
-            for(FixtureCursor.Notification reply:replies) {
-                if(!reply.characteristic.equals(sys)) return Outcome.rejected(cursor.position(),"transaction reply on unexpected characteristic "+reply.characteristic);
-                transaction.accept(reply.value);
-            }
+            if((diverged=link.deliver(sys,transaction::accept))!=null) return diverged;
             if(!transaction.ready()) return Outcome.rejected(cursor.position(),"X7 transaction not confirmed");
+            if(encrypted) {
+                if((diverged=link.handshake(new SecureSession(savedKey)))!=null) return diverged;
+                X7Authentication authentication=new X7Authentication();
+                // MonitorService polls again after a WAITING state; the fixture scripts every poll.
+                while(!authentication.complete()) {
+                    if((diverged=link.write(sys,authentication.command()))!=null) return diverged;
+                    X7Authentication.Result[] last=new X7Authentication.Result[1];
+                    if((diverged=link.deliver(sys,reply -> { last[0]=authentication.accept(reply); return true; }))!=null) return diverged;
+                    if(last[0]==X7Authentication.Result.REJECTED) return Outcome.rejected(cursor.position(),"OpenPressure refused: the X7 rejected application access");
+                }
+            }
             String identity=WriteAspectIndex.resolve(f.dis.get("model"));
-            if(pair && !WriteAspectIndex.permits(WriteAspectIndex.lookup(identity,WriteAspectIndex.Aspect.REGISTRATION).status,false))
+            boolean register=pair && !encrypted;
+            if(register && !WriteAspectIndex.permits(WriteAspectIndex.lookup(identity,WriteAspectIndex.Aspect.REGISTRATION).status,false))
                 // MonitorService ends Pair in the read-only ready state without a read.
                 return cursor.finish(List.of());
-            if(pair && mtu<35) return Outcome.rejected(cursor.position(),"OpenPressure refused: X7 registration requires an ATT MTU of at least 35");
+            if(register && mtu<35) return Outcome.rejected(cursor.position(),"OpenPressure refused: X7 registration requires an ATT MTU of at least 35");
             WlpReadSession session=new WlpConnection().begin(X7MemoryIndex.SETTINGS_START,X7MemoryIndex.SETTINGS_BYTES,mtu>=27?16:8);
             List<X7MemoryIndex.Range> ranges=new ArrayList<>();
             ArrayDeque<X7MemoryIndex.Range> pending=new ArrayDeque<>();
@@ -208,14 +226,14 @@ public final class ProtocolReplay {
             while(!session.complete()) {
                 if(!indexRead && session.rangeComplete()) {
                     indexRead=true;
-                    if(pair) {
+                    if(register) {
                         X7Registration registration=new X7Registration(f.dis.get("model"),session.data(),f.registerUser,f.time,false);
                         registration.authorize();
                         while(!registration.complete()) {
                             byte[] command=registration.command();
-                            DeviceWritePolicy.validateX7Registration(ProtocolProfile.X7_WLP,X7_SERVICE,tx,command,registration);
-                            if((diverged=cursor.onWrite(tx,command))!=null) return diverged;
-                            if((diverged=deliver(cursor,rx,registration::accept))!=null) return diverged;
+                            DeviceWritePolicy.validateX7Registration(profile,X7_SERVICE,tx,command,registration);
+                            if((diverged=link.send(tx,command))!=null) return diverged;
+                            if((diverged=link.deliver(rx,registration::accept))!=null) return diverged;
                         }
                     } else {
                         // Like MonitorService, an untrusted X7 index fails the import instead of sweeping.
@@ -224,25 +242,70 @@ public final class ProtocolReplay {
                     }
                 }
                 if(session.rangeComplete() && !pending.isEmpty()) { X7MemoryIndex.Range next=pending.removeFirst(); session.appendRange(next.start,next.length); }
-                byte[] command=session.command();
-                DeviceWritePolicy.validateCharacteristic(ProtocolProfile.X7_WLP,X7_SERVICE,tx,command);
-                if((diverged=cursor.onWrite(tx,command))!=null) return diverged;
-                if((diverged=deliver(cursor,rx,session::accept))!=null) return diverged;
+                if((diverged=link.write(tx,session.command()))!=null) return diverged;
+                if((diverged=link.deliver(rx,session::accept))!=null) return diverged;
             }
             return cursor.finish(decodeX7(model,ranges,session.data()));
         } catch(IllegalArgumentException refused) {
             return Outcome.rejected(cursor.position(),"OpenPressure refused: "+refused.getMessage());
         }
     }
-    /** Feeds the scripted notifications to a single-channel parser; null when every one arrived on {@code rx}. */
-    private static Outcome deliver(FixtureCursor cursor,UUID rx,java.util.function.Predicate<byte[]> parser) {
-        List<FixtureCursor.Notification> replies=cursor.pendingNotifications();
-        if(replies.isEmpty()) return cursor.stalled();
-        for(FixtureCursor.Notification reply:replies) {
-            if(!reply.characteristic.equals(rx)) return Outcome.rejected(cursor.position(),"reply on unexpected characteristic "+reply.characteristic);
-            parser.test(reply.value);
+
+    /**
+     * The X7 link as MonitorService drives it: every command is checked in plaintext at the GATT boundary policy and,
+     * once the application session is established, encrypted; notifications on the expected characteristic are
+     * decrypted before parsing.
+     */
+    private static final class X7Link {
+        private final ProtocolProfile profile;
+        private final FixtureCursor cursor;
+        private final UUID sys;
+        private SecureSession secure;
+        X7Link(ProtocolProfile profile,FixtureCursor cursor,UUID sys) { this.profile=profile; this.cursor=cursor; this.sys=sys; }
+
+        /** Validates the plaintext command with the generic X7 policy, then sends it. */
+        Outcome write(UUID characteristic,byte[] command) {
+            DeviceWritePolicy.validateCharacteristic(profile,X7_SERVICE,characteristic,command);
+            return send(characteristic,command);
         }
-        return null;
+        /** Sends an already validated plaintext command, encrypted when the session is established. */
+        Outcome send(UUID characteristic,byte[] command) {
+            if(secure!=null && secure.established()) {
+                if(command[0]==0x70) throw new IllegalArgumentException("Pairing command after session establishment");
+                command=secure.encrypt(command);
+            } else if(profile==ProtocolProfile.X7_SECURE_WLP && (!characteristic.equals(sys) || command[0]==0x20))
+                throw new IllegalArgumentException("X7 access requires an established encrypted session");
+            return cursor.onWrite(characteristic,command);
+        }
+        /** Feeds the scripted notifications on {@code expected}, decrypted when encrypted; null when every one arrived there. */
+        Outcome deliver(UUID expected,java.util.function.Predicate<byte[]> parser) {
+            List<FixtureCursor.Notification> replies=cursor.pendingNotifications();
+            if(replies.isEmpty()) return cursor.stalled();
+            for(FixtureCursor.Notification reply:replies) {
+                if(!reply.characteristic.equals(expected)) return Outcome.rejected(cursor.position(),"reply on unexpected characteristic "+reply.characteristic);
+                parser.test(secure!=null && secure.established()?secure.decrypt(reply.value):reply.value);
+            }
+            return null;
+        }
+        /** The application handshake on SYS: each SecureSession frame through the policy, each reply back to it. */
+        Outcome handshake(SecureSession session) {
+            secure=session;
+            byte[] command=session.begin();
+            while(command!=null) {
+                Outcome diverged=write(sys,command);
+                if(diverged!=null) return diverged;
+                List<FixtureCursor.Notification> replies=cursor.pendingNotifications();
+                if(replies.isEmpty()) return cursor.stalled();
+                command=null;
+                for(FixtureCursor.Notification reply:replies) {
+                    if(!reply.characteristic.equals(sys)) return Outcome.rejected(cursor.position(),"handshake reply on unexpected characteristic "+reply.characteristic);
+                    if(command!=null || session.established()) return Outcome.rejected(cursor.position(),"more than one handshake reply");
+                    command=session.accept(reply.value);
+                }
+                if(command==null && !session.established()) return Outcome.rejected(cursor.position(),"handshake incomplete");
+            }
+            return null;
+        }
     }
     /** X7 records after the 68-byte image, in range order; malformed slots are rejected slots, as in MonitorService. */
     private static List<Fixture.Reading> decodeX7(X7Model model,List<X7MemoryIndex.Range> ranges,byte[] data) {

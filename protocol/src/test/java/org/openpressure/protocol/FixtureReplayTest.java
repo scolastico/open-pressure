@@ -74,9 +74,10 @@ public final class FixtureReplayTest {
         // Importing user 1 only drops user 2's record read, which the fixture still expects.
         Outcome one=ProtocolReplay.run(Fixture.parse("hem-7380t1/connect-read-history",connect+"import users=1\n"));
         check(one.kind!=Outcome.Kind.MATCHES,"X7 import users=1 still read user 2: "+one.report());
-        // An encrypted advertisement (type 8) selects the secure route, which this replay refuses before any write.
+        // An encrypted advertisement (type 8) selects the secure route: without a saved key, the nonce transaction is
+        // followed by a fresh application pairing (70 01) where this plain fixture expects START.
         Outcome secure=ProtocolReplay.run(Fixture.parse("hem-7380t1/connect-read-history",connect.replace("msd=0e020101010001010001","msd=0e0208010000d400000100")));
-        check(secure.kind==Outcome.Kind.REJECTED && secure.step==0 && secure.detail.contains("ENCRYPTED"),"encrypted X7 route not replayed: "+secure.report());
+        check(secure.kind==Outcome.Kind.DIVERGED && secure.step==2 && secure.actual!=null && secure.actual.length==89 && secure.actual[0]==0x70 && secure.actual[1]==1,"encrypted advertisement selects the secure route: "+secure.report());
         // A plain advertisement without the nonce reply never reaches START.
         Outcome silent=ProtocolReplay.run(Fixture.parse("hem-7380t1/connect-read-history",connect.replace("nonce sys","[omron-only: test] nonce sys")));
         check(silent.kind==Outcome.Kind.DIVERGED && silent.step==0,"X7 transaction is the first step: "+silent.report());

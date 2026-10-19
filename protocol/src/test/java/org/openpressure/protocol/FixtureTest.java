@@ -40,6 +40,7 @@ public final class FixtureTest {
         nonceMatchesAnyTokenAndEchoesIt();
         describesX7SystemFrames();
         comparesReadingFlagsOnlyWhenNamed();
+        secureStepsTravelThroughTheCuffPeer();
         return checks;
     }
     private static void parsesHeaderAndExpandsReads() {
@@ -278,6 +279,59 @@ public final class FixtureTest {
         for(String bad:new String[]{" afib=2"," colour=1"}) {
             try { Fixture.parse("test/sample",HEAD+"expect reading user=1 sys=130 dia=78 pulse=67 time=2025-07-09T06:14:38"+bad+"\n"); throw new AssertionError("accepted"+bad); }
             catch(IllegalArgumentException expectedError) { check(expectedError.getMessage().contains("line 11"),"rejects"+bad); }
+        }
+    }
+    private static void secureStepsTravelThroughTheCuffPeer() {
+        String key="5a17c0ffee5a17c0ffee5a17c0ffee5a",poll="2001"+"00".repeat(18),complete="a0010001"+"00".repeat(16);
+        String head="name test/secure\nflow connect\nkey "+key+"\n"+
+            "alias tx db5b55e0-aee7-11e1-965e-0002a5d5c51b\nalias rx 49123040-aee8-11e1-a74d-0002a5d5c51b\nalias sys b305b680-aee7-11e1-a730-0002a5d5c51b\n";
+        String text=head+"secure sys saved reserved=aabbccddeeff"+"00".repeat(10)+"\nwrite sys "+poll+"\nnotify sys "+complete+"\nwrite tx 0800000000100018\nnotify rx 0880000000100098\n";
+        Fixture f=Fixture.parse("test/secure",text);
+        List<Fixture.Step> steps=f.steps(Fixture.Client.OURS_PROTOCOL);
+        check(steps.size()==8 && steps.get(0).handshake==5 && steps.get(2).handshake==6 && !steps.get(3).encrypted() && steps.get(4).encrypted(),"secure saved expands to 70 05 / 70 06 and encrypts later steps");
+        check(steps.get(0).hex().equals("7005<44 phone handshake bytes>"),"handshake steps print their opcode: "+steps.get(0).hex());
+        UUID sys=f.aliases.get("sys").get(0),tx=f.aliases.get("tx").get(0),rx=f.aliases.get("rx").get(0);
+        FixtureCursor cursor=new FixtureCursor(f,Fixture.Client.OURS_PROTOCOL);
+        SecureSession phone=new SecureSession(hex(key));
+        byte[] command=phone.begin();
+        while(command!=null) {
+            check(cursor.onWrite(sys,command)==null,"handshake frame accepted: "+HexFormat.of().formatHex(command,0,2));
+            List<FixtureCursor.Notification> replies=cursor.pendingNotifications();
+            check(replies.size()==1 && replies.get(0).characteristic.equals(sys),"one handshake reply on sys");
+            if(replies.get(0).value[1]==(byte)0x85) check(Arrays.equals(Arrays.copyOfRange(replies.get(0).value,30,46),hex("aabbccddeeff"+"00".repeat(10))),"F0 85 carries the reserved bytes");
+            command=phone.accept(replies.get(0).value);
+        }
+        check(phone.established() && Arrays.equals(phone.longTermKey(),cursor.secure().ltk()),"both ends share the saved key");
+        byte[] first=phone.encrypt(hex(poll));
+        check(cursor.onWrite(sys,first)==null && Arrays.equals(cursor.lastPlaintext(),hex(poll)),"the poll is compared in plaintext");
+        List<FixtureCursor.Notification> state=cursor.pendingNotifications();
+        check(state.size()==1 && state.get(0).value[0]==(byte)0xc0 && Arrays.equals(phone.decrypt(state.get(0).value),hex(complete)),"the reply is encrypted under the cuff's counter");
+        Outcome replayed=cursor.onWrite(tx,first);
+        check(replayed!=null && replayed.detail.contains("phone counter 1 after 1"),"a replayed counter is refused: "+replayed);
+        // A plaintext frame where an encrypted one is due is a divergence, not a match.
+        FixtureCursor plain=new FixtureCursor(f,Fixture.Client.OURS_PROTOCOL);
+        SecureSession again=new SecureSession(hex(key));
+        command=again.begin();
+        while(command!=null) { plain.onWrite(sys,command); command=again.accept(plain.pendingNotifications().get(0).value); }
+        Outcome clear=plain.onWrite(sys,hex(poll));
+        check(clear!=null && clear.detail.contains("C0-framed"),"plaintext after the handshake diverges: "+clear);
+        // A 70 05 with a non-zero reserved byte, or a key the cuff does not know, is refused by the peer.
+        FixtureCursor reserved=new FixtureCursor(f,Fixture.Client.OURS_PROTOCOL);
+        byte[] start=new SecureSession(hex(key)).begin(); start[45]=1;
+        Outcome refused=reserved.onWrite(sys,start);
+        check(refused!=null && refused.detail.contains("reserved"),"reserved 70 05 bytes are checked: "+refused);
+        FixtureCursor wrongKey=new FixtureCursor(f,Fixture.Client.OURS_PROTOCOL);
+        SecureSession other=new SecureSession(new byte[16]);
+        wrongKey.onWrite(sys,other.begin());
+        Outcome mismatch=wrongKey.onWrite(sys,other.accept(wrongKey.pendingNotifications().get(0).value));
+        check(mismatch!=null && mismatch.detail.contains("does not authenticate"),"a different saved key fails at 70 06: "+mismatch);
+        check(rx!=null,"rx alias");
+        for(String bad:new String[]{head.replace("flow connect","flow pair")+"secure sys saved\n",head+"secure sys fresh\n",head+"secure sys saved\nnonce sys\n",
+            head+"secure sys saved reserved=00\n",head+"secure sys later\n",head+"[omron-only: why] secure sys saved\n",HEAD+"secure tx saved\n"}) {
+            checks++;
+            try { Fixture.parse("test/secure",bad); }
+            catch(IllegalArgumentException expected) { continue; }
+            throw new AssertionError("malformed secure fixture accepted: "+bad);
         }
     }
     private static void check(boolean value,String message) { checks++; if(!value) throw new AssertionError(message); }

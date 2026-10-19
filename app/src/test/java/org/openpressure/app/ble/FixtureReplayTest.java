@@ -42,7 +42,8 @@ import static org.robolectric.Shadows.shadowOf;
  * Replays every shared device fixture through the real MonitorService from the connection callback on: MTU
  * negotiation (the fixture's {@code mtu}), service discovery, model verification, the X7 route choice from the
  * fixture's advertisement, notification setup, key handling, the ATT queue (including the delayed X7 system
- * transaction), history parsing, X7 profile registration, the explicit clock sync (settings backup, clock-block write
+ * transaction), the encrypted X7 route (application handshake, authorization poll and encrypted frames, answered by
+ * the fixture's cuff-side {@code SecurePeer}; a saved-key Connect starts with the fixture key in PairingKeys), history parsing, X7 profile registration, the explicit clock sync (settings backup, clock-block write
  * and its acknowledgment) and END. Only the Bluetooth peer is simulated, and it answers strictly from the fixture.
  * A Pair starts after Android's fresh bond completed (bonding exchanges no GATT bytes). Writes
  * {@code build/fixture-replay/<fixture>.txt}.
@@ -149,7 +150,11 @@ public class FixtureReplayTest {
             assertEquals("History transfer incomplete",monitor.status);
         }
         if(name.endsWith("/connect-bad-index-checksum")) assertEquals(MonitorService.ImportMode.INDEX_FALLBACK,monitor.importMode);
-        if(x7 && fixture.flow.equals("pair") && wanted==Outcome.Kind.MATCHES) {
+        if(x7 && fixture.secureMode!=null && wanted==Outcome.Kind.MATCHES) {
+            // The application key MonitorService keeps is the cuff peer's: the saved one, or the freshly derived one.
+            assertArrayEquals("saved application key",cursor.secure().ltk(),new PairingKeys(monitor).get(ADDRESS));
+            assertNull("the encrypted route never registers a profile",monitor.registrationBackupFile());
+        } else if(x7 && fixture.flow.equals("pair") && wanted==Outcome.Kind.MATCHES) {
             String identity=WriteAspectIndex.resolve(fixture.dis.get("model"));
             if(WriteAspectIndex.permits(WriteAspectIndex.lookup(identity,WriteAspectIndex.Aspect.REGISTRATION).status,false)) {
                 // A permitted registration keeps its backup and ends acknowledged before END; nothing else is imported.
@@ -189,8 +194,10 @@ public class FixtureReplayTest {
                 if(!peer.isEmpty()) continue;
                 // X7 Pair: choose the fixture's user once the backup is saved and the app asks for the user.
                 if(monitor.registrationPending && !registrationChosen) { registrationChosen=true; monitor.registerX7User(fixture.registerUser); continue; }
-                // A user-started import (or Read all) after a manual Connect reaches "Vendor history available".
-                if(!historyRequested && !fixture.flow.equals("pair") && !monitor.historyRunning && cursor.position()>0) {
+                // A user-started import (or Read all) after a manual Connect reaches "Vendor history available"; after an
+                // encrypted X7 Pair, which never registers, the user starts Import once the cuff authorized the app.
+                boolean securePair=fixture.flow.equals("pair") && fixture.secureMode!=null && "X7 authenticated for reads".equals(monitor.status);
+                if(!historyRequested && (!fixture.flow.equals("pair") || securePair) && !monitor.historyRunning && cursor.position()>0) {
                     historyRequested=true;
                     if(fixture.flow.equals("sync-clock")) monitor.beginClockSync();
                     else if(fixture.flow.equals("read-all")) monitor.readAllHistory(); else monitor.syncHistory(-1);
@@ -269,8 +276,12 @@ public class FixtureReplayTest {
         when(gatt.getServices()).thenReturn(services);
     }
     private void stageKey() throws Exception {
-        // Plain X7 sessions use no application key; a saved one would select the encrypted route.
-        if(x7) return;
+        // Plain X7 sessions use no application key (a saved one would select the encrypted route); an encrypted Connect
+        // starts with the application key an earlier pairing saved, which Pair forgets before its fresh pairing.
+        if(x7) {
+            if("saved".equals(fixture.secureMode)) new PairingKeys(monitor).put(ADDRESS,fixture.key);
+            return;
+        }
         VendorMemoryModel model=VendorMemoryModel.identify(fixture.dis.get("model"));
         if(model==null || fixture.key==null) return;
         VendorPairingKeys keys=new VendorPairingKeys(new PairingKeys(monitor),ADDRESS,model.id);
