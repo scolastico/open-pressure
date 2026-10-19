@@ -33,3 +33,9 @@ hem-7196t1/connect-read-history
 hem-7196t1-fleo/connect-read-history
 hem-7196t1/pair
 hem-7196t1/connect-bad-record-checksum
+hem-7196t1/connect-encrypted
+hem-7196t1/pair-encrypted
+hem-7380t1/connect-encrypted
+hem-7380t1/pair-encrypted
+hem-7196t1/sync-clock-encrypted
+hem-7380t1/connect-encrypted-authorization-waiting
