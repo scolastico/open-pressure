@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="registration_untested_warning">个人资料注册尚未在此血压计上测试过。仅因为你开启了开发者选项才可使用。只有在你接受此风险时才继续。</string>
+    <string name="registration_report_prompt">你在一台尚未测试过此功能的血压计上注册了个人资料。在 GitHub issue 中分享设备报告可以说明是否成功，并帮助其他人也能使用注册功能。\n\n报告只包含技术细节，绝不包含测量数据、测量时间、姓名、蓝牙地址或序列号。在分享任何内容之前，你都可以先查看报告。</string>
+</resources>

@@ -4,4 +4,21 @@
     <string name="monitor_clock_skipped">Lo mshini wokukala umfutho wegazi awusekeli ukubuyekeza isikhathi ngokuzenzakalelayo. Setha isikhathi sawo mathupha.</string>
     <string name="monitor_clock_failed">Isikhathi somshini wokukala umfutho wegazi asikwazanga ukubuyekezwa. Hlola noma usethe isikhathi emshinini wakho.</string>
     <string name="monitor_session_unconfirmed">Izilinganiso zilondoloziwe, kodwa umshini wokukala umfutho wegazi awuqinisekisanga ukuthi ukudlulisa kuphelile. Xhuma kabusha ngaphambi kokungenisa futhi.</string>
+    <string name="main_import_users">Izilinganiso okufanele zingeniswe</string>
+    <string name="main_import_users_both">Bobabili abasebenzisi</string>
+    <string name="main_read_all">Funda konke</string>
+    <string name="main_read_all_explanation">Ihlola yonke indawo yenkumbulo yabasebenzisi abakhethelwe ukungeniswa, hhayi lezo kuphela umshini ozibika njengezisetshenzisiwe. Yisebenzise uma kubonakala sengathi izilinganiso ezithile azikho. Kuthatha isikhathi eside, ngakho gcina umshini useduze kuze kuphele.</string>
+    <string name="main_reading_all">Kufundwa konke…</string>
+    <plurals name="monitor_import_mode_index">
+        <item quantity="one">Umshini ubike isilinganiso esingu-%1$d esigciniwe sabasebenzisi abakhethiwe.</item>
+        <item quantity="other">Umshini ubike izilinganiso ezingu-%1$d ezigciniwe zabasebenzisi abakhethiwe.</item>
+    </plurals>
+    <string name="monitor_import_mode_fallback">Uhlu lomshini lwezilinganiso ezigciniwe alukwazanga ukusetshenziswa, ngakho yonke indawo yenkumbulo ifundiwe.</string>
+    <string name="monitor_import_mode_sweep">Yonke indawo yenkumbulo ifundiwe.</string>
+    <string name="monitor_import_mode_empty">Umshini awubikanga zilinganiso ezigciniwe zabasebenzisi abakhethiwe. Sebenzisa u-Funda konke uma ulindele ezithile.</string>
+    <string name="monitor_unconfirmed_bank_skipped">Indawo yesibili yenkumbulo okungenzeka le modeli ingenayo yeqiwe.</string>
+    <plurals name="monitor_import_slots_unreadable">
+        <item quantity="one">Indawo yenkumbulo engu-%1$d ayikwazanga ukufundwa.</item>
+        <item quantity="other">Izindawo zenkumbulo ezingu-%1$d azikwazanga ukufundwa.</item>
+    </plurals>
 </resources>

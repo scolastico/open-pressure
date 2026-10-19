@@ -4,4 +4,23 @@
     <string name="monitor_clock_skipped">Acest tensiometru nu permite actualizarea automată a orei. Setați ora manual.</string>
     <string name="monitor_clock_failed">Ora tensiometrului nu a putut fi actualizată. Verificați sau setați ora pe tensiometru.</string>
     <string name="monitor_session_unconfirmed">Măsurătorile sunt salvate, dar tensiometrul nu a confirmat încheierea transferului. Reconectați-l înainte de a importa din nou.</string>
+    <string name="main_import_users">Măsurători de importat</string>
+    <string name="main_import_users_both">Ambii utilizatori</string>
+    <string name="main_read_all">Citește tot</string>
+    <string name="main_read_all_explanation">Verifică fiecare poziție de memorie a utilizatorilor aleși pentru import, nu doar pe cele raportate de tensiometru ca folosite. Folosiți-l dacă par să lipsească măsurători. Durează mai mult, așa că țineți tensiometrul aproape până la final.</string>
+    <string name="main_reading_all">Se citește tot…</string>
+    <plurals name="monitor_import_mode_index">
+        <item quantity="few">Tensiometrul a raportat %1$d măsurători stocate pentru utilizatorii aleși.</item>
+        <item quantity="one">Tensiometrul a raportat %1$d măsurătoare stocată pentru utilizatorii aleși.</item>
+        <item quantity="other">Tensiometrul a raportat %1$d de măsurători stocate pentru utilizatorii aleși.</item>
+    </plurals>
+    <string name="monitor_import_mode_fallback">Lista de măsurători stocate a tensiometrului nu a putut fi folosită, așa că s-a citit fiecare poziție de memorie.</string>
+    <string name="monitor_import_mode_sweep">S-a citit fiecare poziție de memorie.</string>
+    <string name="monitor_import_mode_empty">Tensiometrul nu a raportat măsurători stocate pentru utilizatorii aleși. Folosiți Citește tot dacă vă așteptați să existe.</string>
+    <string name="monitor_unconfirmed_bank_skipped">A fost omisă o a doua zonă de memorie pe care acest model s-ar putea să nu o aibă.</string>
+    <plurals name="monitor_import_slots_unreadable">
+        <item quantity="few">%1$d poziții de memorie nu au putut fi citite.</item>
+        <item quantity="one">%1$d poziție de memorie nu a putut fi citită.</item>
+        <item quantity="other">%1$d de poziții de memorie nu au putut fi citite.</item>
+    </plurals>
 </resources>

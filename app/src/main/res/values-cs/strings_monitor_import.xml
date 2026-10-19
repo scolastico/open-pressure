@@ -4,4 +4,25 @@
     <string name="monitor_clock_skipped">Tento tlakoměr nepodporuje automatickou aktualizaci času. Nastavte čas ručně.</string>
     <string name="monitor_clock_failed">Čas tlakoměru se nepodařilo aktualizovat. Zkontrolujte nebo nastavte čas přímo na tlakoměru.</string>
     <string name="monitor_session_unconfirmed">Měření jsou uložena, ale tlakoměr nepotvrdil dokončení přenosu. Před dalším importem se znovu připojte.</string>
+    <string name="main_import_users">Měření k importu</string>
+    <string name="main_import_users_both">Oba uživatelé</string>
+    <string name="main_read_all">Přečíst vše</string>
+    <string name="main_read_all_explanation">Zkontroluje každé místo v paměti uživatelů vybraných k importu, nejen ta, která tlakoměr označuje jako použitá. Použijte, pokud se zdá, že měření chybí. Trvá to déle, proto mějte tlakoměr poblíž až do konce.</string>
+    <string name="main_reading_all">Čtení všeho…</string>
+    <plurals name="monitor_import_mode_index">
+        <item quantity="few">Tlakoměr hlásí %1$d uložená měření vybraných uživatelů.</item>
+        <item quantity="many">Tlakoměr hlásí %1$d uloženého měření vybraných uživatelů.</item>
+        <item quantity="one">Tlakoměr hlásí %1$d uložené měření vybraných uživatelů.</item>
+        <item quantity="other">Tlakoměr hlásí %1$d uložených měření vybraných uživatelů.</item>
+    </plurals>
+    <string name="monitor_import_mode_fallback">Seznam uložených měření v tlakoměru nebylo možné použít, proto se přečetlo každé místo v paměti.</string>
+    <string name="monitor_import_mode_sweep">Přečetlo se každé místo v paměti.</string>
+    <string name="monitor_import_mode_empty">Tlakoměr nehlásí žádná uložená měření vybraných uživatelů. Pokud nějaká očekáváte, použijte Přečíst vše.</string>
+    <string name="monitor_unconfirmed_bank_skipped">Druhá oblast paměti, kterou tento model možná nemá, byla přeskočena.</string>
+    <plurals name="monitor_import_slots_unreadable">
+        <item quantity="few">%1$d místa v paměti nebylo možné přečíst.</item>
+        <item quantity="many">%1$d místa v paměti nebylo možné přečíst.</item>
+        <item quantity="one">%1$d místo v paměti nebylo možné přečíst.</item>
+        <item quantity="other">%1$d míst v paměti nebylo možné přečíst.</item>
+    </plurals>
 </resources>

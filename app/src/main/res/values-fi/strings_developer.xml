@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="dev_version_label">Versio %1$s (%2$d)</string>
+    <plurals name="dev_taps_remaining">
+        <item quantity="one">Vielä %d napautus kehittäjäasetusten avaamiseen</item>
+        <item quantity="other">Vielä %d napautusta kehittäjäasetusten avaamiseen</item>
+    </plurals>
+    <string name="dev_unlocked">Kehittäjäasetukset avattu</string>
+    <string name="dev_open">Kehittäjäasetukset</string>
+    <string name="dev_title">Kehittäjäasetukset</string>
+    <string name="dev_warning">Varoitus: nämä asetukset sallivat kirjoituksia, joita ei ole vahvistettu mittarimallillesi. Tällainen kirjoitus voi pysyvästi vioittaa mittarin asetukset. Ne on tarkoitettu vain henkilöille, jotka validoivat mallia mittarilla, jonka he ovat valmiita menettämään.</string>
+    <string name="dev_allow_clock_untested">Salli kellon synkronointi mittareissa, joissa sitä ei ole testattu</string>
+    <string name="dev_allow_confirm_title">Sallitaanko testaamaton kellon synkronointi?</string>
+    <string name="dev_allow_confirm_message">Kellon asettamista ei ole vahvistettu näille mittarimalleille. Jos teet sen silti, mittarin asetukset voivat vioittua pysyvästi tai mittari voi muuttua käyttökelvottomaksi.\n\nTämä kytkin ei itse lähetä mitään. Jos asetat myöhemmin tällaisen mittarin kellon, laiteraporttiin kirjataan, että testaamatonta kirjoitusta yritettiin.\n\nOlet itse vastuussa mittarillesi aiheutuvista vahingoista.</string>
+    <string name="dev_allow_confirm_accept">Ymmärrän, ota käyttöön</string>
+    <string name="dev_index_title">Kirjoitustuki mittareittain</string>
+    <string name="dev_index_status_confirmed">Vahvistettu</string>
+    <string name="dev_index_status_untested">Testaamaton</string>
+    <string name="dev_index_status_blocked">Estetty</string>
+    <string name="dev_index_aspect_clock">Kellon synkronointi</string>
+    <string name="dev_index_aspect_unsent">Lähettämättömien mittausten laskuri</string>
+    <string name="dev_index_no_monitors">Ei vielä tallennettuja mittareita.</string>
+    <string name="dev_hide">Piilota kehittäjäasetukset</string>
+    <string name="dev_hidden">Kehittäjäasetukset piilotettu; kaikki kehittäjäkytkimet ovat pois päältä</string>
+    <string name="dev_save_failed">Kehittäjäasetuksia ei voitu tallentaa</string>
+    <string name="dev_allow_registration_untested">Salli profiilin rekisteröinti mittareissa, joissa sitä ei ole testattu</string>
+    <string name="dev_allow_registration_confirm_title">Sallitaanko testaamaton profiilin rekisteröinti?</string>
+    <string name="dev_allow_registration_confirm_message">Profiilin rekisteröinti kirjoittaa valitun käyttäjän ja kellonajan mittarin asetuksiin. Sitä ei ole vahvistettu näille mittarimalleille. Jos teet sen silti, mittarin asetukset voivat vioittua pysyvästi tai mittari voi muuttua käyttökelvottomaksi.\n\nTämä kytkin ei itse lähetä mitään. Rekisteröinti tehdään edelleen vain, kun valitset Muodosta laitepari ja vahvistat sen, ja laiteraporttiin kirjataan, että testaamatonta kirjoitusta yritettiin.\n\nOlet itse vastuussa mittarillesi aiheutuvista vahingoista.</string>
+    <string name="dev_index_aspect_registration">Profiilin rekisteröinti</string>
+    <string name="dev_experimental_title">Kokeelliset reitit</string>
+    <string name="dev_experimental_explanation">Nämä kytkimet ottavat käyttöön yhteysreittejä, jotka ovat sovelluksessa mutta joita ei ole koskaan testattu oikealla mittarilla. Ne voivat yksinkertaisesti epäonnistua.</string>
+    <string name="dev_experimental_force_x7_encrypted">Käytä salattua yhteyttä X7:n laiteparia muodostettaessa</string>
+    <string name="dev_experimental_confirm_title">Otetaanko testaamaton reitti käyttöön?</string>
+    <string name="dev_experimental_confirm_message">Tämä reitti on sovelluksessa, mutta sitä ei ole koskaan testattu oikealla mittarilla, ja se voi yksinkertaisesti epäonnistua. Tällä tavalla muodostettu laitepari voi korvata mittarin nykyisen laiteparin tällä puhelimella. Epäonnistunut kirjoitus voi vioittaa mittarin asetukset pysyvästi tai tehdä mittarista käyttökelvottoman.\n\nTämä kytkin ei itse lähetä mitään. Laiteraportissa näkyy, mitkä kehittäjäkytkimet olivat käytössä.\n\nOlet itse vastuussa mittarillesi aiheutuvista vahingoista.</string>
+    <string name="dev_experimental_clock_sync_encrypted_x7">Salli kellon synkronointi salatun X7-yhteyden kautta</string>
+</resources>

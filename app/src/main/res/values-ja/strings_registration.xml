@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="registration_untested_warning">プロフィール登録はこの血圧計ではまだテストされていません。開発者向けオプションをオンにしているため利用できます。このリスクを受け入れる場合にのみ続行してください。</string>
+    <string name="registration_report_prompt">この機能がまだテストされていない血圧計にプロフィールを登録しました。GitHub の issue でデバイスレポートを共有していただくと、成功したかどうかがわかり、ほかの方もプロフィール登録を使えるようになります。\n\nレポートには技術的な情報のみが含まれます。測定値、測定日時、名前、Bluetooth アドレス、シリアル番号が含まれることはありません。何かを共有する前に内容を確認できます。</string>
+</resources>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fetch_looking">သင့်မော်နီတာများကို ရှာနေသည်…</string>
+    <string name="fetch_importing">%1$s မှ တင်သွင်းနေသည်…</string>
+    <string name="fetch_none_nearby">အနီးတွင် မော်နီတာ မရှိပါ။ မော်နီတာများသည် တိုင်းတာပြီးနောက် ခဏအတွင်း သို့မဟုတ် Bluetooth မုဒ်တွင်သာ အချက်ပြပါသည်။</string>
+    <string name="fetch_done">နောက်ဆုံးတိုင်းတာချက်များ ရယူပြီးပါပြီ။ မော်နီတာ- %1$d</string>
+    <string name="fetch_incomplete">တင်သွင်းမှုအချို့ မပြီးဆုံးပါ။ ရရှိပြီးသော တိုင်းတာချက်များ သိမ်းဆည်းထားသည်။ ထပ်ကြိုးစားရန် အောက်သို့ဆွဲပါ။</string>
+    <string name="fetch_busy">မော်နီတာ၏ လက်ရှိလုပ်ဆောင်ချက်ကို ပြီးအောင်လုပ်ပြီး အောက်သို့ ထပ်ဆွဲပါ။</string>
+    <string name="fetch_no_monitor">ပံ့ပိုးထားသော မော်နီတာကို ဦးစွာ တွဲချိတ် သို့မဟုတ် ချိတ်ဆက်ပါ။</string>
+    <string name="fetch_failed">မော်နီတာများကို ရှာ၍မရပါ။ Bluetooth ကို စစ်ဆေးပြီး အောက်သို့ ထပ်ဆွဲပါ။</string>
+</resources>

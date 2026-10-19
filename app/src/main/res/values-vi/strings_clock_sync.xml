@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_sync_clock">Đồng bộ đồng hồ</string>
+    <string name="main_sync_clock_explanation">Đặt đồng hồ của máy đo theo giờ của điện thoại này. Bạn sẽ thấy cả hai thời gian và xác nhận trước khi có thay đổi. Sau đó kết nối sẽ kết thúc; hãy kết nối lại để nhập kết quả đo.</string>
+    <string name="main_sync_clock_running">Đang đồng bộ đồng hồ…</string>
+    <string name="clock_sync_title">Xác nhận đồng bộ đồng hồ</string>
+    <string name="clock_sync_monitor_time">Đồng hồ máy đo: %1$s</string>
+    <string name="clock_sync_monitor_time_unset">Đồng hồ máy đo: chưa đặt</string>
+    <string name="clock_sync_phone_time">Giờ điện thoại: %1$s</string>
+    <plurals name="clock_sync_drift">
+        <item quantity="other">Chênh lệch: %1$d giây</item>
+    </plurals>
+    <string name="clock_sync_within_threshold">Đồng hồ máy đo lệch không quá một phút so với giờ điện thoại nên được giữ nguyên.</string>
+    <string name="clock_sync_untested_warning">Tính năng đồng bộ đồng hồ chưa được thử nghiệm với máy đo này. Tính năng chỉ khả dụng vì bạn đã bật một tùy chọn cho nhà phát triển. Chỉ tiếp tục nếu bạn chấp nhận rủi ro này.</string>
+    <string name="clock_sync_choose_time">Thời gian cần đặt (tùy chọn cho nhà phát triển)</string>
+    <string name="clock_sync_confirm">Đồng bộ ngay</string>
+    <string name="monitor_clock_sync_complete">Đã đồng bộ đồng hồ</string>
+    <string name="monitor_clock_sync_skipped">Đồng hồ đã đúng</string>
+    <string name="monitor_clock_sync_rejected">Đồng bộ đồng hồ không thành công</string>
+    <string name="monitor_clock_sync_cancelled">Đã hủy đồng bộ đồng hồ</string>
+    <string name="monitor_clock_sync_unreadable">Không thể đồng bộ đồng hồ</string>
+    <string name="monitor_clock_sync_reconnect">Hãy kết nối lại để nhập kết quả đo.</string>
+    <string name="clock_sync_report_prompt">Bạn đã đồng bộ đồng hồ của một máy đo chưa từng được thử nghiệm tính năng này. Báo cáo thiết bị trong một issue trên GitHub cho biết tính năng có hoạt động hay không và giúp mở tính năng đồng bộ đồng hồ cho người khác.\n\nBáo cáo chỉ chứa thông tin kỹ thuật. Báo cáo không bao giờ chứa kết quả đo, thời gian đo, tên, địa chỉ Bluetooth hay số sê-ri. Bạn có thể xem lại trước khi chia sẻ bất cứ điều gì.</string>
+    <string name="main_clock_sync_backup">Bản sao lưu đồng bộ đồng hồ</string>
+    <string name="main_clock_sync_backup_explanation">Cài đặt được lưu trước lần đồng bộ đồng hồ gần nhất. Đây là bản sao lưu cài đặt, không phải bản sao lưu toàn bộ bộ nhớ hay hiệu chuẩn. Các bản sao lưu trước vẫn còn trên điện thoại này.</string>
+    <string name="monitor_clock_sync_out_of_range">Ngày của điện thoại nằm ngoài phạm vi được hỗ trợ, vì vậy đồng hồ của máy đo không được thay đổi. Hãy kiểm tra ngày trên điện thoại này.</string>
+</resources>

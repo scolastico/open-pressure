@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fetch_looking">Mencari monitor anda…</string>
+    <string name="fetch_importing">Mengimport daripada %1$s…</string>
+    <string name="fetch_none_nearby">Tiada monitor berdekatan. Monitor hanya memancarkan isyarat seketika selepas pengukuran atau dalam mod Bluetooth.</string>
+    <string name="fetch_done">Bacaan terkini telah diambil. Monitor: %1$d.</string>
+    <string name="fetch_incomplete">Sesetengah import tidak selesai. Bacaan yang telah diterima disimpan; tarik ke bawah untuk mencuba lagi.</string>
+    <string name="fetch_busy">Selesaikan tindakan monitor semasa, kemudian tarik ke bawah sekali lagi.</string>
+    <string name="fetch_no_monitor">Gandingkan atau sambungkan monitor yang disokong terlebih dahulu.</string>
+    <string name="fetch_failed">Tidak dapat mencari monitor. Semak Bluetooth, kemudian tarik ke bawah sekali lagi.</string>
+</resources>

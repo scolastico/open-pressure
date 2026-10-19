@@ -4,4 +4,21 @@
     <string name="monitor_clock_skipped">ይህ የደም ግፊት መለኪያ ሰዓቱን በራስ-ሰር ማዘመን አይደግፍም። ሰዓቱን በእጅ ያስተካክሉ።</string>
     <string name="monitor_clock_failed">የደም ግፊት መለኪያውን ሰዓት ማዘመን አልተቻለም። በመለኪያው ላይ ሰዓቱን ያረጋግጡ ወይም ያስተካክሉ።</string>
     <string name="monitor_session_unconfirmed">የመለኪያ ውጤቶቹ ተቀምጠዋል፣ ግን የደም ግፊት መለኪያው ዝውውሩ መጠናቀቁን አላረጋገጠም። እንደገና ከማስመጣትዎ በፊት እንደገና ያገናኙ።</string>
+    <string name="main_import_users">የሚመጡ ልኬቶች</string>
+    <string name="main_import_users_both">ሁለቱም ተጠቃሚዎች</string>
+    <string name="main_read_all">ሁሉንም አንብብ</string>
+    <string name="main_read_all_explanation">መቆጣጠሪያው ጥቅም ላይ ውሏል ብሎ የሚያሳውቃቸውን ቦታዎች ብቻ ሳይሆን ለማስመጣት የተመረጡትን ተጠቃሚዎች እያንዳንዱን የማህደረ ትውስታ ቦታ ይፈትሻል። ልኬቶች የጎደሉ ከመሰሉ ይህንን ይጠቀሙ። ረዘም ያለ ጊዜ ይወስዳል፣ ስለዚህ እስኪጨርስ ድረስ መቆጣጠሪያውን በአቅራቢያ ያቆዩት።</string>
+    <string name="main_reading_all">ሁሉም እየተነበበ ነው…</string>
+    <plurals name="monitor_import_mode_index">
+        <item quantity="one">መቆጣጠሪያው ለተመረጡት ተጠቃሚዎች %1$d የተቀመጠ ልኬት እንዳለ አሳውቋል።</item>
+        <item quantity="other">መቆጣጠሪያው ለተመረጡት ተጠቃሚዎች %1$d የተቀመጡ ልኬቶች እንዳሉ አሳውቋል።</item>
+    </plurals>
+    <string name="monitor_import_mode_fallback">የመቆጣጠሪያው የተቀመጡ ልኬቶች ዝርዝር መጠቀም ስላልተቻለ እያንዳንዱ የማህደረ ትውስታ ቦታ ተነብቧል።</string>
+    <string name="monitor_import_mode_sweep">እያንዳንዱ የማህደረ ትውስታ ቦታ ተነብቧል።</string>
+    <string name="monitor_import_mode_empty">መቆጣጠሪያው ለተመረጡት ተጠቃሚዎች ምንም የተቀመጠ ልኬት አላሳወቀም። አንዳንድ እንዳሉ ከጠበቁ ሁሉንም አንብብ ይጠቀሙ።</string>
+    <string name="monitor_unconfirmed_bank_skipped">ይህ ሞዴል ላይኖረው የሚችል ሁለተኛ የማህደረ ትውስታ ክፍል ተዘሏል።</string>
+    <plurals name="monitor_import_slots_unreadable">
+        <item quantity="one">%1$d የማህደረ ትውስታ ቦታ ሊነበብ አልቻለም።</item>
+        <item quantity="other">%1$d የማህደረ ትውስታ ቦታዎች ሊነበቡ አልቻሉም።</item>
+    </plurals>
 </resources>

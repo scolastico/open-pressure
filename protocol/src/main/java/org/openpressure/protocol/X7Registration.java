@@ -9,8 +9,13 @@ import java.util.Arrays;
  * The caller must persist backup() and obtain the user's selection before
  * authorize(), and send the existing WLP END only after complete().
  * This class cannot authorize any other memory range or construct END.
+ * The plan is bound to one exact X7 identity (HEM-7380T1-EOSL or HEM-7380T1-EBK) and carries the
+ * write-aspect override read when the user confirmed it; the GATT boundary checks both through
+ * {@link DeviceWritePolicy#validateX7Registration} before any frame passes.
  */
 public final class X7Registration {
+    private final String identity;
+    private final boolean override;
     private final int user;
     private final byte[] backup,updated;
     private final byte[][] commands;
@@ -18,9 +23,17 @@ public final class X7Registration {
     private int phase,received;
     private boolean authorized,cancelled,awaiting;
 
-    public X7Registration(String model,byte[] preimage,int user,LocalDateTime time) {
-        if(!"HEM-7380T1-EOSL".equalsIgnoreCase(model) && !"X7 Smart AFib".equalsIgnoreCase(model))
-            throw new IllegalArgumentException("Registration requires the exact X7 Smart AFib model");
+    /** A plan without the developer override: only an identity whose registration is confirmed can pass the gate. */
+    public X7Registration(String model,byte[] preimage,int user,LocalDateTime time) { this(model,preimage,user,time,false); }
+
+    /**
+     * @param model the verified model string; it must resolve to HEM-7380T1-EOSL or HEM-7380T1-EBK
+     * @param override whether this request explicitly allows an untested registration (developer option)
+     */
+    public X7Registration(String model,byte[] preimage,int user,LocalDateTime time,boolean override) {
+        String resolved=WriteAspectIndex.resolve(model);
+        if(!"HEM-7380T1-EOSL".equals(resolved) && !"HEM-7380T1-EBK".equals(resolved))
+            throw new IllegalArgumentException("Registration requires an exact X7 identity (HEM-7380T1-EOSL or HEM-7380T1-EBK)");
         if(user<1 || user>2) throw new IllegalArgumentException("Select X7 user 1 or 2");
         if(time==null || time.getYear()<2024 || time.getYear()>2050)
             throw new IllegalArgumentException("X7 registration time must be in 2024–2050");
@@ -28,7 +41,7 @@ public final class X7Registration {
         try { clock=time.plusSeconds(1); }
         catch(DateTimeException e) { throw new IllegalArgumentException("Invalid X7 registration time",e); }
         if(clock.getYear()>2050) throw new IllegalArgumentException("X7 registration time exceeds 2050 after adjustment");
-        this.user=user;
+        this.identity=resolved; this.override=override; this.user=user;
         if(preimage==null) throw new IllegalArgumentException("X7 registration requires a fresh settings backup");
         backup=preimage.clone();
         X7MemoryIndex.parse(backup);
@@ -58,6 +71,10 @@ public final class X7Registration {
         commands=new byte[][]{prefix,settings};
     }
 
+    /** The exact write-aspect identity this plan is bound to. */
+    public String identity() { return identity; }
+    /** Whether this request carries the explicit untested-write override. */
+    public boolean override() { return override; }
     public int user() { return user; }
     public byte[] backup() { return backup.clone(); }
     public byte[] updated() { return updated.clone(); }

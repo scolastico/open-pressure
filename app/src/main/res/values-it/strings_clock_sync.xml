@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_sync_clock">Sincronizza orologio</string>
+    <string name="main_sync_clock_explanation">Imposta l\'orologio del misuratore sull\'ora di questo telefono. Vedrai entrambi gli orari e confermerai prima che cambi qualcosa. Poi la connessione termina; riconnettiti per importare le misurazioni.</string>
+    <string name="main_sync_clock_running">Sincronizzazione dell\'orologio…</string>
+    <string name="clock_sync_title">Conferma la sincronizzazione dell\'orologio</string>
+    <string name="clock_sync_monitor_time">Orologio del misuratore: %1$s</string>
+    <string name="clock_sync_monitor_time_unset">Orologio del misuratore: non impostato</string>
+    <string name="clock_sync_phone_time">Ora del telefono: %1$s</string>
+    <plurals name="clock_sync_drift">
+        <item quantity="many">Differenza: %1$d secondi</item>
+        <item quantity="one">Differenza: %1$d secondo</item>
+        <item quantity="other">Differenza: %1$d secondi</item>
+    </plurals>
+    <string name="clock_sync_within_threshold">L\'orologio del misuratore è entro un minuto dall\'ora del telefono, quindi resta invariato.</string>
+    <string name="clock_sync_untested_warning">La sincronizzazione dell\'orologio non è ancora stata testata con questo misuratore. È disponibile solo perché hai attivato un\'opzione sviluppatore. Continua solo se accetti questo rischio.</string>
+    <string name="clock_sync_choose_time">Ora da impostare (opzione sviluppatore)</string>
+    <string name="clock_sync_confirm">Sincronizza ora</string>
+    <string name="monitor_clock_sync_complete">Orologio sincronizzato</string>
+    <string name="monitor_clock_sync_skipped">L\'orologio è già corretto</string>
+    <string name="monitor_clock_sync_rejected">Sincronizzazione dell\'orologio non riuscita</string>
+    <string name="monitor_clock_sync_cancelled">Sincronizzazione dell\'orologio annullata</string>
+    <string name="monitor_clock_sync_unreadable">Impossibile sincronizzare l\'orologio</string>
+    <string name="monitor_clock_sync_reconnect">Riconnettiti per importare le misurazioni.</string>
+    <string name="clock_sync_report_prompt">Hai sincronizzato l\'orologio di un misuratore con cui questa funzione non è ancora stata testata. Un report del dispositivo in una issue su GitHub mostra se ha funzionato e aiuta a rendere disponibile la sincronizzazione dell\'orologio anche ad altri.\n\nIl report contiene solo dettagli tecnici. Non include mai misurazioni, orari delle misurazioni, nomi, l’indirizzo Bluetooth o il numero di serie. Puoi esaminarlo prima di condividere qualsiasi cosa.</string>
+    <string name="main_clock_sync_backup">Backup della sincronizzazione dell\'orologio</string>
+    <string name="main_clock_sync_backup_explanation">Impostazioni salvate prima dell\'ultima sincronizzazione dell\'orologio. Si tratta di un backup delle impostazioni, non di un backup completo della memoria o della calibrazione. I backup precedenti rimangono su questo telefono.</string>
+    <string name="monitor_clock_sync_out_of_range">La data del telefono è fuori dall\'intervallo supportato, quindi l\'orologio del misuratore non è stato modificato. Controlla la data di questo telefono.</string>
+</resources>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fetch_looking">Wyszukiwanie Twoich ciśnieniomierzy…</string>
+    <string name="fetch_importing">Importowanie z %1$s…</string>
+    <string name="fetch_none_nearby">W pobliżu nie ma ciśnieniomierza. Ciśnieniomierze nadają tylko krótko po pomiarze lub w trybie Bluetooth.</string>
+    <string name="fetch_done">Pobrano najnowsze pomiary. Ciśnieniomierze: %1$d.</string>
+    <string name="fetch_incomplete">Niektóre importy nie zostały ukończone. Już odebrane pomiary są zapisane; przeciągnij w dół, aby spróbować ponownie.</string>
+    <string name="fetch_busy">Zakończ bieżącą czynność ciśnieniomierza, a następnie ponownie przeciągnij w dół.</string>
+    <string name="fetch_no_monitor">Najpierw sparuj lub połącz obsługiwany ciśnieniomierz.</string>
+    <string name="fetch_failed">Nie można wyszukać ciśnieniomierzy. Sprawdź Bluetooth i ponownie przeciągnij w dół.</string>
+</resources>

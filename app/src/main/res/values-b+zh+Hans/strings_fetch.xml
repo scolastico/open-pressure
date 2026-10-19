@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fetch_looking">正在查找你的血压计…</string>
+    <string name="fetch_importing">正在从 %1$s 导入…</string>
+    <string name="fetch_none_nearby">附近没有血压计。血压计仅在测量后短时间内或处于蓝牙模式时发出信号。</string>
+    <string name="fetch_done">已获取最新读数。血压计：%1$d 台。</string>
+    <string name="fetch_incomplete">部分导入未完成。已接收的读数已保存；下拉可重试。</string>
+    <string name="fetch_busy">请先完成血压计当前的操作，然后再次下拉。</string>
+    <string name="fetch_no_monitor">请先配对或连接受支持的血压计。</string>
+    <string name="fetch_failed">无法查找血压计。请检查蓝牙，然后再次下拉。</string>
+</resources>

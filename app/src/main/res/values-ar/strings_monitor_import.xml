@@ -4,4 +4,29 @@
     <string name="monitor_clock_skipped">لا يدعم جهاز قياس ضغط الدم هذا تحديث الوقت تلقائيًا. اضبط الوقت يدويًا.</string>
     <string name="monitor_clock_failed">تعذر تحديث وقت جهاز قياس ضغط الدم. تحقق من الوقت أو اضبطه على الجهاز.</string>
     <string name="monitor_session_unconfirmed">تم حفظ القياسات، لكن جهاز قياس ضغط الدم لم يؤكد اكتمال النقل. أعد الاتصال قبل الاستيراد مرة أخرى.</string>
+    <string name="main_import_users">القراءات المراد استيرادها</string>
+    <string name="main_import_users_both">كلا المستخدمَين</string>
+    <string name="main_read_all">قراءة الكل</string>
+    <string name="main_read_all_explanation">يفحص كل خانة في ذاكرة المستخدمين المختارين للاستيراد، وليس فقط الخانات التي يبلغ عنها جهاز قياس الضغط كمستخدمة. استخدمه إذا بدا أن بعض القراءات مفقودة. يستغرق وقتًا أطول، لذا أبقِ الجهاز قريبًا حتى ينتهي.</string>
+    <string name="main_reading_all">جارٍ قراءة الكل…</string>
+    <plurals name="monitor_import_mode_index">
+        <item quantity="few">أبلغ الجهاز عن %1$d قراءات محفوظة للمستخدمين المختارين.</item>
+        <item quantity="many">أبلغ الجهاز عن %1$d قراءة محفوظة للمستخدمين المختارين.</item>
+        <item quantity="one">أبلغ الجهاز عن قراءة محفوظة واحدة (%1$d) للمستخدمين المختارين.</item>
+        <item quantity="other">أبلغ الجهاز عن %1$d قراءة محفوظة للمستخدمين المختارين.</item>
+        <item quantity="two">أبلغ الجهاز عن قراءتين محفوظتين (%1$d) للمستخدمين المختارين.</item>
+        <item quantity="zero">أبلغ الجهاز عن %1$d قراءة محفوظة للمستخدمين المختارين.</item>
+    </plurals>
+    <string name="monitor_import_mode_fallback">تعذّر استخدام قائمة القراءات المحفوظة في الجهاز، لذا تمت قراءة كل خانة في الذاكرة.</string>
+    <string name="monitor_import_mode_sweep">تمت قراءة كل خانة في الذاكرة.</string>
+    <string name="monitor_import_mode_empty">لم يُبلغ الجهاز عن أي قراءات محفوظة للمستخدمين المختارين. استخدم قراءة الكل إذا كنت تتوقع وجود بعضها.</string>
+    <string name="monitor_unconfirmed_bank_skipped">تم تخطي منطقة ذاكرة ثانية قد لا تكون موجودة في هذا الطراز.</string>
+    <plurals name="monitor_import_slots_unreadable">
+        <item quantity="few">تعذرت قراءة %1$d خانات في الذاكرة.</item>
+        <item quantity="many">تعذرت قراءة %1$d خانة في الذاكرة.</item>
+        <item quantity="one">تعذرت قراءة خانة واحدة في الذاكرة (%1$d).</item>
+        <item quantity="other">تعذرت قراءة %1$d خانة في الذاكرة.</item>
+        <item quantity="two">تعذرت قراءة خانتين في الذاكرة (%1$d).</item>
+        <item quantity="zero">تعذرت قراءة %1$d خانة في الذاكرة.</item>
+    </plurals>
 </resources>

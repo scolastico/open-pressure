@@ -2,10 +2,13 @@ package org.openpressure.protocol;
 
 import java.util.Arrays;
 import java.util.HexFormat;
+import java.util.List;
 
 public final class VendorWlpSessionTest {
     private static int checks;
     private static final byte[] START=hex("188000000010000102030405060708090a0b0c0d0e0f0088");
+    // HEM-7600T fixture: byte 14 of the identity is the additive sum of bytes 0..13.
+    private static final byte[] START_7600=hex("188000000010000102030405060708090a0b0c0d5b0f00dd");
     public static void main(String[] args) { System.out.println("Vendor WLP checks: "+run()); }
     public static int run() {
         checks=0;
@@ -15,6 +18,9 @@ public final class VendorWlpSessionTest {
         everyModelReadsEveryBank();
         failedReadAndEndStatuses();
         clockFailureKeepsHistoryInOneSession();
+        appendedRangesAndLargerBlocks();
+        identityChecksum();
+        abandonAfterUnansweredOrErrorRead();
         rejects(() -> new VendorWlpSession(null));
         rejects(() -> new VendorWlpSession(model("HEM-7150T"),0));
         rejects(() -> new VendorWlpSession(model("HEM-7150T"),17));
@@ -94,7 +100,7 @@ public final class VendorWlpSessionTest {
         int[] secondBank={0x458,0x458,0x824,0x6d8,0x6d8,0x80c,-1,-1,0x860};
         for(int i=0;i<names.length;i++) {
             VendorMemoryModel model=model(names[i]); VendorWlpSession s=new VendorWlpSession(model);
-            s.command(); acceptFrame(s,model,START); boolean sawSecond=false;
+            s.command(); acceptFrame(s,model,model.id.equals("HEM-7600T")?START_7600:START); boolean sawSecond=false;
             while((s.command()[1]&255)==1) {
                 byte[] command=s.command();
                 DeviceWritePolicy.validateVendorCharacteristic(model,VendorWlpSession.service(model),VendorWlpSession.txChannels(model).get(0),command);
@@ -153,6 +159,115 @@ public final class VendorWlpSessionTest {
             check(events.equals(java.util.List.of(status==0?"clock accepted":"clock skipped","end")),"clock errors and timeout still allow END");
             check(session.complete() && session.data().length==1920,"clock outcome never discards imported history");
         }
+    }
+    private static void appendedRangesAndLargerBlocks() {
+        // Index first, then an appended populated range, 48-byte record blocks.
+        VendorMemoryModel m=model("HEM-7342T");
+        VendorWlpSession s=new VendorWlpSession(m,List.of(m.settingsRange()),56);
+        same("0800000000100018",s.command()); acceptStart(s,START);
+        check(Arrays.equals(s.command(),Wlp.read(0x10,56)),"index read in one 56-byte block");
+        reply64(s,Wlp.read(0x10,56));
+        check(Arrays.equals(s.command(),Wlp.read(0x10+56,12)),"remainder of the image");
+        reply(s,Wlp.read(0x10+56,12));
+        check(s.rangeComplete() && !s.complete() && s.historyComplete(),"index range complete, END not issued");
+        s.appendRange(VendorMemoryModel.range(0x98,80,1));
+        check(!s.rangeComplete() && s.ranges().size()==2,"appended range returns the session to reads");
+        check(Arrays.equals(s.command(),Wlp.read(0x98,48)),"48-byte record block"); reply64(s,Wlp.read(0x98,48));
+        check(Arrays.equals(s.command(),Wlp.read(0x98+48,32)),"last block bounded by the range"); reply(s,Wlp.read(0x98+48,32));
+        check(s.rangeOffset(0)==0 && s.rangeOffset(1)==68 && s.received()==68+80,"offsets per range");
+        rejects(() -> s.rangeOffset(2));
+        same("080f000000000007",s.command()); // END issued once nothing more is appended
+        check(!s.rangeComplete(),"END issued closes the range list");
+        rejects(() -> s.appendRange(VendorMemoryModel.range(0x6d8,16,2))); // too late after END was issued
+        acceptFrame(s,m,hex("088f000000000087")); check(s.complete() && s.data().length==148,"END completes the appended read");
+        // With nothing appended, END is offered and issuing it blocks appending.
+        VendorWlpSession end=new VendorWlpSession(m,List.of(m.settingsRange()),56); end.command(); acceptStart(end,START);
+        reply64(end,end.command()); reply(end,end.command());
+        check((end.command()[1]&255)==15,"END offered while nothing is appended");
+        rejects(() -> end.appendRange(VendorMemoryModel.range(0x98,16,1)));
+        // A pending reply blocks appending; ranges must stay inside one mapped region.
+        VendorWlpSession partial=new VendorWlpSession(m,List.of(VendorMemoryModel.range(0x98,16,1)),56); partial.command(); acceptStart(partial,START);
+        rejects(() -> partial.appendRange(VendorMemoryModel.range(0xa8,16,1)));
+        VendorWlpSession bounds=new VendorWlpSession(m,List.of(VendorMemoryModel.range(0x98,16,1)),56); bounds.command(); acceptStart(bounds,START); reply(bounds,bounds.command());
+        rejects(() -> bounds.appendRange(VendorMemoryModel.range(0x6d8-8,16,1)));
+        rejects(() -> bounds.appendRange(null));
+        rejects(() -> bounds.appendRange(VendorMemoryModel.range(0x98,0,1)));
+        check(bounds.rangeComplete(),"rejected ranges leave the session appendable");
+        rejects(() -> new VendorWlpSession(m,List.of(VendorMemoryModel.range(m.settingsStart+60,16,0)),56));
+        check(VendorWlpSession.maxBlock(m)==56 && VendorWlpSession.maxBlock(model("HEM-7377T1"))==16,"channel capacity");
+        check(VendorWlpSession.recordBlock(model("HEM-7155T"))==48 && VendorWlpSession.recordBlock(model("HEM-6232T"))==56 && VendorWlpSession.recordBlock(model("HEM-7377T1"))==16,"record blocks");
+        rejects(() -> new VendorWlpSession(model("HEM-7377T1"),List.of(model("HEM-7377T1").settingsRange()),17)); // single channel keeps 1..16
+        rejects(() -> new VendorWlpSession(m,List.of(m.settingsRange()),57));
+        rejects(() -> new VendorWlpSession(m,List.of(),16));
+        rejects(() -> new VendorWlpSession(m,null,16));
+    }
+    private static void identityChecksum() {
+        // Omron checks byte 14 = sum of bytes 0..13 of the 16-byte START payload on this model only.
+        VendorWlpSession e=new VendorWlpSession(model("HEM-7600T")); e.command();
+        rejects(() -> acceptStart(e,START)); // byte 14 is 0e, sum is 5b
+        check(e.identity()==null && !e.historyComplete(),"bad identity checksum exposes nothing"); rejects(e::command);
+        VendorWlpSession ok=new VendorWlpSession(model("HEM-7600T")); ok.command(); acceptStart(ok,START_7600);
+        check((ok.command()[1]&255)==1,"valid identity checksum proceeds to reads");
+        VendorWlpSession other=new VendorWlpSession(model("HEM-7155T")); other.command(); acceptStart(other,START); // other models do not check
+        check((other.command()[1]&255)==1,"other models ignore byte 14");
+    }
+    private static void abandonAfterUnansweredOrErrorRead() {
+        VendorMemoryModel m=model("HEM-7156T");
+        List<VendorMemoryModel.Range> banks=m.historyRanges();
+        // A device error status on bank 2 keeps bank 1 and offers END next.
+        VendorWlpSession s=new VendorWlpSession(m,banks,48); s.command(); acceptStart(s,START);
+        rejects(s::abandonRemainingRanges); // nothing outstanding yet
+        while(s.currentRange()==banks.get(0)) reply(s,s.command());
+        byte[] read=s.command(); check(Arrays.equals(read,Wlp.read(0x458,48)),"first bank 2 read");
+        check(s.currentRange()==banks.get(1),"current range is the outstanding bank");
+        byte[] error=hex("088100045830e300"); fix(error);
+        rejects(() -> s.accept(0,error));
+        check(s.readStatusError() && s.currentRange()==banks.get(1),"framed device status is distinguishable");
+        s.abandonRemainingRanges();
+        check(s.historyComplete() && !s.rangeComplete() && s.ranges().size()==1 && s.received()==960,"bank 1 kept, bank 2 dropped");
+        rejects(() -> s.appendRange(VendorMemoryModel.range(0x98,16,1)));
+        same("080f000000000007",s.command()); acceptFrame(s,m,hex("088f000000000087"));
+        check(s.complete() && s.data().length==960,"END completes after the abandoned bank");
+        // An unanswered read in the middle of a bank keeps only its validated bytes.
+        VendorWlpSession t=new VendorWlpSession(m,banks,48); t.command(); acceptStart(t,START);
+        for(int i=0;i<22;i++) reply(t,t.command());
+        t.command(); t.abandonRemainingRanges();
+        check(t.ranges().size()==2 && t.ranges().get(1).length==96 && t.received()==1056,"partial bank kept up to the last reply");
+        same("080f000000000007",t.command());
+        // A malformed or corrupt reply is final and cannot be turned into an early END.
+        VendorWlpSession u=new VendorWlpSession(m,banks,48); u.command(); acceptStart(u,START);
+        byte[] bad=hex("088100009830e300"); // wrong checksum
+        u.command(); rejects(() -> u.accept(0,bad));
+        check(!u.readStatusError(),"corrupt status reply is not a device status"); rejects(u::abandonRemainingRanges);
+        // A refused index read continues with the given banks instead of END; nothing can be appended afterwards.
+        VendorWlpSession v=new VendorWlpSession(m,List.of(m.settingsRange()),56); v.command(); acceptStart(v,START);
+        byte[] index=v.command(); byte[] refused=new byte[8]; refused[0]=8; refused[1]=(byte)0x81; System.arraycopy(index,2,refused,2,4); refused[6]=(byte)0xe3; fix(refused);
+        rejects(() -> v.accept(0,refused)); check(v.readStatusError() && v.currentRange().user==0,"index status error");
+        rejects(() -> v.abandonRemainingRanges(List.of(VendorMemoryModel.range(0x10000-16,16,1)))); // unmapped continuation is refused
+        check(v.readStatusError(),"a refused continuation leaves the session unchanged");
+        v.abandonRemainingRanges(List.of(banks.get(0)));
+        check(!v.historyComplete() && !v.rangeComplete() && v.currentRange()==banks.get(0) && v.received()==0,"continues with bank 1");
+        same(HexFormat.of().formatHex(Wlp.read(0x98,48)),v.command());
+        while(v.currentRange()!=null) reply(v,v.command());
+        check(v.historyComplete() && v.received()==960,"bank 1 read after the refused index");
+        rejects(() -> v.appendRange(VendorMemoryModel.range(0x98,16,1)));
+        same("080f000000000007",v.command());
+    }
+    /** START replies arrive as two legacy channel fragments. */
+    private static void acceptStart(VendorWlpSession s,byte[] reply) {
+        s.accept(0,Arrays.copyOf(reply,16)); s.accept(1,Arrays.copyOfRange(reply,16,reply.length));
+    }
+    /** Large-block reply (up to 64 bytes) whose fragments use all four legacy channels. */
+    private static void reply64(VendorWlpSession s,byte[] request) {
+        check((request[5]&255)>40,"large-block fixture spans all four channels"); reply(s,request);
+    }
+    /** Erased-memory reply to the session's outstanding read, accepted fragment by fragment in channel order. */
+    private static void reply(VendorWlpSession s,byte[] request) {
+        check(Arrays.equals(s.command(),request),"fixture answers the outstanding read");
+        int n=request[5]&255; byte[] r=new byte[n+8]; Arrays.fill(r,(byte)255); r[0]=(byte)r.length; r[1]=(byte)0x81;
+        System.arraycopy(request,2,r,2,4); r[n+6]=0; fix(r);
+        List<byte[]> parts=VendorWlpSession.chunks(r,4);
+        for(int i=0;i<parts.size();i++) check(s.accept(i,parts.get(i))==(i==parts.size()-1),"reply completes only with its last fragment");
     }
     private static VendorWlpSession started() {
         VendorWlpSession s=new VendorWlpSession(model("HEM-7150T")); s.command();

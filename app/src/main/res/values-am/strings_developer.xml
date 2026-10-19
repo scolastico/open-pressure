@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="dev_version_label">ስሪት %1$s (%2$d)</string>
+    <plurals name="dev_taps_remaining">
+        <item quantity="one">የገንቢ አማራጮችን ለመክፈት %d ተጨማሪ መታ</item>
+        <item quantity="other">የገንቢ አማራጮችን ለመክፈት %d ተጨማሪ መታዎች</item>
+    </plurals>
+    <string name="dev_unlocked">የገንቢ አማራጮች ተከፍተዋል</string>
+    <string name="dev_open">የገንቢ አማራጮች</string>
+    <string name="dev_title">የገንቢ አማራጮች</string>
+    <string name="dev_warning">ማስጠንቀቂያ፦ እነዚህ አማራጮች ለደም ግፊት መለኪያዎ ሞዴል ያልተረጋገጡ ጽሑፎችን ይፈቅዳሉ። እንዲህ ያለ ጽሑፍ የመለኪያውን ቅንብሮች በቋሚነት ሊያበላሽ ይችላል። ሊያጡት ዝግጁ በሆኑት መለኪያ ሞዴልን ለሚያረጋግጡ ሰዎች ብቻ የታሰቡ ናቸው።</string>
+    <string name="dev_allow_clock_untested">ባልተፈተኑ መለኪያዎች ላይ የሰዓት ማመሳሰልን ፍቀድ</string>
+    <string name="dev_allow_confirm_title">ያልተፈተነ የሰዓት ማመሳሰል ይፈቀድ?</string>
+    <string name="dev_allow_confirm_message">በእነዚህ የመለኪያ ሞዴሎች ላይ ሰዓት ማስተካከል አልተረጋገጠም። ቢሆንም ማድረግ የመለኪያውን ቅንብሮች በቋሚነት ሊያበላሽ ወይም ጥቅም የሌለው ሊያደርገው ይችላል።\n\nይህ ማብሪያ በራሱ ምንም አይልክም። በኋላ የእንዲህ ያለ መለኪያን ሰዓት ካስተካከሉ፣ የመሣሪያ ሪፖርቱ ያልተፈተነ ጽሑፍ እንደተሞከረ ይመዘግባል።\n\nበመለኪያዎ ላይ ለሚደርስ ማንኛውም ጉዳት እርስዎ ኃላፊነት አለብዎት።</string>
+    <string name="dev_allow_confirm_accept">ተረድቻለሁ፣ አንቃ</string>
+    <string name="dev_index_title">በመለኪያ የጽሑፍ ድጋፍ</string>
+    <string name="dev_index_status_confirmed">ተረጋግጧል</string>
+    <string name="dev_index_status_untested">አልተፈተነም</string>
+    <string name="dev_index_status_blocked">ታግዷል</string>
+    <string name="dev_index_aspect_clock">የሰዓት ማመሳሰል</string>
+    <string name="dev_index_aspect_unsent">ያልተላኩ ንባቦች ቆጣሪ</string>
+    <string name="dev_index_no_monitors">እስካሁን የተቀመጡ መለኪያዎች የሉም።</string>
+    <string name="dev_hide">የገንቢ አማራጮችን ደብቅ</string>
+    <string name="dev_hidden">የገንቢ አማራጮች ተደብቀዋል፤ ሁሉም የገንቢ ማብሪያዎች ጠፍተዋል</string>
+    <string name="dev_save_failed">የገንቢ አማራጮችን ማስቀመጥ አልተቻለም</string>
+    <string name="dev_allow_registration_untested">ባልተፈተኑ መለኪያዎች ላይ የመገለጫ ምዝገባን ፍቀድ</string>
+    <string name="dev_allow_registration_confirm_title">ያልተፈተነ የመገለጫ ምዝገባ ይፈቀድ?</string>
+    <string name="dev_allow_registration_confirm_message">የመገለጫ ምዝገባ የተመረጠውን ተጠቃሚ እና ሰዓቱን በመለኪያው ቅንብሮች ውስጥ ይጽፋል። በእነዚህ የመለኪያ ሞዴሎች ላይ አልተረጋገጠም። ቢሆንም ማድረግ የመለኪያውን ቅንብሮች በቋሚነት ሊያበላሽ ወይም ጥቅም የሌለው ሊያደርገው ይችላል።\n\nይህ ማብሪያ በራሱ ምንም አይልክም። ምዝገባው አሁንም የሚካሄደው «አጣምር»ን መርጠው ሲያረጋግጡ ብቻ ነው፣ እና የመሣሪያ ሪፖርቱ ያልተፈተነ ጽሑፍ እንደተሞከረ ይመዘግባል።\n\nበመለኪያዎ ላይ ለሚደርስ ማንኛውም ጉዳት እርስዎ ኃላፊነት አለብዎት።</string>
+    <string name="dev_index_aspect_registration">የመገለጫ ምዝገባ</string>
+    <string name="dev_experimental_title">የሙከራ መንገዶች</string>
+    <string name="dev_experimental_explanation">እነዚህ ማብሪያዎች በመተግበሪያው ውስጥ ያሉ ነገር ግን በእውነተኛ መለኪያ ላይ ፈጽሞ ያልተፈተኑ የግንኙነት መንገዶችን ያበራሉ። በቀላሉ ሊከሽፉ ይችላሉ።</string>
+    <string name="dev_experimental_force_x7_encrypted">X7 ሲያጣምሩ የተመሰጠረውን ግንኙነት ተጠቀም</string>
+    <string name="dev_experimental_confirm_title">ያልተፈተነ መንገድ ይብራ?</string>
+    <string name="dev_experimental_confirm_message">ይህ መንገድ በመተግበሪያው ውስጥ አለ ነገር ግን በእውነተኛ መለኪያ ላይ ፈጽሞ አልተፈተነም፣ እና በቀላሉ ሊከሽፍ ይችላል። በዚህ መንገድ ማጣመር የመለኪያውን ነባር ጥምረት በዚህ ስልክ ሊተካው ይችላል። ያልተሳካ ጽሑፍ የመለኪያውን ቅንብሮች በቋሚነት ሊያበላሽ ወይም ጥቅም የሌለው ሊያደርገው ይችላል።\n\nይህ ማብሪያ በራሱ ምንም አይልክም። የመሣሪያ ሪፖርቱ የትኞቹ የገንቢ ማብሪያዎች በርተው እንደነበሩ ይዘረዝራል።\n\nበመለኪያዎ ላይ ለሚደርስ ማንኛውም ጉዳት እርስዎ ኃላፊነት አለብዎት።</string>
+    <string name="dev_experimental_clock_sync_encrypted_x7">በተመሰጠረ የX7 ግንኙነት የሰዓት ማመሳሰልን ፍቀድ</string>
+</resources>

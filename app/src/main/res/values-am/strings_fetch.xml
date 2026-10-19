@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fetch_looking">መቆጣጠሪያዎችዎን በመፈለግ ላይ…</string>
+    <string name="fetch_importing">ከ%1$s በማስመጣት ላይ…</string>
+    <string name="fetch_none_nearby">በአቅራቢያ ምንም መሣሪያ የለም። መሣሪያዎች ምልክት የሚልኩት ከልኬት በኋላ ለአጭር ጊዜ ወይም በBluetooth ሁነታ ብቻ ነው።</string>
+    <string name="fetch_done">የቅርብ ጊዜ ንባቦች ተገኝተዋል። መሣሪያዎች፦ %1$d።</string>
+    <string name="fetch_incomplete">አንዳንድ ማስመጣቶች አልተጠናቀቁም። የደረሱ ንባቦች ተቀምጠዋል፤ እንደገና ለመሞከር ወደ ታች ይጎትቱ።</string>
+    <string name="fetch_busy">የመሣሪያውን የአሁኑን እርምጃ ጨርሰው እንደገና ወደ ታች ይጎትቱ።</string>
+    <string name="fetch_no_monitor">መጀመሪያ የሚደገፍ መሣሪያ ያጣምሩ ወይም ያገናኙ።</string>
+    <string name="fetch_failed">መሣሪያዎችን መፈለግ አልተቻለም። Bluetoothን ያረጋግጡ፣ ከዚያ እንደገና ወደ ታች ይጎትቱ።</string>
+</resources>

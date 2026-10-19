@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_sync_clock">Synchronizovať hodiny</string>
+    <string name="main_sync_clock_explanation">Nastaví hodiny tlakomeru podľa času tohto telefónu. Uvidíte oba časy a potvrdíte ich skôr, než sa čokoľvek zmení. Potom sa spojenie ukončí; na import meraní sa pripojte znova.</string>
+    <string name="main_sync_clock_running">Synchronizácia hodín…</string>
+    <string name="clock_sync_title">Potvrďte synchronizáciu hodín</string>
+    <string name="clock_sync_monitor_time">Hodiny tlakomeru: %1$s</string>
+    <string name="clock_sync_monitor_time_unset">Hodiny tlakomeru: nenastavené</string>
+    <string name="clock_sync_phone_time">Čas telefónu: %1$s</string>
+    <plurals name="clock_sync_drift">
+        <item quantity="few">Rozdiel: %1$d sekundy</item>
+        <item quantity="many">Rozdiel: %1$d sekundy</item>
+        <item quantity="one">Rozdiel: %1$d sekunda</item>
+        <item quantity="other">Rozdiel: %1$d sekúnd</item>
+    </plurals>
+    <string name="clock_sync_within_threshold">Hodiny tlakomeru sa od času telefónu líšia najviac o minútu, preto zostávajú bez zmeny.</string>
+    <string name="clock_sync_untested_warning">Synchronizácia hodín zatiaľ nebola s týmto tlakomerom otestovaná. Je dostupná len preto, že ste zapli možnosť pre vývojárov. Pokračujte, iba ak toto riziko prijímate.</string>
+    <string name="clock_sync_choose_time">Čas na nastavenie (možnosť pre vývojárov)</string>
+    <string name="clock_sync_confirm">Synchronizovať teraz</string>
+    <string name="monitor_clock_sync_complete">Hodiny synchronizované</string>
+    <string name="monitor_clock_sync_skipped">Hodiny už idú správne</string>
+    <string name="monitor_clock_sync_rejected">Synchronizácia hodín zlyhala</string>
+    <string name="monitor_clock_sync_cancelled">Synchronizácia hodín zrušená</string>
+    <string name="monitor_clock_sync_unreadable">Synchronizácia hodín nie je možná</string>
+    <string name="monitor_clock_sync_reconnect">Na import meraní sa pripojte znova.</string>
+    <string name="clock_sync_report_prompt">Synchronizovali ste hodiny tlakomeru, s ktorým to zatiaľ nebolo otestované. Hlásenie o zariadení v issue na GitHube ukáže, či to fungovalo, a pomôže sprístupniť synchronizáciu hodín aj ostatným.\n\nSpráva obsahuje iba technické údaje. Nikdy neobsahuje namerané hodnoty, časy meraní, mená, adresu Bluetooth ani sériové číslo. Pred zdieľaním si ju môžete pozrieť.</string>
+    <string name="main_clock_sync_backup">Záloha pred synchronizáciou hodín</string>
+    <string name="main_clock_sync_backup_explanation">Nastavenia uložené pred poslednou synchronizáciou hodín. Ide o zálohu nastavení, nie o úplnú zálohu pamäte ani kalibrácie. Staršie zálohy zostávajú v tomto telefóne.</string>
+    <string name="monitor_clock_sync_out_of_range">Dátum v telefóne je mimo podporovaného rozsahu, preto sa hodiny prístroja nezmenili. Skontrolujte dátum v tomto telefóne.</string>
+</resources>

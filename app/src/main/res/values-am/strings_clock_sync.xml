@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_sync_clock">ሰዓቱን አስምር</string>
+    <string name="main_sync_clock_explanation">የመቆጣጠሪያውን ሰዓት በዚህ ስልክ ሰዓት ያስተካክላል። ማንኛውም ነገር ከመቀየሩ በፊት ሁለቱንም ሰዓቶች አይተው ያረጋግጣሉ። ከዚያ በኋላ ግንኙነቱ ያበቃል፤ ልኬቶችን ለማስመጣት እንደገና ይገናኙ።</string>
+    <string name="main_sync_clock_running">ሰዓቱ በመመሳሰል ላይ…</string>
+    <string name="clock_sync_title">የሰዓት ማስመሳሰልን ያረጋግጡ</string>
+    <string name="clock_sync_monitor_time">የመቆጣጠሪያው ሰዓት፡ %1$s</string>
+    <string name="clock_sync_monitor_time_unset">የመቆጣጠሪያው ሰዓት፡ አልተዘጋጀም</string>
+    <string name="clock_sync_phone_time">የስልክ ሰዓት፡ %1$s</string>
+    <plurals name="clock_sync_drift">
+        <item quantity="one">ልዩነት፡ %1$d ሰከንድ</item>
+        <item quantity="other">ልዩነት፡ %1$d ሰከንዶች</item>
+    </plurals>
+    <string name="clock_sync_within_threshold">የመቆጣጠሪያው ሰዓት ከስልኩ ሰዓት በአንድ ደቂቃ ውስጥ ስለሆነ አይቀየርም።</string>
+    <string name="clock_sync_untested_warning">የሰዓት ማስመሳሰል ከዚህ መቆጣጠሪያ ጋር ገና አልተሞከረም። የሚገኘው የገንቢ አማራጭ ስላበሩ ብቻ ነው። ይህን አደጋ ከተቀበሉ ብቻ ይቀጥሉ።</string>
+    <string name="clock_sync_choose_time">የሚዘጋጀው ሰዓት (የገንቢ አማራጭ)</string>
+    <string name="clock_sync_confirm">አሁን አስምር</string>
+    <string name="monitor_clock_sync_complete">ሰዓቱ ተመሳስሏል</string>
+    <string name="monitor_clock_sync_skipped">ሰዓቱ አስቀድሞ ትክክል ነው</string>
+    <string name="monitor_clock_sync_rejected">ሰዓቱን ማስመሳሰል አልተሳካም</string>
+    <string name="monitor_clock_sync_cancelled">የሰዓት ማስመሳሰል ተሰርዟል</string>
+    <string name="monitor_clock_sync_unreadable">ሰዓቱን ማስመሳሰል አይቻልም</string>
+    <string name="monitor_clock_sync_reconnect">ልኬቶችን ለማስመጣት እንደገና ይገናኙ።</string>
+    <string name="clock_sync_report_prompt">ይህ ገና ያልተሞከረበትን መቆጣጠሪያ ሰዓት አስምረዋል። በGitHub issue ውስጥ የመሣሪያ ሪፖርት መጋራት መስራቱን ያሳያል እና የሰዓት ማስመሳሰልን ለሌሎችም እንዲገኝ ያግዛል።\n\nሪፖርቱ ቴክኒካዊ ዝርዝሮችን ብቻ ይይዛል። ልኬቶችን፣ የልኬት ሰዓቶችን፣ ስሞችን፣ የBluetooth አድራሻውን ወይም የመለያ ቁጥሩን በጭራሽ አያካትትም። ማንኛውንም ነገር ከማጋራትዎ በፊት ሊገመግሙት ይችላሉ።</string>
+    <string name="main_clock_sync_backup">የሰዓት ማስመሪያ ምትኬ</string>
+    <string name="main_clock_sync_backup_explanation">ከመጨረሻው የሰዓት ማስመር በፊት የተቀመጡ ቅንብሮች። ይህ የቅንብሮች ምትኬ ነው፣ የሙሉ ማህደረ ትውስታ ወይም የማስተካከያ ምትኬ አይደለም። ቀደም ያሉ ምትኬዎች በዚህ ስልክ ላይ ይቆያሉ።</string>
+    <string name="monitor_clock_sync_out_of_range">የስልኩ ቀን ከሚደገፈው ክልል ውጭ ነው፣ ስለዚህ የመለኪያው ሰዓት አልተቀየረም። በዚህ ስልክ ላይ ያለውን ቀን ያረጋግጡ።</string>
+</resources>

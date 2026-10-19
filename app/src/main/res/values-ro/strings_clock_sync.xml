@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_sync_clock">Sincronizează ceasul</string>
+    <string name="main_sync_clock_explanation">Setează ceasul tensiometrului la ora acestui telefon. Vedeți ambele ore și confirmați înainte de orice modificare. Apoi conexiunea se încheie; conectați-vă din nou pentru a importa măsurătorile.</string>
+    <string name="main_sync_clock_running">Se sincronizează ceasul…</string>
+    <string name="clock_sync_title">Confirmați sincronizarea ceasului</string>
+    <string name="clock_sync_monitor_time">Ceasul tensiometrului: %1$s</string>
+    <string name="clock_sync_monitor_time_unset">Ceasul tensiometrului: nesetat</string>
+    <string name="clock_sync_phone_time">Ora telefonului: %1$s</string>
+    <plurals name="clock_sync_drift">
+        <item quantity="few">Diferență: %1$d secunde</item>
+        <item quantity="one">Diferență: %1$d secundă</item>
+        <item quantity="other">Diferență: %1$d de secunde</item>
+    </plurals>
+    <string name="clock_sync_within_threshold">Ceasul tensiometrului diferă cu cel mult un minut de ora telefonului, așa că rămâne neschimbat.</string>
+    <string name="clock_sync_untested_warning">Sincronizarea ceasului nu a fost încă testată cu acest tensiometru. Este disponibilă doar pentru că ați activat o opțiune pentru dezvoltatori. Continuați doar dacă acceptați acest risc.</string>
+    <string name="clock_sync_choose_time">Ora de setat (opțiune pentru dezvoltatori)</string>
+    <string name="clock_sync_confirm">Sincronizează acum</string>
+    <string name="monitor_clock_sync_complete">Ceas sincronizat</string>
+    <string name="monitor_clock_sync_skipped">Ceasul este deja corect</string>
+    <string name="monitor_clock_sync_rejected">Sincronizarea ceasului a eșuat</string>
+    <string name="monitor_clock_sync_cancelled">Sincronizarea ceasului a fost anulată</string>
+    <string name="monitor_clock_sync_unreadable">Sincronizarea ceasului nu este posibilă</string>
+    <string name="monitor_clock_sync_reconnect">Conectați-vă din nou pentru a importa măsurătorile.</string>
+    <string name="clock_sync_report_prompt">Ați sincronizat ceasul unui tensiometru cu care acest lucru nu a fost încă testat. Un raport al dispozitivului într-un issue pe GitHub arată dacă a funcționat și ajută la disponibilizarea sincronizării ceasului și pentru alții.\n\nRaportul conține doar detalii tehnice. Nu include niciodată măsurători, orele măsurătorilor, nume, adresa Bluetooth sau numărul de serie. Îl poți examina înainte de a distribui ceva.</string>
+    <string name="main_clock_sync_backup">Copie de rezervă pentru sincronizarea ceasului</string>
+    <string name="main_clock_sync_backup_explanation">Setări salvate înainte de ultima sincronizare a ceasului. Aceasta este o copie de rezervă a setărilor, nu o copie completă a memoriei sau a calibrării. Copiile anterioare rămân pe acest telefon.</string>
+    <string name="monitor_clock_sync_out_of_range">Data telefonului este în afara intervalului acceptat, așa că ceasul aparatului nu a fost modificat. Verificați data de pe acest telefon.</string>
+</resources>

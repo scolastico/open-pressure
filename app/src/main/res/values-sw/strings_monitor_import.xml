@@ -4,4 +4,21 @@
     <string name="monitor_clock_skipped">Kifaa hiki cha kupima shinikizo la damu hakitumii usasishaji wa muda kiotomatiki. Weka muda mwenyewe.</string>
     <string name="monitor_clock_failed">Muda wa kifaa cha kupima shinikizo la damu haukuweza kusasishwa. Angalia au weka muda kwenye kifaa chako.</string>
     <string name="monitor_session_unconfirmed">Vipimo vimehifadhiwa, lakini kifaa cha kupima shinikizo la damu hakikuthibitisha kuwa uhamishaji umekamilika. Unganisha tena kabla ya kuleta vipimo tena.</string>
+    <string name="main_import_users">Vipimo vya kuingiza</string>
+    <string name="main_import_users_both">Watumiaji wote wawili</string>
+    <string name="main_read_all">Soma vyote</string>
+    <string name="main_read_all_explanation">Hukagua kila nafasi ya kumbukumbu ya watumiaji waliochaguliwa kuingizwa, si zile tu ambazo kifaa kinaripoti kuwa zimetumika. Tumia hii ikiwa vipimo vinaonekana kukosekana. Huchukua muda mrefu zaidi, kwa hivyo weka kifaa karibu hadi kimalize.</string>
+    <string name="main_reading_all">Inasoma vyote…</string>
+    <plurals name="monitor_import_mode_index">
+        <item quantity="one">Kifaa kiliripoti kipimo %1$d kilichohifadhiwa kwa watumiaji waliochaguliwa.</item>
+        <item quantity="other">Kifaa kiliripoti vipimo %1$d vilivyohifadhiwa kwa watumiaji waliochaguliwa.</item>
+    </plurals>
+    <string name="monitor_import_mode_fallback">Orodha ya vipimo vilivyohifadhiwa kwenye kifaa haikuweza kutumika, kwa hivyo kila nafasi ya kumbukumbu imesomwa.</string>
+    <string name="monitor_import_mode_sweep">Kila nafasi ya kumbukumbu imesomwa.</string>
+    <string name="monitor_import_mode_empty">Kifaa hakikuripoti vipimo vilivyohifadhiwa kwa watumiaji waliochaguliwa. Tumia Soma vyote ikiwa unatarajia baadhi.</string>
+    <string name="monitor_unconfirmed_bank_skipped">Eneo la pili la kumbukumbu ambalo huenda modeli hii haina limerukwa.</string>
+    <plurals name="monitor_import_slots_unreadable">
+        <item quantity="one">Nafasi %1$d ya kumbukumbu haikuweza kusomwa.</item>
+        <item quantity="other">Nafasi %1$d za kumbukumbu hazikuweza kusomwa.</item>
+    </plurals>
 </resources>

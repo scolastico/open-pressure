@@ -1,0 +1,56 @@
+# HEM-7530T (Z identity): reconnect with a saved key, read history, end the session.
+# Omron selects HEM-7530T-Z from the advertised IDs (category 0x0000, model 0x0151);
+# OpenPressure maps the Device Information model HEM-7530T-Z to its HEM-7530T map (14-byte records).
+name hem-7530t/connect-read-history
+flow connect
+advertise name=BLEsmart_000001510011223344 services=ecbe3980-c9a2-11e1-b1bd-0002a5d5c51b
+# Synthetic Device Information; Omron reads the revisions and the System ID during connection setup.
+dis model=HEM-7530T-Z firmware=0001 software=0001 systemid=0011223344556677
+time 2026-01-02T03:04:05 zone=UTC
+key 05050505050505050505050505050505
+
+alias unlock b305b680-aee7-11e1-a730-0002a5d5c51b
+alias tx db5b55e0-aee7-11e1-965e-0002a5d5c51b,e0b8a060-aee7-11e1-92f4-0002a5d5c51b,0ae12b00-aee8-11e1-a192-0002a5d5c51b,10e1ba60-aee8-11e1-89e5-0002a5d5c51b
+alias rx 49123040-aee8-11e1-a74d-0002a5d5c51b,4d0bf320-aee8-11e1-a0d9-0002a5d5c51b,5128ce60-aee8-11e1-b84b-0002a5d5c51b,560f1420-aee8-11e1-8184-0002a5d5c51b
+alias clock 00002a2b-0000-1000-8000-00805f9b34fb
+
+# 14-byte records with adjacent byte pairs swapped (Omron reverseSendData=1; OpenPressure reads big-endian):
+# 130/78 mmHg, pulse 67, 2025-07-09 06:14:38, sequence number 1, Omron record checksum 00 at offset 12.
+memory fill=ff
+memory 0x2e8 4e691943 1d2603a6 0000 0001 0000
+# Index block (index_setting_read_address=260), byte pairs swapped like the records: next write position 1,
+# one unsent record, sequence number 1.
+memory 0x260 0001 0000 0001 0000 00010000
+# Setting-info block 3 is checksummed like a record (8-bit sum of bytes 0-13 in byte 14); blocks 1 and 2 are
+# exempt (OtherInfo ignoreCheckSumBlocks). All zeros is a valid block.
+memory 0x28c 00000000000000000000000000000000
+
+[omron-only: Omron 2026.09.03 sends 02 (confirm encryption) before authenticating, observed in the sandbox] write unlock 02 00000000000000000000000000000000
+[omron-only: acknowledgment for the confirm-encryption frame above] notify unlock 8200
+write unlock 01 05050505050505050505050505050505
+notify unlock 8100
+
+write tx 08 00 00 00 00 10 00 18
+notify rx 18 80 00 00 00 10 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f 00 88
+
+[omron-only: Omron reads the index block (index_setting_read_address 0x260) before records] reads 0x260 44 chunk=44
+[omron-only: Omron reads setting-info blocks 3 and 4 (index_setting_info_read_address 0x270 + 28, 16 + 8 bytes)] reads 0x28c 24 chunk=24
+
+[ours-only: index-driven populated-slot read: OpenPressure reads the 68-byte settings/index image at 0x260 in 56-byte blocks (byte pairs swapped), then only the slots it lists as populated; Omron reads 44 bytes plus blocks 3 and 4 and then only unsent records] reads 0x260 68 chunk=56
+
+# Both clients read the one record per user with the identical frame: OpenPressure because the index lists one
+# populated slot, Omron because it lists one unsent record. The mechanisms differ (open finding on the index read above).
+reads 0x2e8 14 chunk=14
+
+# Omron Connect 2026.09.03 post-transfer settings frames, recorded against this synthetic fixture.
+# Replies are synthetic full echoes; no physical monitor's acknowledgment is established.
+[omron-only: Omron 2026.09.03 post-transfer index prefix at 0x2a4, with the last-read user's cleared unsent counter and birthday block 1; docs/omron-sandbox.md] write tx 2601c002a41e 000100008000000000010000ffffffff0100ff01fffffffffffffffffff9 0026
+[omron-only: synthetic full echo acknowledgment; the physical monitor reply is unconfirmed] notify rx 2681c002a41e 000100008000000000010000ffffffff0100ff01fffffffffffffffffff9 00a6
+[omron-only: Omron 2026.09.03 settings at 0x2d0, block 3 clock (fixture time + 1 s); docs/omron-sandbox.md] write tx 1801c002d010 0000000000000000011a03020604002a 0029
+[omron-only: synthetic full echo acknowledgment; the physical monitor reply is unconfirmed] notify rx 1881c002d010 0000000000000000011a03020604002a 00a9
+
+# Both clients use the normal END after completing their respective steps.
+write tx 08 0f 00 00 00 00 00 07
+notify rx 08 8f 00 00 00 00 00 87
+
+expect reading user=1 sys=130 dia=78 pulse=67 time=2025-07-09T06:14:38

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fetch_looking">আপনার মনিটর খোঁজা হচ্ছে…</string>
+    <string name="fetch_importing">%1$s থেকে আমদানি হচ্ছে…</string>
+    <string name="fetch_none_nearby">কাছাকাছি কোনো মনিটর নেই। মনিটর শুধু পরিমাপের কিছুক্ষণ পরে বা Bluetooth মোডে সংকেত পাঠায়।</string>
+    <string name="fetch_done">সর্বশেষ রিডিং আনা হয়েছে। মনিটর: %1$d।</string>
+    <string name="fetch_incomplete">কিছু আমদানি শেষ হয়নি। প্রাপ্ত রিডিং সংরক্ষিত আছে; আবার চেষ্টা করতে নিচে টানুন।</string>
+    <string name="fetch_busy">মনিটরের বর্তমান কাজ শেষ করুন, তারপর আবার নিচে টানুন।</string>
+    <string name="fetch_no_monitor">প্রথমে একটি সমর্থিত মনিটর পেয়ার বা সংযুক্ত করুন।</string>
+    <string name="fetch_failed">মনিটর খোঁজা যায়নি। Bluetooth পরীক্ষা করুন, তারপর আবার নিচে টানুন।</string>
+</resources>

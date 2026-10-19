@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="dev_version_label">ورژن %1$s (%2$d)</string>
+    <plurals name="dev_taps_remaining">
+        <item quantity="one">ڈویلپر آپشنز کھولنے کے لیے %d ٹیپ باقی</item>
+        <item quantity="other">ڈویلپر آپشنز کھولنے کے لیے %d ٹیپ باقی</item>
+    </plurals>
+    <string name="dev_unlocked">ڈویلپر آپشنز کھل گئے</string>
+    <string name="dev_open">ڈویلپر آپشنز</string>
+    <string name="dev_title">ڈویلپر آپشنز</string>
+    <string name="dev_warning">انتباہ: یہ آپشنز ایسی تحریر کی اجازت دیتے ہیں جو آپ کے بلڈ پریشر مانیٹر ماڈل کے لیے تصدیق شدہ نہیں۔ ایسی تحریر مانیٹر کی سیٹنگز کو مستقل طور پر خراب کر سکتی ہے۔ یہ صرف ان لوگوں کے لیے ہیں جو کسی ماڈل کی جانچ ایسے مانیٹر سے کر رہے ہوں جسے کھونے کے لیے وہ تیار ہوں۔</string>
+    <string name="dev_allow_clock_untested">جن مانیٹرز پر جانچ نہیں ہوئی ان پر گھڑی کی ہم آہنگی کی اجازت دیں</string>
+    <string name="dev_allow_confirm_title">غیر جانچ شدہ گھڑی کی ہم آہنگی کی اجازت دیں؟</string>
+    <string name="dev_allow_confirm_message">ان مانیٹر ماڈلز پر گھڑی سیٹ کرنے کی تصدیق نہیں ہوئی۔ پھر بھی ایسا کرنے سے مانیٹر کی سیٹنگز مستقل طور پر خراب ہو سکتی ہیں یا وہ ناقابل استعمال ہو سکتا ہے۔\n\nیہ سوئچ خود کچھ نہیں بھیجتا۔ اگر آپ بعد میں ایسے مانیٹر کی گھڑی سیٹ کریں تو ڈیوائس رپورٹ درج کرتی ہے کہ غیر جانچ شدہ تحریر کی کوشش کی گئی۔\n\nآپ کے مانیٹر کو پہنچنے والے کسی بھی نقصان کے ذمہ دار آپ ہیں۔</string>
+    <string name="dev_allow_confirm_accept">میں سمجھتا ہوں، فعال کریں</string>
+    <string name="dev_index_title">مانیٹر کے لحاظ سے تحریر کی معاونت</string>
+    <string name="dev_index_status_confirmed">تصدیق شدہ</string>
+    <string name="dev_index_status_untested">غیر جانچ شدہ</string>
+    <string name="dev_index_status_blocked">مسدود</string>
+    <string name="dev_index_aspect_clock">گھڑی کی ہم آہنگی</string>
+    <string name="dev_index_aspect_unsent">نہ بھیجی گئی ریڈنگز کا کاؤنٹر</string>
+    <string name="dev_index_no_monitors">ابھی کوئی محفوظ مانیٹر نہیں۔</string>
+    <string name="dev_hide">ڈویلپر آپشنز چھپائیں</string>
+    <string name="dev_hidden">ڈویلپر آپشنز چھپا دیے گئے؛ تمام ڈویلپر سوئچ بند ہیں</string>
+    <string name="dev_save_failed">ڈویلپر آپشنز محفوظ نہیں کیے جا سکے</string>
+    <string name="dev_allow_registration_untested">جن مانیٹرز پر جانچ نہیں ہوئی ان پر پروفائل رجسٹریشن کی اجازت دیں</string>
+    <string name="dev_allow_registration_confirm_title">غیر جانچ شدہ پروفائل رجسٹریشن کی اجازت دیں؟</string>
+    <string name="dev_allow_registration_confirm_message">پروفائل رجسٹریشن منتخب صارف اور گھڑی کو مانیٹر کی سیٹنگز میں لکھتی ہے۔ ان مانیٹر ماڈلز پر اس کی تصدیق نہیں ہوئی۔ پھر بھی ایسا کرنے سے مانیٹر کی سیٹنگز مستقل طور پر خراب ہو سکتی ہیں یا وہ ناقابل استعمال ہو سکتا ہے۔\n\nیہ سوئچ خود کچھ نہیں بھیجتا۔ رجسٹریشن اب بھی صرف تب چلتی ہے جب آپ \"جوڑا بنائیں\" منتخب کر کے اس کی تصدیق کریں، اور ڈیوائس رپورٹ درج کرتی ہے کہ غیر جانچ شدہ تحریر کی کوشش کی گئی۔\n\nآپ کے مانیٹر کو پہنچنے والے کسی بھی نقصان کے ذمہ دار آپ ہیں۔</string>
+    <string name="dev_index_aspect_registration">پروفائل رجسٹریشن</string>
+    <string name="dev_experimental_title">تجرباتی راستے</string>
+    <string name="dev_experimental_explanation">یہ سوئچ کنکشن کے ایسے راستے آن کرتے ہیں جو ایپ میں موجود ہیں لیکن کبھی کسی اصل مانیٹر پر نہیں جانچے گئے۔ ہو سکتا ہے وہ بس ناکام ہو جائیں۔</string>
+    <string name="dev_experimental_force_x7_encrypted">X7 کا جوڑا بناتے وقت خفیہ شدہ کنکشن استعمال کریں</string>
+    <string name="dev_experimental_confirm_title">غیر جانچ شدہ راستہ آن کریں؟</string>
+    <string name="dev_experimental_confirm_message">یہ راستہ ایپ میں موجود ہے لیکن کبھی کسی اصل مانیٹر پر نہیں جانچا گیا، اور ہو سکتا ہے یہ بس ناکام ہو جائے۔ اس طرح جوڑا بنانے سے مانیٹر کا موجودہ جوڑا اس فون سے بدل سکتا ہے۔ ناکام تحریر مانیٹر کی سیٹنگز کو مستقل طور پر خراب کر سکتی ہے یا اسے ناقابل استعمال بنا سکتی ہے۔\n\nیہ سوئچ خود کچھ نہیں بھیجتا۔ ڈیوائس رپورٹ میں درج ہوتا ہے کہ کون سے ڈویلپر سوئچ فعال تھے۔\n\nآپ کے مانیٹر کو پہنچنے والے کسی بھی نقصان کے ذمہ دار آپ ہیں۔</string>
+    <string name="dev_experimental_clock_sync_encrypted_x7">خفیہ شدہ X7 کنکشن پر گھڑی کی ہم آہنگی کی اجازت دیں</string>
+</resources>

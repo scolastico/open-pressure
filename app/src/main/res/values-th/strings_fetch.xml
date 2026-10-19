@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fetch_looking">กำลังค้นหาเครื่องวัดของคุณ…</string>
+    <string name="fetch_importing">กำลังนำเข้าจาก %1$s…</string>
+    <string name="fetch_none_nearby">ไม่มีเครื่องวัดอยู่ใกล้ๆ เครื่องวัดจะส่งสัญญาณเพียงช่วงสั้นๆ หลังการวัดหรือในโหมด Bluetooth</string>
+    <string name="fetch_done">ดึงค่าที่วัดล่าสุดแล้ว เครื่องวัด: %1$d</string>
+    <string name="fetch_incomplete">การนำเข้าบางรายการไม่เสร็จสมบูรณ์ ค่าที่ได้รับแล้วถูกบันทึกไว้ ดึงลงเพื่อลองอีกครั้ง</string>
+    <string name="fetch_busy">ทำการดำเนินการปัจจุบันของเครื่องวัดให้เสร็จ แล้วดึงลงอีกครั้ง</string>
+    <string name="fetch_no_monitor">จับคู่หรือเชื่อมต่อเครื่องวัดที่รองรับก่อน</string>
+    <string name="fetch_failed">ไม่สามารถค้นหาเครื่องวัดได้ ตรวจสอบ Bluetooth แล้วดึงลงอีกครั้ง</string>
+</resources>

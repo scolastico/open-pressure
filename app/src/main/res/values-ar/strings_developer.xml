@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="dev_version_label">الإصدار %1$s (%2$d)</string>
+    <plurals name="dev_taps_remaining">
+        <item quantity="few">بقيت %d نقرات لفتح خيارات المطوّرين</item>
+        <item quantity="many">بقيت %d نقرة لفتح خيارات المطوّرين</item>
+        <item quantity="one">بقيت نقرة واحدة (%d) لفتح خيارات المطوّرين</item>
+        <item quantity="other">بقيت %d نقرة لفتح خيارات المطوّرين</item>
+        <item quantity="two">بقيت نقرتان (%d) لفتح خيارات المطوّرين</item>
+        <item quantity="zero">بقيت %d نقرة لفتح خيارات المطوّرين</item>
+    </plurals>
+    <string name="dev_unlocked">تم فتح خيارات المطوّرين</string>
+    <string name="dev_open">خيارات المطوّرين</string>
+    <string name="dev_title">خيارات المطوّرين</string>
+    <string name="dev_warning">تحذير: تسمح هذه الخيارات بعمليات كتابة غير مؤكدة لطراز جهاز قياس الضغط لديك. قد تؤدي عملية كتابة كهذه إلى إتلاف إعدادات الجهاز بشكل دائم. إنها مخصصة فقط لمن يتحققون من طراز باستخدام جهاز مستعدين لخسارته.</string>
+    <string name="dev_allow_clock_untested">السماح بمزامنة الساعة على الأجهزة التي لم تُختبر عليها</string>
+    <string name="dev_allow_confirm_title">هل تريد السماح بمزامنة الساعة غير المختبرة؟</string>
+    <string name="dev_allow_confirm_message">لم يتم تأكيد ضبط الساعة على طرازات الأجهزة هذه. قد يؤدي القيام بذلك رغم ذلك إلى إتلاف إعدادات الجهاز بشكل دائم أو جعله غير صالح للاستخدام.\n\nلا يرسل هذا المفتاح أي شيء بمفرده. إذا ضبطت لاحقًا الساعة على جهاز كهذا، فسيسجل تقرير الجهاز أنه جرت محاولة كتابة غير مختبرة.\n\nأنت مسؤول عن أي ضرر يلحق بجهازك.</string>
+    <string name="dev_allow_confirm_accept">أفهم ذلك، فعّل</string>
+    <string name="dev_index_title">دعم الكتابة حسب الجهاز</string>
+    <string name="dev_index_status_confirmed">مؤكد</string>
+    <string name="dev_index_status_untested">غير مختبر</string>
+    <string name="dev_index_status_blocked">محظور</string>
+    <string name="dev_index_aspect_clock">مزامنة الساعة</string>
+    <string name="dev_index_aspect_unsent">عدّاد القراءات غير المرسلة</string>
+    <string name="dev_index_no_monitors">لا توجد أجهزة محفوظة بعد.</string>
+    <string name="dev_hide">إخفاء خيارات المطوّرين</string>
+    <string name="dev_hidden">تم إخفاء خيارات المطوّرين؛ جميع مفاتيح المطوّرين متوقفة</string>
+    <string name="dev_save_failed">تعذّر حفظ خيارات المطوّرين</string>
+    <string name="dev_allow_registration_untested">السماح بتسجيل الملف الشخصي على الأجهزة التي لم يُختبر عليها</string>
+    <string name="dev_allow_registration_confirm_title">هل تريد السماح بتسجيل الملف الشخصي غير المختبر؟</string>
+    <string name="dev_allow_registration_confirm_message">يكتب تسجيل الملف الشخصي المستخدم المحدد والساعة في إعدادات الجهاز. لم يتم تأكيده على طرازات الأجهزة هذه. قد يؤدي القيام بذلك رغم ذلك إلى إتلاف إعدادات الجهاز بشكل دائم أو جعله غير صالح للاستخدام.\n\nلا يرسل هذا المفتاح أي شيء بمفرده. لا يزال التسجيل يتم فقط عندما تختار «إقران» وتؤكده، وسيسجل تقرير الجهاز أنه جرت محاولة كتابة غير مختبرة.\n\nأنت مسؤول عن أي ضرر يلحق بجهازك.</string>
+    <string name="dev_index_aspect_registration">تسجيل الملف الشخصي</string>
+    <string name="dev_experimental_title">مسارات تجريبية</string>
+    <string name="dev_experimental_explanation">تشغّل هذه المفاتيح مسارات اتصال موجودة في التطبيق لكنها لم تُختبر قط على جهاز حقيقي. قد تفشل ببساطة.</string>
+    <string name="dev_experimental_force_x7_encrypted">استخدام الاتصال المشفّر عند إقران جهاز X7</string>
+    <string name="dev_experimental_confirm_title">هل تريد تشغيل مسار غير مختبر؟</string>
+    <string name="dev_experimental_confirm_message">هذا المسار موجود في التطبيق لكنه لم يُختبر قط على جهاز حقيقي، وقد يفشل ببساطة. قد يؤدي الإقران بهذه الطريقة إلى استبدال الإقران الحالي للجهاز بهذا الهاتف. قد تؤدي عملية كتابة فاشلة إلى إتلاف إعدادات الجهاز بشكل دائم أو جعله غير صالح للاستخدام.\n\nلا يرسل هذا المفتاح أي شيء بمفرده. يسرد تقرير الجهاز مفاتيح المطوّرين التي كانت مفعّلة.\n\nأنت مسؤول عن أي ضرر يلحق بجهازك.</string>
+    <string name="dev_experimental_clock_sync_encrypted_x7">السماح بمزامنة الساعة عبر اتصال X7 مشفّر</string>
+</resources>

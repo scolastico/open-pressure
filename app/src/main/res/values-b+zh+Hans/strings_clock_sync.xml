@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_sync_clock">同步时钟</string>
+    <string name="main_sync_clock_explanation">将血压计的时钟设置为此手机的时间。在任何更改之前，你会看到两个时间并进行确认。之后连接会结束；请重新连接以导入测量结果。</string>
+    <string name="main_sync_clock_running">正在同步时钟…</string>
+    <string name="clock_sync_title">确认同步时钟</string>
+    <string name="clock_sync_monitor_time">血压计时钟：%1$s</string>
+    <string name="clock_sync_monitor_time_unset">血压计时钟：未设置</string>
+    <string name="clock_sync_phone_time">手机时间：%1$s</string>
+    <plurals name="clock_sync_drift">
+        <item quantity="other">相差：%1$d 秒</item>
+    </plurals>
+    <string name="clock_sync_within_threshold">血压计时钟与手机时间相差不超过一分钟，因此保持不变。</string>
+    <string name="clock_sync_untested_warning">时钟同步尚未在此血压计上测试过。仅因为你开启了开发者选项才可使用。只有在你接受此风险时才继续。</string>
+    <string name="clock_sync_choose_time">要设置的时间（开发者选项）</string>
+    <string name="clock_sync_confirm">立即同步</string>
+    <string name="monitor_clock_sync_complete">时钟已同步</string>
+    <string name="monitor_clock_sync_skipped">时钟已经准确</string>
+    <string name="monitor_clock_sync_rejected">时钟同步失败</string>
+    <string name="monitor_clock_sync_cancelled">时钟同步已取消</string>
+    <string name="monitor_clock_sync_unreadable">无法同步时钟</string>
+    <string name="monitor_clock_sync_reconnect">请重新连接以导入测量结果。</string>
+    <string name="clock_sync_report_prompt">你同步了一台尚未测试过此功能的血压计的时钟。在 GitHub issue 中分享设备报告可以说明是否成功，并帮助其他人也能使用时钟同步。\n\n报告只包含技术细节，绝不包含测量数据、测量时间、姓名、蓝牙地址或序列号。在分享任何内容之前，你都可以先查看报告。</string>
+    <string name="main_clock_sync_backup">时钟同步备份</string>
+    <string name="main_clock_sync_backup_explanation">在最近一次时钟同步之前保存的设置。这是设置备份，不是完整的内存或校准备份。较早的备份仍保留在此手机上。</string>
+    <string name="monitor_clock_sync_out_of_range">手机日期超出支持的范围，因此未更改血压计的时钟。请检查此手机上的日期。</string>
+</resources>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_sync_clock">Синхронизиране на часовника</string>
+    <string name="main_sync_clock_explanation">Сверява часовника на апарата с часа на този телефон. Виждате и двата часа и потвърждавате, преди нещо да се промени. След това връзката приключва; свържете се отново, за да импортирате измерванията.</string>
+    <string name="main_sync_clock_running">Часовникът се синхронизира…</string>
+    <string name="clock_sync_title">Потвърдете синхронизирането на часовника</string>
+    <string name="clock_sync_monitor_time">Часовник на апарата: %1$s</string>
+    <string name="clock_sync_monitor_time_unset">Часовник на апарата: не е настроен</string>
+    <string name="clock_sync_phone_time">Час на телефона: %1$s</string>
+    <plurals name="clock_sync_drift">
+        <item quantity="one">Разлика: %1$d секунда</item>
+        <item quantity="other">Разлика: %1$d секунди</item>
+    </plurals>
+    <string name="clock_sync_within_threshold">Часовникът на апарата се различава от часа на телефона с не повече от минута, затова остава непроменен.</string>
+    <string name="clock_sync_untested_warning">Синхронизирането на часовника още не е тествано с този апарат. То е достъпно само защото сте включили опция за програмисти. Продължете само ако приемате този риск.</string>
+    <string name="clock_sync_choose_time">Час за задаване (опция за програмисти)</string>
+    <string name="clock_sync_confirm">Синхронизиране сега</string>
+    <string name="monitor_clock_sync_complete">Часовникът е синхронизиран</string>
+    <string name="monitor_clock_sync_skipped">Часовникът вече е верен</string>
+    <string name="monitor_clock_sync_rejected">Синхронизирането на часовника не успя</string>
+    <string name="monitor_clock_sync_cancelled">Синхронизирането на часовника е отменено</string>
+    <string name="monitor_clock_sync_unreadable">Синхронизирането на часовника не е възможно</string>
+    <string name="monitor_clock_sync_reconnect">Свържете се отново, за да импортирате измерванията.</string>
+    <string name="clock_sync_report_prompt">Синхронизирахте часовника на апарат, с който това още не е тествано. Отчет за устройството в issue в GitHub показва дали е проработило и помага синхронизирането на часовника да стане достъпно и за други.\n\nОтчетът съдържа само технически данни. Той никога не включва измервания, часове на измерване, имена, Bluetooth адреса или серийния номер. Можете да го прегледате, преди да споделите каквото и да е.</string>
+    <string name="main_clock_sync_backup">Резервно копие преди синхронизиране на часовника</string>
+    <string name="main_clock_sync_backup_explanation">Настройки, запазени преди последното синхронизиране на часовника. Това е резервно копие на настройките, а не пълно копие на паметта или калибрирането. По-старите резервни копия остават на този телефон.</string>
+    <string name="monitor_clock_sync_out_of_range">Датата на телефона е извън поддържания диапазон, затова часовникът на апарата не е променен. Проверете датата на този телефон.</string>
+</resources>

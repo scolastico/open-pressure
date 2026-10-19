@@ -1,0 +1,67 @@
+#!/usr/bin/env bash
+# Replays shared device fixtures side by side: Omron Connect's own code (sandbox) and OpenPressure.
+# Setup and fixture syntax: docs/omron-sandbox.md
+set -euo pipefail
+cd "$(dirname "$0")/.."
+
+out=omron-sandbox/build/omron-sandbox
+mkdir -p omron-sandbox/build
+explore=false
+if [ "${1:-}" = --explore ]; then explore=true; shift; fi
+usage() {
+  echo "usage: tools/omron-sandbox.sh [--explore] [all|<fixture>]   replay fixtures with both clients"
+  echo "         --explore: after a divergence, keep answering Omron with synthetic replies to see its whole session"
+  echo "       tools/omron-sandbox.sh resolve            show how Omron's entry points were found"
+  echo "       tools/omron-sandbox.sh diff <old> <new>   compare transcripts of two Omron versions"
+}
+case "${1:-all}" in
+  -h|--help) usage; exit 0 ;;
+  resolve)
+    rm -f "$out/resolve.txt"
+    # The test fails exactly when an anchor is missing; the report is still written and shown.
+    ./gradlew -q :omron-sandbox:testDebugUnitTest --tests '*OmronAnchorsTest' >"$out-gradle.log" 2>&1 || true
+    if [ -f "$out/resolve.txt" ]; then cat "$out/resolve.txt"
+    elif [ -f omron-sandbox/build/omron/version.txt ]; then echo "Omron: error, see $out-gradle.log"
+    else echo "Omron: skipped (Omron APK not found, see docs/omron-sandbox.md)"; fi
+    exit 0 ;;
+  diff)
+    [ $# -eq 3 ] || { usage; exit 2; }
+    ls "$out/transcripts/$2" "$out/transcripts/$3" >/dev/null
+    # .log files hold virtual-time steps and Omron's raw log; they differ between any two runs.
+    diff -ru -x '*.log' "$out/transcripts/$2" "$out/transcripts/$3" && echo "No transcript differences."
+    exit 0 ;;
+esac
+
+fixture=${1:-all}
+index=protocol/src/testFixtures/resources/org/openpressure/protocol/fixtures/index
+if [ "$fixture" = all ]; then names=$(grep -v '^\s*\(#\|$\)' "$index"); else
+  grep -qx "$fixture" "$index" || { echo "Unknown fixture $fixture (see $index)"; exit 2; }
+  names=$fixture
+fi
+
+rm -rf "$out/results" app/build/fixture-replay
+# Our app replay fails the build when OpenPressure diverges; keep going so both sides are reported.
+# The Omron replay is split into OmronFixtureShard<N>Test classes that Gradle runs in parallel forks.
+# OMRON_FORKS overrides the detected number of parallel test JVMs (docs/omron-sandbox.md).
+forks=()
+if [ -n "${OMRON_FORKS:-}" ]; then forks=(-Pomron.forks="$OMRON_FORKS"); fi
+# ${forks[@]+...} keeps an empty array valid under set -u on bash before 4.4 (macOS /bin/bash).
+./gradlew -q --continue ${forks[@]+"${forks[@]}"} -Dfixture="$fixture" -Domron.sandbox.explore="$explore" \
+  :omron-sandbox:testDebugUnitTest --tests '*OmronFixtureShard*' --rerun \
+  :app:testDebugUnitTest --tests '*FixtureReplayTest' --rerun >"$out-gradle.log" 2>&1 || true
+
+mkdir -p protocol/build/plain-tests
+rg --files protocol/src -g '*.java' > protocol/build/plain-tests/sources.txt
+javac -encoding UTF-8 -d protocol/build/plain-tests @protocol/build/plain-tests/sources.txt
+
+grep -m1 '^Omron sandbox: up to' "$out-gradle.log" && echo || true
+for name in $names; do
+  echo "== $name"
+  if [ -f "$out/results/$name.txt" ]; then cat "$out/results/$name.txt"
+  elif [ -f omron-sandbox/build/omron/version.txt ]; then echo "omron: error before a result was written, see $out-gradle.log"
+  else echo "omron: skipped (Omron APK not found, see docs/omron-sandbox.md)"; fi
+  if [ -f "app/build/fixture-replay/$name.txt" ]; then head -1 "app/build/fixture-replay/$name.txt"
+  else echo "ours (app): not run (see ./gradlew :app:testDebugUnitTest --tests '*FixtureReplayTest')"; fi
+  java -cp protocol/build/plain-tests:protocol/src/testFixtures/resources org.openpressure.protocol.fixture.ProtocolReplay "$name"
+  echo
+done

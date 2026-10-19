@@ -4,4 +4,25 @@
     <string name="monitor_clock_skipped">מד לחץ הדם הזה אינו תומך בעדכון שעה אוטומטי. יש להגדיר את השעה ידנית.</string>
     <string name="monitor_clock_failed">לא ניתן היה לעדכן את השעה במד לחץ הדם. יש לבדוק או להגדיר את השעה במכשיר.</string>
     <string name="monitor_session_unconfirmed">המדידות נשמרו, אך מד לחץ הדם לא אישר שההעברה הסתיימה. יש להתחבר מחדש לפני הייבוא הבא.</string>
+    <string name="main_import_users">מדידות לייבוא</string>
+    <string name="main_import_users_both">שני המשתמשים</string>
+    <string name="main_read_all">קריאת הכול</string>
+    <string name="main_read_all_explanation">בודק כל מקום בזיכרון של המשתמשים שנבחרו לייבוא, ולא רק את המקומות שמד לחץ הדם מדווח עליהם כתפוסים. השתמשו בזה אם נראה שחסרות מדידות. זה לוקח יותר זמן, לכן השאירו את המכשיר קרוב עד לסיום.</string>
+    <string name="main_reading_all">קורא הכול…</string>
+    <plurals name="monitor_import_mode_index">
+        <item quantity="many">המכשיר דיווח על %1$d מדידות שמורות עבור המשתמשים שנבחרו.</item>
+        <item quantity="one">המכשיר דיווח על מדידה שמורה אחת (%1$d) עבור המשתמשים שנבחרו.</item>
+        <item quantity="other">המכשיר דיווח על %1$d מדידות שמורות עבור המשתמשים שנבחרו.</item>
+        <item quantity="two">המכשיר דיווח על %1$d מדידות שמורות עבור המשתמשים שנבחרו.</item>
+    </plurals>
+    <string name="monitor_import_mode_fallback">לא ניתן היה להשתמש ברשימת המדידות השמורות של המכשיר, ולכן כל מקום בזיכרון נקרא.</string>
+    <string name="monitor_import_mode_sweep">כל מקום בזיכרון נקרא.</string>
+    <string name="monitor_import_mode_empty">המכשיר לא דיווח על מדידות שמורות עבור המשתמשים שנבחרו. השתמשו בקריאת הכול אם אתם מצפים למדידות.</string>
+    <string name="monitor_unconfirmed_bank_skipped">אזור זיכרון שני שייתכן שאינו קיים בדגם זה דולג.</string>
+    <plurals name="monitor_import_slots_unreadable">
+        <item quantity="many">לא ניתן היה לקרוא %1$d מקומות בזיכרון.</item>
+        <item quantity="one">לא ניתן היה לקרוא מקום אחד בזיכרון (%1$d).</item>
+        <item quantity="other">לא ניתן היה לקרוא %1$d מקומות בזיכרון.</item>
+        <item quantity="two">לא ניתן היה לקרוא %1$d מקומות בזיכרון.</item>
+    </plurals>
 </resources>

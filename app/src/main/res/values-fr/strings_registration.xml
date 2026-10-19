@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="registration_untested_warning">L\'enregistrement de profil n\'a pas encore été testé avec ce tensiomètre. Il n\'est disponible que parce que vous avez activé une option pour les développeurs. Ne continuez que si vous acceptez ce risque.</string>
+    <string name="registration_report_prompt">Vous avez enregistré un profil sur un tensiomètre avec lequel cette fonction n\'a pas encore été testée. Un rapport d\'appareil dans un ticket GitHub montre si cela a fonctionné et aide à rendre l\'enregistrement disponible pour d\'autres personnes.\n\nLe rapport ne contient que des détails techniques. Il n’inclut jamais de mesures, d’heures de mesure, de noms, l’adresse Bluetooth ni le numéro de série. Vous pouvez le consulter avant de partager quoi que ce soit.</string>
+</resources>

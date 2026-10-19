@@ -4,4 +4,21 @@
     <string name="monitor_clock_skipped">এই রক্তচাপ মাপার যন্ত্রে সময় স্বয়ংক্রিয়ভাবে আপডেট করা যায় না। নিজে সময় সেট করুন।</string>
     <string name="monitor_clock_failed">রক্তচাপ মাপার যন্ত্রের সময় আপডেট করা যায়নি। যন্ত্রে সময় পরীক্ষা করুন বা সেট করুন।</string>
     <string name="monitor_session_unconfirmed">মাপগুলি সংরক্ষিত হয়েছে, কিন্তু রক্তচাপ মাপার যন্ত্র তথ্য পাঠানো শেষ হওয়ার বিষয়টি নিশ্চিত করেনি। আবার আমদানি করার আগে পুনরায় সংযোগ করুন।</string>
+    <string name="main_import_users">যে পরিমাপগুলি আমদানি করবেন</string>
+    <string name="main_import_users_both">উভয় ব্যবহারকারী</string>
+    <string name="main_read_all">সব পড়ুন</string>
+    <string name="main_read_all_explanation">আমদানির জন্য বেছে নেওয়া ব্যবহারকারীদের মেমরির প্রতিটি স্থান পরীক্ষা করে, শুধু যেগুলিকে মনিটর ব্যবহৃত বলে জানায় সেগুলি নয়। পরিমাপ অনুপস্থিত মনে হলে এটি ব্যবহার করুন। এতে বেশি সময় লাগে, তাই শেষ না হওয়া পর্যন্ত মনিটর কাছে রাখুন।</string>
+    <string name="main_reading_all">সব পড়া হচ্ছে…</string>
+    <plurals name="monitor_import_mode_index">
+        <item quantity="one">মনিটর বেছে নেওয়া ব্যবহারকারীদের জন্য %1$dটি সংরক্ষিত পরিমাপ জানিয়েছে।</item>
+        <item quantity="other">মনিটর বেছে নেওয়া ব্যবহারকারীদের জন্য %1$dটি সংরক্ষিত পরিমাপ জানিয়েছে।</item>
+    </plurals>
+    <string name="monitor_import_mode_fallback">মনিটরের সংরক্ষিত পরিমাপের তালিকা ব্যবহার করা যায়নি, তাই মেমরির প্রতিটি স্থান পড়া হয়েছে।</string>
+    <string name="monitor_import_mode_sweep">মেমরির প্রতিটি স্থান পড়া হয়েছে।</string>
+    <string name="monitor_import_mode_empty">মনিটর বেছে নেওয়া ব্যবহারকারীদের জন্য কোনো সংরক্ষিত পরিমাপ জানায়নি। কিছু আশা করলে সব পড়ুন ব্যবহার করুন।</string>
+    <string name="monitor_unconfirmed_bank_skipped">একটি দ্বিতীয় মেমরি এলাকা, যা এই মডেলে না-ও থাকতে পারে, বাদ দেওয়া হয়েছে।</string>
+    <plurals name="monitor_import_slots_unreadable">
+        <item quantity="one">মেমরির %1$dটি স্থান পড়া যায়নি।</item>
+        <item quantity="other">মেমরির %1$dটি স্থান পড়া যায়নি।</item>
+    </plurals>
 </resources>

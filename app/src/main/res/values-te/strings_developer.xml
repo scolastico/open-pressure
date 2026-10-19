@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="dev_version_label">వెర్షన్ %1$s (%2$d)</string>
+    <plurals name="dev_taps_remaining">
+        <item quantity="one">డెవలపర్ ఎంపికలను అన్‌లాక్ చేయడానికి ఇంకా %d ట్యాప్</item>
+        <item quantity="other">డెవలపర్ ఎంపికలను అన్‌లాక్ చేయడానికి ఇంకా %d ట్యాప్‌లు</item>
+    </plurals>
+    <string name="dev_unlocked">డెవలపర్ ఎంపికలు అన్‌లాక్ అయ్యాయి</string>
+    <string name="dev_open">డెవలపర్ ఎంపికలు</string>
+    <string name="dev_title">డెవలపర్ ఎంపికలు</string>
+    <string name="dev_warning">హెచ్చరిక: ఈ ఎంపికలు మీ రక్తపోటు మానిటర్ మోడల్‌కు నిర్ధారించని వ్రాతలను అనుమతిస్తాయి. అలాంటి వ్రాత మానిటర్ సెట్టింగ్‌లను శాశ్వతంగా పాడుచేయవచ్చు. కోల్పోవడానికి సిద్ధంగా ఉన్న మానిటర్‌తో ఒక మోడల్‌ను ధృవీకరించే వారి కోసం మాత్రమే ఇవి.</string>
+    <string name="dev_allow_clock_untested">పరీక్షించని మానిటర్‌లలో గడియారం సింక్‌ను అనుమతించండి</string>
+    <string name="dev_allow_confirm_title">పరీక్షించని గడియారం సింక్‌ను అనుమతించాలా?</string>
+    <string name="dev_allow_confirm_message">ఈ మానిటర్ మోడల్‌లలో గడియారాన్ని సెట్ చేయడం నిర్ధారించబడలేదు. అయినా చేస్తే మానిటర్ సెట్టింగ్‌లు శాశ్వతంగా పాడవవచ్చు లేదా అది ఉపయోగపడకుండా పోవచ్చు.\n\nఈ స్విచ్ స్వయంగా ఏదీ పంపదు. తర్వాత మీరు అలాంటి మానిటర్ గడియారాన్ని సెట్ చేస్తే, పరీక్షించని వ్రాత ప్రయత్నించబడిందని పరికర నివేదిక నమోదు చేస్తుంది.\n\nమీ మానిటర్‌కు జరిగే ఏ నష్టానికైనా మీరే బాధ్యులు.</string>
+    <string name="dev_allow_confirm_accept">అర్థమైంది, ఆన్ చేయండి</string>
+    <string name="dev_index_title">మానిటర్ వారీగా వ్రాత మద్దతు</string>
+    <string name="dev_index_status_confirmed">నిర్ధారించబడింది</string>
+    <string name="dev_index_status_untested">పరీక్షించలేదు</string>
+    <string name="dev_index_status_blocked">బ్లాక్ చేయబడింది</string>
+    <string name="dev_index_aspect_clock">గడియారం సింక్</string>
+    <string name="dev_index_aspect_unsent">పంపని రీడింగ్‌ల కౌంటర్</string>
+    <string name="dev_index_no_monitors">ఇంకా సేవ్ చేసిన మానిటర్‌లు లేవు.</string>
+    <string name="dev_hide">డెవలపర్ ఎంపికలను దాచండి</string>
+    <string name="dev_hidden">డెవలపర్ ఎంపికలు దాచబడ్డాయి; అన్ని డెవలపర్ స్విచ్‌లు ఆఫ్‌లో ఉన్నాయి</string>
+    <string name="dev_save_failed">డెవలపర్ ఎంపికలను సేవ్ చేయడం సాధ్యపడలేదు</string>
+    <string name="dev_allow_registration_untested">పరీక్షించని మానిటర్‌లలో ప్రొఫైల్ నమోదును అనుమతించండి</string>
+    <string name="dev_allow_registration_confirm_title">పరీక్షించని ప్రొఫైల్ నమోదును అనుమతించాలా?</string>
+    <string name="dev_allow_registration_confirm_message">ప్రొఫైల్ నమోదు ఎంచుకున్న వినియోగదారుని మరియు గడియారాన్ని మానిటర్ సెట్టింగ్‌లలో వ్రాస్తుంది. ఈ మానిటర్ మోడల్‌లలో ఇది నిర్ధారించబడలేదు. అయినా చేస్తే మానిటర్ సెట్టింగ్‌లు శాశ్వతంగా పాడవవచ్చు లేదా అది ఉపయోగపడకుండా పోవచ్చు.\n\nఈ స్విచ్ స్వయంగా ఏదీ పంపదు. మీరు \"జత చేయి\" ఎంచుకుని నిర్ధారించినప్పుడు మాత్రమే నమోదు జరుగుతుంది, మరియు పరీక్షించని వ్రాత ప్రయత్నించబడిందని పరికర నివేదిక నమోదు చేస్తుంది.\n\nమీ మానిటర్‌కు జరిగే ఏ నష్టానికైనా మీరే బాధ్యులు.</string>
+    <string name="dev_index_aspect_registration">ప్రొఫైల్ నమోదు</string>
+    <string name="dev_experimental_title">ప్రయోగాత్మక మార్గాలు</string>
+    <string name="dev_experimental_explanation">ఈ స్విచ్‌లు యాప్‌లో ఉన్నప్పటికీ నిజమైన మానిటర్‌పై ఎప్పుడూ పరీక్షించని కనెక్షన్ మార్గాలను ఆన్ చేస్తాయి. అవి కేవలం విఫలం కావచ్చు.</string>
+    <string name="dev_experimental_force_x7_encrypted">X7ను జత చేసేటప్పుడు ఎన్‌క్రిప్ట్ చేసిన కనెక్షన్‌ను ఉపయోగించండి</string>
+    <string name="dev_experimental_confirm_title">పరీక్షించని మార్గాన్ని ఆన్ చేయాలా?</string>
+    <string name="dev_experimental_confirm_message">ఈ మార్గం యాప్‌లో ఉంది కానీ నిజమైన మానిటర్‌పై ఎప్పుడూ పరీక్షించబడలేదు, అది కేవలం విఫలం కావచ్చు. ఈ విధంగా జత చేస్తే మానిటర్ ప్రస్తుత జత ఈ ఫోన్‌తో భర్తీ కావచ్చు. విఫలమైన వ్రాత మానిటర్ సెట్టింగ్‌లను శాశ్వతంగా పాడుచేయవచ్చు లేదా దాన్ని ఉపయోగపడకుండా చేయవచ్చు.\n\nఈ స్విచ్ స్వయంగా ఏదీ పంపదు. ఏ డెవలపర్ స్విచ్‌లు ఆన్‌లో ఉన్నాయో పరికర నివేదిక జాబితా చేస్తుంది.\n\nమీ మానిటర్‌కు జరిగే ఏ నష్టానికైనా మీరే బాధ్యులు.</string>
+    <string name="dev_experimental_clock_sync_encrypted_x7">ఎన్‌క్రిప్ట్ చేసిన X7 కనెక్షన్ ద్వారా గడియారం సింక్‌ను అనుమతించండి</string>
+</resources>

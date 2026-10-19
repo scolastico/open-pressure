@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_sync_clock">Daidaita agogo</string>
+    <string name="main_sync_clock_explanation">Yana saita agogon na\'urar zuwa lokacin wannan wayar. Za ka ga lokutan biyu kuma ka tabbatar kafin wani abu ya canza. Bayan haka haɗin zai ƙare; sake haɗawa don shigo da awo.</string>
+    <string name="main_sync_clock_running">Ana daidaita agogo…</string>
+    <string name="clock_sync_title">Tabbatar da daidaita agogo</string>
+    <string name="clock_sync_monitor_time">Agogon na\'ura: %1$s</string>
+    <string name="clock_sync_monitor_time_unset">Agogon na\'ura: ba a saita ba</string>
+    <string name="clock_sync_phone_time">Lokacin waya: %1$s</string>
+    <plurals name="clock_sync_drift">
+        <item quantity="one">Bambanci: daƙiƙa %1$d</item>
+        <item quantity="other">Bambanci: daƙiƙa %1$d</item>
+    </plurals>
+    <string name="clock_sync_within_threshold">Agogon na\'urar yana cikin minti ɗaya na lokacin wayar, don haka ba a canza shi ba.</string>
+    <string name="clock_sync_untested_warning">Ba a gwada daidaita agogo da wannan na\'urar ba tukuna. Yana samuwa ne kawai saboda ka kunna zaɓin masu haɓakawa. Ci gaba kawai idan ka yarda da wannan haɗarin.</string>
+    <string name="clock_sync_choose_time">Lokacin da za a saita (zaɓin masu haɓakawa)</string>
+    <string name="clock_sync_confirm">Daidaita yanzu</string>
+    <string name="monitor_clock_sync_complete">An daidaita agogo</string>
+    <string name="monitor_clock_sync_skipped">Agogo ya riga ya yi daidai</string>
+    <string name="monitor_clock_sync_rejected">Daidaita agogo ya kasa</string>
+    <string name="monitor_clock_sync_cancelled">An soke daidaita agogo</string>
+    <string name="monitor_clock_sync_unreadable">Ba za a iya daidaita agogo ba</string>
+    <string name="monitor_clock_sync_reconnect">Sake haɗawa don shigo da awo.</string>
+    <string name="clock_sync_report_prompt">Ka daidaita agogon na\'urar da ba a gwada wannan da ita ba tukuna. Rahoton na\'ura a cikin issue na GitHub yana nuna ko ya yi aiki kuma yana taimakawa a samar da daidaita agogo ga wasu.\n\nRahoton yana ƙunshe da bayanan fasaha kawai. Ba ya taɓa haɗa da sakamakon awo, lokutan awo, sunaye, adireshin Bluetooth ko lambar serial. Za ka iya duba shi kafin ka raba komai.</string>
+    <string name="main_clock_sync_backup">Ajiyar daidaita agogo</string>
+    <string name="main_clock_sync_backup_explanation">Saitunan da aka adana kafin daidaita agogo na ƙarshe. Wannan ajiyar saituna ce, ba cikakkiyar ajiyar ƙwaƙwalwa ko ta daidaitawa ba. Tsoffin ajiya suna nan a wannan wayar.</string>
+    <string name="monitor_clock_sync_out_of_range">Kwanan watan wayar yana wajen kewayon da ake tallafawa, don haka ba a canza agogon na\'urar ba. Duba kwanan wata a wannan wayar.</string>
+</resources>

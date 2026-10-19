@@ -4,4 +4,21 @@
     <string name="monitor_clock_skipped">Ez a vérnyomásmérő nem támogatja az idő automatikus frissítését. Állítsa be az időt kézzel.</string>
     <string name="monitor_clock_failed">A vérnyomásmérő idejét nem sikerült frissíteni. Ellenőrizze vagy állítsa be az időt a készüléken.</string>
     <string name="monitor_session_unconfirmed">A mérések mentve vannak, de a vérnyomásmérő nem erősítette meg az átvitel befejezését. Újabb importálás előtt csatlakozzon újra.</string>
+    <string name="main_import_users">Importálandó mérések</string>
+    <string name="main_import_users_both">Mindkét felhasználó</string>
+    <string name="main_read_all">Összes olvasása</string>
+    <string name="main_read_all_explanation">Az importálásra kiválasztott felhasználók minden memóriahelyét ellenőrzi, nem csak azokat, amelyeket a vérnyomásmérő foglaltként jelez. Használja, ha úgy tűnik, hogy mérések hiányoznak. Tovább tart, ezért tartsa a készüléket a közelben a befejezésig.</string>
+    <string name="main_reading_all">Minden hely olvasása…</string>
+    <plurals name="monitor_import_mode_index">
+        <item quantity="one">A készülék %1$d tárolt mérést jelzett a kiválasztott felhasználóknál.</item>
+        <item quantity="other">A készülék %1$d tárolt mérést jelzett a kiválasztott felhasználóknál.</item>
+    </plurals>
+    <string name="monitor_import_mode_fallback">A készülék tárolt méréseinek listája nem volt használható, ezért minden memóriahely beolvasásra került.</string>
+    <string name="monitor_import_mode_sweep">Minden memóriahely beolvasásra került.</string>
+    <string name="monitor_import_mode_empty">A készülék nem jelzett tárolt mérést a kiválasztott felhasználóknál. Használja az Összes olvasása gombot, ha vár ilyet.</string>
+    <string name="monitor_unconfirmed_bank_skipped">Kimaradt egy második memóriaterület, amely ennél a modellnél talán nem létezik.</string>
+    <plurals name="monitor_import_slots_unreadable">
+        <item quantity="one">%1$d memóriahelyet nem sikerült beolvasni.</item>
+        <item quantity="other">%1$d memóriahelyet nem sikerült beolvasni.</item>
+    </plurals>
 </resources>

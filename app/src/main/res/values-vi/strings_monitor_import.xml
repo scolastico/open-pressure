@@ -4,4 +4,19 @@
     <string name="monitor_clock_skipped">Máy đo huyết áp này không hỗ trợ tự động cập nhật giờ. Hãy đặt giờ thủ công.</string>
     <string name="monitor_clock_failed">Không thể cập nhật giờ trên máy đo huyết áp. Hãy kiểm tra hoặc đặt giờ trên máy.</string>
     <string name="monitor_session_unconfirmed">Các kết quả đo đã được lưu, nhưng máy đo huyết áp chưa xác nhận việc truyền dữ liệu đã hoàn tất. Hãy kết nối lại trước khi nhập lần nữa.</string>
+    <string name="main_import_users">Số đo cần nhập</string>
+    <string name="main_import_users_both">Cả hai người dùng</string>
+    <string name="main_read_all">Đọc tất cả</string>
+    <string name="main_read_all_explanation">Kiểm tra mọi vị trí bộ nhớ của những người dùng được chọn để nhập, không chỉ những vị trí máy đo báo là đã dùng. Hãy dùng nếu có vẻ thiếu số đo. Việc này lâu hơn, vì vậy hãy để máy đo ở gần cho đến khi xong.</string>
+    <string name="main_reading_all">Đang đọc tất cả…</string>
+    <plurals name="monitor_import_mode_index">
+        <item quantity="other">Máy đo báo có %1$d số đo đã lưu của những người dùng được chọn.</item>
+    </plurals>
+    <string name="monitor_import_mode_fallback">Không thể dùng danh sách số đo đã lưu của máy đo, vì vậy đã đọc mọi vị trí bộ nhớ.</string>
+    <string name="monitor_import_mode_sweep">Đã đọc mọi vị trí bộ nhớ.</string>
+    <string name="monitor_import_mode_empty">Máy đo không báo số đo nào đã lưu của những người dùng được chọn. Hãy dùng Đọc tất cả nếu bạn nghĩ là có.</string>
+    <string name="monitor_unconfirmed_bank_skipped">Đã bỏ qua vùng bộ nhớ thứ hai mà mẫu này có thể không có.</string>
+    <plurals name="monitor_import_slots_unreadable">
+        <item quantity="other">Không thể đọc %1$d vị trí bộ nhớ.</item>
+    </plurals>
 </resources>

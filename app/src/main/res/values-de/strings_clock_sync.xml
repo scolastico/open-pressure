@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_sync_clock">Uhr synchronisieren</string>
+    <string name="main_sync_clock_explanation">Stellt die Uhr des Messgeräts auf die Zeit dieses Telefons. Du siehst beide Zeiten und bestätigst, bevor sich etwas ändert. Danach endet die Verbindung; verbinde dich erneut, um Messwerte zu importieren.</string>
+    <string name="main_sync_clock_running">Uhr wird synchronisiert…</string>
+    <string name="clock_sync_title">Uhrsynchronisierung bestätigen</string>
+    <string name="clock_sync_monitor_time">Geräteuhr: %1$s</string>
+    <string name="clock_sync_monitor_time_unset">Geräteuhr: nicht eingestellt</string>
+    <string name="clock_sync_phone_time">Telefonzeit: %1$s</string>
+    <plurals name="clock_sync_drift">
+        <item quantity="one">Abweichung: %1$d Sekunde</item>
+        <item quantity="other">Abweichung: %1$d Sekunden</item>
+    </plurals>
+    <string name="clock_sync_within_threshold">Die Geräteuhr weicht höchstens eine Minute von der Telefonzeit ab und bleibt daher unverändert.</string>
+    <string name="clock_sync_untested_warning">Die Uhrsynchronisierung wurde mit diesem Messgerät noch nicht getestet. Sie ist nur verfügbar, weil du eine Entwickleroption eingeschaltet hast. Fahre nur fort, wenn du dieses Risiko akzeptierst.</string>
+    <string name="clock_sync_choose_time">Einzustellende Zeit (Entwickleroption)</string>
+    <string name="clock_sync_confirm">Jetzt synchronisieren</string>
+    <string name="monitor_clock_sync_complete">Uhr synchronisiert</string>
+    <string name="monitor_clock_sync_skipped">Uhr geht bereits richtig</string>
+    <string name="monitor_clock_sync_rejected">Uhrsynchronisierung fehlgeschlagen</string>
+    <string name="monitor_clock_sync_cancelled">Uhrsynchronisierung abgebrochen</string>
+    <string name="monitor_clock_sync_unreadable">Uhrsynchronisierung nicht möglich</string>
+    <string name="monitor_clock_sync_reconnect">Verbinde dich erneut, um Messwerte zu importieren.</string>
+    <string name="clock_sync_report_prompt">Du hast die Uhr eines Messgeräts synchronisiert, mit dem das noch nicht getestet wurde. Ein Gerätebericht in einem GitHub-Issue zeigt, ob es funktioniert hat, und hilft, die Uhrsynchronisierung auch für andere freizuschalten.\n\nDer Bericht enthält nur technische Details. Er enthält niemals Messwerte, Messzeiten, Namen, die Bluetooth-Adresse oder die Seriennummer. Du kannst ihn ansehen, bevor du etwas teilst.</string>
+    <string name="main_clock_sync_backup">Sicherung vor der Uhrsynchronisierung</string>
+    <string name="main_clock_sync_backup_explanation">Vor der letzten Uhrsynchronisierung gespeicherte Einstellungen. Dies ist eine Sicherung der Einstellungen, keine vollständige Speicher- oder Kalibrierungssicherung. Frühere Sicherungen bleiben auf diesem Smartphone.</string>
+    <string name="monitor_clock_sync_out_of_range">Das Datum des Smartphones liegt außerhalb des unterstützten Bereichs, daher wurde die Uhr des Messgeräts nicht geändert. Prüfe das Datum auf diesem Smartphone.</string>
+</resources>

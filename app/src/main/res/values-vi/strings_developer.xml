@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="dev_version_label">Phiên bản %1$s (%2$d)</string>
+    <plurals name="dev_taps_remaining">
+        <item quantity="other">Còn %d lần chạm để mở khóa tùy chọn cho nhà phát triển</item>
+    </plurals>
+    <string name="dev_unlocked">Đã mở khóa tùy chọn cho nhà phát triển</string>
+    <string name="dev_open">Tùy chọn cho nhà phát triển</string>
+    <string name="dev_title">Tùy chọn cho nhà phát triển</string>
+    <string name="dev_warning">Cảnh báo: các tùy chọn này cho phép ghi dữ liệu chưa được xác nhận cho mẫu máy đo huyết áp của bạn. Việc ghi như vậy có thể làm hỏng vĩnh viễn cài đặt của máy đo. Chúng chỉ dành cho người kiểm chứng một mẫu máy bằng một máy đo mà họ chấp nhận có thể mất.</string>
+    <string name="dev_allow_clock_untested">Cho phép đồng bộ đồng hồ trên máy đo chưa được thử nghiệm</string>
+    <string name="dev_allow_confirm_title">Cho phép đồng bộ đồng hồ chưa được thử nghiệm?</string>
+    <string name="dev_allow_confirm_message">Việc đặt đồng hồ chưa được xác nhận trên các mẫu máy đo này. Nếu vẫn làm, cài đặt của máy đo có thể bị hỏng vĩnh viễn hoặc máy có thể không dùng được nữa.\n\nCông tắc này tự nó không gửi gì cả. Nếu sau này bạn đặt đồng hồ trên một máy đo như vậy, báo cáo thiết bị sẽ ghi lại rằng đã có lần thử ghi chưa được thử nghiệm.\n\nBạn chịu trách nhiệm cho mọi hư hỏng của máy đo.</string>
+    <string name="dev_allow_confirm_accept">Tôi hiểu, bật</string>
+    <string name="dev_index_title">Hỗ trợ ghi theo máy đo</string>
+    <string name="dev_index_status_confirmed">Đã xác nhận</string>
+    <string name="dev_index_status_untested">Chưa thử nghiệm</string>
+    <string name="dev_index_status_blocked">Bị chặn</string>
+    <string name="dev_index_aspect_clock">Đồng bộ đồng hồ</string>
+    <string name="dev_index_aspect_unsent">Bộ đếm kết quả đo chưa gửi</string>
+    <string name="dev_index_no_monitors">Chưa có máy đo nào được lưu.</string>
+    <string name="dev_hide">Ẩn tùy chọn cho nhà phát triển</string>
+    <string name="dev_hidden">Đã ẩn tùy chọn cho nhà phát triển; mọi công tắc dành cho nhà phát triển đều tắt</string>
+    <string name="dev_save_failed">Không thể lưu tùy chọn cho nhà phát triển</string>
+    <string name="dev_allow_registration_untested">Cho phép đăng ký hồ sơ trên máy đo chưa được thử nghiệm</string>
+    <string name="dev_allow_registration_confirm_title">Cho phép đăng ký hồ sơ chưa được thử nghiệm?</string>
+    <string name="dev_allow_registration_confirm_message">Việc đăng ký hồ sơ ghi người dùng đã chọn và đồng hồ vào cài đặt của máy đo. Việc này chưa được xác nhận trên các mẫu máy đo này. Nếu vẫn làm, cài đặt của máy đo có thể bị hỏng vĩnh viễn hoặc máy có thể không dùng được nữa.\n\nCông tắc này tự nó không gửi gì cả. Việc đăng ký vẫn chỉ diễn ra khi bạn chọn Ghép đôi và xác nhận, và báo cáo thiết bị sẽ ghi lại rằng đã có lần thử ghi chưa được thử nghiệm.\n\nBạn chịu trách nhiệm cho mọi hư hỏng của máy đo.</string>
+    <string name="dev_index_aspect_registration">Đăng ký hồ sơ</string>
+    <string name="dev_experimental_title">Đường kết nối thử nghiệm</string>
+    <string name="dev_experimental_explanation">Các công tắc này bật những đường kết nối có sẵn trong ứng dụng nhưng chưa từng được thử trên máy đo thật. Chúng có thể đơn giản là không hoạt động.</string>
+    <string name="dev_experimental_force_x7_encrypted">Dùng kết nối mã hóa khi ghép đôi X7</string>
+    <string name="dev_experimental_confirm_title">Bật một đường kết nối chưa được thử nghiệm?</string>
+    <string name="dev_experimental_confirm_message">Đường kết nối này có sẵn trong ứng dụng nhưng chưa từng được thử trên máy đo thật và có thể đơn giản là không hoạt động. Ghép đôi theo cách này có thể thay thế ghép đôi hiện có của máy đo bằng điện thoại này. Một lần ghi thất bại có thể làm hỏng vĩnh viễn cài đặt của máy đo hoặc khiến máy không dùng được nữa.\n\nCông tắc này tự nó không gửi gì cả. Báo cáo thiết bị liệt kê những công tắc nhà phát triển nào đang bật.\n\nBạn chịu trách nhiệm cho mọi hư hỏng của máy đo.</string>
+    <string name="dev_experimental_clock_sync_encrypted_x7">Cho phép đồng bộ đồng hồ qua kết nối X7 được mã hóa</string>
+</resources>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fetch_looking">Ń wá àwọn ẹ̀rọ rẹ…</string>
+    <string name="fetch_importing">Ń kó wọlé láti %1$s…</string>
+    <string name="fetch_none_nearby">Kò sí ẹ̀rọ kankan nítòsí. Àwọn ẹ̀rọ máa ń fi àmì ránṣẹ́ fún ìgbà díẹ̀ lẹ́yìn ìwọ̀n tàbí ní ipò Bluetooth nìkan.</string>
+    <string name="fetch_done">A ti gba àwọn ìwọ̀n tuntun jùlọ. Àwọn ẹ̀rọ: %1$d.</string>
+    <string name="fetch_incomplete">Àwọn ìkówọlé kan kò parí. A ti fi àwọn ìwọ̀n tí a gbà pamọ́; fà sísàlẹ̀ láti tún gbìyànjú.</string>
+    <string name="fetch_busy">Parí ìgbésẹ̀ ẹ̀rọ lọ́wọ́lọ́wọ́, lẹ́yìn náà tún fà sísàlẹ̀.</string>
+    <string name="fetch_no_monitor">Kọ́kọ́ so pọ̀ tàbí so ẹ̀rọ tí a ṣe àtìlẹ́yìn fún.</string>
+    <string name="fetch_failed">A kò lè wá àwọn ẹ̀rọ. Ṣàyẹ̀wò Bluetooth, lẹ́yìn náà tún fà sísàlẹ̀.</string>
+</resources>

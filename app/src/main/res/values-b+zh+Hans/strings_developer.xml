@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="dev_version_label">版本 %1$s (%2$d)</string>
+    <plurals name="dev_taps_remaining">
+        <item quantity="other">再点按 %d 次即可解锁开发者选项</item>
+    </plurals>
+    <string name="dev_unlocked">已解锁开发者选项</string>
+    <string name="dev_open">开发者选项</string>
+    <string name="dev_title">开发者选项</string>
+    <string name="dev_warning">警告：这些选项允许执行尚未针对你的血压计型号确认的写入。此类写入可能会永久损坏血压计的设置。它们仅供愿意承担失去一台血压计风险、用其验证型号的人使用。</string>
+    <string name="dev_allow_clock_untested">允许在未经测试的血压计上同步时钟</string>
+    <string name="dev_allow_confirm_title">允许未经测试的时钟同步？</string>
+    <string name="dev_allow_confirm_message">在这些血压计型号上设置时钟尚未得到确认。仍然这样做可能会永久损坏血压计的设置，或使其无法使用。\n\n此开关本身不会发送任何内容。如果你之后在此类血压计上设置时钟，设备报告会记录曾尝试过未经测试的写入。\n\n你需要对血压计的任何损坏负责。</string>
+    <string name="dev_allow_confirm_accept">我明白，启用</string>
+    <string name="dev_index_title">各血压计的写入支持</string>
+    <string name="dev_index_status_confirmed">已确认</string>
+    <string name="dev_index_status_untested">未经测试</string>
+    <string name="dev_index_status_blocked">已阻止</string>
+    <string name="dev_index_aspect_clock">时钟同步</string>
+    <string name="dev_index_aspect_unsent">未发送读数计数器</string>
+    <string name="dev_index_no_monitors">还没有已保存的血压计。</string>
+    <string name="dev_hide">隐藏开发者选项</string>
+    <string name="dev_hidden">已隐藏开发者选项；所有开发者开关均已关闭</string>
+    <string name="dev_save_failed">无法保存开发者选项</string>
+    <string name="dev_allow_registration_untested">允许在未经测试的血压计上注册个人资料</string>
+    <string name="dev_allow_registration_confirm_title">允许未经测试的个人资料注册？</string>
+    <string name="dev_allow_registration_confirm_message">个人资料注册会将所选用户和时钟写入血压计的设置。在这些血压计型号上，此操作尚未得到确认。仍然这样做可能会永久损坏血压计的设置，或使其无法使用。\n\n此开关本身不会发送任何内容。只有当你选择“配对”并确认后才会进行注册，设备报告会记录曾尝试过未经测试的写入。\n\n你需要对血压计的任何损坏负责。</string>
+    <string name="dev_index_aspect_registration">个人资料注册</string>
+    <string name="dev_experimental_title">实验性路径</string>
+    <string name="dev_experimental_explanation">这些开关会启用应用中已有、但从未在真实血压计上测试过的连接路径。它们可能会直接失败。</string>
+    <string name="dev_experimental_force_x7_encrypted">配对 X7 时使用加密连接</string>
+    <string name="dev_experimental_confirm_title">启用未经测试的路径？</string>
+    <string name="dev_experimental_confirm_message">此路径已存在于应用中，但从未在真实血压计上测试过，可能会直接失败。以这种方式配对可能会用这部手机替换血压计现有的配对。写入失败可能会永久损坏血压计的设置，或使其无法使用。\n\n此开关本身不会发送任何内容。设备报告会列出哪些开发者开关处于启用状态。\n\n你需要对血压计的任何损坏负责。</string>
+    <string name="dev_experimental_clock_sync_encrypted_x7">允许通过加密的 X7 连接同步时钟</string>
+</resources>

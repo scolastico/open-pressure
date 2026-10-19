@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="registration_untested_warning">Pendaftaran profil belum diuji dengan monitor ini. Fitur ini hanya tersedia karena Anda mengaktifkan opsi developer. Lanjutkan hanya jika Anda menerima risiko tersebut.</string>
+    <string name="registration_report_prompt">Anda telah mendaftarkan profil pada monitor yang belum pernah diuji untuk fitur ini. Laporan perangkat dalam issue GitHub menunjukkan apakah berhasil dan membantu membuat pendaftaran tersedia bagi orang lain.\n\nLaporan hanya berisi detail teknis. Laporan tidak pernah memuat hasil pengukuran, waktu pengukuran, nama, alamat Bluetooth, atau nomor seri. Anda dapat meninjaunya sebelum membagikan apa pun.</string>
+</resources>

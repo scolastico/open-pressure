@@ -23,19 +23,33 @@ public final class AutoImportTracker {
 
     public synchronized String completedRevision(String address) { return completed.get(address); }
 
-    public synchronized Attempt offer(String address,OmronAdvertisement advertisement,long nowMillis) {
-        if(active!=null || address==null || address.isEmpty() || advertisement==null || advertisement.pairingMode || advertisement.streamingMode
-                || !advertisement.hasRecordCounts()) return null;
-        boolean hasRecords=false;
+    /** A plain record summary with stored records: neither pairing nor streaming, and at least one populated bank. */
+    public static boolean importable(OmronAdvertisement advertisement) {
+        if(advertisement==null || advertisement.pairingMode || advertisement.streamingMode || !advertisement.hasRecordCounts()) return false;
         for(OmronAdvertisement.User user:advertisement.users) {
-            if(user.lastSequence>0 && user.recordCount>0) { hasRecords=true; break; }
+            if(user.lastSequence>0 && user.recordCount>0) return true;
         }
-        if(!hasRecords) return null;
+        return false;
+    }
+
+    public synchronized Attempt offer(String address,OmronAdvertisement advertisement,long nowMillis) {
+        if(active!=null || address==null || address.isEmpty() || !importable(advertisement)) return null;
         String revision=advertisement.revision();
         if(revision.equals(completed.get(address))) return null;
         Long failedAt=failures.get(address);
         if(failedAt!=null && (nowMillis<failedAt || nowMillis-failedAt<RETRY_DELAY_MILLIS)) return null;
         active=new Attempt(address,revision,++nextToken);
+        return active;
+    }
+
+    /**
+     * A user-requested import: like {@link #offer} but it ignores the completed revision and the failure cooldown.
+     * Its attempt finishes exactly like an offered one, so a validated END still checkpoints and a failure still
+     * starts the cooldown for advertisement-triggered imports.
+     */
+    public synchronized Attempt force(String address,OmronAdvertisement advertisement,long nowMillis) {
+        if(active!=null || address==null || address.isEmpty() || !importable(advertisement)) return null;
+        active=new Attempt(address,advertisement.revision(),++nextToken);
         return active;
     }
 

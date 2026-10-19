@@ -18,6 +18,7 @@ public class VirtualUserPdfTest {
         assertEquals(2,report.entries.size()); assertEquals(-7,report.selectedUser);
         assertEquals(Integer.valueOf(-7),report.summaries.get(0).user);
         assertEquals("Synthetic Alice",report.profileNames.get(-7));
+        assertTrue(report.singleUser());
         names.put(-7,"Renamed later"); one.virtualUserId=8;
         assertEquals("Synthetic Alice",report.profileNames.get(-7));
         assertEquals(Integer.valueOf(-7),report.entries.get(0).user);
@@ -27,6 +28,7 @@ public class VirtualUserPdfTest {
         PdfReportData report=PdfReportData.createVirtual(Arrays.asList(reading(1,1,7),reading(2,2,8),reading(3,1,null)),0,null,null,ZoneId.of("UTC"),Map.of(-7,"A",-8,"B"));
         assertEquals(3,report.summaries.size());
         assertTrue(report.virtualUsers);
+        assertFalse(report.singleUser());
         assertNull(report.summaries.get(2).user);
         assertThrows(UnsupportedOperationException.class,()->report.profileNames.put(-9,"C"));
     }

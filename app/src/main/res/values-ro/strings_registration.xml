@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="registration_untested_warning">Înregistrarea profilului nu a fost încă testată cu acest tensiometru. Este disponibilă doar pentru că ați activat o opțiune pentru dezvoltatori. Continuați doar dacă acceptați acest risc.</string>
+    <string name="registration_report_prompt">Ați înregistrat un profil pe un tensiometru cu care acest lucru nu a fost încă testat. Un raport al dispozitivului într-un issue pe GitHub arată dacă a funcționat și ajută la disponibilizarea înregistrării și pentru alții.\n\nRaportul conține doar detalii tehnice. Nu include niciodată măsurători, orele măsurătorilor, nume, adresa Bluetooth sau numărul de serie. Îl poți examina înainte de a distribui ceva.</string>
+</resources>

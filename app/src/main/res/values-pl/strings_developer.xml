@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="dev_version_label">Wersja %1$s (%2$d)</string>
+    <plurals name="dev_taps_remaining">
+        <item quantity="few">Jeszcze %d dotknięcia do odblokowania opcji programisty</item>
+        <item quantity="many">Jeszcze %d dotknięć do odblokowania opcji programisty</item>
+        <item quantity="one">Jeszcze %d dotknięcie do odblokowania opcji programisty</item>
+        <item quantity="other">Jeszcze %d dotknięcia do odblokowania opcji programisty</item>
+    </plurals>
+    <string name="dev_unlocked">Opcje programisty odblokowane</string>
+    <string name="dev_open">Opcje programisty</string>
+    <string name="dev_title">Opcje programisty</string>
+    <string name="dev_warning">Ostrzeżenie: te opcje pozwalają na zapisy, które nie są potwierdzone dla Twojego modelu ciśnieniomierza. Taki zapis może trwale uszkodzić ustawienia ciśnieniomierza. Są przeznaczone wyłącznie dla osób sprawdzających model na ciśnieniomierzu, którego utratę akceptują.</string>
+    <string name="dev_allow_clock_untested">Zezwalaj na synchronizację zegara w ciśnieniomierzach, w których jej nie przetestowano</string>
+    <string name="dev_allow_confirm_title">Zezwolić na nieprzetestowaną synchronizację zegara?</string>
+    <string name="dev_allow_confirm_message">Ustawianie zegara nie zostało potwierdzone dla tych modeli ciśnieniomierzy. Zrobienie tego mimo to może trwale uszkodzić ustawienia ciśnieniomierza lub uczynić go bezużytecznym.\n\nTen przełącznik sam niczego nie wysyła. Jeśli później ustawisz zegar w takim ciśnieniomierzu, raport urządzenia odnotuje, że podjęto próbę nieprzetestowanego zapisu.\n\nPonosisz odpowiedzialność za wszelkie uszkodzenia ciśnieniomierza.</string>
+    <string name="dev_allow_confirm_accept">Rozumiem, włącz</string>
+    <string name="dev_index_title">Obsługa zapisu według ciśnieniomierza</string>
+    <string name="dev_index_status_confirmed">Potwierdzone</string>
+    <string name="dev_index_status_untested">Nieprzetestowane</string>
+    <string name="dev_index_status_blocked">Zablokowane</string>
+    <string name="dev_index_aspect_clock">Synchronizacja zegara</string>
+    <string name="dev_index_aspect_unsent">Licznik niewysłanych pomiarów</string>
+    <string name="dev_index_no_monitors">Brak zapisanych ciśnieniomierzy.</string>
+    <string name="dev_hide">Ukryj opcje programisty</string>
+    <string name="dev_hidden">Opcje programisty ukryte; wszystkie przełączniki programisty są wyłączone</string>
+    <string name="dev_save_failed">Nie udało się zapisać opcji programisty</string>
+    <string name="dev_allow_registration_untested">Zezwalaj na rejestrację profilu w ciśnieniomierzach, w których jej nie przetestowano</string>
+    <string name="dev_allow_registration_confirm_title">Zezwolić na nieprzetestowaną rejestrację profilu?</string>
+    <string name="dev_allow_registration_confirm_message">Rejestracja profilu zapisuje wybranego użytkownika i zegar w ustawieniach ciśnieniomierza. Nie została potwierdzona dla tych modeli ciśnieniomierzy. Zrobienie tego mimo to może trwale uszkodzić ustawienia ciśnieniomierza lub uczynić go bezużytecznym.\n\nTen przełącznik sam niczego nie wysyła. Rejestracja nadal odbywa się tylko wtedy, gdy wybierzesz Sparuj i ją potwierdzisz, a raport urządzenia odnotuje, że podjęto próbę nieprzetestowanego zapisu.\n\nPonosisz odpowiedzialność za wszelkie uszkodzenia ciśnieniomierza.</string>
+    <string name="dev_index_aspect_registration">Rejestracja profilu</string>
+    <string name="dev_experimental_title">Ścieżki eksperymentalne</string>
+    <string name="dev_experimental_explanation">Te przełączniki włączają ścieżki połączenia, które istnieją w aplikacji, ale nigdy nie były testowane z prawdziwym ciśnieniomierzem. Mogą po prostu nie zadziałać.</string>
+    <string name="dev_experimental_force_x7_encrypted">Używaj połączenia szyfrowanego podczas parowania X7</string>
+    <string name="dev_experimental_confirm_title">Włączyć nieprzetestowaną ścieżkę?</string>
+    <string name="dev_experimental_confirm_message">Ta ścieżka istnieje w aplikacji, ale nigdy nie była testowana z prawdziwym ciśnieniomierzem i może po prostu nie zadziałać. Parowanie w ten sposób może zastąpić istniejące sparowanie ciśnieniomierza tym telefonem. Nieudany zapis może trwale uszkodzić ustawienia ciśnieniomierza lub uczynić go bezużytecznym.\n\nTen przełącznik sam niczego nie wysyła. Raport urządzenia zawiera listę przełączników programisty, które były włączone.\n\nPonosisz odpowiedzialność za wszelkie uszkodzenia ciśnieniomierza.</string>
+    <string name="dev_experimental_clock_sync_encrypted_x7">Zezwalaj na synchronizację zegara przez szyfrowane połączenie z X7</string>
+</resources>

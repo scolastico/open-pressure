@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="dev_version_label">Inguqulo %1$s (%2$d)</string>
+    <plurals name="dev_taps_remaining">
+        <item quantity="one">Kusele ukuthepha okungu-%d ukuze uvule izinketho zonjiniyela</item>
+        <item quantity="other">Kusele ukuthepha okungu-%d ukuze uvule izinketho zonjiniyela</item>
+    </plurals>
+    <string name="dev_unlocked">Izinketho zonjiniyela zivuliwe</string>
+    <string name="dev_open">Izinketho zonjiniyela</string>
+    <string name="dev_title">Izinketho zonjiniyela</string>
+    <string name="dev_warning">Isexwayiso: lezi zinketho zivumela ukubhala okungakaqinisekiswa kumodeli yakho yesilinganisi somfutho wegazi. Ukubhala okunjalo kungonakalisa unomphela izilungiselelo zesilinganisi. Zenzelwe kuphela abantu abaqinisekisa imodeli ngesilinganisi abakulungele ukusilahlekelwa.</string>
+    <string name="dev_allow_clock_untested">Vumela ukuvumelanisa iwashi kuzilinganisi lapho kungakahlolwa khona</string>
+    <string name="dev_allow_confirm_title">Vumela ukuvumelanisa iwashi okungakahlolwa?</string>
+    <string name="dev_allow_confirm_message">Ukusetha iwashi akukaqinisekiswa kulawa mamodeli ezilinganisi. Ukukwenza noma kunjalo kungonakalisa unomphela izilungiselelo zesilinganisi noma kusenze singasebenziseki.\n\nLesi sishintshi asithumeli lutho ngokwaso. Uma kamuva usetha iwashi lesilinganisi esinjalo, umbiko wedivayisi uqopha ukuthi kuzanywe ukubhala okungakahlolwa.\n\nUnesibopho sanoma yimuphi umonakalo esilinganisini sakho.</string>
+    <string name="dev_allow_confirm_accept">Ngiyaqonda, vula</string>
+    <string name="dev_index_title">Ukusekelwa kokubhala ngesilinganisi</string>
+    <string name="dev_index_status_confirmed">Kuqinisekisiwe</string>
+    <string name="dev_index_status_untested">Akukahlolwa</string>
+    <string name="dev_index_status_blocked">Kuvinjiwe</string>
+    <string name="dev_index_aspect_clock">Ukuvumelanisa iwashi</string>
+    <string name="dev_index_aspect_unsent">Isibali sezilinganiso ezingathunyelwe</string>
+    <string name="dev_index_no_monitors">Azikho izilinganisi ezilondoloziwe okwamanje.</string>
+    <string name="dev_hide">Fihla izinketho zonjiniyela</string>
+    <string name="dev_hidden">Izinketho zonjiniyela zifihliwe; zonke izishintshi zonjiniyela zivaliwe</string>
+    <string name="dev_save_failed">Ayikwazanga ukulondoloza izinketho zonjiniyela</string>
+    <string name="dev_allow_registration_untested">Vumela ukubhalisa iphrofayela kuzilinganisi lapho kungakahlolwa khona</string>
+    <string name="dev_allow_registration_confirm_title">Vumela ukubhalisa iphrofayela okungakahlolwa?</string>
+    <string name="dev_allow_registration_confirm_message">Ukubhalisa iphrofayela kubhala umsebenzisi okhethiwe newashi ezilungiselelweni zesilinganisi. Akukaqinisekiswa kulawa mamodeli ezilinganisi. Ukukwenza noma kunjalo kungonakalisa unomphela izilungiselelo zesilinganisi noma kusenze singasebenziseki.\n\nLesi sishintshi asithumeli lutho ngokwaso. Ukubhalisa kusenzeka kuphela uma ukhetha u-“Bhangqa” bese uqinisekisa, futhi umbiko wedivayisi uqopha ukuthi kuzanywe ukubhala okungakahlolwa.\n\nUnesibopho sanoma yimuphi umonakalo esilinganisini sakho.</string>
+    <string name="dev_index_aspect_registration">Ukubhalisa iphrofayela</string>
+    <string name="dev_experimental_title">Izindlela zokuhlola</string>
+    <string name="dev_experimental_explanation">Lezi zishintshi zivula izindlela zokuxhumana ezikhona ku-app kodwa ezingakaze zihlolwe esilinganisini sangempela. Zingavele zihluleke.</string>
+    <string name="dev_experimental_force_x7_encrypted">Sebenzisa ukuxhumana okubethelwe uma ubhangqa i-X7</string>
+    <string name="dev_experimental_confirm_title">Vula indlela engakahlolwa?</string>
+    <string name="dev_experimental_confirm_message">Le ndlela ikhona ku-app kodwa ayikaze ihlolwe esilinganisini sangempela, futhi ingavele ihluleke. Ukubhangqa ngale ndlela kungase kuthathele leli foni indawo yokubhangqa okukhona kwesilinganisi. Ukubhala okwehlulekile kungonakalisa unomphela izilungiselelo zesilinganisi noma kusenze singasebenziseki.\n\nLesi sishintshi asithumeli lutho ngokwaso. Umbiko wedivayisi ubala ukuthi yiziphi izishintshi zonjiniyela ebezivuliwe.\n\nUnesibopho sanoma yimuphi umonakalo esilinganisini sakho.</string>
+    <string name="dev_experimental_clock_sync_encrypted_x7">Vumela ukuvumelanisa iwashi ngokuxhumana kwe-X7 okubethelwe</string>
+</resources>

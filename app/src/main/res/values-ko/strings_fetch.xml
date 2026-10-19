@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fetch_looking">혈압계를 찾는 중…</string>
+    <string name="fetch_importing">%1$s에서 가져오는 중…</string>
+    <string name="fetch_none_nearby">근처에 혈압계가 없습니다. 혈압계는 측정 직후 잠시 또는 Bluetooth 모드에서만 신호를 보냅니다.</string>
+    <string name="fetch_done">최신 측정값을 가져왔습니다. 혈압계: %1$d대.</string>
+    <string name="fetch_incomplete">일부 가져오기가 완료되지 않았습니다. 이미 받은 측정값은 저장되었습니다. 다시 시도하려면 아래로 당기세요.</string>
+    <string name="fetch_busy">혈압계의 현재 작업을 마친 후 다시 아래로 당기세요.</string>
+    <string name="fetch_no_monitor">먼저 지원되는 혈압계를 페어링하거나 연결하세요.</string>
+    <string name="fetch_failed">혈압계를 찾을 수 없습니다. Bluetooth를 확인한 후 다시 아래로 당기세요.</string>
+</resources>

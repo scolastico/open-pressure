@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fetch_looking">మీ మానిటర్‌ల కోసం వెతుకుతోంది…</string>
+    <string name="fetch_importing">%1$s నుండి దిగుమతి చేస్తోంది…</string>
+    <string name="fetch_none_nearby">సమీపంలో మానిటర్ లేదు. కొలత తర్వాత కొద్దిసేపు లేదా Bluetooth మోడ్‌లో మాత్రమే మానిటర్‌లు సిగ్నల్ పంపుతాయి.</string>
+    <string name="fetch_done">తాజా రీడింగ్‌లు పొందబడ్డాయి. మానిటర్‌లు: %1$d.</string>
+    <string name="fetch_incomplete">కొన్ని దిగుమతులు పూర్తి కాలేదు. అందిన రీడింగ్‌లు సేవ్ అయ్యాయి; మళ్లీ ప్రయత్నించడానికి క్రిందికి లాగండి.</string>
+    <string name="fetch_busy">మానిటర్ ప్రస్తుత చర్యను పూర్తి చేసి, ఆపై మళ్లీ క్రిందికి లాగండి.</string>
+    <string name="fetch_no_monitor">ముందుగా మద్దతు ఉన్న మానిటర్‌ను జత చేయండి లేదా కనెక్ట్ చేయండి.</string>
+    <string name="fetch_failed">మానిటర్‌ల కోసం వెతకలేకపోయింది. Bluetooth తనిఖీ చేసి, ఆపై మళ్లీ క్రిందికి లాగండి.</string>
+</resources>

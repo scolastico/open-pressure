@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="dev_version_label">バージョン %1$s (%2$d)</string>
+    <plurals name="dev_taps_remaining">
+        <item quantity="other">あと %d 回タップすると開発者向けオプションが有効になります</item>
+    </plurals>
+    <string name="dev_unlocked">開発者向けオプションが有効になりました</string>
+    <string name="dev_open">開発者向けオプション</string>
+    <string name="dev_title">開発者向けオプション</string>
+    <string name="dev_warning">警告：これらのオプションは、お使いの血圧計の機種で確認されていない書き込みを許可します。このような書き込みは血圧計の設定を恒久的に破損させるおそれがあります。失っても構わない血圧計で機種を検証する人だけを対象としています。</string>
+    <string name="dev_allow_clock_untested">未テストの血圧計で時計の同期を許可する</string>
+    <string name="dev_allow_confirm_title">未テストの時計同期を許可しますか？</string>
+    <string name="dev_allow_confirm_message">これらの血圧計の機種では、時計の設定は確認されていません。それでも実行すると、血圧計の設定が恒久的に破損したり、使用できなくなったりするおそれがあります。\n\nこのスイッチ自体は何も送信しません。後でこのような血圧計の時計を設定すると、未テストの書き込みが試みられたことがデバイスレポートに記録されます。\n\n血圧計に生じたいかなる損害も、ご自身の責任となります。</string>
+    <string name="dev_allow_confirm_accept">理解したうえで有効にする</string>
+    <string name="dev_index_title">血圧計ごとの書き込み対応</string>
+    <string name="dev_index_status_confirmed">確認済み</string>
+    <string name="dev_index_status_untested">未テスト</string>
+    <string name="dev_index_status_blocked">ブロック</string>
+    <string name="dev_index_aspect_clock">時計の同期</string>
+    <string name="dev_index_aspect_unsent">未送信の測定値カウンター</string>
+    <string name="dev_index_no_monitors">保存された血圧計はまだありません。</string>
+    <string name="dev_hide">開発者向けオプションを非表示</string>
+    <string name="dev_hidden">開発者向けオプションを非表示にしました。開発者向けスイッチはすべてオフです</string>
+    <string name="dev_save_failed">開発者向けオプションを保存できませんでした</string>
+    <string name="dev_allow_registration_untested">未テストの血圧計でプロフィール登録を許可する</string>
+    <string name="dev_allow_registration_confirm_title">未テストのプロフィール登録を許可しますか？</string>
+    <string name="dev_allow_registration_confirm_message">プロフィール登録は、選択したユーザーと時計を血圧計の設定に書き込みます。これらの血圧計の機種では、この操作は確認されていません。それでも実行すると、血圧計の設定が恒久的に破損したり、使用できなくなったりするおそれがあります。\n\nこのスイッチ自体は何も送信しません。登録が実行されるのは、引き続き「ペア設定」を選んで確認したときだけです。また、未テストの書き込みが試みられたことがデバイスレポートに記録されます。\n\n血圧計に生じたいかなる損害も、ご自身の責任となります。</string>
+    <string name="dev_index_aspect_registration">プロフィール登録</string>
+    <string name="dev_experimental_title">試験的な経路</string>
+    <string name="dev_experimental_explanation">これらのスイッチは、アプリに存在するものの実際の血圧計では一度もテストされていない接続経路をオンにします。単に失敗する可能性があります。</string>
+    <string name="dev_experimental_force_x7_encrypted">X7 のペア設定時に暗号化接続を使用する</string>
+    <string name="dev_experimental_confirm_title">未テストの経路をオンにしますか？</string>
+    <string name="dev_experimental_confirm_message">この経路はアプリに存在しますが、実際の血圧計では一度もテストされておらず、単に失敗する可能性があります。この方法でペア設定すると、血圧計の既存のペア設定がこのスマートフォンに置き換わる可能性があります。書き込みに失敗すると、血圧計の設定が恒久的に破損したり、使用できなくなったりするおそれがあります。\n\nこのスイッチ自体は何も送信しません。どの開発者向けスイッチが有効だったかはデバイスレポートに記載されます。\n\n血圧計に生じたいかなる損害も、ご自身の責任となります。</string>
+    <string name="dev_experimental_clock_sync_encrypted_x7">暗号化された X7 接続での時計の同期を許可する</string>
+</resources>

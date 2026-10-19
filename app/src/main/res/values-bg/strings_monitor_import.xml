@@ -4,4 +4,21 @@
     <string name="monitor_clock_skipped">Този апарат за кръвно не поддържа автоматично сверяване на часа. Настройте часа ръчно.</string>
     <string name="monitor_clock_failed">Часът на апарата за кръвно не можа да бъде актуализиран. Проверете или настройте часа на апарата.</string>
     <string name="monitor_session_unconfirmed">Измерванията са запазени, но апаратът за кръвно не потвърди края на прехвърлянето. Свържете го отново преди следващо импортиране.</string>
+    <string name="main_import_users">Измервания за импортиране</string>
+    <string name="main_import_users_both">И двамата потребители</string>
+    <string name="main_read_all">Прочети всичко</string>
+    <string name="main_read_all_explanation">Проверява всяко място в паметта на избраните за импортиране потребители, а не само тези, които апаратът отчита като заети. Използвайте, ако изглежда, че липсват измервания. Отнема повече време, затова дръжте апарата наблизо до края.</string>
+    <string name="main_reading_all">Четене на всичко…</string>
+    <plurals name="monitor_import_mode_index">
+        <item quantity="one">Апаратът отчете %1$d запазено измерване за избраните потребители.</item>
+        <item quantity="other">Апаратът отчете %1$d запазени измервания за избраните потребители.</item>
+    </plurals>
+    <string name="monitor_import_mode_fallback">Списъкът на апарата със запазени измервания не можа да се използва, затова е прочетено всяко място в паметта.</string>
+    <string name="monitor_import_mode_sweep">Прочетено е всяко място в паметта.</string>
+    <string name="monitor_import_mode_empty">Апаратът не отчете запазени измервания за избраните потребители. Използвайте „Прочети всичко“, ако очаквате такива.</string>
+    <string name="monitor_unconfirmed_bank_skipped">Пропусната е втора област от паметта, която този модел може да няма.</string>
+    <plurals name="monitor_import_slots_unreadable">
+        <item quantity="one">%1$d място в паметта не можа да бъде прочетено.</item>
+        <item quantity="other">%1$d места в паметта не можаха да бъдат прочетени.</item>
+    </plurals>
 </resources>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fetch_looking">Etsitään verenpainemittareitasi…</string>
+    <string name="fetch_importing">Tuodaan laitteesta %1$s…</string>
+    <string name="fetch_none_nearby">Lähellä ei ole mittaria. Mittarit lähettävät vain hetken mittauksen jälkeen tai Bluetooth-tilassa.</string>
+    <string name="fetch_done">Uusimmat mittaukset haettu. Mittareita: %1$d.</string>
+    <string name="fetch_incomplete">Osa tuonneista ei valmistunut. Jo vastaanotetut mittaukset on tallennettu; yritä uudelleen vetämällä alas.</string>
+    <string name="fetch_busy">Viimeistele mittarin nykyinen toiminto ja vedä sitten uudelleen alas.</string>
+    <string name="fetch_no_monitor">Muodosta ensin pari tuetun mittarin kanssa tai yhdistä se.</string>
+    <string name="fetch_failed">Mittareita ei voitu etsiä. Tarkista Bluetooth ja vedä sitten uudelleen alas.</string>
+</resources>

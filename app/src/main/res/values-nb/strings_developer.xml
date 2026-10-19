@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="dev_version_label">Versjon %1$s (%2$d)</string>
+    <plurals name="dev_taps_remaining">
+        <item quantity="one">%d trykk igjen for å låse opp utvikleralternativer</item>
+        <item quantity="other">%d trykk igjen for å låse opp utvikleralternativer</item>
+    </plurals>
+    <string name="dev_unlocked">Utvikleralternativer låst opp</string>
+    <string name="dev_open">Utvikleralternativer</string>
+    <string name="dev_title">Utvikleralternativer</string>
+    <string name="dev_warning">Advarsel: disse alternativene tillater skriving som ikke er bekreftet for din blodtrykksmålermodell. Slik skriving kan permanent ødelegge målerens innstillinger. De er bare ment for personer som validerer en modell med en måler de er forberedt på å miste.</string>
+    <string name="dev_allow_clock_untested">Tillat klokkesynkronisering på målere der den ikke er testet</string>
+    <string name="dev_allow_confirm_title">Tillate utestet klokkesynkronisering?</string>
+    <string name="dev_allow_confirm_message">Innstilling av klokken er ikke bekreftet på disse målermodellene. Å gjøre det likevel kan permanent ødelegge målerens innstillinger eller gjøre den ubrukelig.\n\nDenne bryteren sender ingenting av seg selv. Hvis du senere stiller klokken på en slik måler, registrerer enhetsrapporten at en utestet skriving ble forsøkt.\n\nDu er ansvarlig for eventuell skade på måleren din.</string>
+    <string name="dev_allow_confirm_accept">Jeg forstår, slå på</string>
+    <string name="dev_index_title">Skrivestøtte per måler</string>
+    <string name="dev_index_status_confirmed">Bekreftet</string>
+    <string name="dev_index_status_untested">Utestet</string>
+    <string name="dev_index_status_blocked">Blokkert</string>
+    <string name="dev_index_aspect_clock">Klokkesynkronisering</string>
+    <string name="dev_index_aspect_unsent">Teller for usendte målinger</string>
+    <string name="dev_index_no_monitors">Ingen lagrede målere ennå.</string>
+    <string name="dev_hide">Skjul utvikleralternativer</string>
+    <string name="dev_hidden">Utvikleralternativer skjult; alle utviklerbrytere er av</string>
+    <string name="dev_save_failed">Kunne ikke lagre utvikleralternativene</string>
+    <string name="dev_allow_registration_untested">Tillat profilregistrering på målere der den ikke er testet</string>
+    <string name="dev_allow_registration_confirm_title">Tillate utestet profilregistrering?</string>
+    <string name="dev_allow_registration_confirm_message">Profilregistrering skriver den valgte brukeren og klokken til målerens innstillinger. Den er ikke bekreftet på disse målermodellene. Å gjøre det likevel kan permanent ødelegge målerens innstillinger eller gjøre den ubrukelig.\n\nDenne bryteren sender ingenting av seg selv. Registreringen kjøres fortsatt bare når du velger Koble sammen og bekrefter, og enhetsrapporten registrerer at en utestet skriving ble forsøkt.\n\nDu er ansvarlig for eventuell skade på måleren din.</string>
+    <string name="dev_index_aspect_registration">Profilregistrering</string>
+    <string name="dev_experimental_title">Eksperimentelle veier</string>
+    <string name="dev_experimental_explanation">Disse bryterne slår på tilkoblingsveier som finnes i appen, men som aldri er testet på en ekte måler. De kan rett og slett mislykkes.</string>
+    <string name="dev_experimental_force_x7_encrypted">Bruk den krypterte tilkoblingen når du kobler sammen en X7</string>
+    <string name="dev_experimental_confirm_title">Slå på en utestet vei?</string>
+    <string name="dev_experimental_confirm_message">Denne veien finnes i appen, men er aldri testet på en ekte måler, og den kan rett og slett mislykkes. Å koble sammen på denne måten kan erstatte målerens eksisterende sammenkobling med denne telefonen. En mislykket skriving kan permanent ødelegge målerens innstillinger eller gjøre den ubrukelig.\n\nDenne bryteren sender ingenting av seg selv. Enhetsrapporten viser hvilke utviklerbrytere som var i bruk.\n\nDu er ansvarlig for eventuell skade på måleren din.</string>
+    <string name="dev_experimental_clock_sync_encrypted_x7">Tillat klokkesynkronisering over en kryptert X7-tilkobling</string>
+</resources>

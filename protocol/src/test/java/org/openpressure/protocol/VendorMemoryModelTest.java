@@ -14,6 +14,7 @@ public final class VendorMemoryModelTest {
         verifiedRegionalAliases();
         recordFormats();
         rejectsMalformedRecords();
+        recordChecksums();
         bp5360Attribution();
         return checks;
     }
@@ -40,15 +41,15 @@ public final class VendorMemoryModelTest {
 
     private static void verifiedRegionalAliases() {
         for(String alias:new String[]{"HEM-7150T-Z","HEM-7150T-CA"})
-            alias(alias,"HEM-7150T",hex("694e43d9269da6030000000000000000"),new int[]{0x98},960,1);
+            alias(alias,"HEM-7150T",hex("694e43d9269da6030000000000003f00"),new int[]{0x98},960,1);
         for(String alias:new String[]{"HEM-7155T-EBK","HEM-7155T-D","HEM-7155T_ESL","HEM-7155T-ESL","HEM-7155T_AP","HEM-7155T-AP"})
-            alias(alias,"HEM-7155T",hex("694e43d9265da6030000000000000000"),new int[]{0x98,0x458},960,4);
+            alias(alias,"HEM-7155T",hex("694e43d9265da603000000000000ff00"),new int[]{0x98,0x458},960,4);
         for(String alias:new String[]{"HEM-7342T-Z","HEM-7342T-CA"})
-            alias(alias,"HEM-7342T",hex("694e43d9269da6030000000000000000"),new int[]{0x98,0x6d8},1600,1);
+            alias(alias,"HEM-7342T",hex("694e43d9269da6030000000000003f00"),new int[]{0x98,0x6d8},1600,1);
         for(String alias:new String[]{"HEM-7361T-EBK","HEM-7361T_ESL","HEM-7361T-E","HEM-7361T-D","HEM-7361T-AP"})
-            alias(alias,"HEM-7361T",hex("694e43d9265da6030000000000000000"),new int[]{0x98,0x6d8},1600,4);
+            alias(alias,"HEM-7361T",hex("694e43d9265da603000000000000ff00"),new int[]{0x98,0x6d8},1600,4);
         for(String alias:new String[]{"HEM-7530T-Z","HEM-7530T_E3","HEM-7530T-E3","HEM-7530T_J3","HEM-7530T-J3","HEM-7530T_AP3","HEM-7530T-AP3","HEM-7530T_JT3"})
-            alias(alias,"HEM-7530T",hex("4e69d9439d2603a6000000000000"),new int[]{0x2e8},1260,1);
+            alias(alias,"HEM-7530T",hex("4e69d9439d2603a600000000003f"),new int[]{0x2e8},1260,1);
         // Nearby identities have either contradictory fields/maps, different security,
         // or no exact identity evidence. None may inherit a map through a prefix.
         for(String denied:new String[]{"HEM-7155T_K4-D","HEM-7155T_K4-EBK","HEM-7155T_K4-ESL","HEM-7155T-K4-EBK","HEM-7156T_AP","HEM-7156T-AP","HEM-7156T_AAP","HEM-7156T-AAP","HEM-7322T-D","HEM-7322T-E","HEM-7600T-Z","HEM-7600T-E","HEM-7600T-ZCD6BK","HEM-7600T2-JF","HEM-6232T-AP","HEM-6232T-D","HEM-6232T-E","HEM-6232T-Z","HEM-7196T-ESL","HEM-7342T1-ACACD6","HEM-7361T1-BS","HEM-7530T1-BR3","HEM-7150T-Z-encrypted","HEM-7155T-EBK-extra","HEM-7361T-EBK-extra","HEM-7530T-E3-extra","HEM-7530T-JT3"})
@@ -70,24 +71,25 @@ public final class VendorMemoryModelTest {
 
     private static void recordFormats() {
         // 130/78, pulse 67, 2025-07-09 06:14:38. The two bytes 1d26 are
-        // month/day/hour; 03a6 is minute/second. Remaining bytes are metadata.
-        byte[] little=hex("694e4319261da6030000000000000000");
+        // month/day/hour; 03a6 is minute/second. Logical byte 14 (16-byte) or 12 (14-byte)
+        // is the additive checksum; the remaining bytes are metadata.
+        byte[] little=hex("694e4319261da603000000000000ff00");
         for(String id:new String[]{"HEM-7150T","HEM-7155T","HEM-7156T","HEM-7342T","HEM-7361T"}) {
             reading(model(id).parse(little,1),2025,1,0);
-            reading(model(id).parse(hex("694e43d926dda6030000000000000000"),1),2025,1,5);
+            reading(model(id).parse(hex("694e43d926dda6030000000000007f00"),1),2025,1,5);
         }
         for(String id:new String[]{"HEM-7322T","HEM-7600T"}) {
-            reading(model(id).parse(hex("4e6919431d2603a6000000000000"),1),2025,1,0);
-            reading(model(id).parse(hex("4e69d943dd2603a6000000000000"),1),2217,1,5);
+            reading(model(id).parse(hex("4e6919431d2603a60000000000ff"),1),2025,1,0);
+            reading(model(id).parse(hex("4e69d943dd2603a600000000007f"),1),2217,1,5);
         }
-        reading(model("HEM-7530T").parse(hex("4e69d9439d2603a6000000000000"),1),2025,1,1);
-        reading(model("HEM-6232T").parse(hex("4e69d9439d2603a6000000000000"),2),2025,2,4);
-        reading(model("HEM-6232T").parse(hex("4e69d9435d2603a6000000000000"),1),2025,1,1);
+        reading(model("HEM-7530T").parse(hex("4e69d9439d2603a600000000003f"),1),2025,1,1);
+        reading(model("HEM-6232T").parse(hex("4e69d9439d2603a600000000003f"),2),2025,2,4);
+        reading(model("HEM-6232T").parse(hex("4e69d9435d2603a60000000000ff"),1),2025,1,1);
         for(String id:new String[]{"HEM-7150T","HEM-7322T","HEM-7530T","HEM-6232T"}) {
             VendorMemoryModel m=model(id);
-            byte[] invalidSecond=m.recordBytes==16?hex("694e4319261dbf030000000000000000"):hex("4e6919431d2603bf000000000000");
+            byte[] invalidSecond=m.recordBytes==16?hex("694e4319261dbf030000000000001800"):hex("4e6919431d2603bf000000000018");
             check(m.parse(invalidSecond,1).time==null,"seconds63 must remain unavailable: "+id);
-            byte[] invalidMonth=m.recordBytes==16?hex("694e43192601a6030000000000000000"):hex("4e691943012603a6000000000000");
+            byte[] invalidMonth=m.recordBytes==16?hex("694e43192601a603000000000000e300"):hex("4e691943012603a60000000000e3");
             check(m.parse(invalidMonth,1).time==null,"invalid calendar preserved without inventing date: "+id);
         }
     }
@@ -103,14 +105,34 @@ public final class VendorMemoryModelTest {
             rejects(() -> m.parse(erased,0));
             rejects(() -> m.parse(erased,m.userCount+1));
             rejects(() -> m.parse(new byte[m.recordBytes],1));
-            byte[] bad=m.recordBytes==16?hex("694e0019261da6030000000000010000"):hex("4e6919001d2603a6000000000000");
+            byte[] bad=m.recordBytes==16?hex("694e0019261da603000000000001bd00"):hex("4e6919001d2603a60000000000bc");
             rejects(() -> m.parse(bad,1));
-            byte[] inverted=m.recordBytes==16?hex("01504319261da6030000000000010000"):hex("500119431d2603a6000000000000");
+            byte[] inverted=m.recordBytes==16?hex("01504319261da6030000000000019a00"):hex("500119431d2603a6000000000099");
             rejects(() -> m.parse(inverted,1));
         }
     }
 
+    private static void recordChecksums() {
+        // 16-byte: fixture record of hem-7155t user 2 is valid (checksum dd at byte 14)
+        check(model("HEM-7155T").parse(hex("5f50461927208007000001000000dd00"),2).systolic==120,"valid 16-byte checksum accepted");
+        rejects(() -> model("HEM-7155T").parse(hex("5f50461927208007000001000000de00"),2)); // byte 14 wrong by one
+        // 14-byte wire record of hem-6232t user 1 (pairs swapped on the wire, checksum 00 at logical byte 12)
+        check(model("HEM-6232T").parse(hex("4e6919431d2603a6000000010000"),1).diastolic==78,"valid 14-byte checksum accepted");
+        rejects(() -> model("HEM-6232T").parse(hex("4e6919431d2603a600000001ffff"),1)); // last pair carries the checksum on the wire
+        check(VendorMemoryModel.checksum(hex("694e4319261da6030000010000"),12)==0x00,"checksum helper");
+        check(Arrays.equals(model("HEM-6232T").logical(hex("4e69")),hex("694e")),"14-byte wire pairs un-swapped");
+        check(Arrays.equals(model("HEM-7155T").logical(hex("694e")),hex("694e")),"16-byte maps unchanged");
+        // erased slots are still null, never checksum-rejected
+        check(model("HEM-6232T").parse(hex("ffffffffffffffffffffffffffff"),1)==null,"erased 14-byte slot");
+        // Models without sandbox checksum evidence accept any checksum byte.
+        check(!model("HEM-7322T").recordChecksum && !model("HEM-7377T1").recordChecksum && model("HEM-7600T").recordChecksum,"checksum only where evidenced");
+        reading(model("HEM-7322T").parse(hex("4e6919431d2603a60000000000fe"),1),2025,1,0);
+        reading(model("HEM-7377T1").parse(hex("694e4319261da6030001000000010200"),2),2025,1,0);
+        rejects(() -> model("HEM-7600T").parse(hex("4e6919431d2603a60000000000fe"),1));
+    }
+
     private static void bp5360Attribution() {
+        // The upstream BP5360 map has no checksum evidence; its records keep field checks only.
         VendorMemoryModel m=model("HEM-7377T1-ZAZ");
         reading(m.parse(hex("694e4319261da6030001000000010000"),2),2025,1,0);
         reading(m.parse(hex("694e4319261da603ffffffffffffffff"),2),2025,2,0);

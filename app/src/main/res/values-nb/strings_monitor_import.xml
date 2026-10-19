@@ -4,4 +4,21 @@
     <string name="monitor_clock_skipped">Denne blodtrykksmåleren støtter ikke automatisk oppdatering av tiden. Still inn tiden manuelt.</string>
     <string name="monitor_clock_failed">Tiden på blodtrykksmåleren kunne ikke oppdateres. Kontroller eller still inn tiden på måleren.</string>
     <string name="monitor_session_unconfirmed">Målingene er lagret, men blodtrykksmåleren bekreftet ikke at overføringen var ferdig. Koble til på nytt før du importerer igjen.</string>
+    <string name="main_import_users">Målinger som skal importeres</string>
+    <string name="main_import_users_both">Begge brukere</string>
+    <string name="main_read_all">Les alt</string>
+    <string name="main_read_all_explanation">Sjekker hver minneplass for brukerne som er valgt for import, ikke bare de måleren oppgir som brukt. Bruk dette hvis målinger ser ut til å mangle. Det tar lengre tid, så hold måleren i nærheten til det er ferdig.</string>
+    <string name="main_reading_all">Leser alt…</string>
+    <plurals name="monitor_import_mode_index">
+        <item quantity="one">Måleren rapporterte %1$d lagret måling for de valgte brukerne.</item>
+        <item quantity="other">Måleren rapporterte %1$d lagrede målinger for de valgte brukerne.</item>
+    </plurals>
+    <string name="monitor_import_mode_fallback">Målerens liste over lagrede målinger kunne ikke brukes, så hver minneplass ble lest.</string>
+    <string name="monitor_import_mode_sweep">Hver minneplass ble lest.</string>
+    <string name="monitor_import_mode_empty">Måleren rapporterte ingen lagrede målinger for de valgte brukerne. Bruk Les alt hvis du venter noen.</string>
+    <string name="monitor_unconfirmed_bank_skipped">Et andre minneområde som denne modellen kanskje ikke har, ble hoppet over.</string>
+    <plurals name="monitor_import_slots_unreadable">
+        <item quantity="one">%1$d minneplass kunne ikke leses.</item>
+        <item quantity="other">%1$d minneplasser kunne ikke leses.</item>
+    </plurals>
 </resources>

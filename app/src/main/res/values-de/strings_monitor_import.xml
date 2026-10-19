@@ -4,4 +4,21 @@
     <string name="monitor_clock_skipped">Dieses Messgerät unterstützt keine automatische Aktualisierung der Uhrzeit. Stelle die Uhrzeit manuell ein.</string>
     <string name="monitor_clock_failed">Die Uhrzeit des Messgeräts konnte nicht aktualisiert werden. Prüfe die Uhrzeit am Messgerät oder stelle sie dort ein.</string>
     <string name="monitor_session_unconfirmed">Die Messwerte sind gespeichert, aber das Messgerät hat den Abschluss der Übertragung nicht bestätigt. Verbinde es erneut, bevor du wieder Messwerte importierst.</string>
+    <string name="main_import_users">Zu importierende Messwerte</string>
+    <string name="main_import_users_both">Beide Benutzer</string>
+    <string name="main_read_all">Alle lesen</string>
+    <string name="main_read_all_explanation">Prüft jeden Speicherplatz der zum Import ausgewählten Benutzer, nicht nur die, die das Messgerät als belegt meldet. Nutze das, wenn Messwerte zu fehlen scheinen. Es dauert länger, halte das Messgerät daher in der Nähe, bis es fertig ist.</string>
+    <string name="main_reading_all">Alle werden gelesen…</string>
+    <plurals name="monitor_import_mode_index">
+        <item quantity="one">Das Messgerät meldet %1$d gespeicherten Messwert für die ausgewählten Benutzer.</item>
+        <item quantity="other">Das Messgerät meldet %1$d gespeicherte Messwerte für die ausgewählten Benutzer.</item>
+    </plurals>
+    <string name="monitor_import_mode_fallback">Die Liste der gespeicherten Messwerte im Messgerät war nicht nutzbar, daher wurde jeder Speicherplatz gelesen.</string>
+    <string name="monitor_import_mode_sweep">Jeder Speicherplatz wurde gelesen.</string>
+    <string name="monitor_import_mode_empty">Das Messgerät meldet keine gespeicherten Messwerte für die ausgewählten Benutzer. Nutze Alle lesen, wenn du welche erwartest.</string>
+    <string name="monitor_unconfirmed_bank_skipped">Ein zweiter Speicherbereich, den dieses Modell möglicherweise nicht hat, wurde übersprungen.</string>
+    <plurals name="monitor_import_slots_unreadable">
+        <item quantity="one">%1$d Speicherplatz konnte nicht gelesen werden.</item>
+        <item quantity="other">%1$d Speicherplätze konnten nicht gelesen werden.</item>
+    </plurals>
 </resources>

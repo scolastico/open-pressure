@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_sync_clock">ക്ലോക്ക് സിങ്ക് ചെയ്യുക</string>
+    <string name="main_sync_clock_explanation">മോണിറ്ററിന്റെ ക്ലോക്ക് ഈ ഫോണിന്റെ സമയത്തിലേക്ക് സജ്ജമാക്കുന്നു. എന്തെങ്കിലും മാറുന്നതിന് മുമ്പ് നിങ്ങൾ രണ്ട് സമയങ്ങളും കണ്ട് സ്ഥിരീകരിക്കും. അതിനുശേഷം കണക്ഷൻ അവസാനിക്കും; റീഡിംഗുകൾ ഇറക്കുമതി ചെയ്യാൻ വീണ്ടും കണക്റ്റ് ചെയ്യുക.</string>
+    <string name="main_sync_clock_running">ക്ലോക്ക് സിങ്ക് ചെയ്യുന്നു…</string>
+    <string name="clock_sync_title">ക്ലോക്ക് സിങ്ക് സ്ഥിരീകരിക്കുക</string>
+    <string name="clock_sync_monitor_time">മോണിറ്റർ ക്ലോക്ക്: %1$s</string>
+    <string name="clock_sync_monitor_time_unset">മോണിറ്റർ ക്ലോക്ക്: സജ്ജമാക്കിയിട്ടില്ല</string>
+    <string name="clock_sync_phone_time">ഫോൺ സമയം: %1$s</string>
+    <plurals name="clock_sync_drift">
+        <item quantity="one">വ്യത്യാസം: %1$d സെക്കൻഡ്</item>
+        <item quantity="other">വ്യത്യാസം: %1$d സെക്കൻഡ്</item>
+    </plurals>
+    <string name="clock_sync_within_threshold">മോണിറ്റർ ക്ലോക്ക് ഫോൺ സമയത്തിൽ നിന്ന് ഒരു മിനിറ്റിനുള്ളിലാണ്, അതിനാൽ അത് മാറ്റുന്നില്ല.</string>
+    <string name="clock_sync_untested_warning">ഈ മോണിറ്ററിൽ ക്ലോക്ക് സിങ്ക് ഇതുവരെ പരീക്ഷിച്ചിട്ടില്ല. നിങ്ങൾ ഒരു ഡെവലപ്പർ ഓപ്ഷൻ ഓണാക്കിയതുകൊണ്ട് മാത്രമാണ് ഇത് ലഭ്യമായത്. ഈ അപകടസാധ്യത അംഗീകരിക്കുന്നുവെങ്കിൽ മാത്രം തുടരുക.</string>
+    <string name="clock_sync_choose_time">സജ്ജമാക്കേണ്ട സമയം (ഡെവലപ്പർ ഓപ്ഷൻ)</string>
+    <string name="clock_sync_confirm">ഇപ്പോൾ സിങ്ക് ചെയ്യുക</string>
+    <string name="monitor_clock_sync_complete">ക്ലോക്ക് സിങ്ക് ചെയ്തു</string>
+    <string name="monitor_clock_sync_skipped">ക്ലോക്ക് ഇതിനകം ശരിയാണ്</string>
+    <string name="monitor_clock_sync_rejected">ക്ലോക്ക് സിങ്ക് പരാജയപ്പെട്ടു</string>
+    <string name="monitor_clock_sync_cancelled">ക്ലോക്ക് സിങ്ക് റദ്ദാക്കി</string>
+    <string name="monitor_clock_sync_unreadable">ക്ലോക്ക് സിങ്ക് സാധ്യമല്ല</string>
+    <string name="monitor_clock_sync_reconnect">റീഡിംഗുകൾ ഇറക്കുമതി ചെയ്യാൻ വീണ്ടും കണക്റ്റ് ചെയ്യുക.</string>
+    <string name="clock_sync_report_prompt">ഇത് ഇതുവരെ പരീക്ഷിച്ചിട്ടില്ലാത്ത ഒരു മോണിറ്ററിന്റെ ക്ലോക്ക് നിങ്ങൾ സിങ്ക് ചെയ്തു. GitHub issue-ലെ ഉപകരണ റിപ്പോർട്ട് അത് പ്രവർത്തിച്ചോ എന്ന് കാണിക്കുകയും ക്ലോക്ക് സിങ്ക് മറ്റുള്ളവർക്കും ലഭ്യമാക്കാൻ സഹായിക്കുകയും ചെയ്യുന്നു.\n\nറിപ്പോർട്ടിൽ സാങ്കേതിക വിവരങ്ങൾ മാത്രമേ ഉണ്ടാകൂ. റീഡിംഗുകൾ, അളവെടുത്ത സമയങ്ങൾ, പേരുകൾ, Bluetooth വിലാസം, സീരിയൽ നമ്പർ എന്നിവ ഒരിക്കലും അതിൽ ഉൾപ്പെടില്ല. എന്തെങ്കിലും പങ്കിടുന്നതിന് മുമ്പ് നിങ്ങൾക്ക് അത് പരിശോധിക്കാം.</string>
+    <string name="main_clock_sync_backup">ക്ലോക്ക് സിങ്ക് ബാക്കപ്പ്</string>
+    <string name="main_clock_sync_backup_explanation">അവസാന ക്ലോക്ക് സിങ്കിന് മുമ്പ് സംരക്ഷിച്ച ക്രമീകരണങ്ങൾ. ഇത് ക്രമീകരണങ്ങളുടെ ബാക്കപ്പാണ്, മുഴുവൻ മെമ്മറിയുടെയോ കാലിബ്രേഷന്റെയോ ബാക്കപ്പല്ല. മുമ്പത്തെ ബാക്കപ്പുകൾ ഈ ഫോണിൽ തന്നെ നിലനിൽക്കും.</string>
+    <string name="monitor_clock_sync_out_of_range">ഫോണിലെ തീയതി പിന്തുണയ്ക്കുന്ന പരിധിക്ക് പുറത്താണ്, അതിനാൽ മോണിറ്ററിന്റെ ക്ലോക്ക് മാറ്റിയില്ല. ഈ ഫോണിലെ തീയതി പരിശോധിക്കുക.</string>
+</resources>

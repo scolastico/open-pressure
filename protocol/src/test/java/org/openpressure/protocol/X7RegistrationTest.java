@@ -22,6 +22,7 @@ public final class X7RegistrationTest {
         echoedWriteAcknowledgments();
         invalidInputNeverCreatesARegistration();
         invalidAcknowledgmentsRevokeAuthorization();
+        identityAndOverrideGateTheWrite();
         return checks;
     }
 
@@ -133,8 +134,10 @@ public final class X7RegistrationTest {
     }
 
     private static void invalidInputNeverCreatesARegistration() {
-        for(String model:new String[]{null,"","HEM-7380T1","HEM-7380T1-EBK","X7","X7 Smart AFib other"})
+        for(String model:new String[]{null,"","HEM-7380T1","hem-7380t1-ebk","HEM-7155T","X7","X7 Smart AFib other"}) {
             rejects(() -> new X7Registration(model,hex(PREIMAGE),1,NOW));
+            rejects(() -> new X7Registration(model,hex(PREIMAGE),1,NOW,true));
+        }
         for(int user:new int[]{-1,0,3,255}) rejects(() -> new X7Registration(MODEL,hex(PREIMAGE),user,NOW));
         rejects(() -> new X7Registration(MODEL,null,1,NOW));
         for(int size:new int[]{0,67,69,65536}) rejects(() -> new X7Registration(MODEL,new byte[size],1,NOW));
@@ -145,6 +148,34 @@ public final class X7RegistrationTest {
         rejects(() -> new X7Registration(MODEL,hex(PREIMAGE),1,null));
         for(LocalDateTime time:new LocalDateTime[]{LocalDateTime.of(2023,12,31,23,59,59),LocalDateTime.of(2050,12,31,23,59,59),LocalDateTime.of(2051,1,1,0,0),LocalDateTime.MAX})
             rejects(() -> new X7Registration(MODEL,hex(PREIMAGE),1,time));
+    }
+
+    /** The plan is bound to an exact X7 identity; the write-aspect gate runs before the live permit. */
+    private static void identityAndOverrideGateTheWrite() {
+        java.util.UUID service=java.util.UUID.fromString("0000fe4a-0000-1000-8000-00805f9b34fb"),tx=java.util.UUID.fromString("db5b55e0-aee7-11e1-965e-0002a5d5c51b");
+        X7Registration eosl=new X7Registration("X7 Smart AFib",hex(PREIMAGE),1,NOW);
+        check("HEM-7380T1-EOSL".equals(eosl.identity()) && !eosl.override(),"firmware name binds the EOSL identity without override");
+        eosl.authorize(); byte[] first=eosl.command();
+        DeviceWritePolicy.validateX7Registration(ProtocolProfile.X7_WLP,service,tx,first,eosl);
+        checks++;
+        X7Registration ebk=new X7Registration("HEM-7380T1-EBK\u0000",hex(PREIMAGE),1,NOW);
+        check("HEM-7380T1-EBK".equals(ebk.identity()) && !ebk.override(),"EBK binds its own identity");
+        check(Arrays.equals(new X7Registration(MODEL,hex(PREIMAGE),1,NOW).updated(),ebk.updated()),"EBK plans the same bytes as the EOSL");
+        ebk.authorize(); byte[] ebkFirst=ebk.command();
+        rejects(() -> DeviceWritePolicy.validateX7Registration(ProtocolProfile.X7_WLP,service,tx,ebkFirst,ebk));
+        check(ebk.allows(ebkFirst),"the untested gate rejects before the permit is touched");
+        X7Registration forced=new X7Registration("HEM-7380T1-EBK",hex(PREIMAGE),1,NOW,true);
+        check(forced.override(),"override carried by the plan");
+        forced.authorize(); byte[] forcedFirst=forced.command();
+        same(PREFIX,forcedFirst);
+        DeviceWritePolicy.validateX7Registration(ProtocolProfile.X7_WLP,service,tx,forcedFirst,forced);
+        checks++;
+        rejects(() -> DeviceWritePolicy.validateX7Registration(ProtocolProfile.X7_WLP,service,tx,hex(SETTINGS),forced));
+        rejects(() -> DeviceWritePolicy.validateX7Registration(ProtocolProfile.X7_SECURE_WLP,service,tx,forcedFirst,forced));
+        X7Registration eoslForced=new X7Registration(MODEL,hex(PREIMAGE),1,NOW,true);
+        eoslForced.authorize();
+        DeviceWritePolicy.validateX7Registration(ProtocolProfile.X7_WLP,service,tx,eoslForced.command(),eoslForced);
+        checks++;
     }
 
     private static void invalidAcknowledgmentsRevokeAuthorization() {

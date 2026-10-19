@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_sync_clock">Klok synchroniseren</string>
+    <string name="main_sync_clock_explanation">Zet de klok van de meter op de tijd van deze telefoon. Je ziet beide tijden en bevestigt voordat er iets verandert. Daarna wordt de verbinding verbroken; maak opnieuw verbinding om metingen te importeren.</string>
+    <string name="main_sync_clock_running">Klok synchroniseren…</string>
+    <string name="clock_sync_title">Kloksynchronisatie bevestigen</string>
+    <string name="clock_sync_monitor_time">Klok van de meter: %1$s</string>
+    <string name="clock_sync_monitor_time_unset">Klok van de meter: niet ingesteld</string>
+    <string name="clock_sync_phone_time">Tijd van de telefoon: %1$s</string>
+    <plurals name="clock_sync_drift">
+        <item quantity="one">Verschil: %1$d seconde</item>
+        <item quantity="other">Verschil: %1$d seconden</item>
+    </plurals>
+    <string name="clock_sync_within_threshold">De klok van de meter wijkt hooguit een minuut af van de telefoontijd en blijft daarom ongewijzigd.</string>
+    <string name="clock_sync_untested_warning">Kloksynchronisatie is nog niet getest met deze meter. Ze is alleen beschikbaar omdat je een ontwikkelaarsoptie hebt ingeschakeld. Ga alleen verder als je dat risico accepteert.</string>
+    <string name="clock_sync_choose_time">In te stellen tijd (ontwikkelaarsoptie)</string>
+    <string name="clock_sync_confirm">Nu synchroniseren</string>
+    <string name="monitor_clock_sync_complete">Klok gesynchroniseerd</string>
+    <string name="monitor_clock_sync_skipped">Klok loopt al goed</string>
+    <string name="monitor_clock_sync_rejected">Kloksynchronisatie mislukt</string>
+    <string name="monitor_clock_sync_cancelled">Kloksynchronisatie geannuleerd</string>
+    <string name="monitor_clock_sync_unreadable">Kloksynchronisatie niet mogelijk</string>
+    <string name="monitor_clock_sync_reconnect">Maak opnieuw verbinding om metingen te importeren.</string>
+    <string name="clock_sync_report_prompt">Je hebt de klok gesynchroniseerd van een meter waarmee dit nog niet is getest. Een apparaatrapport in een GitHub-issue laat zien of het gelukt is en helpt kloksynchronisatie ook voor anderen beschikbaar te maken.\n\nHet rapport bevat alleen technische details. Het bevat nooit metingen, meettijden, namen, het Bluetooth-adres of het serienummer. Je kunt het bekijken voordat je iets deelt.</string>
+    <string name="main_clock_sync_backup">Back-up van de kloksynchronisatie</string>
+    <string name="main_clock_sync_backup_explanation">Instellingen die vóór de laatste kloksynchronisatie zijn opgeslagen. Dit is een back-up van de instellingen, geen volledige back-up van het geheugen of de kalibratie. Eerdere back-ups blijven op deze telefoon.</string>
+    <string name="monitor_clock_sync_out_of_range">De datum van de telefoon valt buiten het ondersteunde bereik, dus de klok van de meter is niet gewijzigd. Controleer de datum op deze telefoon.</string>
+</resources>

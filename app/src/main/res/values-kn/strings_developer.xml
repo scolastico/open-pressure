@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="dev_version_label">ಆವೃತ್ತಿ %1$s (%2$d)</string>
+    <plurals name="dev_taps_remaining">
+        <item quantity="one">ಡೆವಲಪರ್ ಆಯ್ಕೆಗಳನ್ನು ಅನ್‌ಲಾಕ್ ಮಾಡಲು ಇನ್ನೂ %d ಟ್ಯಾಪ್</item>
+        <item quantity="other">ಡೆವಲಪರ್ ಆಯ್ಕೆಗಳನ್ನು ಅನ್‌ಲಾಕ್ ಮಾಡಲು ಇನ್ನೂ %d ಟ್ಯಾಪ್‌ಗಳು</item>
+    </plurals>
+    <string name="dev_unlocked">ಡೆವಲಪರ್ ಆಯ್ಕೆಗಳು ಅನ್‌ಲಾಕ್ ಆಗಿವೆ</string>
+    <string name="dev_open">ಡೆವಲಪರ್ ಆಯ್ಕೆಗಳು</string>
+    <string name="dev_title">ಡೆವಲಪರ್ ಆಯ್ಕೆಗಳು</string>
+    <string name="dev_warning">ಎಚ್ಚರಿಕೆ: ಈ ಆಯ್ಕೆಗಳು ನಿಮ್ಮ ರಕ್ತದೊತ್ತಡ ಮಾನಿಟರ್ ಮಾದರಿಗೆ ದೃಢಪಡಿಸದ ಬರಹಗಳನ್ನು ಅನುಮತಿಸುತ್ತವೆ. ಅಂತಹ ಬರಹ ಮಾನಿಟರ್‌ನ ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ಶಾಶ್ವತವಾಗಿ ಹಾಳುಮಾಡಬಹುದು. ಕಳೆದುಕೊಳ್ಳಲು ಸಿದ್ಧವಿರುವ ಮಾನಿಟರ್‌ನೊಂದಿಗೆ ಮಾದರಿಯನ್ನು ಪರಿಶೀಲಿಸುವವರಿಗೆ ಮಾತ್ರ ಇವು.</string>
+    <string name="dev_allow_clock_untested">ಪರೀಕ್ಷಿಸದ ಮಾನಿಟರ್‌ಗಳಲ್ಲಿ ಗಡಿಯಾರ ಸಿಂಕ್ ಅನುಮತಿಸಿ</string>
+    <string name="dev_allow_confirm_title">ಪರೀಕ್ಷಿಸದ ಗಡಿಯಾರ ಸಿಂಕ್ ಅನುಮತಿಸಬೇಕೆ?</string>
+    <string name="dev_allow_confirm_message">ಈ ಮಾನಿಟರ್ ಮಾದರಿಗಳಲ್ಲಿ ಗಡಿಯಾರ ಹೊಂದಿಸುವುದು ದೃಢಪಟ್ಟಿಲ್ಲ. ಆದರೂ ಮಾಡಿದರೆ ಮಾನಿಟರ್‌ನ ಸೆಟ್ಟಿಂಗ್‌ಗಳು ಶಾಶ್ವತವಾಗಿ ಹಾಳಾಗಬಹುದು ಅಥವಾ ಅದು ಬಳಸಲಾಗದಂತಾಗಬಹುದು.\n\nಈ ಸ್ವಿಚ್ ತಾನಾಗಿ ಏನನ್ನೂ ಕಳುಹಿಸುವುದಿಲ್ಲ. ನಂತರ ನೀವು ಅಂತಹ ಮಾನಿಟರ್‌ನ ಗಡಿಯಾರ ಹೊಂದಿಸಿದರೆ, ಪರೀಕ್ಷಿಸದ ಬರಹವನ್ನು ಪ್ರಯತ್ನಿಸಲಾಗಿದೆ ಎಂದು ಸಾಧನ ವರದಿ ದಾಖಲಿಸುತ್ತದೆ.\n\nನಿಮ್ಮ ಮಾನಿಟರ್‌ಗೆ ಆಗುವ ಯಾವುದೇ ಹಾನಿಗೆ ನೀವೇ ಜವಾಬ್ದಾರರು.</string>
+    <string name="dev_allow_confirm_accept">ನನಗೆ ಅರ್ಥವಾಯಿತು, ಆನ್ ಮಾಡಿ</string>
+    <string name="dev_index_title">ಮಾನಿಟರ್ ಪ್ರಕಾರ ಬರಹ ಬೆಂಬಲ</string>
+    <string name="dev_index_status_confirmed">ದೃಢಪಟ್ಟಿದೆ</string>
+    <string name="dev_index_status_untested">ಪರೀಕ್ಷಿಸಿಲ್ಲ</string>
+    <string name="dev_index_status_blocked">ನಿರ್ಬಂಧಿಸಲಾಗಿದೆ</string>
+    <string name="dev_index_aspect_clock">ಗಡಿಯಾರ ಸಿಂಕ್</string>
+    <string name="dev_index_aspect_unsent">ಕಳುಹಿಸದ ರೀಡಿಂಗ್‌ಗಳ ಕೌಂಟರ್</string>
+    <string name="dev_index_no_monitors">ಇನ್ನೂ ಉಳಿಸಿದ ಮಾನಿಟರ್‌ಗಳಿಲ್ಲ.</string>
+    <string name="dev_hide">ಡೆವಲಪರ್ ಆಯ್ಕೆಗಳನ್ನು ಮರೆಮಾಡಿ</string>
+    <string name="dev_hidden">ಡೆವಲಪರ್ ಆಯ್ಕೆಗಳನ್ನು ಮರೆಮಾಡಲಾಗಿದೆ; ಎಲ್ಲಾ ಡೆವಲಪರ್ ಸ್ವಿಚ್‌ಗಳು ಆಫ್ ಆಗಿವೆ</string>
+    <string name="dev_save_failed">ಡೆವಲಪರ್ ಆಯ್ಕೆಗಳನ್ನು ಉಳಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ</string>
+    <string name="dev_allow_registration_untested">ಪರೀಕ್ಷಿಸದ ಮಾನಿಟರ್‌ಗಳಲ್ಲಿ ಪ್ರೊಫೈಲ್ ನೋಂದಣಿ ಅನುಮತಿಸಿ</string>
+    <string name="dev_allow_registration_confirm_title">ಪರೀಕ್ಷಿಸದ ಪ್ರೊಫೈಲ್ ನೋಂದಣಿ ಅನುಮತಿಸಬೇಕೆ?</string>
+    <string name="dev_allow_registration_confirm_message">ಪ್ರೊಫೈಲ್ ನೋಂದಣಿ ಆಯ್ಕೆಮಾಡಿದ ಬಳಕೆದಾರ ಮತ್ತು ಗಡಿಯಾರವನ್ನು ಮಾನಿಟರ್‌ನ ಸೆಟ್ಟಿಂಗ್‌ಗಳಿಗೆ ಬರೆಯುತ್ತದೆ. ಈ ಮಾನಿಟರ್ ಮಾದರಿಗಳಲ್ಲಿ ಇದು ದೃಢಪಟ್ಟಿಲ್ಲ. ಆದರೂ ಮಾಡಿದರೆ ಮಾನಿಟರ್‌ನ ಸೆಟ್ಟಿಂಗ್‌ಗಳು ಶಾಶ್ವತವಾಗಿ ಹಾಳಾಗಬಹುದು ಅಥವಾ ಅದು ಬಳಸಲಾಗದಂತಾಗಬಹುದು.\n\nಈ ಸ್ವಿಚ್ ತಾನಾಗಿ ಏನನ್ನೂ ಕಳುಹಿಸುವುದಿಲ್ಲ. ನೀವು \"ಜೋಡಿಸಿ\" ಆಯ್ಕೆಮಾಡಿ ದೃಢೀಕರಿಸಿದಾಗ ಮಾತ್ರ ನೋಂದಣಿ ನಡೆಯುತ್ತದೆ, ಮತ್ತು ಪರೀಕ್ಷಿಸದ ಬರಹವನ್ನು ಪ್ರಯತ್ನಿಸಲಾಗಿದೆ ಎಂದು ಸಾಧನ ವರದಿ ದಾಖಲಿಸುತ್ತದೆ.\n\nನಿಮ್ಮ ಮಾನಿಟರ್‌ಗೆ ಆಗುವ ಯಾವುದೇ ಹಾನಿಗೆ ನೀವೇ ಜವಾಬ್ದಾರರು.</string>
+    <string name="dev_index_aspect_registration">ಪ್ರೊಫೈಲ್ ನೋಂದಣಿ</string>
+    <string name="dev_experimental_title">ಪ್ರಾಯೋಗಿಕ ಮಾರ್ಗಗಳು</string>
+    <string name="dev_experimental_explanation">ಈ ಸ್ವಿಚ್‌ಗಳು ಆ್ಯಪ್‌ನಲ್ಲಿರುವ ಆದರೆ ನಿಜವಾದ ಮಾನಿಟರ್‌ನಲ್ಲಿ ಎಂದಿಗೂ ಪರೀಕ್ಷಿಸದ ಸಂಪರ್ಕ ಮಾರ್ಗಗಳನ್ನು ಆನ್ ಮಾಡುತ್ತವೆ. ಅವು ಸರಳವಾಗಿ ವಿಫಲವಾಗಬಹುದು.</string>
+    <string name="dev_experimental_force_x7_encrypted">X7 ಜೋಡಿಸುವಾಗ ಎನ್‌ಕ್ರಿಪ್ಟ್ ಮಾಡಿದ ಸಂಪರ್ಕವನ್ನು ಬಳಸಿ</string>
+    <string name="dev_experimental_confirm_title">ಪರೀಕ್ಷಿಸದ ಮಾರ್ಗವನ್ನು ಆನ್ ಮಾಡಬೇಕೆ?</string>
+    <string name="dev_experimental_confirm_message">ಈ ಮಾರ್ಗ ಆ್ಯಪ್‌ನಲ್ಲಿದೆ ಆದರೆ ನಿಜವಾದ ಮಾನಿಟರ್‌ನಲ್ಲಿ ಎಂದಿಗೂ ಪರೀಕ್ಷಿಸಲಾಗಿಲ್ಲ, ಮತ್ತು ಅದು ಸರಳವಾಗಿ ವಿಫಲವಾಗಬಹುದು. ಈ ರೀತಿ ಜೋಡಿಸಿದರೆ ಮಾನಿಟರ್‌ನ ಈಗಿನ ಜೋಡಣೆಯನ್ನು ಈ ಫೋನ್ ಬದಲಾಯಿಸಬಹುದು. ವಿಫಲವಾದ ಬರಹ ಮಾನಿಟರ್‌ನ ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ಶಾಶ್ವತವಾಗಿ ಹಾಳುಮಾಡಬಹುದು ಅಥವಾ ಅದನ್ನು ಬಳಸಲಾಗದಂತೆ ಮಾಡಬಹುದು.\n\nಈ ಸ್ವಿಚ್ ತಾನಾಗಿ ಏನನ್ನೂ ಕಳುಹಿಸುವುದಿಲ್ಲ. ಯಾವ ಡೆವಲಪರ್ ಸ್ವಿಚ್‌ಗಳು ಆನ್ ಆಗಿದ್ದವು ಎಂಬುದನ್ನು ಸಾಧನ ವರದಿ ಪಟ್ಟಿ ಮಾಡುತ್ತದೆ.\n\nನಿಮ್ಮ ಮಾನಿಟರ್‌ಗೆ ಆಗುವ ಯಾವುದೇ ಹಾನಿಗೆ ನೀವೇ ಜವಾಬ್ದಾರರು.</string>
+    <string name="dev_experimental_clock_sync_encrypted_x7">ಎನ್‌ಕ್ರಿಪ್ಟ್ ಮಾಡಿದ X7 ಸಂಪರ್ಕದ ಮೂಲಕ ಗಡಿಯಾರ ಸಿಂಕ್ ಅನುಮತಿಸಿ</string>
+</resources>

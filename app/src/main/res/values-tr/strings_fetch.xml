@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fetch_looking">Tansiyon aletleriniz aranıyor…</string>
+    <string name="fetch_importing">%1$s cihazından içe aktarılıyor…</string>
+    <string name="fetch_none_nearby">Yakında tansiyon aleti yok. Aletler yalnızca ölçümden kısa süre sonra veya Bluetooth modunda yayın yapar.</string>
+    <string name="fetch_done">En yeni ölçümler alındı. Alet sayısı: %1$d.</string>
+    <string name="fetch_incomplete">Bazı içe aktarmalar tamamlanmadı. Alınan ölçümler kaydedildi; yeniden denemek için aşağı çekin.</string>
+    <string name="fetch_busy">Aletteki mevcut işlemi bitirin, ardından yeniden aşağı çekin.</string>
+    <string name="fetch_no_monitor">Önce desteklenen bir tansiyon aletini eşleyin veya bağlayın.</string>
+    <string name="fetch_failed">Alet aranamadı. Bluetooth\'u kontrol edin, ardından yeniden aşağı çekin.</string>
+</resources>

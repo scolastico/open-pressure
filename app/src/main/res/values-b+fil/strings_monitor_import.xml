@@ -4,4 +4,19 @@
     <string name="monitor_clock_skipped">Hindi sinusuportahan ng blood pressure monitor na ito ang awtomatikong pag-update ng oras. Manu-manong itakda ang oras nito.</string>
     <string name="monitor_clock_failed">Hindi ma-update ang oras ng blood pressure monitor. Suriin o itakda ang oras sa iyong monitor.</string>
     <string name="monitor_session_unconfirmed">Naka-save ang mga sukat, pero hindi kinumpirma ng blood pressure monitor na tapos na ang paglilipat. Muling kumonekta bago mag-import ulit.</string>
+    <string name="main_import_users">Mga sukat na ii-import</string>
+    <string name="main_import_users_both">Parehong user</string>
+    <string name="main_read_all">Basahin lahat</string>
+    <string name="main_read_all_explanation">Sinusuri ang bawat puwang sa memorya ng mga user na pinili para i-import, hindi lang ang mga iniulat ng monitor na ginagamit. Gamitin ito kung tila may nawawalang sukat. Mas matagal ito, kaya panatilihing malapit ang monitor hanggang matapos.</string>
+    <string name="main_reading_all">Binabasa lahat…</string>
+    <plurals name="monitor_import_mode_index">
+        <item quantity="other">Nag-ulat ang monitor ng %1$d naka-save na sukat para sa mga piniling user.</item>
+    </plurals>
+    <string name="monitor_import_mode_fallback">Hindi magamit ang listahan ng monitor ng mga naka-save na sukat, kaya binasa ang bawat puwang ng memorya.</string>
+    <string name="monitor_import_mode_sweep">Binasa ang bawat puwang ng memorya.</string>
+    <string name="monitor_import_mode_empty">Walang iniulat na naka-save na sukat ang monitor para sa mga piniling user. Gamitin ang Basahin lahat kung may inaasahan ka.</string>
+    <string name="monitor_unconfirmed_bank_skipped">Nilaktawan ang ikalawang bahagi ng memorya na maaaring wala sa modelong ito.</string>
+    <plurals name="monitor_import_slots_unreadable">
+        <item quantity="other">Hindi mabasa ang %1$d puwang sa memorya.</item>
+    </plurals>
 </resources>

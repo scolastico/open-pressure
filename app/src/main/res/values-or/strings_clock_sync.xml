@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_sync_clock">ଘଣ୍ଟା ସିଙ୍କ କରନ୍ତୁ</string>
+    <string name="main_sync_clock_explanation">ମନିଟରର ଘଣ୍ଟାକୁ ଏହି ଫୋନର ସମୟରେ ସେଟ କରେ। କିଛି ବଦଳିବା ପୂର୍ବରୁ ଆପଣ ଦୁଇଟି ସମୟ ଦେଖିବେ ଓ ନିଶ୍ଚିତ କରିବେ। ଏହା ପରେ ସଂଯୋଗ ଶେଷ ହୁଏ; ରିଡିଂ ଆମଦାନି କରିବାକୁ ପୁଣି ସଂଯୋଗ କରନ୍ତୁ।</string>
+    <string name="main_sync_clock_running">ଘଣ୍ଟା ସିଙ୍କ ହେଉଛି…</string>
+    <string name="clock_sync_title">ଘଣ୍ଟା ସିଙ୍କ ନିଶ୍ଚିତ କରନ୍ତୁ</string>
+    <string name="clock_sync_monitor_time">ମନିଟର ଘଣ୍ଟା: %1$s</string>
+    <string name="clock_sync_monitor_time_unset">ମନିଟର ଘଣ୍ଟା: ସେଟ ହୋଇନାହିଁ</string>
+    <string name="clock_sync_phone_time">ଫୋନ ସମୟ: %1$s</string>
+    <plurals name="clock_sync_drift">
+        <item quantity="one">ପାର୍ଥକ୍ୟ: %1$d ସେକେଣ୍ଡ</item>
+        <item quantity="other">ପାର୍ଥକ୍ୟ: %1$d ସେକେଣ୍ଡ</item>
+    </plurals>
+    <string name="clock_sync_within_threshold">ମନିଟର ଘଣ୍ଟା ଫୋନ ସମୟଠାରୁ ଏକ ମିନିଟ ଭିତରେ ଅଛି, ତେଣୁ ଏହାକୁ ବଦଳାଯାଏ ନାହିଁ।</string>
+    <string name="clock_sync_untested_warning">ଏହି ମନିଟର ସହିତ ଘଣ୍ଟା ସିଙ୍କ ଏପର୍ଯ୍ୟନ୍ତ ପରୀକ୍ଷା ହୋଇନାହିଁ। ଆପଣ ଏକ ଡେଭେଲପର ବିକଳ୍ପ ଚାଲୁ କରିଥିବାରୁ ହିଁ ଏହା ଉପଲବ୍ଧ। ଆପଣ ଏହି ବିପଦ ସ୍ୱୀକାର କରୁଥିଲେ ହିଁ ଆଗକୁ ବଢ଼ନ୍ତୁ।</string>
+    <string name="clock_sync_choose_time">ସେଟ କରିବାକୁ ଥିବା ସମୟ (ଡେଭେଲପର ବିକଳ୍ପ)</string>
+    <string name="clock_sync_confirm">ବର୍ତ୍ତମାନ ସିଙ୍କ କରନ୍ତୁ</string>
+    <string name="monitor_clock_sync_complete">ଘଣ୍ଟା ସିଙ୍କ ହେଲା</string>
+    <string name="monitor_clock_sync_skipped">ଘଣ୍ଟା ପୂର୍ବରୁ ଠିକ ଅଛି</string>
+    <string name="monitor_clock_sync_rejected">ଘଣ୍ଟା ସିଙ୍କ ବିଫଳ ହେଲା</string>
+    <string name="monitor_clock_sync_cancelled">ଘଣ୍ଟା ସିଙ୍କ ବାତିଲ ହେଲା</string>
+    <string name="monitor_clock_sync_unreadable">ଘଣ୍ଟା ସିଙ୍କ ସମ୍ଭବ ନୁହେଁ</string>
+    <string name="monitor_clock_sync_reconnect">ରିଡିଂ ଆମଦାନି କରିବାକୁ ପୁଣି ସଂଯୋଗ କରନ୍ତୁ।</string>
+    <string name="clock_sync_report_prompt">ଆପଣ ଏପରି ଏକ ମନିଟରର ଘଣ୍ଟା ସିଙ୍କ କରିଛନ୍ତି ଯାହା ସହିତ ଏହା ଏପର୍ଯ୍ୟନ୍ତ ପରୀକ୍ଷା ହୋଇନାହିଁ। GitHub issue ରେ ଡିଭାଇସ ରିପୋର୍ଟ ଦେଖାଏ ଯେ ଏହା କାମ କଲା କି ନାହିଁ, ଏବଂ ଘଣ୍ଟା ସିଙ୍କକୁ ଅନ୍ୟମାନଙ୍କ ପାଇଁ ଉପଲବ୍ଧ କରିବାରେ ସାହାଯ୍ୟ କରେ।\n\nରିପୋର୍ଟରେ କେବଳ ବୈଷୟିକ ବିବରଣୀ ଥାଏ। ଏଥିରେ କେବେବି ରିଡିଂ, ମାପ ସମୟ, ନାମ, Bluetooth ଠିକଣା କିମ୍ବା ସିରିଆଲ ନମ୍ବର ରହେ ନାହିଁ। କିଛି ସେୟାର କରିବା ପୂର୍ବରୁ ଆପଣ ଏହାକୁ ଦେଖିପାରିବେ।</string>
+    <string name="main_clock_sync_backup">ଘଣ୍ଟା ସିଙ୍କ ବ୍ୟାକଅପ</string>
+    <string name="main_clock_sync_backup_explanation">ଶେଷ ଘଣ୍ଟା ସିଙ୍କ ପୂର୍ବରୁ ସେଭ କରାଯାଇଥିବା ସେଟିଂସ। ଏହା ସେଟିଂସର ବ୍ୟାକଅପ, ସମ୍ପୂର୍ଣ୍ଣ ମେମୋରୀ କିମ୍ବା କାଲିବ୍ରେସନର ବ୍ୟାକଅପ ନୁହେଁ। ପୂର୍ବର ବ୍ୟାକଅପଗୁଡ଼ିକ ଏହି ଫୋନରେ ରହିଥାଏ।</string>
+    <string name="monitor_clock_sync_out_of_range">ଫୋନର ତାରିଖ ସମର୍ଥିତ ପରିସରର ବାହାରେ ଅଛି, ତେଣୁ ମନିଟରର ଘଣ୍ଟା ବଦଳାଯାଇନାହିଁ। ଏହି ଫୋନର ତାରିଖ ଯାଞ୍ଚ କରନ୍ତୁ।</string>
+</resources>

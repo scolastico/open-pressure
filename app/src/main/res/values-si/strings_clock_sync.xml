@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_sync_clock">ඔරලෝසුව සමමුහුර්ත කරන්න</string>
+    <string name="main_sync_clock_explanation">මොනිටරයේ ඔරලෝසුව මෙම දුරකථනයේ වේලාවට සකසයි. කිසිවක් වෙනස් වීමට පෙර ඔබ වේලාවන් දෙකම දැක තහවුරු කරයි. ඉන්පසු සම්බන්ධතාවය අවසන් වේ; කියවීම් ආයාත කිරීමට නැවත සම්බන්ධ වන්න.</string>
+    <string name="main_sync_clock_running">ඔරලෝසුව සමමුහුර්ත වෙමින්…</string>
+    <string name="clock_sync_title">ඔරලෝසු සමමුහුර්තය තහවුරු කරන්න</string>
+    <string name="clock_sync_monitor_time">මොනිටර ඔරලෝසුව: %1$s</string>
+    <string name="clock_sync_monitor_time_unset">මොනිටර ඔරලෝසුව: සකසා නැත</string>
+    <string name="clock_sync_phone_time">දුරකථන වේලාව: %1$s</string>
+    <plurals name="clock_sync_drift">
+        <item quantity="one">වෙනස: තත්පර %1$d</item>
+        <item quantity="other">වෙනස: තත්පර %1$d</item>
+    </plurals>
+    <string name="clock_sync_within_threshold">මොනිටර ඔරලෝසුව දුරකථන වේලාවෙන් මිනිත්තුවක් ඇතුළත ඇති බැවින් එය වෙනස් නොකෙරේ.</string>
+    <string name="clock_sync_untested_warning">මෙම මොනිටරය සමඟ ඔරලෝසු සමමුහුර්තය තවම පරීක්ෂා කර නැත. ඔබ සංවර්ධක විකල්පයක් සක්‍රිය කළ නිසා පමණක් එය ලබා ගත හැක. ඔබ මෙම අවදානම පිළිගන්නේ නම් පමණක් ඉදිරියට යන්න.</string>
+    <string name="clock_sync_choose_time">සැකසිය යුතු වේලාව (සංවර්ධක විකල්පය)</string>
+    <string name="clock_sync_confirm">දැන් සමමුහුර්ත කරන්න</string>
+    <string name="monitor_clock_sync_complete">ඔරලෝසුව සමමුහුර්ත විය</string>
+    <string name="monitor_clock_sync_skipped">ඔරලෝසුව දැනටමත් නිවැරදියි</string>
+    <string name="monitor_clock_sync_rejected">ඔරලෝසු සමමුහුර්තය අසාර්ථක විය</string>
+    <string name="monitor_clock_sync_cancelled">ඔරලෝසු සමමුහුර්තය අවලංගු කළා</string>
+    <string name="monitor_clock_sync_unreadable">ඔරලෝසු සමමුහුර්තය කළ නොහැක</string>
+    <string name="monitor_clock_sync_reconnect">කියවීම් ආයාත කිරීමට නැවත සම්බන්ධ වන්න.</string>
+    <string name="clock_sync_report_prompt">මෙය තවම පරීක්ෂා කර නොමැති මොනිටරයක ඔරලෝසුව ඔබ සමමුහුර්ත කළා. GitHub issue එකක උපාංග වාර්තාවක් එය ක්‍රියා කළාද යන්න පෙන්වන අතර ඔරලෝසු සමමුහුර්තය අන් අයටද ලබා දීමට උපකාරී වේ.\n\nවාර්තාවේ ඇත්තේ තාක්ෂණික විස්තර පමණි. එහි කිසි විටෙක කියවීම්, මැනුම් වේලාවන්, නම්, Bluetooth ලිපිනය හෝ අනුක්‍රමික අංකය ඇතුළත් නොවේ. කිසිවක් බෙදා ගැනීමට පෙර ඔබට එය බැලිය හැක.</string>
+    <string name="main_clock_sync_backup">ඔරලෝසු සමමුහුර්ත කිරීමේ උපස්ථය</string>
+    <string name="main_clock_sync_backup_explanation">අවසන් ඔරලෝසු සමමුහුර්ත කිරීමට පෙර සුරැකි සැකසුම්. මෙය සැකසුම්වල උපස්ථයකි, සම්පූර්ණ මතකයේ හෝ ක්‍රමාංකනයේ උපස්ථයක් නොවේ. පෙර උපස්ථ මෙම දුරකථනයේ ඉතිරි වේ.</string>
+    <string name="monitor_clock_sync_out_of_range">දුරකථනයේ දිනය සහාය දක්වන පරාසයෙන් පිටත ඇති බැවින් මොනිටරයේ ඔරලෝසුව වෙනස් නොකළේය. මෙම දුරකථනයේ දිනය පරීක්ෂා කරන්න.</string>
+</resources>

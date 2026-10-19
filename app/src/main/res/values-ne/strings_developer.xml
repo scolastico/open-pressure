@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="dev_version_label">संस्करण %1$s (%2$d)</string>
+    <plurals name="dev_taps_remaining">
+        <item quantity="one">विकासकर्ता विकल्पहरू अनलक गर्न अझै %d ट्याप</item>
+        <item quantity="other">विकासकर्ता विकल्पहरू अनलक गर्न अझै %d ट्याप</item>
+    </plurals>
+    <string name="dev_unlocked">विकासकर्ता विकल्पहरू अनलक भए</string>
+    <string name="dev_open">विकासकर्ता विकल्पहरू</string>
+    <string name="dev_title">विकासकर्ता विकल्पहरू</string>
+    <string name="dev_warning">चेतावनी: यी विकल्पहरूले तपाईंको रक्तचाप मनिटर मोडेलका लागि पुष्टि नभएका लेखनलाई अनुमति दिन्छन्। यस्तो लेखनले मनिटरका सेटिङहरू स्थायी रूपमा बिगार्न सक्छ। यी गुमाउन तयार भएको मनिटरबाट कुनै मोडेल प्रमाणित गर्ने मानिसहरूका लागि मात्र हुन्।</string>
+    <string name="dev_allow_clock_untested">परीक्षण नभएका मनिटरहरूमा घडी सिंकलाई अनुमति दिनुहोस्</string>
+    <string name="dev_allow_confirm_title">परीक्षण नभएको घडी सिंकलाई अनुमति दिने?</string>
+    <string name="dev_allow_confirm_message">यी मनिटर मोडेलहरूमा घडी मिलाउने कुरा पुष्टि भएको छैन। तैपनि गरेमा मनिटरका सेटिङहरू स्थायी रूपमा बिग्रन वा यो प्रयोग गर्न नमिल्ने हुन सक्छ।\n\nयो स्विचले आफैं केही पठाउँदैन। पछि तपाईंले यस्तो मनिटरको घडी मिलाउनुभयो भने, परीक्षण नभएको लेखनको प्रयास भएको कुरा डिभाइस रिपोर्टमा दर्ता हुन्छ।\n\nतपाईंको मनिटरमा हुने कुनै पनि क्षतिका लागि तपाईं जिम्मेवार हुनुहुन्छ।</string>
+    <string name="dev_allow_confirm_accept">मैले बुझें, सक्रिय गर्नुहोस्</string>
+    <string name="dev_index_title">मनिटर अनुसार लेखन समर्थन</string>
+    <string name="dev_index_status_confirmed">पुष्टि भएको</string>
+    <string name="dev_index_status_untested">परीक्षण नभएको</string>
+    <string name="dev_index_status_blocked">अवरुद्ध</string>
+    <string name="dev_index_aspect_clock">घडी सिंक</string>
+    <string name="dev_index_aspect_unsent">नपठाइएका रिडिङहरूको काउन्टर</string>
+    <string name="dev_index_no_monitors">अहिलेसम्म कुनै सुरक्षित मनिटर छैन।</string>
+    <string name="dev_hide">विकासकर्ता विकल्पहरू लुकाउनुहोस्</string>
+    <string name="dev_hidden">विकासकर्ता विकल्पहरू लुकाइयो; सबै विकासकर्ता स्विचहरू बन्द छन्</string>
+    <string name="dev_save_failed">विकासकर्ता विकल्पहरू सुरक्षित गर्न सकिएन</string>
+    <string name="dev_allow_registration_untested">परीक्षण नभएका मनिटरहरूमा प्रोफाइल दर्तालाई अनुमति दिनुहोस्</string>
+    <string name="dev_allow_registration_confirm_title">परीक्षण नभएको प्रोफाइल दर्तालाई अनुमति दिने?</string>
+    <string name="dev_allow_registration_confirm_message">प्रोफाइल दर्ताले चयन गरिएको प्रयोगकर्ता र घडीलाई मनिटरका सेटिङहरूमा लेख्छ। यी मनिटर मोडेलहरूमा यो पुष्टि भएको छैन। तैपनि गरेमा मनिटरका सेटिङहरू स्थायी रूपमा बिग्रन वा यो प्रयोग गर्न नमिल्ने हुन सक्छ।\n\nयो स्विचले आफैं केही पठाउँदैन। तपाईंले \"जोडी बनाउनुहोस्\" छानेर पुष्टि गर्नुभएपछि मात्र दर्ता हुन्छ, र परीक्षण नभएको लेखनको प्रयास भएको कुरा डिभाइस रिपोर्टमा दर्ता हुन्छ।\n\nतपाईंको मनिटरमा हुने कुनै पनि क्षतिका लागि तपाईं जिम्मेवार हुनुहुन्छ।</string>
+    <string name="dev_index_aspect_registration">प्रोफाइल दर्ता</string>
+    <string name="dev_experimental_title">प्रयोगात्मक मार्गहरू</string>
+    <string name="dev_experimental_explanation">यी स्विचहरूले एपमा भएका तर कुनै वास्तविक मनिटरमा कहिल्यै परीक्षण नगरिएका जडान मार्गहरू सक्रिय गर्छन्। ती सजिलै असफल हुन सक्छन्।</string>
+    <string name="dev_experimental_force_x7_encrypted">X7 सँग जोडी बनाउँदा इन्क्रिप्ट गरिएको जडान प्रयोग गर्नुहोस्</string>
+    <string name="dev_experimental_confirm_title">परीक्षण नभएको मार्ग सक्रिय गर्ने?</string>
+    <string name="dev_experimental_confirm_message">यो मार्ग एपमा छ तर कुनै वास्तविक मनिटरमा कहिल्यै परीक्षण गरिएको छैन, र यो सजिलै असफल हुन सक्छ। यसरी जोडी बनाउँदा मनिटरको हालको जोडी यो फोनले प्रतिस्थापन गर्न सक्छ। असफल लेखनले मनिटरका सेटिङहरू स्थायी रूपमा बिगार्न वा यसलाई प्रयोग गर्न नमिल्ने बनाउन सक्छ।\n\nयो स्विचले आफैं केही पठाउँदैन। कुन विकासकर्ता स्विचहरू सक्रिय थिए भन्ने कुरा डिभाइस रिपोर्टमा सूचीबद्ध हुन्छ।\n\nतपाईंको मनिटरमा हुने कुनै पनि क्षतिका लागि तपाईं जिम्मेवार हुनुहुन्छ।</string>
+    <string name="dev_experimental_clock_sync_encrypted_x7">इन्क्रिप्ट गरिएको X7 जडानमार्फत घडी सिंकलाई अनुमति दिनुहोस्</string>
+</resources>

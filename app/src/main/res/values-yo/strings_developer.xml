@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="dev_version_label">Ẹ̀yà %1$s (%2$d)</string>
+    <plurals name="dev_taps_remaining">
+        <item quantity="other">Tẹ̀ ní ìgbà %d sí i láti ṣí àwọn àṣàyàn olùgbéejáde</item>
+    </plurals>
+    <string name="dev_unlocked">Àwọn àṣàyàn olùgbéejáde ti ṣí</string>
+    <string name="dev_open">Àwọn àṣàyàn olùgbéejáde</string>
+    <string name="dev_title">Àwọn àṣàyàn olùgbéejáde</string>
+    <string name="dev_warning">Ìkìlọ̀: àwọn àṣàyàn wọ̀nyí gba àwọn kíkọ tí a kò tíì fìdí rẹ̀ múlẹ̀ fún àwòṣe ẹ̀rọ ìwọ̀n ẹ̀jẹ̀ rẹ láàyè. Irú kíkọ bẹ́ẹ̀ lè ba àwọn ètò ẹ̀rọ náà jẹ́ títí láé. Wọ́n wà fún àwọn tó ń ṣàyẹ̀wò àwòṣe kan pẹ̀lú ẹ̀rọ tí wọ́n ti ṣetán láti pàdánù nìkan.</string>
+    <string name="dev_allow_clock_untested">Gba ìmúṣọ̀kan aago láàyè lórí àwọn ẹ̀rọ tí a kò tíì dán an wò</string>
+    <string name="dev_allow_confirm_title">Gba ìmúṣọ̀kan aago tí a kò dán wò láàyè?</string>
+    <string name="dev_allow_confirm_message">A kò tíì fìdí ṣíṣe àtúntò aago múlẹ̀ lórí àwọn àwòṣe ẹ̀rọ wọ̀nyí. Ṣíṣe é bí ó ti wù kí ó rí lè ba àwọn ètò ẹ̀rọ náà jẹ́ títí láé tàbí sọ ọ́ di àìwúlò.\n\nỌ̀pá yìí kò fi nǹkan kan ránṣẹ́ fúnra rẹ̀. Bí o bá ṣàtúntò aago irú ẹ̀rọ bẹ́ẹ̀ lẹ́yìn náà, ìròyìn ẹ̀rọ yóò kọ ọ́ sílẹ̀ pé a gbìyànjú kíkọ tí a kò dán wò.\n\nÌwọ ni o ní ojúṣe fún ìbàjẹ́ èyíkéyìí sí ẹ̀rọ rẹ.</string>
+    <string name="dev_allow_confirm_accept">Mo yé mi, mú ṣiṣẹ́</string>
+    <string name="dev_index_title">Àtìlẹ́yìn kíkọ fún ẹ̀rọ kọ̀ọ̀kan</string>
+    <string name="dev_index_status_confirmed">Ti fìdí múlẹ̀</string>
+    <string name="dev_index_status_untested">A kò dán an wò</string>
+    <string name="dev_index_status_blocked">Ti dí i</string>
+    <string name="dev_index_aspect_clock">Ìmúṣọ̀kan aago</string>
+    <string name="dev_index_aspect_unsent">Olùkà ìwọ̀n tí a kò fi ránṣẹ́</string>
+    <string name="dev_index_no_monitors">Kò sí ẹ̀rọ tí a fipamọ́ síbẹ̀.</string>
+    <string name="dev_hide">Fi àwọn àṣàyàn olùgbéejáde pamọ́</string>
+    <string name="dev_hidden">A ti fi àwọn àṣàyàn olùgbéejáde pamọ́; gbogbo ọ̀pá olùgbéejáde ti wà ní pípa</string>
+    <string name="dev_save_failed">Kò ṣeé ṣe láti fi àwọn àṣàyàn olùgbéejáde pamọ́</string>
+    <string name="dev_allow_registration_untested">Gba ìforúkọsílẹ̀ profaili láàyè lórí àwọn ẹ̀rọ tí a kò tíì dán an wò</string>
+    <string name="dev_allow_registration_confirm_title">Gba ìforúkọsílẹ̀ profaili tí a kò dán wò láàyè?</string>
+    <string name="dev_allow_registration_confirm_message">Ìforúkọsílẹ̀ profaili ń kọ olùmúlò tí a yàn àti aago sínú àwọn ètò ẹ̀rọ náà. A kò tíì fìdí rẹ̀ múlẹ̀ lórí àwọn àwòṣe ẹ̀rọ wọ̀nyí. Ṣíṣe é bí ó ti wù kí ó rí lè ba àwọn ètò ẹ̀rọ náà jẹ́ títí láé tàbí sọ ọ́ di àìwúlò.\n\nỌ̀pá yìí kò fi nǹkan kan ránṣẹ́ fúnra rẹ̀. Ìforúkọsílẹ̀ ṣì ń ṣẹlẹ̀ kìkì nígbà tí o bá yan “So pọ̀ méjì” tí o sì fìdí rẹ̀ múlẹ̀, ìròyìn ẹ̀rọ yóò sì kọ ọ́ sílẹ̀ pé a gbìyànjú kíkọ tí a kò dán wò.\n\nÌwọ ni o ní ojúṣe fún ìbàjẹ́ èyíkéyìí sí ẹ̀rọ rẹ.</string>
+    <string name="dev_index_aspect_registration">Ìforúkọsílẹ̀ profaili</string>
+    <string name="dev_experimental_title">Àwọn ọ̀nà àdánwò</string>
+    <string name="dev_experimental_explanation">Àwọn ọ̀pá yìí ń tan àwọn ọ̀nà ìsopọ̀ tí ó wà nínú áàpù ṣùgbọ́n tí a kò tíì dán wò rí lórí ẹ̀rọ gidi. Wọ́n lè kùnà lásán.</string>
+    <string name="dev_experimental_force_x7_encrypted">Lo ìsopọ̀ tí a ti fi kóòdù pa mọ́ nígbà tí o bá ń so X7 pọ̀</string>
+    <string name="dev_experimental_confirm_title">Tan ọ̀nà tí a kò dán wò?</string>
+    <string name="dev_experimental_confirm_message">Ọ̀nà yìí wà nínú áàpù ṣùgbọ́n a kò tíì dán an wò rí lórí ẹ̀rọ gidi, ó sì lè kùnà lásán. Síso pọ̀ lọ́nà yìí lè fi fóònù yìí rọ́pò ìsopọ̀ tí ẹ̀rọ náà ní tẹ́lẹ̀. Kíkọ tí ó kùnà lè ba àwọn ètò ẹ̀rọ náà jẹ́ títí láé tàbí sọ ọ́ di àìwúlò.\n\nỌ̀pá yìí kò fi nǹkan kan ránṣẹ́ fúnra rẹ̀. Ìròyìn ẹ̀rọ ń ṣe àkójọ àwọn ọ̀pá olùgbéejáde tí ó wà ní títàn.\n\nÌwọ ni o ní ojúṣe fún ìbàjẹ́ èyíkéyìí sí ẹ̀rọ rẹ.</string>
+    <string name="dev_experimental_clock_sync_encrypted_x7">Gba ìmúṣọ̀kan aago láàyè nípasẹ̀ ìsopọ̀ X7 tí a ti fi kóòdù pa mọ́</string>
+</resources>

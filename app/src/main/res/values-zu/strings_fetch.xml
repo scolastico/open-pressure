@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fetch_looking">Isesha amamonitha akho…</string>
+    <string name="fetch_importing">Ingenisa kusuka ku-%1$s…</string>
+    <string name="fetch_none_nearby">Ayikho imonitha eseduze. Amamonitha athumela isignali isikhashana ngemva kokukala noma kumodi ye-Bluetooth kuphela.</string>
+    <string name="fetch_done">Ukufundwa kwakamuva kutholiwe. Amamonitha: %1$d.</string>
+    <string name="fetch_incomplete">Okunye ukungenisa akuphelanga. Ukufundwa okutholiwe kulondoloziwe; donsela phansi ukuze uzame futhi.</string>
+    <string name="fetch_busy">Qedela isenzo samanje semonitha, bese udonsela phansi futhi.</string>
+    <string name="fetch_no_monitor">Qala ngokubhanqa noma uxhume imonitha esekelwayo.</string>
+    <string name="fetch_failed">Ayikwazanga ukusesha amamonitha. Hlola i-Bluetooth, bese udonsela phansi futhi.</string>
+</resources>

@@ -4,4 +4,21 @@
     <string name="monitor_clock_skipped">या रक्तदाब मॉनिटरमध्ये वेळ आपोआप अपडेट करता येत नाही. त्याची वेळ स्वतः सेट करा.</string>
     <string name="monitor_clock_failed">रक्तदाब मॉनिटरची वेळ अपडेट करता आली नाही. मॉनिटरवर वेळ तपासा किंवा सेट करा.</string>
     <string name="monitor_session_unconfirmed">मोजमापे जतन केली आहेत, पण रक्तदाब मॉनिटरने डेटा पाठवणे पूर्ण झाल्याची पुष्टी केली नाही. पुन्हा आयात करण्यापूर्वी पुन्हा कनेक्ट करा.</string>
+    <string name="main_import_users">आयात करायची मापने</string>
+    <string name="main_import_users_both">दोन्ही वापरकर्ते</string>
+    <string name="main_read_all">सर्व वाचा</string>
+    <string name="main_read_all_explanation">आयातासाठी निवडलेल्या वापरकर्त्यांच्या मेमरीमधील प्रत्येक जागा तपासते, फक्त ज्यांना मॉनिटर वापरलेल्या म्हणून सांगतो त्याच नाही. मापने गहाळ वाटल्यास याचा वापर करा. याला जास्त वेळ लागतो, म्हणून पूर्ण होईपर्यंत मॉनिटर जवळ ठेवा.</string>
+    <string name="main_reading_all">सर्व वाचत आहे…</string>
+    <plurals name="monitor_import_mode_index">
+        <item quantity="one">मॉनिटरने निवडलेल्या वापरकर्त्यांसाठी %1$d जतन केलेले मापन सांगितले.</item>
+        <item quantity="other">मॉनिटरने निवडलेल्या वापरकर्त्यांसाठी %1$d जतन केलेली मापने सांगितली.</item>
+    </plurals>
+    <string name="monitor_import_mode_fallback">मॉनिटरची जतन केलेल्या मापनांची सूची वापरता आली नाही, म्हणून मेमरीतील प्रत्येक जागा वाचली गेली.</string>
+    <string name="monitor_import_mode_sweep">मेमरीतील प्रत्येक जागा वाचली गेली.</string>
+    <string name="monitor_import_mode_empty">मॉनिटरने निवडलेल्या वापरकर्त्यांसाठी कोणतीही जतन केलेली मापने सांगितली नाहीत. काही अपेक्षित असल्यास सर्व वाचा वापरा.</string>
+    <string name="monitor_unconfirmed_bank_skipped">या मॉडेलमध्ये कदाचित नसलेले दुसरे मेमरी क्षेत्र वगळले गेले.</string>
+    <plurals name="monitor_import_slots_unreadable">
+        <item quantity="one">मेमरीची %1$d जागा वाचता आली नाही.</item>
+        <item quantity="other">मेमरीच्या %1$d जागा वाचता आल्या नाहीत.</item>
+    </plurals>
 </resources>

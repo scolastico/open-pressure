@@ -26,7 +26,7 @@ public class VirtualUsersTest {
     @After public void close() { store.close(); }
     @Test public void freshSchemaSupportsDurableOwnershipWithoutLosingLegacyHistory() {
         store.addManual(120,80,65.0,1,java.time.LocalDateTime.of(2026,1,2,3,4),"synthetic note");
-        assertEquals("Virtual users require the recoverable ownership schema",6,store.getReadableDatabase().getVersion());
+        assertEquals("Virtual users require the recoverable ownership schema",8,store.getReadableDatabase().getVersion());
         assertEquals(1,store.historyCount(0));
     }
 
@@ -158,9 +158,9 @@ public class VirtualUsersTest {
         android.database.sqlite.SQLiteDatabase db=store.getWritableDatabase();
         db.execSQL("INSERT INTO http_receipts(destination,event_key) VALUES('synthetic-destination','synthetic-event')");
         db.execSQL("DROP TABLE assignment_receipts"); db.execSQL("DROP TABLE assignment_inbox"); db.execSQL("DROP TABLE profile_configuration"); db.execSQL("DROP INDEX reading_profile");
-        db.execSQL("ALTER TABLE readings DROP COLUMN virtual_user_id"); db.execSQL("DROP TABLE virtual_users"); db.setVersion(5);
+        db.execSQL("ALTER TABLE readings DROP COLUMN virtual_user_id"); db.execSQL("DROP TABLE virtual_users"); db.execSQL("ALTER TABLE devices DROP COLUMN users"); db.execSQL("ALTER TABLE devices DROP COLUMN reported_model"); db.setVersion(5);
         store.close(); store=new ReadingStore(context);
-        assertEquals(6,store.getReadableDatabase().getVersion()); assertFalse(store.virtualUsersEnabled()); assertEquals(0,store.virtualUsersRevision());
+        assertEquals(8,store.getReadableDatabase().getVersion()); assertFalse(store.virtualUsersEnabled()); assertEquals(0,store.virtualUsersRevision());
         assertEquals(1,store.historyCount(0)); assertNull(store.readings(0).get(0).virtualUserId);
         assertEquals("synthetic-client",store.healthPending(2,10).get(0).healthClientId); assertEquals(event,store.httpOutbox().pending(endpoint,10).get(0).key);
         assertEquals(1,count("http_receipts")); assertEquals(0,store.pendingAssignmentsCount());

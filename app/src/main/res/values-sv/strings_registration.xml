@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="registration_untested_warning">Profilregistrering har ännu inte testats med den här mätaren. Den är bara tillgänglig eftersom du har aktiverat ett utvecklaralternativ. Fortsätt bara om du accepterar den risken.</string>
+    <string name="registration_report_prompt">Du har registrerat en profil på en mätare som detta ännu inte har testats med. En enhetsrapport i ett GitHub-ärende visar om det fungerade och hjälper till att göra registrering tillgänglig för andra.\n\nRapporten innehåller bara tekniska detaljer. Den innehåller aldrig mätvärden, mättider, namn, Bluetooth-adressen eller serienumret. Du kan granska den innan du delar något.</string>
+</resources>

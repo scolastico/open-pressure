@@ -44,6 +44,24 @@ public final class X7MemoryIndex {
         return Collections.unmodifiableList(ranges);
     }
 
+    /**
+     * Populated ranges of the selected users only (bitmask: 1 = user 1, 2 = user 2); a selection without
+     * either user falls back to user 1, as for the vendor-memory models.
+     */
+    public List<Range> historyRanges(int users) {
+        if((users&3)==0) users=1;
+        List<Range> selected=new ArrayList<>();
+        for(Range range:historyRanges()) if((users&(1<<(range.user-1)))!=0) selected.add(range);
+        return Collections.unmodifiableList(selected);
+    }
+
+    /** Populated slots of the selected users, with the same fallback as {@link #historyRanges(int)}. */
+    public int selectedCount(int users) {
+        int total=0;
+        for(Range range:historyRanges(users)) total+=range.length/X7Record.RECORD_BYTES;
+        return total;
+    }
+
     public static final class Range {
         public final int start,length,user;
         private Range(int start,int length,int user) { this.start=start; this.length=length; this.user=user; }

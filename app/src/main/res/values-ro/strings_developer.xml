@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="dev_version_label">Versiunea %1$s (%2$d)</string>
+    <plurals name="dev_taps_remaining">
+        <item quantity="few">Mai sunt %d atingeri pentru a debloca opțiunile pentru dezvoltatori</item>
+        <item quantity="one">Mai este %d atingere pentru a debloca opțiunile pentru dezvoltatori</item>
+        <item quantity="other">Mai sunt %d de atingeri pentru a debloca opțiunile pentru dezvoltatori</item>
+    </plurals>
+    <string name="dev_unlocked">Opțiunile pentru dezvoltatori au fost deblocate</string>
+    <string name="dev_open">Opțiuni pentru dezvoltatori</string>
+    <string name="dev_title">Opțiuni pentru dezvoltatori</string>
+    <string name="dev_warning">Avertisment: aceste opțiuni permit scrieri care nu sunt confirmate pentru modelul tău de tensiometru. O astfel de scriere poate deteriora definitiv setările tensiometrului. Sunt destinate doar persoanelor care validează un model cu un tensiometru pe care sunt pregătite să-l piardă.</string>
+    <string name="dev_allow_clock_untested">Permite sincronizarea ceasului pe tensiometrele unde nu este testată</string>
+    <string name="dev_allow_confirm_title">Permiți sincronizarea netestată a ceasului?</string>
+    <string name="dev_allow_confirm_message">Setarea ceasului nu a fost confirmată pe aceste modele de tensiometru. Dacă o faci totuși, setările tensiometrului se pot deteriora definitiv sau acesta poate deveni inutilizabil.\n\nAcest comutator nu trimite nimic de la sine. Dacă mai târziu setezi ceasul unui astfel de tensiometru, raportul dispozitivului înregistrează că s-a încercat o scriere netestată.\n\nEști responsabil pentru orice daună adusă tensiometrului.</string>
+    <string name="dev_allow_confirm_accept">Înțeleg, activează</string>
+    <string name="dev_index_title">Suport pentru scriere pe tensiometru</string>
+    <string name="dev_index_status_confirmed">Confirmat</string>
+    <string name="dev_index_status_untested">Netestat</string>
+    <string name="dev_index_status_blocked">Blocat</string>
+    <string name="dev_index_aspect_clock">Sincronizarea ceasului</string>
+    <string name="dev_index_aspect_unsent">Contorul măsurătorilor netrimise</string>
+    <string name="dev_index_no_monitors">Nu există încă tensiometre salvate.</string>
+    <string name="dev_hide">Ascunde opțiunile pentru dezvoltatori</string>
+    <string name="dev_hidden">Opțiunile pentru dezvoltatori sunt ascunse; toate comutatoarele pentru dezvoltatori sunt dezactivate</string>
+    <string name="dev_save_failed">Opțiunile pentru dezvoltatori nu au putut fi salvate</string>
+    <string name="dev_allow_registration_untested">Permite înregistrarea profilului pe tensiometrele unde nu este testată</string>
+    <string name="dev_allow_registration_confirm_title">Permiți înregistrarea netestată a profilului?</string>
+    <string name="dev_allow_registration_confirm_message">Înregistrarea profilului scrie utilizatorul selectat și ceasul în setările tensiometrului. Nu a fost confirmată pe aceste modele de tensiometru. Dacă o faci totuși, setările tensiometrului se pot deteriora definitiv sau acesta poate deveni inutilizabil.\n\nAcest comutator nu trimite nimic de la sine. Înregistrarea are loc în continuare doar când alegi Asociază și confirmi, iar raportul dispozitivului înregistrează că s-a încercat o scriere netestată.\n\nEști responsabil pentru orice daună adusă tensiometrului.</string>
+    <string name="dev_index_aspect_registration">Înregistrarea profilului</string>
+    <string name="dev_experimental_title">Căi experimentale</string>
+    <string name="dev_experimental_explanation">Aceste comutatoare activează căi de conectare care există în aplicație, dar nu au fost testate niciodată pe un tensiometru real. Este posibil pur și simplu să eșueze.</string>
+    <string name="dev_experimental_force_x7_encrypted">Folosește conexiunea criptată la asocierea unui X7</string>
+    <string name="dev_experimental_confirm_title">Activezi o cale netestată?</string>
+    <string name="dev_experimental_confirm_message">Această cale există în aplicație, dar nu a fost testată niciodată pe un tensiometru real și este posibil pur și simplu să eșueze. Asocierea în acest mod poate înlocui asocierea existentă a tensiometrului cu acest telefon. O scriere eșuată poate deteriora definitiv setările tensiometrului sau îl poate face inutilizabil.\n\nAcest comutator nu trimite nimic de la sine. Raportul dispozitivului arată ce comutatoare pentru dezvoltatori erau active.\n\nEști responsabil pentru orice daună adusă tensiometrului.</string>
+    <string name="dev_experimental_clock_sync_encrypted_x7">Permite sincronizarea ceasului printr-o conexiune X7 criptată</string>
+</resources>

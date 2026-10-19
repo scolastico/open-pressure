@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="registration_untested_warning">Ukubhalisa iphrofayela akukakahlolwa kule monitha. Kutholakala kuphela ngoba uvule inketho yonjiniyela. Qhubeka kuphela uma wamukela leyo ngozi.</string>
+    <string name="registration_report_prompt">Ubhalise iphrofayela kumonitha lapho lokhu kungakahlolwa khona. Umbiko wedivayisi ku-issue ye-GitHub ukhombisa ukuthi kusebenzile yini futhi kusiza ekwenzeni ukubhalisa kutholakale nakwabanye.\n\nUmbiko uqukethe imininingwane yobuchwepheshe kuphela. Awusoze wafaka izilinganiso, izikhathi zokukala, amagama, ikheli le-Bluetooth noma inombolo yomkhiqizo. Ungawubuyekeza ngaphambi kokuthi wabelane nganoma yini.</string>
+</resources>

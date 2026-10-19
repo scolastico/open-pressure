@@ -34,10 +34,38 @@ public final class DeviceWritePolicy {
     }
     private static boolean vendor(UUID service) { return VENDOR.equals(service)||ALIAS.equals(service); }
     private static boolean history(UUID service,UUID characteristic) { return (OPTIONAL.equals(service)||BP.equals(service)) && RACP.equals(characteristic); }
-    /** The sole addressed-write exception: an explicitly authorized, model-bound registration frame. */
+    /**
+     * The registration addressed-write exception: an explicitly authorized, identity-bound registration frame.
+     * The write-aspect gate runs before the plan's live permit is consulted.
+     */
     public static void validateX7Registration(ProtocolProfile profile,UUID service,UUID characteristic,byte[] payload,X7Registration registration) {
-        if(profile!=ProtocolProfile.X7_WLP || !ALIAS.equals(service) || !WLP_TX.equals(characteristic) ||
-                registration==null || !registration.allows(payload)) reject();
+        if(profile!=ProtocolProfile.X7_WLP || !ALIAS.equals(service) || !WLP_TX.equals(characteristic) || registration==null) reject();
+        requireWriteAspect(registration.identity(),WriteAspectIndex.Aspect.REGISTRATION,registration.override());
+        if(!registration.allows(payload)) reject();
+    }
+    /**
+     * The authorized clock-block write of a vendor-memory model: one chunk of the plan's frame on
+     * its own TX channel. The single-use permit is consumed last, after every other check passed.
+     */
+    public static void validateVendorClockBlock(VendorMemoryModel model,UUID service,UUID characteristic,byte[] payload,VendorClockWrite plan) {
+        VendorWlpSession.requireModel(model);
+        if(plan==null || payload==null || !VendorWlpSession.service(model).equals(service)) reject();
+        int channel=VendorWlpSession.txChannels(model).indexOf(characteristic);
+        if(channel<0) reject();
+        requireWriteAspect(plan.identity(),WriteAspectIndex.Aspect.CLOCK_BLOCK,plan.override());
+        if(!model.id.equals(plan.identity()) || !plan.allowsChunk(channel,payload)) reject();
+    }
+    /**
+     * The authorized X7 clock-block write: the plan's single plaintext frame on the WLP TX channel. Plain WLP carries a
+     * plain plan; an established encrypted session carries only a plan built for the encrypted transport, and the
+     * caller encrypts the frame after this check.
+     */
+    public static void validateX7ClockBlock(ProtocolProfile profile,UUID service,UUID characteristic,byte[] payload,VendorClockWrite plan) {
+        if(!ALIAS.equals(service) || !WLP_TX.equals(characteristic) || payload==null || plan==null) reject();
+        if(!(profile==ProtocolProfile.X7_WLP && !plan.encryptedTransport() || profile==ProtocolProfile.X7_SECURE_WLP && plan.encryptedTransport())) reject();
+        requireWriteAspect(plan.identity(),WriteAspectIndex.Aspect.CLOCK_BLOCK,plan.override());
+        // A vendor-memory plan's legacy chunk never rides the X7 transport.
+        if(VendorMemoryModel.identify(plan.identity())!=null || !plan.allowsChunk(0,payload)) reject();
     }
     /** Vendor reads require a positively identified model; generic profile selection grants no access. */
     public static void validateVendorCharacteristic(VendorMemoryModel model,UUID service,UUID characteristic,byte[] payload) {
@@ -49,16 +77,10 @@ public final class DeviceWritePolicy {
         if(Arrays.equals(payload,new byte[]{8,0,0,0,0,16,0,24}) || Arrays.equals(payload,new byte[]{8,15,0,0,0,0,0,7})) return;
         if(payload[1]!=1 || payload[2]!=0) reject();
         int address=((payload[3]&255)<<8)|(payload[4]&255),length=payload[5]&255;
-        if(length<1 || length>16) reject();
+        if(length<1 || length>VendorWlpSession.maxBlock(model)) reject();
         if(containsRange(model.settingsStart,model.settingsLength,address,length)) return;
         for(VendorMemoryModel.Range range:model.historyRanges()) if(containsRange(range.start,range.length,address,length)) return;
         reject();
-    }
-    /** A known vendor model may use only the dedicated, standard clock endpoints. */
-    public static void validateVendorClock(VendorMemoryModel model,UUID service,UUID characteristic,byte[] payload) {
-        VendorWlpSession.requireModel(model);
-        if(!(CTS.equals(service) && CURRENT_TIME.equals(characteristic) || COMMAND.equals(service) && DATE_TIME.equals(characteristic))) reject();
-        validateCharacteristic(ProtocolProfile.STANDARD_BP,service,characteristic,payload);
     }
     /** Key programming and reconnect have disjoint, short-lived command permits. */
     public static void validateVendorUnlock(VendorMemoryModel model,UUID service,UUID characteristic,byte[] payload,LegacyUnlock permit) {
@@ -144,6 +166,15 @@ public final class DeviceWritePolicy {
         if(payload.length<2 || payload[0]!=0x70) return false;
         int opcode=payload[1]&255;
         return opcode==1 && payload.length==89 || (opcode==5 || opcode==6) && payload.length==46;
+    }
+    /**
+     * Static gate for a memory-write aspect on an exact verified model identity. It never
+     * authorizes bytes: every frame must still pass the model-bound validators above.
+     * UNTESTED aspects pass only with this request's explicit override; BLOCKED never.
+     */
+    public static void requireWriteAspect(String modelIdentity,WriteAspectIndex.Aspect aspect,boolean override) {
+        if(aspect==null || !WriteAspectIndex.permits(WriteAspectIndex.lookup(modelIdentity,aspect).status,override))
+            throw new IllegalArgumentException("Blocked device write: aspect not permitted for this model");
     }
     private static void reject() { throw new IllegalArgumentException("Blocked device write: target or payload is outside the BP control allowlist"); }
 }

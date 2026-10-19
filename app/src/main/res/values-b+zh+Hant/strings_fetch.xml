@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fetch_looking">正在尋找你的血壓計…</string>
+    <string name="fetch_importing">正在從 %1$s 匯入…</string>
+    <string name="fetch_none_nearby">附近沒有血壓計。血壓計僅在量測後短時間內或處於藍牙模式時發出訊號。</string>
+    <string name="fetch_done">已取得最新讀數。血壓計：%1$d 台。</string>
+    <string name="fetch_incomplete">部分匯入未完成。已接收的讀數已儲存；下拉即可重試。</string>
+    <string name="fetch_busy">請先完成血壓計目前的操作，然後再次下拉。</string>
+    <string name="fetch_no_monitor">請先配對或連線支援的血壓計。</string>
+    <string name="fetch_failed">無法尋找血壓計。請檢查藍牙，然後再次下拉。</string>
+</resources>

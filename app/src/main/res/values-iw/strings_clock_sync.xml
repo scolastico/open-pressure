@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_sync_clock">סנכרון שעון</string>
+    <string name="main_sync_clock_explanation">מכוון את השעון של מד לחץ הדם לשעה של הטלפון הזה. תראו את שתי השעות ותאשרו לפני שמשהו משתנה. לאחר מכן החיבור מסתיים; התחברו שוב כדי לייבא מדידות.</string>
+    <string name="main_sync_clock_running">מסנכרן את השעון…</string>
+    <string name="clock_sync_title">אישור סנכרון השעון</string>
+    <string name="clock_sync_monitor_time">שעון המד: %1$s</string>
+    <string name="clock_sync_monitor_time_unset">שעון המד: לא מכוון</string>
+    <string name="clock_sync_phone_time">שעת הטלפון: %1$s</string>
+    <plurals name="clock_sync_drift">
+        <item quantity="many">הפרש: %1$d שניות</item>
+        <item quantity="one">הפרש: שנייה אחת (%1$d)</item>
+        <item quantity="other">הפרש: %1$d שניות</item>
+        <item quantity="two">הפרש: %1$d שניות</item>
+    </plurals>
+    <string name="clock_sync_within_threshold">שעון המד נמצא בטווח של דקה משעת הטלפון, ולכן הוא נשאר ללא שינוי.</string>
+    <string name="clock_sync_untested_warning">סנכרון השעון עדיין לא נבדק עם המד הזה. הוא זמין רק כי הפעלתם אפשרות למפתחים. המשיכו רק אם אתם מקבלים את הסיכון הזה.</string>
+    <string name="clock_sync_choose_time">השעה לכיוון (אפשרות למפתחים)</string>
+    <string name="clock_sync_confirm">סנכרון עכשיו</string>
+    <string name="monitor_clock_sync_complete">השעון סונכרן</string>
+    <string name="monitor_clock_sync_skipped">השעון כבר מדויק</string>
+    <string name="monitor_clock_sync_rejected">סנכרון השעון נכשל</string>
+    <string name="monitor_clock_sync_cancelled">סנכרון השעון בוטל</string>
+    <string name="monitor_clock_sync_unreadable">לא ניתן לסנכרן את השעון</string>
+    <string name="monitor_clock_sync_reconnect">התחברו שוב כדי לייבא מדידות.</string>
+    <string name="clock_sync_report_prompt">סנכרנתם את השעון של מד שעדיין לא נבדק לכך. דוח מכשיר ב-issue ב-GitHub מראה אם זה עבד ועוזר להפוך את סנכרון השעון לזמין גם לאחרים.\n\nהדוח מכיל פרטים טכניים בלבד. הוא אף פעם לא כולל מדידות, זמני מדידה, שמות, את כתובת ה-Bluetooth או את המספר הסידורי. אפשר לעיין בו לפני שמשתפים משהו.</string>
+    <string name="main_clock_sync_backup">גיבוי לפני סנכרון השעון</string>
+    <string name="main_clock_sync_backup_explanation">הגדרות שנשמרו לפני סנכרון השעון האחרון. זהו גיבוי של ההגדרות, לא גיבוי מלא של הזיכרון או של הכיול. גיבויים קודמים נשארים בטלפון הזה.</string>
+    <string name="monitor_clock_sync_out_of_range">התאריך בטלפון מחוץ לטווח הנתמך, ולכן השעון של המכשיר לא שונה. יש לבדוק את התאריך בטלפון הזה.</string>
+</resources>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_sync_clock">Sincronizar reloj</string>
+    <string name="main_sync_clock_explanation">Ajusta el reloj del tensiómetro a la hora de este teléfono. Verás ambas horas y confirmarás antes de que cambie nada. Después, la conexión termina; vuelve a conectar para importar mediciones.</string>
+    <string name="main_sync_clock_running">Sincronizando reloj…</string>
+    <string name="clock_sync_title">Confirmar sincronización del reloj</string>
+    <string name="clock_sync_monitor_time">Reloj del tensiómetro: %1$s</string>
+    <string name="clock_sync_monitor_time_unset">Reloj del tensiómetro: sin configurar</string>
+    <string name="clock_sync_phone_time">Hora del teléfono: %1$s</string>
+    <plurals name="clock_sync_drift">
+        <item quantity="many">Diferencia: %1$d segundos</item>
+        <item quantity="one">Diferencia: %1$d segundo</item>
+        <item quantity="other">Diferencia: %1$d segundos</item>
+    </plurals>
+    <string name="clock_sync_within_threshold">El reloj del tensiómetro está a menos de un minuto de la hora del teléfono, así que no se modifica.</string>
+    <string name="clock_sync_untested_warning">La sincronización del reloj aún no se ha probado con este tensiómetro. Solo está disponible porque activaste una opción de desarrollador. Continúa solo si aceptas ese riesgo.</string>
+    <string name="clock_sync_choose_time">Hora que se ajustará (opción de desarrollador)</string>
+    <string name="clock_sync_confirm">Sincronizar ahora</string>
+    <string name="monitor_clock_sync_complete">Reloj sincronizado</string>
+    <string name="monitor_clock_sync_skipped">El reloj ya es correcto</string>
+    <string name="monitor_clock_sync_rejected">Error al sincronizar el reloj</string>
+    <string name="monitor_clock_sync_cancelled">Sincronización del reloj cancelada</string>
+    <string name="monitor_clock_sync_unreadable">No se puede sincronizar el reloj</string>
+    <string name="monitor_clock_sync_reconnect">Vuelve a conectar para importar mediciones.</string>
+    <string name="clock_sync_report_prompt">Sincronizaste el reloj de un tensiómetro con el que esto aún no se ha probado. Un informe del dispositivo en un issue de GitHub muestra si funcionó y ayuda a habilitar la sincronización del reloj para otras personas.\n\nEl informe solo contiene detalles técnicos. Nunca incluye mediciones, horas de medición, nombres, la dirección Bluetooth ni el número de serie. Puedes revisarlo antes de compartir nada.</string>
+    <string name="main_clock_sync_backup">Copia de seguridad de la sincronización del reloj</string>
+    <string name="main_clock_sync_backup_explanation">Ajustes guardados antes de la última sincronización del reloj. Es una copia de seguridad de los ajustes, no una copia completa de la memoria ni de la calibración. Las copias anteriores permanecen en este teléfono.</string>
+    <string name="monitor_clock_sync_out_of_range">La fecha del teléfono está fuera del intervalo admitido, por lo que no se cambió el reloj del monitor. Comprueba la fecha de este teléfono.</string>
+</resources>

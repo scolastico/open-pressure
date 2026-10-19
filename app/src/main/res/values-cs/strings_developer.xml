@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="dev_version_label">Verze %1$s (%2$d)</string>
+    <plurals name="dev_taps_remaining">
+        <item quantity="few">Ještě %d klepnutí do odemčení možností pro vývojáře</item>
+        <item quantity="many">Ještě %d klepnutí do odemčení možností pro vývojáře</item>
+        <item quantity="one">Ještě %d klepnutí do odemčení možností pro vývojáře</item>
+        <item quantity="other">Ještě %d klepnutí do odemčení možností pro vývojáře</item>
+    </plurals>
+    <string name="dev_unlocked">Možnosti pro vývojáře odemčeny</string>
+    <string name="dev_open">Možnosti pro vývojáře</string>
+    <string name="dev_title">Možnosti pro vývojáře</string>
+    <string name="dev_warning">Upozornění: tyto možnosti povolují zápisy, které nejsou pro váš model tlakoměru potvrzeny. Takový zápis může trvale poškodit nastavení tlakoměru. Jsou určeny jen lidem, kteří ověřují model na tlakoměru, se kterým jsou připraveni se rozloučit.</string>
+    <string name="dev_allow_clock_untested">Povolit synchronizaci hodin na tlakoměrech, kde není otestována</string>
+    <string name="dev_allow_confirm_title">Povolit neotestovanou synchronizaci hodin?</string>
+    <string name="dev_allow_confirm_message">Nastavení hodin nebylo u těchto modelů tlakoměrů potvrzeno. Pokud to přesto uděláte, může se nastavení tlakoměru trvale poškodit nebo může být tlakoměr nepoužitelný.\n\nTento přepínač sám nic neodesílá. Pokud později nastavíte hodiny na takovém tlakoměru, zpráva o zařízení zaznamená, že byl proveden pokus o neotestovaný zápis.\n\nZa jakoukoli škodu na tlakoměru odpovídáte vy.</string>
+    <string name="dev_allow_confirm_accept">Rozumím, zapnout</string>
+    <string name="dev_index_title">Podpora zápisu podle tlakoměru</string>
+    <string name="dev_index_status_confirmed">Potvrzeno</string>
+    <string name="dev_index_status_untested">Neotestováno</string>
+    <string name="dev_index_status_blocked">Blokováno</string>
+    <string name="dev_index_aspect_clock">Synchronizace hodin</string>
+    <string name="dev_index_aspect_unsent">Počítadlo neodeslaných měření</string>
+    <string name="dev_index_no_monitors">Zatím žádné uložené tlakoměry.</string>
+    <string name="dev_hide">Skrýt možnosti pro vývojáře</string>
+    <string name="dev_hidden">Možnosti pro vývojáře skryty; všechny vývojářské přepínače jsou vypnuté</string>
+    <string name="dev_save_failed">Možnosti pro vývojáře se nepodařilo uložit</string>
+    <string name="dev_allow_registration_untested">Povolit registraci profilu na tlakoměrech, kde není otestována</string>
+    <string name="dev_allow_registration_confirm_title">Povolit neotestovanou registraci profilu?</string>
+    <string name="dev_allow_registration_confirm_message">Registrace profilu zapíše vybraného uživatele a hodiny do nastavení tlakoměru. U těchto modelů tlakoměrů nebyla potvrzena. Pokud to přesto uděláte, může se nastavení tlakoměru trvale poškodit nebo může být tlakoměr nepoužitelný.\n\nTento přepínač sám nic neodesílá. Registrace proběhne i nadále jen tehdy, když zvolíte Spárovat a potvrdíte ji, a zpráva o zařízení zaznamená, že byl proveden pokus o neotestovaný zápis.\n\nZa jakoukoli škodu na tlakoměru odpovídáte vy.</string>
+    <string name="dev_index_aspect_registration">Registrace profilu</string>
+    <string name="dev_experimental_title">Experimentální cesty</string>
+    <string name="dev_experimental_explanation">Tyto přepínače zapínají cesty připojení, které v aplikaci existují, ale nikdy nebyly otestovány na skutečném tlakoměru. Mohou prostě selhat.</string>
+    <string name="dev_experimental_force_x7_encrypted">Při párování X7 použít šifrované připojení</string>
+    <string name="dev_experimental_confirm_title">Zapnout neotestovanou cestu?</string>
+    <string name="dev_experimental_confirm_message">Tato cesta v aplikaci existuje, ale nikdy nebyla otestována na skutečném tlakoměru a může prostě selhat. Spárování tímto způsobem může nahradit stávající spárování tlakoměru tímto telefonem. Neúspěšný zápis může trvale poškodit nastavení tlakoměru nebo ho učinit nepoužitelným.\n\nTento přepínač sám nic neodesílá. Zpráva o zařízení uvádí, které vývojářské přepínače byly zapnuté.\n\nZa jakoukoli škodu na tlakoměru odpovídáte vy.</string>
+    <string name="dev_experimental_clock_sync_encrypted_x7">Povolit synchronizaci hodin přes šifrované připojení X7</string>
+</resources>

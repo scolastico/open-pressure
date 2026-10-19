@@ -4,4 +4,23 @@
     <string name="monitor_clock_skipped">Ce tensiomètre ne permet pas la mise à jour automatique de l\'heure. Réglez son heure manuellement.</string>
     <string name="monitor_clock_failed">L\'heure du tensiomètre n\'a pas pu être mise à jour. Vérifiez-la ou réglez-la sur votre tensiomètre.</string>
     <string name="monitor_session_unconfirmed">Les mesures sont enregistrées, mais le tensiomètre n\'a pas confirmé la fin du transfert. Reconnectez-le avant de lancer une nouvelle importation.</string>
+    <string name="main_import_users">Mesures à importer</string>
+    <string name="main_import_users_both">Les deux utilisateurs</string>
+    <string name="main_read_all">Tout lire</string>
+    <string name="main_read_all_explanation">Vérifie chaque emplacement de mémoire des utilisateurs choisis pour l’importation, pas seulement ceux que le tensiomètre signale comme utilisés. Utilisez-le si des mesures semblent manquer. Cela prend plus de temps : gardez le tensiomètre à proximité jusqu’à la fin.</string>
+    <string name="main_reading_all">Lecture complète…</string>
+    <plurals name="monitor_import_mode_index">
+        <item quantity="many">Le tensiomètre a signalé %1$d mesures enregistrées pour les utilisateurs choisis.</item>
+        <item quantity="one">Le tensiomètre a signalé %1$d mesure enregistrée pour les utilisateurs choisis.</item>
+        <item quantity="other">Le tensiomètre a signalé %1$d mesures enregistrées pour les utilisateurs choisis.</item>
+    </plurals>
+    <string name="monitor_import_mode_fallback">La liste des mesures enregistrées du tensiomètre n’a pas pu être utilisée ; chaque emplacement de mémoire a donc été lu.</string>
+    <string name="monitor_import_mode_sweep">Chaque emplacement de mémoire a été lu.</string>
+    <string name="monitor_import_mode_empty">Le tensiomètre n’a signalé aucune mesure enregistrée pour les utilisateurs choisis. Utilisez Tout lire si vous en attendez.</string>
+    <string name="monitor_unconfirmed_bank_skipped">Une deuxième zone de mémoire que ce modèle n’a peut-être pas a été ignorée.</string>
+    <plurals name="monitor_import_slots_unreadable">
+        <item quantity="many">%1$d emplacements de mémoire n’ont pas pu être lus.</item>
+        <item quantity="one">%1$d emplacement de mémoire n’a pas pu être lu.</item>
+        <item quantity="other">%1$d emplacements de mémoire n’ont pas pu être lus.</item>
+    </plurals>
 </resources>

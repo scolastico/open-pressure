@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="dev_version_label">Versión %1$s (%2$d)</string>
+    <plurals name="dev_taps_remaining">
+        <item quantity="many">Faltan %d toques para desbloquear las opciones de desarrollador</item>
+        <item quantity="one">Falta %d toque para desbloquear las opciones de desarrollador</item>
+        <item quantity="other">Faltan %d toques para desbloquear las opciones de desarrollador</item>
+    </plurals>
+    <string name="dev_unlocked">Opciones de desarrollador desbloqueadas</string>
+    <string name="dev_open">Opciones de desarrollador</string>
+    <string name="dev_title">Opciones de desarrollador</string>
+    <string name="dev_warning">Advertencia: estas opciones permiten escrituras que no están confirmadas para tu modelo de tensiómetro. Una escritura así puede dañar de forma permanente los ajustes del tensiómetro. Solo están pensadas para personas que validan un modelo con un tensiómetro que están dispuestas a perder.</string>
+    <string name="dev_allow_clock_untested">Permitir sincronizar el reloj en tensiómetros donde no se ha probado</string>
+    <string name="dev_allow_confirm_title">¿Permitir la sincronización del reloj no probada?</string>
+    <string name="dev_allow_confirm_message">Ajustar el reloj no se ha confirmado en estos modelos de tensiómetro. Hacerlo de todos modos puede dañar de forma permanente los ajustes del tensiómetro o dejarlo inservible.\n\nEste interruptor no envía nada por sí solo. Si más adelante ajustas el reloj de un tensiómetro así, el informe del dispositivo registra que se intentó una escritura no probada.\n\nEres responsable de cualquier daño a tu tensiómetro.</string>
+    <string name="dev_allow_confirm_accept">Entiendo, activar</string>
+    <string name="dev_index_title">Compatibilidad de escritura por tensiómetro</string>
+    <string name="dev_index_status_confirmed">Confirmado</string>
+    <string name="dev_index_status_untested">Sin probar</string>
+    <string name="dev_index_status_blocked">Bloqueado</string>
+    <string name="dev_index_aspect_clock">Sincronización del reloj</string>
+    <string name="dev_index_aspect_unsent">Contador de lecturas no enviadas</string>
+    <string name="dev_index_no_monitors">Aún no hay tensiómetros guardados.</string>
+    <string name="dev_hide">Ocultar opciones de desarrollador</string>
+    <string name="dev_hidden">Opciones de desarrollador ocultas; todos los interruptores de desarrollador están desactivados</string>
+    <string name="dev_save_failed">No se pudieron guardar las opciones de desarrollador</string>
+    <string name="dev_allow_registration_untested">Permitir el registro de perfiles en tensiómetros donde no se ha probado</string>
+    <string name="dev_allow_registration_confirm_title">¿Permitir el registro de perfiles no probado?</string>
+    <string name="dev_allow_registration_confirm_message">El registro de perfiles escribe el usuario seleccionado y el reloj en los ajustes del tensiómetro. No se ha confirmado en estos modelos de tensiómetro. Hacerlo de todos modos puede dañar de forma permanente los ajustes del tensiómetro o dejarlo inservible.\n\nEste interruptor no envía nada por sí solo. El registro solo se realiza cuando eliges Vincular y lo confirmas, y el informe del dispositivo registra que se intentó una escritura no probada.\n\nEres responsable de cualquier daño a tu tensiómetro.</string>
+    <string name="dev_index_aspect_registration">Registro de perfiles</string>
+    <string name="dev_experimental_title">Rutas experimentales</string>
+    <string name="dev_experimental_explanation">Estos interruptores activan rutas de conexión que existen en la app pero nunca se han probado con un tensiómetro real. Puede que simplemente fallen.</string>
+    <string name="dev_experimental_force_x7_encrypted">Usar la conexión cifrada al vincular un X7</string>
+    <string name="dev_experimental_confirm_title">¿Activar una ruta no probada?</string>
+    <string name="dev_experimental_confirm_message">Esta ruta existe en la app pero nunca se ha probado con un tensiómetro real, y puede que simplemente falle. Vincular de esta forma puede sustituir la vinculación existente del tensiómetro por este teléfono. Una escritura fallida puede dañar de forma permanente los ajustes del tensiómetro o dejarlo inservible.\n\nEste interruptor no envía nada por sí solo. El informe del dispositivo indica qué interruptores de desarrollador estaban activos.\n\nEres responsable de cualquier daño a tu tensiómetro.</string>
+    <string name="dev_experimental_clock_sync_encrypted_x7">Permitir sincronizar el reloj mediante una conexión cifrada con un X7</string>
+</resources>

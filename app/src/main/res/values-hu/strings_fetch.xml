@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fetch_looking">Vérnyomásmérők keresése…</string>
+    <string name="fetch_importing">Importálás innen: %1$s…</string>
+    <string name="fetch_none_nearby">Nincs vérnyomásmérő a közelben. A mérők csak röviddel a mérés után vagy Bluetooth módban sugároznak.</string>
+    <string name="fetch_done">A legújabb mérések lekérve. Mérők: %1$d.</string>
+    <string name="fetch_incomplete">Néhány importálás nem fejeződött be. A már fogadott mérések mentve vannak; húzza le az újrapróbáláshoz.</string>
+    <string name="fetch_busy">Fejezze be a mérő aktuális műveletét, majd húzza le újra.</string>
+    <string name="fetch_no_monitor">Először párosítson vagy csatlakoztasson egy támogatott mérőt.</string>
+    <string name="fetch_failed">Nem sikerült mérőket keresni. Ellenőrizze a Bluetooth-t, majd húzza le újra.</string>
+</resources>

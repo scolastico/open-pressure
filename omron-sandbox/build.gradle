@@ -1,0 +1,82 @@
+plugins { id 'com.android.library' }
+
+// Replays shared device fixtures against Omron Connect's own BLE code in Robolectric.
+// The Omron package is supplied by each developer (see docs/omron-sandbox.md) and never committed.
+def omronDir=layout.buildDirectory.dir('omron').get().asFile
+def apkDir=file('apk')
+
+// Fixture replays are dealt to OmronFixtureShard<N>Test classes so Gradle can run them in parallel forks. Each fork
+// needs its 3 GB heap: use half the logical CPUs, at most what physical RAM allows after a 4 GB margin, and no more
+// forks than shards. -Pomron.forks=N overrides the detection.
+def omronShards=8
+def omronForks={
+    if(project.hasProperty('omron.forks')) {
+        def value=(project.property('omron.forks') as String).trim()
+        if(!value.isInteger()) throw new GradleException("-Pomron.forks must be a whole number of parallel test JVMs, not '${value}'")
+        return Math.max(1,value.toInteger())
+    }
+    def os=java.lang.management.ManagementFactory.operatingSystemMXBean
+    long ram=0
+    if(os instanceof com.sun.management.OperatingSystemMXBean) {
+        try { ram=os.getTotalMemorySize() } catch(MissingMethodException ignored) { ram=os.getTotalPhysicalMemorySize() }
+    }
+    long gib=1024L*1024L*1024L
+    int byCpu=Runtime.runtime.availableProcessors().intdiv(2)
+    int byRam=ram>0?(int)Math.floorDiv(ram-4L*gib,3L*gib):1
+    return Math.max(1,[byCpu,byRam,omronShards].min())
+}()
+def omronForksReported=false
+
+android {
+    namespace 'org.openpressure.omronsandbox'
+    compileSdk 36
+    defaultConfig { minSdk 26 }
+    compileOptions { sourceCompatibility JavaVersion.VERSION_17; targetCompatibility JavaVersion.VERSION_17 }
+    testOptions {
+        unitTests.includeAndroidResources = true
+        unitTests.all {
+            systemProperty 'omron.dir', omronDir.absolutePath
+            systemProperty 'omron.apk.dir', apkDir.absolutePath
+            systemProperty 'fixture', System.getProperty('fixture','')
+            systemProperty 'omron.sandbox.explore', System.getProperty('omron.sandbox.explore','false')
+            maxHeapSize = '3g'
+            maxParallelForks = omronForks
+            doFirst {
+                if(!omronForksReported) { logger.quiet("Omron sandbox: up to ${omronForks} parallel test forks (3 GB heap each)"); omronForksReported=true }
+            }
+        }
+    }
+}
+configurations { dexConverter }
+dependencies {
+    testImplementation project(':protocol')
+    testImplementation testFixtures(project(':protocol'))
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.robolectric:robolectric:4.17'
+    testImplementation 'org.mockito:mockito-core:5.20.0'
+    // ExtractOmron recomputes the converted classes' stack map frames; the same version as Robolectric's and dex2jar's.
+    testImplementation 'org.ow2.asm:asm-tree:9.10.1'
+    // Executes the developer-supplied ARM64 Omsec binary; never packaged with OpenPressure.
+    testImplementation 'com.github.zhkl0228:unidbg-android:0.9.9'
+    testImplementation 'com.github.zhkl0228:unidbg-unicorn2:0.9.9'
+    // Present only after omronExtract ran on a locally supplied package.
+    testRuntimeOnly files(provider { def jar=new File(omronDir,'omron-classes.jar'); jar.exists()?[jar]:[] })
+    dexConverter 'de.femtopedia.dex2jar:dex-tools:2.4.38'
+}
+
+def hasApk={ apkDir.listFiles()?.any { it.name.endsWith('.apk') || it.name.endsWith('.xapk') } ?: false }
+tasks.register('omronExtract',Exec) {
+    description='Extracts the local Omron Connect package from omron-sandbox/apk into build/omron.'
+    def extractor=file('src/test/java/org/openpressure/omronsandbox/ExtractOmron.java')
+    inputs.dir(apkDir); inputs.file(extractor); outputs.dir(omronDir)
+    onlyIf { hasApk() }
+    doFirst {
+        // -Pomron.libraries=<jar>[:<jar>…] adds libraries (for example Guava) so more classes are verified at extraction.
+        def extraLibraries=project.hasProperty('omron.libraries')?(project.property('omron.libraries') as String).split(File.pathSeparator).findAll { it }.collect { file(it) }:[]
+        // android.jar resolves Android types while the converted classes get their stack map frames and are verified.
+        commandLine "${System.getProperty('java.home')}/bin/java",'-Xmx3g',"-Domron.libraries=${(android.bootClasspath+extraLibraries).join(File.pathSeparator)}",
+            '-cp',configurations.dexConverter.asPath,
+            extractor.absolutePath,apkDir.absolutePath,omronDir.absolutePath
+    }
+}
+tasks.matching { it.name=='testDebugUnitTest' || it.name=='testReleaseUnitTest' }.configureEach { dependsOn 'omronExtract' }

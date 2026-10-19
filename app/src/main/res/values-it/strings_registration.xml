@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="registration_untested_warning">La registrazione del profilo non è ancora stata testata con questo misuratore. È disponibile solo perché hai attivato un\'opzione sviluppatore. Continua solo se accetti questo rischio.</string>
+    <string name="registration_report_prompt">Hai registrato un profilo su un misuratore con cui questa funzione non è ancora stata testata. Un report del dispositivo in una issue su GitHub mostra se ha funzionato e aiuta a rendere disponibile la registrazione anche ad altri.\n\nIl report contiene solo dettagli tecnici. Non include mai misurazioni, orari delle misurazioni, nomi, l’indirizzo Bluetooth o il numero di serie. Puoi esaminarlo prima di condividere qualsiasi cosa.</string>
+</resources>

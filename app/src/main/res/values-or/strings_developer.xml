@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="dev_version_label">ସଂସ୍କରଣ %1$s (%2$d)</string>
+    <plurals name="dev_taps_remaining">
+        <item quantity="one">ଡେଭେଲପର ବିକଳ୍ପ ଅନଲକ କରିବାକୁ ଆଉ %d ଟ୍ୟାପ</item>
+        <item quantity="other">ଡେଭେଲପର ବିକଳ୍ପ ଅନଲକ କରିବାକୁ ଆଉ %d ଟ୍ୟାପ</item>
+    </plurals>
+    <string name="dev_unlocked">ଡେଭେଲପର ବିକଳ୍ପ ଅନଲକ ହେଲା</string>
+    <string name="dev_open">ଡେଭେଲପର ବିକଳ୍ପ</string>
+    <string name="dev_title">ଡେଭେଲପର ବିକଳ୍ପ</string>
+    <string name="dev_warning">ଚେତାବନୀ: ଏହି ବିକଳ୍ପଗୁଡ଼ିକ ଏପରି ଲେଖାକୁ ଅନୁମତି ଦିଏ ଯାହା ଆପଣଙ୍କ ରକ୍ତଚାପ ମନିଟର ମଡେଲ ପାଇଁ ନିଶ୍ଚିତ ହୋଇନାହିଁ। ଏପରି ଲେଖା ମନିଟରର ସେଟିଂସକୁ ସ୍ଥାୟୀ ଭାବେ ନଷ୍ଟ କରିପାରେ। ହରାଇବାକୁ ପ୍ରସ୍ତୁତ ଥିବା ମନିଟର ସହ କୌଣସି ମଡେଲ ଯାଞ୍ଚ କରୁଥିବା ଲୋକଙ୍କ ପାଇଁ ହିଁ ଏଗୁଡ଼ିକ।</string>
+    <string name="dev_allow_clock_untested">ଯେଉଁ ମନିଟରରେ ପରୀକ୍ଷା ହୋଇନାହିଁ ସେଠାରେ ଘଣ୍ଟା ସିଙ୍କକୁ ଅନୁମତି ଦିଅନ୍ତୁ</string>
+    <string name="dev_allow_confirm_title">ପରୀକ୍ଷା ହୋଇନଥିବା ଘଣ୍ଟା ସିଙ୍କକୁ ଅନୁମତି ଦେବେ?</string>
+    <string name="dev_allow_confirm_message">ଏହି ମନିଟର ମଡେଲଗୁଡ଼ିକରେ ଘଣ୍ଟା ସେଟ କରିବା ନିଶ୍ଚିତ ହୋଇନାହିଁ। ତଥାପି ଏହା କଲେ ମନିଟରର ସେଟିଂସ ସ୍ଥାୟୀ ଭାବେ ନଷ୍ଟ ହୋଇପାରେ କିମ୍ବା ଏହା ଅବ୍ୟବହାରଯୋଗ୍ୟ ହୋଇପାରେ।\n\nଏହି ସୁଇଚ ନିଜେ କିଛି ପଠାଏ ନାହିଁ। ପରେ ଆପଣ ଏପରି ମନିଟରର ଘଣ୍ଟା ସେଟ କଲେ, ପରୀକ୍ଷା ହୋଇନଥିବା ଲେଖାର ଚେଷ୍ଟା କରାଯାଇଥିଲା ବୋଲି ଡିଭାଇସ ରିପୋର୍ଟ ରେକର୍ଡ କରେ।\n\nଆପଣଙ୍କ ମନିଟରର ଯେକୌଣସି କ୍ଷତି ପାଇଁ ଆପଣ ଦାୟୀ।</string>
+    <string name="dev_allow_confirm_accept">ମୁଁ ବୁଝିଛି, ଚାଲୁ କରନ୍ତୁ</string>
+    <string name="dev_index_title">ମନିଟର ଅନୁସାରେ ଲେଖା ସମର୍ଥନ</string>
+    <string name="dev_index_status_confirmed">ନିଶ୍ଚିତ</string>
+    <string name="dev_index_status_untested">ପରୀକ୍ଷା ହୋଇନାହିଁ</string>
+    <string name="dev_index_status_blocked">ଅବରୋଧିତ</string>
+    <string name="dev_index_aspect_clock">ଘଣ୍ଟା ସିଙ୍କ</string>
+    <string name="dev_index_aspect_unsent">ପଠାଯାଇନଥିବା ରିଡିଂର କାଉଣ୍ଟର</string>
+    <string name="dev_index_no_monitors">ଏପର୍ଯ୍ୟନ୍ତ କୌଣସି ସଞ୍ଚିତ ମନିଟର ନାହିଁ।</string>
+    <string name="dev_hide">ଡେଭେଲପର ବିକଳ୍ପ ଲୁଚାନ୍ତୁ</string>
+    <string name="dev_hidden">ଡେଭେଲପର ବିକଳ୍ପ ଲୁଚାଯାଇଛି; ସମସ୍ତ ଡେଭେଲପର ସୁଇଚ ବନ୍ଦ ଅଛି</string>
+    <string name="dev_save_failed">ଡେଭେଲପର ବିକଳ୍ପ ସେଭ କରାଯାଇପାରିଲା ନାହିଁ</string>
+    <string name="dev_allow_registration_untested">ଯେଉଁ ମନିଟରରେ ପରୀକ୍ଷା ହୋଇନାହିଁ ସେଠାରେ ପ୍ରୋଫାଇଲ ପଞ୍ଜୀକରଣକୁ ଅନୁମତି ଦିଅନ୍ତୁ</string>
+    <string name="dev_allow_registration_confirm_title">ପରୀକ୍ଷା ହୋଇନଥିବା ପ୍ରୋଫାଇଲ ପଞ୍ଜୀକରଣକୁ ଅନୁମତି ଦେବେ?</string>
+    <string name="dev_allow_registration_confirm_message">ପ୍ରୋଫାଇଲ ପଞ୍ଜୀକରଣ ଚୟନିତ ଉପଭୋକ୍ତା ଏବଂ ଘଣ୍ଟାକୁ ମନିଟରର ସେଟିଂସରେ ଲେଖେ। ଏହି ମନିଟର ମଡେଲଗୁଡ଼ିକରେ ଏହା ନିଶ୍ଚିତ ହୋଇନାହିଁ। ତଥାପି ଏହା କଲେ ମନିଟରର ସେଟିଂସ ସ୍ଥାୟୀ ଭାବେ ନଷ୍ଟ ହୋଇପାରେ କିମ୍ବା ଏହା ଅବ୍ୟବହାରଯୋଗ୍ୟ ହୋଇପାରେ।\n\nଏହି ସୁଇଚ ନିଜେ କିଛି ପଠାଏ ନାହିଁ। ଆପଣ \"ଯୋଡ଼ି ବନାନ୍ତୁ\" ବାଛି ନିଶ୍ଚିତ କଲେ ହିଁ ପଞ୍ଜୀକରଣ ହୁଏ, ଏବଂ ପରୀକ୍ଷା ହୋଇନଥିବା ଲେଖାର ଚେଷ୍ଟା କରାଯାଇଥିଲା ବୋଲି ଡିଭାଇସ ରିପୋର୍ଟ ରେକର୍ଡ କରେ।\n\nଆପଣଙ୍କ ମନିଟରର ଯେକୌଣସି କ୍ଷତି ପାଇଁ ଆପଣ ଦାୟୀ।</string>
+    <string name="dev_index_aspect_registration">ପ୍ରୋଫାଇଲ ପଞ୍ଜୀକରଣ</string>
+    <string name="dev_experimental_title">ପରୀକ୍ଷାମୂଳକ ପଥ</string>
+    <string name="dev_experimental_explanation">ଏହି ସୁଇଚଗୁଡ଼ିକ ଏପରି ସଂଯୋଗ ପଥ ଚାଲୁ କରେ ଯାହା ଆପରେ ଅଛି କିନ୍ତୁ କେବେବି ପ୍ରକୃତ ମନିଟରରେ ପରୀକ୍ଷା ହୋଇନାହିଁ। ସେଗୁଡ଼ିକ କେବଳ ବିଫଳ ହୋଇପାରେ।</string>
+    <string name="dev_experimental_force_x7_encrypted">X7 ଯୋଡ଼ି କରିବା ସମୟରେ ଏନକ୍ରିପ୍ଟେଡ ସଂଯୋଗ ବ୍ୟବହାର କରନ୍ତୁ</string>
+    <string name="dev_experimental_confirm_title">ପରୀକ୍ଷା ହୋଇନଥିବା ପଥ ଚାଲୁ କରିବେ?</string>
+    <string name="dev_experimental_confirm_message">ଏହି ପଥ ଆପରେ ଅଛି କିନ୍ତୁ କେବେବି ପ୍ରକୃତ ମନିଟରରେ ପରୀକ୍ଷା ହୋଇନାହିଁ, ଏବଂ ଏହା କେବଳ ବିଫଳ ହୋଇପାରେ। ଏହିପରି ଯୋଡ଼ି କଲେ ମନିଟରର ବର୍ତ୍ତମାନର ଯୋଡ଼ି ଏହି ଫୋନ ଦ୍ୱାରା ବଦଳିଯାଇପାରେ। ବିଫଳ ଲେଖା ମନିଟରର ସେଟିଂସକୁ ସ୍ଥାୟୀ ଭାବେ ନଷ୍ଟ କରିପାରେ କିମ୍ବା ଏହାକୁ ଅବ୍ୟବହାରଯୋଗ୍ୟ କରିପାରେ।\n\nଏହି ସୁଇଚ ନିଜେ କିଛି ପଠାଏ ନାହିଁ। କେଉଁ ଡେଭେଲପର ସୁଇଚ ଚାଲୁ ଥିଲା ତାହା ଡିଭାଇସ ରିପୋର୍ଟରେ ତାଲିକାଭୁକ୍ତ ହୁଏ।\n\nଆପଣଙ୍କ ମନିଟରର ଯେକୌଣସି କ୍ଷତି ପାଇଁ ଆପଣ ଦାୟୀ।</string>
+    <string name="dev_experimental_clock_sync_encrypted_x7">ଏନକ୍ରିପ୍ଟେଡ X7 ସଂଯୋଗ ମାଧ୍ୟମରେ ଘଣ୍ଟା ସିଙ୍କକୁ ଅନୁମତି ଦିଅନ୍ତୁ</string>
+</resources>

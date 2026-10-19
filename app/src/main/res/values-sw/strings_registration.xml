@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="registration_untested_warning">Usajili wa wasifu bado haujajaribiwa na kipimo hiki. Unapatikana tu kwa sababu uliwasha chaguo la wasanidi. Endelea tu ikiwa unakubali hatari hiyo.</string>
+    <string name="registration_report_prompt">Umesajili wasifu kwenye kipimo ambacho hili bado halijajaribiwa nacho. Ripoti ya kifaa katika issue ya GitHub inaonyesha kama ilifanya kazi na husaidia kufanya usajili upatikane kwa wengine.\n\nRipoti ina maelezo ya kiufundi pekee. Haijumuishi kamwe vipimo, nyakati za vipimo, majina, anwani ya Bluetooth wala nambari ya ufuatiliaji. Unaweza kuikagua kabla ya kushiriki chochote.</string>
+</resources>

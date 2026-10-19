@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_sync_clock">Синхронизировать часы</string>
+    <string name="main_sync_clock_explanation">Устанавливает на часах тонометра время этого телефона. Вы увидите оба времени и подтвердите, прежде чем что-либо изменится. После этого соединение завершится; подключитесь снова, чтобы импортировать измерения.</string>
+    <string name="main_sync_clock_running">Синхронизация часов…</string>
+    <string name="clock_sync_title">Подтвердите синхронизацию часов</string>
+    <string name="clock_sync_monitor_time">Часы тонометра: %1$s</string>
+    <string name="clock_sync_monitor_time_unset">Часы тонометра: не установлены</string>
+    <string name="clock_sync_phone_time">Время телефона: %1$s</string>
+    <plurals name="clock_sync_drift">
+        <item quantity="few">Разница: %1$d секунды</item>
+        <item quantity="many">Разница: %1$d секунд</item>
+        <item quantity="one">Разница: %1$d секунда</item>
+        <item quantity="other">Разница: %1$d секунды</item>
+    </plurals>
+    <string name="clock_sync_within_threshold">Часы тонометра отличаются от времени телефона не более чем на минуту, поэтому остаются без изменений.</string>
+    <string name="clock_sync_untested_warning">Синхронизация часов ещё не тестировалась с этим тонометром. Она доступна только потому, что вы включили параметр разработчика. Продолжайте, только если принимаете этот риск.</string>
+    <string name="clock_sync_choose_time">Устанавливаемое время (параметр разработчика)</string>
+    <string name="clock_sync_confirm">Синхронизировать</string>
+    <string name="monitor_clock_sync_complete">Часы синхронизированы</string>
+    <string name="monitor_clock_sync_skipped">Часы уже идут верно</string>
+    <string name="monitor_clock_sync_rejected">Не удалось синхронизировать часы</string>
+    <string name="monitor_clock_sync_cancelled">Синхронизация часов отменена</string>
+    <string name="monitor_clock_sync_unreadable">Синхронизация часов невозможна</string>
+    <string name="monitor_clock_sync_reconnect">Подключитесь снова, чтобы импортировать измерения.</string>
+    <string name="clock_sync_report_prompt">Вы синхронизировали часы тонометра, с которым это ещё не тестировалось. Отчёт об устройстве в issue на GitHub покажет, сработало ли это, и поможет сделать синхронизацию часов доступной для других.\n\nОтчёт содержит только технические сведения. В нём никогда нет измерений, времени измерений, имён, Bluetooth-адреса или серийного номера. Вы можете просмотреть его, прежде чем чем-либо делиться.</string>
+    <string name="main_clock_sync_backup">Резервная копия перед синхронизацией часов</string>
+    <string name="main_clock_sync_backup_explanation">Настройки, сохранённые перед последней синхронизацией часов. Это резервная копия настроек, а не полная копия памяти или калибровки. Более ранние копии остаются на этом телефоне.</string>
+    <string name="monitor_clock_sync_out_of_range">Дата на телефоне вне поддерживаемого диапазона, поэтому часы тонометра не изменены. Проверьте дату на этом телефоне.</string>
+</resources>

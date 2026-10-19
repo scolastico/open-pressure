@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="registration_untested_warning">Die Profilregistrierung wurde mit diesem Messgerät noch nicht getestet. Sie ist nur verfügbar, weil du eine Entwickleroption eingeschaltet hast. Fahre nur fort, wenn du dieses Risiko akzeptierst.</string>
+    <string name="registration_report_prompt">Du hast ein Profil auf einem Messgerät registriert, mit dem das noch nicht getestet wurde. Ein Gerätebericht in einem GitHub-Issue zeigt, ob es funktioniert hat, und hilft, die Registrierung auch für andere freizuschalten.\n\nDer Bericht enthält nur technische Details. Er enthält niemals Messwerte, Messzeiten, Namen, die Bluetooth-Adresse oder die Seriennummer. Du kannst ihn ansehen, bevor du etwas teilst.</string>
+</resources>

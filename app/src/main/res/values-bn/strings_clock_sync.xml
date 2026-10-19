@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_sync_clock">ঘড়ি সিঙ্ক করুন</string>
+    <string name="main_sync_clock_explanation">মনিটরের ঘড়ি এই ফোনের সময়ে সেট করে। কিছু বদলানোর আগে আপনি দুটি সময়ই দেখবেন এবং নিশ্চিত করবেন। এরপর সংযোগ শেষ হয়; রিডিং আমদানি করতে আবার সংযোগ করুন।</string>
+    <string name="main_sync_clock_running">ঘড়ি সিঙ্ক হচ্ছে…</string>
+    <string name="clock_sync_title">ঘড়ি সিঙ্ক নিশ্চিত করুন</string>
+    <string name="clock_sync_monitor_time">মনিটরের ঘড়ি: %1$s</string>
+    <string name="clock_sync_monitor_time_unset">মনিটরের ঘড়ি: সেট করা নেই</string>
+    <string name="clock_sync_phone_time">ফোনের সময়: %1$s</string>
+    <plurals name="clock_sync_drift">
+        <item quantity="one">পার্থক্য: %1$d সেকেন্ড</item>
+        <item quantity="other">পার্থক্য: %1$d সেকেন্ড</item>
+    </plurals>
+    <string name="clock_sync_within_threshold">মনিটরের ঘড়ি ফোনের সময় থেকে এক মিনিটের মধ্যে আছে, তাই এটি অপরিবর্তিত থাকে।</string>
+    <string name="clock_sync_untested_warning">এই মনিটরে ঘড়ি সিঙ্ক এখনও পরীক্ষা করা হয়নি। এটি শুধু এই কারণে উপলব্ধ যে আপনি একটি ডেভেলপার বিকল্প চালু করেছেন। এই ঝুঁকি মেনে নিলে তবেই এগিয়ে যান।</string>
+    <string name="clock_sync_choose_time">সেট করার সময় (ডেভেলপার বিকল্প)</string>
+    <string name="clock_sync_confirm">এখনই সিঙ্ক করুন</string>
+    <string name="monitor_clock_sync_complete">ঘড়ি সিঙ্ক হয়েছে</string>
+    <string name="monitor_clock_sync_skipped">ঘড়ি ইতিমধ্যে সঠিক</string>
+    <string name="monitor_clock_sync_rejected">ঘড়ি সিঙ্ক ব্যর্থ হয়েছে</string>
+    <string name="monitor_clock_sync_cancelled">ঘড়ি সিঙ্ক বাতিল হয়েছে</string>
+    <string name="monitor_clock_sync_unreadable">ঘড়ি সিঙ্ক সম্ভব নয়</string>
+    <string name="monitor_clock_sync_reconnect">রিডিং আমদানি করতে আবার সংযোগ করুন।</string>
+    <string name="clock_sync_report_prompt">আপনি এমন একটি মনিটরের ঘড়ি সিঙ্ক করেছেন যার সাথে এটি এখনও পরীক্ষা করা হয়নি। GitHub issue-তে ডিভাইস রিপোর্ট দেখায় এটি কাজ করেছে কি না, এবং ঘড়ি সিঙ্ক অন্যদের জন্য উপলব্ধ করতে সাহায্য করে।\n\nরিপোর্টে শুধু প্রযুক্তিগত তথ্য থাকে। এতে কখনও রিডিং, পরিমাপের সময়, নাম, Bluetooth ঠিকানা বা সিরিয়াল নম্বর থাকে না। কিছু শেয়ার করার আগে আপনি এটি দেখে নিতে পারেন।</string>
+    <string name="main_clock_sync_backup">ঘড়ি সিঙ্কের ব্যাকআপ</string>
+    <string name="main_clock_sync_backup_explanation">সর্বশেষ ঘড়ি সিঙ্কের আগে সংরক্ষিত সেটিংস। এটি সেটিংসের ব্যাকআপ, সম্পূর্ণ মেমরি বা ক্যালিব্রেশনের ব্যাকআপ নয়। আগের ব্যাকআপগুলো এই ফোনেই থাকে।</string>
+    <string name="monitor_clock_sync_out_of_range">ফোনের তারিখ সমর্থিত সীমার বাইরে, তাই মনিটরের ঘড়ি পরিবর্তন করা হয়নি। এই ফোনের তারিখ পরীক্ষা করুন।</string>
+</resources>

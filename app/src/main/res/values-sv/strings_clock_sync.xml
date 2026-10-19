@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_sync_clock">Synkronisera klockan</string>
+    <string name="main_sync_clock_explanation">Ställer blodtrycksmätarens klocka efter telefonens tid. Du ser båda tiderna och bekräftar innan något ändras. Därefter avslutas anslutningen; anslut igen för att importera mätningar.</string>
+    <string name="main_sync_clock_running">Synkroniserar klockan…</string>
+    <string name="clock_sync_title">Bekräfta klocksynkronisering</string>
+    <string name="clock_sync_monitor_time">Mätarens klocka: %1$s</string>
+    <string name="clock_sync_monitor_time_unset">Mätarens klocka: inte inställd</string>
+    <string name="clock_sync_phone_time">Telefonens tid: %1$s</string>
+    <plurals name="clock_sync_drift">
+        <item quantity="one">Skillnad: %1$d sekund</item>
+        <item quantity="other">Skillnad: %1$d sekunder</item>
+    </plurals>
+    <string name="clock_sync_within_threshold">Mätarens klocka skiljer sig högst en minut från telefonens tid och lämnas därför oförändrad.</string>
+    <string name="clock_sync_untested_warning">Klocksynkronisering har ännu inte testats med den här mätaren. Den är bara tillgänglig eftersom du har aktiverat ett utvecklaralternativ. Fortsätt bara om du accepterar den risken.</string>
+    <string name="clock_sync_choose_time">Tid att ställa in (utvecklaralternativ)</string>
+    <string name="clock_sync_confirm">Synkronisera nu</string>
+    <string name="monitor_clock_sync_complete">Klockan synkroniserad</string>
+    <string name="monitor_clock_sync_skipped">Klockan går redan rätt</string>
+    <string name="monitor_clock_sync_rejected">Klocksynkroniseringen misslyckades</string>
+    <string name="monitor_clock_sync_cancelled">Klocksynkroniseringen avbröts</string>
+    <string name="monitor_clock_sync_unreadable">Klocksynkronisering inte möjlig</string>
+    <string name="monitor_clock_sync_reconnect">Anslut igen för att importera mätningar.</string>
+    <string name="clock_sync_report_prompt">Du har synkroniserat klockan på en mätare som detta ännu inte har testats med. En enhetsrapport i ett GitHub-ärende visar om det fungerade och hjälper till att göra klocksynkronisering tillgänglig för andra.\n\nRapporten innehåller bara tekniska detaljer. Den innehåller aldrig mätvärden, mättider, namn, Bluetooth-adressen eller serienumret. Du kan granska den innan du delar något.</string>
+    <string name="main_clock_sync_backup">Säkerhetskopia före synkronisering av klockan</string>
+    <string name="main_clock_sync_backup_explanation">Inställningar som sparades före den senaste synkroniseringen av klockan. Detta är en säkerhetskopia av inställningarna, inte en fullständig kopia av minnet eller kalibreringen. Tidigare säkerhetskopior finns kvar på den här telefonen.</string>
+    <string name="monitor_clock_sync_out_of_range">Telefonens datum ligger utanför det stödda intervallet, så mätarens klocka ändrades inte. Kontrollera datumet på den här telefonen.</string>
+</resources>

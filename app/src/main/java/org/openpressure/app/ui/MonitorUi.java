@@ -25,6 +25,13 @@ public final class MonitorUi {
         if(state.equals("Authenticate first")) return R.string.monitor_profile_access_needed;
         if(state.equals("No monitors found") || state.equals("X7 advertisement not received")) return R.string.monitor_not_found;
         if(state.equals("Invalid EEPROM range") || state.equals("Invalid sequence") || state.equals("Check user settings")) return R.string.monitor_check_input;
+        if(state.equals("Clock sync complete")) return R.string.monitor_clock_sync_complete;
+        if(state.equals("Clock sync skipped")) return R.string.monitor_clock_sync_skipped;
+        if(state.equals("Clock sync rejected")) return R.string.monitor_clock_sync_rejected;
+        if(state.equals("Clock sync cancelled")) return R.string.monitor_clock_sync_cancelled;
+        if(state.equals("Monitor settings unreadable") || state.equals("Phone date out of range")) return R.string.monitor_clock_sync_unreadable;
+        if(m.clockSyncPending) return R.string.clock_sync_title;
+        if(m.clockSyncRunning) return R.string.main_sync_clock_running;
         if(m.registrationPending) return R.string.monitor_choose_profile;
         if(m.registrationReading) return R.string.monitor_preparing_setup;
         if(m.registrationWriting) return R.string.monitor_finishing_setup;
@@ -60,6 +67,8 @@ public final class MonitorUi {
         if(title==R.string.monitor_profile_access_failed || title==R.string.monitor_profile_access_needed) return context.getString(R.string.monitor_check_profile);
         if(title==R.string.monitor_not_found || title==R.string.monitor_searching) return context.getString(R.string.monitor_wake_nearby);
         if(title==R.string.monitor_check_input) return context.getString(R.string.monitor_check_values);
+        String clockSync=clockSyncDetail(context,m,title);
+        if(clockSync!=null) return clockSync;
         if(m.registrationPending) return context.getString(R.string.monitor_select_profile);
         if(m.registrationWriting || m.registrationReading) return context.getString(R.string.monitor_keep_nearby);
         if(m.dumpRunning) return context.getString(R.string.monitor_memory_progress,m.dumpReceived,m.dumpLength);
@@ -69,6 +78,8 @@ public final class MonitorUi {
                 context.getResources().getQuantityString(R.plurals.monitor_readings_saved,m.storedInTransfer,m.storedInTransfer):"";
             if(m.queuedInTransfer>0) summary+=(summary.isEmpty()?"":"\n\n")+context.getString(R.string.http_import_count,m.queuedInTransfer);
             if(m.pendingInTransfer>0) summary+=(summary.isEmpty()?"":"\n\n")+context.getString(R.string.vp_pending_count,m.pendingInTransfer);
+            String mode=importMode(context,m);
+            if(!mode.isEmpty()) summary+=(summary.isEmpty()?"":"\n\n")+mode;
             return importDetail(context,m,summary);
         }
         if(m.registrationDone || m.sessionFinished) return context.getString(R.string.monitor_reconnect_next_time);
@@ -83,6 +94,35 @@ public final class MonitorUi {
         if(title==R.string.monitor_disconnected) return context.getString(R.string.monitor_saved_on_phone);
         return context.getString(R.string.monitor_scan_to_connect);
     }
+    /** Every clock-sync outcome ends the session, so each one says how to import readings next. */
+    private static String clockSyncDetail(Context context,MonitorService m,int title) {
+        if(title==R.string.clock_sync_title) return context.getString(R.string.main_sync_clock_explanation);
+        if(title==R.string.main_sync_clock_running) return context.getString(R.string.monitor_keep_nearby);
+        int outcome;
+        if(title==R.string.monitor_clock_sync_complete) outcome=R.string.monitor_check_clock;
+        else if(title==R.string.monitor_clock_sync_skipped) outcome=R.string.clock_sync_within_threshold;
+        else if(title==R.string.monitor_clock_sync_unreadable && m.status.equals("Phone date out of range")) outcome=R.string.monitor_clock_sync_out_of_range;
+        else if(title==R.string.monitor_clock_sync_rejected || title==R.string.monitor_clock_sync_unreadable) outcome=R.string.monitor_clock_failed;
+        else if(title==R.string.monitor_clock_sync_cancelled) outcome=m.clockUpdate==MonitorService.ClockUpdate.FAILED?R.string.monitor_clock_failed:0;
+        else return null;
+        String reconnect=context.getString(R.string.monitor_clock_sync_reconnect);
+        return outcome==0?reconnect:context.getString(outcome)+"\n\n"+reconnect;
+    }
+    /** How a vendor-memory import chose its slots, in plain language; empty for other protocols. */
+    private static String importMode(Context context,MonitorService m) {
+        String mode;
+        switch(m.importMode) {
+            case INDEX: mode=m.indexStoredCount>0?context.getResources().getQuantityString(R.plurals.monitor_import_mode_index,m.indexStoredCount,m.indexStoredCount)
+                    :m.indexStoredCount==0?context.getString(R.string.monitor_import_mode_empty):""; break;
+            case INDEX_FALLBACK: mode=context.getString(R.string.monitor_import_mode_fallback); break;
+            case FULL_SWEEP: case FULL_READ: mode=context.getString(R.string.monitor_import_mode_sweep); break;
+            default: mode=""; break;
+        }
+        if(m.unconfirmedBankSkipped) mode+=(mode.isEmpty()?"":"\n\n")+context.getString(R.string.monitor_unconfirmed_bank_skipped);
+        int unreadable=m.importMode==MonitorService.ImportMode.NONE?0:m.rejectedSlots();
+        if(unreadable>0) mode+=(mode.isEmpty()?"":"\n\n")+context.getResources().getQuantityString(R.plurals.monitor_import_slots_unreadable,unreadable,unreadable);
+        return mode;
+    }
     private static String importDetail(Context context,MonitorService m,String summary) {
         int clock=0;
         switch(m.clockUpdate) {
@@ -95,7 +135,29 @@ public final class MonitorUi {
         if(m.sessionEndUnconfirmed) summary+="\n\n"+context.getString(R.string.monitor_session_unconfirmed);
         return summary;
     }
+    /** The automatic-import card: a running Fetch now, else its last result above the listener state. */
     public static String automatic(Context context,MonitorService m) {
+        String fetch=fetch(context,m);
+        if(m.fetchRunning) return fetch==null?context.getString(R.string.fetch_looking):fetch;
+        String listener=listener(context,m);
+        return fetch==null?listener:fetch+"\n\n"+listener;
+    }
+    private static String fetch(Context context,MonitorService m) {
+        switch(m.fetchState) {
+            case LOOKING: return context.getString(R.string.fetch_looking);
+            case IMPORTING: return context.getString(R.string.fetch_importing,m.fetchName);
+            case NONE_NEARBY: return context.getString(R.string.fetch_none_nearby);
+            case DONE: return context.getString(R.string.fetch_done,m.fetchImported);
+            case INCOMPLETE: return context.getString(R.string.fetch_incomplete);
+            case BUSY: return context.getString(R.string.fetch_busy);
+            case NO_MONITOR: return context.getString(R.string.fetch_no_monitor);
+            case BLUETOOTH_OFF: return context.getString(R.string.monitor_enable_bluetooth);
+            case PERMISSION: return context.getString(R.string.monitor_allow_bluetooth);
+            case FAILED: return context.getString(R.string.fetch_failed);
+            default: return null;
+        }
+    }
+    private static String listener(Context context,MonitorService m) {
         int mode=AutoImportSettings.getMode(context);
         String status=m.automaticStatus;
         if(mode==AutoImportSettings.OFF) return context.getString(R.string.monitor_auto_off);

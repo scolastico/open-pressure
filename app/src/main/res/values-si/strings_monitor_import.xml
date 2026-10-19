@@ -4,4 +4,21 @@
     <string name="monitor_clock_skipped">මෙම රුධිර පීඩන මොනිටරය ස්වයංක්‍රීයව වේලාව යාවත්කාලීන කිරීමට සහාය නොදක්වයි. වේලාව ඔබම සකසන්න.</string>
     <string name="monitor_clock_failed">රුධිර පීඩන මොනිටරයේ වේලාව යාවත්කාලීන කළ නොහැකි විය. මොනිටරයේ වේලාව පරීක්ෂා කරන්න හෝ සකසන්න.</string>
     <string name="monitor_session_unconfirmed">මිනුම් සුරැකී ඇත, නමුත් දත්ත හුවමාරුව අවසන් බව රුධිර පීඩන මොනිටරය තහවුරු කළේ නැත. නැවත ආයාත කිරීමට පෙර යළි සම්බන්ධ කරන්න.</string>
+    <string name="main_import_users">ආයාත කළ යුතු මිනුම්</string>
+    <string name="main_import_users_both">පරිශීලකයන් දෙදෙනාම</string>
+    <string name="main_read_all">සියල්ල කියවන්න</string>
+    <string name="main_read_all_explanation">ආයාතයට තෝරාගත් පරිශීලකයන්ගේ මතකයේ සෑම ස්ථානයක්ම පරීක්ෂා කරයි, මොනිටරය භාවිත කළ බව වාර්තා කරන ස්ථාන පමණක් නොවේ. මිනුම් අස්ථානගත වී ඇති බව පෙනේ නම් මෙය භාවිත කරන්න. මෙයට වැඩි කාලයක් ගත වන බැවින්, අවසන් වන තුරු මොනිටරය ළඟින් තබා ගන්න.</string>
+    <string name="main_reading_all">සියල්ල කියවමින්…</string>
+    <plurals name="monitor_import_mode_index">
+        <item quantity="one">තෝරාගත් පරිශීලකයන් සඳහා මොනිටරය සුරැකි මිනුම් %1$dක් වාර්තා කළේය.</item>
+        <item quantity="other">තෝරාගත් පරිශීලකයන් සඳහා මොනිටරය සුරැකි මිනුම් %1$dක් වාර්තා කළේය.</item>
+    </plurals>
+    <string name="monitor_import_mode_fallback">මොනිටරයේ සුරැකි මිනුම් ලැයිස්තුව භාවිත කළ නොහැකි වූ බැවින් මතකයේ සෑම ස්ථානයක්ම කියවන ලදී.</string>
+    <string name="monitor_import_mode_sweep">මතකයේ සෑම ස්ථානයක්ම කියවන ලදී.</string>
+    <string name="monitor_import_mode_empty">තෝරාගත් පරිශීලකයන් සඳහා මොනිටරය සුරැකි මිනුම් කිසිවක් වාර්තා කළේ නැත. ඔබ කිසිවක් අපේක්ෂා කරන්නේ නම් සියල්ල කියවන්න භාවිත කරන්න.</string>
+    <string name="monitor_unconfirmed_bank_skipped">මෙම මාදිලියේ නොතිබිය හැකි දෙවන මතක ප්‍රදේශයක් මඟ හරින ලදී.</string>
+    <plurals name="monitor_import_slots_unreadable">
+        <item quantity="one">මතක ස්ථාන %1$dක් කියවිය නොහැකි විය.</item>
+        <item quantity="other">මතක ස්ථාන %1$dක් කියවිය නොහැකි විය.</item>
+    </plurals>
 </resources>

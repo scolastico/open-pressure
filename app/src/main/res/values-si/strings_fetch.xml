@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fetch_looking">ඔබේ මොනිටර සොයමින්…</string>
+    <string name="fetch_importing">%1$s වෙතින් ආයාත කරමින්…</string>
+    <string name="fetch_none_nearby">අසල මොනිටරයක් නැත. මොනිටර මැනීමකට පසු ටික වේලාවක් හෝ Bluetooth ප්‍රකාරයේ පමණක් සංඥා යවයි.</string>
+    <string name="fetch_done">නවතම කියවීම් ලබා ගත්තා. මොනිටර: %1$d.</string>
+    <string name="fetch_incomplete">සමහර ආයාත අවසන් නොවීය. ලැබුණු කියවීම් සුරැකී ඇත; නැවත උත්සාහ කිරීමට පහළට අදින්න.</string>
+    <string name="fetch_busy">මොනිටරයේ වත්මන් ක්‍රියාව අවසන් කර, නැවත පහළට අදින්න.</string>
+    <string name="fetch_no_monitor">පළමුව සහාය දක්වන මොනිටරයක් යුගල කරන්න හෝ සම්බන්ධ කරන්න.</string>
+    <string name="fetch_failed">මොනිටර සෙවිය නොහැකි විය. Bluetooth පරීක්ෂා කර, නැවත පහළට අදින්න.</string>
+</resources>

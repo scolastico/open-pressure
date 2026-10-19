@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Fetch now on Overview: pull down to import the newest readings from nearby saved monitors. -->
+    <string name="fetch_looking">Looking for your monitors…</string>
+    <string name="fetch_importing">Importing from %1$s…</string>
+    <string name="fetch_none_nearby">No monitor is nearby. Monitors advertise for a short time after a measurement or in Bluetooth mode.</string>
+    <string name="fetch_done">Newest readings fetched. Monitors: %1$d.</string>
+    <string name="fetch_incomplete">Some imports did not finish. Readings already received are saved; pull down to try again.</string>
+    <string name="fetch_busy">Finish the current monitor action, then pull down again.</string>
+    <string name="fetch_no_monitor">Pair or connect a supported monitor first.</string>
+    <string name="fetch_failed">Could not look for monitors. Check Bluetooth, then pull down again.</string>
+</resources>

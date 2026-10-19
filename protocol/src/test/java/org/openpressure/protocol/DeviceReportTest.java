@@ -12,6 +12,8 @@ public final class DeviceReportTest {
         identifyingFieldsAreMasked();
         reportContainsLayoutButNoValues();
         reportsWithoutGattAreNotOffered();
+        registrationIsRecordedWithoutValues();
+        developerSwitchesAreListedByName();
         return checks;
     }
     private static void onlyTheTestedIdentityIsVerified() {
@@ -34,6 +36,11 @@ public final class DeviceReportTest {
         report.protocol("VENDOR_MEMORY","HEM-7155T");
         report.keyAcknowledgment(hex("8200")); report.keyAcknowledgment(hex("810000000000"));
         report.transfer(2,1,true);
+        String withoutWrites=report.toJson();
+        check(!report.hasWrites() && withoutWrites.contains("\"writes\": []"),"a report without writes has an empty writes list");
+        check(withoutWrites.indexOf("\"writes\"")>withoutWrites.indexOf("\"transfer\"") && withoutWrites.indexOf("\"writes\"")<withoutWrites.indexOf("\"outcome\": {"),"writes follow transfer");
+        report.writeAspect(WriteAspectIndex.Aspect.CLOCK_BLOCK,DeviceReport.WriteOutcome.ACKNOWLEDGED,true);
+        for(int i=0;i<12;i++) report.writeAspect(WriteAspectIndex.Aspect.UNSENT_COUNTERS,DeviceReport.WriteOutcome.SKIPPED_WITHIN_THRESHOLD,false);
         report.outcome("Action failed","Timed out talking to AA:BB:CC:DD:EE:FF serial 0123456789abcdef");
         String json=report.toJson();
         check(report.useful() && !report.verified(),"untested monitor with a GATT layout is offered");
@@ -44,6 +51,11 @@ public final class DeviceReportTest {
         check(json.contains("\"decoded_records\": 2") && json.contains("\"end_acknowledged\": true"),"transfer counts recorded");
         for(String secret:new String[]{"AA:BB:CC:DD:EE:FF","AABBCCDDEEFF","0123456789abcdef","7801","0b00"})
             check(!json.contains(secret),"identifier or sequence value leaked: "+secret);
+        check(report.hasWrites(),"recorded write aspects are reported");
+        check(json.contains("\"aspect\":\"clock_block\"") && json.contains("\"outcome\":\"acknowledged\"") && json.contains("\"override\":true"),"write aspect, outcome and override recorded in lower case");
+        check(json.contains("\"outcome\":\"skipped_within_threshold\"") && json.contains("\"override\":false"),"multi-word outcome emitted in lower case");
+        check(json.split("\"aspect\":",-1).length-1==8,"at most eight write entries are kept");
+        check(json.indexOf("\"writes\"")>json.indexOf("\"transfer\"") && json.indexOf("\"writes\"")<json.indexOf("\"outcome\": {"),"writes follow transfer");
         check(json.contains("[address removed]") && json.contains("[identifier removed]"),"failure text scrubbed rather than dropped");
     }
     private static void reportsWithoutGattAreNotOffered() {
@@ -52,8 +64,38 @@ public final class DeviceReportTest {
         check(!report.useful(),"a connection that never discovered services has nothing to share");
         report.service("0000180a-0000-1000-8000-00805f9b34fb",Arrays.asList());
         report.model("HEM-7380T1-EOSL");
-        check(!report.useful(),"the tested monitor is never asked for a report");
+        check(!report.useful(),"the tested monitor is not asked for a report without a write");
+        report.writeAspect(WriteAspectIndex.Aspect.CLOCK_BLOCK,DeviceReport.WriteOutcome.ACKNOWLEDGED,true);
+        check(report.useful() && report.verified(),"a recorded write makes the tested monitor's report worth sharing");
+        DeviceReport aliased=new DeviceReport("Connect","1.2.0",35,"Synthetic Phone");
+        aliased.service("0000180a-0000-1000-8000-00805f9b34fb",Arrays.asList());
+        aliased.model("X7 Smart AFib");
+        aliased.writeAspect(WriteAspectIndex.Aspect.CLOCK_BLOCK,DeviceReport.WriteOutcome.REJECTED,true);
+        check(aliased.useful(),"the tested identity's marketing name is offered after a write too");
         check(report.toJson().contains("\"present\": false"),"missing advertisement is explicit");
+    }
+    private static void registrationIsRecordedWithoutValues() {
+        DeviceReport report=new DeviceReport("Pair","1.2.0",35,"Synthetic Phone");
+        report.service("0000fe4a-0000-1000-8000-00805f9b34fb",Arrays.asList());
+        report.model("HEM-7380T1-EBK");
+        report.writeAspect(WriteAspectIndex.Aspect.REGISTRATION,DeviceReport.WriteOutcome.ACKNOWLEDGED,true);
+        report.writeAspect(WriteAspectIndex.Aspect.REGISTRATION,DeviceReport.WriteOutcome.CANCELLED,true);
+        report.writeAspect(WriteAspectIndex.Aspect.REGISTRATION,DeviceReport.WriteOutcome.NOT_ATTEMPTED,false);
+        String json=report.toJson().replace(" ","");
+        check(json.contains("{\"aspect\":\"registration\",\"outcome\":\"acknowledged\",\"override\":true}"),"registration aspect recorded in lower case");
+        check(json.contains("\"aspect\":\"registration\",\"outcome\":\"cancelled\"") && json.contains("\"aspect\":\"registration\",\"outcome\":\"not_attempted\",\"override\":false"),"each attempt recorded");
+        // Only the aspect, outcome and override: no selected user, clock, address or settings bytes.
+        for(String forbidden:new String[]{"user","clock\":","0x0054","0x0080","data"}) check(!json.contains(forbidden),"registration entry carries no value: "+forbidden);
+    }
+    private static void developerSwitchesAreListedByName() {
+        DeviceReport report=new DeviceReport("Pair","1.2.0",35,"Synthetic Phone");
+        check(report.toJson().replace(" ","").replace("\n","").contains("\"developer\":[]"),"no switch in effect: empty list");
+        report.developer("force_x7_encrypted"); report.developer("force_x7_encrypted"); report.developer("clock_sync_encrypted_x7");
+        report.developer(null); report.developer("Not A Name"); report.developer("key=00112233");
+        String json=report.toJson().replace(" ","").replace("\n","");
+        check(json.contains("\"developer\":[\"force_x7_encrypted\",\"clock_sync_encrypted_x7\"]"),"names only, once each, in order: "+json);
+        check(json.indexOf("\"developer\"")>json.indexOf("\"writes\"") && json.indexOf("\"developer\"")<json.indexOf("\"outcome\":{"),"developer follows writes");
+        check(!report.useful(),"a developer switch alone does not make a report worth sharing");
     }
     private static byte[] hex(String value) { return HexFormat.of().parseHex(value); }
     private static void check(boolean condition,String message) { checks++; if(!condition) throw new AssertionError(message); }

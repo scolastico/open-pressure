@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fetch_looking">Поиск ваших тонометров…</string>
+    <string name="fetch_importing">Импорт с %1$s…</string>
+    <string name="fetch_none_nearby">Рядом нет тонометра. Тонометры передают сигнал недолго после измерения или в режиме Bluetooth.</string>
+    <string name="fetch_done">Последние измерения получены. Тонометров: %1$d.</string>
+    <string name="fetch_incomplete">Некоторые импорты не завершились. Уже полученные измерения сохранены; потяните вниз, чтобы повторить.</string>
+    <string name="fetch_busy">Завершите текущее действие с тонометром, затем снова потяните вниз.</string>
+    <string name="fetch_no_monitor">Сначала выполните сопряжение или подключите поддерживаемый тонометр.</string>
+    <string name="fetch_failed">Не удалось начать поиск тонометров. Проверьте Bluetooth и снова потяните вниз.</string>
+</resources>

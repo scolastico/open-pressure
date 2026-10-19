@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_sync_clock">I-sync ang orasan</string>
+    <string name="main_sync_clock_explanation">Itinatakda ang orasan ng monitor sa oras ng phone na ito. Makikita mo ang dalawang oras at kukumpirmahin mo bago may magbago. Pagkatapos, matatapos ang koneksyon; kumonekta ulit para mag-import ng mga reading.</string>
+    <string name="main_sync_clock_running">Sini-sync ang orasan…</string>
+    <string name="clock_sync_title">Kumpirmahin ang pag-sync ng orasan</string>
+    <string name="clock_sync_monitor_time">Orasan ng monitor: %1$s</string>
+    <string name="clock_sync_monitor_time_unset">Orasan ng monitor: hindi nakatakda</string>
+    <string name="clock_sync_phone_time">Oras ng phone: %1$s</string>
+    <plurals name="clock_sync_drift">
+        <item quantity="other">Pagkakaiba: %1$d segundo</item>
+    </plurals>
+    <string name="clock_sync_within_threshold">Hindi hihigit sa isang minuto ang agwat ng orasan ng monitor sa oras ng phone, kaya hindi ito binabago.</string>
+    <string name="clock_sync_untested_warning">Hindi pa nasusubukan ang pag-sync ng orasan sa monitor na ito. Available lang ito dahil nag-on ka ng opsyon ng developer. Magpatuloy lang kung tinatanggap mo ang panganib na iyon.</string>
+    <string name="clock_sync_choose_time">Oras na itatakda (opsyon ng developer)</string>
+    <string name="clock_sync_confirm">I-sync ngayon</string>
+    <string name="monitor_clock_sync_complete">Na-sync ang orasan</string>
+    <string name="monitor_clock_sync_skipped">Tama na ang orasan</string>
+    <string name="monitor_clock_sync_rejected">Hindi na-sync ang orasan</string>
+    <string name="monitor_clock_sync_cancelled">Kinansela ang pag-sync ng orasan</string>
+    <string name="monitor_clock_sync_unreadable">Hindi posible ang pag-sync ng orasan</string>
+    <string name="monitor_clock_sync_reconnect">Kumonekta ulit para mag-import ng mga reading.</string>
+    <string name="clock_sync_report_prompt">Na-sync mo ang orasan ng isang monitor na hindi pa nasusubukan para dito. Ipinapakita ng device report sa isang GitHub issue kung gumana ito at nakakatulong itong gawing available ang pag-sync ng orasan sa iba.\n\nTeknikal na detalye lang ang laman ng report. Hindi nito kailanman isinasama ang mga reading, oras ng pagsukat, pangalan, Bluetooth address o serial number. Masusuri mo ito bago ka magbahagi ng anuman.</string>
+    <string name="main_clock_sync_backup">Backup ng pag-sync ng orasan</string>
+    <string name="main_clock_sync_backup_explanation">Mga setting na na-save bago ang huling pag-sync ng orasan. Ito ay backup ng mga setting, hindi buong backup ng memorya o ng calibration. Nananatili sa teleponong ito ang mga naunang backup.</string>
+    <string name="monitor_clock_sync_out_of_range">Nasa labas ng sinusuportahang saklaw ang petsa ng telepono, kaya hindi binago ang orasan ng monitor. Tingnan ang petsa sa teleponong ito.</string>
+</resources>

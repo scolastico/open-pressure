@@ -4,4 +4,21 @@
     <string name="monitor_clock_skipped">इस ब्लड प्रेशर मॉनिटर में समय अपने आप अपडेट नहीं हो सकता। समय खुद सेट करें।</string>
     <string name="monitor_clock_failed">ब्लड प्रेशर मॉनिटर का समय अपडेट नहीं हो सका। मॉनिटर पर समय जाँचें या सेट करें।</string>
     <string name="monitor_session_unconfirmed">माप सहेज लिए गए हैं, लेकिन ब्लड प्रेशर मॉनिटर ने डेटा भेजना पूरा होने की पुष्टि नहीं की। दोबारा आयात करने से पहले फिर से कनेक्ट करें।</string>
+    <string name="main_import_users">आयात करने के लिए माप</string>
+    <string name="main_import_users_both">दोनों उपयोगकर्ता</string>
+    <string name="main_read_all">सब पढ़ें</string>
+    <string name="main_read_all_explanation">आयात के लिए चुने गए उपयोगकर्ताओं की मेमोरी के हर स्थान को जाँचता है, केवल उन्हें नहीं जिन्हें मॉनिटर उपयोग में बताता है। अगर माप छूटे हुए लगें तो इसका उपयोग करें। इसमें अधिक समय लगता है, इसलिए पूरा होने तक मॉनिटर पास रखें।</string>
+    <string name="main_reading_all">सब पढ़ा जा रहा है…</string>
+    <plurals name="monitor_import_mode_index">
+        <item quantity="one">मॉनिटर ने चुने गए उपयोगकर्ताओं के लिए %1$d सहेजा गया माप बताया।</item>
+        <item quantity="other">मॉनिटर ने चुने गए उपयोगकर्ताओं के लिए %1$d सहेजे गए माप बताए।</item>
+    </plurals>
+    <string name="monitor_import_mode_fallback">मॉनिटर की सहेजे गए मापों की सूची का उपयोग नहीं हो सका, इसलिए मेमोरी का हर स्थान पढ़ा गया।</string>
+    <string name="monitor_import_mode_sweep">मेमोरी का हर स्थान पढ़ा गया।</string>
+    <string name="monitor_import_mode_empty">मॉनिटर ने चुने गए उपयोगकर्ताओं के लिए कोई सहेजा गया माप नहीं बताया। अगर आपको माप की उम्मीद है तो सब पढ़ें का उपयोग करें।</string>
+    <string name="monitor_unconfirmed_bank_skipped">एक दूसरा मेमोरी क्षेत्र, जो शायद इस मॉडल में नहीं है, छोड़ दिया गया।</string>
+    <plurals name="monitor_import_slots_unreadable">
+        <item quantity="one">मेमोरी का %1$d स्थान पढ़ा नहीं जा सका।</item>
+        <item quantity="other">मेमोरी के %1$d स्थान पढ़े नहीं जा सके।</item>
+    </plurals>
 </resources>

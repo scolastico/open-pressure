@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="registration_untested_warning">Profiilin rekisteröintiä ei ole vielä testattu tällä mittarilla. Se on käytettävissä vain, koska otit käyttöön kehittäjäasetuksen. Jatka vain, jos hyväksyt riskin.</string>
+    <string name="registration_report_prompt">Rekisteröit profiilin mittariin, jolla tätä ei ole vielä testattu. Laiteraportti GitHub-issuessa näyttää, toimiko se, ja auttaa tuomaan rekisteröinnin muidenkin käyttöön.\n\nRaportti sisältää vain teknisiä tietoja. Se ei koskaan sisällä mittaustuloksia, mittausaikoja, nimiä, Bluetooth-osoitetta tai sarjanumeroa. Voit tarkistaa sen ennen kuin jaat mitään.</string>
+</resources>

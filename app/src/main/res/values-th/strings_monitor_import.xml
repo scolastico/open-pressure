@@ -4,4 +4,19 @@
     <string name="monitor_clock_skipped">เครื่องวัดความดันโลหิตนี้ไม่รองรับการอัปเดตเวลาอัตโนมัติ โปรดตั้งเวลาด้วยตนเอง</string>
     <string name="monitor_clock_failed">ไม่สามารถอัปเดตเวลาในเครื่องวัดความดันโลหิตได้ โปรดตรวจสอบหรือตั้งเวลาบนเครื่อง</string>
     <string name="monitor_session_unconfirmed">บันทึกค่าที่วัดได้แล้ว แต่เครื่องวัดความดันโลหิตไม่ได้ยืนยันว่าการถ่ายโอนเสร็จสิ้น โปรดเชื่อมต่อใหม่ก่อนนำเข้าอีกครั้ง</string>
+    <string name="main_import_users">การวัดที่จะนำเข้า</string>
+    <string name="main_import_users_both">ผู้ใช้ทั้งสองคน</string>
+    <string name="main_read_all">อ่านทั้งหมด</string>
+    <string name="main_read_all_explanation">ตรวจทุกช่องหน่วยความจำของผู้ใช้ที่เลือกให้นำเข้า ไม่ใช่เฉพาะช่องที่เครื่องวัดแจ้งว่าใช้แล้ว ใช้เมื่อดูเหมือนว่าผลการวัดบางรายการหายไป ใช้เวลานานกว่า จึงควรวางเครื่องวัดไว้ใกล้ ๆ จนกว่าจะเสร็จ</string>
+    <string name="main_reading_all">กำลังอ่านทั้งหมด…</string>
+    <plurals name="monitor_import_mode_index">
+        <item quantity="other">เครื่องวัดแจ้งว่ามีผลการวัดที่จัดเก็บของผู้ใช้ที่เลือก %1$d รายการ</item>
+    </plurals>
+    <string name="monitor_import_mode_fallback">ใช้รายการผลการวัดที่จัดเก็บในเครื่องวัดไม่ได้ จึงอ่านทุกช่องหน่วยความจำแล้ว</string>
+    <string name="monitor_import_mode_sweep">อ่านทุกช่องหน่วยความจำแล้ว</string>
+    <string name="monitor_import_mode_empty">เครื่องวัดแจ้งว่าไม่มีผลการวัดที่จัดเก็บของผู้ใช้ที่เลือก ใช้อ่านทั้งหมดหากคุณคิดว่าควรมี</string>
+    <string name="monitor_unconfirmed_bank_skipped">ข้ามพื้นที่หน่วยความจำที่สองซึ่งรุ่นนี้อาจไม่มี</string>
+    <plurals name="monitor_import_slots_unreadable">
+        <item quantity="other">อ่านช่องหน่วยความจำไม่ได้ %1$d ช่อง</item>
+    </plurals>
 </resources>

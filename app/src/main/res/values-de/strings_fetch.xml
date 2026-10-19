@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fetch_looking">Suche nach deinen Blutdruckmessgeräten…</string>
+    <string name="fetch_importing">Import von %1$s…</string>
+    <string name="fetch_none_nearby">Kein Blutdruckmessgerät in der Nähe. Die Geräte senden nur kurz nach einer Messung oder im Bluetooth-Modus.</string>
+    <string name="fetch_done">Neueste Messwerte abgerufen. Geräte: %1$d.</string>
+    <string name="fetch_incomplete">Einige Importe wurden nicht abgeschlossen. Bereits empfangene Messwerte sind gespeichert; zum erneuten Versuch nach unten ziehen.</string>
+    <string name="fetch_busy">Beende die aktuelle Aktion am Gerät und ziehe dann erneut nach unten.</string>
+    <string name="fetch_no_monitor">Kopple oder verbinde zuerst ein unterstütztes Blutdruckmessgerät.</string>
+    <string name="fetch_failed">Suche nach Geräten nicht möglich. Prüfe Bluetooth und ziehe dann erneut nach unten.</string>
+</resources>

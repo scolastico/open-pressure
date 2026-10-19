@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_sync_clock">Synchroniser l\'horloge</string>
+    <string name="main_sync_clock_explanation">Règle l\'horloge du tensiomètre sur l\'heure de ce téléphone. Vous voyez les deux heures et confirmez avant toute modification. La connexion se termine ensuite ; reconnectez-vous pour importer des mesures.</string>
+    <string name="main_sync_clock_running">Synchronisation de l\'horloge…</string>
+    <string name="clock_sync_title">Confirmer la synchronisation de l\'horloge</string>
+    <string name="clock_sync_monitor_time">Horloge du tensiomètre : %1$s</string>
+    <string name="clock_sync_monitor_time_unset">Horloge du tensiomètre : non réglée</string>
+    <string name="clock_sync_phone_time">Heure du téléphone : %1$s</string>
+    <plurals name="clock_sync_drift">
+        <item quantity="many">Écart : %1$d secondes</item>
+        <item quantity="one">Écart : %1$d seconde</item>
+        <item quantity="other">Écart : %1$d secondes</item>
+    </plurals>
+    <string name="clock_sync_within_threshold">L\'horloge du tensiomètre est à moins d\'une minute de l\'heure du téléphone ; elle reste donc inchangée.</string>
+    <string name="clock_sync_untested_warning">La synchronisation de l\'horloge n\'a pas encore été testée avec ce tensiomètre. Elle n\'est disponible que parce que vous avez activé une option pour les développeurs. Ne continuez que si vous acceptez ce risque.</string>
+    <string name="clock_sync_choose_time">Heure à régler (option pour les développeurs)</string>
+    <string name="clock_sync_confirm">Synchroniser maintenant</string>
+    <string name="monitor_clock_sync_complete">Horloge synchronisée</string>
+    <string name="monitor_clock_sync_skipped">L\'horloge est déjà à l\'heure</string>
+    <string name="monitor_clock_sync_rejected">Échec de la synchronisation de l\'horloge</string>
+    <string name="monitor_clock_sync_cancelled">Synchronisation de l\'horloge annulée</string>
+    <string name="monitor_clock_sync_unreadable">Synchronisation de l\'horloge impossible</string>
+    <string name="monitor_clock_sync_reconnect">Reconnectez-vous pour importer des mesures.</string>
+    <string name="clock_sync_report_prompt">Vous avez synchronisé l\'horloge d\'un tensiomètre avec lequel cette fonction n\'a pas encore été testée. Un rapport d\'appareil dans un ticket GitHub montre si cela a fonctionné et aide à rendre la synchronisation de l\'horloge disponible pour d\'autres personnes.\n\nLe rapport ne contient que des détails techniques. Il n’inclut jamais de mesures, d’heures de mesure, de noms, l’adresse Bluetooth ni le numéro de série. Vous pouvez le consulter avant de partager quoi que ce soit.</string>
+    <string name="main_clock_sync_backup">Sauvegarde avant synchronisation de l\'horloge</string>
+    <string name="main_clock_sync_backup_explanation">Paramètres enregistrés avant la dernière synchronisation de l\'horloge. Il s\'agit d\'une sauvegarde des paramètres, et non d\'une sauvegarde complète de la mémoire ou de l\'étalonnage. Les sauvegardes antérieures restent sur ce téléphone.</string>
+    <string name="monitor_clock_sync_out_of_range">La date du téléphone est hors de la plage prise en charge, l\'horloge du tensiomètre n\'a donc pas été modifiée. Vérifiez la date de ce téléphone.</string>
+</resources>

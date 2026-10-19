@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="dev_version_label">අනුවාදය %1$s (%2$d)</string>
+    <plurals name="dev_taps_remaining">
+        <item quantity="one">සංවර්ධක විකල්ප අගුළු හැරීමට තවත් තට්ටු %d</item>
+        <item quantity="other">සංවර්ධක විකල්ප අගුළු හැරීමට තවත් තට්ටු %d</item>
+    </plurals>
+    <string name="dev_unlocked">සංවර්ධක විකල්ප අගුළු හැරිණි</string>
+    <string name="dev_open">සංවර්ධක විකල්ප</string>
+    <string name="dev_title">සංවර්ධක විකල්ප</string>
+    <string name="dev_warning">අවවාදයයි: මෙම විකල්ප ඔබගේ රුධිර පීඩන මොනිටර මාදිලිය සඳහා තහවුරු නොකළ ලිවීම්වලට ඉඩ දෙයි. එවැනි ලිවීමක් මොනිටරයේ සැකසුම් ස්ථිරවම දූෂණය කළ හැකිය. මේවා අහිමි වීමට සූදානම් මොනිටරයක් සමඟ මාදිලියක් තහවුරු කරන අය සඳහා පමණි.</string>
+    <string name="dev_allow_clock_untested">පරීක්ෂා නොකළ මොනිටරවල ඔරලෝසු සමමුහුර්තයට ඉඩ දෙන්න</string>
+    <string name="dev_allow_confirm_title">පරීක්ෂා නොකළ ඔරලෝසු සමමුහුර්තයට ඉඩ දෙන්නද?</string>
+    <string name="dev_allow_confirm_message">මෙම මොනිටර මාදිලිවල ඔරලෝසුව සැකසීම තහවුරු කර නැත. කෙසේ වෙතත් එය කළහොත් මොනිටරයේ සැකසුම් ස්ථිරවම දූෂණය විය හැකිය, නැතහොත් එය භාවිත කළ නොහැකි විය හැකිය.\n\nමෙම ස්විචය තනිවම කිසිවක් යවන්නේ නැත. පසුව ඔබ එවැනි මොනිටරයක ඔරලෝසුව සකසන්නේ නම්, පරීක්ෂා නොකළ ලිවීමක් උත්සාහ කළ බව උපාංග වාර්තාවේ සටහන් වේ.\n\nඔබගේ මොනිටරයට වන ඕනෑම හානියකට ඔබ වගකිව යුතුය.</string>
+    <string name="dev_allow_confirm_accept">මට තේරුණා, සක්‍රිය කරන්න</string>
+    <string name="dev_index_title">මොනිටරය අනුව ලිවීමේ සහාය</string>
+    <string name="dev_index_status_confirmed">තහවුරුයි</string>
+    <string name="dev_index_status_untested">පරීක්ෂා නොකළ</string>
+    <string name="dev_index_status_blocked">අවහිරයි</string>
+    <string name="dev_index_aspect_clock">ඔරලෝසු සමමුහුර්තය</string>
+    <string name="dev_index_aspect_unsent">නොයවූ කියවීම් ගණකය</string>
+    <string name="dev_index_no_monitors">තවම සුරකින ලද මොනිටර නැත.</string>
+    <string name="dev_hide">සංවර්ධක විකල්ප සඟවන්න</string>
+    <string name="dev_hidden">සංවර්ධක විකල්ප සඟවා ඇත; සියලු සංවර්ධක ස්විච අක්‍රියයි</string>
+    <string name="dev_save_failed">සංවර්ධක විකල්ප සුරැකිය නොහැකි විය</string>
+    <string name="dev_allow_registration_untested">පරීක්ෂා නොකළ මොනිටරවල පැතිකඩ ලියාපදිංචියට ඉඩ දෙන්න</string>
+    <string name="dev_allow_registration_confirm_title">පරීක්ෂා නොකළ පැතිකඩ ලියාපදිංචියට ඉඩ දෙන්නද?</string>
+    <string name="dev_allow_registration_confirm_message">පැතිකඩ ලියාපදිංචිය තෝරාගත් පරිශීලකයා සහ ඔරලෝසුව මොනිටරයේ සැකසුම්වලට ලියයි. මෙම මොනිටර මාදිලිවල එය තහවුරු කර නැත. කෙසේ වෙතත් එය කළහොත් මොනිටරයේ සැකසුම් ස්ථිරවම දූෂණය විය හැකිය, නැතහොත් එය භාවිත කළ නොහැකි විය හැකිය.\n\nමෙම ස්විචය තනිවම කිසිවක් යවන්නේ නැත. ඔබ \"යුගල කරන්න\" තෝරා තහවුරු කළ විට පමණක් ලියාපදිංචිය සිදු වන අතර, පරීක්ෂා නොකළ ලිවීමක් උත්සාහ කළ බව උපාංග වාර්තාවේ සටහන් වේ.\n\nඔබගේ මොනිටරයට වන ඕනෑම හානියකට ඔබ වගකිව යුතුය.</string>
+    <string name="dev_index_aspect_registration">පැතිකඩ ලියාපදිංචිය</string>
+    <string name="dev_experimental_title">පර්යේෂණාත්මක මාර්ග</string>
+    <string name="dev_experimental_explanation">මෙම ස්විච යෙදුමේ ඇති නමුත් කිසි විටෙක සැබෑ මොනිටරයක පරීක්ෂා නොකළ සම්බන්ධතා මාර්ග සක්‍රිය කරයි. ඒවා සරලවම අසාර්ථක විය හැකිය.</string>
+    <string name="dev_experimental_force_x7_encrypted">X7 එකක් යුගල කරන විට සංකේතනය කළ සම්බන්ධතාවය භාවිත කරන්න</string>
+    <string name="dev_experimental_confirm_title">පරීක්ෂා නොකළ මාර්ගයක් සක්‍රිය කරන්නද?</string>
+    <string name="dev_experimental_confirm_message">මෙම මාර්ගය යෙදුමේ ඇති නමුත් කිසි විටෙක සැබෑ මොනිටරයක පරීක්ෂා කර නැති අතර, එය සරලවම අසාර්ථක විය හැකිය. මේ ආකාරයෙන් යුගල කිරීමෙන් මොනිටරයේ පවතින යුගල කිරීම මෙම දුරකථනයෙන් ප්‍රතිස්ථාපනය විය හැකිය. අසාර්ථක ලිවීමකින් මොනිටරයේ සැකසුම් ස්ථිරවම දූෂණය විය හැකිය, නැතහොත් එය භාවිත කළ නොහැකි විය හැකිය.\n\nමෙම ස්විචය තනිවම කිසිවක් යවන්නේ නැත. සක්‍රියව තිබූ සංවර්ධක ස්විච මොනවාදැයි උපාංග වාර්තාවේ ලැයිස්තුගත වේ.\n\nඔබගේ මොනිටරයට වන ඕනෑම හානියකට ඔබ වගකිව යුතුය.</string>
+    <string name="dev_experimental_clock_sync_encrypted_x7">සංකේතනය කළ X7 සම්බන්ධතාවයක් හරහා ඔරලෝසු සමමුහුර්තයට ඉඩ දෙන්න</string>
+</resources>

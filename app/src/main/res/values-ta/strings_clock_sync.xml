@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_sync_clock">கடிகாரத்தை ஒத்திசை</string>
+    <string name="main_sync_clock_explanation">மானிட்டரின் கடிகாரத்தை இந்த ஃபோனின் நேரத்திற்கு அமைக்கிறது. எதுவும் மாறுவதற்கு முன் இரண்டு நேரங்களையும் பார்த்து உறுதிப்படுத்துவீர்கள். அதன் பிறகு இணைப்பு முடிவடையும்; அளவீடுகளை இறக்குமதி செய்ய மீண்டும் இணைக்கவும்.</string>
+    <string name="main_sync_clock_running">கடிகாரம் ஒத்திசைக்கப்படுகிறது…</string>
+    <string name="clock_sync_title">கடிகார ஒத்திசைவை உறுதிப்படுத்தவும்</string>
+    <string name="clock_sync_monitor_time">மானிட்டர் கடிகாரம்: %1$s</string>
+    <string name="clock_sync_monitor_time_unset">மானிட்டர் கடிகாரம்: அமைக்கப்படவில்லை</string>
+    <string name="clock_sync_phone_time">ஃபோன் நேரம்: %1$s</string>
+    <plurals name="clock_sync_drift">
+        <item quantity="one">வித்தியாசம்: %1$d வினாடி</item>
+        <item quantity="other">வித்தியாசம்: %1$d வினாடிகள்</item>
+    </plurals>
+    <string name="clock_sync_within_threshold">மானிட்டர் கடிகாரம் ஃபோன் நேரத்திலிருந்து ஒரு நிமிடத்திற்குள் உள்ளது, எனவே அது மாற்றப்படாது.</string>
+    <string name="clock_sync_untested_warning">இந்த மானிட்டருடன் கடிகார ஒத்திசைவு இன்னும் சோதிக்கப்படவில்லை. நீங்கள் ஒரு டெவலப்பர் விருப்பத்தை இயக்கியதால் மட்டுமே இது கிடைக்கிறது. இந்த அபாயத்தை ஏற்றுக்கொண்டால் மட்டுமே தொடரவும்.</string>
+    <string name="clock_sync_choose_time">அமைக்க வேண்டிய நேரம் (டெவலப்பர் விருப்பம்)</string>
+    <string name="clock_sync_confirm">இப்போது ஒத்திசை</string>
+    <string name="monitor_clock_sync_complete">கடிகாரம் ஒத்திசைக்கப்பட்டது</string>
+    <string name="monitor_clock_sync_skipped">கடிகாரம் ஏற்கெனவே சரியாக உள்ளது</string>
+    <string name="monitor_clock_sync_rejected">கடிகார ஒத்திசைவு தோல்வியடைந்தது</string>
+    <string name="monitor_clock_sync_cancelled">கடிகார ஒத்திசைவு ரத்துசெய்யப்பட்டது</string>
+    <string name="monitor_clock_sync_unreadable">கடிகார ஒத்திசைவு சாத்தியமில்லை</string>
+    <string name="monitor_clock_sync_reconnect">அளவீடுகளை இறக்குமதி செய்ய மீண்டும் இணைக்கவும்.</string>
+    <string name="clock_sync_report_prompt">இது இன்னும் சோதிக்கப்படாத ஒரு மானிட்டரின் கடிகாரத்தை நீங்கள் ஒத்திசைத்துள்ளீர்கள். GitHub issue-இல் உள்ள சாதன அறிக்கை அது வேலை செய்ததா என்பதைக் காட்டுகிறது, மேலும் கடிகார ஒத்திசைவை மற்றவர்களுக்கும் கிடைக்கச் செய்ய உதவுகிறது.\n\nஅறிக்கையில் தொழில்நுட்ப விவரங்கள் மட்டுமே இருக்கும். அளவீடுகள், அளவீட்டு நேரங்கள், பெயர்கள், Bluetooth முகவரி அல்லது வரிசை எண் ஒருபோதும் அதில் இருக்காது. எதையும் பகிரும் முன் அதைப் பார்க்கலாம்.</string>
+    <string name="main_clock_sync_backup">கடிகார ஒத்திசைவு காப்புப்பிரதி</string>
+    <string name="main_clock_sync_backup_explanation">கடைசி கடிகார ஒத்திசைவுக்கு முன் சேமிக்கப்பட்ட அமைப்புகள். இது அமைப்புகளின் காப்புப்பிரதி, முழு நினைவகம் அல்லது அளவுத்திருத்தக் காப்புப்பிரதி அல்ல. முந்தைய காப்புப்பிரதிகள் இந்த ஃபோனிலேயே இருக்கும்.</string>
+    <string name="monitor_clock_sync_out_of_range">ஃபோனின் தேதி ஆதரிக்கப்படும் வரம்பிற்கு வெளியே உள்ளது, எனவே மானிட்டரின் கடிகாரம் மாற்றப்படவில்லை. இந்த ஃபோனின் தேதியைச் சரிபார்க்கவும்.</string>
+</resources>

@@ -4,4 +4,21 @@
     <string name="monitor_clock_skipped">यो रक्तचाप मनिटरमा समय स्वचालित रूपमा अद्यावधिक गर्न मिल्दैन। यसको समय आफैँ सेट गर्नुहोस्।</string>
     <string name="monitor_clock_failed">रक्तचाप मनिटरको समय अद्यावधिक गर्न सकिएन। मनिटरमा समय जाँच्नुहोस् वा सेट गर्नुहोस्।</string>
     <string name="monitor_session_unconfirmed">मापनहरू सुरक्षित गरिएका छन्, तर रक्तचाप मनिटरले डाटा पठाउने काम सकिएको पुष्टि गरेन। फेरि आयात गर्नुअघि पुनः जडान गर्नुहोस्।</string>
+    <string name="main_import_users">आयात गर्ने मापनहरू</string>
+    <string name="main_import_users_both">दुवै प्रयोगकर्ता</string>
+    <string name="main_read_all">सबै पढ्नुहोस्</string>
+    <string name="main_read_all_explanation">आयातका लागि छानिएका प्रयोगकर्ताहरूको मेमोरीको हरेक स्थान जाँच गर्छ, मनिटरले प्रयोग भएको भनी जनाएका स्थानहरू मात्र होइन। मापनहरू छुटेको जस्तो लागेमा यो प्रयोग गर्नुहोस्। यसमा बढी समय लाग्छ, त्यसैले नसकिएसम्म मनिटर नजिकै राख्नुहोस्।</string>
+    <string name="main_reading_all">सबै पढ्दै…</string>
+    <plurals name="monitor_import_mode_index">
+        <item quantity="one">मनिटरले छानिएका प्रयोगकर्ताहरूका लागि %1$d सुरक्षित मापन जनायो।</item>
+        <item quantity="other">मनिटरले छानिएका प्रयोगकर्ताहरूका लागि %1$d सुरक्षित मापनहरू जनायो।</item>
+    </plurals>
+    <string name="monitor_import_mode_fallback">मनिटरको सुरक्षित मापनहरूको सूची प्रयोग गर्न सकिएन, त्यसैले मेमोरीको हरेक स्थान पढियो।</string>
+    <string name="monitor_import_mode_sweep">मेमोरीको हरेक स्थान पढियो।</string>
+    <string name="monitor_import_mode_empty">मनिटरले छानिएका प्रयोगकर्ताहरूका लागि कुनै सुरक्षित मापन जनाएन। केही हुनुपर्ने लाग्छ भने सबै पढ्नुहोस् प्रयोग गर्नुहोस्।</string>
+    <string name="monitor_unconfirmed_bank_skipped">यो मोडेलमा नहुन सक्ने दोस्रो मेमोरी क्षेत्र छोडियो।</string>
+    <plurals name="monitor_import_slots_unreadable">
+        <item quantity="one">मेमोरीको %1$d स्थान पढ्न सकिएन।</item>
+        <item quantity="other">मेमोरीका %1$d स्थानहरू पढ्न सकिएनन्।</item>
+    </plurals>
 </resources>

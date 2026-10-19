@@ -25,6 +25,8 @@ import org.openpressure.app.data.*;
 import org.openpressure.app.health.HealthConnectSettingsActivity;
 import org.openpressure.app.forwarding.HttpForwardingSettings;
 import org.openpressure.app.forwarding.HttpForwardingSettingsActivity;
+import org.openpressure.app.developer.DeveloperOptions;
+import org.openpressure.app.developer.DeveloperOptionsActivity;
 import org.openpressure.app.automatic.*;
 import org.openpressure.app.notifications.NewReadingNotifications;
 import org.openpressure.app.reminders.RemindersActivity;
@@ -54,9 +56,15 @@ public final class MainActivity extends Activity {
     private boolean overviewHasStatus;
     private LocalDate renderedDay;
     private ScrollView scroll;
+    /** Overview only: pulling the page down starts Fetch now in the service. */
+    private androidx.swiperefreshlayout.widget.SwipeRefreshLayout pull;
     private int tab,filterUser,days,historyLimit=100;
     private boolean bound,uiVisible,advancedExpanded,virtualMode;
-    private AlertDialog consentDialog,deviceReportDialog,updateDialog;
+    private final DeveloperOptions.TapCounter developerTaps=new DeveloperOptions.TapCounter();
+    private Toast developerToast;
+    private AlertDialog consentDialog,deviceReportDialog,updateDialog,clockSyncDialog;
+    /** The current clock-sync preview has been shown; reset when the service ends the preview. */
+    private boolean clockSyncPrompted;
     private String pendingReportJson;
     private static final String ISSUES="https://github.com/scolastico/open-pressure/issues";
     private int pendingExportKind, pendingExportUser, pendingExportDays;
@@ -113,6 +121,7 @@ public final class MainActivity extends Activity {
         if(consentDialog!=null) { consentDialog.dismiss(); consentDialog=null; }
         if(deviceReportDialog!=null) { deviceReportDialog.dismiss(); deviceReportDialog=null; }
         if(updateDialog!=null) { updateDialog.dismiss(); updateDialog=null; }
+        if(clockSyncDialog!=null) { clockSyncDialog.dismiss(); clockSyncDialog=null; }
         handler.removeCallbacks(refresh); if(monitor!=null) { monitor.unlisten(listener); monitor.setUiVisible(this,false); } if(bound) unbindService(connection); super.onDestroy();
     }
     private void ensureExperimentalConsent() {
@@ -148,7 +157,9 @@ public final class MainActivity extends Activity {
             header.addView(button(getString(R.string.main_about),this::about,false)); root.addView(header);
             scroll=new ScrollView(this); scroll.setFillViewport(true);
             content=new LinearLayout(this); content.setOrientation(LinearLayout.VERTICAL); content.setPadding(dp(22),dp(6),dp(22),dp(28)); scroll.addView(content);
-            root.addView(scroll,new LinearLayout.LayoutParams(-1,0,1));
+            pull=new androidx.swiperefreshlayout.widget.SwipeRefreshLayout(this); pull.setColorSchemeColors(TEAL);
+            pull.setOnRefreshListener(this::fetchNow); pull.addView(scroll);
+            root.addView(pull,new LinearLayout.LayoutParams(-1,0,1));
             LinearLayout nav=row(); nav.setPadding(dp(12),dp(8),dp(12),dp(8)); nav.setBackgroundColor(Color.WHITE);
             String[] labels={getString(R.string.main_overview),getString(R.string.main_history),getString(R.string.main_devices)};
             for(int i=0;i<labels.length;i++) {
@@ -165,9 +176,11 @@ public final class MainActivity extends Activity {
         }
         overviewHasStatus=monitor!=null && (monitor.ready || monitor.scanning);
         if(tab==0) today(); else if(tab==1) history(); else devices();
+        updatePull();
         renderedReadingsRevision=monitor==null?0:monitor.readingsRevision; renderedDay=LocalDate.now();
         renderedDeviceState=deviceState();
         scroll.post(() -> scroll.scrollTo(0,position));
+        offerClockSync();
         offerDeviceReport();
     }
     // Advertisement updates must not replace buttons beneath a finger or rerun reading queries.
@@ -182,17 +195,32 @@ public final class MainActivity extends Activity {
             render(); return;
         }
         updateStatus();
+        offerClockSync();
         offerDeviceReport();
     }
     private String deviceState() {
         if(monitor==null) return "starting";
-        return Arrays.asList(monitor.ready,monitor.sessionFinished,monitor.registrationReading,monitor.registrationPending,monitor.registrationWriting,monitor.registrationDone,monitor.registrationBackupFile()!=null,monitor.address,monitor.connectedName,monitor.profile,monitor.user,
+        return Arrays.asList(monitor.ready,monitor.sessionFinished,monitor.registrationReading,monitor.registrationPending,monitor.registrationWriting,monitor.registrationDone,monitor.registrationIdentity,monitor.registrationOverride,monitor.registrationBackupFile()!=null,monitor.clockSyncBackupFile(),monitor.address,monitor.connectedName,monitor.profile,monitor.user,
                 monitor.battery,monitor.information,monitor.hasUserControl,monitor.authenticatedUser,monitor.canHistory,
-                monitor.historyRunning,monitor.canTime,monitor.deviceTime,monitor.modelHint,monitor.canDump,
+                monitor.historyRunning,monitor.clockSyncRunning,monitor.clockSyncPending,monitor.importMode,monitor.importUsers,monitor.canTime,monitor.deviceTime,monitor.modelHint,monitor.canDump,
                 monitor.dumpRunning,monitor.dumpSaving,monitor.dumpRevision,monitor.eepromDumpFile()!=null,monitor.dumpComplete,monitor.dumpStart,monitor.dumpLength,monitor.deviceReport()!=null,
                 !monitor.address.isEmpty()&&!monitor.status.equals("Disconnected")&&!monitor.status.equals("Action failed")).toString();
     }
+    /** The pull indicator follows the service's fetch, so a fetch still running after recreation keeps spinning. */
+    private void updatePull() {
+        if(pull==null) return;
+        boolean running=tab==0 && monitor!=null && monitor.fetchRunning;
+        pull.setEnabled(tab==0);
+        if(pull.isRefreshing()!=running) pull.setRefreshing(running);
+    }
+    private void fetchNow() {
+        if(monitor==null || tab!=0) { updatePull(); return; }
+        withBluetooth(monitor::fetchNow);
+        // Refused, or preconditions still pending: clear the indicator at once.
+        updatePull(); updateStatus();
+    }
     private void updateStatus() {
+        updatePull();
         if(automaticStatusText!=null && monitor!=null) setText(automaticStatusText,MonitorUi.automatic(this,monitor));
         if(statusText==null || monitor==null) return;
         setText(statusHeading,getString(R.string.main_monitor));
@@ -359,6 +387,8 @@ public final class MainActivity extends Activity {
         if(monitor.registrationPending) {
             LinearLayout registration=card(); label(registration,getString(R.string.main_choose_user));
             add(registration,text(getString(R.string.main_registration_user_explanation),15,MUTED,false),12);
+            // The service read the developer override for this identity and reads it again on confirmation.
+            if(monitor.registrationOverride) add(registration,text(getString(R.string.registration_untested_warning),14,INK,true),12);
             LinearLayout users=row();
             for(int bank=1;bank<=2;bank++) {
                 final int selected=bank;
@@ -367,15 +397,34 @@ public final class MainActivity extends Activity {
             add(registration,users,12); content.addView(registration);
         }
         if(monitor.ready) {
-            LinearLayout active=card(); label(active,monitor.connectedName);
+            LinearLayout active=card(); String activeName=monitorName(monitor.reportedModel(),monitor.connectedName); label(active,activeName);
+            if(!activeName.equals(monitor.connectedName)) add(active,text(monitor.connectedName,14,MUTED,false),6);
             add(active,text(profileLabel(monitor.user),14,MUTED,false),12);
             if(monitor.battery>=0) add(active,text(getString(R.string.main_battery,NumberFormat.getPercentInstance(getResources().getConfiguration().getLocales().get(0)).format(monitor.battery/100.0)),14,MUTED,false),6);
             if(monitor.hasUserControl) {
                 add(active,button(monitor.authenticatedUser>0?getString(R.string.main_change_user,profileLabel(monitor.authenticatedUser)):getString(R.string.main_choose_monitor_user),this::userDialog,true),12);
             }
-            Button history=button(monitor.historyRunning?getString(R.string.main_importing):getString(R.string.main_import_history),this::historyDialog,true); history.setEnabled(monitor.canHistory&&!monitor.historyRunning&&!monitor.dumpRunning); add(active,history,8);
+            if(monitor.offersImportUsers()) {
+                String address=monitor.address;
+                importUsersChoice(active,"import_users_",monitor.importUsers,!monitor.historyRunning&&!monitor.dumpRunning,users -> { store.setImportUsers(address,users); if(monitor.address.equals(address)) monitor.importUsers=users; monitor.refreshAutomaticImports(); render(); });
+            }
+            Button history=button(monitor.historyRunning?getString(R.string.main_importing):getString(R.string.main_import_history),this::historyDialog,true); history.setEnabled(monitor.canHistory&&!monitor.historyRunning&&!monitor.dumpRunning&&!monitor.clockSyncRunning); add(active,history,8);
+            if(monitor.profile==org.openpressure.protocol.ProtocolProfile.VENDOR_MEMORY) {
+                boolean readingAll=monitor.historyRunning&&monitor.importMode==MonitorService.ImportMode.FULL_SWEEP;
+                Button readAll=button(readingAll?getString(R.string.main_reading_all):getString(R.string.main_read_all),this::readAllDialog,false);
+                readAll.setEnabled(monitor.canReadAll()&&!monitor.historyRunning&&!monitor.dumpRunning); add(active,readAll,8);
+            }
             if(!monitor.canHistory) add(active,text(getString(R.string.main_history_unavailable),14,MUTED,false),6);
-            Button clock=button(getString(R.string.main_set_monitor_time),this::clockDialog,false); clock.setEnabled(monitor.canTime&&!monitor.historyRunning&&!monitor.dumpRunning); add(active,clock,8);
+            if(monitor.profile==org.openpressure.protocol.ProtocolProfile.VENDOR_MEMORY || monitor.profile.isX7()) {
+                // Only where the clock block is confirmed or the developer switch allows it; otherwise no clock control.
+                if(monitor.clockSyncRunning || monitor.clockSyncOffered()) {
+                    Button sync=button(monitor.clockSyncRunning?getString(R.string.main_sync_clock_running):getString(R.string.main_sync_clock),this::startClockSync,false);
+                    sync.setEnabled(monitor.canClockSync()); add(active,sync,8);
+                    add(active,text(getString(R.string.main_sync_clock_explanation),14,MUTED,false),6);
+                }
+            } else {
+                Button clock=button(getString(R.string.main_set_monitor_time),this::clockDialog,false); clock.setEnabled(monitor.canTime&&!monitor.historyRunning&&!monitor.dumpRunning); add(active,clock,8);
+            }
             add(active,button(getString(R.string.main_disconnect),monitor::disconnect,false),8); content.addView(active);
         } else if(!monitor.sessionFinished && !monitor.address.isEmpty() && !monitor.status.equals("Disconnected") && !monitor.status.equals("Action failed")) add(content,button(getString(R.string.main_cancel_connection),monitor::disconnect,false),10);
         LinearLayout setup=card(); label(setup,getString(R.string.main_find_monitor));
@@ -387,12 +436,44 @@ public final class MainActivity extends Activity {
         List<String[]> saved=store.devices();
         if(!saved.isEmpty()) add(content,text(getString(R.string.main_saved_monitors),13,TEAL,true),20);
         for(String[] d:saved) {
-            LinearLayout item=card(); add(item,text(d[1],20,INK,true),0); add(item,text(getString(R.string.main_saved_monitor_detail,d[0],profileLabel(Integer.parseInt(d[3]))),13,MUTED,false),6);
+            String title=monitorName(ReadingStore.displayModel(d),d[1]),detail=getString(R.string.main_saved_monitor_detail,d[0],profileLabel(Integer.parseInt(d[3])));
+            // A product name replaces the Bluetooth name as title; the detail keeps it to tell identical models apart.
+            if(!title.equals(d[1])) detail=getString(R.string.main_saved_monitor_detail,d[1],detail);
+            LinearLayout item=card(); add(item,text(title,20,INK,true),0); add(item,text(detail,13,MUTED,false),6);
+            // The connected monitor's card above already carries the choice; one control per monitor.
+            boolean activeChoice=monitor.offersImportUsers() && monitor.address.equals(d[0]);
+            if(!activeChoice && MonitorService.offersImportUsers(d[2])) importUsersChoice(item,"import_users_"+d[0]+"_",parseUsers(d[4]),true,users -> { store.setImportUsers(d[0],users); monitor.refreshAutomaticImports(); render(); });
             add(item,button(getString(R.string.main_reconnect),() -> { monitor.user=Integer.parseInt(d[3]); monitor.modelHint=d[2]; connect(d[0],d[1],false); },true),10);
-            add(item,button(getString(R.string.main_forget_monitor),() -> new AlertDialog.Builder(this).setTitle(getString(R.string.main_forget_title,d[1])).setMessage(getString(R.string.main_forget_explanation)).setNegativeButton(getString(R.string.main_cancel),null).setPositiveButton(getString(R.string.main_forget),(dialog,which) -> { if(monitor.address.equals(d[0])) monitor.disconnect(); new PairingKeys(this).forget(d[0]); new CompanionLinks(this).forget(d[0]); store.forget(d[0]); monitor.refreshAutomaticImports(); render(); }).show(),false),6); content.addView(item);
+            add(item,button(getString(R.string.main_forget_monitor),() -> new AlertDialog.Builder(this).setTitle(getString(R.string.main_forget_title,title)).setMessage(getString(R.string.main_forget_explanation)).setNegativeButton(getString(R.string.main_cancel),null).setPositiveButton(getString(R.string.main_forget),(dialog,which) -> { if(monitor.address.equals(d[0])) monitor.disconnect(); new PairingKeys(this).forget(d[0]); new CompanionLinks(this).forget(d[0]); store.forget(d[0]); monitor.monitorForgotten(d[0]); monitor.refreshAutomaticImports(); render(); }).show(),false),6); content.addView(item);
         }
         add(content,button(advancedExpanded?getString(R.string.main_hide_advanced):getString(R.string.main_advanced),() -> { advancedExpanded=!advancedExpanded; render(); },false),16);
         if(advancedExpanded) advancedDeviceControls();
+    }
+    /** Same name as the PDF device column: product or manufacturer and model when listed, else the Bluetooth name. */
+    private static String monitorName(String model,String bluetoothName) {
+        String name=org.openpressure.protocol.MonitorProduct.displayName(model,bluetoothName); return name==null?"":name;
+    }
+    /** Readings to import: User 1, User 2 or both, as toggle buttons with the current choice highlighted. */
+    private void importUsersChoice(LinearLayout parent,String tag,int current,boolean enabled,java.util.function.IntConsumer choose) {
+        add(parent,text(getString(R.string.main_import_users),14,MUTED,false),12);
+        LinearLayout choices=row();
+        for(int users=1;users<=3;users++) {
+            final int value=users;
+            Button choice=button(users==3?getString(R.string.main_import_users_both):profileLabel(users),() -> { if(value!=current) choose.accept(value); },users==current);
+            choice.setTag(tag+users); choice.setSelected(users==current); choice.setEnabled(enabled);
+            LinearLayout.LayoutParams lp=new LinearLayout.LayoutParams(0,-2,1); if(users>1) lp.setMarginStart(dp(6));
+            choices.addView(choice,lp);
+        }
+        add(parent,choices,6);
+    }
+    private static int parseUsers(String value) {
+        try { int users=Integer.parseInt(value); return users>=1 && users<=3?users:3; } catch(RuntimeException ex) { return 3; }
+    }
+    private void readAllDialog() {
+        if(monitor==null || !monitor.canReadAll() || monitor.historyRunning || monitor.dumpRunning) return;
+        new AlertDialog.Builder(this).setTitle(getString(R.string.main_read_all)).setMessage(getString(R.string.main_read_all_explanation))
+                .setNegativeButton(getString(R.string.main_cancel),null)
+                .setPositiveButton(getString(R.string.main_read_all),(dialog,which) -> { if(monitor!=null) monitor.readAllHistory(); }).show();
     }
     private void advancedDeviceControls() {
         add(content,button(getString(R.string.http_title),() -> startActivity(new Intent(this,HttpForwardingSettingsActivity.class)),false),8);
@@ -402,7 +483,7 @@ public final class MainActivity extends Activity {
         if(!monitor.information.isEmpty()) add(information,text(monitor.information.trim(),14,MUTED,false),8);
         if(monitor.ready) {
             add(information,text(getString(R.string.main_monitor_clock,monitorClock()),14,MUTED,false),8);
-            Button readClock=button(getString(R.string.main_read_clock),monitor::readClock,false); readClock.setEnabled(monitor.canTime&&!monitor.historyRunning&&!monitor.dumpRunning); add(information,readClock,6);
+            Button readClock=button(getString(R.string.main_read_clock),monitor::readClock,false); readClock.setEnabled(monitor.canTime&&!monitor.historyRunning&&!monitor.dumpRunning&&!monitor.clockSyncRunning); add(information,readClock,6);
             if(monitor.profile.isX7()) {
                 dumpReadButton=button(monitor.dumpRunning?getString(R.string.main_reading_memory):getString(R.string.main_read_memory),this::dumpDialog,false);
                 dumpReadButton.setEnabled(monitor.canDump&&!monitor.historyRunning&&!monitor.dumpRunning&&!monitor.dumpSaving&&!dumpExportPreparing); add(information,dumpReadButton,8);
@@ -426,11 +507,57 @@ public final class MainActivity extends Activity {
             Button export=button(getString(R.string.main_export_settings_backup),() -> exportJsonSnapshot(monitor.registrationBackupFile(),"open-pressure-settings-backup.json"),false);
             export.setEnabled(!dumpExportPreparing); add(savedBackup,export,8); content.addView(savedBackup);
         }
+        File clockBackup=monitor.clockSyncBackupFile();
+        if(clockBackup!=null && clockBackup.isFile()) {
+            LinearLayout savedClock=card(); label(savedClock,getString(R.string.main_clock_sync_backup));
+            add(savedClock,text(getString(R.string.main_clock_sync_backup_explanation),14,MUTED,false),10);
+            Button export=button(getString(R.string.main_export_settings_backup),() -> exportJsonSnapshot(monitor.clockSyncBackupFile(),"open-pressure-clock-sync-settings-backup.json"),false);
+            export.setEnabled(!dumpExportPreparing); add(savedClock,export,8); content.addView(savedClock);
+        }
+        if(DeveloperOptions.isUnlocked(this)) add(content,button(getString(R.string.dev_open),() -> startActivity(new Intent(this,DeveloperOptionsActivity.class)),false),16);
+        TextView version=text(getString(R.string.dev_version_label,BuildConfig.VERSION_NAME,BuildConfig.VERSION_CODE),13,MUTED,false);
+        version.setGravity(Gravity.CENTER); version.setPadding(0,dp(8),0,dp(8)); version.setOnClickListener(v -> developerTap());
+        add(content,version,16);
+    }
+    /** Five quick taps on the version label unlock the hidden developer options; it never contacts a monitor. */
+    private void developerTap() {
+        if(DeveloperOptions.isUnlocked(this)) return;
+        int remaining=developerTaps.tap(android.os.SystemClock.uptimeMillis());
+        if(remaining>0) { if(remaining<=2) developerToast(getResources().getQuantityString(R.plurals.dev_taps_remaining,remaining,remaining)); return; }
+        try { DeveloperOptions.setUnlocked(this,true); developerToast(getString(R.string.dev_unlocked)); }
+        catch(IllegalStateException failed) { developerToast(getString(R.string.dev_save_failed)); }
+        render();
+    }
+    /** Replaces the previous hint so quick taps do not queue a backlog of toasts. */
+    private void developerToast(String message) {
+        if(developerToast!=null) developerToast.cancel();
+        developerToast=Toast.makeText(this,message,Toast.LENGTH_SHORT); developerToast.show();
     }
     /** After a Pair attempt with an untested monitor, ask once whether the user wants to help. */
     private void offerDeviceReport() {
         if(monitor==null || !uiVisible || isFinishing() || consentDialog!=null && consentDialog.isShowing()) return;
-        if(deviceReportDialog!=null && deviceReportDialog.isShowing() || updateDialog!=null && updateDialog.isShowing() || !monitor.deviceReportPromptDue()) return;
+        if(deviceReportDialog!=null && deviceReportDialog.isShowing() || updateDialog!=null && updateDialog.isShowing()) return;
+        if(monitor.offerReportAfterRegistration && !monitor.registrationWriting) {
+            // A registration relying on the untested-identity developer option sent a write: ask once, instead of the Pair question.
+            monitor.offerReportAfterRegistration=false;
+            DeviceReport report=monitor.deviceReport();
+            if(report==null) return;
+            if("Pair".equals(report.operation)) monitor.deviceReportPrompted();
+            deviceReportDialog=new AlertDialog.Builder(this).setTitle(getString(R.string.device_report_title)).setMessage(getString(R.string.registration_report_prompt))
+                    .setNegativeButton(getString(R.string.device_report_not_now),null)
+                    .setPositiveButton(getString(R.string.device_report_review),(d,w) -> reviewDeviceReport()).show();
+            return;
+        }
+        if(monitor.offerReportAfterWrite && !monitor.clockSyncRunning) {
+            // A clock write relying on the untested-model developer option reached an outcome: ask once.
+            monitor.offerReportAfterWrite=false;
+            if(monitor.deviceReport()==null) return;
+            deviceReportDialog=new AlertDialog.Builder(this).setTitle(getString(R.string.device_report_title)).setMessage(getString(R.string.clock_sync_report_prompt))
+                    .setNegativeButton(getString(R.string.device_report_not_now),null)
+                    .setPositiveButton(getString(R.string.device_report_review),(d,w) -> reviewDeviceReport()).show();
+            return;
+        }
+        if(!monitor.deviceReportPromptDue()) return;
         monitor.deviceReportPrompted();
         deviceReportDialog=new AlertDialog.Builder(this).setTitle(getString(R.string.device_report_title)).setMessage(getString(R.string.device_report_prompt))
                 .setNegativeButton(getString(R.string.device_report_not_now),null)
@@ -666,10 +793,67 @@ public final class MainActivity extends Activity {
     }
     private void registerX7Dialog(int bank) {
         new AlertDialog.Builder(this).setTitle(getString(R.string.main_register_title,profileLabel(bank)))
-                .setMessage(getString(R.string.main_x7_register_explanation))
+                .setMessage(getString(R.string.main_x7_register_explanation,monitor.registrationIdentity)
+                        +(monitor.registrationOverride?"\n\n"+getString(R.string.registration_untested_warning):""))
                 .setNegativeButton(getString(R.string.main_cancel),null).setPositiveButton(getString(R.string.main_register_user,profileLabel(bank)),(dialog,which) -> {
                     if(monitor!=null) { monitor.registerX7User(bank); render(); }
                 }).show();
+    }
+    private void startClockSync() {
+        if(monitor!=null && monitor.canClockSync()) monitor.beginClockSync();
+        render();
+    }
+    /** Shows the clock-sync preview once while it waits; closes it when the service ends the preview. */
+    private void offerClockSync() {
+        if(monitor==null || !monitor.clockSyncPending) {
+            clockSyncPrompted=false;
+            if(clockSyncDialog!=null) { clockSyncDialog.dismiss(); clockSyncDialog=null; }
+            return;
+        }
+        if(clockSyncPrompted || !uiVisible || isFinishing() || isDestroyed() || consentDialog!=null && consentDialog.isShowing()) return;
+        clockSyncPrompted=true;
+        clockSyncConfirmation();
+    }
+    private void clockSyncConfirmation() {
+        LocalDateTime monitorClock=monitor.clockSyncMonitorClock,phone=monitor.clockSyncPhoneClock;
+        String prefill=editableDateTime((phone==null?LocalDateTime.now():phone).withNano(0));
+        LinearLayout form=form(); add(form,text(getString(R.string.main_sync_clock_explanation),15,MUTED,false),0);
+        add(form,text(monitorClock==null?getString(R.string.clock_sync_monitor_time_unset):getString(R.string.clock_sync_monitor_time,editableDateTime(monitorClock)),15,INK,false),12);
+        if(phone!=null) add(form,text(getString(R.string.clock_sync_phone_time,prefill),15,INK,false),6);
+        long drift=monitor.clockSyncDriftSeconds;
+        if(monitorClock!=null && drift!=Long.MAX_VALUE) {
+            long difference=drift==Long.MIN_VALUE?Long.MAX_VALUE:Math.abs(drift);
+            int seconds=(int)Math.min(difference,Integer.MAX_VALUE);
+            add(form,text(getResources().getQuantityString(R.plurals.clock_sync_drift,seconds,seconds),15,INK,false),6);
+            if(difference<=60) add(form,text(getString(R.string.clock_sync_within_threshold),14,MUTED,false),10);
+        }
+        EditText chosen=null;
+        // The service read the developer options for this preview and checks them again on confirmation.
+        if(monitor.clockSyncOverride) add(form,text(getString(R.string.clock_sync_untested_warning),14,INK,true),12);
+        if(monitor.clockSyncChosenTimeAllowed) {
+            add(form,text(getString(R.string.clock_sync_choose_time),14,MUTED,false),12);
+            chosen=input(getString(R.string.main_date_time_hint),prefill,false); add(form,chosen,6);
+        }
+        final EditText time=chosen;
+        AlertDialog dialog=new AlertDialog.Builder(this).setTitle(getString(R.string.clock_sync_title)).setView(wrap(form))
+                .setNegativeButton(getString(R.string.main_cancel),(d,w) -> { if(monitor!=null) monitor.cancelClockSync(); })
+                .setPositiveButton(getString(R.string.clock_sync_confirm),null).create();
+        dialog.setOnCancelListener(d -> { if(monitor!=null) monitor.cancelClockSync(); });
+        dialog.setOnShowListener(x -> dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v -> {
+            LocalDateTime value=null;
+            String entered=time==null?prefill:time.getText().toString().trim();
+            // An untouched field means the phone time at confirmation, not the older preview time.
+            if(!entered.equals(prefill)) {
+                try { value=parseDateTime(entered); }
+                catch(RuntimeException invalid) { toast(getString(R.string.main_date_invalid,prefill)); return; }
+            }
+            if(monitor==null) { dialog.dismiss(); return; }
+            monitor.confirmClockSync(value);
+            if(monitor.clockSyncPending) { toast(getString(R.string.main_date_invalid,prefill)); return; }
+            dialog.dismiss(); if(clockSyncDialog==dialog) clockSyncDialog=null;
+            render();
+        }));
+        clockSyncDialog=dialog; dialog.show();
     }
     private void clockDialog() {
         LinearLayout form=form(); add(form,text(getString(R.string.main_clock_explanation),15,MUTED,false),0);
@@ -684,10 +868,9 @@ public final class MainActivity extends Activity {
     private void connect(String address,String name,boolean pair) {
         withBluetooth(() -> {
             monitor.connect(address,name,pair);
-            if(pair) {
-                tab=2; scroll.scrollTo(0,0); render();
-                scroll.post(() -> scroll.scrollTo(0,0));
-            }
+            // Pair and Connect both show the monitor status at the top of Devices.
+            tab=2; scroll.scrollTo(0,0); render();
+            scroll.post(() -> scroll.scrollTo(0,0));
         });
     }
     private void withBluetooth(Runnable action) {
@@ -780,10 +963,12 @@ public final class MainActivity extends Activity {
         final boolean virtual=store.virtualUsersEnabled();
         final Map<Integer,String> profileNames=new LinkedHashMap<>();
         if(virtual) for(VirtualUser profile:store.virtualUsers()) profileNames.put(-profile.id,profile.name);
+        final Map<String,String> monitorModels=new HashMap<>();
+        for(String[] device:store.devices()) monitorModels.put(device[0],ReadingStore.displayModel(device));
         pdfPreparationWorker=new Thread(() -> {
             File snapshot=null;
             try {
-                PdfReportData report=virtual?PdfReportData.createVirtual(store.readings(selectedUser),selectedUser,from,to,zone,profileNames):PdfReportData.create(store.readings(selectedUser),selectedUser,from,to,zone);
+                PdfReportData report=virtual?PdfReportData.createVirtual(store.readings(selectedUser),selectedUser,from,to,zone,profileNames,monitorModels):PdfReportData.create(store.readings(selectedUser),selectedUser,from,to,zone,monitorModels);
                 if(report.entries.isEmpty()) {
                     handler.post(() -> finishPdfPreparation(token,R.string.pdf_no_readings)); return;
                 }

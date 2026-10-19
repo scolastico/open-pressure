@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_sync_clock">గడియారాన్ని సింక్ చేయండి</string>
+    <string name="main_sync_clock_explanation">మానిటర్ గడియారాన్ని ఈ ఫోన్ సమయానికి సెట్ చేస్తుంది. ఏదైనా మారే ముందు మీరు రెండు సమయాలను చూసి నిర్ధారిస్తారు. ఆ తర్వాత కనెక్షన్ ముగుస్తుంది; రీడింగ్‌లను దిగుమతి చేయడానికి మళ్లీ కనెక్ట్ చేయండి.</string>
+    <string name="main_sync_clock_running">గడియారం సింక్ అవుతోంది…</string>
+    <string name="clock_sync_title">గడియారం సింక్‌ను నిర్ధారించండి</string>
+    <string name="clock_sync_monitor_time">మానిటర్ గడియారం: %1$s</string>
+    <string name="clock_sync_monitor_time_unset">మానిటర్ గడియారం: సెట్ చేయలేదు</string>
+    <string name="clock_sync_phone_time">ఫోన్ సమయం: %1$s</string>
+    <plurals name="clock_sync_drift">
+        <item quantity="one">తేడా: %1$d సెకను</item>
+        <item quantity="other">తేడా: %1$d సెకన్లు</item>
+    </plurals>
+    <string name="clock_sync_within_threshold">మానిటర్ గడియారం ఫోన్ సమయం నుండి ఒక నిమిషం లోపే ఉంది, కాబట్టి దాన్ని మార్చరు.</string>
+    <string name="clock_sync_untested_warning">ఈ మానిటర్‌తో గడియారం సింక్ ఇంకా పరీక్షించబడలేదు. మీరు డెవలపర్ ఎంపికను ఆన్ చేసినందువల్ల మాత్రమే ఇది అందుబాటులో ఉంది. మీరు ఈ ప్రమాదాన్ని అంగీకరిస్తేనే కొనసాగండి.</string>
+    <string name="clock_sync_choose_time">సెట్ చేయాల్సిన సమయం (డెవలపర్ ఎంపిక)</string>
+    <string name="clock_sync_confirm">ఇప్పుడే సింక్ చేయండి</string>
+    <string name="monitor_clock_sync_complete">గడియారం సింక్ అయింది</string>
+    <string name="monitor_clock_sync_skipped">గడియారం ఇప్పటికే సరిగ్గా ఉంది</string>
+    <string name="monitor_clock_sync_rejected">గడియారం సింక్ విఫలమైంది</string>
+    <string name="monitor_clock_sync_cancelled">గడియారం సింక్ రద్దయింది</string>
+    <string name="monitor_clock_sync_unreadable">గడియారం సింక్ సాధ్యం కాదు</string>
+    <string name="monitor_clock_sync_reconnect">రీడింగ్‌లను దిగుమతి చేయడానికి మళ్లీ కనెక్ట్ చేయండి.</string>
+    <string name="clock_sync_report_prompt">ఇది ఇంకా పరీక్షించని మానిటర్ గడియారాన్ని మీరు సింక్ చేశారు. GitHub issueలో పరికర నివేదిక అది పనిచేసిందో లేదో చూపుతుంది, అలాగే గడియారం సింక్‌ను ఇతరులకు అందుబాటులోకి తేవడానికి సహాయపడుతుంది.\n\nనివేదికలో సాంకేతిక వివరాలు మాత్రమే ఉంటాయి. అందులో రీడింగ్‌లు, కొలత సమయాలు, పేర్లు, Bluetooth చిరునామా లేదా సీరియల్ నంబర్ ఎప్పుడూ ఉండవు. ఏదైనా షేర్ చేసే ముందు మీరు దాన్ని చూడవచ్చు.</string>
+    <string name="main_clock_sync_backup">గడియారం సింక్ బ్యాకప్</string>
+    <string name="main_clock_sync_backup_explanation">చివరి గడియారం సింక్‌కు ముందు సేవ్ చేసిన సెట్టింగ్‌లు. ఇది సెట్టింగ్‌ల బ్యాకప్, పూర్తి మెమరీ లేదా కాలిబ్రేషన్ బ్యాకప్ కాదు. మునుపటి బ్యాకప్‌లు ఈ ఫోన్‌లోనే ఉంటాయి.</string>
+    <string name="monitor_clock_sync_out_of_range">ఫోన్ తేదీ మద్దతు ఉన్న పరిధికి వెలుపల ఉంది, కాబట్టి మానిటర్ గడియారం మార్చబడలేదు. ఈ ఫోన్‌లోని తేదీని తనిఖీ చేయండి.</string>
+</resources>

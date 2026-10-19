@@ -4,4 +4,23 @@
     <string name="monitor_clock_skipped">Este monitor de pressão arterial não permite atualizar a hora automaticamente. Acerte a hora manualmente.</string>
     <string name="monitor_clock_failed">Não foi possível atualizar a hora do monitor de pressão arterial. Verifique ou acerte a hora no monitor.</string>
     <string name="monitor_session_unconfirmed">As medições estão salvas, mas o monitor de pressão arterial não confirmou o fim da transferência. Conecte-o novamente antes de importar de novo.</string>
+    <string name="main_import_users">Medições a importar</string>
+    <string name="main_import_users_both">Ambos os utilizadores</string>
+    <string name="main_read_all">Ler tudo</string>
+    <string name="main_read_all_explanation">Verifica cada posição de memória dos utilizadores escolhidos para importar, não apenas as que o monitor indica como usadas. Use se parecer que faltam medições. Demora mais, por isso mantenha o monitor por perto até terminar.</string>
+    <string name="main_reading_all">A ler tudo…</string>
+    <plurals name="monitor_import_mode_index">
+        <item quantity="many">O monitor indicou %1$d medições guardadas dos utilizadores escolhidos.</item>
+        <item quantity="one">O monitor indicou %1$d medição guardada dos utilizadores escolhidos.</item>
+        <item quantity="other">O monitor indicou %1$d medições guardadas dos utilizadores escolhidos.</item>
+    </plurals>
+    <string name="monitor_import_mode_fallback">Não foi possível usar a lista de medições guardadas do monitor, por isso cada posição de memória foi lida.</string>
+    <string name="monitor_import_mode_sweep">Cada posição de memória foi lida.</string>
+    <string name="monitor_import_mode_empty">O monitor não indicou medições guardadas dos utilizadores escolhidos. Use Ler tudo se espera alguma.</string>
+    <string name="monitor_unconfirmed_bank_skipped">Foi ignorada uma segunda área de memória que este modelo pode não ter.</string>
+    <plurals name="monitor_import_slots_unreadable">
+        <item quantity="many">Não foi possível ler %1$d posições de memória.</item>
+        <item quantity="one">Não foi possível ler %1$d posição de memória.</item>
+        <item quantity="other">Não foi possível ler %1$d posições de memória.</item>
+    </plurals>
 </resources>

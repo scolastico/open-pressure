@@ -1,0 +1,58 @@
+# HEM-7361T (EBK identity): first-time pairing (key registration). Omron registers user 2 on this two-user model; OpenPressure programs the shared key and reads the populated slots of both banks on the same connection.
+# Omron selects HEM-7361T-EBK from the advertised IDs (category 0x0000, model 0x0258);
+# OpenPressure maps the Device Information model HEM-7361T-EBK to its HEM-7361T (EBK identity) map.
+name hem-7361t/pair
+flow pair
+register user=2
+advertise name=BLEsmart_000002580011223344 services=ecbe3980-c9a2-11e1-b1bd-0002a5d5c51b
+# Synthetic Device Information; Omron reads the revisions and the System ID during connection setup.
+dis model=HEM-7361T-EBK firmware=0001 software=0001 systemid=0011223344556677
+time 2026-01-02T03:04:05 zone=UTC
+key 05050505050505050505050505050505
+
+alias unlock b305b680-aee7-11e1-a730-0002a5d5c51b
+alias tx db5b55e0-aee7-11e1-965e-0002a5d5c51b,e0b8a060-aee7-11e1-92f4-0002a5d5c51b,0ae12b00-aee8-11e1-a192-0002a5d5c51b,10e1ba60-aee8-11e1-89e5-0002a5d5c51b
+alias rx 49123040-aee8-11e1-a74d-0002a5d5c51b,4d0bf320-aee8-11e1-a0d9-0002a5d5c51b,5128ce60-aee8-11e1-b84b-0002a5d5c51b,560f1420-aee8-11e1-8184-0002a5d5c51b
+alias clock 00002a2b-0000-1000-8000-00805f9b34fb
+
+# One synthetic record per user: sequence number 1 at offset 10, Omron record checksum at offset 14
+# (8-bit sum of bytes 0-13; both clients check it).
+memory fill=ff
+memory 0x98 694e4319261da603 0000 0100 00000000
+memory 0x6d8 5f504619 27208007 0000 0100 0000 dd00
+# Index block (index_setting_read_address=10): per user next write position 1, one unsent record and
+# sequence number 1 (user 1 at offset 8, user 2 at offset 12), little-endian words.
+memory 0x10 0100 0100 0100 0100 01000000 01000000
+
+# Enter key mode, program the key.
+write unlock 02 00000000000000000000000000000000
+notify unlock 8200
+write unlock 00 05050505050505050505050505050505
+notify unlock 8000
+# OpenPressure follows the pinned omblepy order and unlocks with the new key.
+[ours-only: Omron does not follow registration with 01 (docs/protocol.md, observed in the sandbox)] write unlock 01 05050505050505050505050505050505
+[ours-only: acknowledgment for the unlock above] notify unlock 8100
+
+write tx 08 00 00 00 00 10 00 18
+notify rx 18 80 00 00 00 10 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f 00 88
+
+[omron-only: Omron reads the index block (index_setting_read_address) before records] reads 0x10 44 chunk=44
+[omron-only: Omron reads setting-info block 3 (index_setting_info_read_address 0x20 + 28)] reads 0x3c 16 chunk=16
+
+[ours-only: index-driven populated-slot read: OpenPressure reads the 68-byte settings/index image at 0x10 in 56-byte blocks, then only the slots it lists as populated; Omron reads 44 bytes plus block 3 and then only unsent records] reads 0x10 68 chunk=56
+
+[ours-only: index-driven populated-slot read: OpenPressure imports the populated slots during Pair; Omron pairing flags 0x1210 return settings without historical readings (observed in the sandbox)] reads 0x98 16 chunk=48
+[ours-only: index-driven populated-slot read: OpenPressure imports the populated slots during Pair; Omron pairing flags 0x1210 return settings without historical readings (observed in the sandbox)] reads 0x6d8 16 chunk=48
+
+
+# Omron Connect 2026.09.03 post-pairing settings frames from this synthetic fixture.
+[omron-only: Omron Connect 2026.09.03 Pair user 2, index prefix with the registered user's cleared unsent counter at 0x54; docs/omron-sandbox.md] write tx 1801c0005410 01000100010000800100000001000000 001c
+[omron-only: synthetic full echo acknowledgment; the physical monitor reply is unconfirmed] notify rx 1881c0005410 01000100010000800100000001000000 009c
+[omron-only: Omron Connect 2026.09.03 Pair user 2, clock block 3 (fixture time + 1 s) merged with birthday block 2 at 0x72; docs/omron-sandbox.md] write tx 2601c000721e 000101fffffffffffffffffff9ffffffffffffffffff1a010203040622ff 00b7
+[omron-only: synthetic full echo acknowledgment; the physical monitor reply is unconfirmed] notify rx 2681c000721e 000101fffffffffffffffffff9ffffffffffffffffff1a010203040622ff 0037
+
+write tx 08 0f 00 00 00 00 00 07
+notify rx 08 8f 00 00 00 00 00 87
+
+[ours-only: OpenPressure imports history during Pair; Omron pairing returns no historical readings (hem-7156t/pair, hem-7155t/pair)] expect reading user=1 sys=130 dia=78 pulse=67 time=2025-07-09T06:14:38
+[ours-only: OpenPressure imports history during Pair; Omron pairing returns no historical readings (hem-7156t/pair, hem-7155t/pair)] expect reading user=2 sys=120 dia=80 pulse=70 time=2025-08-01T07:30:00

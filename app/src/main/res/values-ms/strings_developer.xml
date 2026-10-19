@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="dev_version_label">Versi %1$s (%2$d)</string>
+    <plurals name="dev_taps_remaining">
+        <item quantity="other">%d ketikan lagi untuk membuka kunci pilihan pembangun</item>
+    </plurals>
+    <string name="dev_unlocked">Pilihan pembangun dibuka kunci</string>
+    <string name="dev_open">Pilihan pembangun</string>
+    <string name="dev_title">Pilihan pembangun</string>
+    <string name="dev_warning">Amaran: pilihan ini membenarkan penulisan yang belum disahkan untuk model monitor tekanan darah anda. Penulisan sedemikian boleh merosakkan tetapan monitor secara kekal. Ia hanya untuk orang yang mengesahkan model dengan monitor yang mereka sanggup kehilangan.</string>
+    <string name="dev_allow_clock_untested">Benarkan penyegerakan jam pada monitor yang belum diuji</string>
+    <string name="dev_allow_confirm_title">Benarkan penyegerakan jam yang belum diuji?</string>
+    <string name="dev_allow_confirm_message">Penetapan jam belum disahkan pada model monitor ini. Jika tetap dilakukan, tetapan monitor boleh rosak secara kekal atau monitor tidak boleh digunakan lagi.\n\nSuis ini tidak menghantar apa-apa dengan sendirinya. Jika kemudian anda menetapkan jam pada monitor sedemikian, laporan peranti merekodkan bahawa penulisan yang belum diuji telah dicuba.\n\nAnda bertanggungjawab atas sebarang kerosakan pada monitor anda.</string>
+    <string name="dev_allow_confirm_accept">Saya faham, dayakan</string>
+    <string name="dev_index_title">Sokongan penulisan mengikut monitor</string>
+    <string name="dev_index_status_confirmed">Disahkan</string>
+    <string name="dev_index_status_untested">Belum diuji</string>
+    <string name="dev_index_status_blocked">Disekat</string>
+    <string name="dev_index_aspect_clock">Penyegerakan jam</string>
+    <string name="dev_index_aspect_unsent">Pembilang bacaan belum dihantar</string>
+    <string name="dev_index_no_monitors">Belum ada monitor disimpan.</string>
+    <string name="dev_hide">Sembunyikan pilihan pembangun</string>
+    <string name="dev_hidden">Pilihan pembangun disembunyikan; semua suis pembangun dimatikan</string>
+    <string name="dev_save_failed">Tidak dapat menyimpan pilihan pembangun</string>
+    <string name="dev_allow_registration_untested">Benarkan pendaftaran profil pada monitor yang belum diuji</string>
+    <string name="dev_allow_registration_confirm_title">Benarkan pendaftaran profil yang belum diuji?</string>
+    <string name="dev_allow_registration_confirm_message">Pendaftaran profil menulis pengguna yang dipilih dan jam ke dalam tetapan monitor. Ia belum disahkan pada model monitor ini. Jika tetap dilakukan, tetapan monitor boleh rosak secara kekal atau monitor tidak boleh digunakan lagi.\n\nSuis ini tidak menghantar apa-apa dengan sendirinya. Pendaftaran masih hanya berjalan apabila anda memilih Pasangkan dan mengesahkannya, dan laporan peranti merekodkan bahawa penulisan yang belum diuji telah dicuba.\n\nAnda bertanggungjawab atas sebarang kerosakan pada monitor anda.</string>
+    <string name="dev_index_aspect_registration">Pendaftaran profil</string>
+    <string name="dev_experimental_title">Laluan eksperimen</string>
+    <string name="dev_experimental_explanation">Suis ini menghidupkan laluan sambungan yang wujud dalam apl tetapi tidak pernah diuji pada monitor sebenar. Ia mungkin gagal begitu sahaja.</string>
+    <string name="dev_experimental_force_x7_encrypted">Gunakan sambungan tersulit semasa memasangkan X7</string>
+    <string name="dev_experimental_confirm_title">Hidupkan laluan yang belum diuji?</string>
+    <string name="dev_experimental_confirm_message">Laluan ini wujud dalam apl tetapi tidak pernah diuji pada monitor sebenar, dan ia mungkin gagal begitu sahaja. Memasangkan dengan cara ini boleh menggantikan pasangan sedia ada monitor dengan telefon ini. Penulisan yang gagal boleh merosakkan tetapan monitor secara kekal atau menjadikannya tidak boleh digunakan lagi.\n\nSuis ini tidak menghantar apa-apa dengan sendirinya. Laporan peranti menyenaraikan suis pembangun yang aktif.\n\nAnda bertanggungjawab atas sebarang kerosakan pada monitor anda.</string>
+    <string name="dev_experimental_clock_sync_encrypted_x7">Benarkan penyegerakan jam melalui sambungan X7 tersulit</string>
+</resources>

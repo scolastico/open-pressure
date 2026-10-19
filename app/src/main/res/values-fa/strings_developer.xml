@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="dev_version_label">نسخه %1$s (%2$d)</string>
+    <plurals name="dev_taps_remaining">
+        <item quantity="one">%d ضربه دیگر تا باز شدن گزینه‌های توسعه‌دهنده</item>
+        <item quantity="other">%d ضربه دیگر تا باز شدن گزینه‌های توسعه‌دهنده</item>
+    </plurals>
+    <string name="dev_unlocked">گزینه‌های توسعه‌دهنده باز شد</string>
+    <string name="dev_open">گزینه‌های توسعه‌دهنده</string>
+    <string name="dev_title">گزینه‌های توسعه‌دهنده</string>
+    <string name="dev_warning">هشدار: این گزینه‌ها نوشتن‌هایی را مجاز می‌کنند که برای مدل دستگاه فشارسنج شما تأیید نشده‌اند. چنین نوشتنی می‌تواند تنظیمات دستگاه را برای همیشه خراب کند. این گزینه‌ها فقط برای کسانی است که یک مدل را با دستگاهی که آماده از دست دادنش هستند بررسی می‌کنند.</string>
+    <string name="dev_allow_clock_untested">اجازه همگام‌سازی ساعت در دستگاه‌هایی که آزمایش نشده است</string>
+    <string name="dev_allow_confirm_title">همگام‌سازی آزمایش‌نشده ساعت مجاز شود؟</string>
+    <string name="dev_allow_confirm_message">تنظیم ساعت در این مدل‌های دستگاه تأیید نشده است. انجام آن با این حال می‌تواند تنظیمات دستگاه را برای همیشه خراب کند یا آن را غیرقابل استفاده کند.\n\nاین کلید به‌تنهایی چیزی ارسال نمی‌کند. اگر بعداً ساعت چنین دستگاهی را تنظیم کنید، گزارش دستگاه ثبت می‌کند که تلاشی برای نوشتن آزمایش‌نشده انجام شده است.\n\nمسئولیت هر آسیبی به دستگاه با خود شماست.</string>
+    <string name="dev_allow_confirm_accept">متوجه هستم، فعال شود</string>
+    <string name="dev_index_title">پشتیبانی نوشتن بر اساس دستگاه</string>
+    <string name="dev_index_status_confirmed">تأییدشده</string>
+    <string name="dev_index_status_untested">آزمایش‌نشده</string>
+    <string name="dev_index_status_blocked">مسدود</string>
+    <string name="dev_index_aspect_clock">همگام‌سازی ساعت</string>
+    <string name="dev_index_aspect_unsent">شمارنده اندازه‌گیری‌های ارسال‌نشده</string>
+    <string name="dev_index_no_monitors">هنوز دستگاه ذخیره‌شده‌ای وجود ندارد.</string>
+    <string name="dev_hide">پنهان کردن گزینه‌های توسعه‌دهنده</string>
+    <string name="dev_hidden">گزینه‌های توسعه‌دهنده پنهان شد؛ همه کلیدهای توسعه‌دهنده خاموش هستند</string>
+    <string name="dev_save_failed">ذخیرهٔ گزینه‌های توسعه‌دهنده ممکن نشد</string>
+    <string name="dev_allow_registration_untested">اجازه ثبت نمایه در دستگاه‌هایی که آزمایش نشده است</string>
+    <string name="dev_allow_registration_confirm_title">ثبت آزمایش‌نشده نمایه مجاز شود؟</string>
+    <string name="dev_allow_registration_confirm_message">ثبت نمایه، کاربر انتخاب‌شده و ساعت را در تنظیمات دستگاه می‌نویسد. این کار در این مدل‌های دستگاه تأیید نشده است. انجام آن با این حال می‌تواند تنظیمات دستگاه را برای همیشه خراب کند یا آن را غیرقابل استفاده کند.\n\nاین کلید به‌تنهایی چیزی ارسال نمی‌کند. ثبت همچنان فقط زمانی انجام می‌شود که «جفت‌سازی» را انتخاب و تأیید کنید، و گزارش دستگاه ثبت می‌کند که تلاشی برای نوشتن آزمایش‌نشده انجام شده است.\n\nمسئولیت هر آسیبی به دستگاه با خود شماست.</string>
+    <string name="dev_index_aspect_registration">ثبت نمایه</string>
+    <string name="dev_experimental_title">مسیرهای آزمایشی</string>
+    <string name="dev_experimental_explanation">این کلیدها مسیرهای اتصالی را روشن می‌کنند که در برنامه وجود دارند اما هرگز روی یک دستگاه واقعی آزمایش نشده‌اند. ممکن است به‌سادگی شکست بخورند.</string>
+    <string name="dev_experimental_force_x7_encrypted">استفاده از اتصال رمزگذاری‌شده هنگام جفت‌سازی X7</string>
+    <string name="dev_experimental_confirm_title">یک مسیر آزمایش‌نشده روشن شود؟</string>
+    <string name="dev_experimental_confirm_message">این مسیر در برنامه وجود دارد اما هرگز روی یک دستگاه واقعی آزمایش نشده است و ممکن است به‌سادگی شکست بخورد. جفت‌سازی به این روش می‌تواند جفت‌سازی فعلی دستگاه را با این تلفن جایگزین کند. یک نوشتن ناموفق می‌تواند تنظیمات دستگاه را برای همیشه خراب کند یا آن را غیرقابل استفاده کند.\n\nاین کلید به‌تنهایی چیزی ارسال نمی‌کند. گزارش دستگاه فهرست می‌کند کدام کلیدهای توسعه‌دهنده فعال بودند.\n\nمسئولیت هر آسیبی به دستگاه با خود شماست.</string>
+    <string name="dev_experimental_clock_sync_encrypted_x7">اجازه همگام‌سازی ساعت از طریق اتصال رمزگذاری‌شده X7</string>
+</resources>

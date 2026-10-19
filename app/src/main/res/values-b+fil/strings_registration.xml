@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="registration_untested_warning">Hindi pa nasusubukan ang pagrehistro ng profile sa monitor na ito. Available lang ito dahil nag-on ka ng opsyon ng developer. Magpatuloy lang kung tinatanggap mo ang panganib na iyon.</string>
+    <string name="registration_report_prompt">Nagrehistro ka ng profile sa isang monitor na hindi pa nasusubukan para dito. Ipinapakita ng device report sa isang GitHub issue kung gumana ito at nakakatulong itong gawing available ang pagrehistro sa iba.\n\nTeknikal na detalye lang ang laman ng report. Hindi nito kailanman isinasama ang mga reading, oras ng pagsukat, pangalan, Bluetooth address o serial number. Masusuri mo ito bago ka magbahagi ng anuman.</string>
+</resources>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fetch_looking">آپ کے مانیٹرز تلاش کیے جا رہے ہیں…</string>
+    <string name="fetch_importing">%1$s سے درآمد ہو رہا ہے…</string>
+    <string name="fetch_none_nearby">کوئی مانیٹر قریب نہیں ہے۔ مانیٹرز پیمائش کے تھوڑی دیر بعد یا Bluetooth موڈ میں ہی سگنل بھیجتے ہیں۔</string>
+    <string name="fetch_done">تازہ ترین ریڈنگز حاصل کر لی گئیں۔ مانیٹرز: %1$d۔</string>
+    <string name="fetch_incomplete">کچھ درآمدات مکمل نہیں ہوئیں۔ موصول شدہ ریڈنگز محفوظ ہیں؛ دوبارہ کوشش کے لیے نیچے کھینچیں۔</string>
+    <string name="fetch_busy">مانیٹر کا موجودہ عمل مکمل کریں، پھر دوبارہ نیچے کھینچیں۔</string>
+    <string name="fetch_no_monitor">پہلے کسی معاون مانیٹر کو جوڑیں یا منسلک کریں۔</string>
+    <string name="fetch_failed">مانیٹرز تلاش نہیں کیے جا سکے۔ Bluetooth چیک کریں، پھر دوبارہ نیچے کھینچیں۔</string>
+</resources>

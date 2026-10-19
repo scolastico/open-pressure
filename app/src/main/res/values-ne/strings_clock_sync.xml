@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_sync_clock">घडी सिंक गर्नुहोस्</string>
+    <string name="main_sync_clock_explanation">मनिटरको घडीलाई यो फोनको समयमा मिलाउँछ। केही परिवर्तन हुनुअघि तपाईं दुवै समय हेरेर पुष्टि गर्नुहुन्छ। त्यसपछि जडान समाप्त हुन्छ; रिडिङहरू आयात गर्न फेरि जडान गर्नुहोस्।</string>
+    <string name="main_sync_clock_running">घडी सिंक हुँदैछ…</string>
+    <string name="clock_sync_title">घडी सिंक पुष्टि गर्नुहोस्</string>
+    <string name="clock_sync_monitor_time">मनिटरको घडी: %1$s</string>
+    <string name="clock_sync_monitor_time_unset">मनिटरको घडी: सेट गरिएको छैन</string>
+    <string name="clock_sync_phone_time">फोनको समय: %1$s</string>
+    <plurals name="clock_sync_drift">
+        <item quantity="one">फरक: %1$d सेकेन्ड</item>
+        <item quantity="other">फरक: %1$d सेकेन्ड</item>
+    </plurals>
+    <string name="clock_sync_within_threshold">मनिटरको घडी फोनको समयभन्दा एक मिनेटभित्र छ, त्यसैले यसलाई परिवर्तन गरिँदैन।</string>
+    <string name="clock_sync_untested_warning">यो मनिटरसँग घडी सिंक अझै परीक्षण गरिएको छैन। तपाईंले विकासकर्ता विकल्प सक्रिय गर्नुभएकाले मात्र यो उपलब्ध छ। यो जोखिम स्वीकार गर्नुहुन्छ भने मात्र जारी राख्नुहोस्।</string>
+    <string name="clock_sync_choose_time">सेट गर्ने समय (विकासकर्ता विकल्प)</string>
+    <string name="clock_sync_confirm">अहिले सिंक गर्नुहोस्</string>
+    <string name="monitor_clock_sync_complete">घडी सिंक भयो</string>
+    <string name="monitor_clock_sync_skipped">घडी पहिले नै सही छ</string>
+    <string name="monitor_clock_sync_rejected">घडी सिंक असफल भयो</string>
+    <string name="monitor_clock_sync_cancelled">घडी सिंक रद्द गरियो</string>
+    <string name="monitor_clock_sync_unreadable">घडी सिंक सम्भव छैन</string>
+    <string name="monitor_clock_sync_reconnect">रिडिङहरू आयात गर्न फेरि जडान गर्नुहोस्।</string>
+    <string name="clock_sync_report_prompt">तपाईंले यस्तो मनिटरको घडी सिंक गर्नुभयो जससँग यो अझै परीक्षण गरिएको छैन। GitHub issue मा उपकरण रिपोर्टले यो काम गर्‍यो कि गरेन देखाउँछ र घडी सिंकलाई अरूका लागि उपलब्ध गराउन मद्दत गर्छ।\n\nरिपोर्टमा प्राविधिक विवरण मात्र हुन्छ। यसमा कहिल्यै रिडिङ, मापनको समय, नाम, Bluetooth ठेगाना वा सिरियल नम्बर समावेश हुँदैन। केही सेयर गर्नुअघि तपाईं यसलाई हेर्न सक्नुहुन्छ।</string>
+    <string name="main_clock_sync_backup">घडी सिंकको ब्याकअप</string>
+    <string name="main_clock_sync_backup_explanation">पछिल्लो घडी सिंकअघि सुरक्षित गरिएका सेटिङहरू। यो सेटिङहरूको ब्याकअप हो, पूरै मेमोरी वा क्यालिब्रेसनको ब्याकअप होइन। पहिलेका ब्याकअपहरू यही फोनमा रहन्छन्।</string>
+    <string name="monitor_clock_sync_out_of_range">फोनको मिति समर्थित दायराभन्दा बाहिर छ, त्यसैले मनिटरको घडी परिवर्तन गरिएन। यो फोनको मिति जाँच गर्नुहोस्।</string>
+</resources>

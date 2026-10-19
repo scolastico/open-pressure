@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fetch_looking">तपाईंका मनिटरहरू खोजिँदै…</string>
+    <string name="fetch_importing">%1$s बाट आयात हुँदै…</string>
+    <string name="fetch_none_nearby">नजिकै कुनै मनिटर छैन। मनिटरहरूले मापनपछि केही समय वा Bluetooth मोडमा मात्र सङ्केत पठाउँछन्।</string>
+    <string name="fetch_done">पछिल्ला रिडिङहरू प्राप्त भए। मनिटर: %1$d।</string>
+    <string name="fetch_incomplete">केही आयात पूरा भएनन्। प्राप्त रिडिङहरू सुरक्षित छन्; फेरि प्रयास गर्न तल तान्नुहोस्।</string>
+    <string name="fetch_busy">मनिटरको हालको कार्य पूरा गर्नुहोस्, त्यसपछि फेरि तल तान्नुहोस्।</string>
+    <string name="fetch_no_monitor">पहिले समर्थित मनिटर जोड्नुहोस् वा कनेक्ट गर्नुहोस्।</string>
+    <string name="fetch_failed">मनिटरहरू खोज्न सकिएन। Bluetooth जाँच गर्नुहोस्, त्यसपछि फेरि तल तान्नुहोस्।</string>
+</resources>
