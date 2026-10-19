@@ -548,7 +548,7 @@ public class MonitorServiceClockSyncTest {
 
     // ---- X7 peer ----
     private void attachX7(String model) throws Exception {
-        set("gatt",gatt); set("verifiedModel",model); set("negotiatedMtu",243);
+        set("gatt",gatt); set("verifiedModel",model); set("x7Model",X7Model.identify(model)); set("negotiatedMtu",243);
         monitor.profile=ProtocolProfile.X7_WLP; monitor.address="AA:BB:CC:DD:EE:FF"; monitor.connectedName="Synthetic X7";
         BluetoothGattService alias=new BluetoothGattService(Uuids.VENDOR_ALIAS,BluetoothGattService.SERVICE_TYPE_PRIMARY);
         wlpTx=characteristic(alias,Uuids.WLP_TX,BluetoothGattCharacteristic.PROPERTY_WRITE_NO_RESPONSE);

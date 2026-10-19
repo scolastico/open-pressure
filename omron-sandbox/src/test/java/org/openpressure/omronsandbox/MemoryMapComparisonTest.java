@@ -53,6 +53,14 @@ public class MemoryMapComparisonTest {
         assertNull(OmronConfig.ours("HEM-0000T_X","HEM-0000T-X","BP0000"));
     }
 
+    @Test public void comparesOneUserFourteenByteSingleChannelMap() {
+        String config="[model]\nmodel_id=HEM-0000T-X\nconnect_type=WLD1.0\n\n[memory_map]\n"+
+            "index_num_of_datatypes=1\nindex_1_data_pointer_max=29\ndata_1_address=2E8\ndata_1_address_step=14\ndata_1_size=14\n";
+        String comparison=OmronConfig.compareX7("synthetic",OmronConfig.parse(config),"HEM-7143T1-E");
+        assertTrue(comparison,comparison.contains("same layout"));
+        assertTrue(comparison,comparison.contains("30 records of 14 bytes"));
+    }
+
     @Test public void everyAcceptedIdentity() throws Exception {
         OmronApk apk=OmronApk.assumePresent();
         OmronCatalog catalog=new OmronCatalog(new String(Files.readAllBytes(apk.deviceModelsJson),StandardCharsets.UTF_8));

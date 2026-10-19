@@ -23,7 +23,7 @@ public final class X7ModelTest {
         check(X7Model.identify("X7 smart afib\u0000")==X7Model.HEM_7380T1_EOSL && X7Model.identify("HEM-7380T1")==X7Model.HEM_7380T1,"X7 firmware name and base identity");
         check(X7Model.identify("HEM-7196T1-FLE")==X7Model.HEM_7196T1_FLE && X7Model.identify(" HEM-7196T1-FLEO\u0000")==X7Model.HEM_7196T1_FLEO,"exact HEM-7196T1 identities, NUL and whitespace stripped");
         check("M4 Connect AFib".equals(X7Model.HEM_7196T1_FLE.productName) && "X4 Connect AFib".equals(X7Model.HEM_7196T1_FLEO.productName),"catalog names are display names");
-        for(String denied:new String[]{"HEM-7196T1","HEM-7196T","HEM-7196T1-FL","HEM-7196T1-FLE2","hem-7196t1-fle","HEM-7196T1_FLE","HEM-7188T1-LE",
+        for(String denied:new String[]{"HEM-7196T1","HEM-7196T","HEM-7196T1-FL","HEM-7196T1-FLE2","hem-7196t1-fle","HEM-7196T1_FLE","HEM-7188T1-LE-extra",
                 "M4 Connect","M4 Connect AFib","x4 connect afib","X4 Connect AFib+","M4 / X4","M4 Connect AFib HEM-7196T1","HEM-7381T1-AZ","HEM-7155T","BLEsmart_000000EB","",null})
             check(X7Model.identify(denied)==null,"denied identity: "+denied);
         check(X7Record.supportsModel("HEM-7196T1-FLE") && !X7Record.supportsModel("HEM-7196T1"),"record support follows the model table");

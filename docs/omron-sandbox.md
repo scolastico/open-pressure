@@ -43,6 +43,8 @@ Both replay tests also accept a comma-separated `-Dfixture` list for a focused b
 
 Run Gradle commands sequentially: they share build and test-output directories. The shell helper accepts one fixture name or `all`.
 
+For fixture replays, the shell helper prints all available client results even when Gradle fails, then returns Gradle's failing exit status. This includes a failed `expect omron matches` regression; an exploratory divergence without that directive remains a reported finding.
+
 Each fixture needs a fresh Robolectric and Omron start of one to two minutes, so the Omron replay runs in parallel test JVMs. Gradle distributes test classes rather than parameters, so the fixtures are dealt round-robin to eight shard classes (`OmronFixtureShard0Test` … `OmronFixtureShard7Test`, by position in the fixture index modulo 8); a shard with no selected fixture runs nothing. The number of parallel JVMs is detected from the machine: half the logical processors, at most (physical RAM − 4 GB) / 3 GB, at most 8, and at least 1. The build prints the chosen value (`Omron sandbox: up to N parallel test forks`); override it with `-Pomron.forks=N` for Gradle or `OMRON_FORKS=N tools/omron-sandbox.sh` for the helper, for example with 2 on a machine that is also busy with other work.
 
 For each fixture the command prints three results, followed by the fixture's open findings:
@@ -68,6 +70,8 @@ When Omron diverges or rejects, adjust the fixture's Omron-side steps or replies
 
 ## Fixture format
 
+For the ongoing exact-model inventory and new Bluetooth BP probes, see [Bluetooth coverage research](bluetooth-coverage.md). Run `python3 tools/omron-bluetooth-coverage.py` to generate the complete local catalog-to-fixture report.
+
 One directive per line; `#` starts a comment; hex may contain spaces.
 
 | Directive | Meaning |
@@ -85,6 +89,7 @@ One directive per line; `#` starts a comment; hex may contain spaces.
 | `random <hex>` | Native Omsec entropy stream, consumed in order by its random-number callback; exhaustion fails the run |
 | `alias <name> <uuid>[,<uuid>…]` | Characteristic name; several UUIDs form 16-byte legacy channels. Legacy fixtures name `unlock`, `tx`, `rx` (and `clock`); single-channel X7-family fixtures name `tx`, `rx` and `sys` (the FE4A system channel) with one UUID each |
 | `memory fill=<byte>` / `memory <address> <hex>` | Synthetic memory used by `reads` |
+| `expect omron matches` | Opt-in strict reference regression. The Gradle sandbox test fails if Omron does not follow the complete script and decode its expected readings; the transcript/result are saved first. Omit while exploring. Exploration mode bypasses this assertion, so always rerun without exploration to validate a reference. Does not enable a model in OpenPressure |
 | `write <alias> <hex>` | A frame the phone must write; channel parts are reassembled |
 | `notify <alias> <hex>` | The monitor's reply; split over channels for multi-UUID aliases |
 | `nonce <alias>` | The X7 system transaction on a single-characteristic alias: the phone must write `11`, any four token bytes and 15 zero bytes; the monitor replies `91 00`, the same token and 14 zero bytes. Both clients draw the token from `SecureRandom` for each connection, so it is captured and echoed instead of pinned; reports print it as `??` |

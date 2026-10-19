@@ -52,7 +52,7 @@ public final class VendorMemoryModelTest {
             alias(alias,"HEM-7530T",hex("4e69d9439d2603a600000000003f"),new int[]{0x2e8},1260,1);
         // Nearby identities have either contradictory fields/maps, different security,
         // or no exact identity evidence. None may inherit a map through a prefix.
-        for(String denied:new String[]{"HEM-7155T_K4-D","HEM-7155T_K4-EBK","HEM-7155T_K4-ESL","HEM-7155T-K4-EBK","HEM-7156T_AP","HEM-7156T-AP","HEM-7156T_AAP","HEM-7156T-AAP","HEM-7322T-D","HEM-7322T-E","HEM-7600T-Z","HEM-7600T-E","HEM-7600T-ZCD6BK","HEM-7600T2-JF","HEM-6232T-AP","HEM-6232T-D","HEM-6232T-E","HEM-6232T-Z","HEM-7196T-ESL","HEM-7342T1-ACACD6","HEM-7361T1-BS","HEM-7530T1-BR3","HEM-7150T-Z-encrypted","HEM-7155T-EBK-extra","HEM-7361T-EBK-extra","HEM-7530T-E3-extra","HEM-7530T-JT3"})
+        for(String denied:new String[]{"HEM-7155T_K4-D","HEM-7155T_K4-EBK","HEM-7155T_K4-ESL","HEM-7155T-K4-EBK","HEM-7156T_AP","HEM-7156T-AP","HEM-7156T_AAP","HEM-7156T-AAP","HEM-7322T-D","HEM-7322T-E","HEM-7600T-Z","HEM-7600T-E","HEM-7600T-ZCD6BK","HEM-7600T2-JF","HEM-6232T-AP","HEM-6232T-E","HEM-6232T-Z","HEM-7196T-ESL","HEM-7342T1-ACACD6","HEM-7361T1-BS","HEM-7530T1-BR3","HEM-7150T-Z-encrypted","HEM-7155T-EBK-extra","HEM-7361T-EBK-extra","HEM-7530T-E3-extra","HEM-7530T-JT3"})
             check(VendorMemoryModel.identify(denied)==null,"unverified or incompatible regional variant denied: "+denied);
     }
 

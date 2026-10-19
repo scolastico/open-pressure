@@ -113,6 +113,8 @@ On the X7 the same block (`0x80`, image bytes 44–59) is also written by [profi
 
 ## Write-aspect index
 
+The twelve identities implemented from the [Bluetooth reference batch](bluetooth-coverage.md) inherit no older identity's clock or registration permission. They resolve to their own exact identities and remain unlisted in this table, so every memory-write aspect is blocked even when a developer override is on. Legacy explicit Pair may provision only its application key through the existing short-lived unlock permit. The new single-channel paths additionally validate each read against their own settings image or history bank at the GATT boundary and before encryption; arbitrary dumps are disabled there.
+
 > [!WARNING]
 > **Writes marked untested here are not confirmed for the model. Such a write can permanently corrupt the monitor's settings or make it unusable. Overriding them is meant only for people validating a model with a monitor they are prepared to lose.**
 

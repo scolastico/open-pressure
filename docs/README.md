@@ -17,6 +17,7 @@ Current guides describe the implementation and its evidence. Hardware results ap
 | [Safety boundaries](safety.md) | Outgoing command policy, exact registration writes, backup requirements and memory limits |
 | [omblepy comparison](omblepy-comparison.md) | Pinned source audit, per-model maps, implemented vendor paths and validation limits |
 | [Omron reference sandbox](omron-sandbox.md) | Replaying synthetic fixtures through Omron Connect's own code, setup, fixture format and per-model findings |
+| [Bluetooth BP coverage research](bluetooth-coverage.md) | Exact catalog coverage inventory, REA hypotheses, new reference fixtures and remaining Bluetooth BP families |
 | [Hardware validation](hardware-validation.md) | Existing evidence and focused phone/cuff test procedure |
 | [Languages](localization.md) | Available languages, Android language selection and translation checks |
 | [GitHub releases](releasing.md) | Manual version, commit-count revision, APK signing and publication |

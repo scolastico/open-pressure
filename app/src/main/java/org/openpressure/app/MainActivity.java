@@ -862,7 +862,7 @@ public final class MainActivity extends Activity {
         dialog.setOnShowListener(x -> dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v -> { try { monitor.setClock(parseDateTime(time.getText().toString().trim())); dialog.dismiss(); } catch(Exception ex) { toast(getString(R.string.main_date_invalid,editableDateTime(LocalDateTime.now()))); } })); dialog.show();
     }
     private void modelDialog() {
-        String[] models={"X7 Smart AFib · HEM-7380T1","M7 Intelli IT AFib · HEM-7380T1","X7 / M7 Smart · HEM-7361T","Evolv · HEM-7600T","M4 / X4 · HEM-7155T","M4 / X4 Connect AFib · HEM-7196T1","HEM-7156T","M700 Intelli IT · HEM-7322T","BP7250 · HEM-7150T","BP7450 · HEM-7342T","BP5360 · HEM-7377T1","HeartGuide · HEM-6410T","RS7 · HEM-6232T","Complete · HEM-7530T",getString(R.string.main_other_monitor)};
+        String[] models={"X7 Smart AFib · HEM-7380T1","M7 Intelli IT AFib · HEM-7380T1","X7 / M7 Smart · HEM-7361T","Evolv · HEM-7600T","M4 / X4 · HEM-7155T","M4 / X4 Connect AFib · HEM-7196T1","M2 Intelli IT / M300 / X2 Smart · HEM-7143T1 / HEM-7143T2","M2+ / X2+ Connect · HEM-7188T1","HEM-7156T","M700 Intelli IT · HEM-7322T","BP7250 · HEM-7150T","BP7450 · HEM-7342T","BP5360 · HEM-7377T1","BP5250 · HEM-7151T","BP7350 · HEM-7340T","BP5350 · HEM-7341T","BP5450 · HEM-7343T","RS3 Intelli IT · HEM-6161T","HeartGuide · HEM-6410T","RS7 · HEM-6232T","Complete · HEM-7530T",getString(R.string.main_other_monitor)};
         new AlertDialog.Builder(this).setTitle(getString(R.string.main_model_hint_title)).setItems(models,(d,w) -> { monitor.modelHint=models[w]; render(); }).setNegativeButton(getString(R.string.main_cancel),null).show();
     }
     private void connect(String address,String name,boolean pair) {

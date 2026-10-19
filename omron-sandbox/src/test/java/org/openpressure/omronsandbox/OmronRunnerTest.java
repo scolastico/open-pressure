@@ -17,6 +17,34 @@ import static org.junit.Assert.*;
     instrumentedPackages={"jp.co.omron.healthcare.communicationlibrary","com.omronhealthcare.connectivitylibrary"})
 @LooperMode(LooperMode.Mode.PAUSED)
 public class OmronRunnerTest {
+    @Test public void confirmedReferenceFixturesRequireCompleteMatch() {
+        String key="key 05050505050505050505050505050505\n";
+        Fixture exploratory=Fixture.parse("test/probe","name test/probe\n"+key);
+        Fixture confirmed=Fixture.parse("test/confirmed","name test/confirmed\n"+key+"expect omron matches\n");
+        String previous=System.getProperty("omron.sandbox.explore");
+        try {
+            System.setProperty("omron.sandbox.explore","false");
+            for(Outcome outcome:new Outcome[]{Outcome.rejected(0,"synthetic failure"),Outcome.unsupported("missing catalog entry")}) {
+                OmronFixtureRun.requireExpectedOutcome(exploratory,outcome);
+                assertThrows(AssertionError.class,() -> OmronFixtureRun.requireExpectedOutcome(confirmed,outcome));
+            }
+            OmronFixtureRun.requireExpectedOutcome(confirmed,Outcome.matches(0));
+        } finally {
+            if(previous==null) System.clearProperty("omron.sandbox.explore");
+            else System.setProperty("omron.sandbox.explore",previous);
+        }
+    }
+    @Test public void explorationStillReportsConfirmedFixtureFindings() {
+        Fixture fixture=Fixture.parse("test/probe","name test/probe\nkey 05050505050505050505050505050505\nexpect omron matches\n");
+        String previous=System.getProperty("omron.sandbox.explore");
+        try {
+            System.setProperty("omron.sandbox.explore","true");
+            OmronFixtureRun.requireExpectedOutcome(fixture,Outcome.rejected(0,"exploration finding"));
+        } finally {
+            if(previous==null) System.clearProperty("omron.sandbox.explore");
+            else System.setProperty("omron.sandbox.explore",previous);
+        }
+    }
     private static final String CATALOG="[{\"category\":0,\"deviceGroupIncludedGroupIDKey\":\"1146\",\"identifier\":\"HEM-7156T_AAP\",\"name\":\"HEM-7156T-AAP\",\"noOfUsers\":2,\"deviceSeries\":\"ppw\"},"+
         "{\"category\":0,\"deviceGroupIncludedGroupIDKey\":\"1402\",\"identifier\":\"HEM-7156T_AP\",\"name\":\"HEM-7156T\"},"+
         "{\"category\":0,\"deviceGroupIncludedGroupIDKey\":\"600\",\"secondaryDeviceGroupIncludedGroupIDKey\":\"601\",\"identifier\":\"HEM-7361T_ESL\",\"name\":\"X7\"}]";

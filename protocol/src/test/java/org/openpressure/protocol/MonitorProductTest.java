@@ -29,6 +29,11 @@ public final class MonitorProductTest {
         check("OMRON M4 Connect AFib".equals(MonitorProduct.displayName("HEM-7196T1-FLE","BLEsmart_0000")) && "OMRON X4 Connect AFib".equals(MonitorProduct.displayName("HEM-7196T1-FLEO",null)),"7196T1 catalog names");
         check("BLEsmart_0000".equals(MonitorProduct.displayName("M4 Connect AFib","BLEsmart_0000")),"a catalog name is not a verified identity");
         check("BLEsmart_0000".equals(MonitorProduct.displayName("HEM-7196T1","BLEsmart_0000")),"bare 7196T1 never named");
+        for(String[] row:new String[][]{{"HEM-7151T-Z","BP5250"},{"HEM-7340T-Z","BP7350"},{"HEM-7340T-CA","BP7350CAN"},
+                {"HEM-7341T-Z","BP5350"},{"HEM-7343T-Z","BP5450"},{"HEM-6161T-E","RS3 Intelli IT"},{"HEM-6232T-D","RS7 Intelli IT"},
+                {"HEM-7143T1-E","M2 Intelli IT"},{"HEM-7143T1-D","M300 Intelli IT"},{"HEM-7143T2-E","X2 Smart"},
+                {"HEM-7188T1-LE","M2+ Connect"},{"HEM-7188T1-LEO","X2+ Connect"}})
+            check(("OMRON "+row[1]).equals(MonitorProduct.displayName(row[0],"BLEsmart_0000")),"catalog product label "+row[0]);
     }
 
     private static void registry() {

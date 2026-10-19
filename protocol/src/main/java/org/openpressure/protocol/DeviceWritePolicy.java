@@ -97,6 +97,15 @@ public final class DeviceWritePolicy {
     private static boolean containsRange(int start,int size,int address,int length) {
         return address>=start && address+length<=start+size;
     }
+    /** Single-channel catalog reads are bound to the DIS model, in plaintext before any encryption. */
+    public static void validateX7Characteristic(ProtocolProfile profile,X7Model model,UUID service,UUID characteristic,byte[] payload) {
+        if(profile==null || !profile.isX7() || model==null) reject();
+        validateCharacteristic(profile,service,characteristic,payload);
+        if(model.restrictedReads && WLP_TX.equals(characteristic) && payload.length==8 && payload[1]==1) {
+            int address=((payload[3]&255)<<8)|(payload[4]&255),length=payload[5]&255;
+            if(!model.containsReadRange(address,length)) reject();
+        }
+    }
     public static void validateCharacteristic(ProtocolProfile profile,UUID service,UUID characteristic,byte[] payload) {
         if(profile!=null && profile.isX7()) {
             if(!ALIAS.equals(service) || payload==null) reject();

@@ -22,7 +22,7 @@ public final class X7MemoryIndex {
         int checksum=0;
         for(int i=44;i<58;i++) checksum=(checksum+(settings[i]&255))&255;
         if(checksum!=(settings[58]&255)) throw new IllegalArgumentException("X7 settings checksum does not match");
-        return new X7MemoryIndex(model,populated(model,settings,0),populated(model,settings,2));
+        return new X7MemoryIndex(model,populated(model,settings,0),model.userCount==2?populated(model,settings,2):0);
     }
 
     private static int populated(X7Model model,byte[] settings,int offset) {
@@ -37,15 +37,15 @@ public final class X7MemoryIndex {
     public X7Model model() { return model; }
 
     public int count(int user) {
-        X7Model.requireUser(user);
+        model.requireUser(user);
         return user==1?user1:user2;
     }
 
     public List<Range> historyRanges() {
         List<Range> ranges=new ArrayList<>();
-        for(int user=1;user<=X7Model.USERS;user++) {
+        for(int user=1;user<=model.userCount;user++) {
             int count=count(user);
-            if(count>0) ranges.add(new Range(model.bankStart(user),count*X7Model.RECORD_BYTES,user));
+            if(count>0) ranges.add(new Range(model.bankStart(user),count*model.recordBytes,user));
         }
         return Collections.unmodifiableList(ranges);
     }
@@ -55,7 +55,8 @@ public final class X7MemoryIndex {
      * either user falls back to user 1, as for the vendor-memory models.
      */
     public List<Range> historyRanges(int users) {
-        if((users&3)==0) users=1;
+        users&=(1<<model.userCount)-1;
+        if(users==0) users=1;
         List<Range> selected=new ArrayList<>();
         for(Range range:historyRanges()) if((users&(1<<(range.user-1)))!=0) selected.add(range);
         return Collections.unmodifiableList(selected);
@@ -64,7 +65,7 @@ public final class X7MemoryIndex {
     /** Populated slots of the selected users, with the same fallback as {@link #historyRanges(int)}. */
     public int selectedCount(int users) {
         int total=0;
-        for(Range range:historyRanges(users)) total+=range.length/X7Model.RECORD_BYTES;
+        for(Range range:historyRanges(users)) total+=range.length/model.recordBytes;
         return total;
     }
 

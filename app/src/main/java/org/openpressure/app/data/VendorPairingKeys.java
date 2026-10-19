@@ -21,7 +21,7 @@ public final class VendorPairingKeys {
     private final Backend backend;
     private final String current,pending;
     public VendorPairingKeys(Backend backend,String address,String model) {
-        if(backend==null || address==null || address.isEmpty() || model==null || !model.matches("HEM-[A-Z0-9]+"))
+        if(backend==null || address==null || address.isEmpty() || model==null || !model.matches("HEM-[A-Z0-9]+(?:-[A-Z0-9]+)*"))
             throw new IllegalArgumentException("Missing vendor key identity");
         this.backend=backend; current=address+"/vendor/"+model; pending=current+"/pending";
     }

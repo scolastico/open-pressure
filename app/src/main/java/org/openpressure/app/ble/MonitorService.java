@@ -1260,7 +1260,8 @@ public final class MonitorService extends Service {
     }
     private void x7Ready() {
         wlpConnection=new WlpConnection();
-        ready=true; canHistory=true; canDump=true; canTime=false; hasUserControl=false;
+        ready=true; canHistory=true; canDump=!x7Model.restrictedReads; canTime=false; hasUserControl=false;
+        if(user>x7Model.userCount) user=1;
         String refusedRegistration=null;
         if(pairingRequested && profile==ProtocolProfile.X7_WLP) {
             // The write-aspect index decides: confirmed, or untested with the developer override read now.
@@ -1270,7 +1271,7 @@ public final class MonitorService extends Service {
                 registrationIdentity=identity; registrationOverride=override;
                 ready=false; canHistory=false; canDump=false; registrationReading=true;
                 if(negotiatedMtu<35) { fail("X7 registration requires an ATT MTU of at least 35. No EEPROM commands were sent. Connect remains available for read-only access."); return; }
-                beginWlpRead(X7MemoryIndex.SETTINGS_START,X7MemoryIndex.SETTINGS_BYTES);
+                beginWlpRead(x7Model.settingsStart,X7MemoryIndex.SETTINGS_BYTES);
                 return;
             }
             refusedRegistration=identity;
@@ -1278,9 +1279,10 @@ public final class MonitorService extends Service {
         }
         rememberMonitor(verifiedModel);
         if(!automaticConnection) importUsers=store.importUsers(address);
+        if(x7Model.userCount==1) importUsers=1;
         if(refusedRegistration!=null) state("X7 read mode available","Profile registration is not enabled for "+refusedRegistration+". Connect remains available for read-only access.");
         else state(profile==ProtocolProfile.X7_SECURE_WLP?"X7 authenticated for reads":"X7 read mode available",
-                (profile==ProtocolProfile.X7_SECURE_WLP?"The cuff confirmed application authentication. ":"Bluetooth transport is ready. ")+"On-device profile pairing has not been completed by this app. History and settings backup can be read without registering a profile. The cuff may show OK and switch off after the transfer ends; settings writes remain disabled.");
+                (profile==ProtocolProfile.X7_SECURE_WLP?"The cuff confirmed application authentication. ":"Bluetooth transport is ready. ")+(x7Model.restrictedReads?"History can be read without registering a profile. Device settings and unread counters are retained.":"On-device profile pairing has not been completed by this app. History and settings backup can be read without registering a profile. The cuff may show OK and switch off after the transfer ends; settings writes remain disabled."));
         if(automaticConnection) { syncHistory(-1); return; }
         readInformation();
     }
@@ -1347,15 +1349,15 @@ public final class MonitorService extends Service {
                     x7HistoryRanges=x7HistoryIndex.historyRanges(importUsers); x7HistoryRange=0;
                     wlpParsed=X7MemoryIndex.SETTINGS_BYTES; x7HistoryRangeOffset=wlpParsed;
                     storedCount=x7HistoryIndex.selectedCount(importUsers);
-                    store.packet(address,"x7-history-index",new byte[0],"Populated BP slots: user 1="+x7HistoryIndex.count(1)+", user 2="+x7HistoryIndex.count(2)+"; importing users "+importUsers+"; unread counters retained");
+                    store.packet(address,"x7-history-index",new byte[0],"Populated BP slots: user 1="+x7HistoryIndex.count(1)+(x7Model.userCount==2?", user 2="+x7HistoryIndex.count(2):"")+"; importing users "+importUsers+"; unread counters retained");
                     if(!x7HistoryRanges.isEmpty()) {
                         X7MemoryIndex.Range range=x7HistoryRanges.get(0); appendX7HistoryRange(range);
                     }
                 }
-                while(x7HistoryIndex!=null && !x7HistoryRanges.isEmpty() && wlpParsed+X7Record.RECORD_BYTES<=bytes.length) {
+                while(x7HistoryIndex!=null && !x7HistoryRanges.isEmpty() && wlpParsed+x7Model.recordBytes<=bytes.length) {
                     X7MemoryIndex.Range range=x7HistoryRanges.get(x7HistoryRange);
-                    int slot=(wlpParsed-x7HistoryRangeOffset)/X7Record.RECORD_BYTES, bank=range.user;
-                    byte[] raw=Arrays.copyOfRange(bytes,wlpParsed,wlpParsed+X7Record.RECORD_BYTES); wlpParsed+=X7Record.RECORD_BYTES;
+                    int slot=(wlpParsed-x7HistoryRangeOffset)/x7Model.recordBytes, bank=range.user;
+                    byte[] raw=Arrays.copyOfRange(bytes,wlpParsed,wlpParsed+x7Model.recordBytes); wlpParsed+=x7Model.recordBytes;
                     try {
                         X7Record record=X7Record.parse(raw,bank,x7HistoryIndex.model());
                         if(record!=null) {
@@ -1399,7 +1401,7 @@ public final class MonitorService extends Service {
             long now=SystemClock.elapsedRealtime();
             if(now-lastWlpUpdate>=500) {
                 lastWlpUpdate=now;
-                detail=registrationReading?"Reading the 68-byte settings snapshot before user selection…":dumpRunning?dumpReceived+" / "+dumpLength+" bytes read":x7HistoryIndex==null?"Reading the monitor's current history index…":((wlpParsed-X7MemoryIndex.SETTINGS_BYTES)/16)+" / "+storedCount+" populated slots read · "+addedInTransfer+" new readings";
+                detail=registrationReading?"Reading the 68-byte settings snapshot before user selection…":dumpRunning?dumpReceived+" / "+dumpLength+" bytes read":x7HistoryIndex==null?"Reading the monitor's current history index…":((wlpParsed-X7MemoryIndex.SETTINGS_BYTES)/x7Model.recordBytes)+" / "+storedCount+" populated slots read · "+addedInTransfer+" new readings";
                 changed();
             }
             sendWlpCommand();
@@ -1581,7 +1583,7 @@ public final class MonitorService extends Service {
                 vendorRead=new VendorWlpSession(vendorModel,Collections.singletonList(vendorModel.settingsRange()),Math.min(56,VendorWlpSession.maxBlock(vendorModel)));
                 state("Reading monitor settings…","Reading the settings before a clock sync. Nothing is written without your confirmation.");
                 sendClockSyncCommand();
-            } else beginWlpRead(X7MemoryIndex.SETTINGS_START,X7MemoryIndex.SETTINGS_BYTES);
+            } else beginWlpRead(x7Model.settingsStart,X7MemoryIndex.SETTINGS_BYTES);
         } catch(IllegalArgumentException ex) { fail("Could not start the clock sync: "+ex.getMessage()); }
     }
     /**
@@ -1707,7 +1709,7 @@ public final class MonitorService extends Service {
         final long session=generation;
         final String device=address,model=verifiedModel;
         final byte[] bytes=clockSyncImage.clone();
-        final int start=profile==ProtocolProfile.VENDOR_MEMORY?vendorModel.settingsStart:X7MemoryIndex.SETTINGS_START;
+        final int start=profile==ProtocolProfile.VENDOR_MEMORY?vendorModel.settingsStart:x7Model.settingsStart;
         armPhase(15000,() -> endClockSyncWithoutWrite("The settings backup could not finish in time. No clock write was sent."));
         state("Saving settings backup…","Saving the monitor's settings before the clock write.");
         dumpIo.execute(() -> {
@@ -1901,11 +1903,12 @@ public final class MonitorService extends Service {
         }
         if(profile.isX7()) {
             if(!x7ReadReady()) return;
+            if(x7Model.userCount==1) importUsers=1;
             if(firstSequence!=-1) { state("Read populated records","X7 imports use the current index for both users without changing counters."); return; }
             historyRunning=true; receivedInTransfer=0; addedInTransfer=0; storedCount=-1; wlpParsed=0; wlpRejected=0;
             storedInTransfer=0; queuedInTransfer=0; pendingInTransfer=0;
             x7HistoryIndex=null; x7HistoryRanges=Collections.emptyList(); x7HistoryRange=0; x7HistoryRangeOffset=0;
-            beginWlpRead(X7MemoryIndex.SETTINGS_START,X7MemoryIndex.SETTINGS_BYTES);
+            beginWlpRead(x7Model.settingsStart,X7MemoryIndex.SETTINGS_BYTES);
             return;
         }
         if(hasUserControl && authenticatedUser!=user) { state("Authenticate first","Authenticate the selected monitor user before reading history."); return; }
@@ -1924,10 +1927,11 @@ public final class MonitorService extends Service {
     /** Model reported in this session (verified WLP identity or standard Device Information), else empty. Display only. */
     public String reportedModel() { return verifiedModel.isEmpty()?informationModel:verifiedModel; }
     /** Whether the connected, verified model offers a choice between its two users' readings. */
-    public boolean offersImportUsers() { return ready && (profile.isX7() || offersImportUsers(verifiedModel)); }
+    public boolean offersImportUsers() { return ready && offersImportUsers(verifiedModel); }
     /** Whether a saved Device Information model offers a choice between two users' readings. */
     public static boolean offersImportUsers(String model) {
-        if(X7Record.supportsModel(model)) return true;
+        X7Model single=X7Model.identify(model);
+        if(single!=null) return single.userCount==2;
         VendorMemoryModel vendor=VendorMemoryModel.identify(model);
         return vendor!=null && vendor.selectableUsers()==2;
     }
@@ -2099,6 +2103,7 @@ public final class MonitorService extends Service {
                 DeviceWritePolicy.validateX7Registration(profile,c.getService().getUuid(),c.getUuid(),requested,x7Registration);
             else if(clockWriteOpen() && c.equals(wlpTx) && requested.length>8)
                 DeviceWritePolicy.validateX7ClockBlock(profile,c.getService().getUuid(),c.getUuid(),requested,clockWrite);
+            else if(profile.isX7()) DeviceWritePolicy.validateX7Characteristic(profile,x7Model,c.getService().getUuid(),c.getUuid(),requested);
             else DeviceWritePolicy.validateCharacteristic(profile,c.getService().getUuid(),c.getUuid(),requested);
             byte[] value=requested;
             if(vendorCharacteristic(c) && secure!=null && secure.established()) {

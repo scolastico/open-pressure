@@ -43,12 +43,13 @@ rm -rf "$out/results" app/build/fixture-replay
 # Our app replay fails the build when OpenPressure diverges; keep going so both sides are reported.
 # The Omron replay is split into OmronFixtureShard<N>Test classes that Gradle runs in parallel forks.
 # OMRON_FORKS overrides the detected number of parallel test JVMs (docs/omron-sandbox.md).
+gradle_status=0
 forks=()
 if [ -n "${OMRON_FORKS:-}" ]; then forks=(-Pomron.forks="$OMRON_FORKS"); fi
 # ${forks[@]+...} keeps an empty array valid under set -u on bash before 4.4 (macOS /bin/bash).
 ./gradlew -q --continue ${forks[@]+"${forks[@]}"} -Dfixture="$fixture" -Domron.sandbox.explore="$explore" \
   :omron-sandbox:testDebugUnitTest --tests '*OmronFixtureShard*' --rerun \
-  :app:testDebugUnitTest --tests '*FixtureReplayTest' --rerun >"$out-gradle.log" 2>&1 || true
+  :app:testDebugUnitTest --tests '*FixtureReplayTest' --rerun >"$out-gradle.log" 2>&1 || gradle_status=$?
 
 mkdir -p protocol/build/plain-tests
 rg --files protocol/src -g '*.java' > protocol/build/plain-tests/sources.txt
@@ -65,3 +66,4 @@ for name in $names; do
   java -cp protocol/build/plain-tests:protocol/src/testFixtures/resources org.openpressure.protocol.fixture.ProtocolReplay "$name"
   echo
 done
+exit "$gradle_status"

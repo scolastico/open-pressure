@@ -27,7 +27,16 @@ public final class VendorMemoryModel {
         new VendorMemoryModel("HEM-7377T1",16,0x40,24,false,false,false,2,100,0x1cc,0x80c),
         new VendorMemoryModel("HEM-7530T",14,0x260,68,true,true,true,1,90,0x2e8),
         new VendorMemoryModel("HEM-7600T",14,0x260,38,true,true,false,1,100,0x2ac),
-        new VendorMemoryModel("HEM-6232T",14,0x260,68,true,true,true,2,100,0x2e8,0x860)
+        new VendorMemoryModel("HEM-6232T",14,0x260,68,true,true,true,2,100,0x2e8,0x860),
+        // Exact catalog identities validated by the Bluetooth reference fixtures. Separate entries keep every
+        // memory-write aspect blocked instead of inheriting an older model's clock permission.
+        new VendorMemoryModel("HEM-7151T-Z",16,0x10,68,true,true,true,1,80,0x98),
+        new VendorMemoryModel("HEM-7340T-Z",16,0x10,68,true,true,true,2,60,0x98,0x458),
+        new VendorMemoryModel("HEM-7340T-CA",16,0x10,68,true,true,true,2,60,0x98,0x458),
+        new VendorMemoryModel("HEM-7341T-Z",16,0x10,68,true,true,true,2,60,0x98,0x458),
+        new VendorMemoryModel("HEM-7343T-Z",16,0x10,68,true,true,true,2,100,0x98,0x6d8),
+        new VendorMemoryModel("HEM-6161T-E",14,0x260,68,true,true,true,1,30,0x2e8),
+        new VendorMemoryModel("HEM-6232T-D",14,0x260,68,true,true,true,2,100,0x2e8,0x860)
     };
     public final String id;
     public final boolean legacyUnlock,recordChecksum;
@@ -130,7 +139,7 @@ public final class VendorMemoryModel {
             throw new IllegalArgumentException("Invalid vendor pressure/pulse fields");
         int year=u8(raw,little?3:2);
         // Big-endian 7322/7600 use a full year byte; the other maps carry six year bits.
-        if(little || id.equals("HEM-7530T") || id.equals("HEM-6232T")) year&=63;
+        if(little || id.equals("HEM-7530T") || id.equals("HEM-6232T") || id.equals("HEM-6161T-E") || id.equals("HEM-6232T-D")) year&=63;
         year+=2000;
         int date=word(raw,4,little), clock=word(raw,6,little);
         int month=(date>>>10)&15, day=(date>>>5)&31, hour=date&31;
@@ -157,8 +166,16 @@ public final class VendorMemoryModel {
         boolean wrist=id.equals("HEM-6232T");
         int movementMask=wrist?0x4000:0x8000, irregularMask=wrist?0x8000:0x4000;
         int status=((date&movementMask)!=0?1:0)|((date&irregularMask)!=0?4:0);
+        // The added catalog maps report movement only without IHB (0007's conversion table); RS3 has no 0007
+        // measurement at all. Neither rule changes the independently documented older variants.
+        if(id.equals("HEM-6161T-E") || catalogMovementMask() && (status&4)!=0) status&=~1;
         // None of these reviewed maps establishes an AFib field. IHB remains independent.
         return new BloodPressure(sys,dia,Double.NaN,(double)pulse,user,status,time,false);
+    }
+
+    private boolean catalogMovementMask() {
+        return id.equals("HEM-7151T-Z") || id.equals("HEM-7340T-Z") || id.equals("HEM-7340T-CA") ||
+            id.equals("HEM-7341T-Z") || id.equals("HEM-7343T-Z") || id.equals("HEM-6232T-D");
     }
 
     /** Logical record order: 14-byte maps arrive with adjacent byte pairs swapped; 16-byte maps are copied unchanged. */
