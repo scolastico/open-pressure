@@ -24,6 +24,8 @@ public final class FixtureCursor {
     private final Map<Integer,byte[]> parts=new HashMap<>();
     private final List<String> transcript=new ArrayList<>();
     private int position;
+    /** The token captured by the last matched {@code nonce} write, echoed into its scripted reply. */
+    private byte[] token;
     private Outcome failure;
 
     public FixtureCursor(Fixture fixture,Fixture.Client client) {
@@ -57,9 +59,19 @@ public final class FixtureCursor {
             }
             parts.clear();
         }
-        if(!Arrays.equals(frame,expected.bytes)) return fail(Outcome.diverged(position,expected.line,expected.bytes,frame,"frame differs"));
+        if(!matches(expected,frame)) return fail(Outcome.diverged(position,expected.line,expected.bytes,frame,
+            expected.tokenOffset<0?"frame differs":"frame differs (nonce token bytes "+expected.tokenOffset+"-"+(expected.tokenOffset+expected.tokenLength-1)+" may hold any value)"));
+        if(expected.tokenOffset>=0) token=Arrays.copyOfRange(frame,expected.tokenOffset,expected.tokenOffset+expected.tokenLength);
         position++;
         return null;
+    }
+    /** Exact bytes, except a {@code nonce} write's token bytes, which may hold any value. */
+    private static boolean matches(Fixture.Step expected,byte[] frame) {
+        if(expected.tokenOffset<0) return Arrays.equals(frame,expected.bytes);
+        if(frame.length!=expected.bytes.length) return false;
+        for(int i=0;i<frame.length;i++)
+            if((i<expected.tokenOffset || i>=expected.tokenOffset+expected.tokenLength) && frame[i]!=expected.bytes[i]) return false;
+        return true;
     }
     private byte[] assemble() {
         byte[] first=parts.get(0);
@@ -82,10 +94,16 @@ public final class FixtureCursor {
         while(position<steps.size() && steps.get(position).kind==Fixture.Step.Kind.NOTIFY) {
             Fixture.Step step=steps.get(position++);
             List<UUID> channels=fixture.uuids(step.alias);
-            transcript.add("notify "+step.alias+" "+java.util.HexFormat.of().formatHex(step.bytes));
-            if(channels.size()==1) { result.add(new Notification(channels.get(0),step.bytes.clone())); continue; }
-            for(int i=0;i*16<step.bytes.length;i++)
-                result.add(new Notification(channels.get(i),Arrays.copyOfRange(step.bytes,i*16,Math.min(step.bytes.length,(i+1)*16))));
+            byte[] bytes=step.bytes.clone();
+            if(step.tokenOffset>=0) {
+                // The fixture parser always places a nonce write before its reply.
+                if(token==null || token.length!=step.tokenLength) throw new IllegalStateException("nonce reply without a captured token");
+                System.arraycopy(token,0,bytes,step.tokenOffset,step.tokenLength);
+            }
+            transcript.add("notify "+step.alias+" "+java.util.HexFormat.of().formatHex(bytes));
+            if(channels.size()==1) { result.add(new Notification(channels.get(0),bytes)); continue; }
+            for(int i=0;i*16<bytes.length;i++)
+                result.add(new Notification(channels.get(i),Arrays.copyOfRange(bytes,i*16,Math.min(bytes.length,(i+1)*16))));
         }
         return result;
     }

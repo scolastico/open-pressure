@@ -43,6 +43,11 @@ public final class Fixture {
     /** Clock-sync outcome a {@code sync-clock} flow must reach ("acknowledged", "skipped" or "rejected"); null otherwise. */
     public String expectClock;
     public byte[] random=new byte[0];
+    /**
+     * The monitor's largest ATT MTU ({@code mtu <n>}); a client's request negotiates the smaller of the two. The default
+     * 23 is the ATT minimum, which every legacy fixture uses.
+     */
+    public int mtu=23;
     /** User a pairing session registers (Omron registers exactly one; the legacy key is not per user). */
     public int registerUser=1;
     /** Users an import covers as a bitmask (1 = user 1, 2 = user 2, 3 = both). */
@@ -115,7 +120,7 @@ public final class Fixture {
         }
         String[] words=line.split("\\s+",2);
         String rest=words.length>1?words[1].trim():"";
-        if(only!=null && !Set.of("write","notify","reads","expect").contains(words[0])) throw new IllegalArgumentException("only steps and reading expectations can be annotated");
+        if(only!=null && !Set.of("write","notify","reads","nonce","expect").contains(words[0])) throw new IllegalArgumentException("only steps and reading expectations can be annotated");
         switch(words[0]) {
             case "name": if(!rest.equals(name)) throw new IllegalArgumentException("name "+rest+" does not match file "+name); break;
             case "advertise":
@@ -163,6 +168,16 @@ public final class Fixture {
                 break;
             }
             case "random": random=hex(rest); break;
+            case "mtu":
+                mtu=number(rest);
+                if(mtu<23 || mtu>517) throw new IllegalArgumentException("mtu must be 23 to 517");
+                break;
+            case "nonce": {
+                if(rest.isEmpty() || rest.contains(" ")) throw new IllegalArgumentException("nonce needs: nonce <alias>");
+                alias(rest);
+                pending.add(new Object[]{number,"nonce",rest,null,only,reason});
+                break;
+            }
             case "alias": {
                 String[] parts=rest.split("\\s+");
                 if(parts.length!=2) throw new IllegalArgumentException("alias needs a name and UUIDs");
@@ -216,6 +231,18 @@ public final class Fixture {
     private void expand(Object[] entry) {
         int number=(Integer)entry[0];
         String kind=(String)entry[1],only=(String)entry[4],reason=(String)entry[5];
+        if(kind.equals("nonce")) {
+            // The X7 system transaction: the phone writes 11 + a random 4-byte token + 15 zeros; the monitor echoes it
+            // as 91 00 token 00 plus zero padding. The token is fresh random data in both clients, so it is matched by
+            // position and echoed into the reply instead of being pinned.
+            byte[] request=new byte[20],reply=new byte[20];
+            request[0]=0x11; reply[0]=(byte)0x91;
+            String alias=(String)entry[2];
+            if(aliases.get(alias).size()!=1) throw new IllegalArgumentException("nonce needs a single-characteristic alias");
+            steps.add(new Step(Step.Kind.WRITE,alias,request,1,4,only,reason,number));
+            steps.add(new Step(Step.Kind.NOTIFY,alias,reply,2,4,only,reason,number));
+            return;
+        }
         if(!kind.equals("reads")) {
             int limit=16*aliases.get((String)entry[2]).size();
             if(kind.equals("notify") && aliases.get((String)entry[2]).size()>1 && ((byte[])entry[3]).length>limit)
@@ -275,6 +302,14 @@ public final class Fixture {
         for(int i=0;i<length;i++) out[i]=memory.getOrDefault(address+i,fill);
         return out;
     }
+    /**
+     * The Omron manufacturer data as Android's {@code getManufacturerSpecificData(0x020e)} returns it: the
+     * {@code advertise msd=} bytes after the little-endian company ID {@code 0e 02}; null without Omron data.
+     */
+    public byte[] omronManufacturerPayload() {
+        if(manufacturerData==null || manufacturerData.length<2 || manufacturerData[0]!=0x0e || manufacturerData[1]!=0x02) return null;
+        return Arrays.copyOfRange(manufacturerData,2,manufacturerData.length);
+    }
     /** True when the fixture expects this client to refuse the device instead of following the steps. */
     public boolean expectRejected(Client client) { return rejectedBy.contains(client); }
     public List<UUID> uuids(String alias) { return alias(alias); }
@@ -295,12 +330,24 @@ public final class Fixture {
         public final Kind kind;
         public final String alias;
         public final byte[] bytes;
-        Step(Kind kind,String alias,byte[] bytes,String only,String reason,int line) {
+        /**
+         * A {@code nonce} step's token position: in a write, these {@link #tokenLength} bytes from {@link #tokenOffset}
+         * may hold anything and are captured; in a notification they are filled with the captured token. -1 otherwise.
+         */
+        public final int tokenOffset,tokenLength;
+        Step(Kind kind,String alias,byte[] bytes,String only,String reason,int line) { this(kind,alias,bytes,-1,0,only,reason,line); }
+        Step(Kind kind,String alias,byte[] bytes,int tokenOffset,int tokenLength,String only,String reason,int line) {
             super(only,reason,line);
-            this.kind=kind; this.alias=alias; this.bytes=bytes;
+            this.kind=kind; this.alias=alias; this.bytes=bytes; this.tokenOffset=tokenOffset; this.tokenLength=tokenLength;
+        }
+        /** The step's hex, with {@code ??} for each token byte. */
+        public String hex() {
+            String hex=HexFormat.of().formatHex(bytes);
+            if(tokenOffset<0) return hex;
+            return hex.substring(0,2*tokenOffset)+"??".repeat(tokenLength)+hex.substring(2*(tokenOffset+tokenLength));
         }
         @Override public String toString() {
-            return (only==null?"":"["+only+"-only] ")+kind.name().toLowerCase()+" "+alias+" "+HexFormat.of().formatHex(bytes)+" (line "+line+")";
+            return (only==null?"":"["+only+"-only] ")+kind.name().toLowerCase()+" "+alias+" "+hex()+" (line "+line+")";
         }
     }
 

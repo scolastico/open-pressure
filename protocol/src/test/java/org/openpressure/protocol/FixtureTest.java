@@ -36,6 +36,9 @@ public final class FixtureTest {
         finishComparesReadings();
         finishComparesOnlyTheClientsReadings();
         parsesClockSyncFlowAndExpectation();
+        parsesMtuAndManufacturerPayload();
+        nonceMatchesAnyTokenAndEchoesIt();
+        describesX7SystemFrames();
         return checks;
     }
     private static void parsesHeaderAndExpandsReads() {
@@ -214,5 +217,50 @@ public final class FixtureTest {
         check(new FixtureCursor(plain,Fixture.Client.OURS_APP).finish(List.of(),"acknowledged").kind==Outcome.Kind.DIVERGED,"an unexpected clock sync diverges");
     }
     private static byte[] hex(String s) { return HexFormat.of().parseHex(s); }
+    private static void parsesMtuAndManufacturerPayload() {
+        check(Fixture.parse("test/sample",HEAD).mtu==23,"the monitor's MTU defaults to the ATT minimum");
+        check(Fixture.parse("test/sample",HEAD+"mtu 247\n").mtu==247,"mtu directive");
+        for(String bad:new String[]{"mtu 22","mtu 518","mtu"}) {
+            try { Fixture.parse("test/sample",HEAD+bad+"\n"); throw new AssertionError("accepted: "+bad); }
+            catch(IllegalArgumentException expected) { check(expected.getMessage().contains("line 11"),"rejects "+bad); }
+        }
+        check(Fixture.parse("test/sample",HEAD).omronManufacturerPayload()==null,"no manufacturer data");
+        String omron=HEAD.replace("services=ecbe3980-c9a2-11e1-b1bd-0002a5d5c51b","services=ecbe3980-c9a2-11e1-b1bd-0002a5d5c51b msd=0e0201010100010100");
+        check(Arrays.equals(Fixture.parse("test/sample",omron).omronManufacturerPayload(),hex("01010100010100")),"Android strips the 0x020e company ID");
+        check(Fixture.parse("test/sample",omron.replace("msd=0e02","msd=0f02")).omronManufacturerPayload()==null,"other company IDs are not Omron data");
+    }
+    private static void nonceMatchesAnyTokenAndEchoesIt() {
+        // The X7 system channel uses the legacy unlock characteristic's UUID; a fixture names it once.
+        String single=HEAD.replace("alias unlock ","alias sys ");
+        String x7=single+"nonce sys\nwrite tx 0800000000100018\n";
+        Fixture f=Fixture.parse("test/sample",x7);
+        List<Fixture.Step> steps=f.steps(Fixture.Client.OMRON);
+        check(steps.size()==3 && steps.get(0).kind==Fixture.Step.Kind.WRITE && steps.get(1).kind==Fixture.Step.Kind.NOTIFY,"nonce expands to a write and its reply");
+        check(steps.get(0).hex().equals("11????????"+"00".repeat(15)),"token bytes print as ??: "+steps.get(0).hex());
+        UUID sys=f.aliases.get("sys").get(0);
+        for(String token:new String[]{"00000000","a1b2c3d4"}) {
+            FixtureCursor cursor=new FixtureCursor(f,Fixture.Client.OURS_PROTOCOL);
+            check(cursor.onWrite(sys,hex("11"+token+"00".repeat(15)))==null,"any token matches: "+token);
+            List<FixtureCursor.Notification> replies=cursor.pendingNotifications();
+            check(replies.size()==1 && replies.get(0).characteristic.equals(sys) && Arrays.equals(replies.get(0).value,hex("9100"+token+"00".repeat(14))),"reply echoes "+token);
+        }
+        for(String wrong:new String[]{"12a1b2c3d4"+"00".repeat(15),"11a1b2c3d4"+"00".repeat(14)+"01","11a1b2c3d4"+"00".repeat(14)}) {
+            Outcome outcome=new FixtureCursor(f,Fixture.Client.OURS_PROTOCOL).onWrite(sys,hex(wrong));
+            check(outcome!=null && outcome.kind==Outcome.Kind.DIVERGED && outcome.detail.contains("any value"),"only the token is free: "+outcome);
+        }
+        try { Fixture.parse("test/sample",HEAD+"nonce tx\n"); throw new AssertionError("nonce on a multi-channel alias accepted"); }
+        catch(IllegalArgumentException expected) { check(expected.getMessage().contains("single-characteristic"),"nonce needs one characteristic"); }
+        try { Fixture.parse("test/sample",HEAD+"nonce clock\n"); throw new AssertionError("nonce on an unknown alias accepted"); }
+        catch(IllegalArgumentException expected) { check(expected.getMessage().contains("unknown alias"),"nonce alias must exist"); }
+        Fixture only=Fixture.parse("test/sample",single+"[omron-only: reason] nonce sys\n");
+        check(only.steps(Fixture.Client.OMRON).size()==2 && only.steps(Fixture.Client.OURS_APP).isEmpty(),"nonce steps can be annotated");
+    }
+    private static void describesX7SystemFrames() {
+        check(org.openpressure.protocol.fixture.WlpDescribe.describe(hex("11a1b2c3d4"+"00".repeat(15))).equals("x7-transaction nonce=a1b2c3d4"),"nonce request");
+        check(org.openpressure.protocol.fixture.WlpDescribe.describe(hex("9100a1b2c3d400"+"00".repeat(13))).startsWith("x7-transaction-reply status=00 nonce=a1b2c3d4"),"nonce reply");
+        check(org.openpressure.protocol.fixture.WlpDescribe.describe(hex("2001"+"00".repeat(18))).equals("x7-authorization-poll"),"authorization poll");
+        check(org.openpressure.protocol.fixture.WlpDescribe.describe(hex("c00100000000"+"00".repeat(15))).startsWith("x7-encrypted counter=1"),"encrypted frame counter");
+        check(org.openpressure.protocol.fixture.WlpDescribe.describe(hex("0800000000100018")).startsWith("start"),"WLP frames keep their description");
+    }
     private static void check(boolean value,String message) { checks++; if(!value) throw new AssertionError(message); }
 }
