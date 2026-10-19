@@ -30,3 +30,7 @@ open-pressure-eeprom*.json
 # Omron reference sandbox: the user's own Omron Connect download and everything derived from it.
 omron-sandbox/apk/*
 !omron-sandbox/apk/.gitkeep
+
+# JVM crash and attach files from local test runs
+hs_err_pid*.log
+.attach_pid*

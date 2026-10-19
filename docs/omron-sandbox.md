@@ -240,6 +240,7 @@ Omron Connect has no standalone clock sync: it writes the clock as part of its s
 | `hem-7155t/sync-clock-rejected` | Writes block 3; the echo carries status `01`, so the write counts as rejected, is not retried, and END still follows (`rejected`) | `unsupported` |
 | `hem-7530t/sync-clock` | Reads the image at `0x260`, finds a valid all-zero block 3 (an erased one is refused on this model), writes it at `0x2D0` (checksum `2a`) with byte pairs swapped (`acknowledged`) | `unsupported` |
 | `hem-7600t/sync-clock` | Reads the 38-byte image at `0x260`, finds a valid all-zero block 3 (an erased one is refused on this model), writes the 10-byte block at `0x29A` (checksum `2a`) with byte pairs swapped (`acknowledged`) | `unsupported` |
+| `hem-7196t1/sync-clock-encrypted` | Over the encrypted X7 route with `CLOCK_SYNC_ENCRYPTED_X7` and the untested clock-block override: reads the settings image, writes block 3 at `0x80` in one encrypted frame, accepts the synthetic echo and sends END (`acknowledged`); see [encrypted X7 route findings](#encrypted-x7-route-findings) | `unsupported` |
 
 The acknowledgments are synthetic full echoes; no fixture model's physical reply to a clock-block write is established, and their clock-block entries remain untested (only HEM-7380T1-EOSL, which has no `sync-clock` fixture here, is confirmed). Both OpenPressure replays enable the developer override for these fixtures.
 
