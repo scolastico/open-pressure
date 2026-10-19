@@ -39,10 +39,13 @@ import static org.mockito.Mockito.*;
 import static org.robolectric.Shadows.shadowOf;
 
 /**
- * Replays every shared device fixture through the real MonitorService: model verification, notification setup,
- * key handling, the ATT queue, history parsing, the explicit clock sync (settings backup, clock-block write and its
- * acknowledgment) and END. Only the Bluetooth peer is simulated, and it answers strictly from the fixture.
- * Writes {@code build/fixture-replay/<fixture>.txt}.
+ * Replays every shared device fixture through the real MonitorService from the connection callback on: MTU
+ * negotiation (the fixture's {@code mtu}), service discovery, model verification, the X7 route choice from the
+ * fixture's advertisement, notification setup, key handling, the ATT queue (including the delayed X7 system
+ * transaction), history parsing, X7 profile registration, the explicit clock sync (settings backup, clock-block write
+ * and its acknowledgment) and END. Only the Bluetooth peer is simulated, and it answers strictly from the fixture.
+ * A Pair starts after Android's fresh bond completed (bonding exchanges no GATT bytes). Writes
+ * {@code build/fixture-replay/<fixture>.txt}.
  */
 @RunWith(ParameterizedRobolectricTestRunner.class)
 @Config(sdk=35,application=Application.class,qualifiers="en")
@@ -59,7 +62,9 @@ public class FixtureReplayTest {
     private final Map<UUID,BluetoothGattCharacteristic> characteristics=new HashMap<>();
     private final Deque<Runnable> peer=new ArrayDeque<>();
     private Outcome outcome;
-    private boolean historyRequested,clockConfirmed,backupFlushed;
+    private boolean historyRequested,clockConfirmed,backupFlushed,registrationChosen;
+    /** A single-channel X7-family fixture (FE4A layout) rather than a legacy four-channel one. */
+    private boolean x7;
 
     public FixtureReplayTest(String name) { this.name=name; }
 
@@ -94,6 +99,15 @@ public class FixtureReplayTest {
         monitor.importUsers=fixture.importUsers;
         store.remember(ADDRESS,"Synthetic monitor",String.valueOf(fixture.dis.get("model")),1);
         store.setImportUsers(ADDRESS,fixture.importUsers);
+        // A single-channel fixture (no legacy unlock alias) describes an X7-family monitor on FE4A.
+        x7=!fixture.aliases.containsKey("unlock");
+        // connect() copies the selected scan result's Omron manufacturer data (company prefix removed by Android).
+        byte[] manufacturer=fixture.omronManufacturerPayload();
+        set("connectionManufacturer",manufacturer);
+        // Pair continues on the reconnection after Android's fresh bond, as MonitorService does after X7Bonding.
+        set("x7FreshBondEstablished",fixture.flow.equals("pair"));
+        // Robolectric cannot fsync a directory; the registration backup file itself is still written before any write.
+        monitor.registrationBackupSync=directory -> {};
         buildServices();
         stageKey();
         stubPeer();
@@ -111,7 +125,8 @@ public class FixtureReplayTest {
     }
 
     @Test public void everyFixtureMatchesOrIsExpectedRejected() throws Exception {
-        call("identifyWlp",new Class<?>[0]);
+        // As after connectGatt(): Android reports the connection, MonitorService negotiates the MTU and discovers services.
+        callback.onConnectionStateChange(gatt,BluetoothGatt.GATT_SUCCESS,BluetoothProfile.STATE_CONNECTED);
         pump();
         if(outcome==null) {
             List<Fixture.Reading> decoded=new ArrayList<>();
@@ -132,6 +147,11 @@ public class FixtureReplayTest {
             assertEquals("History transfer incomplete",monitor.status);
         }
         if(name.endsWith("/connect-bad-index-checksum")) assertEquals(MonitorService.ImportMode.INDEX_FALLBACK,monitor.importMode);
+        if(x7 && fixture.flow.equals("pair") && wanted==Outcome.Kind.MATCHES) {
+            // A permitted registration keeps its backup and ends acknowledged before END; nothing else is imported.
+            assertNotNull("registration backup",monitor.registrationBackupFile());
+            assertEquals("User "+fixture.registerUser+" registration acknowledged",monitor.status);
+        }
         if(fixture.flow.equals("read-all")) assertEquals(MonitorService.ImportMode.FULL_SWEEP,monitor.importMode);
         if(fixture.flow.equals("sync-clock")) {
             assertTrue("the clock-sync session ends with END",monitor.sessionFinished);
@@ -153,6 +173,13 @@ public class FixtureReplayTest {
         for(int guard=0;guard<100000 && outcome==null;guard++) {
             idle();
             if(peer.isEmpty()) {
+                // Off-main-thread saves (the registration backup), then the short delays MonitorService schedules
+                // itself, such as the 500 ms wake-up wait before the plain X7 system transaction; timeouts stay pending.
+                flushIo();
+                shadowOf(Looper.getMainLooper()).idleFor(java.time.Duration.ofMillis(600));
+                if(!peer.isEmpty()) continue;
+                // X7 Pair: choose the fixture's user once the backup is saved and the app asks for the user.
+                if(monitor.registrationPending && !registrationChosen) { registrationChosen=true; monitor.registerX7User(fixture.registerUser); continue; }
                 // A user-started import (or Read all) after a manual Connect reaches "Vendor history available".
                 if(!historyRequested && !fixture.flow.equals("pair") && !monitor.historyRunning && cursor.position()>0) {
                     historyRequested=true;
@@ -171,6 +198,12 @@ public class FixtureReplayTest {
     }
 
     private void stubPeer() {
+        when(gatt.requestMtu(anyInt())).thenAnswer(invocation -> {
+            int negotiated=Math.max(23,Math.min((Integer)invocation.getArgument(0),fixture.mtu));
+            peer.add(() -> callback.onMtuChanged(gatt,negotiated,BluetoothGatt.GATT_SUCCESS));
+            return true;
+        });
+        when(gatt.discoverServices()).thenAnswer(invocation -> { peer.add(() -> callback.onServicesDiscovered(gatt,BluetoothGatt.GATT_SUCCESS)); return true; });
         when(gatt.setCharacteristicNotification(any(),anyBoolean())).thenReturn(true);
         when(gatt.readCharacteristic(any())).thenAnswer(invocation -> {
             BluetoothGattCharacteristic c=invocation.getArgument(0);
@@ -199,11 +232,21 @@ public class FixtureReplayTest {
     }
 
     private void buildServices() {
-        VendorMemoryModel model=VendorMemoryModel.identify("HEM-7156T");
-        BluetoothGattService vendor=new BluetoothGattService(VendorWlpSession.service(model),BluetoothGattService.SERVICE_TYPE_PRIMARY);
-        for(UUID id:fixture.uuids("tx")) characteristic(vendor,id,BluetoothGattCharacteristic.PROPERTY_WRITE,false);
-        for(UUID id:fixture.uuids("rx")) characteristic(vendor,id,BluetoothGattCharacteristic.PROPERTY_NOTIFY,true);
-        characteristic(vendor,fixture.uuids("unlock").get(0),BluetoothGattCharacteristic.PROPERTY_WRITE|BluetoothGattCharacteristic.PROPERTY_NOTIFY,true);
+        BluetoothGattService vendor;
+        if(x7) {
+            // FE4A single-channel layout: TX and SYS accept writes without response, RX and SYS notify.
+            vendor=new BluetoothGattService(Uuids.VENDOR_ALIAS,BluetoothGattService.SERVICE_TYPE_PRIMARY);
+            int write=BluetoothGattCharacteristic.PROPERTY_WRITE|BluetoothGattCharacteristic.PROPERTY_WRITE_NO_RESPONSE;
+            characteristic(vendor,fixture.uuids("tx").get(0),write,false);
+            characteristic(vendor,fixture.uuids("rx").get(0),BluetoothGattCharacteristic.PROPERTY_NOTIFY,true);
+            characteristic(vendor,fixture.uuids("sys").get(0),write|BluetoothGattCharacteristic.PROPERTY_NOTIFY,true);
+        } else {
+            VendorMemoryModel model=VendorMemoryModel.identify("HEM-7156T");
+            vendor=new BluetoothGattService(VendorWlpSession.service(model),BluetoothGattService.SERVICE_TYPE_PRIMARY);
+            for(UUID id:fixture.uuids("tx")) characteristic(vendor,id,BluetoothGattCharacteristic.PROPERTY_WRITE,false);
+            for(UUID id:fixture.uuids("rx")) characteristic(vendor,id,BluetoothGattCharacteristic.PROPERTY_NOTIFY,true);
+            characteristic(vendor,fixture.uuids("unlock").get(0),BluetoothGattCharacteristic.PROPERTY_WRITE|BluetoothGattCharacteristic.PROPERTY_NOTIFY,true);
+        }
         BluetoothGattService dis=new BluetoothGattService(sig(0x180a),BluetoothGattService.SERVICE_TYPE_PRIMARY);
         characteristic(dis,sig(0x2a24),BluetoothGattCharacteristic.PROPERTY_READ,false);
         when(gatt.getService(vendor.getUuid())).thenReturn(vendor);
@@ -217,6 +260,8 @@ public class FixtureReplayTest {
         when(gatt.getServices()).thenReturn(services);
     }
     private void stageKey() throws Exception {
+        // Plain X7 sessions use no application key; a saved one would select the encrypted route.
+        if(x7) return;
         VendorMemoryModel model=VendorMemoryModel.identify(fixture.dis.get("model"));
         if(model==null || fixture.key==null) return;
         VendorPairingKeys keys=new VendorPairingKeys(new PairingKeys(monitor),ADDRESS,model.id);
