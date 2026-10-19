@@ -80,6 +80,7 @@ public final class ProtocolTest {
         checks+=X7RegistrationTest.run();
         checks+=X7ModelTest.run();
         checks+=VendorMemoryModelTest.run();
+        checks+=BluetoothCatalogModelTest.run();
         checks+=VendorMemoryIndexTest.run();
         checks+=VendorWlpSessionTest.run();
         checks+=LegacyUnlockTest.run();

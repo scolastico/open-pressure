@@ -80,7 +80,7 @@ public final class OmronConfig {
         for(String candidate:new String[]{identifier,modelId,catalogName}) if(X7Record.supportsModel(candidate)) return candidate;
         return null;
     }
-    /** OpenPressure's X7 BP banks for an accepted identity: the ranges its index yields with every slot of both users populated. */
+    /** OpenPressure's X7 BP banks for an accepted identity: the ranges its index yields with every slot of its available users populated. */
     public static List<X7MemoryIndex.Range> x7Banks(String acceptedName) {
         X7Model model=X7Model.identify(acceptedName);
         if(model==null) throw new IllegalArgumentException("not an accepted X7 identity: "+acceptedName);
@@ -89,19 +89,22 @@ public final class OmronConfig {
         full[1]=0x40; full[3]=0x40;
         return X7MemoryIndex.parse(model,full).historyRanges();
     }
-    /** Omron's BP areas (users 1 and 2) of a WLD configuration against OpenPressure's X7 banks. */
+    /** Omron's BP areas of a WLD configuration against the accepted model's single-channel banks. */
     public static String compareX7(String identifier,OmronConfig omron,String acceptedName) {
         StringBuilder out=new StringBuilder(identifier).append(" (").append(omron.modelId).append(", ").append(omron.connectType).append(") -> ours X7 map\n");
-        List<Area> areas=omron.wldAreas();
-        for(Area a:areas) out.append("  Omron ").append(a.user>2?a.toString().replaceFirst("^user","area")+" (not BP history)":a.toString()).append('\n');
+        X7Model model=X7Model.identify(acceptedName);
+        if(model==null) throw new IllegalArgumentException("not an accepted single-channel identity: "+acceptedName);
+        List<Area> areas=omron.areas();
+        if(areas.isEmpty()) areas=omron.wldAreas();
+        for(Area a:areas) out.append("  Omron ").append(a.user>model.userCount?a.toString().replaceFirst("^user","area")+" (not BP history)":a.toString()).append('\n');
         List<X7MemoryIndex.Range> banks=x7Banks(acceptedName);
         for(X7MemoryIndex.Range r:banks)
-            out.append(String.format(Locale.ROOT,"  Ours  user %d: 0x%X, %d records of %d bytes%n",r.user,r.start,r.length/X7Record.RECORD_BYTES,X7Record.RECORD_BYTES));
+            out.append(String.format(Locale.ROOT,"  Ours  user %d: 0x%X, %d records of %d bytes%n",r.user,r.start,r.length/model.recordBytes,model.recordBytes));
         List<String> differences=new ArrayList<>();
         for(X7MemoryIndex.Range r:banks) {
             Area a=r.user<=areas.size()?areas.get(r.user-1):null;
             if(a==null) differences.add("user "+r.user+" has no Omron area");
-            else if(a.start!=r.start || a.size!=X7Record.RECORD_BYTES || a.step!=X7Record.RECORD_BYTES || a.count*a.step!=r.length) differences.add("user "+r.user+" layout differs");
+            else if(a.start!=r.start || a.size!=model.recordBytes || a.step!=model.recordBytes || a.count*a.step!=r.length) differences.add("user "+r.user+" layout differs");
         }
         out.append(differences.isEmpty()?"  same layout\n":"  DIFFERENT: "+String.join("; ",differences)+"\n");
         return out.toString();

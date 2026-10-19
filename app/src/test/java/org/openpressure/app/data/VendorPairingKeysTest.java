@@ -6,6 +6,17 @@ import java.util.*;
 import static org.junit.Assert.*;
 
 public class VendorPairingKeysTest {
+    @Test public void regionalModelKeysSurviveRestartWithoutCrossingVariants() throws Exception {
+        Memory memory=new Memory(); byte[] key=new byte[16]; Arrays.fill(key,(byte)9);
+        VendorPairingKeys regional=new VendorPairingKeys(memory,"AA:BB","HEM-7340T-Z");
+        regional.stage(key);
+        assertArrayEquals(key,new VendorPairingKeys(memory,"AA:BB","HEM-7340T-Z").provisioningKey());
+        assertFalse(new VendorPairingKeys(memory,"AA:BB","HEM-7340T-CA").hasCandidate());
+        assertFalse(new VendorPairingKeys(memory,"AA:BB","HEM-7340T").hasCandidate());
+        assertFalse(new VendorPairingKeys(memory,"CC:DD","HEM-7340T-Z").hasCandidate());
+        for(String unsafe:new String[]{"HEM-7340T-Z/other","HEM-7340T-Z..","HEM--7340T","HEM-7340T-","HEM-7340T-z"})
+            assertThrows(IllegalArgumentException.class,() -> new VendorPairingKeys(memory,"AA:BB",unsafe));
+    }
     private static class Memory implements VendorPairingKeys.Backend {
         final Map<String,byte[]> values=new HashMap<>(); boolean failWrite;
         public byte[] get(String key) { byte[] value=values.get(key); return value==null?null:value.clone(); }

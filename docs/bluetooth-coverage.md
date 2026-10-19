@@ -2,7 +2,7 @@
 
 The target is every Bluetooth blood pressure monitor in OMRON Connect, including regional identities. Scales, thermometers, pulse oximeters and HeartGuide activity are outside this work. Complete's Bluetooth BP transfer is in scope; its audio ECG transfer is not. Camera and other non-Bluetooth transfers are excluded.
 
-This is fixture-first research, not a declaration of new device support. The new identities below remain rejected by OpenPressure. Only the monitor and operations recorded in [compatibility](compatibility.md) are hardware-tested. A synthetic acknowledgment proves nothing about a physical cuff or the safety of a memory write.
+The first batch below now has experimental, source-derived read support in OpenPressure, tested with synthetic fixtures against the official library. Only the monitor and operations recorded in [compatibility](compatibility.md) are hardware-tested. A synthetic acknowledgment proves nothing about a physical cuff or the safety of a memory write.
 
 ## Reproduce the inventory
 
@@ -34,9 +34,9 @@ The plain single-channel probes use manufacturer type 1, with the one-user flags
 
 ## First fixture batch
 
-Each identity has `connect-read-history` and `pair` scripts under its lowercase model directory in the shared [fixture root](../protocol/src/testFixtures/resources/org/openpressure/protocol/fixtures/). The HEM-7188T1 identities also have `connect-encrypted` and `pair-encrypted`: **28 scripts for 12 identities** in this batch. Connect expects one decoded reading per BP user; Pair models the official registration flow separately. Fixture comments distinguish the independently constructed memory from observed official writes and invented acknowledgment echoes.
+Each identity has `connect-read-history` and `pair` scripts under its lowercase model directory in the shared [fixture root](../protocol/src/testFixtures/resources/org/openpressure/protocol/fixtures/). The HEM-7188T1 identities also have `connect-encrypted` and `pair-encrypted`: **28 scripts for 12 identities** in this batch. Connect expects one decoded reading per BP user. Pair models the official registration flow separately; OpenPressure uses only read access and, where applicable, application authentication. Fixture comments distinguish the independently constructed memory from observed official writes and invented acknowledgment echoes.
 
-| Exact catalog identity | ID | Initial map hypothesis | BP slots per user |
+| Exact catalog identity | ID | Source-derived read map | BP slots per user |
 | --- | --- | --- | --- |
 | HEM-7151T-Z (BP5250) | `0160` | Four channels; 16-byte records at `0098` | 80 |
 | HEM-7340T-Z (BP7350) | `0153` | Four channels; 16-byte records at `0098`, `0458` | 60 |
@@ -51,15 +51,17 @@ Each identity has `connect-read-history` and `pair` scripts under its lowercase 
 | HEM-7188T1-LE (M2+ Connect) | `00DE` | One channel, MTU parameter 244; 16-byte records at `01C4` | 30 |
 | HEM-7188T1-LEO (X2+ Connect) | `00F1` | One channel, MTU parameter 244; 16-byte records at `01C4` | 30 |
 
-The four-channel probes expose index/setting reads and post-transfer writes independently. Omron clears the unsent count and changes birthday/clock settings after a transfer; OpenPressure must not acquire those writes as a consequence of adding read support. The fixtures explicitly require `expect ours rejected`. They are references for a later implementation, not an outgoing-command permit.
+The four-channel probes expose index/setting reads and post-transfer writes independently. Omron clears the unsent count and changes birthday/clock settings after a transfer; OpenPressure must not acquire those writes as a consequence of adding read support. All 28 fixtures now require `expect ours matches` as well as `expect omron matches`, with client-specific operations where the read-only flow differs. No profile-registration, clock, birthday or unread-counter writes are enabled for these identities, including with the developer override. Legacy explicit Pair retains its narrowly permitted application-key provisioning.
 
 An `expect omron matches` directive makes a confirmed script a regression: a later divergence, refusal, missing operation or decoded-reading mismatch fails the Gradle sandbox test after saving its transcript. Omit it while exploring a new hypothesis. `-Domron.sandbox.explore=true` deliberately bypasses this assertion while retaining the reported outcome; replay again without exploration before calling a script matched.
 
 ### Recorded synthetic results, 2026-10-19
 
-With OMRON Connect 2026.09.03 (2026091010), all **28 new scripts match in strict replay**: 24 plain Connect/Pair scripts and four encrypted HEM-7188T1 scripts. The selected sandbox run completed 30 JUnit tests including the strict/exploration contract checks, with no failures, errors or skips. These results confirm the complete scripted link exchange and Connect's expected decoded readings against the official library, not real monitor behavior.
+With OMRON Connect 2026.09.03 (2026091010), all **28 new scripts match in strict replay**: 24 plain Connect/Pair scripts and four encrypted HEM-7188T1 scripts. The selected sandbox run completed 28 fixture tests with no failures, errors or skips. These results confirm the complete scripted link exchange and Connect's expected decoded readings against the official library, not real monitor behavior.
 
-All 28 new scripts are also replayed by the normal protocol suite and the real `MonitorService` test harness. The app refuses every new identity before issuing any characteristic write. The Android validation command `./gradlew --offline :protocol:check :app:testDebugUnitTest :app:assembleDebug :app:lintDebug` passed; the app test run completed 914 tests without failures, errors or skips. The protocol, storage, locale and release fast checks and the inventory/command Python tests passed as well. No physical device was connected or tested for this work.
+All 28 new scripts also match in the normal protocol suite and the real `MonitorService` harness. OpenPressure verifies the exact identity and service/channel set, reads the model-specific index and history banks, and preserves the device settings and unread counters. Additional service tests exercise one-user selection, 14-byte records across transport blocks, invalid checksums, cancellation, stale callbacks, disconnects, authentication failure and identity/channel mismatch.
+
+The full Android validation (`:protocol:check :app:testDebugUnitTest :app:assembleDebug :app:lintDebug`) passed, including 501 app tests with no failures, errors or skips. The protocol suite passed 16,714 assertions; storage, locale, release, inventory and sandbox-command checks also passed. The memory-map comparison's five tests passed, and the local report agrees on bank addresses, widths and capacities for all twelve added identities. No physical device was connected or tested for this work.
 
 For a focused repeat through both clients:
 
@@ -67,7 +69,7 @@ For a focused repeat through both clients:
 tools/omron-sandbox.sh hem-7188t1-le/pair-encrypted
 ```
 
-The expected comparison is Omron `matches` and OpenPressure `rejected`. Implementing these identities, rather than continuing to refuse them, is a separate next step requiring the model-specific parsing, bounds, transport and service tests described below.
+The expected comparison is `matches` for both clients. OpenPressure's seven new legacy identities retain their individual bank bounds, byte order and flag/year rules. The five new single-channel identities expose one user, reject arbitrary dump ranges at the GATT boundary before encryption, and do not infer AFib. HEM-7143T1/T2 encrypted sessions at their catalog MTU are not validated; the existing encrypted-transport minimum MTU remains enforced. See [protocol](protocol.md#additional-bluetooth-catalog-maps) and [compatibility](compatibility.md) for the exact limits.
 
 ## Remaining work toward full coverage
 

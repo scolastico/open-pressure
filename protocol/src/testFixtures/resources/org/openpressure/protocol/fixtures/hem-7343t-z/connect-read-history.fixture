@@ -1,40 +1,41 @@
 # HEM-7343T-Z (BP5450): synthetic connect probe, 2 user(s), 100 slots per user.
 # Assumption: the exact model configuration selects legacy WLP4COM with these bounded record areas.
 # REA: OHQBleDevice.m (2026.09.03); model-specific facts and limits: docs/bluetooth-coverage.md.
-# OpenPressure must reject this identity until a separately reviewed implementation exists.
+# OpenPressure uses only the verified read map; memory writes remain blocked.
 name hem-7343t-z/connect-read-history
 flow connect
 advertise name=BLEsmart_0000015F0011223344 services=ecbe3980-c9a2-11e1-b1bd-0002a5d5c51b
 dis model=HEM-7343T-Z firmware=0001 software=0001 systemid=0011223344556677
 time 2026-01-02T03:04:05 zone=UTC
 key 05050505050505050505050505050505
-expect ours rejected
 expect omron matches
 
 alias unlock b305b680-aee7-11e1-a730-0002a5d5c51b
 alias tx db5b55e0-aee7-11e1-965e-0002a5d5c51b,e0b8a060-aee7-11e1-92f4-0002a5d5c51b,0ae12b00-aee8-11e1-a192-0002a5d5c51b,10e1ba60-aee8-11e1-89e5-0002a5d5c51b
 alias rx 49123040-aee8-11e1-a74d-0002a5d5c51b,4d0bf320-aee8-11e1-a0d9-0002a5d5c51b,5128ce60-aee8-11e1-b84b-0002a5d5c51b,560f1420-aee8-11e1-8184-0002a5d5c51b
 
+# User 1 also exercises date flag bits, reserved year bits where applicable, and the model-specific movement/IHB rule.
 memory fill=ff
 memory 0x10 01000100010001000100000001000000
 memory 0x3c 00000000000000000000000000000000
-memory 0x98 694e4319261da6030000010000000000
+memory 0x98 694e43d926dda6030000010000008000
 memory 0x6d8 5f50461927208007000001000000dd00
 
-write unlock 02 00000000000000000000000000000000
-notify unlock 8200
+[omron-only: Omron confirms encryption on Connect; OpenPressure follows its existing saved-key unlock order] write unlock 02 00000000000000000000000000000000
+[omron-only: Omron confirms encryption on Connect; OpenPressure follows its existing saved-key unlock order] notify unlock 8200
 write unlock 01 05050505050505050505050505050505
 notify unlock 8100
 
 write tx 08 00 00 00 00 10 00 18
 notify rx 18 80 00 00 00 10 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f 00 88
-reads 0x10 44 chunk=44
-reads 0x3c 16 chunk=16
+[omron-only: official index and setting-block reads; OpenPressure reads its complete bounded index image] reads 0x10 44 chunk=44
+[omron-only: official index and setting-block reads; OpenPressure reads its complete bounded index image] reads 0x3c 16 chunk=16
+[ours-only: read the complete model-bound 68-byte settings/index image before populated slots] reads 0x10 68 chunk=56
 reads 0x98 16 chunk=16
 reads 0x6d8 16 chunk=16
 
 # Official post-transfer memory writes observed with this synthetic peer only.
-# These writes are Omron-only; OpenPressure rejects this model before any command.
+# These writes are Omron-only; OpenPressure never sends them during a transfer.
 # Echo acknowledgments are invented and establish no physical device behavior.
 [omron-only: official 2026.09.03 settings write at 0x54; docs/bluetooth-coverage.md] write tx 1801c000541001000100010000800100000001000000001c
 [omron-only: synthetic full-echo acknowledgment, unconfirmed on hardware] notify rx 1881c000541001000100010000800100000001000000009c
@@ -44,5 +45,5 @@ reads 0x6d8 16 chunk=16
 write tx 08 0f 00 00 00 00 00 07
 notify rx 08 8f 00 00 00 00 00 87
 
-expect reading user=1 sys=130 dia=78 pulse=67 time=2025-07-09T06:14:38
+expect reading user=1 sys=130 dia=78 pulse=67 time=2025-07-09T06:14:38 irregular=1 movement=0
 expect reading user=2 sys=120 dia=80 pulse=70 time=2025-08-01T07:30:00

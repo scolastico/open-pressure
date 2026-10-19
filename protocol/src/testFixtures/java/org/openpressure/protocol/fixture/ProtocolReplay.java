@@ -195,7 +195,7 @@ public final class ProtocolReplay {
         if(!f.flow.equals("connect") && !pair && !clock) return Outcome.rejected(0,"X7 flow "+f.flow+" is not replayed at protocol level");
         int mtu=Math.min(REQUESTED_MTU,f.mtu);
         if(encrypted && mtu<92) return Outcome.rejected(0,"OpenPressure refused: X7 application pairing requires an ATT MTU of at least 92");
-        X7Link link=new X7Link(profile,cursor,sys);
+        X7Link link=new X7Link(profile,model,cursor,sys);
         try {
             byte[] nonce=new byte[4];
             new java.security.SecureRandom().nextBytes(nonce);
@@ -221,7 +221,7 @@ public final class ProtocolReplay {
                 // MonitorService ends Pair in the read-only ready state without a read.
                 return cursor.finish(List.of());
             if(register && mtu<35) return Outcome.rejected(cursor.position(),"OpenPressure refused: X7 registration requires an ATT MTU of at least 35");
-            WlpReadSession session=new WlpConnection().begin(X7MemoryIndex.SETTINGS_START,X7MemoryIndex.SETTINGS_BYTES,mtu>=27?16:8);
+            WlpReadSession session=new WlpConnection().begin(model.settingsStart,X7MemoryIndex.SETTINGS_BYTES,mtu>=27?16:8);
             List<X7MemoryIndex.Range> ranges=new ArrayList<>();
             ArrayDeque<X7MemoryIndex.Range> pending=new ArrayDeque<>();
             boolean indexRead=false;
@@ -284,14 +284,15 @@ public final class ProtocolReplay {
      */
     private static final class X7Link {
         private final ProtocolProfile profile;
+        private final X7Model model;
         private final FixtureCursor cursor;
         private final UUID sys;
         private SecureSession secure;
-        X7Link(ProtocolProfile profile,FixtureCursor cursor,UUID sys) { this.profile=profile; this.cursor=cursor; this.sys=sys; }
+        X7Link(ProtocolProfile profile,X7Model model,FixtureCursor cursor,UUID sys) { this.profile=profile; this.model=model; this.cursor=cursor; this.sys=sys; }
 
         /** Validates the plaintext command with the generic X7 policy, then sends it. */
         Outcome write(UUID characteristic,byte[] command) {
-            DeviceWritePolicy.validateCharacteristic(profile,X7_SERVICE,characteristic,command);
+            DeviceWritePolicy.validateX7Characteristic(profile,model,X7_SERVICE,characteristic,command);
             return send(characteristic,command);
         }
         /** Sends an already validated plaintext command, encrypted when the session is established. */
@@ -338,9 +339,9 @@ public final class ProtocolReplay {
         List<Fixture.Reading> readings=new ArrayList<>();
         int offset=X7MemoryIndex.SETTINGS_BYTES;
         for(X7MemoryIndex.Range range:ranges) {
-            for(int i=0;i+X7Record.RECORD_BYTES<=range.length;i+=X7Record.RECORD_BYTES) {
+            for(int i=0;i+model.recordBytes<=range.length;i+=model.recordBytes) {
                 X7Record record;
-                try { record=X7Record.parse(java.util.Arrays.copyOfRange(data,offset+i,offset+i+X7Record.RECORD_BYTES),range.user,model); }
+                try { record=X7Record.parse(java.util.Arrays.copyOfRange(data,offset+i,offset+i+model.recordBytes),range.user,model); }
                 catch(IllegalArgumentException rejected) { continue; }
                 if(record!=null) readings.add(new Fixture.Reading(range.user,(int)record.measurement.systolic,(int)record.measurement.diastolic,record.measurement.pulse.intValue(),record.measurement.time)
                     .withFlags(flag(record.measurement.status,4),flag(record.measurement.status,1),record.measurement.atrialFibrillation==null?null:record.measurement.atrialFibrillation?1:0));
@@ -363,7 +364,8 @@ public final class ProtocolReplay {
                 BloodPressure bp;
                 try { bp=model.parse(java.util.Arrays.copyOfRange(data,offset+i,offset+i+model.recordBytes),range.user); }
                 catch(IllegalArgumentException rejected) { continue; }
-                if(bp!=null) readings.add(new Fixture.Reading(range.user,(int)bp.systolic,(int)bp.diastolic,bp.pulse.intValue(),bp.time));
+                if(bp!=null) readings.add(new Fixture.Reading(range.user,(int)bp.systolic,(int)bp.diastolic,bp.pulse.intValue(),bp.time)
+                    .withFlags(flag(bp.status,4),flag(bp.status,1),bp.atrialFibrillation==null?null:bp.atrialFibrillation?1:0));
             }
             offset+=range.length;
         }

@@ -28,6 +28,11 @@ public final class MonitorProduct {
         // Omron Connect's catalog names (docs/compatibility.md).
         map.put("HEM-7196T1-FLE",new MonitorProduct("HEM-7196T1-FLE","OMRON",X7Model.HEM_7196T1_FLE.productName));
         map.put("HEM-7196T1-FLEO",new MonitorProduct("HEM-7196T1-FLEO","OMRON",X7Model.HEM_7196T1_FLEO.productName));
+        for(X7Model model:new X7Model[]{X7Model.HEM_7143T1_E,X7Model.HEM_7143T1_D,X7Model.HEM_7143T2_E,X7Model.HEM_7188T1_LE,X7Model.HEM_7188T1_LEO})
+            map.put(model.identity,new MonitorProduct(model.identity,"OMRON",model.productName));
+        for(String[] row:new String[][]{{"HEM-7151T-Z","BP5250"},{"HEM-7340T-Z","BP7350"},{"HEM-7340T-CA","BP7350CAN"},
+                {"HEM-7341T-Z","BP5350"},{"HEM-7343T-Z","BP5450"},{"HEM-6161T-E","RS3 Intelli IT"},{"HEM-6232T-D","RS7 Intelli IT"}})
+            map.put(row[0],new MonitorProduct(row[0],"OMRON",row[1]));
         REGISTRY=Collections.unmodifiableMap(map);
     }
 

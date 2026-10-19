@@ -3,9 +3,8 @@ package org.openpressure.protocol;
 import java.util.Locale;
 
 /**
- * Read-map facts of one exact single-channel X7-family identity (docs/protocol.md, "X7 model map"). Omron's
- * configurations for these identities share the 68-byte settings/index image at {@code 0x10}, the 16-byte record
- * layout starting at {@code 0x1C4} and two contiguous user banks; they differ only in slots per user. Pure data: it
+ * Read-map facts of one exact single-channel WLP identity (docs/protocol.md). Settings addresses, record widths
+ * and user counts are per model; the original X7-family constants describe only its two-user layout. Pure data: it
  * sends nothing and authorizes no write. Write permissions stay in {@link WriteAspectIndex}.
  */
 public final class X7Model {
@@ -24,7 +23,13 @@ public final class X7Model {
     public static final X7Model HEM_7196T1_FLE=new X7Model("HEM-7196T1-FLE","HEM-7196T1","M4 Connect AFib",60,true,0x00eb);
     /** HEM-7196T1-FLEO (X4 Connect AFib): Omron's configuration is identical to FLE apart from model_id. */
     public static final X7Model HEM_7196T1_FLEO=new X7Model("HEM-7196T1-FLEO","HEM-7196T1","X4 Connect AFib",60,true,0x00e1);
-    private static final X7Model[] MODELS={HEM_7380T1_EOSL,HEM_7380T1_EBK,HEM_7380T1,HEM_7196T1_FLE,HEM_7196T1_FLEO};
+    public static final X7Model HEM_7143T1_E=new X7Model("HEM-7143T1-E","HEM-7143T1","M2 Intelli IT",30,false,0x0288,0x260,0x2e8,14,1,false,true,true);
+    public static final X7Model HEM_7143T1_D=new X7Model("HEM-7143T1-D","HEM-7143T1","M300 Intelli IT",30,false,0x0289,0x260,0x2e8,14,1,false,true,true);
+    public static final X7Model HEM_7143T2_E=new X7Model("HEM-7143T2-E","HEM-7143T2","X2 Smart",30,false,0x0287,0x260,0x2e8,14,1,false,true,true);
+    public static final X7Model HEM_7188T1_LE=new X7Model("HEM-7188T1-LE","HEM-7188T1","M2+ Connect",30,false,0x00de,0x10,0x1c4,16,1,false,false,true);
+    public static final X7Model HEM_7188T1_LEO=new X7Model("HEM-7188T1-LEO","HEM-7188T1","X2+ Connect",30,false,0x00f1,0x10,0x1c4,16,1,false,false,true);
+    private static final X7Model[] MODELS={HEM_7380T1_EOSL,HEM_7380T1_EBK,HEM_7380T1,HEM_7196T1_FLE,HEM_7196T1_FLEO,
+        HEM_7143T1_E,HEM_7143T1_D,HEM_7143T2_E,HEM_7188T1_LE,HEM_7188T1_LEO};
 
     /** Exact identity; the write-aspect index row when one exists. */
     public final String identity;
@@ -33,6 +38,11 @@ public final class X7Model {
     /** Display name from the firmware or Omron's catalog; null for the bare base identity. Never an accepted identity. */
     public final String productName;
     public final int recordsPerUser;
+    public final int settingsStart,recordBytes,userCount;
+    public final boolean afibSupported,sixBitYear;
+    /** New catalog paths permit only the settings image and history banks, never an arbitrary dump range. */
+    public final boolean restrictedReads;
+    private final int recordStart;
     /**
      * Omron's VitalDataIndexes for this identity force the irregular-pulse and movement flags to 0 when the
      * record's AFib bit is set.
@@ -42,15 +52,21 @@ public final class X7Model {
     public final int advertisedModelId;
 
     private X7Model(String identity,String mapName,String productName,int recordsPerUser,boolean afibMasksFlags,int advertisedModelId) {
+        this(identity,mapName,productName,recordsPerUser,afibMasksFlags,advertisedModelId,SETTINGS_START,RECORD_START,RECORD_BYTES,USERS,true,false,false);
+    }
+    private X7Model(String identity,String mapName,String productName,int recordsPerUser,boolean afibMasksFlags,int advertisedModelId,
+            int settingsStart,int recordStart,int recordBytes,int userCount,boolean afibSupported,boolean sixBitYear,boolean restrictedReads) {
         this.identity=identity; this.mapName=mapName; this.productName=productName; this.recordsPerUser=recordsPerUser;
         this.afibMasksFlags=afibMasksFlags; this.advertisedModelId=advertisedModelId;
+        this.settingsStart=settingsStart; this.recordStart=recordStart; this.recordBytes=recordBytes; this.userCount=userCount;
+        this.afibSupported=afibSupported; this.sixBitYear=sixBitYear; this.restrictedReads=restrictedReads;
     }
 
     /**
      * Exact Device Information identity, NULs and surrounding whitespace removed. Model numbers match exactly; the
-     * marketing name "X7 Smart AFib", which the tested EOSL firmware reports, matches ignoring case. Omron's catalog
-     * names of the HEM-7196T1 ("M4 Connect AFib", "X4 Connect AFib") are display names only: no firmware is known to
-     * report them, and M4 / X4 names cover other generations. Anything else, including a bare "HEM-7196T1",
+     * marketing name "X7 Smart AFib", which the tested EOSL firmware reports, matches ignoring case. Other catalog
+     * marketing names are display names only: no firmware is known to report them, and names can cover other
+     * generations. Anything else, including a bare "HEM-7196T1",
      * returns null.
      */
     public static X7Model identify(String disModel) {
@@ -109,23 +125,25 @@ public final class X7Model {
     /** First byte of a user's bank (user 1 or 2). */
     public int bankStart(int user) {
         requireUser(user);
-        return RECORD_START+(user-1)*bankBytes();
+        return recordStart+(user-1)*bankBytes();
     }
     /** Bytes of one user's bank. */
-    public int bankBytes() { return recordsPerUser*RECORD_BYTES; }
+    public int bankBytes() { return recordsPerUser*recordBytes; }
     /** Whether {@code [address, address+length)} lies wholly inside the settings image or one user's bank. */
     public boolean containsReadRange(int address,int length) {
         if(length<1 || address<0) return false;
-        if(address>=SETTINGS_START && address+length<=SETTINGS_START+SETTINGS_BYTES) return true;
-        for(int user=1;user<=USERS;user++) if(address>=bankStart(user) && address+length<=bankStart(user)+bankBytes()) return true;
+        long end=(long)address+length;
+        if(address>=settingsStart && end<=settingsStart+SETTINGS_BYTES) return true;
+        for(int user=1;user<=userCount;user++) if(address>=bankStart(user) && end<=bankStart(user)+bankBytes()) return true;
         return false;
     }
 
-    static void requireUser(int user) {
-        if(user<1 || user>USERS) throw new IllegalArgumentException("X7 user must be 1 or 2");
+    void requireUser(int user) {
+        if(user<1 || user>userCount) throw new IllegalArgumentException("User is outside the verified model's banks");
     }
 
     @Override public String toString() {
-        return String.format(Locale.ROOT,"%s (%d slots per user, user 2 at 0x%03X)",identity,recordsPerUser,bankStart(2));
+        return userCount==1?String.format(Locale.ROOT,"%s (%d slots, one user)",identity,recordsPerUser):
+            String.format(Locale.ROOT,"%s (%d slots per user, user 2 at 0x%03X)",identity,recordsPerUser,bankStart(2));
     }
 }
