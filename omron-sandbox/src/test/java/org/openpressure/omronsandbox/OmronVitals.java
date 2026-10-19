@@ -10,8 +10,8 @@ import org.openpressure.protocol.fixture.Fixture;
 /**
  * Maps the Bundles Omron's {@code onGetVitalData} delivers to fixture readings. Each record is a nested Bundle
  * keyed by its ordinal; measurement codes follow Omron's VitalDataIndexes.json ({@code 0001} systolic,
- * {@code 0002} diastolic, {@code 0003} pulse, each with a {@code measurement} value) and {@code startDate} is
- * {@code yyyyMMddHHmmss}.
+ * {@code 0002} diastolic, {@code 0003} pulse, each with a {@code measurement} value; {@code 0006} irregular pulse,
+ * {@code 0007} body movement and {@code 0023} AFib as flags when present) and {@code startDate} is {@code yyyyMMddHHmmss}.
  */
 final class OmronVitals {
     private static final DateTimeFormatter DATE=DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
@@ -32,7 +32,8 @@ final class OmronVitals {
             Integer sys=measurement(record,"0001"),dia=measurement(record,"0002"),pulse=measurement(record,"0003");
             String start=record.getString("startDate");
             if(sys==null || dia==null || pulse==null || start==null) { log.add("vital record "+key+" lacks fields: "+OmronRunner.bundle(record)); continue; }
-            result.add(new Fixture.Reading(d.user,sys,dia,pulse,LocalDateTime.parse(start,DATE)));
+            result.add(new Fixture.Reading(d.user,sys,dia,pulse,LocalDateTime.parse(start,DATE))
+                .withFlags(measurement(record,"0006"),measurement(record,"0007"),measurement(record,"0023")));
         }
         return result;
     }

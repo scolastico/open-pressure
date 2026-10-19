@@ -14,6 +14,7 @@ public final class FixtureReplayTest {
         stalledClientIsRejectedNotHung();
         readAllSweepsTheSelectedUsers();
         clockSyncOutcomeIsCompared();
+        x7PlainRouteIsCompared();
         return checks;
     }
     private static void ownFixturesMatchAtProtocolLevel() {
@@ -41,6 +42,8 @@ public final class FixtureReplayTest {
             Fixture f=Fixture.load(name);
             if(f.expectRejected(Fixture.Client.OURS_PROTOCOL)) continue;
             VendorMemoryModel model=VendorMemoryModel.identify(f.dis.get("model"));
+            // Read all exists only for vendor-memory maps; X7-family fixtures are covered below.
+            if(model==null) continue;
             for(int users:new int[]{1,2,3}) {
                 java.util.List<VendorMemoryModel.Range> sweep=new java.util.ArrayList<>(model.historyRanges(users));
                 for(VendorMemoryModel.Range bank:model.historyRanges()) if(model.unconfirmedBank(bank.user) && !sweep.contains(bank)) sweep.add(bank);
@@ -65,6 +68,23 @@ public final class FixtureReplayTest {
         // A written clock other than the fixture time + 1 s is a divergence at the write step.
         Outcome late=ProtocolReplay.run(Fixture.parse("hem-7155t/sync-clock",text.replace("time 2026-01-02T03:04:05","time 2026-01-02T03:04:06")));
         check(late.kind==Outcome.Kind.DIVERGED && late.detail.equals("frame differs"),"written clock is the fixture time + 1 s: "+late.report());
+    }
+    private static void x7PlainRouteIsCompared() {
+        String connect=new String(readResource("hem-7380t1/connect-read-history"),java.nio.charset.StandardCharsets.UTF_8);
+        // Importing user 1 only drops user 2's record read, which the fixture still expects.
+        Outcome one=ProtocolReplay.run(Fixture.parse("hem-7380t1/connect-read-history",connect+"import users=1\n"));
+        check(one.kind!=Outcome.Kind.MATCHES,"X7 import users=1 still read user 2: "+one.report());
+        // An encrypted advertisement (type 8) selects the secure route: without a saved key, the nonce transaction is
+        // followed by a fresh application pairing (70 01) where this plain fixture expects START.
+        Outcome secure=ProtocolReplay.run(Fixture.parse("hem-7380t1/connect-read-history",connect.replace("msd=0e020101010001010001","msd=0e0208010000d400000100")));
+        check(secure.kind==Outcome.Kind.DIVERGED && secure.step==2 && secure.actual!=null && secure.actual.length==89 && secure.actual[0]==0x70 && secure.actual[1]==1,"encrypted advertisement selects the secure route: "+secure.report());
+        // A plain advertisement without the nonce reply never reaches START.
+        Outcome silent=ProtocolReplay.run(Fixture.parse("hem-7380t1/connect-read-history",connect.replace("nonce sys","[omron-only: test] nonce sys")));
+        check(silent.kind==Outcome.Kind.DIVERGED && silent.step==0,"X7 transaction is the first step: "+silent.report());
+        String pair=new String(readResource("hem-7380t1/pair"),java.nio.charset.StandardCharsets.UTF_8);
+        // Registering user 1 sets a different bit and checksum in block 3: the registration frame is compared exactly.
+        Outcome user1=ProtocolReplay.run(Fixture.parse("hem-7380t1/pair",pair.replace("register user=2","register user=1")));
+        check(user1.kind==Outcome.Kind.DIVERGED && user1.actual!=null && (user1.actual[4]&255)==0x80,"registration block 3 compared: "+user1.report());
     }
     /** The connect fixture with its read steps replaced by full reads of {@code banks} as a read-all flow. */
     private static String readAll(String name,VendorMemoryModel model,java.util.List<VendorMemoryModel.Range> banks,int users) {

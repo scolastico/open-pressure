@@ -34,7 +34,7 @@ public final class WriteAspectIndexTest {
         for(String id:WriteAspectIndex.knownIdentities()) check(WriteAspectIndex.lookup(id,Aspect.UNSENT_COUNTERS).status==Status.BLOCKED,"unsent counters not implemented: "+id);
         check(!WriteAspectIndex.lookup("HEM-7155T",Aspect.CLOCK_BLOCK).evidence.isEmpty(),"evidence text present");
         // Full table apart from the confirmed EOSL: every untested entry names the confirmation-run guide.
-        for(String id:new String[]{"HEM-7150T","HEM-7155T","HEM-7156T","HEM-7342T","HEM-7361T","HEM-7530T","HEM-7600T","HEM-6232T","HEM-7380T1-EBK"}) {
+        for(String id:new String[]{"HEM-7150T","HEM-7155T","HEM-7156T","HEM-7342T","HEM-7361T","HEM-7530T","HEM-7600T","HEM-6232T","HEM-7380T1-EBK","HEM-7196T1-FLE","HEM-7196T1-FLEO"}) {
             WriteAspectIndex.Entry entry=WriteAspectIndex.lookup(id,Aspect.CLOCK_BLOCK);
             check(entry.status==Status.UNTESTED && entry.evidence.contains("docs/hardware-validation.md"),"untested clock block with evidence: "+id);
         }
@@ -54,13 +54,18 @@ public final class WriteAspectIndexTest {
         check(eosl.status==Status.CONFIRMED && eosl.evidence.equals("tested registration including its clock on the maintainer's cuff; see docs/hardware-validation.md"),"EOSL registration confirmed with evidence");
         WriteAspectIndex.Entry ebk=WriteAspectIndex.lookup("HEM-7380T1-EBK",Aspect.REGISTRATION);
         check(ebk.status==Status.UNTESTED && ebk.evidence.equals("identical EOSL/EBK configuration except model_id, no run yet; see docs/hardware-validation.md"),"EBK registration untested with evidence");
+        for(String id:new String[]{"HEM-7196T1-FLE","HEM-7196T1-FLEO"}) {
+            WriteAspectIndex.Entry entry=WriteAspectIndex.lookup(id,Aspect.REGISTRATION);
+            check(entry.status==Status.UNTESTED && entry.evidence.contains("HEM-7380T1-EOSL settings write layout") && entry.evidence.contains("no run yet; see docs/hardware-validation.md"),"7196T1 registration untested with evidence: "+id);
+        }
         for(String id:WriteAspectIndex.knownIdentities()) {
-            if(id.startsWith("HEM-7380T1-")) continue;
+            if(id.startsWith("HEM-7380T1-") || id.startsWith("HEM-7196T1-")) continue;
             WriteAspectIndex.Entry entry=WriteAspectIndex.lookup(id,Aspect.REGISTRATION);
             check(entry.status==Status.BLOCKED && entry.evidence.equals("no registration workflow for this identity"),"no registration workflow: "+id);
         }
         check(WriteAspectIndex.lookup(WriteAspectIndex.resolve("X7 Smart AFib"),Aspect.REGISTRATION).status==Status.CONFIRMED,"firmware name resolves to the confirmed registration");
         check(WriteAspectIndex.lookup(WriteAspectIndex.resolve("HEM-7380T1"),Aspect.REGISTRATION).status==Status.BLOCKED,"bare X7 hint cannot register");
+        check(WriteAspectIndex.lookup(WriteAspectIndex.resolve("HEM-7196T1"),Aspect.REGISTRATION).status==Status.BLOCKED,"bare 7196T1 hint cannot register");
         // Every listed row carries all three aspects.
         for(String id:WriteAspectIndex.knownIdentities()) for(Aspect aspect:Aspect.values())
             check(!WriteAspectIndex.lookup(id,aspect).evidence.equals("no evidence for this identity"),"row has aspect "+aspect+": "+id);
@@ -75,7 +80,7 @@ public final class WriteAspectIndexTest {
 
     private static void identities() {
         List<String> ids=WriteAspectIndex.knownIdentities();
-        check(ids.size()==12,"ten legacy identities plus two X7 identities");
+        check(ids.size()==14,"ten legacy identities plus four X7-family identities");
         List<String> sorted=new ArrayList<>(ids); java.util.Collections.sort(sorted);
         check(sorted.equals(ids),"identities sorted for the viewer");
         int legacy=0;
@@ -83,7 +88,7 @@ public final class WriteAspectIndexTest {
             VendorMemoryModel model=VendorMemoryModel.identify(id);
             if(model!=null) { check(model.id.equals(id),"legacy key is the verified model id: "+id); legacy++; }
         }
-        check(legacy==10 && ids.contains("HEM-7380T1-EOSL") && ids.contains("HEM-7380T1-EBK"),"identity set");
+        check(legacy==10 && ids.contains("HEM-7380T1-EOSL") && ids.contains("HEM-7380T1-EBK") && ids.contains("HEM-7196T1-FLE") && ids.contains("HEM-7196T1-FLEO"),"identity set");
         rejects(() -> ids.add("HEM-0000T"));
     }
 
@@ -99,6 +104,11 @@ public final class WriteAspectIndexTest {
         check("HEM-7155T".equals(WriteAspectIndex.resolve("HEM-7155T\u0000 ")),"legacy table id");
         check("HEM-7380T1".equals(WriteAspectIndex.resolve("HEM-7380T1")) && "BP5360".equals(WriteAspectIndex.resolve("BP5360")),"unknown input unchanged");
         for(String id:WriteAspectIndex.knownIdentities()) check(id.equals(WriteAspectIndex.resolve(id)),"listed identity resolves to itself: "+id);
+        check("HEM-7196T1-FLEO".equals(WriteAspectIndex.resolve("HEM-7196T1-FLEO\u0000")),"7196T1 identities pass through");
+        for(String hint:new String[]{"HEM-7196T1","HEM-7196T1-FL","hem-7196t1-fle","M4 Connect","M4 Connect AFib","X4 Connect AFib","X4 Connect AFib 2"}) {
+            check(hint.equals(WriteAspectIndex.resolve(hint)),"unknown 7196T1 spelling unchanged: "+hint);
+            for(Aspect aspect:Aspect.values()) check(WriteAspectIndex.lookup(WriteAspectIndex.resolve(hint),aspect).status==Status.BLOCKED,"unknown 7196T1 spelling blocked: "+hint);
+        }
     }
 
     private static void check(boolean ok,String message) { checks++; if(!ok) throw new AssertionError(message); }

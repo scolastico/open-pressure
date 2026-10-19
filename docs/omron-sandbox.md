@@ -7,7 +7,7 @@ The sandbox never talks to a real monitor, a phone or the network. A fixture tha
 ## How it works
 
 - **Fixtures** are text files in `protocol/src/testFixtures/resources/org/openpressure/protocol/fixtures/`. Each describes one connection: the advertisement, Device Information values, pinned time and key, the phone's expected writes and the monitor's scripted replies, and the readings both clients must decode. They contain only synthetic data and are committed.
-- **OpenPressure** is replayed twice against every fixture, without the Omron package: at protocol level by `bash tools/test.sh`, and through the real `MonitorService` by `./gradlew :app:testDebugUnitTest`. Both are part of the normal checks, so a fixture keeps protecting OpenPressure after it has been confirmed.
+- **OpenPressure** is replayed twice against every fixture, without the Omron package: at protocol level by `bash tools/test.sh`, and through the real `MonitorService` by `./gradlew :app:testDebugUnitTest`. Both are part of the normal checks, so a fixture keeps protecting OpenPressure after it has been confirmed. The `MonitorService` replay starts at Android's connection callback: it negotiates the fixture's MTU, discovers the fixture's services, verifies the model, chooses the X7 route from the fixture's advertisement as `connect()` would and runs the service's own delays (such as the X7 wake-up wait). A Pair starts after Android's fresh bond, which exchanges no GATT bytes and is not modelled.
 - **Omron Connect** is replayed by the `omron-sandbox/` module. It converts the locally supplied app package to Java classes and runs Omron's communication library in Robolectric (Android framework on the JVM, no Android device required). The Bluetooth peer is replaced with the fixture. Native Omsec calls run the locally extracted ARM64 library in Unidbg, with a repeatable entropy source. Omron chooses the model configuration exactly like the app: from the IDs in the advertised `BLEsmart_<category><model>` name, looked up in the app's model catalog.
 
 The sandbox drives Omron's library in the order the app's connectivity layer uses for a blood pressure monitor: connect in registration or authentication mode, read the product index, read the device settings when pairing a multi-user model, request vital data (flags `0x1010` for a transfer, `0x1210` for pairing, the user in the resume object) and hand the settings received with the completed transfer back to `setDeviceSettings` for the users read. Omron's library then writes the clock and the cleared unsent counters into the monitor's memory and ends the session itself; the app never cancels a healthy session. The sandbox stands in for the app's profile with Omron's default date of birth (1900-01-01) and pins the wall clock Omron's time setting uses to the fixture's `time`, so the settings frames are repeatable. The app serves one selected user per session; a multi-user fixture reads each expected user in turn and makes one final settings call with the last transfer's settings bundle. Its settings frames therefore describe that synthetic sequence, including the last user's cleared counter and changed birthday.
@@ -64,7 +64,7 @@ Transcripts are kept under `omron-sandbox/build/omron-sandbox/transcripts/<Omron
 
 ### Tuning a fixture
 
-When Omron diverges or rejects, adjust the fixture's Omron-side steps or replies (not OpenPressure) and run the fixture again. With `--explore`, the peer keeps answering after the first divergence with synthetic replies (reads from the fixture memory, echoed writes and END, acknowledged key frames), so one transcript shows everything Omron would send in the session; the reported result is still the first divergence, and the synthetic replies prove nothing about a monitor. When Omron matches but OpenPressure does not, the difference is a finding about OpenPressure. Changing what OpenPressure sends to a monitor still goes through the normal evidence and [safety](safety.md) review; the sandbox result alone is not enough.
+When Omron diverges or rejects, adjust the fixture's Omron-side steps or replies (not OpenPressure) and run the fixture again. With `--explore`, the peer keeps answering after the first divergence with synthetic replies (reads from the fixture memory, echoed writes and END, acknowledged key frames, echoed X7 nonces, COMPLETE for the X7 authorization poll; on the encrypted route through the cuff-side peer, which keeps answering the handshake and decrypting and encrypting frames), so one transcript shows everything Omron would send in the session; the reported result is still the first divergence, and the synthetic replies prove nothing about a monitor. When Omron matches but OpenPressure does not, the difference is a finding about OpenPressure. Changing what OpenPressure sends to a monitor still goes through the normal evidence and [safety](safety.md) review; the sandbox result alone is not enough.
 
 ## Fixture format
 
@@ -73,25 +73,94 @@ One directive per line; `#` starts a comment; hex may contain spaces.
 | Directive | Meaning |
 | --- | --- |
 | `name <group>/<flow>` | Must match the file path; list the name in the `index` file |
-| `flow connect` / `flow pair` / `flow read-all` | Reconnect with the saved key, register the key first, or reconnect and read every slot of the selected users' banks followed by any unconfirmed bank (HEM-7156T bank 2), without the index; Omron has no read-all operation, so its runner reports `unsupported` |
-| `flow sync-clock` | Reconnect with the saved key and run the explicit Sync clock session: START, the settings image read, the clock-block write targeting `time` (written as `time` + 1 s) in chunks on the `tx` channels with its acknowledgment on `rx` (nothing is written when the monitor's clock is within 60 s), then END. Both OpenPressure replays enable the developer override, because the fixture models' clock-block entries are untested (there is no X7 `sync-clock` fixture). Omron has no standalone clock sync, so its runner reports `unsupported` |
-| `advertise name=… services=<uuid>,… [msd=<hex>]` | Advertisement; drives Omron's model choice |
-| `dis model=… firmware=… software=… systemid=<hex>` | Device Information; `model` drives OpenPressure's model choice |
+| `flow connect` / `flow pair` / `flow read-all` | Reconnect with the saved key, register the key first (on the plain X7 route: connect without a key, or Pair with OpenPressure's profile registration of the `register` user), or reconnect and read every slot of the selected users' banks followed by any unconfirmed bank (HEM-7156T bank 2), without the index; Omron has no read-all operation, so its runner reports `unsupported`. X7-family fixtures support `connect`, `pair` and `sync-clock` |
+| `flow sync-clock` | Reconnect with the saved key and run the explicit Sync clock session: START, the settings image read, the clock-block write targeting `time` (written as `time` + 1 s) in chunks on the `tx` channels with its acknowledgment on `rx` (nothing is written when the monitor's clock is within 60 s), then END. Both OpenPressure replays enable the developer override, because the fixture models' clock-block entries are untested; on the encrypted X7 route the app replay also enables the experimental switch `CLOCK_SYNC_ENCRYPTED_X7`. Omron has no standalone clock sync, so its runner reports `unsupported` |
+| `advertise name=… services=<uuid>,… [msd=<hex>]` | Advertisement; the name drives Omron's model choice. `msd` is the manufacturer-specific data including the company ID `0e02`; its type byte (1/2/3/6 plain, 8/9 encrypted) selects the X7-family route in both clients (OpenPressure receives it without the company ID, as from Android) |
+| `dis model=… serial=… firmware=… software=… systemid=<hex>` | Device Information; `model` drives OpenPressure's model choice. Omron reads the serial number on X7-family models |
+| `mtu <n>` | The monitor's largest ATT MTU (23 to 517, default 23); each client's request negotiates the smaller of the two. X7-family fixtures use 247 |
 | `time <local date-time> zone=<id>` | Pinned clock for clock writes, including Omron's post-transfer clock and the `sync-clock` target |
-| `key <16 bytes hex>` | Pinned application key (pairing stages it instead of generating one) |
-| `register user=<1\|2>` | User a `pair` flow registers on Omron's side (default 1); OpenPressure's legacy key is not per user |
+| `key <16 bytes hex>` | Pinned application key (pairing stages it instead of generating one); required by the format, unused on the plain X7 route. With `secure … saved` it is the X7 application key (LTK) that both clients and the cuff peer saved from an earlier pairing |
+| `register user=<1\|2>` | User a `pair` flow registers (default 1): on Omron's side, and in OpenPressure's X7 profile registration; OpenPressure's legacy key is not per user |
 | `import users=<1\|2\|both>` | Users OpenPressure imports (default both); Connect and Pair read only their populated slots and a `read-all` flow only their banks. A selection without a bank the model offers falls back to user 1; shared-bank models still read every bank. The protocol-level replay does not apply the HEM-7377T1 shared-bank user filter, which no fixture covers |
 | `random <hex>` | Native Omsec entropy stream, consumed in order by its random-number callback; exhaustion fails the run |
-| `alias <name> <uuid>[,<uuid>…]` | Characteristic name; several UUIDs form 16-byte legacy channels |
+| `alias <name> <uuid>[,<uuid>…]` | Characteristic name; several UUIDs form 16-byte legacy channels. Legacy fixtures name `unlock`, `tx`, `rx` (and `clock`); single-channel X7-family fixtures name `tx`, `rx` and `sys` (the FE4A system channel) with one UUID each |
 | `memory fill=<byte>` / `memory <address> <hex>` | Synthetic memory used by `reads` |
 | `write <alias> <hex>` | A frame the phone must write; channel parts are reassembled |
 | `notify <alias> <hex>` | The monitor's reply; split over channels for multi-UUID aliases |
+| `nonce <alias>` | The X7 system transaction on a single-characteristic alias: the phone must write `11`, any four token bytes and 15 zero bytes; the monitor replies `91 00`, the same token and 14 zero bytes. Both clients draw the token from `SecureRandom` for each connection, so it is captured and echoed instead of pinned; reports print it as `??` |
+| `secure <alias> fresh\|saved [reserved=<16 bytes hex>]` | The X7 application encryption (Omron's WLP1COM_PAIR, OpenPressure's `X7_SECURE_WLP`) on a single-characteristic alias (`sys`), placed after `nonce`. `fresh` (only in a `pair` flow) is a new application pairing: `70 01` (89 bytes) / `F0 81`, `70 05` (46 bytes) / `F0 85`, `70 06` (46 bytes) / `F0 86`; `saved` (the other flows) authenticates with `key` as the saved LTK: `70 05` / `70 06` only. Both sides' randoms make the handshake unpinnable, so each phone frame is checked for its opcode, its length and the zero reserved bytes 30–45 of `70 05`, and a live cuff-side peer (`SecurePeer`, fixed synthetic key material) answers it; `reserved=` sets the 16 reserved bytes at the end of the cuff's `F0 85` (zero by default). Every later step is written in plaintext: the peer decrypts each phone frame, which must be `C0`-framed with a counter exactly one above the previous phone frame, before it is compared, and encrypts each scripted reply under its own counter. Transcripts show the plaintext as `[c0 #<counter>] <hex>`. A saved-key fixture also leaves Omron's saved native state, and a `saved` Connect stages the key in OpenPressure's key store; the advertisement (types 8/9) or the saved key selects the route in both clients |
 | `reads <address> <length> chunk=<n>` | Expands to WLP read requests and replies from `memory` |
-| `expect reading user=… sys=… dia=… pulse=… time=…` | A reading every client must decode |
+| `expect reading user=… sys=… dia=… pulse=… time=… [irregular=0\|1] [movement=0\|1] [afib=0\|1]` | A reading every client must decode. The optional flags are compared only when named: Omron's `0006` (irregular pulse), `0007` (body movement) and `0023` (AFib), OpenPressure's status bits and AFib field |
 | `expect ours rejected` / `expect omron rejected` | That client is expected to refuse the device |
 | `expect clock acknowledged\|skipped\|rejected` | Outcome both OpenPressure replays must reach in a `sync-clock` flow: the write acknowledged, nothing written within the threshold, or the acknowledgment refused (END still follows); required exactly once in that flow and not allowed elsewhere |
 
 Prefix a step or `expect reading` with `[omron-only: reason]` or `[ours-only: reason]` when it applies to only one client. The reason is mandatory and should name its evidence. Unannotated readings must be decoded by every client; annotated readings are required only for the named client and remain visible as open findings. Rejection and clock expectations cannot be annotated.
+
+## HEM-7380T1 (X7) findings
+
+The X7-family fixtures replay the plain single-channel WLP route (Omron's `WLP1COM`, OpenPressure's `X7_WLP`) on the HEM-7380T1-EOSL, the hardware-confirmed X7 Smart AFib identity. Omron selects `HEM-7380T1-EOSL` from the advertised model ID `0x00D4`; its configuration's `ohqMtuSize=244` selects the single-channel graph, and the plain manufacturer type 1 without a saved key keeps it unencrypted. With Omron Connect 2026.09.03 all three results are `matches` for both fixtures:
+
+| Fixture | Both clients | Omron only | OpenPressure only |
+| --- | --- | --- | --- |
+| `hem-7380t1/connect-read-history` | System transaction, START, the one record of each user at `0x1C4` and `0x804`, both readings, END | Index (44 bytes at `0x10`) and setting-information blocks 3 and 4 (24 bytes at `0x3C`), post-transfer settings writes | The 68-byte image at `0x10` in 16-byte blocks |
+| `hem-7380t1/pair` (user 2) | System transaction, START, END; no history | Index and blocks 3 and 4, post-pairing settings writes | The 68-byte image (registration backup) and the profile registration writes |
+
+Findings, all from synthetic sandbox runs:
+
+- **System transaction**: both clients enable RX and then SYS notifications and send the same `11 <token> 00…` frame (20 bytes) on SYS; both accept the 20-byte `91 00 <token>` reply. Write types are not compared.
+- **MTU**: Omron requests 247 and OpenPressure 243. Omron reads the serial number (`2A25`) after START and stops the session when it is missing.
+- **START**: both accept the eight-byte START acknowledgment `08 80 00 00 00 10 00 98` without payload.
+- **Record checksum**: Omron rejects a record whose byte 14 is not the 8-bit sum of bytes 0–13 (`ParseMeasurement(postOGSCHandler2)Error`), as on the legacy 16-byte maps. OpenPressure now applies the same check to every X7-family identity and counts a mismatching slot as rejected while keeping the other readings (closed finding; see `hem-7196t1/connect-bad-record-checksum` below). `OtherInfo.json`'s `ignoreCheckSumBlocks` 1/2 name setting-information blocks, not records.
+- **Index**: Omron reads the 24-byte index plus blocks 1 and 2 in one 44-byte read, then blocks 3 and 4 in one 24-byte read, and then only the unsent records; OpenPressure reads the 68-byte image in 16-byte blocks and then the populated slots. With one stored, unsent record per user both send the same record reads.
+- **Connect**: after the transfer Omron writes the 24-byte index prefix at `0x54`, with the last-read user's (user 2) unsent counter cleared to `0x8000` and that user's error-log unsent count (offset 19) to `0x80`, and then 26 bytes at `0x76`: birthday block 2 (default 1900-01-01) merged with block 3 (clock = fixture time + 1 s, checksum recomputed), followed by END. OpenPressure writes nothing on Connect.
+- **Pair**: Omron's pairing flags `0x1210` read the index and blocks without history, then write the same prefix (registered user's counters cleared) and blocks 2 and 3 at `0x76`. Its block 3 is byte for byte the block OpenPressure's [profile registration](safety.md#x7-profile-registration) writes at `0x80` (user-2 bit added to byte 48, clock + 1 s, checksum), which independently confirms the registration's block-3 content and staging address in Omron's code. OpenPressure deliberately writes the prefix unchanged and block 3 alone, preserving the counters and birthdays.
+- The encrypted route (types 8/9 or a saved key) is covered by the fixtures under [encrypted X7 route findings](#encrypted-x7-route-findings).
+
+These are observations of Omron's code against synthetic memory, not a physical cuff's replies. They do not extend the hardware-tested EOSL claims or authorize additional writes.
+
+## HEM-7196T1 findings
+
+OpenPressure accepts the HEM-7196T1-FLE (M4 Connect AFib) and HEM-7196T1-FLEO (X4 Connect AFib) experimentally on the X7 route. Omron's configurations equal the HEM-7380T1-EOSL apart from 60 records per user, so user 2's bank starts at `0x584`, and Omron's catalog advertises them as model IDs `0x00EB` and `0x00E1`. The fixtures use the exact Device Information model numbers that OpenPressure accepts; the string a physical cuff reports is unknown. The only known capture of a real HEM-7196T1-FLE uses the encrypted route, so whether a cuff ever advertises a plain type is also unknown. With Omron Connect 2026.09.03:
+
+| Fixture | Omron | OpenPressure (app and protocol) |
+| --- | --- | --- |
+| `hem-7196t1/connect-read-history` | `matches`: same reads and post-transfer settings writes as on the EOSL; record reads at `0x1C4` and `0x584` | `matches`: same record reads at `0x1C4` and `0x584`, both readings and flags |
+| `hem-7196t1-fleo/connect-read-history` | `matches` | `matches` |
+| `hem-7196t1/connect-bad-record-checksum` | `rejected` (expected): delivers user 1's reading, then reports `ParseMeasurement(postOGSCHandler2)Error` for user 2's record and stops before its settings writes and END | `matches`: rejects user 2's slot ("History transfer incomplete", one rejected slot), keeps user 1's reading and ends with END |
+| `hem-7196t1/pair` (user 2) | `matches`: index and blocks 3 and 4, then the prefix and blocks 2 and 3 at `0x54` and `0x76`, as on the EOSL | `matches`: the system transaction only. Registration on this identity is untested, so without the hidden developer override Pair stops in the read-only ready state |
+
+Findings, all from synthetic sandbox runs; nothing here was tested on a physical cuff:
+
+- **Memory map**: `MemoryMapComparisonTest` accepts both identities through the X7 identification and finds Omron's banks (60 records of 16 bytes at `0x1C4` and `0x584`) equal to OpenPressure's.
+- **Flags**: user 2's record sets AFib together with the irregular-pulse and movement bits. Omron reports irregular pulse 0, movement 0 and AFib 1, as its VitalDataIndexes for this model prescribe, and OpenPressure masks the same flags for these identities; the fixtures compare all three flags.
+- **Reads and writes**: Omron's reads, record checks and post-transfer settings writes have the same frames as on the EOSL with the same synthetic index; only the user-2 record address differs.
+- Pair with registration under the developer override is not covered by a fixture.
+
+## Encrypted X7 route findings
+
+The encrypted fixtures replay Omron's WLP1COM_PAIR route and OpenPressure's `X7_SECURE_WLP` route against one cuff-side peer (`SecurePeer` in the protocol test fixtures): Omron with its real native Omsec library in Unidbg, OpenPressure with `SecureSession` in both replays. With Omron Connect 2026.09.03:
+
+| Fixture | Omron | OpenPressure (app and protocol) |
+| --- | --- | --- |
+| `hem-7380t1/connect-encrypted` | `matches`: saved-key authentication, poll, the same reads and post-transfer settings writes as on the plain route, encrypted | `matches`: saved-key authentication, poll, the 68-byte image and both records, END |
+| `hem-7380t1/pair-encrypted` (user 2) | `matches`: fresh pairing, poll, index and blocks 3 and 4, the registered user's settings writes, END | `matches`: fresh pairing, poll, no registration; the Import the user starts afterwards reads both records |
+| `hem-7196t1/connect-encrypted` | `matches`, record reads at `0x1C4` and `0x584`, AFib flags as on the plain route | `matches` |
+| `hem-7196t1/pair-encrypted` (user 2) | `matches` | `matches` |
+| `hem-7380t1/connect-encrypted-authorization-waiting` | `rejected` (expected): reports `AuthenticationWaiting` (`0x25`) after the first poll | `matches`: polls again after one second and imports after COMPLETE |
+| `hem-7196t1/sync-clock-encrypted` | `unsupported`: no standalone clock sync | `matches`: settings image, block 3 at `0x80` (fixture time + 1 s) in one encrypted frame, synthetic echo, END (`acknowledged`), with `CLOCK_SYNC_ENCRYPTED_X7` and the untested clock-block override |
+
+Findings, all from synthetic sandbox runs:
+
+- **Interoperability**: Omron's native library and `SecureSession` both completed fresh pairing and saved-key authentication with the same peer, and every later frame authenticated in both directions. No difference from `SecureSession`'s assumptions about the native format was found: `70 01` has 89 bytes; `70 05` has 46 bytes ending in 16 zero bytes in both clients; the `70 06` plaintext is the cuff's challenge, 16 zero bytes and four further bytes; the session key, CCM nonce (counter, direction `80`/`00`, cuff IV, phone IV) and four-byte counter AAD match.
+- **Application key**: after a fresh pairing Omron saved an 80-byte native state whose bytes 0–15 are the LTK the peer derived and whose bytes 16–79 are zero; OpenPressure saved the same LTK. Both derive it as documented in [protocol](protocol.md#x7-encrypted-wlp-and-authorization).
+- **Reserved bytes**: the peer's `F0 85` carries a non-zero stand-in for the cuff address in its 16 reserved bytes, as in the public HEM-7196T1-FLE capture; neither client checks them.
+- **Counters**: each client numbers its own frames from 1, starting with the authorization poll on SYS, and adds one per frame across SYS and TX. Both accept the cuff's own counter from 1 across SYS and RX. The peer requires exactly the next phone counter.
+- **Authorization**: the first encrypted frame of both clients is the exact 20-byte poll `20 01 00…`; both accept the 20-byte `A0 01 00 01` (COMPLETE). On `A0 01 00 00` (WAITING) OpenPressure polls again after one second; Omron reports `AuthenticationWaiting` (`0x25`) through its connection callback, where the sandbox stops, and in an exploration run had already sent the second poll. How the Omron app handles that error is not modelled.
+- **Notifications and bonding**: on the encrypted route Omron enables SYS and then RX notifications, like OpenPressure, and calls no `createBond()` (on the plain route it does, before connecting). It enables SYS notifications again after the handshake and before each poll; OpenPressure does not. Descriptor writes are not compared.
+- **Session content**: after authorization Omron's frames are the plaintext frames of the plain route ([HEM-7380T1 findings](#hem-7380t1-x7-findings)), encrypted: index reads, unsent records, post-transfer or post-pairing settings writes and END. OpenPressure's encrypted Pair never registers a profile.
+- **Advertisement**: Omron's scanner ignored a type-9 payload one byte longer than its user count allows (no scan callback), while OpenPressure selects the encrypted route from the type byte alone and ignores a malformed payload in its model cross-check; the Device Information model still selects the map (open finding).
+
+Nothing here was tested with a physical cuff. The peer implements OpenPressure's reading of the format; a real cuff may differ, for example in the reserved bytes, counter rules or timing, or by requiring an Android bond first (see [protocol](protocol.md#x7-encrypted-wlp-and-authorization)).
 
 ## HEM-7156T findings
 
@@ -132,7 +201,7 @@ They confirm OpenPressure's record addresses, record sizes and the decoding of p
 
 These are synthetic observations of Omron's code; they do not show how a physical monitor fills these fields.
 
-`MemoryMapComparisonTest` compares the record areas of every Omron configuration that OpenPressure's model identification accepts and writes them to `omron-sandbox/build/omron-sandbox/memory-map.txt`. With Omron Connect 2026.09.03, the areas agree except for these:
+`MemoryMapComparisonTest` compares the record areas of every Omron configuration that OpenPressure's model identification accepts and writes them to `omron-sandbox/build/omron-sandbox/memory-map.txt`. Configurations that the X7 identification accepts (by folder identifier, `model_id` or catalog name) are compared with the X7 banks: Omron's single-channel configurations list each area with `data_<n>_address` and `index_<n>_data_num_of_memories`, and areas 1 and 2 are the users' BP banks; the pulse-wave and error-log areas are listed but not compared. A newly accepted X7-family identity joins the comparison without a list in the test. With Omron Connect 2026.09.03, HEM-7380T1-EOSL and HEM-7380T1-EBK match OpenPressure's X7 banks (100 records of 16 bytes at `0x1C4` and `0x804`), and the legacy areas agree except for these:
 
 - **HEM-7156T**: one area in Omron's configuration against our two banks (see above).
 - **HEM-7155T K4 variants** (`HEM-7155T_K4-D`, `-EBK`, `-ESL`, WLD2.0): different layout. Their catalog names equal those of the regular HEM-7155T identities that OpenPressure accepts, so the Device Information model a K4 monitor reports decides whether it would be read with the wrong map. That is unconfirmed.
@@ -171,8 +240,9 @@ Omron Connect has no standalone clock sync: it writes the clock as part of its s
 | `hem-7155t/sync-clock-rejected` | Writes block 3; the echo carries status `01`, so the write counts as rejected, is not retried, and END still follows (`rejected`) | `unsupported` |
 | `hem-7530t/sync-clock` | Reads the image at `0x260`, finds a valid all-zero block 3 (an erased one is refused on this model), writes it at `0x2D0` (checksum `2a`) with byte pairs swapped (`acknowledged`) | `unsupported` |
 | `hem-7600t/sync-clock` | Reads the 38-byte image at `0x260`, finds a valid all-zero block 3 (an erased one is refused on this model), writes the 10-byte block at `0x29A` (checksum `2a`) with byte pairs swapped (`acknowledged`) | `unsupported` |
+| `hem-7196t1/sync-clock-encrypted` | Over the encrypted X7 route with `CLOCK_SYNC_ENCRYPTED_X7` and the untested clock-block override: reads the settings image, writes block 3 at `0x80` in one encrypted frame, accepts the synthetic echo and sends END (`acknowledged`); see [encrypted X7 route findings](#encrypted-x7-route-findings) | `unsupported` |
 
-The acknowledgments are synthetic full echoes; no fixture model's physical reply to a clock-block write is established, and their clock-block entries remain untested (only HEM-7380T1-EOSL, which has no fixture here, is confirmed). Both OpenPressure replays enable the developer override for these fixtures.
+The acknowledgments are synthetic full echoes; no fixture model's physical reply to a clock-block write is established, and their clock-block entries remain untested (only HEM-7380T1-EOSL, which has no `sync-clock` fixture here, is confirmed). Both OpenPressure replays enable the developer override for these fixtures.
 
 ## Post-transfer settings writes
 
@@ -206,7 +276,7 @@ These results describe Omron's code against synthetic memory, including settings
 
 The emulator replaces micro-ecc's registered entropy callback, which supplies both key generation and handshake randomness. A fixture's `random` bytes are consumed verbatim, without wrapping or extending them; provide enough for the complete exchange, including key-generation retries. When `random` is absent, a fresh `java.util.Random(0)` supplies a repeatable default stream. Explicit streams are preferable for pinned wire packets. Each fixture starts with a fresh native VM and entropy stream; cleanup closes remaining sessions even after a failed exchange. Unknown or already closed session handles are rejected before entering native code.
 
-Native initialization takes either `null` for fresh pairing or Omron's **80-byte saved state**. This differs from the fixture's 16-byte application `key` used by legacy models. Native `GetLtk` returns that state after fresh pairing, an empty array after a successful reconnect, or `null` after rejection. Calls and return values are forwarded without translating these native conventions. Encrypted reconnect fixtures will also need Omron's Java-side saved-state/Keystore setup; the existing shared fixtures cover legacy HEM-7156T flows, not complete encrypted-model history transfers.
+Native initialization takes either `null` for fresh pairing or Omron's **80-byte saved state**. Native `GetLtk` returns that state after fresh pairing, an empty array after a successful reconnect, or `null` after rejection. Calls and return values are forwarded without translating these native conventions. Omron's Java code keeps the state in the app-private file `<address>LTK`, encrypted with RSA/ECB/PKCS1Padding under the `OHQKeyStore` key pair in the Android key store; the sandbox's key store stand-in supplies that RSA key pair. For a `secure … saved` fixture the runner leaves that file before connecting, with the fixture `key` in bytes 0–15 and zeros after it, which is exactly the state Omron saves after its own fresh pairing in the encrypted Pair fixtures. The encrypted fixtures carry no `random` line and use the repeatable default stream.
 
 Run the focused native checks with:
 
@@ -218,7 +288,9 @@ With the local ARM64 split, these checks exercise fresh pairing and saved-key au
 
 ## Limits and technical notes
 
-- **Native library**: Omsec execution requires the local ARM64 split and a host supported by Unidbg/Unicorn2. The native bridge is tested with Omron Connect 2026.09.03; complete encrypted-model fixtures and their Android key storage remain separate work.
+- **Native library**: Omsec execution requires the local ARM64 split and a host supported by Unidbg/Unicorn2. The native bridge and the encrypted fixtures are tested with Omron Connect 2026.09.03.
+- **Encrypted route**: the cuff side is OpenPressure's own test peer, written from the documented format. Agreement shows that Omron's native code and `SecureSession` produce frames the same independent peer accepts; it does not show what a physical cuff accepts. The Android bond, link-layer encryption and Omron's reaction to its authorization-waiting error are not modelled.
+- **MTU**: the fixture's `mtu` caps every client's request. Legacy fixtures keep the default 23; the X7-family fixtures use 247, so frames up to 244 bytes fit one write or notification.
 - **Obfuscated code**: Omron's release build renames most classes and methods. The sandbox hooks only Android Bluetooth classes and fixed native names, and finds Omron's entry points by kept names and exact signatures (`OmronAnchors`). `tools/omron-sandbox.sh resolve` names any entry point a new Omron version breaks.
 - **Timing**: virtual time passes only while Omron waits, so its pacing delays and timeouts behave as on a phone without real waiting. Callbacks from different Omron threads may appear in either order in a transcript.
 - **Isolation**: each fixture runs with fresh copies of Omron's classes, because Omron keeps process-wide state. The sandbox blocks HTTP for the whole test JVM because Omron's analytics library tries to send tracking data.

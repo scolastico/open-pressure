@@ -25,6 +25,9 @@ public final class MonitorProduct {
         map.put("HEM-7377T1",new MonitorProduct("HEM-7377T1","OMRON","BP5360"));
         map.put("HEM-7380T1-EOSL",new MonitorProduct("HEM-7380T1-EOSL","OMRON","X7 Smart AFib"));
         map.put("HEM-7380T1-EBK",new MonitorProduct("HEM-7380T1-EBK","OMRON","X7 Smart AFib"));
+        // Omron Connect's catalog names (docs/compatibility.md).
+        map.put("HEM-7196T1-FLE",new MonitorProduct("HEM-7196T1-FLE","OMRON",X7Model.HEM_7196T1_FLE.productName));
+        map.put("HEM-7196T1-FLEO",new MonitorProduct("HEM-7196T1-FLEO","OMRON",X7Model.HEM_7196T1_FLEO.productName));
         REGISTRY=Collections.unmodifiableMap(map);
     }
 

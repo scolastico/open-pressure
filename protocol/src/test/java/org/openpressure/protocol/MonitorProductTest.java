@@ -26,13 +26,16 @@ public final class MonitorProductTest {
         check("BLEsmart_0000".equals(MonitorProduct.displayName(null,"BLEsmart_0000")),"no model: Bluetooth name");
         check("BLEsmart_0000".equals(MonitorProduct.displayName("  ","BLEsmart_0000")),"blank model: Bluetooth name");
         check(MonitorProduct.displayName("",null)==null,"nothing known");
+        check("OMRON M4 Connect AFib".equals(MonitorProduct.displayName("HEM-7196T1-FLE","BLEsmart_0000")) && "OMRON X4 Connect AFib".equals(MonitorProduct.displayName("HEM-7196T1-FLEO",null)),"7196T1 catalog names");
+        check("BLEsmart_0000".equals(MonitorProduct.displayName("M4 Connect AFib","BLEsmart_0000")),"a catalog name is not a verified identity");
+        check("BLEsmart_0000".equals(MonitorProduct.displayName("HEM-7196T1","BLEsmart_0000")),"bare 7196T1 never named");
     }
 
     private static void registry() {
-        for(String id:new String[]{"HEM-7150T","HEM-7155T","HEM-7156T","HEM-7322T","HEM-7342T","HEM-7361T","HEM-7377T1","HEM-7530T","HEM-7600T","HEM-6232T","HEM-7380T1","HEM-7380T1-EOSL","HEM-7380T1-EBK"}) {
+        for(String id:new String[]{"HEM-7150T","HEM-7155T","HEM-7156T","HEM-7322T","HEM-7342T","HEM-7361T","HEM-7377T1","HEM-7530T","HEM-7600T","HEM-6232T","HEM-7380T1","HEM-7380T1-EOSL","HEM-7380T1-EBK","HEM-7196T1-FLE","HEM-7196T1-FLEO"}) {
             MonitorProduct product=MonitorProduct.lookup(id);
             check(product!=null && product.identity.equals(id) && "OMRON".equals(product.manufacturer),"listed: "+id);
-            check(VendorMemoryModel.identify(id)!=null || id.startsWith("HEM-7380T1"),"identity is a model definition: "+id);
+            check(VendorMemoryModel.identify(id)!=null || X7Model.identify(id)!=null && X7Model.identify(id).identity.equals(id),"identity is a model definition: "+id);
         }
         int named=0; for(String id:new String[]{"HEM-7150T","HEM-7155T","HEM-7156T","HEM-7322T","HEM-7342T","HEM-7361T","HEM-7530T","HEM-7600T","HEM-6232T"}) if(MonitorProduct.lookup(id).productName!=null) named++;
         check(named==0,"no undocumented product names");

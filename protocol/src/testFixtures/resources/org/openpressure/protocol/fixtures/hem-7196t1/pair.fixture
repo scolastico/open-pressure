@@ -1,0 +1,52 @@
+# HEM-7196T1-FLE (M4 Connect AFib): plain single-channel WLP Pair that registers user 2 while user 1 is already
+# registered. Experimental and hardware-untested in OpenPressure; whether a physical cuff advertises a plain type at
+# all is unknown. Omron registers the user through its settings writes after a pairing transfer. OpenPressure's
+# write-aspect index lists registration on this identity as untested, so without the hidden developer override its
+# Pair verifies the system channel and stops in the read-only ready state: no START, read or write follows. The fresh
+# Android bond that both clients request first exchanges no GATT bytes and is not part of the fixture.
+# Omron selects HEM-7196T1-FLE from the advertised IDs (category 0x0000, model 0x00EB) and, with ohqMtuSize=244, its
+# single-channel WLP graph; the plain manufacturer type 1 (pairing flag set, no saved key) selects plain WLP1COM.
+name hem-7196t1/pair
+flow pair
+register user=2
+advertise name=BLEsmart_000000EB0011223344 services=0000fe4a-0000-1000-8000-00805f9b34fb msd=0e020109010001010001
+# Synthetic Device Information. The model string a physical HEM-7196T1-FLE reports is unknown; OpenPressure accepts
+# only the exact model number. Omron reads the serial number on this model, OpenPressure only the model.
+dis model=HEM-7196T1-FLE serial=0000000001 firmware=0001 software=0001 systemid=0011223344556677
+time 2026-01-02T03:04:05 zone=UTC
+# Plain WLP uses no application key; the format requires one, and no client sends it.
+key 05050505050505050505050505050505
+mtu 247
+
+alias tx db5b55e0-aee7-11e1-965e-0002a5d5c51b
+alias rx 49123040-aee8-11e1-a74d-0002a5d5c51b
+alias sys b305b680-aee7-11e1-a730-0002a5d5c51b
+
+# One synthetic record per user (60-slot banks: user 2 at 0x584), each with sequence number 1 at offset 10 and the
+# 8-bit sum of bytes 0-13 at offset 14. No client reads them during Pair.
+memory fill=ff
+memory 0x1c4 694e4319 261d a603 0000 0100 00000000
+memory 0x584 5f504619 27e0 8027 0000 0100 0000 bd00
+# Index (index_setting_read_address=10): per user next write position 1, one unsent record and sequence number 1;
+# empty error-log and pulse-wave pointers.
+memory 0x10 0100 0100 0100 0100 01000000 01000000 000000000000 0000
+# Setting-information block 3 at 0x3c: only user 1 registered (byte 48 = 01), clock 2026-01-02 03:04:05, additive
+# checksum of bytes 44-57 at byte 58. Block 4 at 0x4c is zero.
+memory 0x3c 00000000 01000000 1a0102030405 2a00
+memory 0x4c 0000000000000000
+
+nonce sys
+
+[omron-only: OpenPressure's registration on HEM-7196T1-FLE is untested and needs the developer override, so its Pair sends nothing after the system transaction (docs/safety.md, write-aspect index)] write tx 08 00 00 00 00 10 00 18
+[omron-only: acknowledgment of the START above] notify rx 08 80 00 00 00 10 00 98
+
+[omron-only: Omron reads the index (index_setting_pointer_unsend_size 24 plus setting-information blocks 1 and 2) in one frame] reads 0x10 44 chunk=44
+[omron-only: Omron reads setting-information blocks 3 and 4 at 0x3c in one frame; pairing flags 0x1210 then return settings without reading history] reads 0x3c 24 chunk=24
+
+[omron-only: Omron 2026.09.03 Pair user 2, index prefix at 0x54 with user 2's unsent counter cleared to 0x8000 and its error-log unsent count (offset 19) to 0x80; docs/omron-sandbox.md] write tx 2001c0005418 010001000100008001000000010000000000008000000000 00ac
+[omron-only: synthetic full echo acknowledgment; the physical monitor reply is unconfirmed] notify rx 2081c0005418 010001000100008001000000010000000000008000000000 002c
+[omron-only: Omron 2026.09.03 Pair user 2, birthday block 2 (default 1900-01-01) merged with block 3 at 0x76 (user-2 bit, clock + 1 s, checksum 2d); docs/omron-sandbox.md] write tx 2201c000761a 000101fffffffffffdff 00000000030000001a01020304062d00 0044
+[omron-only: synthetic full echo acknowledgment; the physical monitor reply is unconfirmed] notify rx 2281c000761a 000101fffffffffffdff 00000000030000001a01020304062d00 00c4
+
+[omron-only: OpenPressure's Pair ends in the read-only ready state without a session to end] write tx 08 0f 00 00 00 00 00 07
+[omron-only: acknowledgment of the END above] notify rx 08 8f 00 00 00 00 00 87

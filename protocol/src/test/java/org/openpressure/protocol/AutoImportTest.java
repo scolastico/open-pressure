@@ -163,6 +163,8 @@ public final class AutoImportTest {
     }
     private static void automaticImportsRequireAVerifiedReadMap() {
         check(AutoImportTracker.supportsModel("HEM-7380T1-EOSL") && AutoImportTracker.supportsModel("HEM-7380T1-EBK"),"X7 identities are eligible");
+        check(AutoImportTracker.supportsModel("HEM-7196T1-FLE") && AutoImportTracker.supportsModel("HEM-7196T1-FLEO"),"HEM-7196T1 follows the X7 rule");
+        check(!AutoImportTracker.supportsModel("HEM-7196T1") && !AutoImportTracker.supportsModel("M4 Connect AFib"),"bare or partial HEM-7196T1 names are not eligible");
         check(AutoImportTracker.supportsModel("HEM-7155T-EBK") && AutoImportTracker.supportsModel("HEM-7377T1-ZAZ"),"verified vendor maps are eligible");
         check(!AutoImportTracker.supportsModel("HEM-7155T_K4-EBK") && !AutoImportTracker.supportsModel("HEM-7376T1-Z"),"unmapped variants are not eligible");
         check(!AutoImportTracker.supportsModel(null) && !AutoImportTracker.supportsModel("BLEsmart_00000000"),"names and missing identities are not eligible");

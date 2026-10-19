@@ -6,6 +6,7 @@ import java.util.*;
 import org.openpressure.protocol.fixture.Fixture;
 import org.openpressure.protocol.fixture.FixtureCursor;
 import org.openpressure.protocol.fixture.Outcome;
+import org.openpressure.protocol.fixture.SecurePeer;
 import org.openpressure.protocol.fixture.WlpDescribe;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
@@ -13,13 +14,15 @@ import static org.mockito.Mockito.*;
 /**
  * A GATT peer that answers only from a fixture. Characteristic writes go to the {@link FixtureCursor}; matched
  * writes are acknowledged and followed by the scripted notifications. Everything else Omron does on the link
- * (service discovery, MTU, notification setup, Device Information reads) is answered generically and logged.
+ * (service discovery, MTU up to the fixture's {@code mtu}, notification setup, Device Information reads) is answered
+ * generically and logged.
  * Callbacks are queued and delivered by the runner's pump, never re-entrantly from inside Omron's call.
  *
  * <p>With {@code -Domron.sandbox.explore=true} the peer keeps answering after a divergence, with synthetic
- * acknowledgments: WLP reads from the fixture memory, writes and END echoed, key frames acknowledged. The
- * outcome stays the first divergence; the transcript then shows everything Omron would have sent, which
- * saves one run per fixture step when tuning. Exploration replies are synthetic and prove nothing.
+ * acknowledgments: WLP reads from the fixture memory, writes and END echoed, key frames acknowledged and X7
+ * system-transaction nonces echoed. The outcome stays the first divergence; the transcript then shows everything
+ * Omron would have sent, which saves one run per fixture step when tuning. Exploration replies are synthetic and
+ * prove nothing.
  */
 public final class FixtureGatt {
     private static final Map<String,UUID> DIS=Map.of(
@@ -47,7 +50,8 @@ public final class FixtureGatt {
         BluetoothGattService gap=new BluetoothGattService(sig(0x1800),BluetoothGattService.SERVICE_TYPE_PRIMARY);
         add(gap,sig(0x2a00),BluetoothGattCharacteristic.PROPERTY_READ,false);
         for(Map.Entry<String,List<UUID>> alias:fixture.aliases.entrySet()) {
-            boolean notify=alias.getKey().equals("rx") || alias.getKey().equals("unlock");
+            // Legacy unlock and the X7 system channel (sys) both carry the phone's commands and the monitor's replies.
+            boolean notify=alias.getKey().equals("rx") || alias.getKey().equals("unlock") || alias.getKey().equals("sys");
             boolean write=!alias.getKey().equals("rx");
             int properties=(write?BluetoothGattCharacteristic.PROPERTY_WRITE|BluetoothGattCharacteristic.PROPERTY_WRITE_NO_RESPONSE:0)|(notify?BluetoothGattCharacteristic.PROPERTY_NOTIFY|BluetoothGattCharacteristic.PROPERTY_INDICATE:0);
             for(UUID id:alias.getValue()) add(alias.getKey().equals("clock")?time:vendor,id,properties,notify);
@@ -91,9 +95,10 @@ public final class FixtureGatt {
             return true;
         });
         when(g.requestMtu(anyInt())).thenAnswer(i -> {
-            int mtu=i.getArgument(0);
-            event("requestMtu "+mtu+" -> 23");
-            pending.add(() -> callback.onMtuChanged(g,23,BluetoothGatt.GATT_SUCCESS));
+            // The peer supports up to the fixture's mtu (23 by default); the link uses the smaller of the two.
+            int mtu=i.getArgument(0),negotiated=Math.max(23,Math.min(mtu,fixture.mtu));
+            event("requestMtu "+mtu+" -> "+negotiated);
+            pending.add(() -> callback.onMtuChanged(g,negotiated,BluetoothGatt.GATT_SUCCESS));
             return true;
         });
         when(g.requestConnectionPriority(anyInt())).thenReturn(true);
@@ -145,14 +150,18 @@ public final class FixtureGatt {
         if(diverged!=null) {
             outcome=diverged;
             if(EXPLORE) event("-- exploring past the divergence with synthetic replies --");
-            // The cursor already reassembled the diverging frame; later frames are reassembled here.
-            return explore(c,bytes,diverged.actual!=null && diverged.kind==Outcome.Kind.DIVERGED?diverged.actual:null);
+            // The cursor already reassembled (and, when encrypted, decrypted) the diverging frame; later frames are
+            // reassembled and decrypted here.
+            byte[] plain=cursor.lastPlaintext();
+            return explore(c,bytes,plain!=null?plain:diverged.actual!=null && diverged.kind==Outcome.Kind.DIVERGED && diverged.actual.length>0 && diverged.actual[0]!=0x70 && (diverged.actual[0]&255)!=0xc0?diverged.actual:null);
         }
+        byte[] plain=cursor.lastPlaintext();
+        if(plain!=null) event("  decrypted "+hex(plain)+"  "+WlpDescribe.describe(plain));
         pending.add(() -> callback.onCharacteristicWrite(gatt,c,BluetoothGatt.GATT_SUCCESS));
         for(FixtureCursor.Notification n:cursor.pendingNotifications()) {
             BluetoothGattCharacteristic target=characteristics.get(n.characteristic);
             pending.add(() -> {
-                event("notify "+name(n.characteristic)+" "+hex(n.value));
+                event("notify "+name(n.characteristic)+" "+hex(n.value)+(n.plain==null?"":"  (plaintext "+hex(n.plain)+"  "+WlpDescribe.describe(n.plain)+")"));
                 target.setValue(n.value);
                 callback.onCharacteristicChanged(gatt,target,n.value);
             });
@@ -184,7 +193,29 @@ public final class FixtureGatt {
         else exploreParts.clear();
         byte[] reply=null;
         String replyAlias=alias;
+        SecurePeer secure=cursor.secure();
+        if(secure!=null && alias.equals(fixture.secureAlias) && bytes.length>1 && bytes[0]==0x70) {
+            // Application handshake: the live cuff peer answers if the frame fits its state.
+            try { reply=secure.handshake(bytes); }
+            catch(IllegalArgumentException refused) { event("  (exploration: cuff peer refused the handshake frame: "+refused.getMessage()+")"); return true; }
+            sendExplored(alias,reply);
+            return true;
+        }
+        if(secure!=null && secure.established() && assembled==null) {
+            if(bytes.length<13 || (bytes[0]&255)!=0xc0) { event("  (exploration: plaintext frame after the encrypted session was established)"); return true; }
+            try { bytes=secure.decrypt(bytes); }
+            catch(IllegalArgumentException refused) { event("  (exploration: cuff peer refused the frame: "+refused.getMessage()+")"); return true; }
+            event("  decrypted "+hex(bytes)+"  "+WlpDescribe.describe(bytes));
+        }
         if(alias.equals("unlock") && bytes.length>0) reply=new byte[]{(byte)(bytes[0]|0x80),0};
+        else if(alias.equals("sys") && bytes.length==20 && bytes[0]==0x20 && bytes[1]==1) {
+            // X7 authorization poll: report COMPLETE.
+            reply=new byte[20]; reply[0]=(byte)0xa0; reply[1]=1; reply[3]=1;
+        }
+        else if(alias.equals("sys") && bytes.length==20 && bytes[0]==0x11) {
+            // X7 system transaction: echo the nonce with a zero status.
+            reply=new byte[20]; reply[0]=(byte)0x91; System.arraycopy(bytes,1,reply,2,4);
+        }
         else if(alias.equals("tx") && bytes.length>=8) {
             int declared=bytes[0]&255,op=bytes[1]&255;
             replyAlias="rx";
@@ -205,14 +236,19 @@ public final class FixtureGatt {
             for(int i=0;i<reply.length-1;i++) reply[reply.length-1]^=reply[i];
         }
         if(reply==null || !fixture.aliases.containsKey(replyAlias)) return true;
+        sendExplored(replyAlias,secure!=null && secure.established()?reply:null,secure!=null && secure.established()?secure.encrypt(reply):reply);
+        return true;
+    }
+    private void sendExplored(String alias,byte[] value) { sendExplored(alias,null,value); }
+    /** Queues a synthetic exploration notification, split over the alias's channels; {@code plain} only labels it. */
+    private void sendExplored(String replyAlias,byte[] plain,byte[] value) {
         List<UUID> targets=fixture.uuids(replyAlias);
-        byte[] value=reply;
+        String label=plain==null?"":"  (plaintext "+hex(plain)+"  "+WlpDescribe.describe(plain)+")";
         for(int i=0;i*16<value.length && i<targets.size();i++) {
             BluetoothGattCharacteristic target=characteristics.get(targets.get(i));
             byte[] piece=targets.size()==1?value:Arrays.copyOfRange(value,i*16,Math.min(value.length,(i+1)*16));
-            pending.add(() -> { event("notify "+name(target.getUuid())+" "+hex(piece)+"  (synthetic exploration reply)"); target.setValue(piece); callback.onCharacteristicChanged(gatt,target,piece); });
+            pending.add(() -> { event("notify "+name(target.getUuid())+" "+hex(piece)+label+"  (synthetic exploration reply)"); target.setValue(piece); callback.onCharacteristicChanged(gatt,target,piece); });
         }
-        return true;
     }
     private void add(BluetoothGattService service,UUID id,int properties,boolean cccd) {
         BluetoothGattCharacteristic c=new BluetoothGattCharacteristic(id,properties,BluetoothGattCharacteristic.PERMISSION_READ|BluetoothGattCharacteristic.PERMISSION_WRITE);

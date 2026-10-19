@@ -1,0 +1,62 @@
+# HEM-7380T1-EOSL (X7 Smart AFib): plain single-channel WLP Pair that registers user 2 while user 1 is already
+# registered. Omron registers the user through its settings writes after a pairing transfer; OpenPressure runs its
+# documented profile registration (docs/safety.md, X7 profile registration). The fresh Android bond that both
+# clients request first exchanges no GATT bytes and is not part of the fixture.
+# Omron selects HEM-7380T1-EOSL from the advertised IDs (category 0x0000, model 0x00D4) and, with ohqMtuSize=244,
+# its single-channel WLP graph; the plain manufacturer type 1 (pairing flag set, no saved key) selects plain WLP1COM
+# in both clients.
+name hem-7380t1/pair
+flow pair
+register user=2
+advertise name=BLEsmart_000000D40011223344 services=0000fe4a-0000-1000-8000-00805f9b34fb msd=0e020109010001010001
+# Synthetic Device Information; Omron reads the serial number on this model, OpenPressure only the model.
+dis model=HEM-7380T1-EOSL serial=0000000001 firmware=0001 software=0001 systemid=0011223344556677
+time 2026-01-02T03:04:05 zone=UTC
+# Plain WLP uses no application key; the format requires one, and no client sends it.
+key 05050505050505050505050505050505
+mtu 247
+
+alias tx db5b55e0-aee7-11e1-965e-0002a5d5c51b
+alias rx 49123040-aee8-11e1-a74d-0002a5d5c51b
+alias sys b305b680-aee7-11e1-a730-0002a5d5c51b
+
+# One synthetic record per user, each with sequence number 1 at offset 10 and the 8-bit sum of bytes 0-13 at
+# offset 14: user 1: 130/78 mmHg, pulse 67, 2025-07-09 06:14:38; user 2: 120/80 mmHg, pulse 70, 2025-08-01 07:30:00.
+memory fill=ff
+memory 0x1c4 694e4319 261d a603 0000 0100 00000000
+memory 0x804 5f504619 2720 8007 0000 0100 0000 dd00
+# Index (index_setting_read_address=10): per user next write position 1, one unsent record and sequence number 1;
+# empty error-log and pulse-wave pointers.
+memory 0x10 0100 0100 0100 0100 01000000 01000000 000000000000 0000
+# Setting-information block 3 at 0x3c: only user 1 registered (byte 48 = 01), clock 2026-01-02 03:04:05, additive
+# checksum of bytes 44-57 at byte 58. Block 4 at 0x4c is zero.
+memory 0x3c 00000000 01000000 1a0102030405 2a00
+memory 0x4c 0000000000000000
+
+nonce sys
+
+write tx 08 00 00 00 00 10 00 18
+notify rx 08 80 00 00 00 10 00 98
+
+[omron-only: Omron reads the index (index_setting_pointer_unsend_size 24 plus setting-information blocks 1 and 2) in one frame] reads 0x10 44 chunk=44
+[omron-only: Omron reads setting-information blocks 3 and 4 at 0x3c in one frame; pairing flags 0x1210 then return settings without reading history] reads 0x3c 24 chunk=24
+[ours-only: OpenPressure reads the 68-byte settings/index image at 0x10 in 16-byte blocks and saves it as the registration backup before the user is chosen] reads 0x10 68 chunk=16
+
+# OpenPressure's profile registration for user 2 (X7Registration): the unchanged 24-byte index prefix at 0x54, then
+# block 3 at 0x80 with the user-2 bit added to byte 48 (01 -> 03), the clock set to fixture time + 1 s and the
+# checksum recomputed (2d). Acknowledgments are synthetic full echoes.
+[ours-only: OpenPressure profile registration, unchanged index prefix at 0x54 (docs/safety.md)] write tx 2001c0005418 010001000100010001000000010000000000000000000000 00ad
+[ours-only: synthetic full echo acknowledgment; the physical monitor reply is unconfirmed] notify rx 2081c0005418 010001000100010001000000010000000000000000000000 002d
+[ours-only: OpenPressure profile registration, block 3 at 0x80 with user 2 added and clock + 1 s (docs/safety.md)] write tx 1801c0008010 00000000030000001a01020304062d00 007f
+[ours-only: synthetic full echo acknowledgment; the physical monitor reply is unconfirmed] notify rx 1881c0008010 00000000030000001a01020304062d00 00ff
+
+# Omron Connect 2026.09.03 post-pairing settings frames, recorded against this synthetic fixture. Its block 3 equals
+# OpenPressure's (user-2 bit, clock + 1 s, checksum 2d), but Omron also clears the registered user's unsent counters
+# in the prefix and merges the default birthday block 2. Replies are synthetic full echoes.
+[omron-only: Omron 2026.09.03 Pair user 2, index prefix at 0x54 with user 2's unsent counter cleared to 0x8000 and its error-log unsent count (offset 19) to 0x80; OpenPressure writes the prefix unchanged; docs/omron-sandbox.md] write tx 2001c0005418 010001000100008001000000010000000000008000000000 00ac
+[omron-only: synthetic full echo acknowledgment; the physical monitor reply is unconfirmed] notify rx 2081c0005418 010001000100008001000000010000000000008000000000 002c
+[omron-only: Omron 2026.09.03 Pair user 2, birthday block 2 (default 1900-01-01) merged with block 3 at 0x76; OpenPressure writes block 3 alone at 0x80; docs/omron-sandbox.md] write tx 2201c000761a 000101fffffffffffdff 00000000030000001a01020304062d00 0044
+[omron-only: synthetic full echo acknowledgment; the physical monitor reply is unconfirmed] notify rx 2281c000761a 000101fffffffffffdff 00000000030000001a01020304062d00 00c4
+
+write tx 08 0f 00 00 00 00 00 07
+notify rx 08 8f 00 00 00 00 00 87

@@ -43,11 +43,26 @@ public final class Fixture {
     /** Clock-sync outcome a {@code sync-clock} flow must reach ("acknowledged", "skipped" or "rejected"); null otherwise. */
     public String expectClock;
     public byte[] random=new byte[0];
+    /**
+     * The monitor's largest ATT MTU ({@code mtu <n>}); a client's request negotiates the smaller of the two. The default
+     * 23 is the ATT minimum, which every legacy fixture uses.
+     */
+    public int mtu=23;
     /** User a pairing session registers (Omron registers exactly one; the legacy key is not per user). */
     public int registerUser=1;
     /** Users an import covers as a bitmask (1 = user 1, 2 = user 2, 3 = both). */
     public int importUsers=3;
     public final Map<String,List<UUID>> aliases=new LinkedHashMap<>();
+    /**
+     * The X7 application encryption ({@code secure <alias> fresh|saved}): "fresh" for a new application pairing,
+     * "saved" for authentication with the fixture's {@link #key} as the saved LTK; null on plain routes. Every step
+     * after the handshake is plaintext in the fixture and encrypted on the link by the cuff-side {@link SecurePeer}.
+     */
+    public String secureMode;
+    /** The single-characteristic alias that carries the handshake ({@code sys} on the X7). */
+    public String secureAlias;
+    /** The 16 reserved bytes at the end of the cuff's {@code F0 85} reply ({@code reserved=}; zero by default). */
+    public byte[] secureReserved=new byte[16];
     private final List<Step> steps=new ArrayList<>();
     private final List<Reading> readings=new ArrayList<>();
     private final Set<Client> rejectedBy=EnumSet.noneOf(Client.class);
@@ -96,6 +111,11 @@ public final class Fixture {
         if(f.flow.equals("sync-clock")!=(f.expectClock!=null))
             throw new IllegalArgumentException(name+": a sync-clock flow needs exactly one expect clock line, and only that flow may have one");
         if(f.flow.equals("sync-clock") && f.time==null) throw new IllegalArgumentException(name+": missing time (the clock-sync target)");
+        if(f.secureMode!=null) {
+            if(f.secureMode.equals("fresh")!=f.flow.equals("pair")) throw new IllegalArgumentException(name+": secure fresh belongs to a pair flow, secure saved to the other flows");
+            for(Map.Entry<String,List<UUID>> alias:f.aliases.entrySet())
+                if(alias.getValue().size()!=1) throw new IllegalArgumentException(name+": encrypted fixtures need single-characteristic aliases, "+alias.getKey()+" has "+alias.getValue().size());
+        }
         return f;
     }
 
@@ -115,7 +135,8 @@ public final class Fixture {
         }
         String[] words=line.split("\\s+",2);
         String rest=words.length>1?words[1].trim():"";
-        if(only!=null && !Set.of("write","notify","reads","expect").contains(words[0])) throw new IllegalArgumentException("only steps and reading expectations can be annotated");
+        if(only!=null && !Set.of("write","notify","reads","nonce","expect").contains(words[0])) throw new IllegalArgumentException("only steps and reading expectations can be annotated");
+        if(secureMode!=null && words[0].equals("nonce")) throw new IllegalArgumentException("the nonce transaction precedes the encryption handshake");
         switch(words[0]) {
             case "name": if(!rest.equals(name)) throw new IllegalArgumentException("name "+rest+" does not match file "+name); break;
             case "advertise":
@@ -163,6 +184,31 @@ public final class Fixture {
                 break;
             }
             case "random": random=hex(rest); break;
+            case "mtu":
+                mtu=number(rest);
+                if(mtu<23 || mtu>517) throw new IllegalArgumentException("mtu must be 23 to 517");
+                break;
+            case "nonce": {
+                if(rest.isEmpty() || rest.contains(" ")) throw new IllegalArgumentException("nonce needs: nonce <alias>");
+                alias(rest);
+                pending.add(new Object[]{number,"nonce",rest,null,only,reason});
+                break;
+            }
+            case "secure": {
+                String[] parts=rest.split("\\s+");
+                if(parts.length<2 || !Set.of("fresh","saved").contains(parts[1])) throw new IllegalArgumentException("secure needs: secure <alias> fresh|saved [reserved=<16 bytes hex>]");
+                if(secureMode!=null) throw new IllegalArgumentException("secure given twice");
+                alias(parts[0]);
+                if(aliases.get(parts[0]).size()!=1) throw new IllegalArgumentException("secure needs a single-characteristic alias");
+                for(int i=2;i<parts.length;i++) {
+                    if(!parts[i].startsWith("reserved=")) throw new IllegalArgumentException("unknown secure field "+parts[i]);
+                    secureReserved=hex(parts[i].substring(9));
+                    if(secureReserved.length!=16) throw new IllegalArgumentException("reserved must be 16 bytes");
+                }
+                secureMode=parts[1]; secureAlias=parts[0];
+                pending.add(new Object[]{number,"secure",parts[0],null,null,null});
+                break;
+            }
             case "alias": {
                 String[] parts=rest.split("\\s+");
                 if(parts.length!=2) throw new IllegalArgumentException("alias needs a name and UUIDs");
@@ -216,11 +262,38 @@ public final class Fixture {
     private void expand(Object[] entry) {
         int number=(Integer)entry[0];
         String kind=(String)entry[1],only=(String)entry[4],reason=(String)entry[5];
+        if(kind.equals("secure")) {
+            // The handshake as the cuff sees it: each phone frame is checked for its opcode, length and fixed bytes and
+            // answered by the live peer, because both sides' randoms make the frames themselves unpinnable.
+            String alias=(String)entry[2];
+            int[][] frames=secureMode.equals("fresh")?new int[][]{{1,89},{5,46},{6,46}}:new int[][]{{5,46},{6,46}};
+            for(int[] frame:frames) {
+                byte[] request=new byte[frame[1]],reply=new byte[frame[1]];
+                request[0]=0x70; request[1]=(byte)frame[0];
+                reply[0]=(byte)0xf0; reply[1]=(byte)(0x80|frame[0]);
+                steps.add(new Step(Step.Kind.WRITE,alias,request,-1,0,frame[0],null,null,number));
+                steps.add(new Step(Step.Kind.NOTIFY,alias,reply,-1,0,frame[0],null,null,number));
+            }
+            encrypting=true;
+            return;
+        }
+        if(kind.equals("nonce")) {
+            // The X7 system transaction: the phone writes 11 + a random 4-byte token + 15 zeros; the monitor echoes it
+            // as 91 00 token 00 plus zero padding. The token is fresh random data in both clients, so it is matched by
+            // position and echoed into the reply instead of being pinned.
+            byte[] request=new byte[20],reply=new byte[20];
+            request[0]=0x11; reply[0]=(byte)0x91;
+            String alias=(String)entry[2];
+            if(aliases.get(alias).size()!=1) throw new IllegalArgumentException("nonce needs a single-characteristic alias");
+            steps.add(new Step(Step.Kind.WRITE,alias,request,1,4,-1,only,reason,number));
+            steps.add(new Step(Step.Kind.NOTIFY,alias,reply,2,4,-1,only,reason,number));
+            return;
+        }
         if(!kind.equals("reads")) {
             int limit=16*aliases.get((String)entry[2]).size();
             if(kind.equals("notify") && aliases.get((String)entry[2]).size()>1 && ((byte[])entry[3]).length>limit)
                 throw new IllegalArgumentException("notify on "+entry[2]+" exceeds "+limit+" bytes");
-            steps.add(new Step(kind.equals("write")?Step.Kind.WRITE:Step.Kind.NOTIFY,(String)entry[2],(byte[])entry[3],only,reason,number));
+            steps.add(new Step(kind.equals("write")?Step.Kind.WRITE:Step.Kind.NOTIFY,(String)entry[2],(byte[])entry[3],only,reason,number).encrypted(encrypting));
             return;
         }
         int[] range=(int[])entry[2];
@@ -233,10 +306,12 @@ public final class Fixture {
             System.arraycopy(request,2,reply,2,4);
             for(int i=0;i<length;i++) reply[6+i]=memory.getOrDefault(address+i,fill);
             for(int i=0;i<reply.length-1;i++) reply[reply.length-1]^=reply[i];
-            steps.add(new Step(Step.Kind.WRITE,"tx",request,only,reason,number));
-            steps.add(new Step(Step.Kind.NOTIFY,"rx",reply,only,reason,number));
+            steps.add(new Step(Step.Kind.WRITE,"tx",request,only,reason,number).encrypted(encrypting));
+            steps.add(new Step(Step.Kind.NOTIFY,"rx",reply,only,reason,number).encrypted(encrypting));
         }
     }
+    /** Set once the {@code secure} handshake is expanded: later steps travel encrypted. */
+    private boolean encrypting;
     private List<UUID> alias(String name) {
         List<UUID> ids=aliases.get(name);
         if(ids==null) throw new IllegalArgumentException("unknown alias "+name);
@@ -275,6 +350,14 @@ public final class Fixture {
         for(int i=0;i<length;i++) out[i]=memory.getOrDefault(address+i,fill);
         return out;
     }
+    /**
+     * The Omron manufacturer data as Android's {@code getManufacturerSpecificData(0x020e)} returns it: the
+     * {@code advertise msd=} bytes after the little-endian company ID {@code 0e 02}; null without Omron data.
+     */
+    public byte[] omronManufacturerPayload() {
+        if(manufacturerData==null || manufacturerData.length<2 || manufacturerData[0]!=0x0e || manufacturerData[1]!=0x02) return null;
+        return Arrays.copyOfRange(manufacturerData,2,manufacturerData.length);
+    }
     /** True when the fixture expects this client to refuse the device instead of following the steps. */
     public boolean expectRejected(Client client) { return rejectedBy.contains(client); }
     public List<UUID> uuids(String alias) { return alias(alias); }
@@ -295,36 +378,85 @@ public final class Fixture {
         public final Kind kind;
         public final String alias;
         public final byte[] bytes;
-        Step(Kind kind,String alias,byte[] bytes,String only,String reason,int line) {
+        /**
+         * A {@code nonce} step's token position: in a write, these {@link #tokenLength} bytes from {@link #tokenOffset}
+         * may hold anything and are captured; in a notification they are filled with the captured token. -1 otherwise.
+         */
+        public final int tokenOffset,tokenLength;
+        /**
+         * A {@code secure} handshake step's phone opcode (1, 5 or 6), -1 otherwise. Its write matches any frame with the
+         * same first two bytes and length (the peer checks the rest), and its notification is the peer's live reply.
+         */
+        public final int handshake;
+        private boolean encrypted;
+        Step(Kind kind,String alias,byte[] bytes,String only,String reason,int line) { this(kind,alias,bytes,-1,0,-1,only,reason,line); }
+        Step(Kind kind,String alias,byte[] bytes,int tokenOffset,int tokenLength,int handshake,String only,String reason,int line) {
             super(only,reason,line);
-            this.kind=kind; this.alias=alias; this.bytes=bytes;
+            this.kind=kind; this.alias=alias; this.bytes=bytes; this.tokenOffset=tokenOffset; this.tokenLength=tokenLength; this.handshake=handshake;
+        }
+        private Step encrypted(boolean value) { encrypted=value; return this; }
+        /** True after a {@code secure} handshake: the bytes are the plaintext of a {@code C0}-framed encrypted frame. */
+        public boolean encrypted() { return encrypted; }
+        /** The step's hex, with {@code ??} for each token byte. */
+        public String hex() {
+            if(handshake>0) return HexFormat.of().formatHex(bytes,0,2)+"<"+(bytes.length-2)+(kind==Kind.WRITE?" phone":" cuff")+" handshake bytes>";
+            String hex=HexFormat.of().formatHex(bytes);
+            if(tokenOffset<0) return hex;
+            return hex.substring(0,2*tokenOffset)+"??".repeat(tokenLength)+hex.substring(2*(tokenOffset+tokenLength));
         }
         @Override public String toString() {
-            return (only==null?"":"["+only+"-only] ")+kind.name().toLowerCase()+" "+alias+" "+HexFormat.of().formatHex(bytes)+" (line "+line+")";
+            return (only==null?"":"["+only+"-only] ")+kind.name().toLowerCase()+" "+alias+" "+(encrypted?"encrypted ":"")+hex()+" (line "+line+")";
         }
     }
 
     public static final class Reading extends Annotation {
         public final int user,sys,dia,pulse;
         public final LocalDateTime time;
+        /**
+         * Optional measurement flags (0 or 1): irregular pulse, body movement and AFib. In an expectation, null means
+         * "not compared"; in a decoded reading, null means the client did not report the flag.
+         */
+        public final Integer irregular,movement,afib;
         public Reading(int user,int sys,int dia,int pulse,LocalDateTime time) {
-            this(user,sys,dia,pulse,time,null,null,0);
+            this(user,sys,dia,pulse,time,null,null,null,null,null,0);
         }
-        private Reading(int user,int sys,int dia,int pulse,LocalDateTime time,String only,String reason,int line) {
+        private Reading(int user,int sys,int dia,int pulse,LocalDateTime time,Integer irregular,Integer movement,Integer afib,String only,String reason,int line) {
             super(only,reason,line);
             this.user=user; this.sys=sys; this.dia=dia; this.pulse=pulse; this.time=time;
+            this.irregular=irregular; this.movement=movement; this.afib=afib;
+        }
+        /** This decoded reading with the flags the client reported (null when it reports none). */
+        public Reading withFlags(Integer irregular,Integer movement,Integer afib) {
+            return new Reading(user,sys,dia,pulse,time,irregular,movement,afib,only,reason,line);
         }
         static Reading parse(String text,String only,String reason,int line) {
             Map<String,String> v=pairs(text);
             for(String field:new String[]{"user","sys","dia","pulse","time"}) if(!v.containsKey(field)) throw new IllegalArgumentException("reading needs "+field);
+            for(String field:v.keySet()) if(!Set.of("user","sys","dia","pulse","time","irregular","movement","afib").contains(field))
+                throw new IllegalArgumentException("unknown reading field "+field);
             return new Reading(Integer.parseInt(v.get("user")),Integer.parseInt(v.get("sys")),Integer.parseInt(v.get("dia")),
-                Integer.parseInt(v.get("pulse")),LocalDateTime.parse(v.get("time")),only,reason,line);
+                Integer.parseInt(v.get("pulse")),LocalDateTime.parse(v.get("time")),flag(v,"irregular"),flag(v,"movement"),flag(v,"afib"),only,reason,line);
+        }
+        private static Integer flag(Map<String,String> v,String name) {
+            String value=v.get(name);
+            if(value==null) return null;
+            if(!value.equals("0") && !value.equals("1")) throw new IllegalArgumentException(name+" must be 0 or 1");
+            return Integer.parseInt(value);
+        }
+        /** Whether a decoded reading satisfies this expectation: equal values, and equal flags where this one names them. */
+        public boolean accepts(Reading decoded) {
+            return user==decoded.user && sys==decoded.sys && dia==decoded.dia && pulse==decoded.pulse && Objects.equals(time,decoded.time)
+                && (irregular==null || irregular.equals(decoded.irregular)) && (movement==null || movement.equals(decoded.movement))
+                && (afib==null || afib.equals(decoded.afib));
         }
         @Override public boolean equals(Object other) {
             return other instanceof Reading && toString().equals(other.toString());
         }
-        @Override public int hashCode() { return Objects.hash(user,sys,dia,pulse,time); }
-        @Override public String toString() { return "user="+user+" sys="+sys+" dia="+dia+" pulse="+pulse+" time="+time; }
+        @Override public int hashCode() { return Objects.hash(user,sys,dia,pulse,time,irregular,movement,afib); }
+        @Override public String toString() {
+            return "user="+user+" sys="+sys+" dia="+dia+" pulse="+pulse+" time="+time
+                +(irregular==null?"":" irregular="+irregular)+(movement==null?"":" movement="+movement)+(afib==null?"":" afib="+afib);
+        }
     }
 
     private static Map<String,String> pairs(String text) {

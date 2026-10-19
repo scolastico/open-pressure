@@ -46,7 +46,7 @@ public final class X7RegistrationTest {
         }
         check((after[48]&2)==(before[48]&2),"user 1 registration preserves user 2 flag");
         check(Arrays.equals(Arrays.copyOf(before,24),Arrays.copyOf(after,24)),"all pointers and unread counts preserved");
-        X7MemoryIndex.parse(after);
+        X7MemoryIndex.parse(X7Model.HEM_7380T1_EOSL,after);
         before[48]=1; checksum(before);
         X7Registration second=new X7Registration("X7 Smart AFib",before,2,NOW);
         check(second.user()==2 && second.updated()[48]==3,"user 2 sets its own bit and preserves user 1 flag");
@@ -134,7 +134,7 @@ public final class X7RegistrationTest {
     }
 
     private static void invalidInputNeverCreatesARegistration() {
-        for(String model:new String[]{null,"","HEM-7380T1","hem-7380t1-ebk","HEM-7155T","X7","X7 Smart AFib other"}) {
+        for(String model:new String[]{null,"","HEM-7380T1","hem-7380t1-ebk","HEM-7155T","X7","X7 Smart AFib other","HEM-7196T1","HEM-7196T1-FL","M4 Connect AFib","X4 Connect AFib"}) {
             rejects(() -> new X7Registration(model,hex(PREIMAGE),1,NOW));
             rejects(() -> new X7Registration(model,hex(PREIMAGE),1,NOW,true));
         }
@@ -176,6 +176,27 @@ public final class X7RegistrationTest {
         eoslForced.authorize();
         DeviceWritePolicy.validateX7Registration(ProtocolProfile.X7_WLP,service,tx,eoslForced.command(),eoslForced);
         checks++;
+        // HEM-7196T1: Omron's configuration has the same settings write layout; untested, so only under the override.
+        // The synthetic preimage's user 1 pointer (99) only fits the 100-slot map; 48 fits both.
+        byte[] sixty=hex(PREIMAGE); sixty[0]=48;
+        for(String name:new String[]{"HEM-7196T1-FLE","HEM-7196T1-FLEO\u0000"}) {
+            X7Registration plain=new X7Registration(name,sixty,1,NOW);
+            check(plain.identity().startsWith("HEM-7196T1-FLE") && Arrays.equals(new X7Registration(MODEL,sixty,1,NOW).updated(),plain.updated()),"7196T1 plans the X7 bytes: "+name);
+            plain.authorize(); byte[] plainFirst=plain.command();
+            rejects(() -> DeviceWritePolicy.validateX7Registration(ProtocolProfile.X7_WLP,service,tx,plainFirst,plain));
+            check(plain.allows(plainFirst),"untested 7196T1 registration rejected before the permit: "+name);
+            X7Registration override=new X7Registration(name,sixty,2,NOW,true);
+            rejects(() -> new X7Registration(name,hex(PREIMAGE),1,NOW,true));
+            override.authorize(); byte[] overrideFirst=override.command();
+            DeviceWritePolicy.validateX7Registration(ProtocolProfile.X7_WLP,service,tx,overrideFirst,override);
+            checks++;
+            rejects(() -> DeviceWritePolicy.validateX7Registration(ProtocolProfile.X7_SECURE_WLP,service,tx,overrideFirst,override));
+        }
+        // A 60-slot identity refuses a pointer that only the 100-slot map allows.
+        byte[] sixtyOne=hex(PREIMAGE); sixtyOne[0]=61;
+        new X7Registration(MODEL,sixtyOne,1,NOW);
+        checks++;
+        rejects(() -> new X7Registration("HEM-7196T1-FLE",sixtyOne,1,NOW,true));
     }
 
     private static void invalidAcknowledgmentsRevokeAuthorization() {
