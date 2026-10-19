@@ -29,6 +29,7 @@ public final class FixtureTest {
         parsesHeaderAndExpandsReads();
         filtersOnlyStepsPerClient();
         rejectsMalformedLinesWithLineNumbers();
+        parsesRequiredOmronMatch();
         reassemblesLegacyChannelWritesIntoOneFrame();
         strayChannelWriteIsADivergence();
         incompleteFixturesFailAtParseTime();
@@ -95,6 +96,21 @@ public final class FixtureTest {
                 continue;
             }
             throw new AssertionError("malformed line accepted: "+line);
+        }
+    }
+
+    private static void parsesRequiredOmronMatch() {
+        Fixture f=Fixture.parse("test/sample",HEAD+"expect omron matches\nexpect ours rejected\n");
+        check(f.expectOmronMatch,"confirmed reference fixtures require a full match");
+        check(!Fixture.parse("test/sample",HEAD).expectOmronMatch,"unconfirmed probes remain exploratory");
+        check(f.expectRejected(Fixture.Client.OURS_APP),"a reference match does not enable the app's model");
+        check(!f.expectRejected(Fixture.Client.OMRON),"a reference match is not a rejection");
+        for(String expectations:new String[]{"expect omron matches\nexpect omron rejected\n",
+            "expect omron rejected\nexpect omron matches\n","expect ours matches\n"}) {
+            checks++;
+            try { Fixture.parse("test/sample",HEAD+expectations); }
+            catch(IllegalArgumentException expected) { continue; }
+            throw new AssertionError("accepted contradictory or unsupported expectation: "+expectations);
         }
     }
     private static void reassemblesLegacyChannelWritesIntoOneFrame() {

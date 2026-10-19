@@ -42,6 +42,8 @@ public final class Fixture {
     public String flow="connect";
     /** Clock-sync outcome a {@code sync-clock} flow must reach ("acknowledged", "skipped" or "rejected"); null otherwise. */
     public String expectClock;
+    /** Opt-in reference regression: the Omron sandbox must match this script, not merely report a finding. */
+    public boolean expectOmronMatch;
     public byte[] random=new byte[0];
     /**
      * The monitor's largest ATT MTU ({@code mtu <n>}); a client's request negotiates the smaller of the two. The default
@@ -249,9 +251,16 @@ public final class Fixture {
                     if(expectClock!=null) throw new IllegalArgumentException("expect clock given twice");
                     expectClock=value;
                 }
+                else if(rest.equals("omron matches")) {
+                    if(rejectedBy.contains(Client.OMRON)) throw new IllegalArgumentException("contradictory Omron expectations");
+                    expectOmronMatch=true;
+                }
                 else if(parts.length==2 && parts[1].equals("rejected")) {
                     if(parts[0].equals("ours")) { rejectedBy.add(Client.OURS_PROTOCOL); rejectedBy.add(Client.OURS_APP); }
-                    else if(parts[0].equals("omron")) rejectedBy.add(Client.OMRON);
+                    else if(parts[0].equals("omron")) {
+                        if(expectOmronMatch) throw new IllegalArgumentException("contradictory Omron expectations");
+                        rejectedBy.add(Client.OMRON);
+                    }
                     else throw new IllegalArgumentException("unknown client "+parts[0]);
                 } else throw new IllegalArgumentException("unknown expectation "+rest);
                 break;
