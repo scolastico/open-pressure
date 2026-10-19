@@ -249,6 +249,7 @@ public final class OmronRunner {
             call("device.disconnect",device);
             pump(() -> disconnected || halted());
         }
+        if("fresh".equals(fixture.secureMode)) reportSavedKey(context);
         if(peer.outcome()!=null) return peer.outcome();
         if(!cursor.finished()) return cursor.stalled();
         synchronized(vitals) { return cursor.finish(OmronVitals.readings(new ArrayList<>(vitals),log)); }
@@ -276,6 +277,24 @@ public final class OmronRunner {
         Files.write(context.getFilesDir().toPath().resolve(ADDRESS+"LTK"),rsa.doFinal(state));
         java.util.Arrays.fill(state,(byte)0);
         log("seeded Omron's saved Omsec state for "+ADDRESS+" (fixture key, RSA-wrapped)");
+    }
+
+    /**
+     * After a fresh pairing: unwraps the state Omron saved in {@code <address>LTK} and logs whether its first 16 bytes
+     * are the LTK the cuff peer derived, plus the layout of the remaining native bytes (synthetic material only).
+     */
+    private void reportSavedKey(Context context) {
+        try {
+            Path file=context.getFilesDir().toPath().resolve(ADDRESS+"LTK");
+            if(!Files.isRegularFile(file)) { log("saved key: Omron stored no "+ADDRESS+"LTK file"); return; }
+            java.security.KeyStore store=java.security.KeyStore.getInstance("AndroidKeyStore");
+            store.load(null);
+            javax.crypto.Cipher rsa=javax.crypto.Cipher.getInstance("RSA/ECB/PKCS1Padding");
+            rsa.init(javax.crypto.Cipher.DECRYPT_MODE,store.getKey("OHQKeyStore",null));
+            byte[] state=rsa.doFinal(Files.readAllBytes(file)),ltk=cursor.secure().ltk();
+            log("saved key: "+state.length+"-byte native state, bytes 0-15 "+(ltk!=null && java.util.Arrays.equals(ltk,java.util.Arrays.copyOf(state,16))?"equal":"differ from")
+                +" the cuff peer's LTK; bytes 16-"+(state.length-1)+" "+FixtureGatt.hex(java.util.Arrays.copyOfRange(state,Math.min(16,state.length),state.length)));
+        } catch(Exception failure) { log("saved key: cannot read Omron's saved state: "+failure); }
     }
 
     /**
