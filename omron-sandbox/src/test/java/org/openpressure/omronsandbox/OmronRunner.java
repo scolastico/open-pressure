@@ -24,6 +24,7 @@ import java.util.Locale;
 import java.util.UUID;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
+import org.openpressure.protocol.fixture.FakeAndroidKeyStore;
 import org.openpressure.protocol.fixture.Fixture;
 import org.openpressure.protocol.fixture.FixtureCursor;
 import org.openpressure.protocol.fixture.Outcome;
@@ -156,6 +157,11 @@ public final class OmronRunner {
         pump();
         if(device==null) return rejected("Omron ignored the advertisement");
 
+        // Omron wraps its saved Omsec state with an RSA key in the Android key store, after a fresh pairing and before
+        // a saved-key authentication; a saved-key fixture starts with the state an earlier pairing would have left.
+        FakeAndroidKeyStore.install();
+        if("saved".equals(fixture.secureMode)) seedSavedKey(context);
+
         Bundle definition=new Bundle();
         definition.putString("wlpDefinitionFolderPath",folder.toString());
         if(!ok(call("device.setDefinition",device,definition))) return rejected("definition folder refused");
@@ -246,6 +252,30 @@ public final class OmronRunner {
         if(peer.outcome()!=null) return peer.outcome();
         if(!cursor.finished()) return cursor.stalled();
         synchronized(vitals) { return cursor.finish(OmronVitals.readings(new ArrayList<>(vitals),log)); }
+    }
+
+    /**
+     * Leaves the saved state of an earlier Omron pairing with this cuff, as its library stores it after {@code GetLtk}:
+     * the 80-byte native Omsec state, encrypted with RSA/ECB/PKCS1Padding under the public key of the
+     * {@code OHQKeyStore} Android key store entry, in the app-private file {@code <address>LTK}. The native state holds
+     * the LTK in bytes 0-15; the remaining 64 bytes are zero here (the native library authenticates with that state,
+     * see OmsecEmulatorTest). A saved LTK also makes Omron choose its encrypted route regardless of the advertisement.
+     */
+    private void seedSavedKey(Context context) throws Exception {
+        java.security.KeyStore store=java.security.KeyStore.getInstance("AndroidKeyStore");
+        store.load(null);
+        java.security.KeyPairGenerator generator=java.security.KeyPairGenerator.getInstance("RSA","AndroidKeyStore");
+        // The same entry Omron creates for itself when it is missing (purposes encrypt|decrypt, 1024 bits, ECB, PKCS#1).
+        generator.initialize(new android.security.keystore.KeyGenParameterSpec.Builder("OHQKeyStore",3).setKeySize(1024)
+            .setBlockModes("ECB").setEncryptionPaddings("PKCS1Padding").build());
+        generator.generateKeyPair();
+        byte[] state=new byte[80];
+        System.arraycopy(fixture.key,0,state,0,16);
+        javax.crypto.Cipher rsa=javax.crypto.Cipher.getInstance("RSA/ECB/PKCS1Padding");
+        rsa.init(javax.crypto.Cipher.ENCRYPT_MODE,store.getCertificate("OHQKeyStore").getPublicKey());
+        Files.write(context.getFilesDir().toPath().resolve(ADDRESS+"LTK"),rsa.doFinal(state));
+        java.util.Arrays.fill(state,(byte)0);
+        log("seeded Omron's saved Omsec state for "+ADDRESS+" (fixture key, RSA-wrapped)");
     }
 
     /**
