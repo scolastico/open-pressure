@@ -49,6 +49,7 @@ No account to create, no subscription, and no cloud service required. Your readi
 | --- | --- |
 | **Omron X7 Smart AFib — HEM-7380T1-EOSL** | **Tested:** initial pairing, clock setup and manual history import confirmed on this exact model. The standalone Sync clock is confirmed on this exact model too. |
 | Omron X7 Smart AFib — HEM-7380T1-EBK | Same history import as EOSL; **not yet tested on a physical monitor in OpenPressure**. Profile registration is limited to EOSL. |
+| Omron M4 Connect AFib / X4 Connect AFib — HEM-7196T1-FLE / HEM-7196T1-FLEO | **Experimental:** history import implemented from Omron's configuration of this model; **not yet tested on a physical monitor in OpenPressure**, including its encrypted connection. |
 | Omron HEM-7150T, HEM-7155T, HEM-7156T | History import implemented; **not yet tested on physical monitors in OpenPressure**. |
 | Omron HEM-7322T, HEM-7342T, HEM-7361T | History import implemented; **not yet tested on physical monitors in OpenPressure**. |
 | Omron HEM-7530T, HEM-7600T, HEM-6232T | History import implemented; **not yet tested on physical monitors in OpenPressure**. |
