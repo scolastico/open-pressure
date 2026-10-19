@@ -13,13 +13,15 @@ import static org.mockito.Mockito.*;
 /**
  * A GATT peer that answers only from a fixture. Characteristic writes go to the {@link FixtureCursor}; matched
  * writes are acknowledged and followed by the scripted notifications. Everything else Omron does on the link
- * (service discovery, MTU, notification setup, Device Information reads) is answered generically and logged.
+ * (service discovery, MTU up to the fixture's {@code mtu}, notification setup, Device Information reads) is answered
+ * generically and logged.
  * Callbacks are queued and delivered by the runner's pump, never re-entrantly from inside Omron's call.
  *
  * <p>With {@code -Domron.sandbox.explore=true} the peer keeps answering after a divergence, with synthetic
- * acknowledgments: WLP reads from the fixture memory, writes and END echoed, key frames acknowledged. The
- * outcome stays the first divergence; the transcript then shows everything Omron would have sent, which
- * saves one run per fixture step when tuning. Exploration replies are synthetic and prove nothing.
+ * acknowledgments: WLP reads from the fixture memory, writes and END echoed, key frames acknowledged and X7
+ * system-transaction nonces echoed. The outcome stays the first divergence; the transcript then shows everything
+ * Omron would have sent, which saves one run per fixture step when tuning. Exploration replies are synthetic and
+ * prove nothing.
  */
 public final class FixtureGatt {
     private static final Map<String,UUID> DIS=Map.of(
@@ -47,7 +49,8 @@ public final class FixtureGatt {
         BluetoothGattService gap=new BluetoothGattService(sig(0x1800),BluetoothGattService.SERVICE_TYPE_PRIMARY);
         add(gap,sig(0x2a00),BluetoothGattCharacteristic.PROPERTY_READ,false);
         for(Map.Entry<String,List<UUID>> alias:fixture.aliases.entrySet()) {
-            boolean notify=alias.getKey().equals("rx") || alias.getKey().equals("unlock");
+            // Legacy unlock and the X7 system channel (sys) both carry the phone's commands and the monitor's replies.
+            boolean notify=alias.getKey().equals("rx") || alias.getKey().equals("unlock") || alias.getKey().equals("sys");
             boolean write=!alias.getKey().equals("rx");
             int properties=(write?BluetoothGattCharacteristic.PROPERTY_WRITE|BluetoothGattCharacteristic.PROPERTY_WRITE_NO_RESPONSE:0)|(notify?BluetoothGattCharacteristic.PROPERTY_NOTIFY|BluetoothGattCharacteristic.PROPERTY_INDICATE:0);
             for(UUID id:alias.getValue()) add(alias.getKey().equals("clock")?time:vendor,id,properties,notify);
@@ -91,9 +94,10 @@ public final class FixtureGatt {
             return true;
         });
         when(g.requestMtu(anyInt())).thenAnswer(i -> {
-            int mtu=i.getArgument(0);
-            event("requestMtu "+mtu+" -> 23");
-            pending.add(() -> callback.onMtuChanged(g,23,BluetoothGatt.GATT_SUCCESS));
+            // The peer supports up to the fixture's mtu (23 by default); the link uses the smaller of the two.
+            int mtu=i.getArgument(0),negotiated=Math.max(23,Math.min(mtu,fixture.mtu));
+            event("requestMtu "+mtu+" -> "+negotiated);
+            pending.add(() -> callback.onMtuChanged(g,negotiated,BluetoothGatt.GATT_SUCCESS));
             return true;
         });
         when(g.requestConnectionPriority(anyInt())).thenReturn(true);
@@ -185,6 +189,10 @@ public final class FixtureGatt {
         byte[] reply=null;
         String replyAlias=alias;
         if(alias.equals("unlock") && bytes.length>0) reply=new byte[]{(byte)(bytes[0]|0x80),0};
+        else if(alias.equals("sys") && bytes.length==20 && bytes[0]==0x11) {
+            // X7 system transaction: echo the nonce with a zero status.
+            reply=new byte[20]; reply[0]=(byte)0x91; System.arraycopy(bytes,1,reply,2,4);
+        }
         else if(alias.equals("tx") && bytes.length>=8) {
             int declared=bytes[0]&255,op=bytes[1]&255;
             replyAlias="rx";
