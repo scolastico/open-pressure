@@ -128,7 +128,11 @@ public final class FixtureCursor {
         if(!java.util.Objects.equals(clock,fixture.expectClock))
             return Outcome.diverged(position,0,null,null,"clock sync outcome "+clock+", expected "+fixture.expectClock);
         List<Fixture.Reading> missing=new ArrayList<>(fixture.readings(client)),extra=new ArrayList<>();
-        for(Fixture.Reading reading:decoded) if(!missing.remove(reading)) extra.add(reading);
+        for(Fixture.Reading reading:decoded) {
+            Fixture.Reading match=null;
+            for(Fixture.Reading expected:missing) if(expected.accepts(reading)) { match=expected; break; }
+            if(match==null) extra.add(reading); else missing.remove(match);
+        }
         if(!missing.isEmpty() || !extra.isEmpty())
             return Outcome.diverged(position,0,null,null,"readings differ; missing "+missing+", unexpected "+extra);
         return Outcome.matches(steps.size());

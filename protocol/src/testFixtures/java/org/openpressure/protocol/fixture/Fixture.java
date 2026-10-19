@@ -354,24 +354,51 @@ public final class Fixture {
     public static final class Reading extends Annotation {
         public final int user,sys,dia,pulse;
         public final LocalDateTime time;
+        /**
+         * Optional measurement flags (0 or 1): irregular pulse, body movement and AFib. In an expectation, null means
+         * "not compared"; in a decoded reading, null means the client did not report the flag.
+         */
+        public final Integer irregular,movement,afib;
         public Reading(int user,int sys,int dia,int pulse,LocalDateTime time) {
-            this(user,sys,dia,pulse,time,null,null,0);
+            this(user,sys,dia,pulse,time,null,null,null,null,null,0);
         }
-        private Reading(int user,int sys,int dia,int pulse,LocalDateTime time,String only,String reason,int line) {
+        private Reading(int user,int sys,int dia,int pulse,LocalDateTime time,Integer irregular,Integer movement,Integer afib,String only,String reason,int line) {
             super(only,reason,line);
             this.user=user; this.sys=sys; this.dia=dia; this.pulse=pulse; this.time=time;
+            this.irregular=irregular; this.movement=movement; this.afib=afib;
+        }
+        /** This decoded reading with the flags the client reported (null when it reports none). */
+        public Reading withFlags(Integer irregular,Integer movement,Integer afib) {
+            return new Reading(user,sys,dia,pulse,time,irregular,movement,afib,only,reason,line);
         }
         static Reading parse(String text,String only,String reason,int line) {
             Map<String,String> v=pairs(text);
             for(String field:new String[]{"user","sys","dia","pulse","time"}) if(!v.containsKey(field)) throw new IllegalArgumentException("reading needs "+field);
+            for(String field:v.keySet()) if(!Set.of("user","sys","dia","pulse","time","irregular","movement","afib").contains(field))
+                throw new IllegalArgumentException("unknown reading field "+field);
             return new Reading(Integer.parseInt(v.get("user")),Integer.parseInt(v.get("sys")),Integer.parseInt(v.get("dia")),
-                Integer.parseInt(v.get("pulse")),LocalDateTime.parse(v.get("time")),only,reason,line);
+                Integer.parseInt(v.get("pulse")),LocalDateTime.parse(v.get("time")),flag(v,"irregular"),flag(v,"movement"),flag(v,"afib"),only,reason,line);
+        }
+        private static Integer flag(Map<String,String> v,String name) {
+            String value=v.get(name);
+            if(value==null) return null;
+            if(!value.equals("0") && !value.equals("1")) throw new IllegalArgumentException(name+" must be 0 or 1");
+            return Integer.parseInt(value);
+        }
+        /** Whether a decoded reading satisfies this expectation: equal values, and equal flags where this one names them. */
+        public boolean accepts(Reading decoded) {
+            return user==decoded.user && sys==decoded.sys && dia==decoded.dia && pulse==decoded.pulse && Objects.equals(time,decoded.time)
+                && (irregular==null || irregular.equals(decoded.irregular)) && (movement==null || movement.equals(decoded.movement))
+                && (afib==null || afib.equals(decoded.afib));
         }
         @Override public boolean equals(Object other) {
             return other instanceof Reading && toString().equals(other.toString());
         }
-        @Override public int hashCode() { return Objects.hash(user,sys,dia,pulse,time); }
-        @Override public String toString() { return "user="+user+" sys="+sys+" dia="+dia+" pulse="+pulse+" time="+time; }
+        @Override public int hashCode() { return Objects.hash(user,sys,dia,pulse,time,irregular,movement,afib); }
+        @Override public String toString() {
+            return "user="+user+" sys="+sys+" dia="+dia+" pulse="+pulse+" time="+time
+                +(irregular==null?"":" irregular="+irregular)+(movement==null?"":" movement="+movement)+(afib==null?"":" afib="+afib);
+        }
     }
 
     private static Map<String,String> pairs(String text) {

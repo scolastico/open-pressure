@@ -89,7 +89,7 @@ One directive per line; `#` starts a comment; hex may contain spaces.
 | `notify <alias> <hex>` | The monitor's reply; split over channels for multi-UUID aliases |
 | `nonce <alias>` | The X7 system transaction on a single-characteristic alias: the phone must write `11`, any four token bytes and 15 zero bytes; the monitor replies `91 00`, the same token and 14 zero bytes. Both clients draw the token from `SecureRandom` for each connection, so it is captured and echoed instead of pinned; reports print it as `??` |
 | `reads <address> <length> chunk=<n>` | Expands to WLP read requests and replies from `memory` |
-| `expect reading user=… sys=… dia=… pulse=… time=…` | A reading every client must decode |
+| `expect reading user=… sys=… dia=… pulse=… time=… [irregular=0\|1] [movement=0\|1] [afib=0\|1]` | A reading every client must decode. The optional flags are compared only when named: Omron's `0006` (irregular pulse), `0007` (body movement) and `0023` (AFib), OpenPressure's status bits and AFib field |
 | `expect ours rejected` / `expect omron rejected` | That client is expected to refuse the device |
 | `expect clock acknowledged\|skipped\|rejected` | Outcome both OpenPressure replays must reach in a `sync-clock` flow: the write acknowledged, nothing written within the threshold, or the acknowledgment refused (END still follows); required exactly once in that flow and not allowed elsewhere |
 
@@ -116,6 +116,23 @@ Findings, all from synthetic sandbox runs:
 - The encrypted route (types 8/9 or a saved key) is not replayed yet: the protocol replay refuses it before any write, and Omron would need its saved native state.
 
 These are observations of Omron's code against synthetic memory, not a physical cuff's replies. They do not extend the hardware-tested EOSL claims or authorize additional writes.
+
+## HEM-7196T1 findings
+
+OpenPressure accepts the HEM-7196T1-FLE (M4 Connect AFib) and HEM-7196T1-FLEO (X4 Connect AFib) experimentally on the X7 route. Omron's configurations equal the HEM-7380T1-EOSL apart from 60 records per user, so user 2's bank starts at `0x584`, and Omron's catalog advertises them as model IDs `0x00EB` and `0x00E1`. The fixtures use the exact Device Information model numbers that OpenPressure accepts; the string a physical cuff reports is unknown. The only known capture of a real HEM-7196T1-FLE uses the encrypted route, so whether a cuff ever advertises a plain type is also unknown. With Omron Connect 2026.09.03:
+
+| Fixture | Omron | OpenPressure (app and protocol) |
+| --- | --- | --- |
+| `hem-7196t1/connect-read-history` | `matches`: same reads and post-transfer settings writes as on the EOSL; record reads at `0x1C4` and `0x584` | `matches`: same record reads at `0x1C4` and `0x584`, both readings and flags |
+| `hem-7196t1-fleo/connect-read-history` | `matches` | `matches` |
+| `hem-7196t1/pair` (user 2) | `matches`: index and blocks 3 and 4, then the prefix and blocks 2 and 3 at `0x54` and `0x76`, as on the EOSL | `matches`: the system transaction only. Registration on this identity is untested, so without the hidden developer override Pair stops in the read-only ready state |
+
+Findings, all from synthetic sandbox runs; nothing here was tested on a physical cuff:
+
+- **Memory map**: `MemoryMapComparisonTest` accepts both identities through the X7 identification and finds Omron's banks (60 records of 16 bytes at `0x1C4` and `0x584`) equal to OpenPressure's.
+- **Flags**: user 2's record sets AFib together with the irregular-pulse and movement bits. Omron reports irregular pulse 0, movement 0 and AFib 1, as its VitalDataIndexes for this model prescribe, and OpenPressure masks the same flags for these identities; the fixtures compare all three flags.
+- **Reads and writes**: Omron's reads, record checks and post-transfer settings writes have the same frames as on the EOSL with the same synthetic index; only the user-2 record address differs.
+- Pair with registration under the developer override is not covered by a fixture.
 
 ## HEM-7156T findings
 

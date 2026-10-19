@@ -253,12 +253,16 @@ public final class ProtocolReplay {
                 X7Record record;
                 try { record=X7Record.parse(java.util.Arrays.copyOfRange(data,offset+i,offset+i+X7Record.RECORD_BYTES),range.user,model); }
                 catch(IllegalArgumentException rejected) { continue; }
-                if(record!=null) readings.add(new Fixture.Reading(range.user,(int)record.measurement.systolic,(int)record.measurement.diastolic,record.measurement.pulse.intValue(),record.measurement.time));
+                if(record!=null) readings.add(new Fixture.Reading(range.user,(int)record.measurement.systolic,(int)record.measurement.diastolic,record.measurement.pulse.intValue(),record.measurement.time)
+                    .withFlags(flag(record.measurement.status,4),flag(record.measurement.status,1),record.measurement.atrialFibrillation==null?null:record.measurement.atrialFibrillation?1:0));
             }
             offset+=range.length;
         }
         return readings;
     }
+
+    /** One status bit (4 irregular pulse, 1 body movement) as 0/1, or null without a status. */
+    static Integer flag(Integer status,int bit) { return status==null?null:(status&bit)!=0?1:0; }
 
     private static List<Fixture.Reading> decode(VendorMemoryModel model,List<VendorMemoryModel.Range> ranges,byte[] data) {
         List<Fixture.Reading> readings=new ArrayList<>();

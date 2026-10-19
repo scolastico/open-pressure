@@ -39,6 +39,7 @@ public final class FixtureTest {
         parsesMtuAndManufacturerPayload();
         nonceMatchesAnyTokenAndEchoesIt();
         describesX7SystemFrames();
+        comparesReadingFlagsOnlyWhenNamed();
         return checks;
     }
     private static void parsesHeaderAndExpandsReads() {
@@ -261,6 +262,23 @@ public final class FixtureTest {
         check(org.openpressure.protocol.fixture.WlpDescribe.describe(hex("2001"+"00".repeat(18))).equals("x7-authorization-poll"),"authorization poll");
         check(org.openpressure.protocol.fixture.WlpDescribe.describe(hex("c00100000000"+"00".repeat(15))).startsWith("x7-encrypted counter=1"),"encrypted frame counter");
         check(org.openpressure.protocol.fixture.WlpDescribe.describe(hex("0800000000100018")).startsWith("start"),"WLP frames keep their description");
+    }
+    private static void comparesReadingFlagsOnlyWhenNamed() {
+        java.time.LocalDateTime t=java.time.LocalDateTime.parse("2025-07-09T06:14:38");
+        Fixture f=Fixture.parse("test/sample",HEAD+"expect reading user=1 sys=130 dia=78 pulse=67 time=2025-07-09T06:14:38 irregular=0 afib=1\n");
+        Fixture.Reading expected=f.readings().get(0);
+        check(expected.irregular==0 && expected.movement==null && expected.afib==1,"optional flags parsed");
+        Fixture.Reading plain=new Fixture.Reading(1,130,78,67,t);
+        check(!expected.accepts(plain),"a named flag must be reported");
+        check(expected.accepts(plain.withFlags(0,1,1)),"unnamed movement is not compared");
+        check(!expected.accepts(plain.withFlags(1,0,1)),"irregular compared");
+        check(new FixtureCursor(f,Fixture.Client.OURS_APP).finish(List.of(plain.withFlags(0,0,1))).kind==Outcome.Kind.MATCHES,"finish uses the flags");
+        check(new FixtureCursor(f,Fixture.Client.OURS_APP).finish(List.of(plain.withFlags(0,0,0))).kind==Outcome.Kind.DIVERGED,"finish reports a flag difference");
+        check(Fixture.parse("test/sample",HEAD+"expect reading user=1 sys=130 dia=78 pulse=67 time=2025-07-09T06:14:38\n").readings().get(0).accepts(plain.withFlags(1,1,1)),"flags ignored unless named");
+        for(String bad:new String[]{" afib=2"," colour=1"}) {
+            try { Fixture.parse("test/sample",HEAD+"expect reading user=1 sys=130 dia=78 pulse=67 time=2025-07-09T06:14:38"+bad+"\n"); throw new AssertionError("accepted"+bad); }
+            catch(IllegalArgumentException expectedError) { check(expectedError.getMessage().contains("line 11"),"rejects"+bad); }
+        }
     }
     private static void check(boolean value,String message) { checks++; if(!value) throw new AssertionError(message); }
 }

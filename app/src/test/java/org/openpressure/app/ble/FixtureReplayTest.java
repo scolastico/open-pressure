@@ -93,7 +93,8 @@ public class FixtureReplayTest {
         set("store",store); set("gatt",gatt); set("keys",new PairingKeys(monitor));
         set("operations",new OperationQueue(error -> call("fail",new Class<?>[]{String.class},error)));
         callback=(BluetoothGattCallback)get("callback");
-        monitor.address=ADDRESS; monitor.connectedName="Synthetic monitor";
+        // connect() names the session after the scan result; X7 identities check it against Device Information.
+        monitor.address=ADDRESS; monitor.connectedName=fixture.advertisedName==null?"Synthetic monitor":fixture.advertisedName;
         set("pairingRequested",fixture.flow.equals("pair"));
         // The fixture's import users are the saved selection that Connect and Pair load for this monitor.
         monitor.importUsers=fixture.importUsers;
@@ -131,7 +132,8 @@ public class FixtureReplayTest {
         if(outcome==null) {
             List<Fixture.Reading> decoded=new ArrayList<>();
             for(Reading r:store.readings(0))
-                decoded.add(new Fixture.Reading(r.user,(int)r.systolic,(int)r.diastolic,r.pulse.intValue(),r.time==null?null:LocalDateTime.parse(r.time)));
+                decoded.add(new Fixture.Reading(r.user,(int)r.systolic,(int)r.diastolic,r.pulse.intValue(),r.time==null?null:LocalDateTime.parse(r.time))
+                    .withFlags(r.status==null?null:(r.status&4)!=0?1:0,r.status==null?null:(r.status&1)!=0?1:0,r.afib==null?null:r.afib?1:0));
             String clock=fixture.flow.equals("sync-clock")?clockOutcome(monitor.clockSyncOutcome):null;
             outcome=cursor.finished() && !monitor.historyRunning && !monitor.clockSyncRunning?cursor.finish(decoded,clock)
                 :Outcome.rejected(cursor.position(),"MonitorService stopped: "+monitor.status+" — "+monitor.detail+" · "+cursor.stalled().detail);
@@ -148,9 +150,16 @@ public class FixtureReplayTest {
         }
         if(name.endsWith("/connect-bad-index-checksum")) assertEquals(MonitorService.ImportMode.INDEX_FALLBACK,monitor.importMode);
         if(x7 && fixture.flow.equals("pair") && wanted==Outcome.Kind.MATCHES) {
-            // A permitted registration keeps its backup and ends acknowledged before END; nothing else is imported.
-            assertNotNull("registration backup",monitor.registrationBackupFile());
-            assertEquals("User "+fixture.registerUser+" registration acknowledged",monitor.status);
+            String identity=WriteAspectIndex.resolve(fixture.dis.get("model"));
+            if(WriteAspectIndex.permits(WriteAspectIndex.lookup(identity,WriteAspectIndex.Aspect.REGISTRATION).status,false)) {
+                // A permitted registration keeps its backup and ends acknowledged before END; nothing else is imported.
+                assertNotNull("registration backup",monitor.registrationBackupFile());
+                assertEquals("User "+fixture.registerUser+" registration acknowledged",monitor.status);
+            } else {
+                // Untested registration without the developer override: read-only ready state, no backup, no write.
+                assertNull("no registration backup",monitor.registrationBackupFile());
+                assertEquals("X7 read mode available",monitor.status);
+            }
         }
         if(fixture.flow.equals("read-all")) assertEquals(MonitorService.ImportMode.FULL_SWEEP,monitor.importMode);
         if(fixture.flow.equals("sync-clock")) {
