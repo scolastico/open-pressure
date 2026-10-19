@@ -8,6 +8,7 @@ import org.openpressure.app.data.ReadingStore;
 import org.openpressure.protocol.DeviceReport;
 import org.openpressure.protocol.OperationQueue;
 import org.openpressure.protocol.fixture.FakeAndroidKeyStore;
+import org.openpressure.protocol.fixture.SecurePeer;
 import org.robolectric.Robolectric;
 import java.lang.reflect.*;
 import java.nio.charset.StandardCharsets;
@@ -27,7 +28,7 @@ import static org.robolectric.Shadows.shadowOf;
  * unchanged from model verification on; only the Bluetooth peer is simulated. It answers the SYS nonce
  * transaction, START/READ/END from a synthetic 64 KiB memory and addressed writes with a compact acknowledgment.
  * Every characteristic write is recorded as it reached the GATT mock. On the encrypted route it also plays the
- * cuff's side of the application handshake (fresh pairing with private scalar 1, or a saved key), answers the
+ * cuff's side of the application handshake ({@link SecurePeer}: fresh pairing or a saved key), answers the
  * authorization poll and exchanges authenticated frames, so {@link #plaintextWrites()} shows what the cuff decrypted.
  */
 final class X7TestPeer {
@@ -55,8 +56,8 @@ final class X7TestPeer {
     /** The cuff's application key: derived during a fresh pairing, or preset for a saved-key Connect. */
     byte[] ltk;
     boolean established;
-    private byte[] sessionKey,nonceTail,phoneChallenge,peerChallenge;
-    private long peerSent;
+    /** The cuff side of the application encryption for the current session, created by its first handshake frame. */
+    private SecurePeer stp;
     final Deque<Runnable> peer=new ArrayDeque<>();
     final byte[] memory=new byte[0x10000];
     WriteReply addressedReply=WriteReply.ACK;
@@ -183,7 +184,7 @@ final class X7TestPeer {
     void automatic(String name,byte[] manufacturer) throws Exception { prepare(name,manufacturer,false); set("automaticConnection",true); call("identifyWlp",new Class<?>[0]); pump(); }
     private void start(String name,byte[] manufacturer,boolean pair) throws Exception { prepare(name,manufacturer,pair); call("identifyWlp",new Class<?>[0]); pump(); }
     void prepare(String name,byte[] manufacturer,boolean pair) throws Exception {
-        modelName=name; established=false; sessionKey=null; peerSent=0;
+        modelName=name; established=false; stp=null;
         set("gatt",gatt);
         monitor.address=ADDRESS; monitor.connectedName=advertisedName;
         set("pairingRequested",pair); set("x7FreshBondEstablished",pair); set("automaticConnection",false);
@@ -227,62 +228,18 @@ final class X7TestPeer {
     /** Writes as the monitor understood them: decrypted on the encrypted route, unchanged otherwise. */
     List<Write> plaintextWrites() { return plain; }
 
-    // ---- encrypted route (cuff side of SecureSession) ----
-    private static final byte[] GX=hex("96c298d84539a1f4a033eb2d817d0377f240a463e5e6bcf847422ce1f2d1176b"),
-        GY=hex("f551bf376840b6cbce5e316b5733ce2b169e0f7c4aebe78e9b7f1afee242e34f"),
-        SALT=hex("6c888391aaf5a53860370bdb5a6083be");
+    // ---- encrypted route (cuff side of SecureSession, shared with the fixture replays) ----
     private void handshake(byte[] request) {
-        int opcode=request[1]&255;
-        if(opcode==1 && request.length==89) {
-            // The cuff's private scalar is 1: its public key is G and the shared X equals the phone's public X.
-            byte[] shared=new byte[32]; for(int i=0;i<32;i++) shared[i]=request[56-i];
-            byte[] kdf=new byte[53]; kdf[0]=1; kdf[1]='b'; kdf[2]='t'; kdf[3]='l'; kdf[4]='e';
-            System.arraycopy(request,9,kdf,5,16); Arrays.fill(kdf,21,37,(byte)0xb2);
-            System.arraycopy(request,2,kdf,37,7); Arrays.fill(kdf,44,51,(byte)0xa1); kdf[51]=1;
-            ltk=org.openpressure.protocol.Crypto.cmac(org.openpressure.protocol.Crypto.cmac(SALT,shared),kdf);
-            byte[] reply=new byte[89]; reply[0]=(byte)0xf0; reply[1]=(byte)0x81;
-            Arrays.fill(reply,2,9,(byte)0xa1); Arrays.fill(reply,9,25,(byte)0xb2);
-            System.arraycopy(GX,0,reply,25,32); System.arraycopy(GY,0,reply,57,32);
-            notify(system,reply);
-        } else if(opcode==5 && request.length==46) {
-            phoneChallenge=Arrays.copyOfRange(request,2,18);
-            byte[] skdPhone=Arrays.copyOfRange(request,18,26),ivPhone=Arrays.copyOfRange(request,26,30);
-            peerChallenge=new byte[16]; Arrays.fill(peerChallenge,(byte)7);
-            byte[] skdPeer=new byte[8]; Arrays.fill(skdPeer,(byte)8);
-            byte[] ivPeer=new byte[4]; Arrays.fill(ivPeer,(byte)9);
-            byte[] skd=new byte[16]; System.arraycopy(skdPeer,0,skd,0,8); System.arraycopy(skdPhone,0,skd,8,8);
-            sessionKey=org.openpressure.protocol.Crypto.cmac(ltk,skd);
-            nonceTail=new byte[8]; System.arraycopy(ivPeer,0,nonceTail,0,4); System.arraycopy(ivPhone,0,nonceTail,4,4);
-            byte[] reply=new byte[46]; reply[0]=(byte)0xf0; reply[1]=(byte)0x85;
-            System.arraycopy(peerChallenge,0,reply,2,16); System.arraycopy(skdPeer,0,reply,18,8); System.arraycopy(ivPeer,0,reply,26,4);
-            notify(system,reply);
-        } else if(opcode==6 && request.length==46) {
-            byte[] opened=org.openpressure.protocol.Crypto.open(sessionKey,nonce(0,true),new byte[4],Arrays.copyOfRange(request,2,46));
-            if(!Arrays.equals(peerChallenge,Arrays.copyOf(opened,16))) throw new AssertionError("phone answered the wrong challenge");
-            byte[] body=new byte[36]; System.arraycopy(phoneChallenge,0,body,0,16);
-            byte[] sealed=org.openpressure.protocol.Crypto.seal(sessionKey,nonce(0,false),new byte[4],body);
-            byte[] reply=new byte[46]; reply[0]=(byte)0xf0; reply[1]=(byte)0x86; System.arraycopy(sealed,0,reply,2,44);
-            established=true;
-            notify(system,reply);
-        } else throw new AssertionError("unexpected handshake frame "+HexFormat.of().formatHex(request));
+        // A 70 01 starts a fresh application pairing; otherwise the cuff authenticates with the key it already has.
+        if(stp==null) stp=new SecurePeer(request[1]==1?null:ltk);
+        byte[] reply;
+        try { reply=stp.handshake(request); }
+        catch(IllegalArgumentException refused) { throw new AssertionError("cuff refused "+HexFormat.of().formatHex(request)+": "+refused.getMessage(),refused); }
+        if(stp.established()) { established=true; ltk=stp.ltk(); }
+        notify(system,reply);
     }
-    private byte[] nonce(long count,boolean fromPhone) {
-        byte[] nonce=new byte[13];
-        for(int i=0;i<4;i++) nonce[i]=(byte)(count>>(8*i));
-        nonce[4]=(byte)(fromPhone?0x80:0); System.arraycopy(nonceTail,0,nonce,5,8);
-        return nonce;
-    }
-    private byte[] decrypt(byte[] packet) {
-        long count=0; for(int i=4;i>=1;i--) count=(count<<8)|(packet[i]&255L);
-        return org.openpressure.protocol.Crypto.open(sessionKey,nonce(count,true),Arrays.copyOfRange(packet,1,5),Arrays.copyOfRange(packet,5,packet.length));
-    }
-    byte[] encrypt(byte[] value) {
-        long count=++peerSent;
-        byte[] aad=new byte[4]; for(int i=0;i<4;i++) aad[i]=(byte)(count>>(8*i));
-        byte[] sealed=org.openpressure.protocol.Crypto.seal(sessionKey,nonce(count,false),aad,value);
-        byte[] packet=new byte[5+sealed.length]; packet[0]=(byte)0xc0; System.arraycopy(aad,0,packet,1,4); System.arraycopy(sealed,0,packet,5,sealed.length);
-        return packet;
-    }
+    private byte[] decrypt(byte[] packet) { return stp.decrypt(packet); }
+    byte[] encrypt(byte[] value) { return stp.encrypt(value); }
     /** System commands the cuff saw, opcode bytes as hex (first two bytes), in order. */
     List<String> systemOpcodes() {
         List<String> result=new ArrayList<>();
