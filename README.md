@@ -54,10 +54,17 @@ No account to create, no subscription, and no cloud service required. Your readi
 | Omron HEM-7322T, HEM-7342T, HEM-7361T | History import implemented; **not yet tested on physical monitors in OpenPressure**. |
 | Omron HEM-7530T, HEM-7600T, HEM-6232T | History import implemented; **not yet tested on physical monitors in OpenPressure**. |
 | Omron BP5360 — HEM-7377T1 | History import implemented; **not yet tested on a physical monitor in OpenPressure**. |
+| Omron BP5250 / BP5350 / BP5450 — HEM-7151T-Z / HEM-7341T-Z / HEM-7343T-Z | **Experimental:** history import verified in software; **physical compatibility unconfirmed**. |
+| Omron BP7350 / BP7350CAN — HEM-7340T-Z / HEM-7340T-CA | **Experimental:** history import verified in software; **physical compatibility unconfirmed**. |
+| Omron RS3 Intelli IT / RS7 Intelli IT — HEM-6161T-E / HEM-6232T-D | **Experimental:** history import verified in software; **physical compatibility unconfirmed**. |
+| Omron M2 Intelli IT / M300 Intelli IT / X2 Smart — HEM-7143T1-E / HEM-7143T1-D / HEM-7143T2-E | **Experimental:** one-user history import verified in software; **physical compatibility unconfirmed**. Encrypted connections remain unvalidated. |
+| Omron M2+ Connect / X2+ Connect — HEM-7188T1-LE / HEM-7188T1-LEO | **Experimental:** one-user history import verified in software, including encrypted pairing and reconnect; **physical compatibility unconfirmed**. |
 | Other monitors using the standard Bluetooth Blood Pressure Service | Support implemented and tested in software; **physical compatibility unconfirmed**. |
 | Other models or regional variants | Compatibility is not established. Unknown monitor memory layouts are blocked. |
 
-The additional Omron models above support manual history import and, once paired, automatic imports; neither has been confirmed on those monitors.
+The twelve newly added model numbers above have 28 synthetic pairing/import fixtures checked against the official Omron library. Clock sync and on-device profile registration remain disabled for these models. See the [Bluetooth coverage guide](docs/bluetooth-coverage.md) for the exact models, connection limits and remaining work toward supporting every Bluetooth blood pressure monitor in Omron Connect.
+
+The additional Omron models above support manual history import. [Automatic imports](docs/automatic-import.md) require an eligible saved, bonded monitor advertising a plain record summary; encrypted sessions stay manual. Neither import mode has been confirmed on those additional physical monitors.
 
 **Own an untested monitor?** After you pair or connect it, the Devices screen offers a **device report**. Sharing it in a [device report issue](https://github.com/scolastico/open-pressure/issues/new?template=device_report.yml) helps a lot: your report and help can unlock more features for your monitor in the app. The report contains only technical details, never readings, names, the Bluetooth address or the serial number, and you review it before sharing. See [device reports](docs/device-reports.md). Accepted regional model numbers and details about each connection method are in the [full compatibility guide](docs/compatibility.md) and [model reference](docs/omblepy-comparison.md#accepted-identities-and-record-handling).
 
