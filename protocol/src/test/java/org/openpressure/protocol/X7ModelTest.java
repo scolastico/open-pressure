@@ -13,6 +13,7 @@ public final class X7ModelTest {
         maps();
         sixtySlotIndex();
         afibFlags();
+        recordChecksum();
         advertisements();
         return checks;
     }
@@ -69,9 +70,9 @@ public final class X7ModelTest {
 
     private static void afibFlags() {
         // Synthetic record: 120/80/72, 2026-10-16 14:30:45, sequence 0x1234.
-        byte[] raw=hex("5f50481a0e2aad070000341200000000");
-        byte[] flagged=raw.clone(); flagged[5]|=(byte)0xc0;
-        byte[] afib=flagged.clone(); afib[7]|=0x20;
+        byte[] raw=summed(hex("5f50481a0e2aad070000341200000000"));
+        byte[] flagged=raw.clone(); flagged[5]|=(byte)0xc0; flagged=summed(flagged);
+        byte[] afib=flagged.clone(); afib[7]|=0x20; afib=summed(afib);
         check(X7Record.parse(afib,1,X7Model.HEM_7380T1_EOSL).measurement.status==5,"X7 keeps irregular and movement with AFib");
         for(X7Model m:new X7Model[]{X7Model.HEM_7196T1_FLE,X7Model.HEM_7196T1_FLEO}) {
             BloodPressure masked=X7Record.parse(afib,2,m).measurement;
@@ -80,6 +81,31 @@ public final class X7ModelTest {
             check(kept.status==5 && Boolean.FALSE.equals(kept.atrialFibrillation),"7196T1 keeps the flags without AFib: "+m.identity);
         }
         rejects(() -> X7Record.parse(raw,1,null));
+    }
+
+    private static void recordChecksum() {
+        // Byte 14 is the 8-bit sum of bytes 0-13 on every X7-family map; byte 15 is reserved and not summed.
+        byte[] raw=summed(hex("5f50481a0e2aad070000341200000000"));
+        check((raw[14]&255)==0x43,"synthetic record sum");
+        for(X7Model m:new X7Model[]{X7Model.HEM_7380T1_EOSL,X7Model.HEM_7380T1_EBK,X7Model.HEM_7380T1,X7Model.HEM_7196T1_FLE,X7Model.HEM_7196T1_FLEO}) {
+            check(X7Record.parse(raw,1,m)!=null,"valid sum accepted: "+m.identity);
+            byte[] reserved=raw.clone(); reserved[15]=0x55;
+            check(X7Record.parse(reserved,1,m)!=null,"reserved byte 15 not checked: "+m.identity);
+            byte[] bad=raw.clone(); bad[14]++;
+            try { X7Record.parse(bad,1,m); throw new AssertionError("bad sum accepted: "+m.identity); }
+            catch(IllegalArgumentException expected) { check(expected.getMessage().contains("checksum"),"bad sum rejected: "+m.identity); }
+            byte[] changed=raw.clone(); changed[2]++;
+            try { X7Record.parse(changed,1,m); throw new AssertionError("changed field accepted: "+m.identity); }
+            catch(IllegalArgumentException expected) { check(expected.getMessage().contains("checksum"),"a changed field breaks the sum: "+m.identity); }
+        }
+        byte[] erased=new byte[16]; java.util.Arrays.fill(erased,(byte)255);
+        check(X7Record.parse(erased,1,X7Model.HEM_7196T1_FLE)==null,"erased slot is not a checksum failure");
+    }
+    /** The record with byte 14 set to the 8-bit sum of bytes 0-13. */
+    static byte[] summed(byte[] raw) {
+        byte[] out=raw.clone();
+        out[14]=(byte)VendorMemoryModel.checksum(out,14);
+        return out;
     }
 
     private static void advertisements() {

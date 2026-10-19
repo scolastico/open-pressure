@@ -625,7 +625,7 @@ public final class ProtocolTest {
         check(X7Record.supportsModel("X7 Smart Afib"),"actual EOSL firmware marketing-name identity accepted");
         check(!X7Record.supportsModel("X7 Smart") && !X7Record.supportsModel("X7 Smart Afib Unknown"),"only the confirmed marketing alias selects X7 map");
         check(!X7Record.supportsModel("HEM-7361T") && !X7Record.supportsModel("Other HEM-7380T1"),"hints cannot select a model-specific memory map");
-        byte[] raw=hex("5f50481a0e2aad070000341200000000");
+        byte[] raw=X7ModelTest.summed(hex("5f50481a0e2aad070000341200000000"));
         X7Record r=X7Record.parse(raw,2,X7Model.HEM_7380T1_EOSL);
         near(120,r.measurement.systolic); near(80,r.measurement.diastolic); near(72,r.measurement.pulse);
         check(r.sequence==0x1234 && r.measurement.userId==2,"record sequence and bank preserved");
@@ -636,16 +636,16 @@ public final class ProtocolTest {
         rejects(() -> X7Record.parse(new byte[15],1,X7Model.HEM_7380T1_EOSL));
         rejects(() -> X7Record.parse(raw,0,X7Model.HEM_7380T1_EOSL));
         rejects(() -> X7Record.parse(new byte[16],1,X7Model.HEM_7380T1_EOSL));
-        byte[] noTime=raw.clone(); noTime[6]=(byte)0xbf;
+        byte[] noTime=raw.clone(); noTime[6]=(byte)0xbf; noTime=X7ModelTest.summed(noTime);
         check(X7Record.parse(noTime,1,X7Model.HEM_7380T1_EOSL).measurement.time==null,"invalid63seconds retained as unknown without clamping");
-        byte[] year=raw.clone(); year[3]=100;
+        byte[] year=raw.clone(); year[3]=100; year=X7ModelTest.summed(year);
         check(X7Record.parse(year,1,X7Model.HEM_7380T1_EOSL).measurement.time.getYear()==2100,"year uses full original byte, not six bits");
-        byte[] flagged=raw.clone(); flagged[5]|=(byte)0xc0; flagged[7]|=0x20;
+        byte[] flagged=raw.clone(); flagged[5]|=(byte)0xc0; flagged[7]|=0x20; flagged=X7ModelTest.summed(flagged);
         BloodPressure flags=X7Record.parse(flagged,1,X7Model.HEM_7380T1_EOSL).measurement;
         check(flags.status==5 && Boolean.TRUE.equals(flags.atrialFibrillation),"independent movement, IHB and actual AFib bit from original map");
         check(Boolean.FALSE.equals(r.measurement.atrialFibrillation),"clear AFib bit retained without inferring it from IHB");
         check(BloodPressure.parse(hex("00780050005d00")).atrialFibrillation==null,"standard SIG readings cannot infer AFib");
-        byte[] ihb=raw.clone(); ihb[5]|=0x40;
+        byte[] ihb=raw.clone(); ihb[5]|=0x40; ihb=X7ModelTest.summed(ihb);
         check(Boolean.FALSE.equals(X7Record.parse(ihb,1,X7Model.HEM_7380T1_EOSL).measurement.atrialFibrillation),"IHB-only record does not assert AFib");
     }
     private static java.util.UUID uuid(String shortUuid) { return java.util.UUID.fromString("0000"+shortUuid+"-0000-1000-8000-00805f9b34fb"); }

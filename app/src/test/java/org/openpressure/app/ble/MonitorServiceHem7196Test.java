@@ -82,6 +82,18 @@ public class MonitorServiceHem7196Test {
         for(String command:reads()) assertFalse(command,command.startsWith("08010008"));
         assertFalse(peer.systemOpcodes().stream().anyMatch(op -> op.startsWith("70")));
     }
+    @Test public void badRecordChecksumIsARejectedSlot() throws Exception {
+        // User 2's second record loses its additive sum: that slot is rejected, the four others are kept.
+        peer.memory[0x594+14]++;
+        peer.connect("HEM-7196T1-FLE",X7TestPeer.plainAdvertisement());
+        monitor.syncHistory(-1); peer.pump();
+        assertEquals("History transfer incomplete",monitor.status);
+        assertTrue(monitor.detail,monitor.detail.contains("4 / 5 decoded") && monitor.detail.contains("1 rejected slots"));
+        assertEquals(4,monitor.receivedInTransfer);
+        assertEquals(4,peer.store.readings(0).size());
+        assertTrue("the session still ends normally",monitor.sessionFinished);
+        assertEquals(0,peer.addressedWrites().size());
+    }
     @Test public void bareModelNumberIsRefusedBeforeAnyWrite() throws Exception {
         peer.connect("HEM-7196T1",ENCRYPTED_FLE);
         assertEquals("Action failed",monitor.status);
@@ -349,6 +361,8 @@ public class MonitorServiceHem7196Test {
     private void record(int address,int index) {
         byte[] raw=X7TestPeer.hex("5f50481a0e2aad070000341200000000");
         raw[6]=(byte)(0x80+index); raw[10]=(byte)index;
+        // Byte 14: the 8-bit sum of bytes 0-13, which every X7-family record carries.
+        raw[14]=(byte)org.openpressure.protocol.VendorMemoryModel.checksum(raw,14);
         System.arraycopy(raw,0,peer.memory,address,16);
     }
 }

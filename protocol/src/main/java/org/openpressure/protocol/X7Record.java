@@ -23,6 +23,9 @@ public final class X7Record {
         if(raw==null || raw.length!=RECORD_BYTES || user<1 || user>2) throw new IllegalArgumentException("Invalid X7 record or bank");
         boolean erased=true; for(byte b:raw) erased&=b==(byte)255;
         if(erased) return null;
+        // Byte 14 is the 8-bit additive checksum of bytes 0-13, which Omron's code enforces on every X7-family map
+        // (Omron sandbox); byte 15 is reserved. OtherInfo's ignoreCheckSumBlocks name settings blocks, not records.
+        if(VendorMemoryModel.checksum(raw,14)!=(raw[14]&255)) throw new IllegalArgumentException("X7 record checksum mismatch");
         int sys=(raw[0]&255)+25, dia=raw[1]&255, pulse=raw[2]&255;
         if(dia==0 || sys<=dia || pulse==0) throw new IllegalArgumentException("Invalid X7 pressure/pulse fields");
         int date=word(raw,4), clock=word(raw,6);
