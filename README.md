@@ -45,22 +45,24 @@ No account to create, no subscription, and no cloud service required. Your readi
 
 **Check the model number printed on your monitor before pairing.** Similar product names can refer to different devices, and a Bluetooth logo alone does not establish compatibility.
 
-| Monitor / model number | Status in OpenPressure |
-| --- | --- |
-| **Omron X7 Smart AFib — HEM-7380T1-EOSL** | **Tested:** initial pairing, clock setup and manual history import confirmed on this exact model. The standalone Sync clock is confirmed on this exact model too. |
-| Omron X7 Smart AFib — HEM-7380T1-EBK | Same history import as EOSL; **not yet tested on a physical monitor in OpenPressure**. Profile registration is limited to EOSL. |
-| Omron M4 Connect AFib / X4 Connect AFib — HEM-7196T1-FLE / HEM-7196T1-FLEO | **Experimental:** history import implemented from Omron's configuration of this model; **not yet tested on a physical monitor in OpenPressure**, including its encrypted connection. |
-| Omron HEM-7150T, HEM-7155T, HEM-7156T | History import implemented; **not yet tested on physical monitors in OpenPressure**. |
-| Omron HEM-7322T, HEM-7342T, HEM-7361T | History import implemented; **not yet tested on physical monitors in OpenPressure**. |
-| Omron HEM-7530T, HEM-7600T, HEM-6232T | History import implemented; **not yet tested on physical monitors in OpenPressure**. |
-| Omron BP5360 — HEM-7377T1 | History import implemented; **not yet tested on a physical monitor in OpenPressure**. |
-| Omron BP5250 / BP5350 / BP5450 — HEM-7151T-Z / HEM-7341T-Z / HEM-7343T-Z | **Experimental:** history import verified in software; **physical compatibility unconfirmed**. |
-| Omron BP7350 / BP7350CAN — HEM-7340T-Z / HEM-7340T-CA | **Experimental:** history import verified in software; **physical compatibility unconfirmed**. |
-| Omron RS3 Intelli IT / RS7 Intelli IT — HEM-6161T-E / HEM-6232T-D | **Experimental:** history import verified in software; **physical compatibility unconfirmed**. |
-| Omron M2 Intelli IT / M300 Intelli IT / X2 Smart — HEM-7143T1-E / HEM-7143T1-D / HEM-7143T2-E | **Experimental:** one-user history import verified in software; **physical compatibility unconfirmed**. Encrypted connections remain unvalidated. |
-| Omron M2+ Connect / X2+ Connect — HEM-7188T1-LE / HEM-7188T1-LEO | **Experimental:** one-user history import verified in software, including encrypted pairing and reconnect; **physical compatibility unconfirmed**. |
-| Other monitors using the standard Bluetooth Blood Pressure Service | Support implemented and tested in software; **physical compatibility unconfirmed**. |
-| Other models or regional variants | Compatibility is not established. Unknown monitor memory layouts are blocked. |
+✅ Tested on the exact model · ❓ Physical compatibility unconfirmed · ❌ Unsupported / unknown model layout
+
+| Status | Monitor / model number | Status in OpenPressure |
+| :---: | --- | --- |
+| ✅ | **Omron X7 Smart AFib — HEM-7380T1-EOSL** | **Tested:** initial pairing, clock setup and manual history import confirmed on this exact model. The standalone Sync clock is confirmed on this exact model too. |
+| ❓ | Omron X7 Smart AFib — HEM-7380T1-EBK | Same history import as EOSL; **not yet tested on a physical monitor in OpenPressure**. Profile registration is limited to EOSL. |
+| ❓ | Omron M4 Connect AFib / X4 Connect AFib — HEM-7196T1-FLE / HEM-7196T1-FLEO | **Experimental:** history import implemented from Omron's configuration of this model; **not yet tested on a physical monitor in OpenPressure**, including its encrypted connection. |
+| ❓ | Omron HEM-7150T, HEM-7155T, HEM-7156T | History import implemented; **not yet tested on physical monitors in OpenPressure**. |
+| ❓ | Omron HEM-7322T, HEM-7342T, HEM-7361T | History import implemented; **not yet tested on physical monitors in OpenPressure**. |
+| ❓ | Omron HEM-7530T, HEM-7600T, HEM-6232T | History import implemented; **not yet tested on physical monitors in OpenPressure**. |
+| ❓ | Omron BP5360 — HEM-7377T1 | History import implemented; **not yet tested on a physical monitor in OpenPressure**. |
+| ❓ | Omron BP5250 / BP5350 / BP5450 — HEM-7151T-Z / HEM-7341T-Z / HEM-7343T-Z | **Experimental:** history import verified in software; **physical compatibility unconfirmed**. |
+| ❓ | Omron BP7350 / BP7350CAN — HEM-7340T-Z / HEM-7340T-CA | **Experimental:** history import verified in software; **physical compatibility unconfirmed**. |
+| ❓ | Omron RS3 Intelli IT / RS7 Intelli IT — HEM-6161T-E / HEM-6232T-D | **Experimental:** history import verified in software; **physical compatibility unconfirmed**. |
+| ❓ | Omron M2 Intelli IT / M300 Intelli IT / X2 Smart — HEM-7143T1-E / HEM-7143T1-D / HEM-7143T2-E | **Experimental:** one-user history import verified in software; **physical compatibility unconfirmed**. Encrypted connections remain unvalidated. |
+| ❓ | Omron M2+ Connect / X2+ Connect — HEM-7188T1-LE / HEM-7188T1-LEO | **Experimental:** one-user history import verified in software, including encrypted pairing and reconnect; **physical compatibility unconfirmed**. |
+| ❓ | Other monitors using the standard Bluetooth Blood Pressure Service | Support implemented and tested in software; **physical compatibility unconfirmed**. |
+| ❌ | Other models or regional variants | Compatibility is not established. Unknown monitor memory layouts are blocked. |
 
 The twelve newly added model numbers above have 28 synthetic pairing/import fixtures checked against the official Omron library. Clock sync and on-device profile registration remain disabled for these models. See the [Bluetooth coverage guide](docs/bluetooth-coverage.md) for the exact models, connection limits and remaining work toward supporting every Bluetooth blood pressure monitor in Omron Connect.
 
