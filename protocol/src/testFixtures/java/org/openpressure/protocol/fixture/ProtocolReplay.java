@@ -176,7 +176,8 @@ public final class ProtocolReplay {
      * plaintext and sent encrypted. Connect reads the 68-byte settings/index image and the populated slots of the
      * selected users. A plain Pair reads the image and, when the write-aspect index permits registration, runs the
      * fixture user's profile registration (two staged writes) before END; an encrypted Pair never registers and, like
-     * a user starting Import afterwards, reads history as Connect does.
+     * a user starting Import afterwards, reads history as Connect does. Sync clock reads the image and writes the clock
+     * block (fixture time + 1 s) before END, like the app's explicit clock sync with its developer switches.
      */
     private static Outcome runX7(Fixture f,X7Model model,FixtureCursor cursor) {
         for(String alias:new String[]{"tx","rx","sys"})
@@ -190,7 +191,8 @@ public final class ProtocolReplay {
         if(advertised==X7Security.Mode.UNKNOWN && savedKey==null) return Outcome.rejected(0,"X7 advertisement UNKNOWN without a saved key: MonitorService rescans");
         boolean encrypted=advertised==X7Security.Mode.ENCRYPTED || savedKey!=null;
         ProtocolProfile profile=encrypted?ProtocolProfile.X7_SECURE_WLP:ProtocolProfile.X7_WLP;
-        if(!f.flow.equals("connect") && !pair) return Outcome.rejected(0,"X7 flow "+f.flow+" is not replayed at protocol level");
+        boolean clock=f.flow.equals("sync-clock");
+        if(!f.flow.equals("connect") && !pair && !clock) return Outcome.rejected(0,"X7 flow "+f.flow+" is not replayed at protocol level");
         int mtu=Math.min(REQUESTED_MTU,f.mtu);
         if(encrypted && mtu<92) return Outcome.rejected(0,"OpenPressure refused: X7 application pairing requires an ATT MTU of at least 92");
         X7Link link=new X7Link(profile,cursor,sys);
@@ -223,10 +225,34 @@ public final class ProtocolReplay {
             List<X7MemoryIndex.Range> ranges=new ArrayList<>();
             ArrayDeque<X7MemoryIndex.Range> pending=new ArrayDeque<>();
             boolean indexRead=false;
+            String clockOutcome=null;
             while(!session.complete()) {
                 if(!indexRead && session.rangeComplete()) {
                     indexRead=true;
-                    if(register) {
+                    if(clock) {
+                        // Like MonitorService's explicit Sync clock: the plan targets the fixture time (the developer
+                        // override stands in for the untested write aspect, as the app replay enables it) and its single
+                        // frame is checked in plaintext before it travels, encrypted on the secure route.
+                        VendorClockWrite plan;
+                        try { plan=new VendorClockWrite(identity,session.data(),f.time,true,1,encrypted); }
+                        catch(IllegalArgumentException unreadable) { plan=null; clockOutcome="not_attempted"; }
+                        if(plan!=null && plan.writesNothing()) clockOutcome="skipped";
+                        else if(plan!=null) {
+                            plan.authorize();
+                            byte[] frame=plan.chunks().get(0);
+                            DeviceWritePolicy.validateX7ClockBlock(profile,X7_SERVICE,tx,frame,plan);
+                            if((diverged=link.send(tx,frame))!=null) return diverged;
+                            VendorClockWrite written=plan;
+                            String[] result=new String[1];
+                            if((diverged=link.deliver(rx,reply -> {
+                                try { if(written.accept(0,reply)) result[0]="acknowledged"; }
+                                catch(IllegalArgumentException refused) { result[0]="rejected"; }
+                                return true;
+                            }))!=null) return diverged;
+                            if(result[0]==null) return Outcome.rejected(cursor.position(),"clock write acknowledgment incomplete");
+                            clockOutcome=result[0];
+                        }
+                    } else if(register) {
                         X7Registration registration=new X7Registration(f.dis.get("model"),session.data(),f.registerUser,f.time,false);
                         registration.authorize();
                         while(!registration.complete()) {
@@ -245,7 +271,7 @@ public final class ProtocolReplay {
                 if((diverged=link.write(tx,session.command()))!=null) return diverged;
                 if((diverged=link.deliver(rx,session::accept))!=null) return diverged;
             }
-            return cursor.finish(decodeX7(model,ranges,session.data()));
+            return clock?cursor.finish(List.of(),clockOutcome):cursor.finish(decodeX7(model,ranges,session.data()));
         } catch(IllegalArgumentException refused) {
             return Outcome.rejected(cursor.position(),"OpenPressure refused: "+refused.getMessage());
         }

@@ -117,6 +117,8 @@ public class FixtureReplayTest {
             // Every clock-block entry is untested: the developer override lets the explicit sync run, as in a forced sync.
             DeveloperOptions.setUnlocked(monitor,true);
             DeveloperOptions.setAllowUntested(monitor,WriteAspectIndex.Aspect.CLOCK_BLOCK,true);
+            // An encrypted X7 session offers Sync clock only with its experimental developer switch.
+            if(fixture.secureMode!=null) DeveloperOptions.setAllowExperimental(monitor,DeveloperOptions.Experiment.CLOCK_SYNC_ENCRYPTED_X7,true);
             // Robolectric cannot fsync a directory; the backup file itself is still written before the write.
             monitor.clockBackupSync=directory -> {};
         }
@@ -188,9 +190,10 @@ public class FixtureReplayTest {
             idle();
             if(peer.isEmpty()) {
                 // Off-main-thread saves (the registration backup), then the short delays MonitorService schedules
-                // itself, such as the 500 ms wake-up wait before the plain X7 system transaction; timeouts stay pending.
+                // itself, such as the 500 ms wake-up wait before the plain X7 system transaction and the 1 s authorization
+                // re-poll after a WAITING state; timeouts stay pending.
                 flushIo();
-                shadowOf(Looper.getMainLooper()).idleFor(java.time.Duration.ofMillis(600));
+                shadowOf(Looper.getMainLooper()).idleFor(java.time.Duration.ofMillis(1100));
                 if(!peer.isEmpty()) continue;
                 // X7 Pair: choose the fixture's user once the backup is saved and the app asks for the user.
                 if(monitor.registrationPending && !registrationChosen) { registrationChosen=true; monitor.registerX7User(fixture.registerUser); continue; }
